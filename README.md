@@ -74,8 +74,9 @@ All hook scripts must be executable (`chmod +x start.sh`)
 ```bash
 #!/bin/bash
 nohup matlab -r $SCA_SERVICE_DIR/main &
-echo $? > run.pid
-exit $?
+ret=$?
+echo $! > run.pid
+exit $ret
 ```
 
 If you are spawning your program like above, you should store the PID of your application so that later you can use to monitor the process or stop it (explained later).
