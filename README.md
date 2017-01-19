@@ -1,4 +1,4 @@
-# BDA (Big Data Application) Specification
+# BDA (Big Data Application) Specification (v1.0)
 (temporary name.. "BDAS".. sounds bad for one thing)
 
 ## Background
@@ -24,8 +24,6 @@ Indeed, many workflow management systems have been developed but so far there ha
 This specification proposes a simple standard to allow abstraction of application execution that can be used by workflow management systems that can automate data staging, execution, monitoring of each applications. 
 
 Please note that, "workflow management system" can be as simple as a small shell script that manages execution of a small and static set of applications, or a large software suite that can handle asynchronous executions and smart monitoring system with multi-user / multi-cluster capabilities.
-
-## BDA Specification (v1.0)
 
 ## package.json
 
@@ -151,35 +149,29 @@ Your stop script may choose to do `kill -9 $pid`, or run application specific te
 
 If your stop script returns code 1, workflow manager may report back to the user that the termination has failed (and user may repeat the request), or some workflow manager may simply retry later on automatically.
 
-
 ## Environment Parameters
 
 BDA application will receive all standard ENV parameters set by users or the cluster administrator. BDA workflow manager should also set following ENV parameters.
 
-`$SCA_TASK_ID`
-> Unique ID for this application instance.
+`$SCA_TASK_ID` Unique ID for this application instance.
 
-`$SCA_TASK_DIR`
-> Initial working directory for your application instance (not the application)
+`$SCA_TASK_DIR` Initial working directory for your application instance (not the application)
 
-`$SCA_WORKFLOW_DIR`
-> Directory where $SCA_TASK_DIR is stored (should be a parent of $SCA_TASK_DIR)
+`$SCA_WORKFLOW_DIR` Directory where $SCA_TASK_DIR is stored (should be a parent of $SCA_TASK_DIR)
 
-`$SCA_SERVICE`
-> Name of the application executed. Often a github repo ID (like "soichih/sca-service-dtiinit")
+`$SCA_SERVICE` Name of the application executed. Often a github repo ID (like "soichih/sca-service-dtiinit")
 
-`$SCA_SERVICE_DIR`
-> Where the application is installed.
+`$SCA_SERVICE_DIR` Where the application is installed.
 
 * "SCA" maybe renamed to "BDA" in the near future..
 
-## Application Directory
+## Application Installation Directory
 
 BDA is designed for Big Data and parallel processing. One common aspect of highly parallel environment is that, workflow manager often stage your application in a common shared filesystem, and share the same installation across all instances of your application. The working directory will be creased for each instance to stage your input and output data. 
 
-BDA application will be executed with current directory set to this workfing directory. This means that, in order to reference other files in your application, you need to prefix them by `$SCA_SERVICE_DIR` (may changed to `$BDA_APPDIR` in the future.)
+BDA application will be executed with current directory set to this workfing directory, not the directory where the application is installed. This means that, in order to reference other files in your application, you will need to prefix them by `$SCA_SERVICE_DIR`.
 
-For example, let's say you have following files on your application.
+For example, let's say you have following files in your application.
 
 ```
 ./package.json
@@ -187,7 +179,7 @@ For example, let's say you have following files on your application.
 ./main.m
 ```
 
-In your start.sh, even though it's sitting next to main.m, since your current working directory may not be the root of your application, you will need to prefix main.m with `$SCA_SERVICE_DIR`, like..
+In your start.sh, even though it's main.m is located next to start.sh, however, your current working directory may not be set to another location. Therefore, you will need to prefix main.m with `$SCA_SERVICE_DIR`, like..
 
 ```bash
 #!/bin/bash
@@ -196,15 +188,15 @@ echo $? > run.pid
 exit $?
 ```
 
-In order to help debugging your application during development, you can do something like 
+In order to help debugging your application during development, you'd like to have following at the top of your `start.sh`
 
 ```
 if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
 ```
 
-At the top of your start.sh to set the `$SCA_SERVICE_DIR` to current working directory so that you can run your application locally. 
+This will allow your application to be executed on the same directory where your current directory is.
 
-Obviously, if you have no files other than the actual hook scripts, you don't need to worry about this. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
+Obviously, if you have no files other than the actual hook scripts themselves (maybe you are just running a docker container), you don't need to worry about this. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
 
 
 ## Input Parameters (config.json)
@@ -247,7 +239,6 @@ It is customary, but not required, to generate a file named `products.json` in t
 ## BDA Reference Implementation
 
 Currently, the sca-wf is the only workflow manager that uses this specification, and can be used as a reference implementation.
-
-> https://github.com/soichih/sca-wf/
+[https://github.com/soichih/sca-wf]
 
 
