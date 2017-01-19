@@ -1,5 +1,4 @@
-# BDA (Big Data Application) Specification (v1.0)
-(temporary name.. "BDAS".. sounds bad for one thing)
+# ABCD (Application for Big computation Data) Specification (v1.0)
 
 ## Background
 
@@ -27,13 +26,13 @@ Please note that, in this specification, *workflow management system* can be as 
 
 ## package.json
 
-All BDA application must have `package.json` under the root directory of the application (such as root folder of a git repo) This file can be created by hand, or by using [`npm init`](https://docs.npmjs.com/cli/init) command (npm is a commonly used package manager for nodejs - but the application itself does not have to be a node app).
+All ABCD compliant application must have `package.json` under the root directory of the application (such as root folder of a git repo) This file can be created by hand, or by using [`npm init`](https://docs.npmjs.com/cli/init) command (npm is a commonly used package manager for nodejs - but the application itself does not have to be a node app).
 
 ```json
 {
   "name": "bda-hello",
   "version": "1.0.0",
-  "description": "sample BDA app",
+  "description": "sample ABCD app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -55,7 +54,7 @@ At minimum, most workflow management systems must be able to..
 * Stop your application - based on user request or other reasons
 * Monitor the status of your application, and know if it is completed / failed / running, etc..
 
-BDA compliant workflow management system must publish list of these hooks inside `package.json` like following..
+ABCD compliant workflow management system must publish list of these hooks inside `package.json` like following..
 
 ```json
   "scripts": {
@@ -65,7 +64,7 @@ BDA compliant workflow management system must publish list of these hooks inside
   },
  ```
 
-In this example, this application tells BDA compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `qsub start.sub`.
+In this example, this application tells ABCD compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `qsub start.sub`.
 
 All hook scripts must be executable (`chmod +x start.sh`)
 
@@ -149,7 +148,7 @@ If your stop script returns code 1, workflow manager may report back to the user
 
 ## Environment Parameters
 
-BDA application will receive all standard ENV parameters set by users or the cluster administrator. BDA workflow manager should also set following ENV parameters.
+ABCD application will receive all standard ENV parameters set by users or the cluster administrator. ABCD workflow manager should also set following ENV parameters.
 
 `$SCA_TASK_ID` Unique ID for this application instance.
 
@@ -165,9 +164,9 @@ BDA application will receive all standard ENV parameters set by users or the clu
 
 ## Application Installation Directory
 
-BDA is designed for Big Data and parallel processing. On a highly parallel environment, workflow manager often stores your application in a common shared filesystem and share the same installation across all instances of your application (there could be several thousands of such instance running concurrently - like in OSG), although the working directory will be created for each instance to stage your input and output data. 
+ABCD is designed for Big Data and parallel processing. On a highly parallel environment, workflow manager often stores your application in a common shared filesystem and share the same installation across all instances of your application (there could be several thousands of such instance running concurrently - like in OSG), although the working directory will be created for each instance to stage your input and output data. 
 
-BDA application will be executed with current directory set to this workfing directory; *not the directory where the application is installed*. This means that, in order to reference other program files in your application from another program file, you will need to prefix the location by the special environment parameter of `$SCA_SERVICE_DIR`. This ENV parameter will be set by all BDA compliant workflow manager to inform your application where the application is installed.
+ABCD application will be executed with current directory set to this workfing directory; *not the directory where the application is installed*. This means that, in order to reference other program files in your application from another program file, you will need to prefix the location by the special environment parameter of `$SCA_SERVICE_DIR`. This ENV parameter will be set by all ABCD compliant workflow manager to inform your application where the application is installed.
 
 For example, let's say you have following files in your application.
 
@@ -200,9 +199,9 @@ Obviously, if you have no files other than the actual hook scripts themselves (m
 
 ## Input Parameters (config.json)
 
-For command line applications, input parameters can be passed via command line parameters. In order to allow workflow manager to execute BDA application, all input parameters must be passed in `config.json`. When users specify input parameters through various UI, workflow manager will pass that information by generating `config.json` containing all parameters used to execute the application. 
+For command line applications, input parameters can be passed via command line parameters. In order to allow workflow manager to execute ABCD application, all input parameters must be passed in `config.json`. When users specify input parameters through various UI, workflow manager will pass that information by generating `config.json` containing all parameters used to execute the application. 
 
-BDA application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application via command line variables or ENV parameter.
+ABCD application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application via command line variables or ENV parameter.
 
 For example, let's say user has specified `input_dwi` to be `"/N/dc2/somewhere/test.dwi"` and `paramA` to be `1234` on some UI. Workflow manager will construct following `config.json` and stores it in a working directory (which is set to current directory for your application) prior to application execution.
 
@@ -227,7 +226,7 @@ someapp paramA=`jq '.paramA[]' config.json` \
 
 ## Input Files
 
-Staging of input files are outside the scope of BDA specification. It is a task for workflow manager to transfer / stage any necessary input files (referenced in the `config.json`) prior to executing your application.
+Staging of input files are outside the scope of ABCD specification. It is a task for workflow manager to transfer / stage any necessary input files (referenced in the `config.json`) prior to executing your application.
 
 ## Output Files
 
@@ -235,7 +234,7 @@ Your application can output any output data, or log files in the current working
 
 It is customary, but not required, to generate a file named `products.json` in the working directory along with any actual output files with a list of all output files generated in order for workflow manager to parse and stores catalog of the output files generated by your application instance. Such information maybe useful, for example, if your application can generate unpredicatble amount of graphics based on your input files and you'd like to display them on a workflow GUI.
 
-## BDA Reference Implementation
+## ABCD Reference Implementation
 
 Currently, the sca-wf is the only workflow manager that uses this specification, and can be used as a reference implementation. [https://github.com/soichih/sca-wf]
 
