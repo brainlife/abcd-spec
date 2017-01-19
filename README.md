@@ -181,7 +181,7 @@ In your start.sh, even though `main.m` is located next to `start.sh`, your curre
 ```bash
 #!/bin/bash
 nohup python $SCA_SERVICE_DIR/main.py &
-echo $? > run.pid
+echo $! > run.pid
 exit $?
 ```
 
