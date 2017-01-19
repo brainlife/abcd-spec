@@ -64,7 +64,7 @@ ABCD compliant workflow management system must publish list of these hooks insid
   },
  ```
 
-In this example, this application tells ABCD compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `qsub start.sub`.
+In this example, this application tells ABCD compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `"qsub start.sub"`.
 
 All hook scripts must be executable (`chmod +x start.sh`)
 
@@ -105,7 +105,7 @@ Start script can output startup log to stdout, or any error messages to stderr. 
 
 This script will be executed by workflow manager periodically (every few minutes or longer) to gather status about the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use `qstat` / `condor_status` type command to query for your application. 
 
-Here is an example of job status checker for PBS jobs [https://github.com/soichih/sca-service-dtiinit/blob/master/status.sh]
+Here is an example of job status checker for PBS Jobs > [sca-service-dtinit](https://github.com/soichih/sca-service-dtiinit/blob/master/status.sh)
 
 #### Exit Code
 
@@ -202,7 +202,7 @@ Obviously, if you have no other files than the actual hook scripts themselves (m
 
 For command line applications, input parameters can be passed via command line parameters. In order to allow workflow manager to execute ABCD application, all input parameters must be passed in `config.json`. When users specify input parameters through various UI, workflow manager will pass that information by generating `config.json` containing all parameters used to execute the application. 
 
-ABCD application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application via command line variables or ENV parameter.
+ABCD application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application as command line parameters or ENV parameter.
 
 For example, let's say user has specified `input_dwi` to be `"/N/dc2/somewhere/test.dwi"` and `paramA` to be `1234` on some UI. Workflow manager will construct following `config.json` and stores it in a working directory (on the current directory) prior to application execution.
 
@@ -224,6 +224,8 @@ someapp paramA=`jq '.paramA[]' config.json` \
 ```
 
 `jq`[https://stedolan.github.io/jq/] is a popular JSON parsing tool for command line.
+
+ABCD specification currently does not allow defining a valid input parameters that can be used in the config.json for each application. Such definition could be stored as part of `package.json` in the future to allow auto generation of the application submission UI. We could also borrow specification from a system such as [GenApp](https://cwiki.apache.org/confluence/display/AIRAVATA/GenApp)
 
 ## Input Files
 
