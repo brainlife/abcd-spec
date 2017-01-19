@@ -145,7 +145,7 @@ Stop script should return one of following code.
 * 1 - Failed to terminate the application cleanly.
 
 If your stop script returns code 1, workflow manager may report back to the user that the termination has failed (and user may repeat the request), or some workflow manager may simply retry later on automatically.
-
+ret=$?
 ## Environment Parameters
 
 ABCD application will receive all standard ENV parameters set by users or the cluster administrator. ABCD workflow manager should also set following ENV parameters.
@@ -176,26 +176,27 @@ For example, let's say you have following files in your application.
 ./main.py
 ```
 
-In your start.sh, even though `main.m` is located next to `start.sh`, your current working directory may be outside this application directory. Therefore, you will need to prefix `main.py` with `$SCA_SERVICE_DIR` inside `start.sh`, like..
+In your `start.sh`, even though `main.m` is located next to `start.sh`, your current working directory may be outside this application directory. Therefore, you will need to prefix `main.py` with `$SCA_SERVICE_DIR` inside `start.sh`, like..
 
 ```bash
 #!/bin/bash
 nohup python $SCA_SERVICE_DIR/main.py &
+ret=$?
 echo $! > run.pid
 exit $?
 ```
 
 ### Development 
 
-If you are running `start.sh` locally for development purpose, most likely `$SCA_SERVICE_DIR` is not set, so it will try to reference `/main.py` which does not exist. In order to help debugging your application on a local directory, you'd like to have something like following at the top of your `start.sh`
+In earlier abouve `start.sh` example, if you are running it locally for development purpose, most likely `$SCA_SERVICE_DIR` is not set, so it will try to reference a path `/main.py` which does not exist. In order to help debugging your application on a local directory, you'd like to add something like following at the top of your `start.sh`
 
 ```
 if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
 ```
 
-This will allow your application to be executed on the same directory where your current directory is.
+This will allow your application to be executable on the same directory where your current directory is. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
 
-Obviously, if you have no files other than the actual hook scripts themselves (maybe you are just running a docker container), you don't need to worry about this. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
+Obviously, if you have no other files than the actual hook scripts themselves (maybe you are just running a docker container from `start.sh`), you don't need to worry about this issue. 
 
 ## Input Parameters (config.json)
 
