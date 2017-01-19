@@ -15,7 +15,7 @@ Recently, there has been a proposal to create a standard data structures (such a
 
 ### Execution Abstraction
 
-These advancements greatly benefits advanced domain experts, however, we need yet another layer of abstraction; commonly refer to as *workflow manager*, which is necessary to orchestrate the processing of large amounts of data in the age of BidData, or to make the applications accessible to novice users through an interface such as web portals. 
+These advancements greatly benefits advanced domain experts, however, we need yet another layer of abstraction; commonly refer to as *workflow manager*, which is necessary to orchestrate the processing of large amounts of data in the age of BigData, or to make the applications accessible to novice users through an interface such as web portals. 
 
 Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted specification to descrbie how to execute, and monitor applications so that they can be executed by many workflow managers.
 
@@ -43,9 +43,11 @@ All BDA application must have `package.json` under the root directory of the app
 }
 ```
 
-`package.json` describes basic information about your application (name, description, license, dependencies, etc..). An important section is the `"scripts"` which lists BDA hooks that your application supports (see below). Hooks are special scripts that is meant to be executed by the workflow manager, but it can also be executed locally to test the application.
+`package.json` describes basic information about your application (name, description, license, dependencies, etc..). An important section is the `"scripts"` section which lists supported `application hooks`. 
 
 ## Application Hooks
+
+Applicatoin hooks are special scripts that are meant to be executed by the workflow manager (but it can also be executed locally to test your application).
 
 At minimum, most workflow management systems must be able to.. 
 
@@ -63,7 +65,7 @@ BDA compliant workflow management system must publish list of these hooks inside
   },
  ```
 
-In this example, this application tells BDA enabled workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or binaries. For example, "start", could be mapped to "start.py" if you prefer to use Python, or any binary executable, or even a command line such as "qsub start.sub".
+In this example, this application tells BDA compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `qsub start.sub`.
 
 All hook scripts must be executable (`chmod +x start.sh`)
 
