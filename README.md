@@ -30,7 +30,7 @@ All ABCD compliant application must have `package.json` under the root directory
 
 ```json
 {
-  "name": "bda-hello",
+  "name": "abcd-hello",
   "version": "1.0.0",
   "description": "sample ABCD app",
   "main": "index.js",
@@ -203,11 +203,11 @@ For command line applications, input parameters can be passed via command line p
 
 ABCD application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application via command line variables or ENV parameter.
 
-For example, let's say user has specified `input_dwi` to be `"/N/dc2/somewhere/test.dwi"` and `paramA` to be `1234` on some UI. Workflow manager will construct following `config.json` and stores it in a working directory (which is set to current directory for your application) prior to application execution.
+For example, let's say user has specified `input_dwi` to be `"/N/dc2/somewhere/test.dwi"` and `paramA` to be `1234` on some UI. Workflow manager will construct following `config.json` and stores it in a working directory (on the current directory) prior to application execution.
 
 ```json
 {
- "Input_dwi": "/N/dc2/somewhere/test.dwi",
+ "input_dwi": "/N/dc2/somewhere/test.dwi",
  "paramA": 1234
 }
 ```
@@ -222,7 +222,7 @@ someapp paramA=`jq '.paramA[]' config.json` \
 > dockerid
 ```
 
-`jq` is a popular JSON parsing tool for command line.
+`jq`[https://stedolan.github.io/jq/] is a popular JSON parsing tool for command line.
 
 ## Input Files
 
