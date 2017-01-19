@@ -6,7 +6,7 @@ Scientists have been writing applications to do computations on their local comp
 
 ### Application Abstraction
 
-To mitigate this problem, developers have been containerised their application (such as a docker container) to reduce the complexity involved with installing the application and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the input files for each application to the end user.
+To mitigate this problem, developers have been containerising their application (such as a docker container) to reduce the complexity involved with installing the application and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the input files for each application to the end user.
 
 ### Data Format Abstraction
 
