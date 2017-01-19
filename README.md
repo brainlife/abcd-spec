@@ -1,4 +1,4 @@
-# ABCD (Application for Big computation Data) Specification (v1.0)
+# ABCD (Application for Big Computational Data) Specification (v1.0)
 
 ## Background
 
