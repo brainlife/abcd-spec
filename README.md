@@ -2,11 +2,11 @@
 
 ## Background
 
-Scientists have been writing applications to do computations on their local computers or remote resources submitted through interfaces such as Matlab GUI or *bash terminals*. Each application will have its unique dependencies and input file must be organized in specific ways to successfully execute the application. In order to reuse the application written by other developers, or to simply reproduce the results, each user must carefully install required software and prepare input files in a way that application is expecting.
+Scientists routinelty use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (distal hardware, such as high performance clusters or cloud systems). Applications can be submitted through a varity of interfaces such as Python, R or MatLab scripts, compiled c code, or *bash terminal scripts*. Each application has unique requirements for computing and software libraries dependencies. Furthermore, types of data and input files differ from application to application. In order, to use applications developed from other investigaotrs using a new hardware system or a new software environment to reproduce an analysis each user must take care of isntalling the application software and all associated dependencies required by the software, this is in addition to preparing appropriate input files formats and organzie the file structure in the way expected by the application. This process is a substantial budern and limits reuse of scientific software and code.
 
 ### Application Abstraction
 
-To mitigate this problem, developers have been containerising their application (such as a docker container) to reduce the complexity involved with installing the application and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the input files for each application to the end user.
+To mitigate this problem, developers have recently started containerising their applications using containerization methods, such those provided by docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each application to the end user.
 
 ### Data Format Abstraction
 
