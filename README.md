@@ -2,21 +2,21 @@
 
 ## Background
 
-Scientists routinelty use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (distal hardware, such as high performance clusters or cloud systems). Applications can be submitted through a varity of interfaces such as Python, R or MatLab scripts, compiled c code, or *bash terminal scripts*. Each application has unique requirements for computing and software libraries dependencies. Furthermore, types of data and input files differ from application to application. In order, to use applications developed from other investigaotrs using a new hardware system or a new software environment to reproduce an analysis each user must take care of isntalling the application software and all associated dependencies required by the software, this is in addition to preparing appropriate input files formats and organzie the file structure in the way expected by the application. This process is a substantial budern and limits reuse of scientific software and code.
+Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of user interfaces such as MatLab GUI, command line terminal, iPython, or programming languages such as C/C++, Python, MatLab, R, bash scripts. Each application has unique requirements for computing systems, OSes, and software libraries dependencies. Furthermore, types of data and input files differ from application to application requiring data type conversions, restructuring of the data. To effectively reuse those applications produced by other investigators, or simpley to reproduce others' results, substantial amount of work is required by the scientists.
 
 ### Application Abstraction
 
-To mitigate this problem, developers have recently started containerising their applications using containerization methods, such those provided by docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each application to the end user.
+As a way to mitigate this problem, developers have recently started containerising their applications, such as enabled by Docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each applications and parsing of output files to the end user.
 
 ### Data Format Abstraction
 
-Recently, there has been a proposal to create a standard data structures (such as BIDS for Neuroscience) and create containers (such as BIDS Apps) that are designed to receive input files in a common data structure. Such approach can greatly reduce the overhead of preparing the input files, and foster truly reusable software framework within a specific domain of science.
+Recently, there has been a proposal to create a standard data structures such as BIDS for Neuroscience, or BioXSD? for Bioinformatics. By applying these standard to the application containerization effort, it could greatly reduce the overhead of preparing the input and output files and foster truly reusable software framework within a specific domain of science.
 
 ### Execution Abstraction
 
 These advancements greatly benefit advanced domain experts, however, we need yet another layer of abstraction; commonly refer to as a *workflow management*, which is necessary to orchestrate a workflow required to process large amounts of data, or to make the applications accessible to novice users through an interface such as web portals. 
 
-Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted generic specification describing how to start, stop, and monitor applications so that applications can be programmatically executed across different workflow managers. This necessitates developers to create applications (or the application wrappers) for each workflow managers making them difficult to reuse. 
+Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted generic specification describing how to start, stop, and monitor applications so that applications can be programmatically executed across different workflow managers. This lack of standard necessitates developers to create different applications (or the application wrappers) thus making it difficult for reuse.
 
 ## GOAL
 
