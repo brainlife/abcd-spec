@@ -1,4 +1,4 @@
-![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
 
 # Application for Big Computational Data(`ABCD`) Specification (v1.0)
 
@@ -243,10 +243,10 @@ ABCD specification does not specify how you should format your output data, howe
 
 For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
 
-![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
 
 ```
-![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
 ```
 
 ## ABCD Reference Application Implementations
