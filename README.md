@@ -1,3 +1,5 @@
+![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
+
 # Application for Big Computational Data(`ABCD`) Specification (v1.0)
 
 ## Background
@@ -236,6 +238,13 @@ Staging of input files are outside the scope of ABCD specification. It is a task
 ## Output Files
 
 ABCD specification does not specify how you should format your output data, however, your application must produce any output files, or intermediary files (and log files) in the current working directory. The structure of the output files are up to each application. A developer should clearly document the output data structure, and any changes to the output files should preserve backward compatibility to maximize application reusability. A developer may choose to adopt data format specifications such as BIDS.
+
+## ABCD Badge
+
+For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
+
+![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
+> ![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)
 
 ## ABCD Reference Application Implementations
 
