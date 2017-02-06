@@ -2,19 +2,19 @@
 
 ## Background
 
-Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of user interfaces such as MatLab GUI, command line terminal, iPython, or programming languages such as C/C++, Python, MatLab, R, bash scripts. Each application has unique requirements for computing systems, OSes, and software libraries dependencies. Furthermore, types of data and input files differ from application to application requiring data type conversions, restructuring of the data. To effectively reuse those applications produced by other investigators, or simpley to reproduce others' results, substantial amount of work is required by the scientists.
+Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (remote/distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of methods and programming languages in order to use these application effectively. Scientists must be able to install these application in diverse environment, and prepare input data to meet each application requirements by organizing, or converting their input data types. Needless to say, this makes it difficult to reproduce other scientists's results, or to reuse applications developed by other collaborators.
 
 ### Application Abstraction
 
-As a way to mitigate this problem, developers have recently started containerising their applications, such as enabled by Docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each applications and parsing of output files to the end user.
+As a way to mitigate these problem, scientifsts have recently started containerising their applications using tools such as Docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each applications and parsing of output files to the end user.
 
 ### Data Format Abstraction
 
-Recently, there has been a proposal to create a standard data structures such as BIDS for Neuroscience, or BioXSD? for Bioinformatics. By applying these standard to the application containerization effort, it could greatly reduce the overhead of preparing the input and output files and foster truly reusable software framework within a specific domain of science.
+Recently, there has been a proposal to create a standard data structures such as BIDS for Neuroscience (or BioXSD for Bioinformatics?). By applying these standard to the application containerization effort, it could greatly reduce the overhead of preparing the input and output files and foster truly reusable software framework within a specific domain of science.
 
 ### Execution Abstraction
 
-These advancements greatly benefit advanced domain experts, however, we need yet another layer of abstraction; commonly refer to as a *workflow management*, which is necessary to orchestrate a workflow required to process large amounts of data, or to make the applications accessible to novice users through an interface such as web portals. 
+These advancements greatly benefit advanced domain experts, however, we need yet another layer of abstraction to execute these application to automate the execution and monitoring of a workflow. *Workflow manager* is commonly used to orchestrate complex series of applications to deal with large amount of computational data, or to create a facade application to wrap a complicated subsystem with a simpler interface.
 
 Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted generic specification describing how to start, stop, and monitor applications so that applications can be programmatically executed across different workflow managers. This lack of standard necessitates developers to create different applications (or the application wrappers) thus making it difficult for reuse.
 
@@ -22,7 +22,9 @@ Indeed, many workflow management systems have been developed, but so far there h
 
 This specification proposes a very simple standard to allow abstraction of application execution and monitoring in order to make it easier for workflow management systems to interface with compliant applications. This specification does not extend to how the entire workflow is constructed like [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language), nor how UI should be constructed based on ints input / output format like [GenApp](https://cwiki.apache.org/confluence/display/AIRAVATA/GenApp). A developer of the application can adopt combination of other such specifications in order to execute it on specific workflow systems that require more stringent specifications. 
 
-Please note that, in this specification, *workflow management system* can be as simple as a small shell script that manages execution of a small and static set of applications, or a large software suite that can handle asynchronous executions of multi-user / multi-cluster workflows.
+The main usecase for this specification to assist the creation of REST API driven workflow manager - to be access via Web interface.
+
+> Please note that, in this specification, *workflow management system* can be as simple as a small shell script that manages execution of a small and static set of applications, or a large software suite that can handle asynchronous executions of multi-user / multi-cluster workflows.
 
 ## package.json
 
@@ -74,7 +76,7 @@ All hook scripts must be executable (`chmod +x start.sh`)
 
 ```bash
 #!/bin/bash
-nohup matlab -r $SCA_SERVICE_DIR/main &
+nohup matlab -r $SERVICE_DIR/main &
 ret=$?
 echo $! > run.pid
 exit $ret
@@ -150,15 +152,15 @@ ret=$?
 
 ABCD application will receive all standard ENV parameters set by users or the cluster administrator. ABCD workflow manager should also set following ENV parameters.
 
-`$SCA_TASK_ID` Unique ID for this application instance. Usually a DB id for the application instance (or *task*) generated by the workflow manager.
+`$TASK_ID` Unique ID for this application instance. Usually a DB id for the application instance (or *task*) generated by the workflow manager.
 
-`$SCA_TASK_DIR` Initial working directory for your application instance (not the application installation directory)
+`$TASK_DIR` Initial working directory for your application instance (not the application installation directory)
 
-`$SCA_WORKFLOW_DIR` Directory where $SCA_TASK_DIR is stored (should be a parent of $SCA_TASK_DIR)
+`$WORKFLOW_DIR` Directory where `$TASK_DIR` is stored (should be a parent of `$TASK_DIR`)
 
-`$SCA_SERVICE` Name of the application executed. Often a github repo ID (like "soichih/sca-service-dtiinit")
+`$SERVICE` Name of the application executed. Often a github repo ID (like "soichih/sca-service-dtiinit")
 
-`$SCA_SERVICE_DIR` Directory where the application is installed.
+`$SERVICE_DIR` Directory where the application is installed.
 
 * "SCA" maybe renamed to something else in the future..
 
@@ -166,7 +168,7 @@ ABCD application will receive all standard ENV parameters set by users or the cl
 
 ABCD is designed for Big Data and parallel processing. On a highly parallel environment, workflow manager often stores your application in a common shared filesystem and share the same installation across all instances of your application (there could be several thousands of such instance running concurrently - like in OSG), although the working directory will be created for each instance to stage your input and output data. 
 
-ABCD application will be executed with current directory set to this workfing directory; *not the directory where the application is installed*. This means that, in order to reference other program files in your application from another program file, you will need to prefix the location by the special environment parameter of `$SCA_SERVICE_DIR`. This ENV parameter will be set by all ABCD compliant workflow manager to inform your application where the application is installed.
+ABCD application will be executed with current directory set to this workfing directory; *not the directory where the application is installed*. This means that, in order to reference other program files in your application from another program file, you will need to prefix the location by the special environment parameter of `$SERVICE_DIR`. This ENV parameter will be set by all ABCD compliant workflow manager to inform your application where the application is installed.
 
 For example, let's say you have following files in your application.
 
@@ -176,11 +178,11 @@ For example, let's say you have following files in your application.
 ./main.py
 ```
 
-In your `start.sh`, even though `main.m` is located next to `start.sh`, your current working directory may be outside this application directory. Therefore, you will need to prefix `main.py` with `$SCA_SERVICE_DIR` inside `start.sh`, like..
+In your `start.sh`, even though `main.m` is located next to `start.sh`, your current working directory may be outside this application directory. Therefore, you will need to prefix `main.py` with `$SERVICE_DIR` inside `start.sh`, like..
 
 ```bash
 #!/bin/bash
-nohup python $SCA_SERVICE_DIR/main.py &
+nohup python $SERVICE_DIR/main.py &
 ret=$?
 echo $! > run.pid
 exit $?
@@ -188,10 +190,10 @@ exit $?
 
 ### Development 
 
-In earlier abouve `start.sh` example, if you are running it locally for development purpose, most likely `$SCA_SERVICE_DIR` is not set, so it will try to reference a path `/main.py` which does not exist. In order to help debugging your application on a local directory, you'd like to add something like following at the top of your `start.sh`
+In earlier abouve `start.sh` example, if you are running it locally for development purpose, most likely `$SERVICE_DIR` is not set, so it will try to reference a path `/main.py` which does not exist. In order to help debugging your application on a local directory, you'd like to add something like following at the top of your `start.sh`
 
 ```
-if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
+if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
 ```
 
 This will allow your application to be executable on the same directory where your current directory is. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
