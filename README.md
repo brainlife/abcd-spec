@@ -156,7 +156,7 @@ ABCD application will receive all standard ENV parameters set by users or the cl
 
 `$TASK_DIR` Initial working directory for your application instance (not the application installation directory)
 
-`$WORKFLOW_DIR` Directory where `$TASK_DIR` is stored (should be a parent of `$TASK_DIR`)
+`$WORK_DIR` Directory where `$TASK_DIR` is stored (should be a parent of `$TASK_DIR`)
 
 `$SERVICE` Name of the application executed. Often a github repo ID (like "soichih/sca-service-dtiinit")
 
