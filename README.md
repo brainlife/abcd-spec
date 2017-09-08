@@ -6,7 +6,7 @@ Scientists routinely use applications to compute and perform analyses either usi
 
 ### Application Abstraction
 
-As a way to mitigate these problem, scientifsts have recently started containerising their applications using tools such as Docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each applications and parsing of output files to the end user.
+As a way to mitigate these problem, scientists have recently started containerising their applications using tools such as Docker. Containerization can reduce the complexity involved with installing applications and avoid dependency conflicts between different applications. This approach, however, still leaves the major task of preparing the appropriate input files for each applications and parsing of output files to the end user.
 
 ### Data Format Abstraction
 
@@ -107,7 +107,7 @@ Start script can output startup log to stdout, or any error messages to stderr. 
 
 This script will be executed by workflow manager periodically (every few minutes or longer) to gather status about the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use `qstat` / `condor_status` type command to query for your application. 
 
-Here is an example of job status checker for PBS Jobs > [sca-service-dtinit](https://github.com/soichih/sca-service-dtiinit/blob/master/status.sh)
+Here is an example of job status checker for PBS Jobs > [app-dtinit](https://github.com/brain-life/app-dtiinit/blob/master/status.sh)
 
 #### Exit Code
 
@@ -186,7 +186,7 @@ In earlier abouve `start.sh` example, if you are running it locally for developm
 if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
 ```
 
-This will allow your application to be executable on the same directory where your current directory is. Please see [https://github.com/soichih/sca-service-dtiinit/blob/master/start.sh] for more concrete example.
+This will allow your application to be executable on the same directory where your current directory is. Please see [https://github.com/soichih/app-dtiinit/blob/master/start.sh] for more concrete example.
 
 Obviously, if you have no other files than the actual hook scripts themselves (maybe you are just running a docker container from `start.sh`), you don't need to worry about this issue. 
 
@@ -217,7 +217,7 @@ someapp paramA=`jq '.paramA[]' config.json` \
 
 `jq`[https://stedolan.github.io/jq/] is a popular JSON parsing tool for command line.
 
-ABCD specification currently does not allow defining a valid input parameters that can be used in the config.json for each application. Such definition could be stored as part of `package.json` in the future to allow auto generation of the application submission UI. We could also borrow specification from a system such as [GenApp](https://cwiki.apache.org/confluence/display/AIRAVATA/GenApp)
+ABCD specification currently does not allow defining a valid input parameters that can be used in the config.json for each application. Such definition could be stored as part of `package.json` in the future to allow auto generation of the application submission UI.
 
 ## Input Files
 
@@ -231,18 +231,18 @@ ABCD specification does not specify how you should format your output data, howe
 
 For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
 
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
 
 ```
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
 ```
 
 ## ABCD Reference Application Implementations
 
-Examples of ABCD compliant services can be found here [https://github.com/soichih?tab=repositories&q=sca-service]
+Examples of ABCD compliant services can be found here [https://github.com/brain-life/?tab=repositories&q=app]
 
 ## ABCD Reference Workflow Manager Implementation
 
-Currently, the sca-wf is the only workflow manager that uses this specification, and can be used as a reference implementation. [https://github.com/soichih/sca-wf]
+Currently, we are developing a workflow manager that uses the ABCD specification, and can be used as a reference implementation.
 
 
