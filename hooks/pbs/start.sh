@@ -16,8 +16,8 @@ done
 
 echo "qsub on $HOSTNAME"
 echo "  $resource"
-echo "  -d $PWD -V"
+echo "  -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.error.log"
 echo "  $SERVICE_DIR/$script"
 
 #needs to be the last command to return exit code
-qsub $resource -d $PWD -V $SERVICE_DIR/$script > jobid
+qsub $resource -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.error.log $SERVICE_DIR/$script > jobid
