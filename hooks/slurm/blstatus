@@ -16,28 +16,36 @@ if [ -z $jobid ]; then
 	exit 3
 fi
 
-jobstate=`squeue -h -j $jobid --Format=statecompact`
+#jobstate=`squeue -h -j $jobid --Format=statecompact`
+jobstate=`scontrol show job $jobid | grep JobState | cut -f4 -d' ' | cut -f2 -d'='`
 if [ -z $jobstate ]; then
-	echo "Job removed before completing - maybe timed out?" 
+	echo "no job state.. odd"
 	exit 2
 fi
-if [ $jobstate == "PD" ]; then
+if [ $jobstate == "PENDING" ]; then
         eststart=`squeue -h -o "%S" -j $jobid`
         echo "Waiting in the queue - estimated start time: $eststart"
 	#curl -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL
 	exit 0
 fi
-if [ $jobstate == "R" ]; then
+if [ $jobstate == "RUNNING" ]; then
 	logname="slurm-$jobid.out"
 	tail -1 $logname
 	exit 0
 fi
-if [ $jobstate == "F" ]; then
+if [ $jobstate == "FAILED" ]; then
 	echo "Job failed"
 	exit 2
 fi
+if [ $jobstate == "COMPLETEING" ]; then
+	echo "completing"
+	exit 0
+fi
+if [ $jobstate == "COMPLETED" ]; then
+	echo "Job finished"
+	exit 1
+fi
 
-#assume failed for all other state
 echo "unknown state: $jobstate"
 exit 3
 
