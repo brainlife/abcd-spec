@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm -f exit-status
+rm -f pid
+
+./main > output.log 2> error.log &
+echo $! > pid
+wait $!
+echo $? > exit-status
