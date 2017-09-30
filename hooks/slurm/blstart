@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#terminate if any command fails (and any command piped)
+set -e
+set -o pipefail
+
+#needs to be the last command to return exit code
+sbatch main | cut -d' ' -f4 > jobid
