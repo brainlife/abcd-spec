@@ -10,19 +10,12 @@ if [ ! -f jobid ];then
 	exit 1
 fi
 
-if [ -f finished ];then
-	code=`cat finished`
-	echo "finished with code:$code"
-	exit $code
-fi
-
 jobid=`cat jobid`
 if [ -z $jobid ]; then
 	echo "jobid is empty.. failed to submit?"
 	exit 3
 fi
 
-#jobstate=`squeue -h -j $jobid --Format=statecompact`
 jobstate=`scontrol show job $jobid | grep JobState | cut -f4 -d' ' | cut -f2 -d'='`
 if [ -z $jobstate ]; then
 	echo "no job state.. odd"
