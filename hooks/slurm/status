@@ -10,6 +10,12 @@ if [ ! -f jobid ];then
 	exit 1
 fi
 
+if [ -f finished ];then
+	code=`cat finished`
+	echo "finished with code:$code"
+	exit $code
+fi
+
 jobid=`cat jobid`
 if [ -z $jobid ]; then
 	echo "jobid is empty.. failed to submit?"
