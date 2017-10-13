@@ -14,15 +14,20 @@ then
 	exit 2
 fi
 
-if ps -p $(cat pid) > /dev/null
+if [ -f pid ]
 then
-	#get last line of last log touched
-	logfile=$(ls -rt *.log | tail -1)
-	tail -1 $logfile
-	exit 0
-else
-	#stopped
-	echo "no longer running but didn't finish"
-	exit 2
+    if ps -p $(cat pid) > /dev/null
+    then
+        #get last line of last log touched
+        logfile=$(ls -rt *.log | tail -1)
+        tail -1 $logfile
+        exit 0
+    else
+        #stopped
+        echo "no longer running but didn't finish"
+        exit 2
+    fi
 fi
 
+echo "not yet started?"
+exit 3

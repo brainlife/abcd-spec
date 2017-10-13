@@ -1,5 +1,6 @@
 #!/bin/bash
 
 echo "nohup-ing main"
-nohup time ./main > output.log 2> error.log && echo $? > exit-code &
+nohup time bash -c "./main; echo \$? > exit-code" > output.log 2> error.log &
 echo $! > pid
+
