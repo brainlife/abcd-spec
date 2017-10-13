@@ -5,9 +5,9 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
-if [ -f exit-status ]
+if [ -f exit-code ]
 then
-	code=$(cat exit-status)
+	code=$(cat exit-code)
 	[ $code -eq 0 ] && exit 1
 
 	echo "finished with exist code $code"

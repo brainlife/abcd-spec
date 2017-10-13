@@ -1,9 +1,5 @@
 #!/bin/bash
 
-rm -f exit-status
-rm -f pid
-
-./main > output.log 2> error.log &
+echo "nohup-ing main"
+nohup time ./main > output.log 2> error.log && echo $? > exit-code &
 echo $! > pid
-wait $!
-echo $? > exit-status
