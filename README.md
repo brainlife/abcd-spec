@@ -142,7 +142,7 @@ If application does not provide `package.json`, or `abcd` key is missing inside 
   "abcd": {
     "start": "start",
     "stop": "stop",
-    "status": status"
+    "status": "status"
   }
 }
 ```
@@ -247,16 +247,18 @@ ABCD specification itself does not specify how you should format your output dat
 
 For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
 
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 
 ```
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 ```
 
 ### ABCD Reference Application Implementations
 
-Examples of ABCD compliant services can be found (here)[https://github.com/brain-life/?tab=repositories&q=app]
+Examples of ABCD compliant services can be found under [Brain-Life Application](https://github.com/brain-life/?tab=repositories&q=app)
 
 ### ABCD Reference Workflow Manager Implementation
 
-Currently, (Amaretti)[https://github.com/brain-life/amaretti] is the the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
+Currently, [Amaretti](https://github.com/brain-life/amaretti) is the the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
+
+
