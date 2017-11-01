@@ -1,4 +1,4 @@
-# Application for Big Computational Data (ABCD) Specification (v1.0)
+# Application for Big Computational Data (ABCD) Specification (v1.1)
 
 ## Background
 
@@ -18,7 +18,7 @@ These advancements greatly benefit advanced domain experts, however, we need yet
 
 Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted generic specification describing how to start, stop, and monitor applications so that applications can be programmatically executed across different workflow managers. This lack of standard necessitates developers to create different applications (or the application wrappers) thus making it difficult for reuse.
 
-## GOAL
+## Specification
 
 This specification proposes a very simple standard to allow abstraction of application execution and monitoring in order to make it easier for workflow management systems to interface with compliant applications. This specification does not extend to how the entire workflow is constructed like [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language), nor how UI should be constructed based on ints input / output format like [GenApp](https://cwiki.apache.org/confluence/display/AIRAVATA/GenApp). A developer of the application can adopt combination of other such specifications in order to execute it on specific workflow systems that require more stringent specifications. 
 
@@ -26,65 +26,48 @@ The main usecase for this specification to assist the creation of REST API drive
 
 > Please note that, in this specification, *workflow management system* can be as simple as a small shell script that manages execution of a small and static set of applications, or a large software suite that can handle asynchronous executions of multi-user / multi-cluster workflows.
 
-## package.json
+### package.json (optional)
 
-All ABCD compliant application must have `package.json` under the root directory of the application (such as root folder of a git repo) This file can be created by hand, or by using [`npm init`](https://docs.npmjs.com/cli/init) command (npm is a commonly used package manager for nodejs - but the application itself does not have to be a node app).
+ABCD compliant application can provide `package.json` under the root directory of the application (such as root folder of a git repo) This file can be created by hand, or by using [`npm init`](https://docs.npmjs.com/cli/init) command.
 
 ```json
 {
-  "name": "abcd-hello",
-  "version": "1.0.0",
-  "description": "sample ABCD app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Soichi Hayashi <hayashis@iu.edu>",
-  "license": "MIT"
+  "abcd": {
+    "start": "./start.sh",
+    "stop": "./stop.sh",
+    "status": "./status.sh"
+  }
 }
 ```
 
-`package.json` describes basic information about your application (name, description, license, dependencies, etc..). An important section is the `"scripts"` section which lists supported `application hooks`. 
+The scripts listed under `abcd` keys are the `application hooks` which are just any bash scripts that are meant to be executed by the workflow manager (but it can also be executed locally to test your application).
 
-## Application Hooks
-
-Applicatoin hooks are special scripts that are meant to be executed by the workflow manager (but it can also be executed locally to test your application).
-
-At minimum, most workflow management systems must be able to.. 
+At minimum, most workflow management systems must be able to.
 
 * Start your application (or run it synchronously if it's a very simple application), 
 * Stop your application - based on user request or other reasons
 * Monitor the status of your application, and know if it is completed / failed / running, etc..
 
-ABCD compliant workflow management system must publish list of these hooks inside `package.json` like following..
-
-```json
-  "scripts": {
-    "start": "start.sh",
-    "stop": "stop.sh",
-    "status": "status.sh"
-  },
- ```
-
-In this example, this application tells ABCD compliant workflow management system that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and `monitor` status of this application. Each hook can point to any script, or executables. For example, "start", could be mapped to `start.py` (instead of `start.sh`) if you prefer to use Python, or any binary executable, or even a command line such as `"qsub start.sub"`.
-
+In above example, ABCD compliant workflow management system knows that we have 3 shell scripts on a root directory of this application to `start`, `stop`, and monitor `status` of this application. Each hook can point to any script (bash, python, javascript, etc) or compiled executables. 
 All hook scripts must be executable (`chmod +x start.sh`)
+
+The `package.json` is optional for application that runs on remote resource that provides the `default hooks`. Under this scenario, application should provide `main` executable that simply runs the application (not start it). Please see "Default Hooks" section below.
 
 ### `start` Hook
 
-`start.sh` (or any script or binary that you've mapped "start" to) must *start* the application - but not actually *run* it. Meaning, you must nohup and background a new process (using & at the end of the command line) that actually do the processing. For example...
+`start.sh` (or any script or binary that you've mapped "start" to) must *start* the application; the script itself should return immediately after it spawns another thread that runs the actual program. 
+
+An example start script for a vanilla VM.
 
 ```bash
 #!/bin/bash
-nohup matlab -r $SERVICE_DIR/main &
-ret=$?
-echo $! > run.pid
-exit $ret
+nohup time bash -c "./main; echo \$? > exit-code" > output.log 2> error.log &
+echo $! > pid
 ```
 
-If you are spawning your program like above, you should store the PID of your application so that later you can use to monitor the process or stop it (explained later).
+This script runs `main` which is the actual application for this app, and *nohup*s it so that the start.sh itself can safely exit. It also stores the pid of the started process so that `status` or `stop` script can interact with the application process.
 
-Or, for PBS cluster, you can simply do
+Or, for PBS cluster, you might want to do something like..
 
 ```bash
 #!/bin/bash
@@ -101,13 +84,14 @@ If you have a very simple application that always finishes in a matter of second
 Start script should return exit code 0 for successful start or submission of your application, and non-0 for startup failure.
 
 #### stdout/stderr
-Start script can output startup log to stdout, or any error messages to stderr. Such messages to be handled by the workflow manager and relayed to the user in appropriate manner.
+
+Start script can output startup log to stdout, or any error messages to stderr. Such messages should be handled by the workflow manager and relayed to the user in appropriate manner.
 
 ### `status` Hook
 
-This script will be executed by workflow manager periodically (every few minutes or longer) to gather status about the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use `qstat` / `condor_status` type command to query for your application. 
+This script will be executed by workflow manager periodically to query status of the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use commands such as `qstat` or `condor_status` to query for your application.
 
-Here is an example of job status checker for PBS Jobs > [app-dtinit](https://github.com/brain-life/app-dtiinit/blob/master/status.sh)
+Please see [ABCD default hook scritps](https://github.com/brain-life/abcd-spec/tree/master/hooks) as an example.
 
 #### Exit Code
 
@@ -122,7 +106,7 @@ Status script return within a few seconds, or workflow manager may assume that t
 
 #### stdout/stderr
 
-Any detail about the current job status can be reported by outputting any messages to stdout. If your status script is smart enough to know the execution stage of your application, you could output a message such as "Job 25.5% complete - processing XYZ", for example. The message should be small, however, and usually be limited to a single string. Workflow manager may use it as a status label for your workflow to be displayed on UI.
+Any detail about the current job status can be reported by outputting any messages to stdout. You script can simply check for the process/job to be running and state that it is running, or you can construct the script to analyze the log file to find out detailed status of yoru application and output a message such as "Job 25.5% complete - processing XYZ", as an example. Any string output to stdout should be treated by the workflow manager as a status message and relayed to the users in the appropriate manner. Therefore, any stdout from the status script should be small (usually a single line).
 
 ### `stop` Hook
 
@@ -148,101 +132,133 @@ Stop script should return one of following code.
 
 If your stop script returns code 1, workflow manager may report back to the user that the termination has failed (and user may repeat the request), or some workflow manager may simply retry later on automatically.
 ret=$?
-## Environment Parameters
 
-ABCD application will receive all standard ENV parameters set by users or the cluster administrator. ABCD workflow manager should also set following ENV parameters.
+### Default hooks
 
-`$SERVICE_DIR` Directory where the application is installed.
-
-## Application Installation Directory
-
-ABCD is designed for Big Data and parallel processing. On a highly parallel environment, workflow manager often stores your application in a common shared filesystem and share the same installation across all instances of your application (there could be several thousands of such instance running concurrently - like in OSG), although the working directory will be created for each instance to stage your input and output data. 
-
-ABCD application will be executed with current directory set to this workfing directory; *not the directory where the application is installed*. This means that, in order to reference other program files in your application from another program file, you will need to prefix the location by the special environment parameter of `$SERVICE_DIR`. This ENV parameter will be set by all ABCD compliant workflow manager to inform your application where the application is installed.
-
-For example, let's say you have following files in your application.
-
-```
-./package.json
-./start.sh
-./main.py
-```
-
-In your `start.sh`, even though `main.m` is located next to `start.sh`, your current working directory may be outside this application directory. Therefore, you will need to prefix `main.py` with `$SERVICE_DIR` inside `start.sh`, like..
-
-```bash
-#!/bin/bash
-nohup python $SERVICE_DIR/main.py &
-ret=$?
-echo $! > run.pid
-exit $?
-```
-
-### Development 
-
-In earlier abouve `start.sh` example, if you are running it locally for development purpose, most likely `$SERVICE_DIR` is not set, so it will try to reference a path `/main.py` which does not exist. In order to help debugging your application on a local directory, you'd like to add something like following at the top of your `start.sh`
-
-```
-if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
-```
-
-This will allow your application to be executable on the same directory where your current directory is. Please see [https://github.com/soichih/app-dtiinit/blob/master/start.sh] for more concrete example.
-
-Obviously, if you have no other files than the actual hook scripts themselves (maybe you are just running a docker container from `start.sh`), you don't need to worry about this issue. 
-
-## Input Parameters (config.json)
-
-For command line applications, input parameters can be passed via command line parameters. In order to allow workflow manager to execute ABCD application, all input parameters must be passed in `config.json`. When users specify input parameters through various UI, workflow manager will pass that information by generating `config.json` containing all parameters used to execute the application. 
-
-ABCD application must parse `config.json` within the application to pull any input parameter. Or, your `start.sh` can do the parsing and pass those parameters to your application as command line parameters or ENV parameter.
-
-For example, let's say user has specified `input_dwi` to be `"/N/dc2/somewhere/test.dwi"` and `paramA` to be `1234` on some UI. Workflow manager will construct following `config.json` and stores it in a working directory (on the current directory) prior to application execution.
+If application does not provide `package.json`, or `abcd` key is missing inside `package.json`, following hook configurations is used as default.
 
 ```json
 {
- "input_dwi": "/N/dc2/somewhere/test.dwi",
- "paramA": 1234
+  "abcd": {
+    "start": "start",
+    "stop": "stop",
+    "status": "status"
+  }
 }
 ```
 
-Your application can parse this directly, or in your `start.sh` you can do something like following to *pass* input arguments to your application.
+This means that, by default, all ABCD applications are started by an executable called `start`, and stopped by an executable called `stop`, and monitored by executing `status`. These executables must be installed on the remote resource by resource administrator, and proper PATH is set to find those executable under the user account that the resource is configured for.
+
+ABCD specification repository provides a default hooks for direct (vanilla VM), PBS, and slurm cluster and can be installed simply by cloning this repository.
+
+```
+git clone https://github.com/brain-life/abcd-spec.git ~/abcd-spec
+``` 
+
+Then, PATH must be configured to look for a particular set of abcd hooks under ~/.bashrc. For PBS,
+
+```bash
+export PATH=~/abcd-spec/pbs:$PATH
+```
+
+For slurm
+
+```bash
+export PATH=~/abcd-spec/slurm:$PATH
+```
+
+And for Vanilla VM
+
+```bash
+export PATH=~/abcd-spec/direct:$PATH
+```
+
+#### Default `start` hook
+
+The default `start` hook will look for an executable called `main` under the current directory (application repo's root directory) and run the app using whichever the most appropriate mechanism to start a job for the resource. For PBS cluster, `~/abcd-spec/pbs/start` would use qsub, for example. 
+
+To reiterate, if application does not provide its own `package.json`, workflow manager will look for the default `start` hook installed on the remote resource (so it must exist there, or application will fail to start). The default `start` hook will then look for `main` within the application's current directory, so the application must provide `main` if it does not provide `package.json`.
+
+By application relying on resource's default hooks, application can be made simpler (only `main` needs to exist) and can be made to handle variety of remote resources as remote resource will be responsible to provide appropriate ABCD hooks.
+
+### Application Dependencies
+
+Any dependencies that application uses must be installed on all remote resources where the application is enabled to run on with correct version and correct installation method. Application should be able to reference specific version of the dependencies (like /usr/local/dipy_0.12) so that each application can reference correct versions of any dependencies. Once the dependencies are installed, it should not be modified. 
+
+Such environment is difficult to maintain, extremely brittle, and often impossible to properly construct. For your application to be truly portable, you should publish `Dockerfile` as part of your application with instruction on how to build a docker container to run your application. You can then configure dockerhub to [auto-build](https://docs.docker.com/docker-hub/builds/) your container whenever you make changes to your github repository. Once this is done, on your `start.sh` (or `main` if you are using default hook), you can launch your container via [singularity](http://singularity.lbl.gov/docs-docker) like following.
+
+```
+#!/bin/bash
+singularity exec docker://myorg/myapp
+```
+
+By dockerizing your application, your app can run on wide range of remote resources that has singularity installed.
+
+### Environment Parameters
+
+ABCD application should receive all standard ENV parameters set by users or the cluster administrator. ABCD workflow manager should also set various workflow manager specific ENV parameters. For example, [Amaretti](https://github.com/brain-life/amaretti) provides following set of parameters to all tasks.
+
+```       
+TASK_ID: A unique task ID.
+USER_ID: For multi-user workflow manager, the ID of the user who made the request
+SERVICE: Name of the service (github repo name such as "brain-life/app-life")
+SERVICE_BRANCH: Name of the service branch (if specified by the user)
+```
+
+### Workflow directory
+
+ABCD workflow manager should git clones requested service on remote resource's scratch space as a new work directory for each task and set the current directory to that directory prior to executing ABCD hooks. Application can therefore expect to find all files that are distributed via the specifed github repository (with `--depth 1` to omit git history, however).
+
+### Input Parameters (config.json)
+
+ABCD workflow manager should pass input parameters to ABCD applications through a JSON file named `config.json` created on the work directory for each task prior to executing `start` hook. ABCD application then must parse the `config.json` to pull any input parameters.
+
+For example, let's say user has specified `dwi` parameter to be `"/N/dc2/somewhere/test.dwi"` and `count` parameter to be `100` through some UI. Workflow manager will construct following `config.json` and stores it in a working directory (on the current directory) prior to application execution.
+
+```json
+{
+ "dwi": "/N/dc2/somewhere/test.dwi",
+ "count": 100
+}
+```
+
+Your application can parse this directly using any JSON parsing library, or application's start hook can parse it using [jq](https://stedolan.github.io/jq)command line JSON parsing tool.
 
 ```bash
 #!/bin/bash
-docker run -ti --rm \
--v `jq '.input_dwi[] config.json'`:/input/input.dwi \
-someapp paramA=`jq '.paramA[]' config.json` \
-> dockerid
+dwi=$(jq -r .dwi config.json)
+count=$(jq -r .count config.json)
+nohup ./myapp --dwi $dwi --count $count &
 ```
 
-`jq`[https://stedolan.github.io/jq/] is a popular JSON parsing tool for command line.
-
-ABCD specification currently does not allow defining a valid input parameters that can be used in the config.json for each application. Such definition could be stored as part of `package.json` in the future to allow auto generation of the application submission UI.
-
-## Input Files
+### Input Files
 
 Staging of input files are outside the scope of ABCD specification. It is a task for workflow manager to transfer / stage any necessary input files (referenced in the `config.json`) prior to executing your application.
 
-## Output Files
+### Output Files
 
-ABCD specification does not specify how you should format your output data, however, your application must produce any output files, or intermediary files (and log files) in the current working directory. The structure of the output files are up to each application. A developer should clearly document the output data structure, and any changes to the output files should preserve backward compatibility to maximize application reusability. A developer may choose to adopt data format specifications such as BIDS.
+Your application must produce any output files, or intermediary files (including any log files) inside the current working directory. You must not make any modification outside the working directory, although you most likely need to read input files stored outside it.
 
-## ABCD Badge
+ABCD specification itself does not specify how you should format your output data. The structure of the output data are up to each application and the platform that application is developed for. For example, all Brain-Life app should output datasets in a compatible format that the application is registered to output through Brain-Life. This allows the output from your app to be used as input to another app.
+
+## Misc.
+
+### ABCD Badge
 
 For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
 
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 
 ```
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 ```
 
-## ABCD Reference Application Implementations
+### ABCD Reference Application Implementations
 
-Examples of ABCD compliant services can be found here [https://github.com/brain-life/?tab=repositories&q=app]
+Examples of ABCD compliant services can be found under [Brain-Life Application](https://github.com/brain-life/?tab=repositories&q=app)
 
-## ABCD Reference Workflow Manager Implementation
+### ABCD Reference Workflow Manager Implementation
 
-Currently, we are developing a workflow manager that uses the ABCD specification, and can be used as a reference implementation.
+Currently, [Amaretti](https://github.com/brain-life/amaretti) is the the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
 
 
