@@ -33,6 +33,14 @@ R)
 	tail -1 $logfile
 	exit 0
 	;;
+E)
+	echo "job is exiting after having run.. waiting"
+	exit 0
+	;;
+T)
+	echo "job is moving to new location.. waiting"
+	exit 0
+	;;
 H)
 	echo "Job held.. waiting"
 	exit 0
