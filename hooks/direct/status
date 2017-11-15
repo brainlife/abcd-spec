@@ -10,7 +10,7 @@ then
 	code=$(cat exit-code)
 	[ $code -eq 0 ] && exit 1
 
-	echo "finished with exist code $code"
+	echo "finished with exit code $code"
 	exit 2
 fi
 
