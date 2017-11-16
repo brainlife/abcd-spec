@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#people often forgets to set exbit on main..
+chmod +x main
+
 echo "nohup-ing main"
 nohup time bash -c "./main; echo \$? > exit-code" > output.log 2> error.log &
 echo $! > pid
