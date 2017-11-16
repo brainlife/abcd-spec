@@ -3,6 +3,9 @@
 #people often forgets to set exbit on main..
 chmod +x main
 
+#to allow restart
+rm -f exit-code
+
 echo "nohup-ing main"
 nohup time bash -c "./main; echo \$? > exit-code" > output.log 2> error.log &
 echo $! > pid

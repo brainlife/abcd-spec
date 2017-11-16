@@ -1,2 +1,17 @@
 #!/bin/bash
-qsub -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err main > jobid
+
+#pbs doesn't keep finished job long enough for amaretti to query its exit code..
+#to be absolutely sure that I can catch the exit code, I need to create a script that wraps the main.
+#but, if we do that, we get rid of all #PBS options that user might be setting inside main..
+#so create a fake submit script by pulling all #.. and call the original main and capture exit-code
+
+rm -f exit-code
+
+echo "#!/bin/bash" > _main
+grep --regexp="^#PBS" main >> _main
+echo "./main" >> _main
+echo "echo \$? > exit-code" >> _main
+chmod +x main #in case user fogets it
+
+qsub -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
+

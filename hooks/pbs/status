@@ -10,6 +10,14 @@ if [ ! -f jobid ];then
 	exit 1
 fi
 
+if [ -f exit-code ]
+then
+	code=$(cat exit-code)
+	[ $code -eq 0 ] && exit 1
+	echo "finished with exit code $code"
+	exit 2
+fi
+
 jobid=`cat jobid`
 if [ -z $jobid ]; then
 	echo "jobid is empty.. failed to submit?"
@@ -31,6 +39,14 @@ R)
 	#get last line of last log touched
 	logfile=$(ls -rt *.log | tail -1)
 	tail -1 $logfile
+	exit 0
+	;;
+E)
+	echo "job is exiting after having run.. waiting"
+	exit 0
+	;;
+T)
+	echo "job is moving to new location.. waiting"
 	exit 0
 	;;
 H)
