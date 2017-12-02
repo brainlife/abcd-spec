@@ -10,10 +10,14 @@ if [ ! -f jobid ];then
 	exit 1
 fi
 
+
 if [ -f exit-code ]
 then
 	code=$(cat exit-code)
-	[ $code -eq 0 ] && exit 1
+	if [ $code -eq 0 ]; then
+		echo "finished successfully"
+		exit 1
+	fi
 	echo "finished with exit code $code"
 	exit 2
 fi
