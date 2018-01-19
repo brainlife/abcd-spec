@@ -28,7 +28,7 @@ if [ $jobstate == "PENDING" ]; then
 	exit 0
 fi
 if [ $jobstate == "RUNNING" ]; then
-	logname="slurm-$jobid.out"
+	logname="slurm-$jobid.log"
 	tail -1 $logname
 	exit 0
 fi
