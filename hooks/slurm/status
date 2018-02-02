@@ -29,7 +29,11 @@ if [ $jobstate == "PENDING" ]; then
 fi
 if [ $jobstate == "RUNNING" ]; then
 	logname="slurm-$jobid.log"
-	tail -1 $logname
+    if [ -f $logname ]; then
+        tail -1 $logname
+    else 
+        echo "Running"
+    fi
 	exit 0
 fi
 if [ $jobstate == "FAILED" ]; then
@@ -37,7 +41,7 @@ if [ $jobstate == "FAILED" ]; then
 	exit 2
 fi
 if [ $jobstate == "COMPLETEING" ]; then
-	echo "completing"
+	echo "Completing"
 	exit 0
 fi
 if [ $jobstate == "COMPLETED" ]; then
