@@ -9,7 +9,15 @@ rm -f exit-code
 
 echo "#!/bin/bash" > _main
 grep --regexp="^#PBS" main >> _main
-echo "./main" >> _main
+
+if [ ! -z "$CRAYOS_VERSION" ]; then
+	#running on cray.. let's add ccmrun related things
+	echo "#PBS -l gres=ccm -q gpu" >> _main
+	echo "module load ccmrun" >> _main
+	echo "ccmrun ./main" >> _main
+else
+	echo "./main" >> _main
+fi
 echo "echo \$? > exit-code" >> _main
 chmod +x main #in case user fogets it
 
