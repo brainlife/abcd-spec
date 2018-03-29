@@ -5,4 +5,4 @@ set -e
 set -o pipefail
 
 #needs to be the last command to return exit code
-sbatch -o "slurm-%j.log" -e "slurm-%j.err" main | cut -d' ' -f4 > jobid
+sbatch --parsable -o "slurm-%j.log" -e "slurm-%j.err" main > jobid
