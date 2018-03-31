@@ -21,6 +21,11 @@ if [ -z $jobstate ]; then
 	echo "no job state.. odd"
 	exit 2
 fi
+
+#TODO .. I need to handle all slurm states such as
+#PENDING, RUNNING, SUSPENDED, CANCELLED, COMPLETING, COMPLETED, CONFIGURING, FAILED, TIMEOUT, PREEMPTED, NODE_FAIL, REVOKED and SPECIAL_EXIT
+
+
 if [ $jobstate == "PENDING" ]; then
         eststart=`squeue -h -o "%S" -j $jobid`
         echo "Waiting in the queue - estimated start time: $eststart"
@@ -47,6 +52,10 @@ fi
 if [ $jobstate == "COMPLETED" ]; then
 	echo "Job finished"
 	exit 1
+fi
+if [ $jobstate == "NODE_FAIL" ]; then
+	echo "node failed.. please resubmit"
+	exit 2
 fi
 
 echo "unknown state: $jobstate"
