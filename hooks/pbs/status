@@ -63,7 +63,7 @@ C)
 		echo "finished with code 0"
 		exit 1
 	else
-		echo "finished with code $exit_status"
+		echo "failed with code $exit_status"
 		exit 2
 	fi
 	;;
