@@ -10,10 +10,16 @@ rm -f exit-code
 echo "#!/bin/bash" > _main
 grep --regexp="^#PBS" main >> _main
 
+#create /tmp sub directory for singularity to contain cachedir
+echo "mkdir /tmp/\$PBS_JOBID" >> _main
+echo "export SINGULARITY_LOCALCACHEDIR=/tmp/\$PBS_JOBID" >> _main
+
+echo $PBS_EXTRA >> _main
+
 if [ ! -z "$CRAYOS_VERSION" ]; then
 	#running on cray.. let's add ccmrun related things
 	echo "#PBS -l gres=ccm -q gpu" >> _main
-	echo "module load ccmrun" >> _main
+	echo "module load ccm" >> _main
 	echo "ccmrun ./main" >> _main
 else
 	echo "./main" >> _main
@@ -21,5 +27,6 @@ fi
 echo "echo \$? > exit-code" >> _main
 chmod +x main #in case user fogets it
 
-qsub -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
+HOOK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+qsub -l epilogue=$HOOK_DIR/cleantmp.sh -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
 
