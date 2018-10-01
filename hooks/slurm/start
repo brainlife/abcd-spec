@@ -4,11 +4,11 @@
 set -e
 set -o pipefail
 
-rm -f finished
+#rm -f finished
 
 sbatch --parsable -o "slurm-%j.log" -e "slurm-%j.err" main > jobid
 
 #write out finish code for status script
-code=$?
-echo $code > finished
-exit $code
+#code=$?
+#echo $code > finished
+#exit $code
