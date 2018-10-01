@@ -1,5 +1,18 @@
 # Application for Big Computational Data (ABCD) Specification (v1.1)
 
+### Authors
+- Soichi Hayashi (hayashis@iu.edu)
+
+### Contributors
+- Franco Pestilli (franpest@indiana.edu)
+
+### Funding 
+[![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1734853)
+[![NSF-BCS-1636893](https://img.shields.io/badge/NSF_BCS-1636893-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1636893)
+
+### References 
+Upcoming
+
 ## Background
 
 Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (remote/distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of methods and programming languages in order to use these application effectively. Scientists must be able to install these application in diverse environment, and prepare input data to meet each application requirements by organizing, or converting their input data types. Needless to say, this makes it difficult to reproduce other scientists's results, or to reuse applications developed by other collaborators.
