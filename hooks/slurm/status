@@ -33,13 +33,15 @@ if [ $jobstate == "PENDING" ]; then
 	exit 0
 fi
 if [ $jobstate == "RUNNING" ]; then
-	logname="slurm-$jobid.log"
-    if [ -f $logname ]; then
+    logname="slurm-$jobid.log"
+    if [ -z $logname ]; then
+        echo "(empty log)"
+    elif [ -f $logname ]; then
         tail -1 $logname
     else 
         echo "Running"
     fi
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "FAILED" ]; then
 	echo "Job failed"

@@ -4,5 +4,7 @@
 set -e
 set -o pipefail
 
+hostname
+
 #needs to be the last command to return exit code
 sbatch --parsable -o "slurm-%j.log" -e "slurm-%j.err" main > jobid
