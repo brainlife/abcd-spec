@@ -1,27 +1,15 @@
 #!/bin/bash
 
 #terminate if any command fails (and any command piped)
-set -e
-set -o pipefail
+#I don't want not finding any #PBS to fail
+#set -e
+#set -o pipefail
 
-<<<<<<< HEAD
-#rm -f finished
-=======
-#construct _main
 echo "#!/bin/bash" > _main
 [ -f jobheader.sh ] && sh ./jobheader.sh >> _main
 grep --regexp="^#PBS" main >> _main
 echo "./main" >> _main
->>>>>>> 851e4e7b46de5f7e095b8b2f4fb502b5b25df7e7
 
 chmod +x main #in case user fogets it
 
 sbatch --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main > jobid
-
-<<<<<<< HEAD
-#write out finish code for status script
-#code=$?
-#echo $code > finished
-#exit $code
-=======
->>>>>>> 851e4e7b46de5f7e095b8b2f4fb502b5b25df7e7
