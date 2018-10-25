@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #terminate if any command fails (and any command piped)
-set -e
-set -o pipefail
+#I don't want not finding any #PBS to fail
+#set -e
+#set -o pipefail
 
-#construct _main
 echo "#!/bin/bash" > _main
 [ -f jobheader.sh ] && sh ./jobheader.sh >> _main
 grep --regexp="^#PBS" main >> _main
