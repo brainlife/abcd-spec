@@ -5,6 +5,7 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
+<<<<<<< HEAD
 #if [ -f finished ]; then
 #    code=$(cat finished)
 #    if [ $code == 0 ]; then
@@ -16,6 +17,8 @@
 #    fi
 #fi
 
+=======
+>>>>>>> 851e4e7b46de5f7e095b8b2f4fb502b5b25df7e7
 if [ ! -f jobid ];then
 	echo "no jobid - not yet submitted?"
 	exit 1
@@ -44,13 +47,15 @@ if [ $jobstate == "PENDING" ]; then
 	exit 0
 fi
 if [ $jobstate == "RUNNING" ]; then
-	logname="slurm-$jobid.log"
-    if [ -f $logname ]; then
+    logname="slurm-$jobid.log"
+    if [ -z $logname ]; then
+        echo "(empty log)"
+    elif [ -f $logname ]; then
         tail -1 $logname
     else 
         echo "Running"
     fi
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "FAILED" ]; then
 	echo "Job failed"
