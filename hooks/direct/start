@@ -7,6 +7,9 @@ chmod +x main
 rm -f exit-code
 
 echo "nohup-ing main"
-nohup time bash -c "./main; echo \$? > exit-code" > output.log 2> error.log &
+nohup time bash -c "smon & smonpid=\$!;
+    ./main; 
+    echo \$? > exit-code;
+    kill \$smonpid" > output.log 2> error.log &
 echo $! > pid
 
