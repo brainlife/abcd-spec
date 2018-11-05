@@ -6,7 +6,7 @@ import json
 import time
 import sys
 
-name="smon.json"
+name="_smon.out"
 delay=60
 print("updating "+name+" every "+str(delay)+" seconds")
 
