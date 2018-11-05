@@ -5,20 +5,20 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
-#if [ -f finished ]; then
-#    code=$(cat finished)
-#    if [ $code == 0 ]; then
-#        echo "finished successfully"
-#        exit 1
-#    else
-#        echo "failed with code:$code"
-#        exit 2
-#    fi
-#fi
-
 if [ ! -f jobid ];then
 	echo "no jobid - not yet submitted?"
 	exit 1
+fi
+
+if [ -f exit-code ]
+then
+    code=$(cat exit-code)
+    if [ $code -eq 0 ]; then
+        echo "finished successfully"
+        exit 1
+    fi
+    echo "finished with exit code $code"
+    exit 2
 fi
 
 jobid=`cat jobid`
