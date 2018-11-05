@@ -6,28 +6,39 @@ import json
 import time
 import sys
 
-print("starting ps monitor")
+name="smon.json"
+delay=60
+print("updating "+name+" every "+str(delay)+" seconds")
 
-while True:
-    sid=os.getsid(os.getpid())
-    out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,cmd"])
-    stats = []
-    for line in out.split("\n"):
-        if line == "":
-            continue
-        tokens=line.split()
-        pid=tokens[0]
-        pcpu=float(tokens[1])
-        pmem=float(tokens[2])
-        rss=int(tokens[3])
-        vsz=int(tokens[4])
-        cmd=' '.join(tokens[5:])
-        if pcpu > 0 or pmem > 0:
-            stats.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "cmd": cmd})
+with open("smon.json", "w") as outfile:
 
-    #print(json.dumps(stats, indent=4))
-    #sys.stdout.flush()
+    while True:
+        sid=os.getsid(os.getpid())
+        out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
 
-    with open("smon.json", "w") as outfile:
-        json.dump(stats, outfile, indent=4)
-        time.sleep(5)
+        stats = []
+        for line in out.split("\n"):
+            if line == "":
+                continue
+            tokens=line.split()
+            pid=tokens[0]
+            pcpu=float(tokens[1])
+            pmem=float(tokens[2])
+            rss=int(tokens[3])
+            vsz=int(tokens[4])
+            etime=tokens[5]
+            cmd=' '.join(tokens[6:])
+
+            if etime != "00:00": #pcpu > 0 or pmem > 0:
+                stats.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
+
+        #debug..
+        #print(json.dumps(stats, indent=4))
+        #sys.stdout.flush()
+
+        outfile.write(str(time.time())+"\n")
+        json.dump(stats, outfile)
+        outfile.write("\n")
+        outfile.flush()
+
+        time.sleep(delay)
