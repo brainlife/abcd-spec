@@ -10,7 +10,7 @@ name="_smon.out"
 delay=60
 print("updating "+name+" every "+str(delay)+" seconds")
 
-with open("smon.json", "w") as outfile:
+with open(name, "w") as outfile:
 
     while True:
         sid=os.getsid(os.getpid())
