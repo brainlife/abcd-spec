@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#I don't want not finding any #PBS to fail
+#set -e
+#set -o pipefail
+
 #pbs doesn't keep finished job long enough for amaretti to query its exit code..
 #to be absolutely sure that I can catch the exit code, I need to create a script that wraps the main.
 #but, if we do that, we get rid of all #PBS options that user might be setting inside main..
