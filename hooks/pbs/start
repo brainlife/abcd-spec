@@ -25,6 +25,9 @@ echo "export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
 echo $PBS_EXTRA >> _main
 
+echo "smon &" >> _main
+echo "smonpid=\$!" >> _main
+
 if [ ! -z "$CRAYOS_VERSION" ]; then
 	#running on cray.. let's add ccmrun related things
 	echo "#PBS -l gres=ccm -q gpu" >> _main
@@ -35,6 +38,8 @@ else
 fi
 echo "echo \$? > exit-code" >> _main
 chmod +x main #in case user fogets it
+
+echo "kill \$smonpid" >> _main
 
 HOOK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #qsub -l epilogue=$HOOK_DIR/cleantmp.sh -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
