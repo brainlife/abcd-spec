@@ -10,13 +10,22 @@ name="_smon.out"
 delay=60
 print("updating "+name+" every "+str(delay)+" seconds")
 
+def get_size(start_path = '.'):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
 with open(name, "w") as outfile:
 
     while True:
+
+        #query process under current session
+        processes = []
         sid=os.getsid(os.getpid())
         out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
-
-        stats = []
         for line in out.split("\n"):
             if line == "":
                 continue
@@ -30,14 +39,29 @@ with open(name, "w") as outfile:
             cmd=' '.join(tokens[6:])
 
             if etime != "00:00": #pcpu > 0 or pmem > 0:
-                stats.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
+                processes.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
 
         #debug..
-        #print(json.dumps(stats, indent=4))
+        #print(json.dumps(processes, indent=4))
+        #sys.stdout.flush()
+
+        #query disk usage
+        disks = []
+        out=subprocess.check_output(["du"])
+        for line in out.split("\n"):
+            if line == "":
+                continue
+            tokens=line.split()
+            size=int(tokens[0])
+            path=tokens[1]
+            disks.append({"path": path, "size": size})
+
+        #debug
+        #print(json.dumps(disks, indent=4))
         #sys.stdout.flush()
 
         outfile.write(str(time.time())+"\n")
-        json.dump(stats, outfile)
+        json.dump({"processes": processes, "disks": disks}, outfile)
         outfile.write("\n")
         outfile.flush()
 
