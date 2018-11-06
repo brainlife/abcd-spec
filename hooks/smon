@@ -5,10 +5,11 @@ import subprocess
 import json
 import time
 import sys
+import psutil
+import socket
 
 name="_smon.out"
 delay=60
-print("updating "+name+" every "+str(delay)+" seconds")
 
 def get_size(start_path = '.'):
     total_size = 0
@@ -20,6 +21,18 @@ def get_size(start_path = '.'):
 
 with open(name, "w") as outfile:
 
+    #dump info that doesn't change on the first entry
+    json.dump({
+        "time": time.time(), 
+        "uname": os.uname(),
+        #"hostname": socket.gethostname(), #redundant with uname[1]
+        "cpu_count": psutil.cpu_count(), 
+        "memory_total": psutil.virtual_memory().total,
+        }, outfile)
+    outfile.write("\n")
+    outfile.flush()
+
+    #print("updating "+name+" every "+str(delay)+" seconds")
     while True:
 
         #query process under current session
@@ -60,8 +73,14 @@ with open(name, "w") as outfile:
         #print(json.dumps(disks, indent=4))
         #sys.stdout.flush()
 
-        outfile.write(str(time.time())+"\n")
-        json.dump({"processes": processes, "disks": disks}, outfile)
+        json.dump({
+            "time": time.time(), 
+            "processes": processes, 
+            "disks": disks,
+            "memory_avail": psutil.virtual_memory().available,
+            "memory_used": psutil.virtual_memory().used,
+            "memory_free": psutil.virtual_memory().free,
+            }, outfile)
         outfile.write("\n")
         outfile.flush()
 
