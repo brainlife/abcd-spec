@@ -60,7 +60,7 @@ with open(name, "w") as outfile:
 
         #query disk usage
         disks = []
-        out=subprocess.check_output(["du"])
+        out=subprocess.check_output(["du", "-s"])
         for line in out.split("\n"):
             if line == "":
                 continue
