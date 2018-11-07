@@ -21,15 +21,44 @@ def get_size(start_path = '.'):
 
 with open(name, "w") as outfile:
 
+    env = {}
+    #put some batch scheduler specific env
+    for k in os.environ:
+        if k.startswith(("PBS_", "SLURM_", "OSG")):
+            env[k] = os.environ[k]
+
+    #figure out max PPN
+    max_ppn = os.sysconf('SC_NPROCESSORS_CONF') #default to all available cores
+    if "PBS_NUM_PPN" in os.environ:
+        max_ppn = os.environ["PBS_NUM_PPN"]
+    #from https://slurm.schedmd.com/srun.html
+    if "SLURM_CPUS_ON_NODE" in os.environ:
+        max_ppn = os.environ["SLURM_CPUS_ON_NODE"]
+
+    #figure out max mem
+    max_mem = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')
+    #TODO - I can't figure out for pbs!
+    if "SLURM_MEM_PER_NODE" in os.environ:
+        max_mems = os.environ["SLURM_MEM_PER_NODE"]
+
+    #other things to consider..
+    #PBS_WALLTIME=10800
+
     #dump info that doesn't change on the first entry
     json.dump({
         "time": time.time(), 
         "uname": os.uname(),
         #"hostname": socket.gethostname(), #redundant with uname[1]
         #"cpu_count": psutil.cpu_count(), 
-        "cpu_count": os.sysconf('SC_NPROCESSORS_CONF'),
+        "cpu_total": os.sysconf('SC_NPROCESSORS_CONF'),
+        "cpu_avail": max_ppn,
+
         #"memory_total": psutil.virtual_memory().total,
         "memory_total": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'),
+        "memory_avail": max_mem,
+
+        "env": env,
+
         }, outfile)
     outfile.write("\n")
     outfile.flush()
