@@ -5,8 +5,8 @@ import subprocess
 import json
 import time
 import sys
-import psutil
-import socket
+#import psutil
+#import socket
 
 name="_smon.out"
 delay=60
@@ -26,8 +26,10 @@ with open(name, "w") as outfile:
         "time": time.time(), 
         "uname": os.uname(),
         #"hostname": socket.gethostname(), #redundant with uname[1]
-        "cpu_count": psutil.cpu_count(), 
-        "memory_total": psutil.virtual_memory().total,
+        #"cpu_count": psutil.cpu_count(), 
+        "cpu_count": os.sysconf('SC_NPROCESSORS_CONF'),
+        #"memory_total": psutil.virtual_memory().total,
+        "memory_total": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'),
         }, outfile)
     outfile.write("\n")
     outfile.flush()
@@ -77,9 +79,10 @@ with open(name, "w") as outfile:
             "time": time.time(), 
             "processes": processes, 
             "disks": disks,
-            "memory_avail": psutil.virtual_memory().available,
-            "memory_used": psutil.virtual_memory().used,
-            "memory_free": psutil.virtual_memory().free,
+            "memory_avail": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_AVPHYS_PAGES'),
+            #"memory_avail": psutil.virtual_memory().available,
+            #"memory_used": psutil.virtual_memory().used,
+            #"memory_free": psutil.virtual_memory().free,
             }, outfile)
         outfile.write("\n")
         outfile.flush()
