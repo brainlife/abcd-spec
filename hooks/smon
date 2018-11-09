@@ -9,7 +9,7 @@ import sys
 #import socket
 
 name="_smon.out"
-delay=60
+delay=30
 
 def get_size(start_path = '.'):
     total_size = 0
@@ -30,16 +30,24 @@ with open(name, "w") as outfile:
     #figure out max PPN
     max_ppn = os.sysconf('SC_NPROCESSORS_CONF') #default to all available cores
     if "PBS_NUM_PPN" in os.environ:
-        max_ppn = os.environ["PBS_NUM_PPN"]
+        max_ppn = int(os.environ["PBS_NUM_PPN"])
     #from https://slurm.schedmd.com/srun.html
     if "SLURM_CPUS_ON_NODE" in os.environ:
-        max_ppn = os.environ["SLURM_CPUS_ON_NODE"]
+        max_ppn = int(os.environ["SLURM_CPUS_ON_NODE"])
+
+    #figure out walltime
+    wall_time = None
+    if "PBS_WALLTIME" in os.environ:
+        wall_time = int(os.environ["PBS_WALLTIME"])
+    #TODO ..figure wall time for slurm?
 
     #figure out max mem
     max_mem = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')
-    #TODO - I can't figure out for pbs!
+    #TODO - how can I set this for PBS?
     if "SLURM_MEM_PER_NODE" in os.environ:
-        max_mems = os.environ["SLURM_MEM_PER_NODE"]
+        #Default units are megabytes unless the SchedulerParameters configuration parameter includes the "default_gbytes" option for gigabytes.
+        #https://slurm.schedmd.com/sbatch.html
+        max_mem = int(os.environ["SLURM_MEM_PER_NODE"])*1024*1024 
 
     #other things to consider..
     #PBS_WALLTIME=10800
@@ -51,11 +59,11 @@ with open(name, "w") as outfile:
         #"hostname": socket.gethostname(), #redundant with uname[1]
         #"cpu_count": psutil.cpu_count(), 
         "cpu_total": os.sysconf('SC_NPROCESSORS_CONF'),
-        "cpu_avail": max_ppn,
+        "cpu_requested": max_ppn,
 
         #"memory_total": psutil.virtual_memory().total,
         "memory_total": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'),
-        "memory_avail": max_mem,
+        "memory_requested": max_mem,
 
         "env": env,
 
