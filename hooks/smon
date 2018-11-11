@@ -43,7 +43,15 @@ with open(name, "w") as outfile:
 
     #figure out max mem
     max_mem = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')
-    #TODO - how can I set this for PBS?
+    if "PBS_JOBID" in os.environ:
+        out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"])
+        qstat={}
+        for line in :out.split("\n"):
+            delpos = line.find("=")
+            k=line.substring(0,delpos).trim()
+            v=line.substring(delpos+1).trim()
+            qstat[k] = v
+        print(dir(qstat))
     if "SLURM_MEM_PER_NODE" in os.environ:
         #Default units are megabytes unless the SchedulerParameters configuration parameter includes the "default_gbytes" option for gigabytes.
         #https://slurm.schedmd.com/sbatch.html
