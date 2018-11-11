@@ -6,6 +6,8 @@ chmod +x main
 #to allow restart
 rm -f exit-code
 
+rm -f _smon.out
+
 echo "nohup-ing main"
 nohup time bash -c "smon & smonpid=\$!;
     ./main; 

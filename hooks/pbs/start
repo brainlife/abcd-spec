@@ -29,6 +29,7 @@ echo "export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
 echo $PBS_EXTRA >> _main
 
+rm -f _smon.out
 echo "smon &" >> _main
 echo "smonpid=\$!" >> _main
 
