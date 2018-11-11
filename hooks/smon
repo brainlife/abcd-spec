@@ -90,6 +90,10 @@ with open(name, "w") as outfile:
             etime=tokens[5]
             cmd=' '.join(tokens[6:])
 
+            #ignore myself.
+            if cmd.startswith("ps -s"):
+                continue
+
             if etime != "00:00": #pcpu > 0 or pmem > 0:
                 processes.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
 
