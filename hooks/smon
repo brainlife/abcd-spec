@@ -62,12 +62,15 @@ with open(name, "w") as outfile:
                 #max_mem = int(max_mem_str[0:-2])*1024*1024*1024
                 max_mem = int(max_mem_str[0:-2])*1000*1000*1000 #pbs treats gb and GB the same.. and I believe as "1000^3"
 
-        max_walltime = int(qstat["Walltime.Remaining"])
+        if "Walltime.Remaining" in os.environ:
+            max_walltime = int(qstat["Walltime.Remaining"])
 
     if "SLURM_MEM_PER_NODE" in os.environ:
         #Default units are megabytes unless the SchedulerParameters configuration parameter includes the "default_gbytes" option for gigabytes.
         #https://slurm.schedmd.com/sbatch.html
         max_mem = int(os.environ["SLURM_MEM_PER_NODE"])*1024*1024 
+
+    if "PBS_WALLTIME" in os.environ:
         max_walltime = int(os.environ["PBS_WALLTIME"])
 
     #dump info that doesn't change on the first entry
