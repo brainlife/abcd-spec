@@ -55,10 +55,12 @@ with open(name, "w") as outfile:
             v=line[delpos+1:].strip()
             qstat[k] = v
 
-        max_mem_str = qstat["Resource_List.vmem"] #64gb, etc..
-        if max_mem_str.endswith("gb"):
-            #max_mem = int(max_mem_str[0:-2])*1024*1024*1024
-            max_mem = int(max_mem_str[0:-2])*1000*1000*1000 #pbs treats gb and GB the same.. and I believe as "1000^3"
+        if "Resource_List.vmem" in os.environ:
+            #only carbonate has this
+            max_mem_str = qstat["Resource_List.vmem"] #64gb, etc..
+            if max_mem_str.endswith("gb"):
+                #max_mem = int(max_mem_str[0:-2])*1024*1024*1024
+                max_mem = int(max_mem_str[0:-2])*1000*1000*1000 #pbs treats gb and GB the same.. and I believe as "1000^3"
 
         max_walltime = int(qstat["Walltime.Remaining"])
 
