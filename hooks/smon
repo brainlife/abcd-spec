@@ -11,6 +11,8 @@ import sys
 name="_smon.out"
 delay=30
 
+sid=os.getsid(os.getpid())
+
 def get_size(start_path = '.'):
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
@@ -85,6 +87,8 @@ with open(name, "w") as outfile:
 
         "walltime_requested": max_walltime,
 
+        "sid": sid,
+
         "env": env,
 
         }, outfile)
@@ -96,7 +100,6 @@ with open(name, "w") as outfile:
 
         #query process under current session
         processes = []
-        sid=os.getsid(os.getpid())
         out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
         for line in out.split("\n"):
             if line == "":
