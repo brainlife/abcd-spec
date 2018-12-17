@@ -10,7 +10,9 @@ then
 	code=$(cat exit-code)
 	[ $code -eq 0 ] && exit 1
 
-	echo "finished with exit code $code"
+	#echo "finished with exit code $code"
+    logfile=$(ls -rt *.log | tail -1)
+    tail -1 $logfile
 	exit 2
 fi
 
