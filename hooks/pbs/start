@@ -46,7 +46,8 @@ chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main
 
-HOOK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#HOOK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #qsub -l epilogue=$HOOK_DIR/cleantmp.sh -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
+echo "submitting to batch scheduler"
 qsub -d $PWD -V -o \$PBS_JOBID.log -e \$PBS_JOBID.err _main > jobid
 
