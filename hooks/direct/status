@@ -5,16 +5,25 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
-if [ -f exit-code ]
-then
-	code=$(cat exit-code)
-	[ $code -eq 0 ] && exit 1
+function check_exit() 
+{
+    if [ -f exit-code ]
+    then
+        code=$(cat exit-code)
+        if [ $code -eq 0 ]
+        then 
+            logfile=$(ls -rt *.log | tail -1)
+            tail -1 $logfile
+            exit 1
+        fi
 
-	#echo "finished with exit code $code"
-    logfile=$(ls -rt *.log | tail -1)
-    tail -1 $logfile
-	exit 2
-fi
+        #echo "finished with exit code $code"
+        logfile=$(ls -rt *.log | tail -1)
+        tail -1 $logfile
+        exit 2
+    fi
+}
+check_exit
 
 if [ -f pid ]
 then
@@ -25,7 +34,10 @@ then
         tail -1 $logfile
         exit 0
     else
-        #stopped
+        #it could be in the middle of writing out exit-code.. let's wait and check again
+        sleep 5
+        check_exit 
+
         echo "no longer running but didn't finish"
         exit 2
     fi
