@@ -8,9 +8,11 @@ rm -f exit-code
 
 rm -f _smon.out
 
+
 echo "nohup-ing main" 
 #can't put time on nohup
 nohup bash -c "smon & smonpid=\$!;
+    echo \"git sha:\" \$(git rev-parse HEAD);
     ./main; 
     echo \$? > exit-code;
     kill \$smonpid" > output.log 2> error.log &
