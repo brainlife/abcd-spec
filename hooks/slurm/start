@@ -9,7 +9,7 @@ rm -f exit-code
 
 echo "#!/bin/bash" > _main
 
-[ -f jobheader.sh ] && sh ./jobheader.sh >> _main
+[ -f jobheader.sh ] && bash ./jobheader.sh >> _main
 
 grep --regexp="^#PBS" main >> _main
 
@@ -24,7 +24,10 @@ echo "./smon &" >> _main
 echo "smonpid=\$!" >> _main
 
 echo "./main" >> _main
-echo "echo \$? > exit-code" >> _main
+
+#on slurm2 exit-code file exists but was empty - maybe still being written out?
+#let's write to temp file and rename after it's written out!
+echo "echo \$? > .exit-code && mv .exit-code exit-code" >> _main
 chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main
