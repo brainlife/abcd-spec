@@ -61,6 +61,14 @@ if [ $jobstate == "COMPLETEING" ]; then
 	echo "Completing"
 	exit 0
 fi
+if [ $jobstate == "CONFIGURING" ]; then
+	echo "configuring"
+	exit 0
+fi
+if [ $jobstate == "COMPLETING" ]; then
+	echo "completing"
+	exit 0
+fi
 if [ $jobstate == "COMPLETED" ]; then
 	echo "Job finished"
 	exit 1
