@@ -9,7 +9,7 @@ rm -f exit-code
 
 echo "#!/bin/bash" > _main
 
-[ -f jobheader.sh ] && sh ./jobheader.sh >> _main
+[ -f jobheader.sh ] && bash ./jobheader.sh >> _main
 
 grep --regexp="^#PBS" main >> _main
 
