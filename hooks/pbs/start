@@ -28,7 +28,7 @@ grep --regexp="^#PBS" main >> _main
 echo "export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
 #output git SHA
-echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
+#echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 
 echo $PBS_EXTRA >> _main
 
