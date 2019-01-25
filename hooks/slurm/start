@@ -10,9 +10,12 @@ rm -f exit-code
 #--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
 echo "#!/bin/bash --login" > _main
 
-[ -f jobheader.sh ] && sh ./jobheader.sh >> _main
+[ -f jobheader.sh ] && bash ./jobheader.sh >> _main
 
 grep --regexp="^#PBS" main >> _main
+
+#output git SHA
+echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
