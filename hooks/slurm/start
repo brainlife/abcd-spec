@@ -7,7 +7,8 @@
 
 rm -f exit-code
 
-echo "#!/bin/bash" > _main
+#--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
+echo "#!/bin/bash --login" > _main
 
 [ -f jobheader.sh ] && sh ./jobheader.sh >> _main
 
@@ -20,10 +21,18 @@ rm -f _smon.out
 echo "./smon &" >> _main
 echo "smonpid=\$!" >> _main
 
+sbatch_opt=""
+if [[ $HOSTNAME == *"psc.edu" ]]; then
+    sbatch_opt="-C EGRESS"
+    #echo "source ~/.bashrc" >> _main #bridges somehow doesn't load .bashrc when job is submitted
+fi
+
 echo "./main" >> _main
 echo "echo \$? > exit-code" >> _main
 chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main
 
-sbatch --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main > jobid
+echo "submitting to batch scheduler"
+sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main > jobid
+
