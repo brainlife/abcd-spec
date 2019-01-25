@@ -16,6 +16,14 @@ grep --regexp="^#PBS" main >> _main
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
+if [ -d /oasis/scratch/comet ];
+then
+	#use comet scratch directory (SSD) for singularity_localcache
+	echo "export SINGULARITY_LOCALCACHEDIR=/scratch/\$USER/\$SLURM_JOBID" >> _main
+	#can't set this via .bashrc for some reason
+	echo "module load python/2.7.10" >> _main
+fi
+
 rm -f _smon.out
 echo "./smon &" >> _main
 echo "smonpid=\$!" >> _main
