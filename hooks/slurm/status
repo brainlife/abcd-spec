@@ -37,7 +37,7 @@ fi
 #PENDING, RUNNING, SUSPENDED, CANCELLED, COMPLETING, COMPLETED, CONFIGURING, FAILED, TIMEOUT, PREEMPTED, NODE_FAIL, REVOKED and SPECIAL_EXIT
 
 if [ $jobstate == "PENDING" ]; then
-        eststart=`squeue -h -o "%S" -j $jobid`
+        eststart=`timeout 1 squeue -h -o "%S" -j $jobid`
         echo "Waiting in the queue - estimated start time: $eststart"
 	#curl -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL
 	exit 0

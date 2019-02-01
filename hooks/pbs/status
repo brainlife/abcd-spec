@@ -36,7 +36,7 @@ fi
 
 case "$jobstate" in
 Q)
-	showstart $jobid | grep start
+	timeout 1 showstart $jobid | grep start
 	exit 0
 	;;
 R)
