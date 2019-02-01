@@ -75,8 +75,7 @@ with open(name, "w") as outfile:
     #dump info that doesn't change on the first entry
     json.dump({
         "time": time.time(), 
-        "uname": os.uname(),
-        #"hostname": socket.gethostname(), #redundant with uname[1]
+        "uname": os.uname(), #os/kernerl/hostname version
         #"cpu_count": psutil.cpu_count(), 
         "cpu_total": os.sysconf('SC_NPROCESSORS_CONF'),
         "cpu_requested": max_ppn,
@@ -88,6 +87,7 @@ with open(name, "w") as outfile:
         "walltime_requested": max_walltime,
 
         "sid": sid,
+        "uid": os.environ['USER'],
 
         "env": env,
 
