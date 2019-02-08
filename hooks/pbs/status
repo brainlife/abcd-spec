@@ -63,6 +63,9 @@ C)
 		echo "finished with code 0"
 		exit 1
 	else
+        #get last line of last err log touched
+        logfile=$(ls -rt *.err | tail -1)
+        tail -1 $logfile
 		echo "failed with code $exit_status"
 		exit 2
 	fi
