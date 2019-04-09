@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+set -x
+
+rm -f jobid
+rm -f finished
+
+./main > _submit
+echo "submitting _submit"
+condor_submit -terse _submit | cut -f 1 -d " " > jobid

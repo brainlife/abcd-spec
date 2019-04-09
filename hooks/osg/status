@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#return code 0 = running
+#return code 1 = finished successfully
+#return code 2 = failed
+#return code 3 = unnkown?
+
+if [ -f finished ]; then
+    echo "already finished"
+    exit 1
+fi
+
+if [ -f jobid ]; then
+    jobid=`cat jobid`
+    jobstate=$(condor_q -long $jobid | grep "^JobStatus" | cut -d " " -f 3)
+    #echo $jobstate
+    if [ -z $jobstate ]; then
+        exit 2 #removed?
+    fi
+    #http://pages.cs.wisc.edu/~adesmet/status.html
+	#0	Unexpanded	U
+	#1	Idle	I
+	#2	Running	R
+	#3	Removed	X
+	#4	Completed	C
+	#5	Held	H
+	#6	Submission_err	E
+
+    if [ $jobstate == "0" ]; then
+        exit 3
+    fi
+    if [ $jobstate == "1" ]; then
+	echo "idle (waiting)"
+        exit 0
+    fi
+    if [ $jobstate == "2" ]; then
+        logfile=$(ls -rt *.log | tail -1)
+        tail -1 $logfile
+        exit 0
+    fi
+    if [ $jobstate == "3" ]; then
+	echo "job removed"
+        exit 2
+    fi
+    if [ $jobstate == "4" ]; then
+        logfile=$(ls -rt *.log | tail -1)
+        #logfile=$(ls -rt *.err | tail -1)
+        tail -1 $logfile
+    fi
+    if [ $jobstate == "5" ]; then
+	echo "job held (failed)"
+        exit 2
+    fi
+    if [ $jobstate == "6" ]; then
+	echo "submission error"
+        exit 2
+    fi
+
+    echo "odd.."
+    exit 2
+fi
+
+echo "can't determine the status!"
+exit 3

@@ -40,10 +40,14 @@ Q)
 	exit 0
 	;;
 R)
-	#get last line of last log touched
-	logfile=$(ls -rt *.log | tail -1)
-	tail -1 $logfile
-	exit 0
+    if [ -f log.sh ]; then
+        bash ./log.sh
+    else
+        #get last line of last log touched
+        logfile=$(ls -rt *.log | tail -1)
+        tail -1 $logfile
+    fi
+    exit 0
 	;;
 E)
 	echo "job is exiting after having run.. waiting"
