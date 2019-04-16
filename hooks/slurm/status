@@ -53,39 +53,31 @@ if [ $jobstate == "RUNNING" ]; then
     fi
     exit 0
 fi
+
+echo $jobstate
 if [ $jobstate == "FAILED" ]; then
-	echo "Job failed"
 	exit 2
 fi
 if [ $jobstate == "COMPLETEING" ]; then
-	echo "Completing"
 	exit 0
 fi
 if [ $jobstate == "CONFIGURING" ]; then
-	echo "configuring"
 	exit 0
 fi
 if [ $jobstate == "COMPLETING" ]; then
-	echo "completing"
 	exit 0
 fi
 if [ $jobstate == "COMPLETED" ]; then
-	echo "Job finished"
 	exit 1
 fi
 if [ $jobstate == "CANCELLED" ]; then
-	echo "Job canceled"
 	exit 2
 fi
 if [ $jobstate == "NODE_FAIL" ]; then
-	echo "node failed.. please resubmit"
 	exit 2
 fi
 if [ $jobstate == "TIMEOUT" ]; then
-	echo "Job timed out"
 	exit 2
 fi
-
-echo "unknown state: $jobstate"
 exit 3
 
