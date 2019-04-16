@@ -5,8 +5,6 @@ import subprocess
 import json
 import time
 import sys
-#import psutil
-#import socket
 
 name="_smon.out"
 delay=30
@@ -42,7 +40,10 @@ with open(name, "w") as outfile:
     max_walltime = None
     if "PBS_JOBID" in os.environ:
         #PBS doesn't expose requested memory in ENV.. I need to query from qstat
-        out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]])
+        if sys.version_info >= (3,0):
+            out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]], encoding='utf8')
+        else:
+            out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]])
         qstat={}
         for line in out.split("\n"):
             delpos = line.find("=")
@@ -100,7 +101,10 @@ with open(name, "w") as outfile:
 
         #query process under current session
         processes = []
-        out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
+        if sys.version_info >= (3,0):
+            out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"], encoding='utf8')
+        else:
+            out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
         for line in out.split("\n"):
             if line == "":
                 continue
@@ -126,7 +130,10 @@ with open(name, "w") as outfile:
 
         #query disk usage
         disks = []
-        out=subprocess.check_output(["du", "-s"])
+        if sys.version_info >= (3,0):
+            out=subprocess.check_output(["du", "-s"], encoding='utf8')
+        else:
+            out=subprocess.check_output(["du", "-s"])
         for line in out.split("\n"):
             if line == "":
                 continue

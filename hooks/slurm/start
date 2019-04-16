@@ -41,17 +41,17 @@ fi
 #pbs uses vmem which is not read by slurm as mem which then allows job to be shared
 if grep "vmem=" main > /dev/null; then
     mem=$(grep "vmem=" main | node -e '
-	let str = "";
-	process.stdin.on("data", (data)=>{ str += data; });
-	process.stdin.on("close", ()=>{
-		let pos = str.indexOf("vmem=");	
-		str = str.substring(pos+5).trim();
-		
-		let end = str.length;
-		if(~str.indexOf(",")) end = str.indexOf(",");	
-		str = str.substring(0, end);	
-		console.log(str);
-	});
+        let str = "";
+        process.stdin.on("data", (data)=>{ str += data; });
+        process.stdin.on("close", ()=>{
+                let pos = str.indexOf("vmem=");
+                str = str.substring(pos+5).trim();
+
+                let end = str.length;
+                if(~str.indexOf(",")) end = str.indexOf(",");
+                str = str.substring(0, end);
+                console.log(str);
+        });
     ')
     sbatch_opt="$sbatch_opt --mem=$mem"
 fi
@@ -65,6 +65,6 @@ chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main
 
-echo "submitting to batch scheduler: $sbatch_opt"
+echo "submitting to batch scheduler with sbatch_opt:$sbatch_opt"
 sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main > jobid
 
