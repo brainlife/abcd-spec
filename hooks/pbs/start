@@ -27,6 +27,9 @@ grep --regexp="^#PBS" main >> _main
 #TODO - should let each cluster set this via PBS_EXTRA?
 echo "export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
+#make sure matlab won't use ~/.mcrCache9.2 to store MCR cache
+echo "export SINGULARITYENV_MCR_CACHE_ROOT=\$PWD" >> _main
+
 #output git SHA
 #echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 

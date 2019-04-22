@@ -1,11 +1,22 @@
 #!/bin/bash
 
 set -e
-set -x
+#set -x
 
 rm -f jobid
 rm -f finished
 
-./main > _submit
-echo "submitting _submit"
-condor_submit -terse _submit | cut -f 1 -d " " > jobid
+if [ -f start ]; then
+	./start
+	exit $?
+fi
+
+if [ -f main ]; then
+	./main > _submit
+	echo "submitting _submit"
+	condor_submit -terse _submit | cut -f 1 -d " " > jobid
+	exit $?
+fi
+
+echo "please provide either start or main"
+exit 1

@@ -5,6 +5,8 @@
 #return code 2 = failed
 #return code 3 = unnkown?
 
+set -o pipefail
+
 if [ -f finished ]; then
     echo "already finished"
     exit 1
@@ -12,12 +14,34 @@ fi
 
 if [ -f jobid ]; then
     jobid=`cat jobid`
-    jobstate=$(condor_q -long $jobid | grep "^JobStatus" | cut -d " " -f 3)
-    #echo $jobstate
-    if [ -z $jobstate ]; then
+    if [ -z $jobid ]; then
+	echo "no jobid?"
         exit 2 #removed?
     fi
-    #http://pages.cs.wisc.edu/~adesmet/status.html
+    #echo "condor_q -long $jobid"
+    jobstate=$(condor_q -long $jobid | grep "^JobStatus" | head -1 | cut -d " " -f 3)
+    if [ $? -ne 0 ]; then
+	echo "condor_q failed.. trying history"
+	jobstate=""
+    fi
+    if [ -z $jobstate ]; then
+	#check the history
+        #echo "condor_history -long $jobid"
+	jobstate=$(condor_history -long $jobid | grep "^JobStatus" | head -1 | cut -d " " -f 3)
+	if [ $? -ne 0 ]; then
+	    echo "condor_history failed.. will try again later"
+	    exit 3
+	fi
+	if [ -z $jobstate ]; then
+	    echo "couldn't get jobstate.. removed?"
+	    exit 2 #removed?
+	fi
+    fi
+
+    #echo "exitcode $exitcode"
+    #echo "jobstate:$jobstate "
+
+	#http://pages.cs.wisc.edu/~adesmet/status.html
 	#0	Unexpanded	U
 	#1	Idle	I
 	#2	Running	R
@@ -34,6 +58,7 @@ if [ -f jobid ]; then
         exit 0
     fi
     if [ $jobstate == "2" ]; then
+	echo "running.."
         logfile=$(ls -rt *.log | tail -1)
         tail -1 $logfile
         exit 0
@@ -43,13 +68,19 @@ if [ -f jobid ]; then
         exit 2
     fi
     if [ $jobstate == "4" ]; then
+	exitcode=$(condor_history -long $jobid | grep "^ExitCode" | head -1 | cut -d " " -f 3)
+	echo "finished with code:$exitcode"
         logfile=$(ls -rt *.log | tail -1)
-        #logfile=$(ls -rt *.err | tail -1)
         tail -1 $logfile
+	if [ $exitcode -eq 0 ]; then
+		exit 1
+	else
+		exit 2
+	fi
     fi
     if [ $jobstate == "5" ]; then
-	echo "job held (failed)"
-        exit 2
+	echo "job held"
+        exit 0
     fi
     if [ $jobstate == "6" ]; then
 	echo "submission error"
