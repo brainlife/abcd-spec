@@ -63,7 +63,11 @@ H)
 	;;
 C)
 	exit_status=`qstat -f $jobid | grep exit_status | cut -d'=' -f2 | xargs`
-	if [ $exit_status -eq 0 ]; then	
+	if [ ! $exit_status ]; then
+        echo "removed before started?"
+        exit 2
+    fi
+    if [ $exit_status -eq 0 ]; then	
 		echo "finished with code 0"
 		exit 1
 	else
