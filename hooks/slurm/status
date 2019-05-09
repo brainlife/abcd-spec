@@ -53,10 +53,8 @@ if [ $jobstate == "RUNNING" ]; then
     fi
     exit 0
 fi
-if [ $jobstate == "FAILED" ]; then
-	echo "Job failed"
-	exit 2
-fi
+
+
 if [ $jobstate == "COMPLETEING" ]; then
 	echo "Completing"
 	exit 0
@@ -69,10 +67,16 @@ if [ $jobstate == "COMPLETING" ]; then
 	echo "completing"
 	exit 0
 fi
+if [ $jobstate == "REQUEUE_HOLD" ]; then
+	echo "Requeue Hold"
+	exit 0 
+fi
+
 if [ $jobstate == "COMPLETED" ]; then
 	echo "Job finished"
 	exit 1
 fi
+
 if [ $jobstate == "CANCELLED" ]; then
 	echo "Job canceled"
 	exit 2
@@ -85,7 +89,10 @@ if [ $jobstate == "TIMEOUT" ]; then
 	echo "Job timed out"
 	exit 2
 fi
-
+if [ $jobstate == "FAILED" ]; then
+	echo "Job failed"
+	exit 2
+fi
 echo "unknown state: $jobstate"
 exit 3
 
