@@ -13,6 +13,7 @@ echo "#!/bin/bash --login" > _main
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _main
 
 grep --regexp="^#PBS" main >> _main
+grep --regexp="^#SBATCH" main >> _main
 
 #output git SHA
 #echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
