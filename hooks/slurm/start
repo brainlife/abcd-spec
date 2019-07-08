@@ -13,6 +13,7 @@ echo "#!/bin/bash --login" > _main
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _main
 
 grep --regexp="^#PBS" main >> _main
+grep --regexp="^#SBATCH" main >> _main
 
 #output git SHA
 #echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
@@ -57,7 +58,10 @@ if grep "vmem=" main > /dev/null; then
 fi
 
 echo "./main" >> _main
-echo "echo \$? > exit-code" >> _main
+
+#on slurm2 exit-code file exists but was empty - maybe still being written out?
+#let's write to temp file and rename after it's written out!
+echo "echo \$? > .exit-code && mv .exit-code exit-code" >> _main
 chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main

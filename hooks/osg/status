@@ -9,34 +9,45 @@ set -o pipefail
 
 if [ -f finished ]; then
     echo "already finished"
-    exit 1
+    exit 1 #success
 fi
 
 if [ -f jobid ]; then
     jobid=`cat jobid`
     if [ -z $jobid ]; then
 	echo "no jobid?"
-        exit 2 #removed?
+        exit 2 #failed
     fi
     #echo "condor_q -long $jobid"
     jobstate=$(condor_q -long $jobid | grep "^JobStatus" | head -1 | cut -d " " -f 3)
     if [ $? -ne 0 ]; then
-	echo "condor_q failed.. trying history"
-	jobstate=""
-    fi
-    if [ -z $jobstate ]; then
-	#check the history
-        #echo "condor_history -long $jobid"
-	jobstate=$(condor_history -long $jobid | grep "^JobStatus" | head -1 | cut -d " " -f 3)
-	if [ $? -ne 0 ]; then
-	    echo "condor_history failed.. will try again later"
-	    exit 3
-	fi
-	if [ -z $jobstate ]; then
-	    echo "couldn't get jobstate.. removed?"
-	    exit 2 #removed?
+	echo "condor_q failed($?).. or job no longer exists - guessing status from the timestamp of the last log"
+	if [ $(find . -mmin -60 | wc -l) -eq 0 ]; then
+		echo "nothing is updated in the last 60 minutes.. failing"
+		exit 2 #failed
+	else
+		echo "files still getting updated... will check again later"
+		exit 3 #Unknown
 	fi
     fi
+
+#    if [ -z $jobstate ]; then
+#	#check the history
+#        #echo "condor_history -long $jobid"
+#	jobstate=$(condor_history -long $jobid | grep "^JobStatus" | head -1 | cut -d " " -f 3)
+#	if [ $? -ne 0 ]; then
+#	    echo "job is gone and no finished file exists"
+#            exit 2
+#	    #echo "condor_history failed.. will check later again"
+#	    #exit 3
+#	    #echo "condor_history failed.. assuming success"
+#	    #exit 1
+#	fi
+#	if [ -z $jobstate ]; then
+#	    echo "couldn't get jobstate.. removed?"
+#	    exit 2 #removed?
+#	fi
+#    fi
 
     #echo "exitcode $exitcode"
     #echo "jobstate:$jobstate "
@@ -54,13 +65,13 @@ if [ -f jobid ]; then
         exit 3
     fi
     if [ $jobstate == "1" ]; then
-	echo "idle (waiting)"
+	echo "waiting for job slot (idle)"
         exit 0
     fi
     if [ $jobstate == "2" ]; then
-	echo "running.."
+	#echo "running.."
         logfile=$(ls -rt *.log | tail -1)
-        tail -1 $logfile
+        tail -2 $logfile
         exit 0
     fi
     if [ $jobstate == "3" ]; then
@@ -71,7 +82,7 @@ if [ -f jobid ]; then
 	exitcode=$(condor_history -long $jobid | grep "^ExitCode" | head -1 | cut -d " " -f 3)
 	echo "finished with code:$exitcode"
         logfile=$(ls -rt *.log | tail -1)
-        tail -1 $logfile
+        tail -2 $logfile
 	if [ $exitcode -eq 0 ]; then
 		exit 1
 	else
