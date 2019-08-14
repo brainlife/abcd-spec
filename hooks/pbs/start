@@ -33,6 +33,9 @@ echo "export SINGULARITYENV_MCR_CACHE_ROOT=\$PWD" >> _main
 #output git SHA
 #echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 
+#this avoid affected by lustre mount being full
+echo "[[ $PWD == /N/dc2/* ]] && lfs setstripe -c 8 ." >> _main
+
 echo $PBS_EXTRA >> _main
 
 rm -f _smon.out
