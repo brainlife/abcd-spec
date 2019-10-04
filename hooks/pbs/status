@@ -45,7 +45,7 @@ R)
     else
         #get last line of last log touched
         logfile=$(ls -rt *.log | tail -1)
-        tail -1 $logfile
+	tail -10 $logfile | grep -v -e '^$' | tail -1 #don't show empty last line
     fi
     exit 0
 	;;
@@ -71,9 +71,9 @@ C)
 		echo "finished with code 0"
 		exit 1
 	else
-        #get last line of last err log touched
-        logfile=$(ls -rt *.err | tail -1)
-        tail -1 $logfile
+		#get last line of last err log touched
+		logfile=$(ls -rt *.err | tail -1)
+		tail -10 $logfile | grep -v -e '^$' | tail -1 #don't show empty last line
 		echo "failed with code $exit_status"
 		exit 2
 	fi
