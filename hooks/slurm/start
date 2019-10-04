@@ -18,6 +18,8 @@ grep --regexp="^#SBATCH" main >> _main
 #output git SHA
 #echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 
+[ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _main
+
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
