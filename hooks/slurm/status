@@ -39,7 +39,6 @@ fi
 if [ $jobstate == "PENDING" ]; then
         eststart=`timeout 1 squeue -h -o "%S" -j $jobid`
         echo "Waiting in the queue - estimated start time: $eststart"
-	#curl -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL
 	exit 0
 fi
 if [ $jobstate == "RUNNING" ]; then
@@ -47,7 +46,7 @@ if [ $jobstate == "RUNNING" ]; then
     if [ -z $logname ]; then
         echo "(empty log)"
     elif [ -f $logname ]; then
-        tail -1 $logname
+	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
     else 
         echo "Running"
     fi

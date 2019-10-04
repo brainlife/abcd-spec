@@ -13,13 +13,13 @@ function check_exit()
         if [ $code -eq 0 ]
         then 
             logfile=$(ls -rt *.log | tail -1)
-            tail -1 $logfile
+	    tail -10 $logfile | grep -v -e '^$' | tail -1
             exit 1
         fi
 
         #echo "finished with exit code $code"
         logfile=$(ls -rt *.log | tail -1)
-        tail -1 $logfile
+	tail -10 $logfile | grep -v -e '^$' | tail -1
         exit 2
     fi
 }
@@ -31,7 +31,7 @@ then
     then
         #get last line of last log touched
         logfile=$(ls -rt *.log | tail -1)
-        tail -1 $logfile
+	tail -10 $logfile | grep -v -e '^$' | tail -1
         exit 0
     else
         #it could be in the middle of writing out exit-code.. let's wait and check again
