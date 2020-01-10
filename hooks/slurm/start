@@ -23,13 +23,16 @@ grep --regexp="^#SBATCH" main >> _main
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
-if [ -d /oasis/scratch/comet ];
-then
-	#use comet scratch directory (SSD) for singularity_localcache
-	echo "export SINGULARITY_LOCALCACHEDIR=/scratch/\$USER/\$SLURM_JOBID" >> _main
-	#can't set this via .bashrc for some reason
-	echo "module load python/2.7.10" >> _main
-fi
+#if [ -d /oasis/scratch/comet ];
+#then
+#	#use comet scratch directory (SSD) for singularity_localcache
+#	echo "export SINGULARITY_LOCALCACHEDIR=/scratch/\$USER/\$SLURM_JOBID" >> _main
+#	#can't set this via .bashrc for some reason
+#	echo "module load python/2.7.10" >> _main
+#fi
+
+#use TMPDIR to store singularity cache if available
+echo "[ ! -z \$TMPDIR ] && export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
 rm -f _smon.out
 echo "./smon &" >> _main
