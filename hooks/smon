@@ -135,7 +135,7 @@ with open(name, "w") as outfile:
                     processes[pid] = []
                 processes[pid].append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
 
-                time.sleep(2)
+            time.sleep(2)
 
         #aggregate processes list for each pid
         processes_groups = []
