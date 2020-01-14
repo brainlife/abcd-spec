@@ -93,9 +93,11 @@ with open(name, "w") as outfile:
         "env": env,
 
         }, outfile)
-    outfile.write("\n")
 
-    #print("updating "+name+" every "+str(delay)+" seconds")
+    outfile.write("\n")
+    outfile.flush()
+
+    #now start infinite loop!
     while True:
 
         #query process under current session (query every 2 seconds for 1 minute)
