@@ -137,21 +137,19 @@ with open(name, "w") as outfile:
 
             time.sleep(2)
 
-        #aggregate processes list for each pid
+        #aggregate(max) processes list for each pid
         processes_groups = []
         for pid in processes:
             group = processes[pid]
             last = group[len(group)-1]
             agg = {"pid": last["pid"], "pcpu": 0, "pmem": 0, "rss": 0, "vsz": 0, "etime": last["etime"], "cmd": last["cmd"]}
+	    #pick max value
             for p in group:
-                agg["pcpu"]+=p["pcpu"]
-                agg["pmem"]+=p["pmem"]
-                agg["rss"]+=p["rss"]
-                agg["vsz"]+=p["vsz"]
-            agg["pcpu"]/=len(group)
-            agg["pmem"]/=len(group)
-            agg["rss"]/=len(group)
-            agg["vsz"]/=len(group)
+                agg["pcpu"]=max(agg["pcpu"], p["pcpu"])
+                agg["pmem"]=max(agg["pmem"], p["pmem"])
+                agg["rss"]=max(agg["rss"], p["rss"])
+                agg["vsz"]=max(agg["vsz"], p["vsz"])
+
             processes_groups.append(agg)
 
         #query disk usage
