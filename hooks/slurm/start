@@ -77,7 +77,5 @@ chmod +x main #in case user fogets it
 
 echo "kill \$smonpid" >> _main
 
-echo "submitting to batch scheduler with sbatch_opt:$sbatch_opt"
 sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main | tail -1 > jobid
-
-
+echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"
