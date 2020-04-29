@@ -154,17 +154,21 @@ with open(name, "w") as outfile:
 
         #query disk usage
         disks = []
-        if sys.version_info >= (3,0):
-            out=subprocess.check_output(["du", "-s"], encoding='utf8')
-        else:
-            out=subprocess.check_output(["du", "-s"])
-        for line in out.split("\n"):
-            if line == "":
-                continue
-            tokens=line.split()
-            size=int(tokens[0])
-            path=tokens[1]
-            disks.append({"path": path, "size": size})
+        try:
+            if sys.version_info >= (3,0):
+                out=subprocess.check_output(["du", "-s"], encoding='utf8')
+            else:
+                out=subprocess.check_output(["du", "-s"])
+            for line in out.split("\n"):
+                if line == "":
+                    continue
+                tokens=line.split()
+                size=int(tokens[0])
+                path=tokens[1]
+                disks.append({"path": path, "size": size})
+        except CalledProcessError as err:
+            #sometimes files go missing while running du.. but that's ok
+            print(err)
 
         json.dump({
             "time": time.time(), 
