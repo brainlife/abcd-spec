@@ -10,6 +10,12 @@ if [ ! -f jobid ];then
 	exit 1
 fi
 
+jobid=`cat jobid`
+if [ -z $jobid ]; then
+	echo "jobid is empty.. failed to submit?"
+	exit 3
+fi
+
 if [ -f exit-code ]
 then
     code=$(cat exit-code)
@@ -17,14 +23,17 @@ then
         echo "finished successfully"
         exit 1
     fi
-    echo "finished with exit code $code"
-    exit 2
-fi
 
-jobid=`cat jobid`
-if [ -z $jobid ]; then
-	echo "jobid is empty.. failed to submit?"
-	exit 3
+    #non 0 exit code..
+    logname="slurm-$jobid.err"
+    if [ -z $logname ]; then
+	    echo "finished with exit code $code (.err empty)"
+    elif [ -f $logname ]; then
+	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+    else 
+        echo "finished with exit code $code (no .err log)"
+    fi
+    exit 2
 fi
 
 jobstate=`scontrol show job $jobid | grep JobState | cut -f4 -d' ' | cut -f2 -d'='`
@@ -87,4 +96,3 @@ if [ $jobstate == "FAILED" ]; then
 fi
 echo "unknown state: $jobstate"
 exit 3
-
