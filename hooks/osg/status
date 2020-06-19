@@ -5,6 +5,11 @@
 #return code 2 = failed
 #return code 3 = unnkown?
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname \"$0\"`/../direct/stop
+        exit $?
+fi
+
 set -o pipefail
 
 if [ -f finished ]; then

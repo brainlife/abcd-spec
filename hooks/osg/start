@@ -1,7 +1,11 @@
 #!/bin/bash
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname \"$0\"`/../direct/start
+        exit $?
+fi
+
 set -e
-#set -x
 
 rm -f jobid
 rm -f finished
