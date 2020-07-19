@@ -3,6 +3,7 @@
 import json
 import pathlib
 import os
+import sys
 
 #datatype IDs that we handle (everything else is treated as derivatives)
 ANAT_T1W = "58c33bcee13a50849b25879a"
@@ -33,6 +34,11 @@ def link(src, dest):
 
 with open('config.json') as f:
     config = json.load(f)
+
+    if not "_inputs" in config:
+        print("no _inputs in config.json.. can't generate bids structure without it")
+        sys.exit(1)
+
 
     for input in config["_inputs"]:
 
@@ -126,5 +132,15 @@ with open('config.json') as f:
                 #print(path, name, key, config[key])
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
 
-
+#generate fake dataset_description.json
+name="brainlife"
+if "TASK_ID" in os.environ:
+    name += " task:"+os.environ["TASK_ID"]
+desc = {
+  "Name": name,
+  "BIDSVersion": "1.4.0",
+}
+pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
+with open("bids/dataset_description.json", 'w') as f:
+    json.dump(desc, f)
 
