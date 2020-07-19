@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+
+import json
+import pathlib
+import os
+
+#datatype IDs that we handle (everything else is treated as derivatives)
+ANAT_T1W = "58c33bcee13a50849b25879a"
+DWI = "58c33c5fe13a50849b25879b"
+FUNC_TASK = "59b685a08e5d38b0b331ddc5"
+FUNC_REGRESSORS = "5c4f6a8af9109beac4b3dae0"
+
+def getModality(input):
+    if input["datatype"] == ANAT_T1W:
+        return "anat"
+    if input["datatype"] == DWI:
+        return "dwi"
+    if input["datatype"] == FUNC_TASK:
+        return "func"
+    if input["datatype"] == FUNC_REGRESSORS:
+        return "func"
+    return "derivatives"
+
+def outputSidecar(path, input):
+    with open(path, 'w') as outfile:
+        json.dump(input["meta"], outfile)
+
+def link(src, dest):
+    try:
+        os.symlink(src, dest)
+    except FileExistsError:
+        pass
+
+with open('config.json') as f:
+    config = json.load(f)
+
+    for input in config["_inputs"]:
+
+        path="bids"
+
+        #all non raw data is stored under derivatives
+        modality=getModality(input)
+        if modality == "derivatives":
+            path += "/derivatives"
+            path += "/"+input["task_id"] #TODO we need app name for "pipeline name"
+
+        path+="/sub-"+input["meta"]["subject"]
+        path+="/ses-"+input["meta"]["session"]
+
+        name="sub-"+input["meta"]["subject"]
+        name+="_ses-"+input["meta"]["session"]
+        if "run" in input["meta"]:
+            name+="_run-"+input["meta"]["run"]
+    
+        pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+
+        recover = ""
+        for i in path.split("/"):
+            recover += "../"
+
+        if input["datatype"] == ANAT_T1W:
+            #there should be 1 and only nifti
+            for key in input["keys"]:
+                src=recover+config[key]
+                dest=path+"/"+name
+                if src.endswith("t1.nii.gz"):
+                    link(src, dest)
+            outputSidecar(path+"/"+name+"_T1w.json", input)
+            
+        elif input["datatype"] == DWI:
+            for key in input["keys"]:
+                src=recover+config[key]
+                dest=path+"/"+name
+                if src.endswith("dwi.nii.gz"):
+                    link(src, dest+"_dwi.nii.gz")
+                if src.endswith("dwi.bvecs"):
+                    link(src, dest+"_dwi.bvec")
+                if src.endswith("dwi.bvals"):
+                    link(src, dest+"_dwi.bval")
+            outputSidecar(path+"/"+name+"_dwi.json", input)
+
+        elif input["datatype"] == FUNC_TASK:
+            name+="_task-"+input["meta"]["task"]
+            if "echo" in input["meta"]:
+                name+="_echo-"+input["meta"]["echo"]
+
+            for key in input["keys"]:
+                src=recover+config[key]
+                dest=path+"/"+name
+                if src.endswith("bold.nii.gz"):
+                    link(src, dest+"_bold.nii.gz")
+                if src.endswith("events.tsv"):
+                    link(src, dest+"_events.tsv")
+                if src.endswith("events.json"):
+                    link(src, dest+"_events.json")
+                if src.endswith("sbref.nii.gz"):
+                    link(src, dest+"_sbref.nii.gz")
+                if src.endswith("sbref.json"):
+                    link(src, dest+"_sbref.json")
+                if src.endswith("physio.tsv.gz"):
+                    link(src, dest+"_physio.tsv.gz")
+                if src.endswith("physio.json"):
+                    link(src, dest+"_physio.json")
+            outputSidecar(path+"/"+name+"_bold.json", input)
+
+        elif input["datatype"] == FUNC_REGRESSORS:
+            name+="_task-"+input["meta"]["task"]
+            if "echo" in input["meta"]:
+                name+="_echo-"+input["meta"]["echo"]
+
+            name += "_desc-confound"
+            for key in input["keys"]:
+                src=recover+config[key]
+                dest=path+"/"+name
+                if src.endswith("regressors.tsv"):
+                    link(src, dest+"_regressors.tsv")
+            outputSidecar(path+"/"+name+"_regressors.json", input)
+ 
+        else:
+            #just copy the entire file/dir name
+            for key in input["keys"]:
+                base = os.path.basename(config[key])
+                src=recover+config[key]
+                dest=path+"/"+name
+                link(src, dest+"_"+base)
+                #print(path, name, key, config[key])
+            outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
+
+
+

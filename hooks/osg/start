@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
-        `dirname \"$0\"`/../direct/start
+        `dirname $0`/../direct/start
         exit $?
 fi
 
