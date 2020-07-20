@@ -39,7 +39,6 @@ with open('config.json') as f:
         print("no _inputs in config.json.. can't generate bids structure without it")
         sys.exit(1)
 
-
     for input in config["_inputs"]:
 
         path="bids"
@@ -51,10 +50,12 @@ with open('config.json') as f:
             path += "/"+input["task_id"] #TODO we need app name for "pipeline name"
 
         path+="/sub-"+input["meta"]["subject"]
-        path+="/ses-"+input["meta"]["session"]
+        if "session" in input["meta"]:
+            path+="/ses-"+input["meta"]["session"]
 
         name="sub-"+input["meta"]["subject"]
-        name+="_ses-"+input["meta"]["session"]
+        if "session" in input["meta"]:
+            name+="_ses-"+input["meta"]["session"]
         if "run" in input["meta"]:
             name+="_run-"+input["meta"]["run"]
     
