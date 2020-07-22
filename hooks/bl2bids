@@ -4,6 +4,7 @@ import json
 import pathlib
 import os
 import sys
+import re
 
 #datatype IDs that we handle (everything else is treated as derivatives)
 ANAT_T1W = "58c33bcee13a50849b25879a"
@@ -32,6 +33,9 @@ def link(src, dest):
     except FileExistsError:
         pass
 
+def clean(v):
+    return re.sub(r'\W+', '', v)
+
 with open('config.json') as f:
     config = json.load(f)
 
@@ -43,21 +47,33 @@ with open('config.json') as f:
 
         path="bids"
 
+        subject = None
+        if "subject" in input["meta"]:
+            subject = clean(input["meta"]["subject"])
+
+        session = None
+        if "session" in input["meta"]:
+            session = clean(input["meta"]["session"])
+
+        run = None
+        if "run" in input["meta"]:
+            run = clean(input["meta"]["run"])
+
         #all non raw data is stored under derivatives
         modality=getModality(input)
         if modality == "derivatives":
             path += "/derivatives"
             path += "/"+input["task_id"] #TODO we need app name for "pipeline name"
 
-        path+="/sub-"+input["meta"]["subject"]
-        if "session" in input["meta"]:
-            path+="/ses-"+input["meta"]["session"]
+        path+="/sub-"+subject
+        if session:
+            path+="/ses-"+session
 
-        name="sub-"+input["meta"]["subject"]
-        if "session" in input["meta"]:
-            name+="_ses-"+input["meta"]["session"]
-        if "run" in input["meta"]:
-            name+="_run-"+input["meta"]["run"]
+        name="sub-"+subject
+        if session:
+            name+="_ses-"+session
+        if run:
+            name+="_run-"+run
     
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
@@ -87,9 +103,9 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_dwi.json", input)
 
         elif input["datatype"] == FUNC_TASK:
-            name+="_task-"+input["meta"]["task"]
+            name+="_task-"+clean(input["meta"]["task"])
             if "echo" in input["meta"]:
-                name+="_echo-"+input["meta"]["echo"]
+                name+="_echo-"+clean(input["meta"]["echo"])
 
             for key in input["keys"]:
                 src=recover+config[key]
@@ -111,9 +127,9 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_bold.json", input)
 
         elif input["datatype"] == FUNC_REGRESSORS:
-            name+="_task-"+input["meta"]["task"]
+            name+="_task-"+clean(input["meta"]["task"])
             if "echo" in input["meta"]:
-                name+="_echo-"+input["meta"]["echo"]
+                name+="_echo-"+clean(input["meta"]["echo"])
 
             name += "_desc-confound"
             for key in input["keys"]:
