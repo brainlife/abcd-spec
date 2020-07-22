@@ -1,9 +1,11 @@
 #!/bin/bash
 
-#terminate if any command fails (and any command piped)
-#I don't want not finding any #PBS to fail
-#set -e
-#set -o pipefail
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/start
+        exit $?
+fi
+
+set -e
 
 rm -f exit-code
 

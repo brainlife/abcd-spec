@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/start
+        exit $?
+fi
+
 #I don't want not finding any #PBS to fail
 #set -e
 #set -o pipefail

@@ -5,6 +5,11 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/status
+        exit $?
+fi
+
 if [ ! -f jobid ];then
 	echo "no jobid - not yet submitted?"
 	exit 3
