@@ -5,7 +5,8 @@ if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]
         exit $?
 fi
 
-set -e
+#this breka grep below
+#set -e
 
 rm -f exit-code
 
