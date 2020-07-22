@@ -11,6 +11,7 @@ ANAT_T1W = "58c33bcee13a50849b25879a"
 DWI = "58c33c5fe13a50849b25879b"
 FUNC_TASK = "59b685a08e5d38b0b331ddc5"
 FUNC_REGRESSORS = "5c4f6a8af9109beac4b3dae0"
+FMAP = "5c390505f9109beac42b00df"
 
 def getModality(input):
     if input["datatype"] == ANAT_T1W:
@@ -21,15 +22,20 @@ def getModality(input):
         return "func"
     if input["datatype"] == FUNC_REGRESSORS:
         return "func"
+    if input["datatype"] == FMAP:
+        return "fmap"
     return "derivatives"
 
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
         json.dump(input["meta"], outfile)
 
-def link(src, dest):
+def link(recover, src, dest):
     try:
-        os.symlink(src, dest)
+        if os.path.exists(src):
+            os.symlink(recover+src, dest)
+        #else:
+        #    print("can't find ", src)
     except FileExistsError:
         pass
 
@@ -59,6 +65,10 @@ with open('config.json') as f:
         if "run" in input["meta"]:
             run = clean(input["meta"]["run"])
 
+        acq = None
+        if "acq" in input["meta"]:
+            acq = clean(input["meta"]["acq"])
+
         #all non raw data is stored under derivatives
         modality=getModality(input)
         if modality == "derivatives":
@@ -72,8 +82,15 @@ with open('config.json') as f:
         name="sub-"+subject
         if session:
             name+="_ses-"+session
+        if acq:
+            name+="_acq-"+acq
         if run:
             name+="_run-"+run
+
+        if modality == "derivatives":
+            path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
+        else:
+            path += "/"+modality
     
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
@@ -84,22 +101,22 @@ with open('config.json') as f:
         if input["datatype"] == ANAT_T1W:
             #there should be 1 and only nifti
             for key in input["keys"]:
-                src=recover+config[key]
+                src=config[key]
                 dest=path+"/"+name
                 if src.endswith("t1.nii.gz"):
-                    link(src, dest)
+                    link(recover, src, dest)
             outputSidecar(path+"/"+name+"_T1w.json", input)
             
         elif input["datatype"] == DWI:
             for key in input["keys"]:
-                src=recover+config[key]
+                src=config[key]
                 dest=path+"/"+name
                 if src.endswith("dwi.nii.gz"):
-                    link(src, dest+"_dwi.nii.gz")
+                    link(recover, src, dest+"_dwi.nii.gz")
                 if src.endswith("dwi.bvecs"):
-                    link(src, dest+"_dwi.bvec")
+                    link(recover, src, dest+"_dwi.bvec")
                 if src.endswith("dwi.bvals"):
-                    link(src, dest+"_dwi.bval")
+                    link(recover, src, dest+"_dwi.bval")
             outputSidecar(path+"/"+name+"_dwi.json", input)
 
         elif input["datatype"] == FUNC_TASK:
@@ -108,22 +125,22 @@ with open('config.json') as f:
                 name+="_echo-"+clean(input["meta"]["echo"])
 
             for key in input["keys"]:
-                src=recover+config[key]
+                src=config[key]
                 dest=path+"/"+name
                 if src.endswith("bold.nii.gz"):
-                    link(src, dest+"_bold.nii.gz")
+                    link(recover, src, dest+"_bold.nii.gz")
                 if src.endswith("events.tsv"):
-                    link(src, dest+"_events.tsv")
+                    link(recover, src, dest+"_events.tsv")
                 if src.endswith("events.json"):
-                    link(src, dest+"_events.json")
+                    link(recover, src, dest+"_events.json")
                 if src.endswith("sbref.nii.gz"):
-                    link(src, dest+"_sbref.nii.gz")
+                    link(recover, src, dest+"_sbref.nii.gz")
                 if src.endswith("sbref.json"):
-                    link(src, dest+"_sbref.json")
+                    link(recover, src, dest+"_sbref.json")
                 if src.endswith("physio.tsv.gz"):
-                    link(src, dest+"_physio.tsv.gz")
+                    link(recover, src, dest+"_physio.tsv.gz")
                 if src.endswith("physio.json"):
-                    link(src, dest+"_physio.json")
+                    link(recover, src, dest+"_physio.json")
             outputSidecar(path+"/"+name+"_bold.json", input)
 
         elif input["datatype"] == FUNC_REGRESSORS:
@@ -133,19 +150,57 @@ with open('config.json') as f:
 
             name += "_desc-confound"
             for key in input["keys"]:
-                src=recover+config[key]
+                src=config[key]
                 dest=path+"/"+name
                 if src.endswith("regressors.tsv"):
-                    link(src, dest+"_regressors.tsv")
+                    link(recover, src, dest+"_regressors.tsv")
             outputSidecar(path+"/"+name+"_regressors.json", input)
+
+        elif input["datatype"] == FMAP:
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("phasediff.nii.gz"):
+                    link(recover, src, dest+"_phasediff.nii.gz")
+                if src.endswith("phasediff.json"):
+                    link(recover, src, dest+"_phasediff.json")
+
+                if src.endswith("magnitude.nii.gz"):
+                    link(recover, src, dest+"_magnitude.nii.gz")
+                if src.endswith("magnitude1.nii.gz"):
+                    link(recover, src, dest+"_magnitude1.nii.gz")
+                if src.endswith("magnitude2.nii.gz"):
+                    link(recover, src, dest+"_magnitude2.nii.gz")
+                if src.endswith("fieldmap.nii.gz"):
+                    link(recover, src, dest+"_fieldmap.nii.gz")
+
+                if src.endswith("phase1.nii.gz"):
+                    link(recover, src, dest+"_phase1.nii.gz")
+                if src.endswith("phase1.json"):
+                    link(recover, src, dest+"_phase1.json")
+                if src.endswith("phase2.nii.gz"):
+                    link(recover, src, dest+"_phase2.nii.gz")
+                if src.endswith("phase2.json"):
+                    link(recover, src, dest+"_phase2.json")
+
+                if src.endswith("epi1.nii.gz"):
+                    link(recover, src, dest+"_epi1.nii.gz")
+                if src.endswith("epi1.json"):
+                    link(recover, src, dest+"_epi1.json")
+                if src.endswith("epi2.nii.gz"):
+                    link(recover, src, dest+"_epi2.nii.gz")
+                if src.endswith("epi2.json"):
+                    link(recover, src, dest+"_epi2.json")
+
+            #outputSidecar(path+"/"+name+"_bold.json", input)
  
         else:
             #just copy the entire file/dir name
             for key in input["keys"]:
                 base = os.path.basename(config[key])
-                src=recover+config[key]
+                src=config[key]
                 dest=path+"/"+name
-                link(src, dest+"_"+base)
+                link(recover, src, dest+"_"+base)
                 #print(path, name, key, config[key])
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
 
