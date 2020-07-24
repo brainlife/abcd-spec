@@ -72,6 +72,10 @@ with open('config.json') as f:
         if "acq" in input["meta"]:
             acq = clean(input["meta"]["acq"])
 
+        rec = None
+        if "rec" in input["meta"]:
+            rec = clean(input["meta"]["rec"])
+
         #all non raw data is stored under derivatives
         modality=getModality(input)
         if modality == "derivatives":
@@ -85,10 +89,18 @@ with open('config.json') as f:
         name="sub-"+subject
         if session:
             name+="_ses-"+session
+
+        if "task" in input["meta"]:
+            name+="_task-"+clean(input["meta"]["task"])
+        if "echo" in input["meta"]:
+            name+="_echo-"+clean(input["meta"]["echo"])
+
         if acq:
             name+="_acq-"+acq
         if run:
             name+="_run-"+run
+        if rec:
+            name+="_rec-"+rec
 
         if modality == "derivatives":
             path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
@@ -132,9 +144,6 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_dwi.json", input)
 
         elif input["datatype"] == FUNC_TASK:
-            name+="_task-"+clean(input["meta"]["task"])
-            if "echo" in input["meta"]:
-                name+="_echo-"+clean(input["meta"]["echo"])
 
             for key in input["keys"]:
                 src=config[key]
@@ -156,9 +165,9 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_bold.json", input)
 
         elif input["datatype"] == FUNC_REGRESSORS:
-            name+="_task-"+clean(input["meta"]["task"])
-            if "echo" in input["meta"]:
-                name+="_echo-"+clean(input["meta"]["echo"])
+            #name+="_task-"+clean(input["meta"]["task"])
+            #if "echo" in input["meta"]:
+            #    name+="_echo-"+clean(input["meta"]["echo"])
 
             name += "_desc-confound"
             for key in input["keys"]:
