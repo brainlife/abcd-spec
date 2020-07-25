@@ -31,6 +31,13 @@ def getModality(input):
 
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
+
+        #remove some meta fields that conflicts
+        #ValueError: Conflicting values found for entity 'datatype' in filename /export/prod/5f1b9122a5b643aa7fa03b8c/5f1b912ca5b6434713a03b8f/bids/sub-10/anat/sub-10_T1w.nii.gz (value='anat') versus its JSON sidecar (value='16'). Please reconcile this discrepancy.
+        if "datatype" in input["meta"]:
+            print("removing datatype key from meta", path)
+            del input["meta"]["datatype"]
+
         json.dump(input["meta"], outfile)
 
 def link(recover, src, dest):
