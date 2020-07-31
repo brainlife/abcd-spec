@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -166,7 +166,7 @@ with open(name, "w") as outfile:
                 size=int(tokens[0])
                 path=tokens[1]
                 disks.append({"path": path, "size": size})
-        except CalledProcessError as err:
+        except subprocess.CalledProcessError as err:
             #sometimes files go missing while running du.. but that's ok
             print(err)
 
