@@ -5,37 +5,36 @@ if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]
         exit $?
 fi
 
-#this breka grep below
+#this breaks grep below
 #set -e
 
 rm -f exit-code
 
+if [ -f brainlife ]; then
+	main=brainlife
+else
+	if [ -f main ]; then
+		main=main
+	else
+		echo "no main/brainlife script.. don't know how to start this"
+		exit 1
+	fi
+fi
+
 true > _jobheader
-grep --regexp="^#PBS" main >> _jobheader
-grep --regexp="^#SBATCH" main >> _jobheader
+grep --regexp="^#PBS" $main >> _jobheader
+grep --regexp="^#SBATCH" $main >> _jobheader
 
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _jobheader
-
-#output git SHA
-#echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
 
 [ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
 
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
-#if [ -d /oasis/scratch/comet ];
-#then
-#	#use comet scratch directory (SSD) for singularity_localcache
-#	echo "export SINGULARITY_LOCALCACHEDIR=/scratch/\$USER/\$SLURM_JOBID" >> _main
-#	#can't set this via .bashrc for some reason
-#	echo "module load python/2.7.10" >> _main
-#fi
-
 sbatch_opt=""
 if [[ $HOSTNAME == *"psc.edu" ]]; then
     sbatch_opt="-C EGRESS"
-    #echo "source ~/.bashrc" >> _main #bridges somehow doesn't load .bashrc when job is submitted
 fi
 
 #pbs uses vmem which is not read by slurm as mem which then allows job to be shared
@@ -71,12 +70,12 @@ rm -f _smon.out
 echo "./smon &" >> _main
 echo "smonpid=\$!" >> _main
 
-echo "./main" >> _main
+echo "./$main" >> _main
 
 #on slurm2 exit-code file exists but was empty - maybe still being written out?
 #let's write to temp file and rename after it's written out!
 echo "echo \$? > .exit-code && mv .exit-code exit-code" >> _main
-chmod +x main #in case user fogets it
+chmod +x $main #in case user forgets it
 
 echo "kill \$smonpid" >> _main
 
