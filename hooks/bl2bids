@@ -1,0 +1,245 @@
+#!/usr/bin/env python3
+
+import json
+import pathlib
+import os
+import sys
+import re
+
+#datatype IDs that we handle (everything else is treated as derivatives)
+ANAT_T1W = "58c33bcee13a50849b25879a"
+ANAT_T2W = "594c0325fa1d2e5a1f0beda5"
+DWI = "58c33c5fe13a50849b25879b"
+FUNC_TASK = "59b685a08e5d38b0b331ddc5"
+FUNC_REGRESSORS = "5c4f6a8af9109beac4b3dae0"
+FMAP = "5c390505f9109beac42b00df"
+
+def getModality(input):
+    if input["datatype"] == ANAT_T1W:
+        return "anat"
+    if input["datatype"] == ANAT_T2W:
+        return "anat"
+    if input["datatype"] == DWI:
+        return "dwi"
+    if input["datatype"] == FUNC_TASK:
+        return "func"
+    if input["datatype"] == FUNC_REGRESSORS:
+        return "func"
+    if input["datatype"] == FMAP:
+        return "fmap"
+    return "derivatives"
+
+def outputSidecar(path, input):
+    with open(path, 'w') as outfile:
+
+        #remove some meta fields that conflicts
+        #ValueError: Conflicting values found for entity 'datatype' in filename /export/prod/5f1b9122a5b643aa7fa03b8c/5f1b912ca5b6434713a03b8f/bids/sub-10/anat/sub-10_T1w.nii.gz (value='anat') versus its JSON sidecar (value='16'). Please reconcile this discrepancy.
+        if "datatype" in input["meta"]:
+            print("removing datatype key from meta", path)
+            del input["meta"]["datatype"]
+
+        json.dump(input["meta"], outfile)
+
+def link(src, dest):
+    try:
+        if os.path.exists(src):
+            os.link(src, dest)
+    except FileExistsError:
+        pass
+
+def clean(v):
+    return re.sub(r'\W+', '', v)
+
+with open('config.json') as f:
+    config = json.load(f)
+
+    if not "_inputs" in config:
+        print("no _inputs in config.json.. can't generate bids structure without it")
+        sys.exit(1)
+
+    for input in config["_inputs"]:
+
+        path="bids"
+
+        subject = None
+        if "subject" in input["meta"]:
+            subject = clean(input["meta"]["subject"])
+
+        session = None
+        if "session" in input["meta"]:
+            session = clean(input["meta"]["session"])
+
+        run = None
+        if "run" in input["meta"]:
+            run = clean(input["meta"]["run"])
+
+        acq = None
+        if "acq" in input["meta"]:
+            acq = clean(input["meta"]["acq"])
+
+        rec = None
+        if "rec" in input["meta"]:
+            rec = clean(input["meta"]["rec"])
+
+        #all non raw data is stored under derivatives
+        modality=getModality(input)
+        if modality == "derivatives":
+            path += "/derivatives"
+            path += "/"+input["task_id"] #TODO we need app name for "pipeline name"
+
+        path+="/sub-"+subject
+        if session:
+            path+="/ses-"+session
+
+        name="sub-"+subject
+        if session:
+            name+="_ses-"+session
+
+        if "task" in input["meta"]:
+            name+="_task-"+clean(input["meta"]["task"])
+        if "echo" in input["meta"]:
+            name+="_echo-"+clean(input["meta"]["echo"])
+
+        if acq:
+            name+="_acq-"+acq
+        if run:
+            name+="_run-"+run
+        if rec:
+            name+="_rec-"+rec
+
+        if modality == "derivatives":
+            path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
+        else:
+            path += "/"+modality
+    
+        pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+
+        #recover = ""
+        #for i in path.split("/"):
+        #    recover += "../"
+
+        if input["datatype"] == ANAT_T1W:
+            #there should be 1 and only nifti
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("t1.nii.gz"):
+                    link(src, dest+"_T1w.nii.gz")
+            outputSidecar(path+"/"+name+"_T1w.json", input)
+
+        elif input["datatype"] == ANAT_T2W:
+            #there should be 1 and only nifti
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("t2.nii.gz"):
+                    link(src, dest+"_T2w.nii.gz")
+            outputSidecar(path+"/"+name+"_T2w.json", input)
+             
+        elif input["datatype"] == DWI:
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("dwi.nii.gz"):
+                    link(src, dest+"_dwi.nii.gz")
+                if src.endswith("dwi.bvecs"):
+                    link(src, dest+"_dwi.bvec")
+                if src.endswith("dwi.bvals"):
+                    link(src, dest+"_dwi.bval")
+            outputSidecar(path+"/"+name+"_dwi.json", input)
+
+        elif input["datatype"] == FUNC_TASK:
+
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("bold.nii.gz"):
+                    link(src, dest+"_bold.nii.gz")
+                if src.endswith("events.tsv"):
+                    link(src, dest+"_events.tsv")
+                if src.endswith("events.json"):
+                    link(src, dest+"_events.json")
+                if src.endswith("sbref.nii.gz"):
+                    link(src, dest+"_sbref.nii.gz")
+                if src.endswith("sbref.json"):
+                    link(src, dest+"_sbref.json")
+                if src.endswith("physio.tsv.gz"):
+                    link(src, dest+"_physio.tsv.gz")
+                if src.endswith("physio.json"):
+                    link(src, dest+"_physio.json")
+            outputSidecar(path+"/"+name+"_bold.json", input)
+
+        elif input["datatype"] == FUNC_REGRESSORS:
+            #name+="_task-"+clean(input["meta"]["task"])
+            #if "echo" in input["meta"]:
+            #    name+="_echo-"+clean(input["meta"]["echo"])
+
+            name += "_desc-confound"
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("regressors.tsv"):
+                    link(src, dest+"_regressors.tsv")
+            outputSidecar(path+"/"+name+"_regressors.json", input)
+
+        elif input["datatype"] == FMAP:
+            for key in input["keys"]:
+                src=config[key]
+                dest=path+"/"+name
+                if src.endswith("phasediff.nii.gz"):
+                    link(src, dest+"_phasediff.nii.gz")
+                if src.endswith("phasediff.json"):
+                    link(src, dest+"_phasediff.json")
+
+                if src.endswith("magnitude.nii.gz"):
+                    link(src, dest+"_magnitude.nii.gz")
+                if src.endswith("magnitude1.nii.gz"):
+                    link(src, dest+"_magnitude1.nii.gz")
+                if src.endswith("magnitude2.nii.gz"):
+                    link(src, dest+"_magnitude2.nii.gz")
+                if src.endswith("fieldmap.nii.gz"):
+                    link(src, dest+"_fieldmap.nii.gz")
+
+                if src.endswith("phase1.nii.gz"):
+                    link(src, dest+"_phase1.nii.gz")
+                if src.endswith("phase1.json"):
+                    link(src, dest+"_phase1.json")
+                if src.endswith("phase2.nii.gz"):
+                    link(src, dest+"_phase2.nii.gz")
+                if src.endswith("phase2.json"):
+                    link(src, dest+"_phase2.json")
+
+                if src.endswith("epi1.nii.gz"):
+                    link(src, dest+"_epi1.nii.gz")
+                if src.endswith("epi1.json"):
+                    link(src, dest+"_epi1.json")
+                if src.endswith("epi2.nii.gz"):
+                    link(src, dest+"_epi2.nii.gz")
+                if src.endswith("epi2.json"):
+                    link(src, dest+"_epi2.json")
+
+            #outputSidecar(path+"/"+name+"_bold.json", input)
+        else:
+            #just copy the entire file/dir name
+            for key in input["keys"]:
+                base = os.path.basename(config[key])
+                src=config[key]
+                dest=path+"/"+name
+                link(src, dest+"_"+base)
+                #print(path, name, key, config[key])
+            outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
+
+#generate fake dataset_description.json
+name="brainlife"
+if "TASK_ID" in os.environ:
+    name += " task:"+os.environ["TASK_ID"]
+desc = {
+  "Name": name,
+  "BIDSVersion": "1.4.0",
+}
+pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
+with open("bids/dataset_description.json", 'w') as f:
+    json.dump(desc, f)
+
+
+

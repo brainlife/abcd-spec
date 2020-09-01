@@ -5,7 +5,12 @@
 #return code 2 = failed
 #return code 3 = unnkown?
 
-set -o pipefail
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/status
+        exit $?
+fi
+
+set -o pipefail #TODO - what do we need this for?
 
 if [ -f finished ]; then
     echo "already finished"

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -7,7 +7,6 @@ import time
 import sys
 
 name="_smon.out"
-delay=30
 
 sid=os.getsid(os.getpid())
 
@@ -42,10 +41,7 @@ with open(name, "w") as outfile:
     max_walltime = None
     if "PBS_JOBID" in os.environ:
         #PBS doesn't expose requested memory in ENV.. I need to query from qstat
-        if sys.version_info >= (3,0):
-            out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]], encoding='utf8')
-        else:
-            out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]])
+        out=subprocess.check_output(["qstat", "-f1", os.environ["PBS_JOBID"]]).decode("utf-8")
         qstat={}
         for line in out.split("\n"):
             delpos = line.find("=")
@@ -94,69 +90,87 @@ with open(name, "w") as outfile:
         "env": env,
 
         }, outfile)
+
     outfile.write("\n")
     outfile.flush()
 
-    #print("updating "+name+" every "+str(delay)+" seconds")
+    #now start infinite loop!
     while True:
 
-        #query process under current session
-        processes = []
-        if sys.version_info >= (3,0):
-            out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"], encoding='utf8')
-        else:
-            out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"])
-        for line in out.split("\n"):
-            if line == "":
-                continue
-            tokens=line.split()
-            pid=tokens[0]
-            pcpu=float(tokens[1])
-            pmem=float(tokens[2])
-            rss=int(tokens[3])
-            vsz=int(tokens[4])
-            etime=tokens[5]
-            cmd=' '.join(tokens[6:])
+        #query process under current session (query every 2 seconds for 1 minute)
+        processes = {}
+        for i in range(30):
+            out=subprocess.check_output(["ps", "-s", str(sid), "ho", "pid,pcpu,pmem,rss,vsz,etime,cmd"]).decode("utf-8")
+            for line in out.split("\n"):
+                if line == "":
+                    continue
+                tokens=line.split()
+                pid=tokens[0]
+                pcpu=float(tokens[1])
+                pmem=float(tokens[2])
+                rss=int(tokens[3])
+                vsz=int(tokens[4])
+                etime=tokens[5]
+                cmd=' '.join(tokens[6:])
 
-            #ignore myself.
-            if cmd.startswith("ps -s"):
-                continue
+                #ignore myself.
+                if cmd.startswith("ps -s"):
+                    continue
 
-            if etime != "00:00": #pcpu > 0 or pmem > 0:
-                processes.append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
+                #ignore smon 
+                if cmd.startswith("python ./smon"):
+                    continue
 
-        #debug..
-        #print(json.dumps(processes, indent=4))
-        #sys.stdout.flush()
+                #etime == elapsed time .. don't include process that just got started? (TODO why did I do this?)
+                if etime == "00:00": 
+                    continue
+
+                if not pid in processes:
+                    processes[pid] = []
+                processes[pid].append({"pid": pid, "pcpu": pcpu, "pmem": pmem, "rss": rss, "vsz": vsz, "etime": etime, "cmd": cmd})
+
+            time.sleep(2)
+
+        #aggregate(max) processes list for each pid
+        processes_groups = []
+        for pid in processes:
+            group = processes[pid]
+            last = group[len(group)-1]
+            agg = {"pid": last["pid"], "pcpu": 0, "pmem": 0, "rss": 0, "vsz": 0, "etime": last["etime"], "cmd": last["cmd"]}
+	    #pick max value
+            for p in group:
+                agg["pcpu"]=max(agg["pcpu"], p["pcpu"])
+                agg["pmem"]=max(agg["pmem"], p["pmem"])
+                agg["rss"]=max(agg["rss"], p["rss"])
+                agg["vsz"]=max(agg["vsz"], p["vsz"])
+
+            processes_groups.append(agg)
 
         #query disk usage
         disks = []
-        if sys.version_info >= (3,0):
-            out=subprocess.check_output(["du", "-s"], encoding='utf8')
-        else:
-            out=subprocess.check_output(["du", "-s"])
-        for line in out.split("\n"):
-            if line == "":
-                continue
-            tokens=line.split()
-            size=int(tokens[0])
-            path=tokens[1]
-            disks.append({"path": path, "size": size})
-
-        #debug
-        #print(json.dumps(disks, indent=4))
-        #sys.stdout.flush()
+        try:
+            out=subprocess.check_output(["du", "-s"]).decode("utf-8")
+            for line in out.split("\n"):
+                if line == "":
+                    continue
+                tokens=line.split()
+                size=int(tokens[0])
+                path=tokens[1]
+                disks.append({"path": path, "size": size})
+        except subprocess.CalledProcessError as err:
+            #sometimes files go missing while running du.. but that's ok
+            print(err)
 
         json.dump({
             "time": time.time(), 
-            "processes": processes, 
+            "processes": processes_groups, 
             "disks": disks,
             "memory_avail": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_AVPHYS_PAGES'),
             #"memory_avail": psutil.virtual_memory().available,
             #"memory_used": psutil.virtual_memory().used,
             #"memory_free": psutil.virtual_memory().free,
             }, outfile)
+
         outfile.write("\n")
         outfile.flush()
 
-        time.sleep(delay)

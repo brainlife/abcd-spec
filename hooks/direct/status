@@ -14,13 +14,13 @@ function check_exit()
         then 
             logfile=$(ls -rt *.log | tail -1)
 	    tail -10 $logfile | grep -v -e '^$' | tail -1
-            exit 1
+            exit 1 #finished!
         fi
 
         #echo "finished with exit code $code"
         logfile=$(ls -rt *.log | tail -1)
 	tail -10 $logfile | grep -v -e '^$' | tail -1
-        exit 2
+        exit 2 #faild!
     fi
 }
 check_exit
@@ -32,16 +32,16 @@ then
         #get last line of last log touched
         logfile=$(ls -rt *.log | tail -1)
 	tail -10 $logfile | grep -v -e '^$' | tail -1
-        exit 0
+        exit 0 #running
     else
         #it could be in the middle of writing out exit-code.. let's wait and check again
         sleep 5
         check_exit 
 
         echo "no longer running but didn't finish"
-        exit 2
+        exit 2 #failed
     fi
 fi
 
 echo "not yet started?"
-exit 3
+exit 3 #unknown

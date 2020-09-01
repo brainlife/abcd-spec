@@ -5,9 +5,20 @@
 #return code 2 = failed
 #return code 3 = unknown (retry later)
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/status
+        exit $?
+fi
+
 if [ ! -f jobid ];then
 	echo "no jobid - not yet submitted?"
-	exit 1
+	exit 3
+fi
+
+jobid=`cat jobid`
+if [ -z $jobid ]; then
+	echo "jobid is empty.. failed to submit?"
+	exit 3
 fi
 
 if [ -f exit-code ]
@@ -17,14 +28,17 @@ then
         echo "finished successfully"
         exit 1
     fi
-    echo "finished with exit code $code"
-    exit 2
-fi
 
-jobid=`cat jobid`
-if [ -z $jobid ]; then
-	echo "jobid is empty.. failed to submit?"
-	exit 3
+    #non 0 exit code..
+    logname="slurm-$jobid.err"
+    if [ -z $logname ]; then
+	    echo "finished with exit code $code (.err empty)"
+    elif [ -f $logname ]; then
+	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+    else 
+        echo "finished with exit code $code (no .err log)"
+    fi
+    exit 2
 fi
 
 jobstate=`scontrol show job $jobid | grep JobState | cut -f4 -d' ' | cut -f2 -d'='`
@@ -46,11 +60,11 @@ if [ $jobstate == "RUNNING" ]; then
     if [ -z $logname ]; then
         echo "(empty log)"
     elif [ -f $logname ]; then
-    	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+        tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
 
-        #if log file is empty, try .err
+        #if stdout log is empty, try errlog
         if [ ! -s $logname ]; then
-            tail -10 "slurm-$jobid.err" | grep -v -e '^$' | tail -1 #skip empty line
+            tail -10 "slurm-$jobid.err" | grep -v -e '^$' | tail -1 #skip empty
         fi
     else 
         echo "Running"
@@ -92,4 +106,3 @@ if [ $jobstate == "FAILED" ]; then
 fi
 echo "unknown state: $jobstate"
 exit 3
-

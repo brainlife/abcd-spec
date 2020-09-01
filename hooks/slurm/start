@@ -1,49 +1,45 @@
 #!/bin/bash
 
-#terminate if any command fails (and any command piped)
-#I don't want not finding any #PBS to fail
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/start
+        exit $?
+fi
+
+#this breaks grep below
 #set -e
-#set -o pipefail
 
 rm -f exit-code
 
-#--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
-echo "#!/bin/bash --login" > _main
+if [ -f brainlife ]; then
+	main=brainlife
+else
+	if [ -f main ]; then
+		main=main
+	else
+		echo "no main/brainlife script.. don't know how to start this"
+		exit 1
+	fi
+fi
 
-[ -f jobheader.sh ] && bash ./jobheader.sh >> _main
+true > _jobheader
+grep --regexp="^#PBS" $main >> _jobheader
+grep --regexp="^#SBATCH" $main >> _jobheader
 
-grep --regexp="^#PBS" main >> _main
-grep --regexp="^#SBATCH" main >> _main
+[ -f jobheader.sh ] && bash ./jobheader.sh >> _jobheader
 
-#output git SHA
-#echo "echo \"git sha:\" \$(git rev-parse HEAD)" >> _main
-
-[ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _main
+[ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
 
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
-if [ -d /oasis/scratch/comet ];
-then
-	#use comet scratch directory (SSD) for singularity_localcache
-	echo "export SINGULARITY_LOCALCACHEDIR=/scratch/\$USER/\$SLURM_JOBID" >> _main
-	#can't set this via .bashrc for some reason
-	echo "module load python/2.7.10" >> _main
-fi
-
-rm -f _smon.out
-echo "./smon &" >> _main
-echo "smonpid=\$!" >> _main
-
 sbatch_opt=""
 if [[ $HOSTNAME == *"psc.edu" ]]; then
     sbatch_opt="-C EGRESS"
-    #echo "source ~/.bashrc" >> _main #bridges somehow doesn't load .bashrc when job is submitted
 fi
 
 #pbs uses vmem which is not read by slurm as mem which then allows job to be shared
-if grep "vmem=" main > /dev/null; then
-    mem=$(grep "vmem=" main | node -e '
+if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader > /dev/null; then
+    mem=$(grep "vmem=" _jobheader | node -e '
         let str = "";
         process.stdin.on("data", (data)=>{ str += data; });
         process.stdin.on("close", ()=>{
@@ -59,15 +55,29 @@ if grep "vmem=" main > /dev/null; then
     sbatch_opt="$sbatch_opt --mem=$mem"
 fi
 
-echo "./main" >> _main
+#--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
+echo "#!/bin/bash --login" > _main
+
+cat _jobheader >> _main
+
+#use TMPDIR to store singularity cache if available
+echo "[ ! -z \$TMPDIR ] && export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
+
+#make sure matlab won't use ~/.mcrCache9.2 to store MCR cache
+echo "export SINGULARITYENV_MCR_CACHE_ROOT=\$PWD" >> _main
+
+rm -f _smon.out
+echo "./smon &" >> _main
+echo "smonpid=\$!" >> _main
+
+echo "./$main" >> _main
 
 #on slurm2 exit-code file exists but was empty - maybe still being written out?
 #let's write to temp file and rename after it's written out!
 echo "echo \$? > .exit-code && mv .exit-code exit-code" >> _main
-chmod +x main #in case user fogets it
+chmod +x $main #in case user forgets it
 
 echo "kill \$smonpid" >> _main
 
-echo "submitting to batch scheduler with sbatch_opt:$sbatch_opt"
-sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main > jobid
-
+sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main | tail -1 > jobid
+echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"

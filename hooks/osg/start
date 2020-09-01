@@ -1,7 +1,11 @@
 #!/bin/bash
 
+if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
+        `dirname $0`/../direct/start
+        exit $?
+fi
+
 set -e
-#set -x
 
 rm -f jobid
 rm -f finished
@@ -11,12 +15,24 @@ if [ -f start ]; then
 	exit $?
 fi
 
-if [ -f main ]; then
-	./main > _submit
-	echo "submitting _submit"
-	condor_submit -terse _submit | cut -f 1 -d " " > jobid
-	exit $?
+if [ -f brainlife ]; then
+	main=brainlife
+else
+	if [ -f main ]; then
+		main=main
+	else
+		echo "no main/brainlife script.. don't know how to start this"
+		exit 1
+	fi
 fi
+
+chmod +x $main #in case user forgets it
+
+./$main > _submit
+echo "submitting _submit"
+condor_submit -terse _submit | cut -f 1 -d " " > jobid
+exit $?
 
 echo "please provide either start or main"
 exit 1
+

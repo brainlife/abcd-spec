@@ -1,19 +1,29 @@
 #!/bin/bash
 
-#people often forgets to set exbit on main..
-chmod +x main
 
 #to allow restart
 rm -f exit-code
 
-rm -f _smon.out
+#app can use either brainlife, or main script
+if [ -f brainlife ]; then
+	main=brainlife
+else
+	if [ -f main ]; then
+		main=main
+	else
+		echo "no main/brainlife script.. don't know how to start this"
+		exit 1
+	fi
+fi
 
+#people often forgets to set exbit on main..
+chmod +x $main
 
 echo "nohup-ing main" 
 #can't put time on nohup
 nohup bash -c "smon & smonpid=\$!;
-    ./main; 
-    echo \$? > exit-code;
-    kill \$smonpid" > output.log 2> error.log &
+./$main; 
+echo \$? > exit-code;
+kill \$smonpid" > output.log 2> error.log &
 echo $! > pid
 
