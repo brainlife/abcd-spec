@@ -46,7 +46,12 @@ if [ $jobstate == "RUNNING" ]; then
     if [ -z $logname ]; then
         echo "(empty log)"
     elif [ -f $logname ]; then
-	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+    	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+
+        #if log file is empty, try .err
+        if [ ! -s $logname ]; then
+            tail -10 "slurm-$jobid.err" | grep -v -e '^$' | tail -1 #skip empty line
+        fi
     else 
         echo "Running"
     fi
