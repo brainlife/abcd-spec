@@ -73,8 +73,12 @@ with open('config.json') as f:
         if "run" in input["meta"]:
             run = clean(input["meta"]["run"])
 
+        #meta contains both acq and acquisition set to different value
+        #I am not sure why, but let's make acqusition take precedence
         acq = None
-        if "acq" in input["meta"]:
+        if "acquisition" in input["meta"]:
+            acq = clean(input["meta"]["acquisition"])
+        elif "acq" in input["meta"]:
             acq = clean(input["meta"]["acq"])
 
         rec = None
