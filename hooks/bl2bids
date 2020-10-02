@@ -40,11 +40,15 @@ def outputSidecar(path, input):
 
         json.dump(input["meta"], outfile)
 
-def link(src, dest):
+def link(src, dest, recover=None):
     try:
         if os.path.exists(src):
-            os.link(src, dest)
+            if os.path.isdir(src):
+                os.symlink(recover+src, dest, True)
+            else:
+                os.link(src, dest)
     except FileExistsError:
+        #don't create link of src doesn't exist
         pass
 
 def clean(v):
@@ -118,9 +122,10 @@ with open('config.json') as f:
     
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
-        #recover = ""
-        #for i in path.split("/"):
-        #    recover += "../"
+        #symlink recovery path
+        recover = ""
+        for i in path.split("/"):
+            recover += "../"
 
         if input["datatype"] == ANAT_T1W:
             #there should be 1 and only nifti
@@ -229,7 +234,7 @@ with open('config.json') as f:
                 base = os.path.basename(config[key])
                 src=config[key]
                 dest=path+"/"+name
-                link(src, dest+"_"+base)
+                link(src, dest+"_"+base, recover)
                 #print(path, name, key, config[key])
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
 
