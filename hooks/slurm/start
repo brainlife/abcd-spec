@@ -56,7 +56,12 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
 fi
 
 #--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
-echo "#!/bin/bash --login" > _main
+if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
+	echo "#!/bin/bash --login" > _main
+else
+	echo "#!/bin/bash" > _main
+fi
+
 
 cat _jobheader >> _main
 
