@@ -52,7 +52,7 @@ def link(src, dest, recover=None):
         pass
 
 def clean(v):
-    return re.sub(r'\W+', '', v)
+    return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
 with open('config.json') as f:
     config = json.load(f)
