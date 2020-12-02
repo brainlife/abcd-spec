@@ -105,6 +105,10 @@ with open('config.json') as f:
 
         if "task" in input["meta"]:
             name+="_task-"+clean(input["meta"]["task"])
+        else:
+            print("meta.task is not set.. defaulgint to rest")
+            name+="_task-rest"
+
         if "echo" in input["meta"]:
             name+="_echo-"+clean(input["meta"]["echo"])
 
@@ -179,10 +183,6 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_bold.json", input)
 
         elif input["datatype"] == FUNC_REGRESSORS:
-            #name+="_task-"+clean(input["meta"]["task"])
-            #if "echo" in input["meta"]:
-            #    name+="_echo-"+clean(input["meta"]["echo"])
-
             name += "_desc-confound"
             for key in input["keys"]:
                 src=config[key]
