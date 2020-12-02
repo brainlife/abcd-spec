@@ -106,7 +106,7 @@ with open('config.json') as f:
         if "task" in input["meta"]:
             name+="_task-"+clean(input["meta"]["task"])
         else:
-            print("meta.task is not set.. defaulgint to rest")
+            print("meta.task is not set.. defaulting to rest")
             name+="_task-rest"
 
         if "echo" in input["meta"]:
