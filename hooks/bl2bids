@@ -38,6 +38,11 @@ def outputSidecar(path, input):
             print("removing datatype key from meta", path)
             del input["meta"]["datatype"]
 
+        #https://github.com/bids-standard/pybids/issues/687
+        if "run" in input["meta"]:
+            print("removing run from meta", path)
+            del input["meta"]["run"]
+
         json.dump(input["meta"], outfile)
 
 def link(src, dest, recover=None):
