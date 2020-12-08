@@ -80,7 +80,14 @@ with open('config.json') as f:
 
         run = None
         if "run" in input["meta"]:
-            run = clean(input["meta"]["run"])
+            #TODO - run should be an integer and it should not be 0-padded according to Tal
+            #but on brainlife, it could be set to any string.. so I can't just convert to int as it could
+            #raise invalid literal ValueError exception
+            try:
+                _run = clean(input["meta"]["run"])
+                run = str(int(_run))
+            except ValueError:
+                print("can't parse run.. ignoring", input["meta"]["run"])
 
         #meta contains both acq and acquisition set to different value
         #I am not sure why, but let's make acqusition take precedence
