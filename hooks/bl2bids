@@ -208,6 +208,32 @@ with open('config.json') as f:
             for key in input["keys"]:
                 src=config[key]
                 dest=path+"/"+name
+
+                #https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html
+
+                # [CASE 1] Phase difference image and at least one magnitude image
+                # phasediff.nii.gz
+                # phasediff.json (should have EchoTime1 / Echotime2, IntendedFor)
+                # magnitude1.nii.gz
+                # magnitude2.nii.gz (optional)
+
+                # [CASE 2] Two phase images and two magnitude images
+                # phase1.nii.gz
+                # phase1.json (should have EchoTime / IntendedFor set)
+                # phase2.nii.gz
+                # phase2.json (should have EchoTime / IntendedFor set)
+                # magnitude1.nii.gz
+                # magnitude2.nii.gz
+
+                # [CASE 3] A real fieldmap image
+                # magnitude.nii.gz
+                # fieldmap.nii.gz
+                # fieldmap.json (Units(like "rad/s") and IntendedFor should be set)
+                
+                # [CASE 4] Multiple phase encoded directions ("pepolar")
+                # dir-<label>_epi.nii.gz
+                # dir-<label>_epi.json (should have PhaseEncodingDirection / TotalReadoutTime / IntendedFor )
+
                 if src.endswith("phasediff.nii.gz"):
                     link(src, dest+"_phasediff.nii.gz")
                 if src.endswith("phasediff.json"):
