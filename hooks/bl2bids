@@ -44,6 +44,18 @@ def outputSidecar(path, input):
             del input["meta"]["run"]
 
         json.dump(input["meta"], outfile)
+        
+def fixIntendedFor(path, intended_path):
+    with open(path) as outfile:
+        config = json.load(outfile)
+
+        #fix IntendedFor field in fmap files
+        if config["IntendedFor"] != 'null':
+            print("fixing IntendedFor", path)
+            config["IntendedFor"] = intended_path
+
+    with open(path, 'w') as outfile:
+        json.dump(config, outfile)
 
 def link(src, dest, recover=None):
     try:
@@ -181,6 +193,7 @@ with open('config.json') as f:
                 dest=path+"/"+name
                 if src.endswith("bold.nii.gz"):
                     link(src, dest+"_bold.nii.gz")
+                    fmri_path=dest+"_bold.nii.gz"
                 if src.endswith("events.tsv"):
                     link(src, dest+"_events.tsv")
                 if src.endswith("events.json"):
@@ -252,10 +265,12 @@ with open('config.json') as f:
                     link(src, dest+"_phase1.nii.gz")
                 if src.endswith("phase1.json"):
                     link(src, dest+"_phase1.json")
+                    fixIntendedFor(dest+"_phase1.json", fmri_path)
                 if src.endswith("phase2.nii.gz"):
                     link(src, dest+"_phase2.nii.gz")
                 if src.endswith("phase2.json"):
                     link(src, dest+"_phase2.json")
+                    fixIntendedFor(dest+"_phase2.json", fmri_path)
 
                 if src.endswith("epi1.nii.gz"):
                     link(src, dest+"_epi1.nii.gz")
