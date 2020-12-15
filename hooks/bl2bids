@@ -52,9 +52,10 @@ def copyJSON(src, dest, override=None):
                 config = json.load(infile)
                 if override is not None:
                     for key in override.keys():
-                        print("fixing field", key)
+                        #print("fixing field", key)
                         config[key] = override[key]
             with open(dest, 'w') as outfile:
+                print("copying", src, "to", dest, override)
                 json.dump(config, outfile)  
     except FileExistsError:
         #don't create copy if src doesn't exist
@@ -63,6 +64,7 @@ def copyJSON(src, dest, override=None):
 def link(src, dest, recover=None):
     try:
         if os.path.exists(src):
+            print("linking", src, "to", dest)
             if os.path.isdir(src):
                 os.symlink(recover+src, dest, True)
             else:
@@ -81,7 +83,7 @@ with open('config.json') as f:
         print("no _inputs in config.json.. can't generate bids structure without it")
         sys.exit(1)
         
-    intended_path = []     
+    intended_paths = []
 
     for input in config["_inputs"]:
 
@@ -190,7 +192,9 @@ with open('config.json') as f:
                 if src.endswith("dwi.bvals"):
                     link(src, dest+"_dwi.bval")
             outputSidecar(path+"/"+name+"_dwi.json", input)
-            intended_path.append(dest+"_dwi.nii.gz")
+
+            dest_under_sub = "/".join(dest.split("/")[1:])
+            intended_paths.append(dest_under_sub+"_dwi.nii.gz")
 
         elif input["datatype"] == FUNC_TASK:
 
@@ -212,7 +216,9 @@ with open('config.json') as f:
                 if src.endswith("physio.json"):
                     link(src, dest+"_physio.json")
             outputSidecar(path+"/"+name+"_bold.json", input)
-            intended_path.append(dest+"_bold.nii.gz")
+
+            dest_under_sub = "/".join(dest.split("/")[2:])
+            intended_paths.append(dest_under_sub+"_bold.nii.gz")
 
         elif input["datatype"] == FUNC_REGRESSORS:
             name += "_desc-confound"
@@ -299,20 +305,24 @@ with open('config.json') as f:
             
     #fix IntendedFor field for fmap json files
     for input in config["_inputs"]:
+        subject = None
+        if "subject" in input["meta"]:
+            subject = clean(input["meta"]["subject"])
+
         if input["datatype"] == FMAP:
             for key in input["keys"]:
                 src=config[key]
                 dest=fmap_dest
                 if src.endswith("phasediff.json"):
-                    copyJSON(src, dest+"_phasediff.json", override={"IntendedFor": intended_path})
+                    copyJSON(src, dest+"_phasediff.json", override={"IntendedFor": intended_paths})
                 if src.endswith("phase1.json"):
-                    copyJSON(src, dest+"_phase1.json", override={"IntendedFor": intended_path})
+                    copyJSON(src, dest+"_phase1.json", override={"IntendedFor": intended_paths})
                 if src.endswith("phase2.json"):
-                    copyJSON(src, dest+"_phase2.json", override={"IntendedFor": intended_path})
+                    copyJSON(src, dest+"_phase2.json", override={"IntendedFor": intended_paths})
                 if src.endswith("epi1.json"):
-                    copyJSON(src, dest+"_epi1.json", override={"IntendedFor": intended_path})
+                    copyJSON(src, dest+"_epi1.json", override={"IntendedFor": intended_paths})
                 if src.endswith("epi2.json"):
-                    copyJSON(src, dest+"_epi2.json", override={"IntendedFor": intended_path})
+                    copyJSON(src, dest+"_epi2.json", override={"IntendedFor": intended_paths})
 
 #generate fake dataset_description.json
 name="brainlife"
@@ -321,9 +331,11 @@ if "TASK_ID" in os.environ:
 desc = {
   "Name": name,
   "BIDSVersion": "1.4.0",
+  "Authors": [ "Brainlife <brlife@iu.edu>" ]
 }
 pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
 with open("bids/dataset_description.json", 'w') as f:
+    print("writing dataset_description.json", desc)
     json.dump(desc, f)
 
 
