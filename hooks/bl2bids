@@ -262,8 +262,6 @@ with open('config.json') as f:
 
                 if src.endswith("phasediff.nii.gz"):
                     link(src, dest+"_phasediff.nii.gz")
-                if src.endswith("phasediff.json"):
-                    link(src, dest+"_phasediff.json")
 
                 if src.endswith("magnitude.nii.gz"):
                     link(src, dest+"_magnitude.nii.gz")
@@ -276,21 +274,13 @@ with open('config.json') as f:
 
                 if src.endswith("phase1.nii.gz"):
                     link(src, dest+"_phase1.nii.gz")
-                if src.endswith("phase1.json"):
-                    link(src, dest+"_phase1.json")
                 if src.endswith("phase2.nii.gz"):
                     link(src, dest+"_phase2.nii.gz")
-                if src.endswith("phase2.json"):
-                    link(src, dest+"_phase2.json")
 
                 if src.endswith("epi1.nii.gz"):
                     link(src, dest+"_epi1.nii.gz")
-                if src.endswith("epi1.json"):
-                    link(src, dest+"_epi1.json")
                 if src.endswith("epi2.nii.gz"):
                     link(src, dest+"_epi2.nii.gz")
-                if src.endswith("epi2.json"):
-                    link(src, dest+"_epi2.json")
 
             #outputSidecar(path+"/"+name+"_bold.json", input)
         else:
