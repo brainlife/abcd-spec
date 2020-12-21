@@ -29,17 +29,6 @@ def getModality(input):
         return "fmap"
     return "derivatives"
 
-def getCodes(input):
-    if input["id"] == 't1w' or input["id"] == 't2w' or  input["id"] == 'freesurfer': 
-        nii_img = config["t1"]
-    elif input["id"] == 'fmri' or input["id"] == 'fmap':   
-        nii_img = config["fmri"]
-    else:
-        print("TODO: not sure where to retrieve the orientation codes")
-    img = nib.load(nii_img)
-    codes = nib.aff2axcodes(img.affine)
-    return codes
-
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
 
@@ -56,16 +45,11 @@ def outputSidecar(path, input):
             
         #https://github.com/nipreps/fmriprep/issues/2341#issuecomment-737431340
         pe_conversion={"x":"i","x-":"i-","y":"j","y-":"j-","z":"k","z-":"k-"}
-        codes = getCodes(input)
-        print(codes)
-        if 'A' in codes:
-            if "PhaseEncodingDirection" in input["meta"]:
-                pe = input["meta"]["PhaseEncodingDirection"]
-                if pe in pe_conversion.keys():
-                    print("convert PhaseEncodingDirection from xyz to ijk convention")
-                    input["meta"]["PhaseEncodingDirection"] = pe_conversion[pe]
-        else:
-            print("Error: get in touch with the dataset curator to clarify their intent")            
+        if "PhaseEncodingDirection" in input["meta"]:
+            pe = input["meta"]["PhaseEncodingDirection"]
+            if pe in pe_conversion.keys():
+                print("convert PhaseEncodingDirection from xyz to ijk convention")
+                input["meta"]["PhaseEncodingDirection"] = pe_conversion[pe]           
 
         json.dump(input["meta"], outfile)
         
