@@ -5,6 +5,7 @@ import pathlib
 import os
 import sys
 import re
+import nibabel as nib
 
 #datatype IDs that we handle (everything else is treated as derivatives)
 ANAT_T1W = "58c33bcee13a50849b25879a"
@@ -29,6 +30,56 @@ def getModality(input):
         return "fmap"
     return "derivatives"
 
+def get_nii_img(input):
+    if input["id"] == 't1w': 
+        nii_img = config["t1"]
+    elif input["id"] == 't2w':
+        nii_img = config["t2"]
+    elif input["id"] == 'dwi':
+        nii_img = config["dwi"]    
+    elif input["id"] == 'freesurfer':
+        nii_img = config["t1"] #change?!
+    elif input["id"] == 'fmri':   
+        nii_img = config["fmri"]
+    return nii_img     
+
+def correctPE(pe, nii_img):
+    
+    #if it's using ijk already don't need to do anything
+    if pe[0] == 'i' or pe[0] == 'j' or pe[0] == 'k':
+        print("Phase Encoding Direction conversion not needed.")
+        return pe
+    
+    #convert xyz to ijk
+    img = nib.load(nii_img)
+    codes = nib.aff2axcodes(img.affine) 
+    ax_idcs = {"x": 0, "y": 1, "z": 2}
+    axis = ax_idcs[pe[0]]
+    if codes[axis] in ('L', 'R'):
+        updated_pe = 'i'
+    if codes[axis] in ('P', 'A'):
+        updated_pe = 'j'
+    if codes[axis] in ('I', 'S'):
+        updated_pe = 'k'
+    
+    #flip polarity if it's using L/P/I
+    inv = pe[1:] == "-"
+    if pe[0] == 'x':
+        if codes[0] == 'L':
+            inv = not inv 
+    if pe[0] == 'y':
+        if codes[1] == 'P':
+            inv = not inv 
+    if pe[0] == 'z':
+        if codes[2] == 'I':
+            inv = not inv 
+    if inv:
+        updated_pe += "-"
+    print(f"Orientation: {codes}")    
+    print(f"Phase Encoding Direction updated: {updated_pe}") 
+
+    return updated_pe     
+
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
 
@@ -43,7 +94,14 @@ def outputSidecar(path, input):
             print("removing run from meta", path)
             del input["meta"]["run"]
 
-        json.dump(input["meta"], outfile)
+        #https://github.com/nipreps/fmriprep/issues/2341
+        if "PhaseEncodingDirection" in input["meta"]:
+            nii_img = get_nii_img(input)
+            pe = input["meta"]["PhaseEncodingDirection"]
+            updated_pe = correctPE(pe, nii_img)
+            input["meta"]["PhaseEncodingDirection"] = updated_pe    
+
+        json.dump(input["meta"], outfile)  
         
 def copyJSON(src, dest, override=None):
     try:
@@ -295,10 +353,6 @@ with open('config.json') as f:
             
     #fix IntendedFor field for fmap json files
     for input in config["_inputs"]:
-        subject = None
-        if "subject" in input["meta"]:
-            subject = clean(input["meta"]["subject"])
-
         if input["datatype"] == FMAP:
             for key in input["keys"]:
                 src=config[key]
@@ -313,6 +367,17 @@ with open('config.json') as f:
                     copyJSON(src, dest+"_epi1.json", override={"IntendedFor": intended_paths})
                 if src.endswith("epi2.json"):
                     copyJSON(src, dest+"_epi2.json", override={"IntendedFor": intended_paths})
+                #fix PhaseEncodingDirection
+                if key.endswith("_json"):
+                    nii_key = key[:-5] #remove suffix "_json"
+                    nii_img = config[nii_key] 
+                    if os.path.exists(nii_img):
+                        print(nii_key)
+                        pe = input["meta"][nii_key]["PhaseEncodingDirection"]
+                        updated_pe = correctPE(pe, nii_img)
+                        f_json = dest+"_"+nii_key+".json"
+                        print(f_json)
+                        copyJSON(f_json, f_json, override={"PhaseEncodingDirection": updated_pe})
 
 #generate fake dataset_description.json
 name="brainlife"
@@ -327,6 +392,5 @@ pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
 with open("bids/dataset_description.json", 'w') as f:
     print("writing dataset_description.json", desc)
     json.dump(desc, f)
-
 
 
