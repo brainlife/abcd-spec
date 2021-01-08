@@ -1,3 +1,6 @@
 #!/bin/bash
 
-singularity exec -B $(realpath `pwd`) -e docker://brainlife/dipy:1.1.1 $(dirname $(realpath "$0"))/bl2bids.py
+set -x
+
+hookdir=$(dirname $(realpath "$0"))
+singularity exec -B $hookdir -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids.py
