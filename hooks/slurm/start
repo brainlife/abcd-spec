@@ -30,13 +30,12 @@ grep --regexp="^#SBATCH" $main >> _jobheader
 #deprecated.. use SBATCH ENV
 [ ! -z "$SLURM_PARTITION" ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
 
-[ ! -z "$SBATCH" ] && echo "#SBATCH $SBATCH" >> _jobheader
-
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
 sbatch_opt=""
-if [[ $HOSTNAME == *"psc.edu" ]]; then
+
+if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
     sbatch_opt="-C EGRESS"
 fi
 
@@ -57,6 +56,8 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
     ')
     sbatch_opt="$sbatch_opt --mem=$mem"
 fi
+
+[ ! -z "$SBATCH" ] && sbatch_opt="$sbatch_opt $SBATCH"
 
 #--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
 if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
@@ -88,3 +89,5 @@ echo "kill \$smonpid" >> _main
 
 sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main | tail -1 > jobid
 echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"
+
+
