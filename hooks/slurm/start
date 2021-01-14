@@ -28,9 +28,9 @@ grep --regexp="^#SBATCH" $main >> _jobheader
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _jobheader
 
 #deprecated.. use SBATCH ENV
-[ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
+[ ! -z "$SLURM_PARTITION" ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
 
-[ ! -z $SBATCH ] && echo "#SBATCH $SBATCH" >> _jobheader
+[ ! -z "$SBATCH" ] && echo "#SBATCH $SBATCH" >> _jobheader
 
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
