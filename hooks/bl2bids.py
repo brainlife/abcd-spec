@@ -134,7 +134,7 @@ def link(src, dest, recover=None):
 def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
-with open('config.json') as f:
+with open('config.json', encoding='utf-8') as f:
     config = json.load(f)
 
     if not "_inputs" in config:
