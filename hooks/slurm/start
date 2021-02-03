@@ -68,6 +68,13 @@ fi
 
 cat _jobheader >> _main
 
+#append jobid to $TMPDIR
+#don't forget to clean it up in epilog
+if [ ! -z $APPEND_SLURM_JOBID_TMPDIR ]; then
+        echo "export TMPDIR=\$TMPDIR/\$SLURM_JOBID" >> _main
+        echo "mkdir -p \$TMPDIR" >> _main
+fi
+
 #use TMPDIR to store singularity cache if available
 echo "[ ! -z \$TMPDIR ] && export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
 
