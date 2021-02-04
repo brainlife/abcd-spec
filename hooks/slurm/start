@@ -1,12 +1,17 @@
 #!/bin/bash
 
+echo "----------------------"
+date
+hostname
+whoami
+echo "----------------------"
+
 if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
         `dirname $0`/../direct/start
         exit $?
 fi
 
-#this breaks grep below
-#set -e
+set -e
 
 rm -f exit-code
 
@@ -22,18 +27,22 @@ else
 fi
 
 true > _jobheader
-grep --regexp="^#PBS" $main >> _jobheader
-grep --regexp="^#SBATCH" $main >> _jobheader
+
+#grep could raise error .. so or it with true
+grep --regexp="^#PBS" $main >> _jobheader || true
+grep --regexp="^#SBATCH" $main >> _jobheader || true
 
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _jobheader
 
-[ ! -z $SLURM_PARTITION ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
+#deprecated.. use SBATCH ENV
+[ ! -z "$SLURM_PARTITION" ] && echo "#SBATCH -p $SLURM_PARTITION" >> _jobheader
 
 #copy smon to workdir so that resource doesn't need to have it in the path
 cp -aL $(which smon) .
 
 sbatch_opt=""
-if [[ $HOSTNAME == *"psc.edu" ]]; then
+
+if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
     sbatch_opt="-C EGRESS"
 fi
 
@@ -55,6 +64,17 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
     sbatch_opt="$sbatch_opt --mem=$mem"
 fi
 
+
+if [[ "$HOSTNAME" == *bridges2.psc.edu ]]; then
+	#bridges2 treats ppn as cpus-per-gpu.. remove it from _main, and set -cpus-per-task=N in sbatch
+	#remove ppn=N for now..
+	echo "removing ppn as it's interpreted as cpus-per-gpu"
+	sed -i "s/ppn=[0-9]\+//g" _jobheader
+	cat _jobheader
+fi
+
+[ ! -z "$SBATCH" ] && sbatch_opt="$sbatch_opt $SBATCH"
+
 #--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
 if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
 	echo "#!/bin/bash --login" > _main
@@ -62,8 +82,14 @@ else
 	echo "#!/bin/bash" > _main
 fi
 
-
 cat _jobheader >> _main
+
+#append jobid to $TMPDIR
+#don't forget to clean it up in epilog
+if [ ! -z $APPEND_SLURM_JOBID_TMPDIR ]; then
+        echo "export TMPDIR=\$TMPDIR/\$SLURM_JOBID" >> _main
+        echo "mkdir -p \$TMPDIR" >> _main
+fi
 
 #use TMPDIR to store singularity cache if available
 echo "[ ! -z \$TMPDIR ] && export SINGULARITY_LOCALCACHEDIR=\$TMPDIR" >> _main
@@ -86,3 +112,5 @@ echo "kill \$smonpid" >> _main
 
 sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main | tail -1 > jobid
 echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"
+
+
