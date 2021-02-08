@@ -1,0 +1,18 @@
+bids
+├── dataset_description.json
+├── derivatives
+│   └── 6001d90f9102d37038642288
+│       └── sub-11061
+│           └── dt-58cb22c8e13a50849b25882e.todo
+│               ├── sub-11061_freesurfer.json
+│               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
+└── sub-11061
+    ├── anat
+    │   ├── sub-11061_T1w.json
+    │   └── sub-11061_T1w.nii.gz
+    └── func
+        ├── sub-11061_task-taskswitch_bold.json
+        ├── sub-11061_task-taskswitch_bold.nii.gz
+        └── sub-11061_task-taskswitch_sbref.nii.gz
+
+8 directories, 7 files
