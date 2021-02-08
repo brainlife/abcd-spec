@@ -128,7 +128,7 @@ def link(src, dest, recover=None):
             else:
                 os.link(src, dest)
     except FileExistsError:
-        #don't create link of src doesn't exist
+        #don't create link if src doesn't exist
         pass
 
 def clean(v):
@@ -142,6 +142,7 @@ with open('config.json') as f:
         sys.exit(1)
         
     intended_paths = []
+    n_t1 = n_dwi = 0
 
     for input in config["_inputs"]:
 
@@ -213,7 +214,7 @@ with open('config.json') as f:
             path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
         else:
             path += "/"+modality
-    
+
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
         #symlink recovery path
@@ -221,14 +222,16 @@ with open('config.json') as f:
         for i in path.split("/"):
             recover += "../"
 
+        input_dir = os.path.join('..', input["task_id"], input["subdir"])
+        dest=path+"/"+name
+
         if input["datatype"] == ANAT_T1W:
-            #there should be 1 and only nifti
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("t1.nii.gz"):
-                    link(src, dest+"_T1w.nii.gz")
+            src=os.path.join(input_dir, 't1.nii.gz')
+            if os.path.exists(dest+"_T1w.nii.gz"):
+                dest += "_desc-%s" %n_t1
+            link(src, dest+"_T1w.nii.gz")
             outputSidecar(path+"/"+name+"_T1w.json", input)
+            n_t1+=1
 
         elif input["datatype"] == ANAT_T2W:
             #there should be 1 and only nifti
@@ -240,20 +243,21 @@ with open('config.json') as f:
             outputSidecar(path+"/"+name+"_T2w.json", input)
              
         elif input["datatype"] == DWI:
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("dwi.nii.gz"):
-                    link(src, dest+"_dwi.nii.gz")
-                if src.endswith("dwi.bvecs"):
-                    link(src, dest+"_dwi.bvec")
-                if src.endswith("dwi.bvals"):
-                    link(src, dest+"_dwi.bval")
-            outputSidecar(path+"/"+name+"_dwi.json", input)
-
-            dest_under_sub = "/".join(dest.split("/")[1:])
-            intended_paths.append(dest_under_sub+"_dwi.nii.gz")
-
+            src=os.path.join(input_dir, 'dwi.nii.gz')
+            if os.path.exists(dest+"_dwi.nii.gz"):
+                dest += "_desc-%s" %n_dwi
+            link(src, dest+"_dwi.nii.gz")
+            src=os.path.join(input_dir, 'dwi.bvals')
+            if os.path.exists(dest+"_dwi.bval"):
+                dest += "_desc-%s" %n_dwi
+            link(src, dest+"_dwi.bval")
+            src=os.path.join(input_dir, 'dwi.bvecs')
+            if os.path.exists(dest+"_dwi.bvec"):
+                dest += "_desc-%s" %n_dwi
+            link(src, dest+"_dwi.bvec")
+            outputSidecar(dest+"_dwi.json", input)
+            n_dwi+=1
+            
         elif input["datatype"] == FUNC_TASK:
 
             for key in input["keys"]:
@@ -392,5 +396,3 @@ pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
 with open("bids/dataset_description.json", 'w') as f:
     print("writing dataset_description.json", desc)
     json.dump(desc, f)
-
-
