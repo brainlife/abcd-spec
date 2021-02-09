@@ -142,12 +142,9 @@ with open('config.json') as f:
         sys.exit(1)
         
     intended_paths = []
-    n_t1 = n_dwi = 0
 
-    for input in config["_inputs"]:
-
+    for id, input in enumerate(config["_inputs"]):
         path="bids"
-
         subject = None
         if "subject" in input["meta"]:
             subject = clean(input["meta"]["subject"])
@@ -225,13 +222,14 @@ with open('config.json') as f:
         input_dir = os.path.join('..', input["task_id"], input["subdir"])
         dest=path+"/"+name
 
+        #add desc to make objects unique
+        dest+="_desc-%d"%(id+1)
+
         if input["datatype"] == ANAT_T1W:
+            print("adding t1-----------------")
             src=os.path.join(input_dir, 't1.nii.gz')
-            if os.path.exists(dest+"_T1w.nii.gz"):
-                dest += "_desc-%s" %n_t1
             link(src, dest+"_T1w.nii.gz")
             outputSidecar(dest+"_T1w.json", input)
-            n_t1+=1
 
         elif input["datatype"] == ANAT_T2W:
             #there should be 1 and only nifti
@@ -244,27 +242,16 @@ with open('config.json') as f:
              
         elif input["datatype"] == DWI:
             src=os.path.join(input_dir, 'dwi.nii.gz')
-            if os.path.exists(dest+"_dwi.nii.gz"):
-                dest += "_desc-%s" %n_dwi
             link(src, dest+"_dwi.nii.gz")
             src=os.path.join(input_dir, 'dwi.bvals')
-            if os.path.exists(dest+"_dwi.bval"):
-                dest += "_desc-%s" %n_dwi
             link(src, dest+"_dwi.bval")
             src=os.path.join(input_dir, 'dwi.bvecs')
-            if os.path.exists(dest+"_dwi.bvec"):
-                dest += "_desc-%s" %n_dwi
             link(src, dest+"_dwi.bvec")
             src=os.path.join(input_dir, 'sbref.nii.gz')
-            if os.path.exists(dest+"_sbref.nii.gz"):
-                dest += "_desc-%s" %n_dwi
             link(src, dest+"_sbref.nii.gz")
             src=os.path.join(input_dir, 'sbref.json')
-            if os.path.exists(dest+"_sbref.json"):
-                dest += "_desc-%s" %n_dwi
             link(src, dest+"_sbref.json")
             outputSidecar(dest+"_dwi.json", input)
-            n_dwi+=1
             
         elif input["datatype"] == FUNC_TASK:
 
