@@ -1,7 +1,7 @@
 bids
 ├── dataset_description.json
 ├── derivatives
-│   └── 6001d90f9102d37038642288
+│   └── simple
 │       └── sub-11061
 │           └── dt-58cb22c8e13a50849b25882e.todo
 │               ├── sub-11061_freesurfer.json

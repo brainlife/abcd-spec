@@ -230,7 +230,7 @@ with open('config.json') as f:
             if os.path.exists(dest+"_T1w.nii.gz"):
                 dest += "_desc-%s" %n_t1
             link(src, dest+"_T1w.nii.gz")
-            outputSidecar(path+"/"+name+"_T1w.json", input)
+            outputSidecar(dest+"_T1w.json", input)
             n_t1+=1
 
         elif input["datatype"] == ANAT_T2W:
@@ -255,6 +255,14 @@ with open('config.json') as f:
             if os.path.exists(dest+"_dwi.bvec"):
                 dest += "_desc-%s" %n_dwi
             link(src, dest+"_dwi.bvec")
+            src=os.path.join(input_dir, 'sbref.nii.gz')
+            if os.path.exists(dest+"_sbref.nii.gz"):
+                dest += "_desc-%s" %n_dwi
+            link(src, dest+"_sbref.nii.gz")
+            src=os.path.join(input_dir, 'sbref.json')
+            if os.path.exists(dest+"_sbref.json"):
+                dest += "_desc-%s" %n_dwi
+            link(src, dest+"_sbref.json")
             outputSidecar(dest+"_dwi.json", input)
             n_dwi+=1
             
