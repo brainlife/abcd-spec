@@ -1,0 +1,21 @@
+bids
+├── dataset_description.json
+└── sub-HCD0001305
+    ├── anat
+    │   ├── sub-HCD0001305_desc-1_T1w.json
+    │   ├── sub-HCD0001305_desc-1_T1w.nii.gz
+    │   ├── sub-HCD0001305_T1w.json
+    │   └── sub-HCD0001305_T1w.nii.gz
+    └── dwi
+        ├── sub-HCD0001305_run-3_dwi.bval
+        ├── sub-HCD0001305_run-3_dwi.bvec
+        ├── sub-HCD0001305_run-3_dwi.json
+        ├── sub-HCD0001305_run-3_dwi.nii.gz
+        ├── sub-HCD0001305_run-4_dwi.bval
+        ├── sub-HCD0001305_run-4_dwi.bvec
+        ├── sub-HCD0001305_run-4_dwi.json
+        ├── sub-HCD0001305_run-4_dwi.nii.gz
+        ├── sub-HCD0001305_run-4_sbref.json
+        └── sub-HCD0001305_run-4_sbref.nii.gz
+
+3 directories, 15 files
