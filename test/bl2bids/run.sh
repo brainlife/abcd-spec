@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#for dir in $(ls inputs)
-for dir in multi
+for dir in $(ls inputs)
+#for dir in multi
 do
 
   echo
@@ -18,7 +18,7 @@ do
     tree bids | tee output
     diff expected output | tee log
     if [[ -s log ]]; 
-        then echo "---> ERROR: Test failed."; 
+        then echo "---> ERROR: Test failed." && exit 1
         else echo "---> Test ran successfully."; 
     fi
   )

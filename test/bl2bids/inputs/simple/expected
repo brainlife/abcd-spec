@@ -8,8 +8,8 @@ bids
 │               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
 └── sub-11061
     ├── anat
-    │   ├── sub-11061_T1w.json
-    │   └── sub-11061_T1w.nii.gz
+    │   ├── sub-11061_desc-1_T1w.json
+    │   └── sub-11061_desc-1_T1w.nii.gz
     └── func
         ├── sub-11061_task-taskswitch_bold.json
         ├── sub-11061_task-taskswitch_bold.nii.gz
