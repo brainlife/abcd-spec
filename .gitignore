@@ -1,1 +1,4 @@
 hooks/_smon.out
+**/barn
+test/bl2bids/inputs/*/bids
+test/bl2bids/inputs/*/expected
