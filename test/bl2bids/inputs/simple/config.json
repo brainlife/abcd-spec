@@ -168,8 +168,8 @@
             "prov": null,
             "create_date": "2020-11-10T12:26:28.946Z",
             "id": "t1w",
-            "task_id": "5feba985f2246d36fa8b4427",
-            "subdir": "5faa86f4b886362ec6101776",
+            "task_id": "simple",
+            "subdir": "testdata/anat",
             "dataset_id": "5faa86f4b886362ec6101776",
             "keys": [
                 "t1"
@@ -274,8 +274,8 @@
             "create_date": "2020-11-09T04:05:06.767Z",
             "project": "5fa9e18eafcdcc22a2c45378",
             "id": "fmri",
-            "task_id": "5fec12a7f2246dc4858b59df",
-            "subdir": "5fa9e193afcdcc41dbc456e7",
+            "task_id": "simple",
+            "subdir": "testdata/func",
             "dataset_id": "5fa9e193afcdcc41dbc456e7",
             "prov": null,
             "keys": [
@@ -308,8 +308,8 @@
             "prov": null,
             "create_date": "2020-12-30T02:26:44.328Z",
             "id": "freesurfer",
-            "task_id": "6001d90f9102d37038642288",
-            "subdir": "5febe564bbfad168985ed21d",
+            "task_id": "simple",
+            "subdir": "testdata/freesurfer",
             "dataset_id": "5febe564bbfad168985ed21d",
             "keys": [
                 "fsin"
