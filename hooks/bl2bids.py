@@ -31,16 +31,30 @@ def getModality(input):
     return "derivatives"
 
 def get_nii_img(input):
-    if input["id"] == 't1w': 
-        nii_img = config["t1"]
-    elif input["id"] == 't2w':
-        nii_img = config["t2"]
-    elif input["id"] == 'dwi':
-        nii_img = config["dwi"]    
-    elif input["id"] == 'freesurfer':
-        nii_img = config["t1"] #change?!
-    elif input["id"] == 'fmri':   
-        nii_img = config["fmri"]
+
+    #TODO1 - input id is set by each App, so we can't just assume it to be certain nanme like input["t1w"]
+    #we need to use the input["datatype"] to determine which datatype is it.
+    #TODO2 - once we find the datatype, we can't rely on certain key under config like config["t1"]
+    #as developer can map to any name they want. we need to look for input["id"] == "t1" to find 
+    #the right object, then lookup its "keys" (it could be multiple!) and finally lookup the path pointed
+    #by the key
+    #DONE!
+
+    input_dir = os.path.join('..', input["task_id"], input["subdir"])
+
+    if input["datatype"] == ANAT_T1W:
+        nii_img = os.path.join(input_dir, 't1.nii.gz')
+    elif input["datatype"] == ANAT_T2W:
+        nii_img = os.path.join(input_dir, 't2.nii.gz')
+    elif input["datatype"] == DWI:
+        nii_img = os.path.join(input_dir, 'dwi.nii.gz') 
+    elif input["datatype"] == FUNC_TASK:   
+        nii_img = config["fmri"] #doesn't work with multi input!
+    elif input["datatype"] == FUNC_REGRESSORS:
+        nii_img = config["fmri"] #doesn't work with multi input!
+    else:
+        #datatype not supported
+        return None
     return nii_img     
 
 def correctPE(pe, nii_img):
@@ -97,9 +111,10 @@ def outputSidecar(path, input):
         #https://github.com/nipreps/fmriprep/issues/2341
         if "PhaseEncodingDirection" in input["meta"]:
             nii_img = get_nii_img(input)
-            pe = input["meta"]["PhaseEncodingDirection"]
-            updated_pe = correctPE(pe, nii_img)
-            input["meta"]["PhaseEncodingDirection"] = updated_pe    
+            if nii_img:
+                pe = input["meta"]["PhaseEncodingDirection"]
+                updated_pe = correctPE(pe, nii_img)
+                input["meta"]["PhaseEncodingDirection"] = updated_pe    
 
         json.dump(input["meta"], outfile)  
         
@@ -127,8 +142,10 @@ def link(src, dest, recover=None):
                 os.symlink(recover+src, dest, True)
             else:
                 os.link(src, dest)
+        else:
+            print(src, "not found")
     except FileExistsError:
-        #don't create link of src doesn't exist
+        #don't create link if src doesn't exist
         pass
 
 def clean(v):
@@ -143,10 +160,8 @@ with open('config.json') as f:
         
     intended_paths = []
 
-    for input in config["_inputs"]:
-
+    for id, input in enumerate(config["_inputs"]):
         path="bids"
-
         subject = None
         if "subject" in input["meta"]:
             subject = clean(input["meta"]["subject"])
@@ -213,7 +228,7 @@ with open('config.json') as f:
             path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
         else:
             path += "/"+modality
-    
+
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
         #symlink recovery path
@@ -221,44 +236,43 @@ with open('config.json') as f:
         for i in path.split("/"):
             recover += "../"
 
+        input_dir = os.path.join('..', input["task_id"], input["subdir"])
+        dest=path+"/"+name
+
+        #add desc to make objects unique
+        dest+="_desc-%d"%(id+1)
+
         if input["datatype"] == ANAT_T1W:
-            #there should be 1 and only nifti
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("t1.nii.gz"):
-                    link(src, dest+"_T1w.nii.gz")
-            outputSidecar(path+"/"+name+"_T1w.json", input)
+            src=os.path.join(input_dir, 't1.nii.gz')
+            link(src, dest+"_T1w.nii.gz")
+
+            outputSidecar(dest+"_T1w.json", input)
 
         elif input["datatype"] == ANAT_T2W:
-            #there should be 1 and only nifti
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("t2.nii.gz"):
-                    link(src, dest+"_T2w.nii.gz")
-            outputSidecar(path+"/"+name+"_T2w.json", input)
+            src=os.path.join(input_dir, 't2.nii.gz')
+            print("linking t2", src, dest+"_T2w.nii.gz")
+            link(src, dest+"_T2w.nii.gz")
+            
+            outputSidecar(dest+"_T2w.json", input)
              
         elif input["datatype"] == DWI:
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("dwi.nii.gz"):
-                    link(src, dest+"_dwi.nii.gz")
-                if src.endswith("dwi.bvecs"):
-                    link(src, dest+"_dwi.bvec")
-                if src.endswith("dwi.bvals"):
-                    link(src, dest+"_dwi.bval")
-            outputSidecar(path+"/"+name+"_dwi.json", input)
+            src=os.path.join(input_dir, 'dwi.nii.gz')
+            link(src, dest+"_dwi.nii.gz")
+            src=os.path.join(input_dir, 'dwi.bvals')
+            link(src, dest+"_dwi.bval")
+            src=os.path.join(input_dir, 'dwi.bvecs')
+            link(src, dest+"_dwi.bvec")
+            src=os.path.join(input_dir, 'sbref.nii.gz')
+            link(src, dest+"_sbref.nii.gz")
+            src=os.path.join(input_dir, 'sbref.json')
+            link(src, dest+"_sbref.json")
 
-            dest_under_sub = "/".join(dest.split("/")[1:])
-            intended_paths.append(dest_under_sub+"_dwi.nii.gz")
-
+            outputSidecar(dest+"_dwi.json", input)
+            
         elif input["datatype"] == FUNC_TASK:
 
             for key in input["keys"]:
                 src=config[key]
-                dest=path+"/"+name
                 if src.endswith("bold.nii.gz"):
                     link(src, dest+"_bold.nii.gz")
                 if src.endswith("events.tsv"):
@@ -273,25 +287,29 @@ with open('config.json') as f:
                     link(src, dest+"_physio.tsv.gz")
                 if src.endswith("physio.json"):
                     link(src, dest+"_physio.json")
-            outputSidecar(path+"/"+name+"_bold.json", input)
+
+            outputSidecar(dest+"_bold.json", input)
 
             dest_under_sub = "/".join(dest.split("/")[2:])
             intended_paths.append(dest_under_sub+"_bold.nii.gz")
 
         elif input["datatype"] == FUNC_REGRESSORS:
-            name += "_desc-confound"
-            for key in input["keys"]:
-                src=config[key]
-                dest=path+"/"+name
-                if src.endswith("regressors.tsv"):
-                    link(src, dest+"_regressors.tsv")
-            outputSidecar(path+"/"+name+"_regressors.json", input)
+            src=os.path.join(input_dir, 'regressors.tsv')
+            print("handing regressors----", src)
+            dest=path+"/"+name
+
+            #it looks like BIDS requires that regressors having "confounds" for desc?
+            #can't use input id to make it unique.. it looks like
+            #https://fmriprep.org/en/stable/outputs.html#confound-regressors-description
+            dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
+
+            link(src, dest+"_regressors.tsv")
+            outputSidecar(dest+"_regressors.json", input)
 
         elif input["datatype"] == FMAP:
             for key in input["keys"]:
                 src=config[key]
-                dest=path+"/"+name
-                fmap_dest=dest
+                fmap_dest=dest #used later to reset IntendedFor
 
                 #https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html
 
@@ -340,15 +358,16 @@ with open('config.json') as f:
                 if src.endswith("epi2.nii.gz"):
                     link(src, dest+"_epi2.nii.gz")
 
+            #bold.json will be written later
             #outputSidecar(path+"/"+name+"_bold.json", input)
         else:
+            #other datatypes...
             #just copy the entire file/dir name
             for key in input["keys"]:
                 base = os.path.basename(config[key])
                 src=config[key]
                 dest=path+"/"+name
                 link(src, dest+"_"+base, recover)
-                #print(path, name, key, config[key])
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
             
     #fix IntendedFor field for fmap json files
@@ -356,6 +375,8 @@ with open('config.json') as f:
         if input["datatype"] == FMAP:
             for key in input["keys"]:
                 src=config[key]
+
+                #set "correct" IntendedFor
                 dest=fmap_dest
                 if src.endswith("phasediff.json"):
                     copyJSON(src, dest+"_phasediff.json", override={"IntendedFor": intended_paths})
@@ -367,6 +388,7 @@ with open('config.json') as f:
                     copyJSON(src, dest+"_epi1.json", override={"IntendedFor": intended_paths})
                 if src.endswith("epi2.json"):
                     copyJSON(src, dest+"_epi2.json", override={"IntendedFor": intended_paths})
+
                 #fix PhaseEncodingDirection
                 if key.endswith("_json"):
                     nii_key = key[:-5] #remove suffix "_json"
@@ -392,5 +414,3 @@ pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
 with open("bids/dataset_description.json", 'w') as f:
     print("writing dataset_description.json", desc)
     json.dump(desc, f)
-
-

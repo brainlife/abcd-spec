@@ -1,0 +1,25 @@
+bids
+├── dataset_description.json
+├── derivatives
+│   └── simple
+│       └── sub-11061
+│           └── dt-58cb22c8e13a50849b25882e.todo
+│               ├── sub-11061_freesurfer.json
+│               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
+├── sub-11061
+│   ├── anat
+│   │   ├── sub-11061_desc-1_T1w.json
+│   │   ├── sub-11061_desc-1_T1w.nii.gz
+│   │   ├── sub-11061_desc-2_T2w.json
+│   │   └── sub-11061_desc-2_T2w.nii.gz
+│   └── func
+│       ├── sub-11061_task-taskswitch_desc-4_bold.json
+│       ├── sub-11061_task-taskswitch_desc-4_bold.nii.gz
+│       └── sub-11061_task-taskswitch_desc-4_sbref.nii.gz
+└── sub-9002
+    └── ses-1
+        └── func
+            ├── sub-9002_ses-1_task-rest_desc-confounds3_regressors.json
+            └── sub-9002_ses-1_task-rest_desc-confounds3_regressors.tsv
+
+11 directories, 11 files
