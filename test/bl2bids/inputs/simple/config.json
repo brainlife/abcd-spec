@@ -464,7 +464,7 @@
                 "desc-confound_regressors",
                 "fmriprep"
             ],
-            "subdir": "5d7be44c03e8c98d23eaed8c",
+            "subdir": "testdata/confounds",
             "dataset_id": "5d7be44c03e8c98d23eaed8c",
             "project": "5d786647281b9525d8821011",
             "task_id": "simple",

@@ -19,6 +19,7 @@ bids
 └── sub-9002
     └── ses-1
         └── func
-            └── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
+            ├── sub-9002_ses-1_task-rest_desc-confounds3_regressors.json
+            └── sub-9002_ses-1_task-rest_desc-confounds3_regressors.tsv
 
-11 directories, 10 files
+11 directories, 11 files
