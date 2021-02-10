@@ -298,7 +298,7 @@ with open('config.json') as f:
             #it looks like BIDS requires that regressors having "confounds" for desc?
             #can't use input id to make it unique.. it looks like
             #https://fmriprep.org/en/stable/outputs.html#confound-regressors-description
-            dest+="_desc-confounds" 
+            dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
 
             link(src, dest+"_regressors.tsv")
             outputSidecar(dest+"_regressors.json", input)

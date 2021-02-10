@@ -1,5 +1,12 @@
 bids
 ├── dataset_description.json
+├── sub-9002
+│   └── ses-1
+│       └── func
+│           ├── sub-9002_ses-1_task-rest_desc-confounds5_regressors.json
+│           ├── sub-9002_ses-1_task-rest_desc-confounds5_regressors.tsv
+│           ├── sub-9002_ses-1_task-rest_desc-confounds6_regressors.json
+│           └── sub-9002_ses-1_task-rest_desc-confounds6_regressors.tsv
 └── sub-HCD0001305
     ├── anat
     │   ├── sub-HCD0001305_desc-1_T1w.json
@@ -18,4 +25,4 @@ bids
         ├── sub-HCD0001305_run-4_desc-3_sbref.json
         └── sub-HCD0001305_run-4_desc-3_sbref.nii.gz
 
-3 directories, 15 files
+6 directories, 19 files
