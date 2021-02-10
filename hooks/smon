@@ -70,15 +70,34 @@ with open(name, "w") as outfile:
     #TODO - figure out how to find walltime for slurm
     #https://confluence.csiro.au/display/SC/Reference+Guide%3A+Migrating+from+Torque+to+SLURMt
 
+    #query for gpu info
+    gpus = []
+    try:
+        out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pci.bus_id,driver_version,memory.total,compute_mode", "--format=csv"]).decode("utf-8")
+        lines=out.strip().split("\n")
+        header=lines.pop(0)
+        for line in lines:
+            cols=line.split(", ")
+            gpus.append({
+                "index": cols[0],
+                "name": cols[1],
+                "bus_id": cols[2],
+                "driver_version": cols[3],
+                "memory.total": cols[4],
+                "compute_mode": cols[5],
+            })
+    except Exception as err:
+        print(err)
+
     #dump info that doesn't change on the first entry
     json.dump({
         "time": time.time(), 
         "uname": os.uname(), #os/kernerl/hostname version
-        #"cpu_count": psutil.cpu_count(), 
         "cpu_total": os.sysconf('SC_NPROCESSORS_CONF'),
         "cpu_requested": max_ppn,
 
-        #"memory_total": psutil.virtual_memory().total,
+        "gpus": gpus,
+
         "memory_total": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'),
         "memory_requested": max_mem,
 
@@ -96,6 +115,26 @@ with open(name, "w") as outfile:
 
     #now start infinite loop!
     while True:
+
+        #query gpu usage
+        gpus = []
+        try:
+            out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pstate,temperature.gpu,utilization.gpu,utilization.memory,fan.speed", "--format=csv"]).decode("utf-8")
+            lines=out.strip().split("\n")
+            header=lines.pop(0)
+            for line in lines:
+                cols=line.split(", ")
+                gpus.append({
+                    "index": cols[0],
+                    "name": cols[1],
+                    "pstate": cols[2], #The current performance state for the GPU. States range from P0 (maximum performance) to P12 (minimum performance).
+                    "temperature.gpu": int(cols[3]),
+                    "utilization.gpu": int(cols[4][:-1]), #remove %
+                    "utilization.memory": int(cols[5][:-1]), #remove %
+                    "fan.speed": int(cols[6][:-1]), #remove %
+                })
+        except Exception as err:
+            None
 
         #query process under current session (query every 2 seconds for 1 minute)
         processes = {}
@@ -165,6 +204,7 @@ with open(name, "w") as outfile:
             "time": time.time(), 
             "processes": processes_groups, 
             "disks": disks,
+            "gpus": gpus,
             "memory_avail": os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_AVPHYS_PAGES'),
             #"memory_avail": psutil.virtual_memory().available,
             #"memory_used": psutil.virtual_memory().used,
