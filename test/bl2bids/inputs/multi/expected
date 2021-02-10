@@ -1,5 +1,10 @@
 bids
 ├── dataset_description.json
+├── sub-11061
+│   └── func
+│       ├── sub-11061_task-taskswitch_desc-7_bold.json
+│       ├── sub-11061_task-taskswitch_desc-7_bold.nii.gz
+│       └── sub-11061_task-taskswitch_desc-7_sbref.nii.gz
 ├── sub-9002
 │   └── ses-1
 │       └── func
@@ -25,4 +30,4 @@ bids
         ├── sub-HCD0001305_run-4_desc-3_sbref.json
         └── sub-HCD0001305_run-4_desc-3_sbref.nii.gz
 
-6 directories, 19 files
+8 directories, 22 files
