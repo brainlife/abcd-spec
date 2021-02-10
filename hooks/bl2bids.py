@@ -38,17 +38,20 @@ def get_nii_img(input):
     #as developer can map to any name they want. we need to look for input["id"] == "t1" to find 
     #the right object, then lookup its "keys" (it could be multiple!) and finally lookup the path pointed
     #by the key
+    #DONE!
 
-    if input["id"] == 't1w': 
-        nii_img = config["t1"]
-    elif input["id"] == 't2w':
-        nii_img = config["t2"]
-    elif input["id"] == 'dwi':
-        nii_img = config["dwi"]    
-    elif input["id"] == 'freesurfer':
-        nii_img = config["t1"] #change?!
-    elif input["id"] == 'fmri':   
-        nii_img = config["fmri"]
+    input_dir = os.path.join('..', input["task_id"], input["subdir"])
+
+    if input["datatype"] == ANAT_T1W:
+        nii_img = os.path.join(input_dir, 't1.nii.gz')
+    elif input["datatype"] == ANAT_T2W:
+        nii_img = os.path.join(input_dir, 't2.nii.gz')
+    elif input["datatype"] == DWI:
+        nii_img = os.path.join(input_dir, 'dwi.nii.gz') 
+    elif input["datatype"] == FUNC_TASK:   
+        nii_img = config["fmri"] #doesn't work with multi input!
+    elif input["datatype"] == FUNC_REGRESSORS:
+        nii_img = config["fmri"] #doesn't work with multi input!
     else:
         #datatype not supported
         return None
