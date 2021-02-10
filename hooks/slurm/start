@@ -1,12 +1,13 @@
 #!/bin/bash
 
+echo "running start"
+
 if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]]; then
         `dirname $0`/../direct/start
         exit $?
 fi
 
-#this breaks grep below
-#set -e
+set -e
 
 rm -f exit-code
 
@@ -22,8 +23,10 @@ else
 fi
 
 true > _jobheader
-grep --regexp="^#PBS" $main >> _jobheader
-grep --regexp="^#SBATCH" $main >> _jobheader
+
+#grep could raise error .. so or it with true
+grep --regexp="^#PBS" $main >> _jobheader || true
+grep --regexp="^#SBATCH" $main >> _jobheader || true
 
 [ -f jobheader.sh ] && bash ./jobheader.sh >> _jobheader
 
@@ -55,6 +58,14 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
         });
     ')
     sbatch_opt="$sbatch_opt --mem=$mem"
+fi
+
+#if [[ "$HOSTNAME" == *bridges2.psc.edu ]]; then
+if [ ! -z "$IGNORE_PPN" ]; then
+	#some cluster doesn't like ppn (like bridges2 gpu-shared - which treats it like cpus-per-gpu)
+	echo "ignoring ppn":
+	sed -i "s/ppn=[0-9]\+//g" _jobheader
+	cat _jobheader
 fi
 
 [ ! -z "$SBATCH" ] && sbatch_opt="$sbatch_opt $SBATCH"
