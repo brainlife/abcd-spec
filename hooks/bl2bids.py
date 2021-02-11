@@ -300,10 +300,14 @@ with open('config.json') as f:
             print("handing regressors----", src)
             dest=path+"/"+name
 
-            #it looks like BIDS requires that regressors having "confounds" for desc?
+            #desc- is only for derivatives..
+            #https://github.com/bids-standard/bids-validator/issues/984
             #can't use input id to make it unique.. it looks like
             #https://fmriprep.org/en/stable/outputs.html#confound-regressors-description
-            dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
+            #dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
+
+            #it looks like BIDS requires that regressors having "confounds" for desc?
+            dest+="_desc-confounds"
 
             link(src, dest+"_regressors.tsv")
             outputSidecar(dest+"_regressors.json", input)
