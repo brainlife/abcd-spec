@@ -236,8 +236,10 @@ with open('config.json') as f:
         input_dir = os.path.join('..', input["task_id"], input["subdir"])
         dest=path+"/"+name
 
+        #desc- is only for derivatives..
+        #https://github.com/bids-standard/bids-validator/issues/984
         #add desc to make objects unique
-        dest+="_desc-%d"%(id+1)
+        #dest+="_desc-%d"%(id+1)
 
         if input["datatype"] == ANAT_T1W:
             src=os.path.join(input_dir, 't1.nii.gz')
