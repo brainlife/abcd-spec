@@ -64,11 +64,9 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
     sbatch_opt="$sbatch_opt --mem=$mem"
 fi
 
-
-if [[ "$HOSTNAME" == *bridges2.psc.edu ]]; then
-	#bridges2 treats ppn as cpus-per-gpu.. remove it from _main, and set -cpus-per-task=N in sbatch
-	#remove ppn=N for now..
-	echo "removing ppn as it's interpreted as cpus-per-gpu"
+if [ ! -z "$IGNORE_PPN" ]; then
+	#some cluster doesn't like ppn (like bridges2 gpu-shared - which treats it like cpus-per-gpu)
+	echo "ignoring ppn":
 	sed -i "s/ppn=[0-9]\+//g" _jobheader
 	cat _jobheader
 fi
