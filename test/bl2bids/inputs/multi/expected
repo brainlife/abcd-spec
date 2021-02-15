@@ -2,32 +2,32 @@ bids
 ├── dataset_description.json
 ├── sub-11061
 │   └── func
-│       ├── sub-11061_task-taskswitch_desc-7_bold.json
-│       ├── sub-11061_task-taskswitch_desc-7_bold.nii.gz
-│       └── sub-11061_task-taskswitch_desc-7_sbref.nii.gz
+│       ├── sub-11061_task-taskswitch_run-7_bold.json
+│       ├── sub-11061_task-taskswitch_run-7_bold.nii.gz
+│       └── sub-11061_task-taskswitch_run-7_sbref.nii.gz
 ├── sub-9002
 │   └── ses-1
 │       └── func
-│           ├── sub-9002_ses-1_task-rest_desc-confounds5_regressors.json
-│           ├── sub-9002_ses-1_task-rest_desc-confounds5_regressors.tsv
-│           ├── sub-9002_ses-1_task-rest_desc-confounds6_regressors.json
-│           └── sub-9002_ses-1_task-rest_desc-confounds6_regressors.tsv
+│           ├── sub-9002_ses-1_task-rest_run-5_desc-confounds_regressors.json
+│           ├── sub-9002_ses-1_task-rest_run-5_desc-confounds_regressors.tsv
+│           ├── sub-9002_ses-1_task-rest_run-6_desc-confounds_regressors.json
+│           └── sub-9002_ses-1_task-rest_run-6_desc-confounds_regressors.tsv
 └── sub-HCD0001305
     ├── anat
-    │   ├── sub-HCD0001305_desc-1_T1w.json
-    │   ├── sub-HCD0001305_desc-1_T1w.nii.gz
-    │   ├── sub-HCD0001305_desc-2_T1w.json
-    │   └── sub-HCD0001305_desc-2_T1w.nii.gz
+    │   ├── sub-HCD0001305_run-1_T1w.json
+    │   ├── sub-HCD0001305_run-1_T1w.nii.gz
+    │   ├── sub-HCD0001305_run-2_T1w.json
+    │   └── sub-HCD0001305_run-2_T1w.nii.gz
     └── dwi
-        ├── sub-HCD0001305_run-3_desc-4_dwi.bval
-        ├── sub-HCD0001305_run-3_desc-4_dwi.bvec
-        ├── sub-HCD0001305_run-3_desc-4_dwi.json
-        ├── sub-HCD0001305_run-3_desc-4_dwi.nii.gz
-        ├── sub-HCD0001305_run-4_desc-3_dwi.bval
-        ├── sub-HCD0001305_run-4_desc-3_dwi.bvec
-        ├── sub-HCD0001305_run-4_desc-3_dwi.json
-        ├── sub-HCD0001305_run-4_desc-3_dwi.nii.gz
-        ├── sub-HCD0001305_run-4_desc-3_sbref.json
-        └── sub-HCD0001305_run-4_desc-3_sbref.nii.gz
+        ├── sub-HCD0001305_run-3_dwi.bval
+        ├── sub-HCD0001305_run-3_dwi.bvec
+        ├── sub-HCD0001305_run-3_dwi.json
+        ├── sub-HCD0001305_run-3_dwi.nii.gz
+        ├── sub-HCD0001305_run-4_dwi.bval
+        ├── sub-HCD0001305_run-4_dwi.bvec
+        ├── sub-HCD0001305_run-4_dwi.json
+        ├── sub-HCD0001305_run-4_dwi.nii.gz
+        ├── sub-HCD0001305_run-4_sbref.json
+        └── sub-HCD0001305_run-4_sbref.nii.gz
 
 8 directories, 22 files

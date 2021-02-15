@@ -244,6 +244,10 @@ with open('config.json') as f:
         #add desc to make objects unique
         #dest+="_desc-%d"%(id+1)
 
+        #add run to make objects unique
+        if run is None:
+            dest+="_run-%d"%(id+1)
+
         if input["datatype"] == ANAT_T1W:
             src=os.path.join(input_dir, 't1.nii.gz')
             link(src, dest+"_T1w.nii.gz")
@@ -297,9 +301,7 @@ with open('config.json') as f:
 
         elif input["datatype"] == FUNC_REGRESSORS:
             src=os.path.join(input_dir, 'regressors.tsv')
-            print("handing regressors----", src)
-            dest=path+"/"+name
-
+            
             #desc- is only for derivatives..
             #https://github.com/bids-standard/bids-validator/issues/984
             #can't use input id to make it unique.. it looks like
