@@ -239,8 +239,10 @@ with open('config.json') as f:
         input_dir = os.path.join('..', input["task_id"], input["subdir"])
         dest=path+"/"+name
 
+        #desc- is only for derivatives..
+        #https://github.com/bids-standard/bids-validator/issues/984
         #add desc to make objects unique
-        dest+="_desc-%d"%(id+1)
+        #dest+="_desc-%d"%(id+1)
 
         if input["datatype"] == ANAT_T1W:
             src=os.path.join(input_dir, 't1.nii.gz')
@@ -298,10 +300,14 @@ with open('config.json') as f:
             print("handing regressors----", src)
             dest=path+"/"+name
 
-            #it looks like BIDS requires that regressors having "confounds" for desc?
+            #desc- is only for derivatives..
+            #https://github.com/bids-standard/bids-validator/issues/984
             #can't use input id to make it unique.. it looks like
             #https://fmriprep.org/en/stable/outputs.html#confound-regressors-description
-            dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
+            #dest+="_desc-confounds%d"%(id+1) #is this bids-compliant?
+
+            #it looks like BIDS requires that regressors having "confounds" for desc?
+            dest+="_desc-confounds"
 
             link(src, dest+"_regressors.tsv")
             outputSidecar(dest+"_regressors.json", input)
