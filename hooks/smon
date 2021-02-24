@@ -119,7 +119,7 @@ with open(name, "w") as outfile:
         #query gpu usage
         gpus = []
         try:
-            out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pstate,temperature.gpu,utilization.gpu,utilization.memory,fan.speed", "--format=csv"]).decode("utf-8")
+            out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pstate,temperature.gpu,utilization.gpu,utilization.memory", "--format=csv"]).decode("utf-8")
             lines=out.strip().split("\n")
             header=lines.pop(0)
             for line in lines:
@@ -131,7 +131,7 @@ with open(name, "w") as outfile:
                     "temperature.gpu": int(cols[3]),
                     "utilization.gpu": int(cols[4][:-1]), #remove %
                     "utilization.memory": int(cols[5][:-1]), #remove %
-                    "fan.speed": int(cols[6][:-1]), #remove %
+                    #"fan.speed": int(cols[6][:-1]), #remove % ([N/A] on bridges2)
                 })
         except Exception as err:
             None
