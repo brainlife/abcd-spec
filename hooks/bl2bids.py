@@ -253,7 +253,7 @@ with open('config.json') as f:
             outputSidecar(dest+"_T2w.json", input)
              
         elif input["datatype"] == DWI:
-            if isinstance(config["dwi"], list):
+            if len(config["dwi"])>1:
                 print("Multiple dwi input detected.")
                 if run == None:
                     if acq == None: 
