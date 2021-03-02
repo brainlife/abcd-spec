@@ -266,6 +266,7 @@ with open('config.json') as f:
                         acq="id%d" %(id+1)
                     else:
                         acq+="id%d" %(id+1)
+                    dest+="_acq-"+acq        
             src=os.path.join(input_dir, 'dwi.nii.gz')
             link(src, dest+"_dwi.nii.gz")
             src=os.path.join(input_dir, 'dwi.bvals')
@@ -308,7 +309,15 @@ with open('config.json') as f:
 
         elif input["datatype"] == FUNC_REGRESSORS:
             src=os.path.join(input_dir, 'regressors.tsv')
-            
+
+            if isinstance(config["confounds"], list) and len(config["confounds"])>1:
+                print("Multiple confounds input detected.")
+                if run == None:
+                    if acq == None: 
+                        acq="id%d" %(id+1)
+                    else:
+                        acq+="id%d" %(id+1)
+                    dest+="_acq-"+acq
             #desc- is only for derivatives..
             #https://github.com/bids-standard/bids-validator/issues/984
             #can't use input id to make it unique.. it looks like
@@ -367,7 +376,7 @@ with open('config.json') as f:
                 link(src, dest+"_"+base, recover)
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
             
-    #fix IntendedFor field for fmap json files
+    #fix IntendedFor field and PhaseEncodingDirection for fmap json files
     for input in config["_inputs"]:
         if input["datatype"] == FMAP:
             #set "correct" IntendedFor
