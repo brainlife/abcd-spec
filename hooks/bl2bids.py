@@ -57,8 +57,15 @@ def get_nii_img(input):
         return None
     return nii_img     
 
-def correctPE(pe, nii_img):
+def correctPE(input, nii_img, nii_key=None):
     
+    if nii_key in input["meta"]:
+        pe = input["meta"][nii_key]["PhaseEncodingDirection"]
+    elif "PhaseEncodingDirection" in input["meta"]:
+        pe = input["meta"]["PhaseEncodingDirection"]
+    else:
+        print("Cannot read PhaseEncodingDirection.")
+
     #if it's using ijk already don't need to do anything
     if pe[0] == 'i' or pe[0] == 'j' or pe[0] == 'k':
         print("Phase Encoding Direction conversion not needed.")
@@ -112,8 +119,7 @@ def outputSidecar(path, input):
         if "PhaseEncodingDirection" in input["meta"]:
             nii_img = get_nii_img(input)
             if nii_img:
-                pe = input["meta"]["PhaseEncodingDirection"]
-                updated_pe = correctPE(pe, nii_img)
+                updated_pe = correctPE(input, nii_img)
                 input["meta"]["PhaseEncodingDirection"] = updated_pe    
 
         json.dump(input["meta"], outfile)  
@@ -239,15 +245,6 @@ with open('config.json') as f:
         input_dir = os.path.join('..', input["task_id"], input["subdir"])
         dest=path+"/"+name
 
-        #desc- is only for derivatives..
-        #https://github.com/bids-standard/bids-validator/issues/984
-        #add desc to make objects unique
-        #dest+="_desc-%d"%(id+1)
-
-        #add run to make objects unique
-        if run is None:
-            dest+="_run-%d"%(id+1)
-
         if input["datatype"] == ANAT_T1W:
             src=os.path.join(input_dir, 't1.nii.gz')
             link(src, dest+"_T1w.nii.gz")
@@ -262,6 +259,13 @@ with open('config.json') as f:
             outputSidecar(dest+"_T2w.json", input)
              
         elif input["datatype"] == DWI:
+            if isinstance(config["dwi"], list) and len(config["dwi"])>1:
+                print("Multiple dwi input detected.")
+                if run == None:
+                    if acq == None: 
+                        acq="id%d" %(id+1)
+                    else:
+                        acq+="id%d" %(id+1)
             src=os.path.join(input_dir, 'dwi.nii.gz')
             link(src, dest+"_dwi.nii.gz")
             src=os.path.join(input_dir, 'dwi.bvals')
@@ -274,7 +278,10 @@ with open('config.json') as f:
             link(src, dest+"_sbref.json")
 
             outputSidecar(dest+"_dwi.json", input)
-            
+
+            dest_under_sub = "/".join(dest.split("/")[2:])
+            intended_paths.append(dest_under_sub+"_dwi.nii.gz")
+
         elif input["datatype"] == FUNC_TASK:
 
             for key in input["keys"]:
@@ -315,65 +322,47 @@ with open('config.json') as f:
             outputSidecar(dest+"_regressors.json", input)
 
         elif input["datatype"] == FMAP:
-            for key in input["keys"]:
-                src=config[key]
-                fmap_dest=dest #used later to reset IntendedFor
 
-                #https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html
+            #https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html
 
-                # [CASE 1] Phase difference image and at least one magnitude image
-                # phasediff.nii.gz
-                # phasediff.json (should have EchoTime1 / Echotime2, IntendedFor)
-                # magnitude1.nii.gz
-                # magnitude2.nii.gz (optional)
+            # [CASE 1] Phase difference image and at least one magnitude image
+            # phasediff.nii.gz
+            # phasediff.json (should have EchoTime1 / Echotime2, IntendedFor)
+            # magnitude1.nii.gz
+            # magnitude2.nii.gz (optional)
 
-                # [CASE 2] Two phase images and two magnitude images
-                # phase1.nii.gz
-                # phase1.json (should have EchoTime / IntendedFor set)
-                # phase2.nii.gz
-                # phase2.json (should have EchoTime / IntendedFor set)
-                # magnitude1.nii.gz
-                # magnitude2.nii.gz
+            # [CASE 2] Two phase images and two magnitude images
+            # phase1.nii.gz
+            # phase1.json (should have EchoTime / IntendedFor set)
+            # phase2.nii.gz
+            # phase2.json (should have EchoTime / IntendedFor set)
+            # magnitude1.nii.gz
+            # magnitude2.nii.gz
 
-                # [CASE 3] A real fieldmap image
-                # magnitude.nii.gz
-                # fieldmap.nii.gz
-                # fieldmap.json (Units(like "rad/s") and IntendedFor should be set)
-                
-                # [CASE 4] Multiple phase encoded directions ("pepolar")
-                # dir-<label>_epi.nii.gz
-                # dir-<label>_epi.json (should have PhaseEncodingDirection / TotalReadoutTime / IntendedFor )
+            # [CASE 3] A real fieldmap image
+            # magnitude.nii.gz
+            # fieldmap.nii.gz
+            # fieldmap.json (Units(like "rad/s") and IntendedFor should be set)
+            
+            # [CASE 4] Multiple phase encoded directions ("pepolar")
+            # dir-<label>_epi.nii.gz
+            # dir-<label>_epi.json (should have PhaseEncodingDirection / TotalReadoutTime / IntendedFor )
 
-                if src.endswith("phasediff.nii.gz"):
-                    link(src, dest+"_phasediff.nii.gz")
+            fmap_dest=dest #used later to reset IntendedFor
+            fmap_dir=input_dir #used later to reset IntendedFor
 
-                if src.endswith("magnitude.nii.gz"):
-                    link(src, dest+"_magnitude.nii.gz")
-                if src.endswith("magnitude1.nii.gz"):
-                    link(src, dest+"_magnitude1.nii.gz")
-                if src.endswith("magnitude2.nii.gz"):
-                    link(src, dest+"_magnitude2.nii.gz")
-                if src.endswith("fieldmap.nii.gz"):
-                    link(src, dest+"_fieldmap.nii.gz")
-
-                if src.endswith("phase1.nii.gz"):
-                    link(src, dest+"_phase1.nii.gz")
-                if src.endswith("phase2.nii.gz"):
-                    link(src, dest+"_phase2.nii.gz")
-
-                if src.endswith("epi1.nii.gz"):
-                    link(src, dest+"_epi1.nii.gz")
-                if src.endswith("epi2.nii.gz"):
-                    link(src, dest+"_epi2.nii.gz")
-
-            #bold.json will be written later
-            #outputSidecar(path+"/"+name+"_bold.json", input)
+            for key in input["keys"]:   
+                if not key.endswith("_json"):
+                    nii_key = key
+                    src=os.path.join(input_dir, nii_key+".nii.gz")
+                    link(src, dest+"_"+nii_key+".nii.gz")
+            
         else:
             #other datatypes...
             #just copy the entire file/dir name
             for key in input["keys"]:
                 base = os.path.basename(config[key])
-                src=config[key]
+                src=config[key] #does not work with multi input!
                 dest=path+"/"+name
                 link(src, dest+"_"+base, recover)
             outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
@@ -381,32 +370,21 @@ with open('config.json') as f:
     #fix IntendedFor field for fmap json files
     for input in config["_inputs"]:
         if input["datatype"] == FMAP:
-            for key in input["keys"]:
-                src=config[key]
+            #set "correct" IntendedFor
+            dest=fmap_dest #does not work with multi input!
+            input_dir=fmap_dir #does not work with multi input!
 
-                #set "correct" IntendedFor
-                dest=fmap_dest
-                if src.endswith("phasediff.json"):
-                    copyJSON(src, dest+"_phasediff.json", override={"IntendedFor": intended_paths})
-                if src.endswith("phase1.json"):
-                    copyJSON(src, dest+"_phase1.json", override={"IntendedFor": intended_paths})
-                if src.endswith("phase2.json"):
-                    copyJSON(src, dest+"_phase2.json", override={"IntendedFor": intended_paths})
-                if src.endswith("epi1.json"):
-                    copyJSON(src, dest+"_epi1.json", override={"IntendedFor": intended_paths})
-                if src.endswith("epi2.json"):
-                    copyJSON(src, dest+"_epi2.json", override={"IntendedFor": intended_paths})
-
-                #fix PhaseEncodingDirection
+            for key in input["keys"]:   
                 if key.endswith("_json"):
                     nii_key = key[:-5] #remove suffix "_json"
-                    nii_img = config[nii_key] 
+                    src=os.path.join(input_dir, nii_key+".json")
+                    f_json = dest+"_"+nii_key+".json"
+                    copyJSON(src, f_json, override={"IntendedFor": intended_paths})
+                    #fix PhaseEncodingDirection 
+                    nii_img=os.path.join(input_dir, nii_key+".nii.gz")
                     if os.path.exists(nii_img):
                         print(nii_key)
-                        pe = input["meta"][nii_key]["PhaseEncodingDirection"]
-                        updated_pe = correctPE(pe, nii_img)
-                        f_json = dest+"_"+nii_key+".json"
-                        print(f_json)
+                        updated_pe = correctPE(input, nii_img, nii_key)
                         copyJSON(f_json, f_json, override={"PhaseEncodingDirection": updated_pe})
 
 #generate fake dataset_description.json
