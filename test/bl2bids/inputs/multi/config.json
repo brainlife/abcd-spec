@@ -14,6 +14,10 @@
         "testdata/dwi/dwi.bvals",
         "testdata/dwi-1/dwi.bvals"
     ],
+    "confounds": [
+		"testdata/confounds/regressors.tsv",
+		"testdata/confounds-1/regressors.tsv"
+	],
     "sbref-dwi": "testdata/dwi/sbref.nii.gz",
     "sbref_json-dwi": "testdata/dwi/sbref.json",
     "fmri": "testdata/func/bold.nii.gz",
@@ -105,7 +109,8 @@
                 "ConversionSoftware": "dcm2niix",
                 "ConversionSoftwareVersion": "v1.0.20171017 GCC4.4.7",
                 "ReadoutDirection": "k",
-                "subject": "HCD0001305"
+                "subject": "HCD0001305",
+                "run": "01"
             },
             "tags": [],
             "datatype_tags": [],
@@ -194,7 +199,8 @@
                 "ConversionSoftware": "dcm2niix",
                 "ConversionSoftwareVersion": "v1.0.20171017 GCC4.4.7",
                 "ReadoutDirection": "k",
-                "subject": "HCD0001305"
+                "subject": "HCD0001305",
+                "run": "02"
             },
             "tags": [],
             "datatype_tags": [],

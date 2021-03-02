@@ -8,18 +8,32 @@ bids
 │               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
 ├── sub-11061
 │   ├── anat
-│   │   ├── sub-11061_run-1_T1w.json
-│   │   ├── sub-11061_run-1_T1w.nii.gz
-│   │   ├── sub-11061_run-2_T2w.json
-│   │   └── sub-11061_run-2_T2w.nii.gz
+│   │   ├── sub-11061_T1w.json
+│   │   ├── sub-11061_T1w.nii.gz
+│   │   ├── sub-11061_T2w.json
+│   │   └── sub-11061_T2w.nii.gz
 │   └── func
-│       ├── sub-11061_task-taskswitch_run-4_bold.json
-│       ├── sub-11061_task-taskswitch_run-4_bold.nii.gz
-│       └── sub-11061_task-taskswitch_run-4_sbref.nii.gz
+│       ├── sub-11061_task-taskswitch_bold.json
+│       ├── sub-11061_task-taskswitch_bold.nii.gz
+│       └── sub-11061_task-taskswitch_sbref.nii.gz
 └── sub-9002
     └── ses-1
+        ├── dwi
+        │   ├── sub-9002_ses-1_dwi.bval
+        │   ├── sub-9002_ses-1_dwi.bvec
+        │   ├── sub-9002_ses-1_dwi.json
+        │   ├── sub-9002_ses-1_dwi.nii.gz
+        │   ├── sub-9002_ses-1_sbref.json
+        │   └── sub-9002_ses-1_sbref.nii.gz
+        ├── fmap
+        │   ├── sub-9002_ses-1_magnitude1.nii.gz
+        │   ├── sub-9002_ses-1_magnitude2.nii.gz
+        │   ├── sub-9002_ses-1_phase1.json
+        │   ├── sub-9002_ses-1_phase1.nii.gz
+        │   ├── sub-9002_ses-1_phase2.json
+        │   └── sub-9002_ses-1_phase2.nii.gz
         └── func
-            ├── sub-9002_ses-1_task-rest_run-3_desc-confounds_regressors.json
-            └── sub-9002_ses-1_task-rest_run-3_desc-confounds_regressors.tsv
+            ├── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
+            └── sub-9002_ses-1_task-rest_desc-confounds_regressors.tsv
 
-11 directories, 11 files
+13 directories, 23 files
