@@ -25,37 +25,15 @@ if __name__ == '__main__':
             
         for id, input in enumerate(config["_inputs"]):
             path="bids"
-
             subject = None
             if "subject" in input["meta"]:
                 subject = clean(input["meta"]["subject"])
-		path+="/sub-"+subject
-		name="sub-"+subject
 
             session = None
             if "session" in input["meta"]:
                 session = clean(input["meta"]["session"])
-		path+="/ses-"+session
-		name+="_ses-"+session
 
-	    short_name=name
-
-	    if "task" in input["meta"]:
-                name+="_task-"+clean(input["meta"]["task"])
-            else:
-                print("meta.task is not set.. defaulting to id%d") %(id+1)
-                name+="_task-id%d" %(id+1)
-
-	    if "acq" in input["meta"]:
-                acq = clean(input["meta"]["acq"])
-		name+="_acq-"+acq
-		short_name+="_acq-"+acq
-
-	    if "space" in input["meta"]:
-                space = clean(input["meta"]["space"])
-		name+="_space-"+space
-		short_name+="_space-"+space
-
+            run = None
             if "run" in input["meta"]:
                 #TODO - run should be an integer and it should not be 0-padded according to Tal
                 #but on brainlife, it could be set to any string.. so I can't just convert to int as it could
@@ -63,13 +41,33 @@ if __name__ == '__main__':
                 try:
                     _run = clean(input["meta"]["run"])
                     run = str(int(_run))
-		    name+="_run-"+run
                 except ValueError:
                     print("can't parse run.. ignoring", input["meta"]["run"])
 
+            proc = None
             if "proc" in input["meta"]:
                 proc = clean(input["meta"]["proc"])
-		name+="_proc-"+proc            
+            
+            path+="/sub-"+subject
+            if session:
+                path+="/ses-"+session
+
+            name="sub-"+subject
+            if session:
+                name+="_ses-"+session
+
+            short_name=name
+
+            if "task" in input["meta"]:
+                name+="_task-"+clean(input["meta"]["task"])
+            else:
+                print("meta.task is not set.. defaulting to id%d") %(id+1)
+                name+="_task-id%d" %(id+1)
+
+            if run:
+                name+="_run-"+run
+            if proc:
+                name+="_proc-"+proc
 
             modality=getModality(input)
             path += "/"+modality
@@ -82,15 +80,15 @@ if __name__ == '__main__':
 
             input_dir = os.path.join('..', input["task_id"], input["subdir"])
             dest=path+"/"+name
-            short_dest=path+"/"+short_name #should share task and run
+            short_dest=path+"/"+short_name
 
             if input["datatype"] == MEG_CTF:
                 src=os.path.join(input_dir, 'meg.ds')
                 link(src, dest+"_meg.ds")
-		src=os.path.join(input_dir, 'channels.tsv')
-                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'headshape.pos')
                 link(src, short_dest+"_headshape.pos")
+                src=os.path.join(input_dir, 'channels.tsv')
+                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
 
@@ -99,10 +97,10 @@ if __name__ == '__main__':
             elif input["datatype"] == MEG_FIF:
                 src=os.path.join(input_dir, 'meg.fif')
                 link(src, dest+"_meg.fif")
-                src=os.path.join(input_dir, 'channels.tsv')
-                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'headshape.pos')
                 link(src, short_dest+"_headshape.pos")
+                src=os.path.join(input_dir, 'channels.tsv')
+                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
                 src=os.path.join(input_dir, 'calibration_meg.dat')
@@ -119,20 +117,20 @@ if __name__ == '__main__':
                 link(src, dest+"_eeg.fdt")
 		src=os.path.join(input_dir, 'eeg.set')
                 link(src, dest+"_eeg.set")
+                src=os.path.join(input_dir, 'electrodes.tsv')
+                link(src, dest+"_electrodes.tsv")
 		src=os.path.join(input_dir, 'channels.tsv')
                 link(src, dest+"_channels.tsv")
-                src=os.path.join(input_dir, 'electrodes.tsv')
-                link(src, short_dest+"_electrodes.tsv")
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
 
 	    elif input["datatype"] == EEG_EDF:
 		src=os.path.join(input_dir, 'eeg.edf')
                 link(src, dest+"_eeg.edf")
-                src=os.path.join(input_dir, 'channels.tsv')
-                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'electrodes.tsv')
-                link(src, short_dest+"_electrodes.tsv")
+                link(src, dest+"_electrodes.tsv")
+		src=os.path.join(input_dir, 'channels.tsv')
+                link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
 
