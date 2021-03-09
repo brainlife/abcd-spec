@@ -15,6 +15,8 @@ if __name__ == '__main__':
     MEG_FIF = "6000737faacf9ee51fa691cb"
     EEG_EEGLAB = "60007410aacf9e4edda691d4"
     EEG_EDF = "600074f6aacf9e7acda691d7"
+    EEG_BRAINVISION = "6000753eaacf9e6591a691d9"
+    EEG_BDF = "60007567aacf9e1615a691dd"
 
     with open('config.json') as f:
         config = json.load(f)
@@ -40,6 +42,7 @@ if __name__ == '__main__':
 
 	    short_name=name
 
+	    #task is mandatory
 	    if "task" in input["meta"]:
                 name+="_task-"+clean(input["meta"]["task"])
             else:
@@ -82,7 +85,7 @@ if __name__ == '__main__':
 
             input_dir = os.path.join('..', input["task_id"], input["subdir"])
             dest=path+"/"+name
-            short_dest=path+"/"+short_name #should share task and run
+            short_dest=path+"/"+short_name #does not contain task and run
 
             if input["datatype"] == MEG_CTF:
                 src=os.path.join(input_dir, 'meg.ds')
@@ -126,6 +129,8 @@ if __name__ == '__main__':
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
 
+		outputSidecar(dest+"_eeg.json", input)
+
 	    elif input["datatype"] == EEG_EDF:
 		src=os.path.join(input_dir, 'eeg.edf')
                 link(src, dest+"_eeg.edf")
@@ -135,6 +140,36 @@ if __name__ == '__main__':
                 link(src, short_dest+"_electrodes.tsv")
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
+
+		outputSidecar(dest+"_eeg.json", input)
+
+	    elif input["datatype"] == EEG_BRAINVISION:
+		src=os.path.join(input_dir, 'eeg.eeg')
+                link(src, dest+"_eeg.eeg")
+		src=os.path.join(input_dir, 'eeg.vhdr')
+                link(src, dest+"_eeg.vhdr")
+		src=os.path.join(input_dir, 'eeg.vmrk')
+                link(src, dest+"_eeg.vmrk")
+                src=os.path.join(input_dir, 'channels.tsv')
+                link(src, dest+"_channels.tsv")
+                src=os.path.join(input_dir, 'electrodes.tsv')
+                link(src, short_dest+"_electrodes.tsv")
+                src=os.path.join(input_dir, 'coordsystem.json')
+                link(src, short_dest+"_coordsystem.json")
+
+		outputSidecar(dest+"_eeg.json", input)
+
+	    elif input["datatype"] == EEG_BDF:
+		src=os.path.join(input_dir, 'eeg.bdf')
+                link(src, dest+"_eeg.bdf")
+                src=os.path.join(input_dir, 'channels.tsv')
+                link(src, dest+"_channels.tsv")
+                src=os.path.join(input_dir, 'electrodes.tsv')
+                link(src, short_dest+"_electrodes.tsv")
+                src=os.path.join(input_dir, 'coordsystem.json')
+                link(src, short_dest+"_coordsystem.json")
+
+		outputSidecar(dest+"_eeg.json", input)
 
     #generate fake dataset_description.json
     name="brainlife"
