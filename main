@@ -4,6 +4,6 @@
 
 set -x
 
-hookdir=$(realpath abcd-spec/hooks)
+hookdir=$(realpath hooks)
 singularity exec -B $hookdir -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids.py
 singularity exec -B $hookdir -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids-meeg.py
