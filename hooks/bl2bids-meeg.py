@@ -44,9 +44,9 @@ if __name__ == '__main__':
 
             #task is mandatory
             if "task" in input["meta"]:
-                    name+="_task-"+clean(input["meta"]["task"])
+                name+="_task-"+clean(input["meta"]["task"])
             else:
-                print("meta.task is not set.. defaulting to id%d") %(id+1)
+                print("meta.task is not set.. defaulting to id%d" %(id+1))
                 name+="_task-id%d" %(id+1)
 
             if "acq" in input["meta"]:
