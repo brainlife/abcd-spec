@@ -75,6 +75,7 @@ if __name__ == '__main__':
                 name+="_proc-"+proc
 
             modality=getModality(input)
+            print("Modality: %s" %modality)
             path += "/"+modality
             pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
