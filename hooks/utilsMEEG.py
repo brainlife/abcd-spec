@@ -9,12 +9,25 @@ import re
 #datatype IDs that we handle
 MEG_CTF = "6000714baacf9e22a6a691c8"
 MEG_FIF = "6000737faacf9ee51fa691cb"
+EEG_EEGLAB = "60007410aacf9e4edda691d4"
+EEG_EDF = "600074f6aacf9e7acda691d7"
+EEG_BRAINVISION = "6000753eaacf9e6591a691d9"
+EEG_BDF = "60007567aacf9e1615a691dd"
 
 def getModality(input):
     if input["datatype"] == MEG_CTF:
         return "meg"
     if input["datatype"] == MEG_FIF:
         return "meg"
+    if input["datatype"] == EEG_EEGLAB:
+        return "eeg"
+    if input["datatype"] == EEG_EDF:
+        return "eeg"
+    if input["datatype"] == EEG_BRAINVISION:
+        return "eeg"
+    if input["datatype"] == EEG_BDF:
+        return "eeg"
+    return "derivatives"
 
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:

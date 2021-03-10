@@ -14,6 +14,12 @@ DWI = "58c33c5fe13a50849b25879b"
 FUNC_TASK = "59b685a08e5d38b0b331ddc5"
 FUNC_REGRESSORS = "5c4f6a8af9109beac4b3dae0"
 FMAP = "5c390505f9109beac42b00df"
+MEG_CTF = "6000714baacf9e22a6a691c8"
+MEG_FIF = "6000737faacf9ee51fa691cb"
+EEG_EEGLAB = "60007410aacf9e4edda691d4"
+EEG_EDF = "600074f6aacf9e7acda691d7"
+EEG_BRAINVISION = "6000753eaacf9e6591a691d9"
+EEG_BDF = "60007567aacf9e1615a691dd"
 
 def getModality(input):
     if input["datatype"] == ANAT_T1W:
@@ -28,6 +34,18 @@ def getModality(input):
         return "func"
     if input["datatype"] == FMAP:
         return "fmap"
+    if input["datatype"] == MEG_CTF:
+        return "meg"
+    if input["datatype"] == MEG_FIF:
+        return "meg"
+    if input["datatype"] == EEG_EEGLAB:
+        return "eeg"
+    if input["datatype"] == EEG_EDF:
+        return "eeg"
+    if input["datatype"] == EEG_BRAINVISION:
+        return "eeg"
+    if input["datatype"] == EEG_BDF:
+        return "eeg"
     return "derivatives"
 
 def get_nii_img(input):
@@ -201,7 +219,9 @@ with open('config.json') as f:
 
         #all non raw data is stored under derivatives
         modality=getModality(input)
-        if modality == "derivatives":
+        if modality == "meg" or modality == "eeg":
+            break
+        elif modality == "derivatives":
             path += "/derivatives"
             path += "/"+input["task_id"] #TODO we need app name for "pipeline name"
 

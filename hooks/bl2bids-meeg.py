@@ -75,9 +75,10 @@ if __name__ == '__main__':
                 name+="_proc-"+proc
 
             modality=getModality(input)
-            print("Modality: %s" %modality)
             path += "/"+modality
-            pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+            #derivatives are handles from bl2bids.py
+            if modality != "derivatives":     
+                pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
             #symlink recovery path
             recover = ""
@@ -170,7 +171,7 @@ if __name__ == '__main__':
                 src=os.path.join(input_dir, 'coordsystem.json')
                 link(src, short_dest+"_coordsystem.json")
 
-            outputSidecar(dest+"_eeg.json", input)
+                outputSidecar(dest+"_eeg.json", input)
 
     #generate fake dataset_description.json
     name="brainlife"
