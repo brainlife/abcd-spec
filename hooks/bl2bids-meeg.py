@@ -94,7 +94,7 @@ if __name__ == '__main__':
             if input["datatype"] == MEG_CTF:
                 src=os.path.join(input_dir, 'meg.ds')
                 #link(src, dest+"_meg.ds", recover="")
-                copy_folder(src, dest)
+                copy_folder(src, dest+"_meg.ds")
                 src=os.path.join(input_dir, 'channels.tsv')
                 link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'headshape.pos')
