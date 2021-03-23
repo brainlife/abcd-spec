@@ -5,7 +5,7 @@ import pathlib
 import os
 import sys
 import re
-from utilsMEEG import getModality, outputSidecar, copyJSON, link, clean
+from utilsMEEG import getModality, outputSidecar, copyJSON, link, copy_folder, clean
 
 
 if __name__ == '__main__':
@@ -46,7 +46,9 @@ if __name__ == '__main__':
             if "task" in input["meta"]:
                 name+="_task-"+clean(input["meta"]["task"])
             else:
-                print("meta.task is not set.. defaulting to id%d" %(id+1))
+                modality=getModality(input)
+                if modality == "meg" or modality == "eeg":
+                    print("meta.task is not set.. defaulting to id%d" %(id+1))
                 name+="_task-id%d" %(id+1)
 
             if "acq" in input["meta"]:
@@ -76,7 +78,7 @@ if __name__ == '__main__':
 
             modality=getModality(input)
             path += "/"+modality
-            #derivatives are handles from bl2bids.py
+            #derivatives are handled from bl2bids.py
             if modality != "derivatives":     
                 pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
@@ -91,7 +93,8 @@ if __name__ == '__main__':
 
             if input["datatype"] == MEG_CTF:
                 src=os.path.join(input_dir, 'meg.ds')
-                link(src, dest+"_meg.ds")
+                #link(src, dest+"_meg.ds", recover="")
+                copy_folder(src, dest)
                 src=os.path.join(input_dir, 'channels.tsv')
                 link(src, dest+"_channels.tsv")
                 src=os.path.join(input_dir, 'headshape.pos')

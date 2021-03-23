@@ -5,6 +5,7 @@ import pathlib
 import os
 import sys
 import re
+import shutil
 
 #datatype IDs that we handle
 MEG_CTF = "6000714baacf9e22a6a691c8"
@@ -67,12 +68,19 @@ def link(src, dest, recover=None):
             print("linking", src, "to", dest)
             if os.path.isdir(src):
                 os.symlink(recover+src, dest, True)
+                #os.link(src, dest, True)
             else:
                 os.link(src, dest)
         else:
             print(src, "not found")
     except FileExistsError:
         #don't create link if src doesn't exist
+        pass
+
+def copy_folder(src, dest):
+    try:
+        shutil.copytree(src, dest)
+    except shutil.Error:
         pass
 
 def clean(v):
