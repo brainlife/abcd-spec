@@ -1,6 +1,7 @@
 {
-    "t1": [ "testdata/anat/t1.nii.gz",
-            "testdata/anat-1/t1.nii.gz"
+    "t1": [ 
+        "testdata/anat/t1.nii.gz",
+        "testdata/anat-1/t1.nii.gz"
     ],
     "dwi": [
         "testdata/dwi/dwi.nii.gz",
@@ -15,8 +16,8 @@
         "testdata/dwi-1/dwi.bvals"
     ],
     "confounds": [
-		"testdata/confounds/regressors.tsv",
-		"testdata/confounds-1/regressors.tsv"
+        "testdata/confounds/regressors.tsv",
+        "testdata/confounds-1/regressors.tsv"
 	],
     "sbref-dwi": "testdata/dwi/sbref.nii.gz",
     "sbref_json-dwi": "testdata/dwi/sbref.json",
