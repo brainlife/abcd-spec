@@ -48,33 +48,6 @@ def getModality(input):
         return "eeg"
     return "derivatives"
 
-def get_nii_img(input):
-
-    #TODO1 - input id is set by each App, so we can't just assume it to be certain nanme like input["t1w"]
-    #we need to use the input["datatype"] to determine which datatype is it.
-    #TODO2 - once we find the datatype, we can't rely on certain key under config like config["t1"]
-    #as developer can map to any name they want. we need to look for input["id"] == "t1" to find 
-    #the right object, then lookup its "keys" (it could be multiple!) and finally lookup the path pointed
-    #by the key
-    #DONE!
-
-    input_dir = os.path.join('..', input["task_id"], input["subdir"])
-
-    if input["datatype"] == ANAT_T1W:
-        nii_img = os.path.join(input_dir, 't1.nii.gz')
-    elif input["datatype"] == ANAT_T2W:
-        nii_img = os.path.join(input_dir, 't2.nii.gz')
-    elif input["datatype"] == DWI:
-        nii_img = os.path.join(input_dir, 'dwi.nii.gz') 
-    elif input["datatype"] == FUNC_TASK:   
-        nii_img = config["fmri"] #doesn't work with multi input!
-    elif input["datatype"] == FUNC_REGRESSORS:
-        nii_img = config["fmri"] #doesn't work with multi input!
-    else:
-        #datatype not supported
-        return None
-    return nii_img     
-
 def correctPE(input, nii_img, nii_key=None):
     
     if nii_key in input["meta"]:
@@ -134,11 +107,13 @@ def outputSidecar(path, input):
             del input["meta"]["run"]
 
         #https://github.com/nipreps/fmriprep/issues/2341
-        if "PhaseEncodingDirection" in input["meta"]:
-            nii_img = get_nii_img(input)
-            if nii_img:
-                updated_pe = correctPE(input, nii_img)
-                input["meta"]["PhaseEncodingDirection"] = updated_pe    
+        if input["datatype"] in [ANAT_T1W, ANAT_T2W, DWI, FUNC_TASK, FUNC_REGRESSORS] and "PhaseEncodingDirection" in input["meta"]:
+            for key in input["_key2path"]:
+                path = input["_key2path"][key]
+                if path.endswith(".nii.gz"):
+                    print("correctintg PE for", path)
+                    updated_pe = correctPE(input, path)
+                    input["meta"]["PhaseEncodingDirection"] = updated_pe    
 
         json.dump(input["meta"], outfile)  
         
@@ -183,7 +158,23 @@ with open('config.json') as f:
         sys.exit(1)
         
     intended_paths = []
-
+    
+    #map the path specified by keys for each input
+    multi_counts = {} #to handle mulltiple inputs
+    for id, input in enumerate(config["_inputs"]):
+        input["_key2path"] = {}
+        for key in input["keys"]:
+            if isinstance(config[key], list):
+                input["_multi"] = True
+                if key not in multi_counts:
+                    multi_counts[key] = 0
+                input["_key2path"][key] = config[key][multi_counts[key]]
+                multi_counts[key] += 1
+            else:
+                input["_multi"] = False
+                input["_key2path"][key] = config[key]
+        
+    #now construct bids structure!
     for id, input in enumerate(config["_inputs"]):
         path="bids"
         subject = None
@@ -257,36 +248,33 @@ with open('config.json') as f:
 
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
-        #symlink recovery path
         recover = ""
         for i in path.split("/"):
             recover += "../"
 
-        input_dir = os.path.join('..', input["task_id"], input["subdir"])
-        dest=path+"/"+name
+        #just grab the first item in keys to lookup dirname..
+        first_key = input["keys"][0]
+        input_dir = os.path.dirname(input["_key2path"][first_key])
+
+        dest=path+"/"+name  
+
+        #handle multiple input by adding acq
+        if input["_multi"] and run == None:
+            if acq == None: 
+                acq="id%d" %(id+1)
+            dest+="_acq-"+acq     
 
         if input["datatype"] == ANAT_T1W:
             src=os.path.join(input_dir, 't1.nii.gz')
             link(src, dest+"_T1w.nii.gz")
-
             outputSidecar(dest+"_T1w.json", input)
 
         elif input["datatype"] == ANAT_T2W:
             src=os.path.join(input_dir, 't2.nii.gz')
-            print("linking t2", src, dest+"_T2w.nii.gz")
             link(src, dest+"_T2w.nii.gz")
-            
             outputSidecar(dest+"_T2w.json", input)
              
         elif input["datatype"] == DWI:
-            if isinstance(config["dwi"], list) and len(config["dwi"])>1:
-                print("Multiple dwi input detected.")
-                if run == None:
-                    if acq == None: 
-                        acq="id%d" %(id+1)
-                    else:
-                        acq+="id%d" %(id+1)
-                    dest+="_acq-"+acq        
             src=os.path.join(input_dir, 'dwi.nii.gz')
             link(src, dest+"_dwi.nii.gz")
             src=os.path.join(input_dir, 'dwi.bvals')
@@ -330,14 +318,6 @@ with open('config.json') as f:
         elif input["datatype"] == FUNC_REGRESSORS:
             src=os.path.join(input_dir, 'regressors.tsv')
 
-            if isinstance(config["confounds"], list) and len(config["confounds"])>1:
-                print("Multiple confounds input detected.")
-                if run == None:
-                    if acq == None: 
-                        acq="id%d" %(id+1)
-                    else:
-                        acq+="id%d" %(id+1)
-                    dest+="_acq-"+acq
             #desc- is only for derivatives..
             #https://github.com/bids-standard/bids-validator/issues/984
             #can't use input id to make it unique.. it looks like
