@@ -4,4 +4,3 @@ set -x
 
 hookdir=$(dirname $(realpath "$0"))
 singularity exec -B $hookdir -B $(realpath `pwd`) -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids.py
-singularity exec -B $hookdir -B $(realpath `pwd`) -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids-meeg.py
