@@ -52,14 +52,6 @@ if __name__ == '__main__':
 		for id, input in enumerate(config["_inputs"]):
 		    path="bids"
 
-		    #all non raw data is stored under derivatives
-		    modality=getModality(input)
-		    if modality == "derivatives":
-		        path += "/derivatives"
-		        path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
-		    else:
-		        path += "/"+modality
-
 		    subject = None
 		    if "subject" in input["meta"]:
 		        subject = clean(input["meta"]["subject"])
@@ -72,10 +64,21 @@ if __name__ == '__main__':
 		        path+="/ses-"+session
 		        name+="_ses-"+session
 
+		    #all non raw data is stored under derivatives
+		    modality=getModality(input)
+		    print("--> Modality: %s" %modality)
+		    if modality == "derivatives":
+		        path += "/derivatives"
+		        path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
+		    else:
+		        path += "/"+modality
+
 		    short_name=name
 
 		    if "task" in input["meta"]:
 		        name+="_task-"+clean(input["meta"]["task"])
+		    elif "TaskName" in input["meta"]:
+		        name+="_task-"+clean(input["meta"]["TaskName"])
 		    else:
 		        if input["datatype"] == FUNC_TASK:
 		            print("meta.task is not set.. defaulting to rest")
@@ -86,7 +89,7 @@ if __name__ == '__main__':
 
 		    #meta contains both acq and acquisition set to different value
 		    #I am not sure why, but let's make acqusition take precedence
-		    #acq = None
+		    acq = None
 		    if "acquisition" in input["meta"]:
 		        acq = clean(input["meta"]["acquisition"])
 		    elif "acq" in input["meta"]:
@@ -99,7 +102,7 @@ if __name__ == '__main__':
 		        name+="_space-"+space
 		        short_name+="_space-"+space
 
-		    #run = None
+		    run = None
 		    if "run" in input["meta"]:
 		        #TODO - run should be an integer and it should not be 0-padded according to Tal
 		        #but on brainlife, it could be set to any string.. so I can't just convert to int as it could
@@ -115,7 +118,6 @@ if __name__ == '__main__':
 		        proc = clean(input["meta"]["proc"])
 		        name+="_proc-"+proc
 
-		    #rec = None
 		    if "rec" in input["meta"]:
 		        rec = clean(input["meta"]["rec"])
 		        name+="_rec-"+rec
@@ -252,6 +254,10 @@ if __name__ == '__main__':
 		        copy_folder(src, dest+"_meg.ds") #just copy the content for now
 		        src=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")				
 		        src=os.path.join(input_dir, 'headshape.pos')
 		        link(src, short_dest+"_headshape.pos")
 		        src=os.path.join(input_dir, 'coordsystem.json')
@@ -264,6 +270,10 @@ if __name__ == '__main__':
 		        link(src, dest+"_meg.fif")
 		        src=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")
 		        src=os.path.join(input_dir, 'headshape.pos')
 		        link(src, short_dest+"_headshape.pos")
 		        src=os.path.join(input_dir, 'coordsystem.json')
@@ -284,6 +294,10 @@ if __name__ == '__main__':
 		        link(src, dest+"_eeg.set")
 		        src=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")
 		        src=os.path.join(input_dir, 'electrodes.tsv')
 		        link(src, short_dest+"_electrodes.tsv")
 		        src=os.path.join(input_dir, 'coordsystem.json')
@@ -296,6 +310,10 @@ if __name__ == '__main__':
 		        link(src, dest+"_eeg.edf")
 		        src=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")
 		        src=os.path.join(input_dir, 'electrodes.tsv')
 		        link(src, short_dest+"_electrodes.tsv")
 		        src=os.path.join(input_dir, 'coordsystem.json')
@@ -312,6 +330,10 @@ if __name__ == '__main__':
 		        link(src, dest+"_eeg.vmrk")
 		        rc=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")
 		        src=os.path.join(input_dir, 'electrodes.tsv')
 		        link(src, short_dest+"_electrodes.tsv")
 		        src=os.path.join(input_dir, 'coordsystem.json')
@@ -324,6 +346,10 @@ if __name__ == '__main__':
 		        link(src, dest+"_eeg.bdf")
 		        src=os.path.join(input_dir, 'channels.tsv')
 		        link(src, dest+"_channels.tsv")
+		        src=os.path.join(input_dir, 'events.tsv')
+		        link(src, dest+"_events.tsv")
+		        src=os.path.join(input_dir, 'events.json')
+		        link(src, dest+"_events.json")
 		        src=os.path.join(input_dir, 'electrodes.tsv')
 		        link(src, short_dest+"_electrodes.tsv")
 		        src=os.path.join(input_dir, 'coordsystem.json')

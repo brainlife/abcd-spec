@@ -6,6 +6,7 @@ import os
 import sys
 import re
 import shutil
+import nibabel as nib
 
 #datatype IDs that we handle (everything else is treated as derivatives)
 ANAT_T1W = "58c33bcee13a50849b25879a"
@@ -48,49 +49,99 @@ def getModality(input):
         return "eeg"
     return "derivatives"
 
-def correctPE(input, nii_img, nii_key=None):
+# def correctPE(input, nii_img, nii_key=None):
     
+#     if nii_key in input["meta"]:
+#         pe = input["meta"][nii_key]["PhaseEncodingDirection"]
+#     elif "PhaseEncodingDirection" in input["meta"]:
+#         pe = input["meta"]["PhaseEncodingDirection"]
+#     else:
+#         print("Cannot read PhaseEncodingDirection.")
+
+#     #if it's using ijk already don't need to do anything
+#     if pe[0] == 'i' or pe[0] == 'j' or pe[0] == 'k':
+#         print("Phase Encoding Direction conversion not needed.")
+#         return pe
+    
+#     #convert xyz to ijk
+#     img = nib.load(nii_img)
+#     codes = nib.aff2axcodes(img.affine) 
+#     ax_idcs = {"x": 0, "y": 1, "z": 2}
+#     axis = ax_idcs[pe[0]]
+#     if codes[axis] in ('L', 'R'):
+#         updated_pe = 'i'
+#     if codes[axis] in ('P', 'A'):
+#         updated_pe = 'j'
+#     if codes[axis] in ('I', 'S'):
+#         updated_pe = 'k'
+    
+#     #flip polarity if it's using L/P/I
+#     inv = pe[1:] == "-"
+#     if pe[0] == 'x':
+#         if codes[0] == 'L':
+#             inv = not inv 
+#     if pe[0] == 'y':
+#         if codes[1] == 'P':
+#             inv = not inv 
+#     if pe[0] == 'z':
+#         if codes[2] == 'I':
+#             inv = not inv 
+#     if inv:
+#         updated_pe += "-"
+#     print(f"Orientation: {codes}")    
+#     print(f"Phase Encoding Direction updated: {updated_pe}") 
+
+#     return updated_pe     
+
+def correctPE(input, nii_img, nii_key=None):
+
     if nii_key in input["meta"]:
-        pe = input["meta"][nii_key]["PhaseEncodingDirection"]
+        pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
     elif "PhaseEncodingDirection" in input["meta"]:
-        pe = input["meta"]["PhaseEncodingDirection"]
+        pe_direction = input["meta"]["PhaseEncodingDirection"]
     else:
         print("Cannot read PhaseEncodingDirection.")
 
-    #if it's using ijk already don't need to do anything
-    if pe[0] == 'i' or pe[0] == 'j' or pe[0] == 'k':
-        print("Phase Encoding Direction conversion not needed.")
-        return pe
-    
-    #convert xyz to ijk
-    img = nib.load(nii_img)
-    codes = nib.aff2axcodes(img.affine) 
-    ax_idcs = {"x": 0, "y": 1, "z": 2}
-    axis = ax_idcs[pe[0]]
-    if codes[axis] in ('L', 'R'):
-        updated_pe = 'i'
-    if codes[axis] in ('P', 'A'):
-        updated_pe = 'j'
-    if codes[axis] in ('I', 'S'):
-        updated_pe = 'k'
-    
-    #flip polarity if it's using L/P/I
-    inv = pe[1:] == "-"
-    if pe[0] == 'x':
-        if codes[0] == 'L':
-            inv = not inv 
-    if pe[0] == 'y':
-        if codes[1] == 'P':
-            inv = not inv 
-    if pe[0] == 'z':
-        if codes[2] == 'I':
-            inv = not inv 
-    if inv:
-        updated_pe += "-"
-    print(f"Orientation: {codes}")    
-    print(f"Phase Encoding Direction updated: {updated_pe}") 
+    axes = (("R", "L"), ("A", "P"), ("S", "I"))
+    proper_ax_idcs = {"i": 0, "j": 1, "k": 2}
 
-    return updated_pe     
+    # pe_direction is ijk (no correction necessary)
+    if any(x in pe_direction for x in ['i','i-','j','j-','k','k']):
+        print("Phase Encoding Direction conversion not needed.")
+        proper_pe_direction = pe_direction
+        
+    # pe_direction xyz (correction required)
+    else:
+        img = nib.load(nii_img)
+        ornt = nib.aff2axcodes(img.affine) 
+        improper_ax_idcs = {"x": 0, "y": 1, "z": 2}
+        axcode = ornt[improper_ax_idcs[pe_direction[0]]]
+        axcode_index = improper_ax_idcs[pe_direction[0]]
+        inv = pe_direction[1:] == "-"
+        
+        if pe_direction[0] == 'x':
+            if 'L' in axcode:
+                inv = not inv
+        elif pe_direction[0] == 'y':
+            if 'P' in axcode:
+                inv = not inv
+        elif pe_direction[0] == 'z':
+            if 'I' in axcode:
+                inv = not inv
+        else:
+            ValueError('pe_direction does not contain letter i, j, k, x, y, or z')
+        
+        if inv:
+            polarity = '-'
+        else:
+            polarity = ''
+            
+        proper_pe_direction = [key for key, value in proper_ax_idcs.items() if value == axcode_index][0] + polarity     
+        
+        print(f"Orientation: {ornt}")    
+        print(f"Phase Encoding Direction updated: {proper_pe_direction}") 
+
+    return proper_pe_direction
 
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
@@ -111,7 +162,7 @@ def outputSidecar(path, input):
             for key in input["_key2path"]:
                 path = input["_key2path"][key]
                 if path.endswith(".nii.gz"):
-                    print("correctintg PE for", path)
+                    print("correcting PE for", path)
                     updated_pe = correctPE(input, path)
                     input["meta"]["PhaseEncodingDirection"] = updated_pe   
 
