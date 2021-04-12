@@ -2,6 +2,7 @@ bids
 ├── dataset_description.json
 ├── sub-01
 │   └── meg
+│       ├── sub-01_acq-calibration_meg.dat
 │       ├── sub-01_acq-crosstalk_meg.fif
 │       ├── sub-01_coordsystem.json
 │       ├── sub-01_destination.fif
@@ -45,4 +46,4 @@ bids
             ├── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
             └── sub-9002_ses-1_task-rest_desc-confounds_regressors.tsv
 
-13 directories, 32 files
+13 directories, 33 files
