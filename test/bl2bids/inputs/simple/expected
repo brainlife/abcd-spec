@@ -1,5 +1,9 @@
 bids
 ├── dataset_description.json
+├── derivatives
+│   └── freesurfer
+│       ├── sub-11061 -> ../../../../testdata/freesurfer/output
+│       └── sub-11061.json
 ├── sub-01
 │   └── meg
 │       ├── sub-01_acq-calibration_meg.dat
@@ -18,10 +22,6 @@ bids
 │   │   ├── sub-11061_T1w.nii.gz
 │   │   ├── sub-11061_T2w.json
 │   │   └── sub-11061_T2w.nii.gz
-│   ├── derivatives
-│   │   └── dt-58cb22c8e13a50849b25882e.todo
-│   │       ├── sub-11061_freesurfer.json
-│   │       └── sub-11061_output -> ../../../../testdata/freesurfer/output
 │   └── func
 │       ├── sub-11061_task-taskswitch_bold.json
 │       ├── sub-11061_task-taskswitch_bold.nii.gz

@@ -52,6 +52,14 @@ if __name__ == '__main__':
 		for id, input in enumerate(config["_inputs"]):
 		    path="bids"
 
+		    #all non raw data is stored under derivatives
+		    modality=getModality(input)
+		    print("--> Modality: %s" %modality)
+		    if modality == "derivatives":
+		        path += "/derivatives/" + input["id"]
+		        if input["_multi"]:
+		            path += ".%d" %(id+1)			
+
 		    subject = None
 		    if "subject" in input["meta"]:
 		        subject = clean(input["meta"]["subject"])
@@ -64,13 +72,7 @@ if __name__ == '__main__':
 		        path+="/ses-"+session
 		        name+="_ses-"+session
 
-		    #all non raw data is stored under derivatives
-		    modality=getModality(input)
-		    print("--> Modality: %s" %modality)
-		    if modality == "derivatives":
-		        path += "/derivatives"
-		        path += "/dt-"+input["datatype"]+".todo" #TODO - need to lookup datatype.bids.derivatives type
-		    else:
+		    if modality != "derivatives":
 		        path += "/"+modality
 
 		    short_name=name
@@ -363,9 +365,8 @@ if __name__ == '__main__':
 		        for key in input["keys"]:
 		            base = os.path.basename(config[key])
 		            src=config[key] #does not work with multi input!
-		            dest=path+"/"+name
-		            link(src, dest+"_"+base, recover)
-		        outputSidecar(path+"/"+name+"_"+input["id"]+".json", input)
+		            link(src, path, recover) #why this doesn't work?
+		        outputSidecar(path+".json", input)
 		        
 		#fix IntendedFor field and PhaseEncodingDirection for fmap json files
 		for input in config["_inputs"]:
