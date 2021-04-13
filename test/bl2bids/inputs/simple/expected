@@ -1,11 +1,21 @@
 bids
 ├── dataset_description.json
 ├── derivatives
-│   └── simple
-│       └── sub-11061
-│           └── dt-58cb22c8e13a50849b25882e.todo
-│               ├── sub-11061_freesurfer.json
-│               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
+│   └── freesurfer
+│       ├── sub-11061 -> ../../../../testdata/freesurfer/output
+│       └── sub-11061.json
+├── sub-01
+│   └── meg
+│       ├── sub-01_acq-calibration_meg.dat
+│       ├── sub-01_acq-crosstalk_meg.fif
+│       ├── sub-01_coordsystem.json
+│       ├── sub-01_destination.fif
+│       ├── sub-01_headshape.pos
+│       ├── sub-01_task-audiovisual_channels.tsv
+│       ├── sub-01_task-audiovisual_events.json
+│       ├── sub-01_task-audiovisual_events.tsv
+│       ├── sub-01_task-audiovisual_meg.fif
+│       └── sub-01_task-audiovisual_meg.json
 ├── sub-11061
 │   ├── anat
 │   │   ├── sub-11061_T1w.json
@@ -36,4 +46,4 @@ bids
             ├── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
             └── sub-9002_ses-1_task-rest_desc-confounds_regressors.tsv
 
-13 directories, 23 files
+13 directories, 33 files
