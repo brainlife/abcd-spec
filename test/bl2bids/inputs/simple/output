@@ -1,11 +1,5 @@
 bids
 ├── dataset_description.json
-├── derivatives
-│   └── simple
-│       └── sub-11061
-│           └── dt-58cb22c8e13a50849b25882e.todo
-│               ├── sub-11061_freesurfer.json
-│               └── sub-11061_output -> ../../../../../testdata/freesurfer/output
 ├── sub-11061
 │   ├── anat
 │   │   ├── sub-11061_T1w.json
@@ -36,4 +30,4 @@ bids
             ├── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
             └── sub-9002_ses-1_task-rest_desc-confounds_regressors.tsv
 
-13 directories, 23 files
+8 directories, 22 files

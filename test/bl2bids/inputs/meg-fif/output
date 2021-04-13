@@ -1,0 +1,16 @@
+bids
+├── dataset_description.json
+└── sub-01
+    └── meg
+        ├── sub-01_acq-calibration_meg.dat
+        ├── sub-01_acq-crosstalk_meg.fif
+        ├── sub-01_coordsystem.json
+        ├── sub-01_destination.fif
+        ├── sub-01_headshape.pos
+        ├── sub-01_task-audiovisual_channels.tsv
+        ├── sub-01_task-audiovisual_events.json
+        ├── sub-01_task-audiovisual_events.tsv
+        ├── sub-01_task-audiovisual_meg.fif
+        └── sub-01_task-audiovisual_meg.json
+
+2 directories, 11 files

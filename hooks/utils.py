@@ -8,7 +8,6 @@ import re
 import shutil
 import nibabel as nib
 
-#datatype IDs that we handle (everything else is treated as derivatives)
 ANAT_T1W = "58c33bcee13a50849b25879a"
 ANAT_T2W = "594c0325fa1d2e5a1f0beda5"
 DWI = "58c33c5fe13a50849b25879b"
@@ -21,6 +20,9 @@ EEG_EEGLAB = "60007410aacf9e4edda691d4"
 EEG_EDF = "600074f6aacf9e7acda691d7"
 EEG_BRAINVISION = "6000753eaacf9e6591a691d9"
 EEG_BDF = "60007567aacf9e1615a691dd"
+
+#derivatives datatype > directory mapping
+DERIVATIVES_DIRNAMES = { "58cb22c8e13a50849b25882e": "freesurfer" }
 
 def getModality(input):
     if input["datatype"] == ANAT_T1W:
@@ -48,50 +50,6 @@ def getModality(input):
     if input["datatype"] == EEG_BDF:
         return "eeg"
     return "derivatives"
-
-# def correctPE(input, nii_img, nii_key=None):
-    
-#     if nii_key in input["meta"]:
-#         pe = input["meta"][nii_key]["PhaseEncodingDirection"]
-#     elif "PhaseEncodingDirection" in input["meta"]:
-#         pe = input["meta"]["PhaseEncodingDirection"]
-#     else:
-#         print("Cannot read PhaseEncodingDirection.")
-
-#     #if it's using ijk already don't need to do anything
-#     if pe[0] == 'i' or pe[0] == 'j' or pe[0] == 'k':
-#         print("Phase Encoding Direction conversion not needed.")
-#         return pe
-    
-#     #convert xyz to ijk
-#     img = nib.load(nii_img)
-#     codes = nib.aff2axcodes(img.affine) 
-#     ax_idcs = {"x": 0, "y": 1, "z": 2}
-#     axis = ax_idcs[pe[0]]
-#     if codes[axis] in ('L', 'R'):
-#         updated_pe = 'i'
-#     if codes[axis] in ('P', 'A'):
-#         updated_pe = 'j'
-#     if codes[axis] in ('I', 'S'):
-#         updated_pe = 'k'
-    
-#     #flip polarity if it's using L/P/I
-#     inv = pe[1:] == "-"
-#     if pe[0] == 'x':
-#         if codes[0] == 'L':
-#             inv = not inv 
-#     if pe[0] == 'y':
-#         if codes[1] == 'P':
-#             inv = not inv 
-#     if pe[0] == 'z':
-#         if codes[2] == 'I':
-#             inv = not inv 
-#     if inv:
-#         updated_pe += "-"
-#     print(f"Orientation: {codes}")    
-#     print(f"Phase Encoding Direction updated: {updated_pe}") 
-
-#     return updated_pe     
 
 def correctPE(input, nii_img, nii_key=None):
 
@@ -184,29 +142,30 @@ def copyJSON(src, dest, override=None):
             with open(dest, 'w') as outfile:
                 print("copying", src, "to", dest, override)
                 json.dump(config, outfile)  
+        else:
+            print(src, "not found")
     except FileExistsError:
-        #don't create copy if src doesn't exist
-        pass
+        print(dest,"already exist")
 
-def link(src, dest, recover=None):
+def link(src, dest):
     try:
         if os.path.exists(src):
-            print("linking", src, "to", dest)
             if os.path.isdir(src):
+
+                recover = ""
+                depth = len(dest.split("/"))
+                for i in range(1, depth):
+                    recover += "../"
+
+                print("it's directory.. sym-linking (existing)", recover+src, "to (new symlink)", dest)
                 os.symlink(recover+src, dest, True)
             else:
+                print("hard-linking (existing)", src, "to (new link)", dest)
                 os.link(src, dest)
         else:
             print(src, "not found")
     except FileExistsError:
-        #don't create link if src doesn't exist
-        pass
-
-def copy_folder(src, dest):
-    try:
-        shutil.copytree(src, dest)
-    except shutil.Error:
-        pass
+        print(dest, "already exists (or failed to link)")
 
 def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
