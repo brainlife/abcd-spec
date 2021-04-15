@@ -1,0 +1,33 @@
+{
+    "fsin": "testdata/freesurfer/output",
+    "_inputs": [
+        {
+            "_id": "5febe564bbfad168985ed21d",
+            "datatype_tags": [
+                "acpc_aligned",
+                "preprocessed",
+                "hippocampal"
+            ],
+            "tags": [
+                "11_10_2020",
+                "freesurfer"
+            ],
+            "project": "5fa9e18eafcdcc22a2c45378",
+            "meta": {
+                "subject": "11061",
+                "freesurfer_version": "7.1.0"
+            },
+            "datatype": "58cb22c8e13a50849b25882e",
+            "prov": null,
+            "create_date": "2020-12-30T02:26:44.328Z",
+            "id": "freesurfer",
+            "task_id": "simple",
+            "subdir": "testdata/freesurfer",
+            "dataset_id": "5febe564bbfad168985ed21d",
+            "keys": [
+                "fsin"
+            ]
+        }
+    ],
+    "_tid": 13
+}

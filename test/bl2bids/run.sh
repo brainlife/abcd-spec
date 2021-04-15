@@ -3,7 +3,7 @@
 set -e
 
 for dir in $(ls inputs)
-#for dir in multi
+#for dir in simple
 do
 
   echo

@@ -1,0 +1,9 @@
+bids
+├── dataset_description.json
+└── sub-0001
+    └── meg
+        ├── sub-0001_task-AEF_run-2_channels.tsv
+        ├── sub-0001_task-AEF_run-2_meg.ds -> ../../../testdata/meg-ctf/meg.ds
+        └── sub-0001_task-AEF_run-2_meg.json
+
+3 directories, 3 files

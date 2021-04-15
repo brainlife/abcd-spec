@@ -1,0 +1,8 @@
+bids
+├── dataset_description.json
+└── derivatives
+    ├── freesurfer
+    │   └── sub-11061 -> ../../../testdata/freesurfer/output
+    └── freesurfer.json
+
+3 directories, 2 files

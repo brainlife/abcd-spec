@@ -11,7 +11,6 @@
     "events_json": "testdata/func/events.json",
     "physio": "testdata/func/physio.tsv.gz",
     "physio_json": "testdata/func/physio.json",
-    "fsin": "testdata/freesurfer/output",
     "phasediff": "testdata/fmap/phasediff.nii.gz",
     "phasediff_json": "testdata/fmap/phasediff.json",
     "magnitude": "testdata/fmap/magnitude.nii.gz",
@@ -32,15 +31,6 @@
     "bvals": "testdata/dwi/dwi.bvals",
     "sbref-dwi": "testdata/dwi/sbref.nii.gz",
     "sbref_json-dwi": "testdata/dwi/sbref.json",
-    "fif": "testdata/meg/meg.fif",
-    "channels": "testdata/meg/channels.tsv",
-    "headshape": "testdata/meg/headshape.pos",
-    "coordsystem": "testdata/meg/coordsystem.json",
-    "calibration": "testdata/meg/calibration_meg.dat",
-    "crosstalk": "testdata/meg/crosstalk_meg.fif",
-    "destination": "testdata/meg/destination.fif",
-    "events-meg": "testdata/meg/events.tsv",
-    "events_json-meg": "testdata/meg/events.json",    
     "_inputs": [
         {
             "_id": "5faa86f4b886362ec6101776",
@@ -615,33 +605,6 @@
             ]
         },
         {
-            "_id": "5febe564bbfad168985ed21d",
-            "datatype_tags": [
-                "acpc_aligned",
-                "preprocessed",
-                "hippocampal"
-            ],
-            "tags": [
-                "11_10_2020",
-                "freesurfer"
-            ],
-            "project": "5fa9e18eafcdcc22a2c45378",
-            "meta": {
-                "subject": "11061",
-                "freesurfer_version": "7.1.0"
-            },
-            "datatype": "58cb22c8e13a50849b25882e",
-            "prov": null,
-            "create_date": "2020-12-30T02:26:44.328Z",
-            "id": "freesurfer",
-            "task_id": "simple",
-            "subdir": "testdata/freesurfer",
-            "dataset_id": "5febe564bbfad168985ed21d",
-            "keys": [
-                "fsin"
-            ]
-        },
-		{
             "_id": "5fb3e20f7e8ecb98e8ab11f4",
             "datatype_tags": [
                 "phasediff"
@@ -761,7 +724,7 @@
                 "epi2_json"
             ]
         },
-		{
+        {
             "id": "dwi",
             "datatype": "58c33c5fe13a50849b25879b",
             "meta": {
@@ -956,48 +919,6 @@
                 "bvecs",
                 "bvals"
             ]
-        },
-        {
-            "id": "meg",
-            "task_id": "simple",
-            "subdir": "testdata/meg",
-            "meta": {
-                "TaskName": "audiovisual",
-                "Manufacturer": "Elekta",
-                "PowerLineFrequency": 60,
-                "SamplingFrequency": 600.614990234375,
-                "SoftwareFilters": "n/a",
-                "RecordingDuration": 277.7136813300495,
-                "RecordingType": "continuous",
-                "DewarPosition": "n/a",
-                "DigitizedLandmarks": false,
-                "DigitizedHeadPoints": false,
-                "MEGChannelCount": 306,
-                "MEGREFChannelCount": 0,
-                "EEGChannelCount": 60,
-                "EOGChannelCount": 1,
-                "ECGChannelCount": 0,
-                "EMGChannelCount": 0,
-                "MiscChannelCount": 0,
-                "TriggerChannelCount": 9,
-                "subject": "01"
-            },
-            "tags": [],
-            "datatype": "6000737faacf9ee51fa691cb",
-            "datatype_tags": [],
-            "keys": [
-                "fif",
-                "channels",
-                "headshape",
-                "coordsystem",
-                "calibration",
-                "crosstalk",
-                "destination",
-                "events-meg",
-                "events_json-meg"
-            ],
-            "project": "6046071466d5cecabc6fa473",
-            "dataset_id": "60708987c7f80ab20195dcad"
         }
     ],
     "_tid": 13
