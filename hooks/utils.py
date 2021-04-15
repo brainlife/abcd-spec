@@ -67,16 +67,16 @@ def correctPE(input, nii_img, nii_key=None):
     if any(x in pe_direction for x in ['i','i-','j','j-','k','k']):
         print("Phase Encoding Direction conversion not needed.")
         proper_pe_direction = pe_direction
-        
+
     # pe_direction xyz (correction required)
     else:
         img = nib.load(nii_img)
-        ornt = nib.aff2axcodes(img.affine) 
+        ornt = nib.aff2axcodes(img.affine)
         improper_ax_idcs = {"x": 0, "y": 1, "z": 2}
         axcode = ornt[improper_ax_idcs[pe_direction[0]]]
         axcode_index = improper_ax_idcs[pe_direction[0]]
         inv = pe_direction[1:] == "-"
-        
+
         if pe_direction[0] == 'x':
             if 'L' in axcode:
                 inv = not inv
@@ -88,16 +88,16 @@ def correctPE(input, nii_img, nii_key=None):
                 inv = not inv
         else:
             ValueError('pe_direction does not contain letter i, j, k, x, y, or z')
-        
+
         if inv:
             polarity = '-'
         else:
             polarity = ''
-            
-        proper_pe_direction = [key for key, value in proper_ax_idcs.items() if value == axcode_index][0] + polarity     
-        
-        print(f"Orientation: {ornt}")    
-        print(f"Phase Encoding Direction updated: {proper_pe_direction}") 
+
+        proper_pe_direction = [key for key, value in proper_ax_idcs.items() if value == axcode_index][0] + polarity
+
+        print(f"Orientation: {ornt}")
+        print(f"Phase Encoding Direction updated: {proper_pe_direction}")
 
     return proper_pe_direction
 
@@ -122,17 +122,17 @@ def outputSidecar(path, input):
                 if path.endswith(".nii.gz"):
                     print("correcting PE for", path)
                     updated_pe = correctPE(input, path)
-                    input["meta"]["PhaseEncodingDirection"] = updated_pe   
+                    input["meta"]["PhaseEncodingDirection"] = updated_pe
 
         #adjust subject field in sidecar
         subject = input["meta"]["subject"]
-        input["meta"]["subject"] = re.sub(r'[^0-9]+', '', subject) 
+        input["meta"]["subject"] = re.sub(r'[^0-9]+', '', subject)
 
-        json.dump(input["meta"], outfile)  
-        
+        json.dump(input["meta"], outfile)
+
 def copyJSON(src, dest, override=None):
     try:
-        if os.path.exists(src):        
+        if os.path.exists(src):
             with open(src) as infile:
                 config = json.load(infile)
                 if override is not None:
@@ -141,7 +141,7 @@ def copyJSON(src, dest, override=None):
                         config[key] = override[key]
             with open(dest, 'w') as outfile:
                 print("copying", src, "to", dest, override)
-                json.dump(config, outfile)  
+                json.dump(config, outfile)
         else:
             print(src, "not found")
     except FileExistsError:
@@ -170,3 +170,43 @@ def link(src, dest):
 def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
+def _copytree(src, dst, **kwargs):
+    """See: https://github.com/jupyterlab/jupyterlab/pull/5150."""
+    try:
+        shutil.copytree(src, dst, **kwargs)
+    except shutil.Error as error:
+        # `copytree` throws an error if copying to + from NFS even though
+        # the copy is successful (see https://bugs.python.org/issue24564)
+        if '[Errno 22]' not in str(error) or not op.exists(dst):
+            raise
+
+def copyfile_ctf(src, dest):
+    """Copy and rename CTF files to a new location.
+
+    Parameters
+    ----------
+    src : str | pathlib.Path
+        Path to the source raw .ds folder.
+    dest : str | pathlib.Path
+        Path to the destination of the new bids folder.
+
+    See Also
+    --------
+    copyfile_brainvision
+    copyfile_bti
+    copyfile_edf
+    copyfile_eeglab
+    copyfile_kit
+
+    """
+    _copytree(src, dest)
+    # list of file types to rename
+    file_types = ('.acq', '.eeg', '.hc', '.hist', '.infods', '.bak',
+                  '.meg4', '.newds', '.res4')
+    # Rename files in dest with the name of the dest directory
+    fnames = [f for f in os.listdir(dest) if f.endswith(file_types)]
+    bids_folder_name = os.path.splitext(os.path.split(dest)[-1])[0]
+    for fname in fnames:
+        ext = os.path.splitext(fname)[-1]
+        link(os.path.join(dest, fname),
+                  os.path.join(dest, bids_folder_name + ext))
