@@ -170,16 +170,6 @@ def link(src, dest):
 def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
-def _copytree(src, dst, **kwargs):
-    """See: https://github.com/jupyterlab/jupyterlab/pull/5150."""
-    try:
-        shutil.copytree(src, dst, **kwargs)
-    except shutil.Error as error:
-        # `copytree` throws an error if copying to + from NFS even though
-        # the copy is successful (see https://bugs.python.org/issue24564)
-        if '[Errno 22]' not in str(error) or not op.exists(dst):
-            raise
-
 def copyfile_ctf(src, dest):
     """Copy and rename CTF files to a new location.
 
@@ -199,14 +189,17 @@ def copyfile_ctf(src, dest):
     copyfile_kit
 
     """
-    _copytree(src, dest)
+    if not os.path.exists(dest):
+        os.makedirs(dest)
     # list of file types to rename
     file_types = ('.acq', '.eeg', '.hc', '.hist', '.infods', '.bak',
                   '.meg4', '.newds', '.res4')
     # Rename files in dest with the name of the dest directory
-    fnames = [f for f in os.listdir(dest) if f.endswith(file_types)]
+    fnames = [f for f in os.listdir(src) if f.endswith(file_types)]
     bids_folder_name = os.path.splitext(os.path.split(dest)[-1])[0]
+    print(bids_folder_name)
+    print(dest)
     for fname in fnames:
         ext = os.path.splitext(fname)[-1]
-        link(os.path.join(dest, fname),
+        link(os.path.join(src, fname),
                   os.path.join(dest, bids_folder_name + ext))
