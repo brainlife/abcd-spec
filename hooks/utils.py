@@ -5,7 +5,6 @@ import pathlib
 import os
 import sys
 import re
-import shutil
 import nibabel as nib
 
 ANAT_T1W = "58c33bcee13a50849b25879a"
