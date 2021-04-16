@@ -15,7 +15,7 @@ with open('config.json') as f:
 if not "_inputs" in config:
     print("no _inputs in config.json.. can't generate bids structure without it")
     sys.exit(1)
-    
+
 intended_paths = []
 
 #map the path specified by keys for each input
@@ -32,7 +32,7 @@ for id, input in enumerate(config["_inputs"]):
         else:
             input["_multi"] = False
             input["_key2path"][key] = config[key]
-    
+
 #now construct bids structure!
 for id, input in enumerate(config["_inputs"]):
     path="bids"
@@ -49,7 +49,7 @@ for id, input in enumerate(config["_inputs"]):
             dirname = input["id"]+"."+input["datatype"]
         path+="/derivatives/" + dirname
         if input["_multi"]:
-            path+=".%d" %(id+1)           
+            path+=".%d" %(id+1)
 
     subject = None
     if "subject" in input["meta"]:
@@ -129,14 +129,14 @@ for id, input in enumerate(config["_inputs"]):
     first_key = input["keys"][0]
     input_dir = os.path.dirname(input["_key2path"][first_key])
 
-    dest=path+"/"+name 
-    short_dest=path+"/"+short_name #does not contain task and run 
+    dest=path+"/"+name
+    short_dest=path+"/"+short_name #does not contain task and run
 
     #handle multiple input by adding acq
     if input["_multi"] and run == None:
-        if acq == None: 
+        if acq == None:
             acq="id%d" %(id+1)
-        dest+="_acq-"+acq     
+        dest+="_acq-"+acq
 
     ##################################################
     ##
@@ -152,7 +152,7 @@ for id, input in enumerate(config["_inputs"]):
         src=os.path.join(input_dir, 't2.nii.gz')
         utils.link(src, dest+"_T2w.nii.gz")
         utils.outputSidecar(dest+"_T2w.json", input)
-         
+
     elif input["datatype"] == utils.DWI:
         src=os.path.join(input_dir, 'dwi.nii.gz')
         utils.link(src, dest+"_dwi.nii.gz")
@@ -171,23 +171,20 @@ for id, input in enumerate(config["_inputs"]):
         intended_paths.append(dest_under_sub+"_dwi.nii.gz")
 
     elif input["datatype"] == utils.FUNC_TASK:
-
-        for key in input["keys"]:
-            src=config[key]
-            if src.endswith("bold.nii.gz"):
-                utils.link(src, dest+"_bold.nii.gz")
-            if src.endswith("events.tsv"):
-                utils.link(src, dest+"_events.tsv")
-            if src.endswith("events.json"):
-                utils.link(src, dest+"_events.json")
-            if src.endswith("sbref.nii.gz"):
-                utils.link(src, dest+"_sbref.nii.gz")
-            if src.endswith("sbref.json"):
-                utils.link(src, dest+"_sbref.json")
-            if src.endswith("physio.tsv.gz"):
-                utils.link(src, dest+"_physio.tsv.gz")
-            if src.endswith("physio.json"):
-                utils.link(src, dest+"_physio.json")
+        src=os.path.join(input_dir, 'bold.nii.gz'):
+        utils.link(src, dest+"_bold.nii.gz")
+        src=os.path.join(input_dir, 'events.tsv'):
+        utils.link(src, dest+"_events.tsv")
+        src=os.path.join(input_dir, 'events.json'):
+        utils.link(src, dest+"_events.json")
+        src=os.path.join(input_dir, 'sbref.nii.gz'):
+        utils.link(src, dest+"_sbref.nii.gz")
+        src=os.path.join(input_dir, 'sbref.json'):
+        utils.link(src, dest+"_sbref.json")
+        src=os.path.join(input_dir, 'physio.tsv.gz'):
+        utils.link(src, dest+"_physio.tsv.gz")
+        src=os.path.join(input_dir, 'physio.json'):
+        utils.link(src, dest+"_physio.json")
 
         utils.outputSidecar(dest+"_bold.json", input)
 
@@ -231,7 +228,7 @@ for id, input in enumerate(config["_inputs"]):
         # magnitude.nii.gz
         # fieldmap.nii.gz
         # fieldmap.json (Units(like "rad/s") and IntendedFor should be set)
-        
+
         # [CASE 4] Multiple phase encoded directions ("pepolar")
         # dir-<label>_epi.nii.gz
         # dir-<label>_epi.json (should have PhaseEncodingDirection / TotalReadoutTime / IntendedFor )
@@ -239,7 +236,7 @@ for id, input in enumerate(config["_inputs"]):
         fmap_dest=dest #used later to reset IntendedFor
         fmap_dir=input_dir #used later to reset IntendedFor
 
-        for key in input["keys"]:   
+        for key in input["keys"]:
             if not key.endswith("_json"):
                 nii_key = key
                 src=os.path.join(input_dir, nii_key+".nii.gz")
@@ -248,13 +245,14 @@ for id, input in enumerate(config["_inputs"]):
     elif input["datatype"] == utils.MEG_CTF:
         src=os.path.join(input_dir, 'meg.ds')
         #utils.copy_folder(src, dest+"_meg.ds") #just copy the content for now
-        utils.link(src, dest+"_meg.ds") #just copy the content for now
+        #utils.link(src, dest+"_meg.ds") #just copy the content for now
+        utils.copyfile_ctf(src, dest+"_meg.ds")
         src=os.path.join(input_dir, 'channels.tsv')
         utils.link(src, dest+"_channels.tsv")
         src=os.path.join(input_dir, 'events.tsv')
         utils.link(src, dest+"_events.tsv")
         src=os.path.join(input_dir, 'events.json')
-        utils.link(src, dest+"_events.json")              
+        utils.link(src, dest+"_events.json")
         src=os.path.join(input_dir, 'headshape.pos')
         utils.link(src, short_dest+"_headshape.pos")
         src=os.path.join(input_dir, 'coordsystem.json')
@@ -362,7 +360,7 @@ for id, input in enumerate(config["_inputs"]):
             src=config[key] #does not work with multi input!
             utils.link(src, dest)
         utils.outputSidecar(path+".json", input)
-        
+
 #fix IntendedFor field and PhaseEncodingDirection for fmap json files
 for input in config["_inputs"]:
     if input["datatype"] == utils.FMAP:
@@ -370,13 +368,13 @@ for input in config["_inputs"]:
         dest=fmap_dest #does not work with multi input!
         input_dir=fmap_dir #does not work with multi input!
 
-        for key in input["keys"]:   
+        for key in input["keys"]:
             if key.endswith("_json"):
                 nii_key = key[:-5] #remove suffix "_json"
                 src=os.path.join(input_dir, nii_key+".json")
                 f_json = dest+"_"+nii_key+".json"
                 utils.copyJSON(src, f_json, override={"IntendedFor": intended_paths})
-                #fix PhaseEncodingDirection 
+                #fix PhaseEncodingDirection
                 nii_img=os.path.join(input_dir, nii_key+".nii.gz")
                 if os.path.exists(nii_img):
                     print(nii_key)
