@@ -1,0 +1,17 @@
+bids
+├── dataset_description.json
+└── sub-0001
+    └── meg
+        ├── sub-0001_task-AEF_run-02_channels.tsv
+        ├── sub-0001_task-AEF_run-02_meg.ds
+        │   ├── sub-0001_task-AEF_run-02_meg.acq
+        │   ├── sub-0001_task-AEF_run-02_meg.eeg
+        │   ├── sub-0001_task-AEF_run-02_meg.hc
+        │   ├── sub-0001_task-AEF_run-02_meg.hist
+        │   ├── sub-0001_task-AEF_run-02_meg.infods
+        │   ├── sub-0001_task-AEF_run-02_meg.meg4
+        │   ├── sub-0001_task-AEF_run-02_meg.newds
+        │   └── sub-0001_task-AEF_run-02_meg.res4
+        └── sub-0001_task-AEF_run-02_meg.json
+
+3 directories, 11 files
