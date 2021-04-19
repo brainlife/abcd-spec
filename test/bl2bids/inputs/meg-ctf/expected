@@ -4,6 +4,10 @@ bids
     └── meg
         ├── sub-0001_task-AEF_run-02_channels.tsv
         ├── sub-0001_task-AEF_run-02_meg.ds
+        │   ├── BadChannels
+        │   ├── ChannelGroupSet.cfg
+        │   ├── ClassFile.cls
+        │   ├── MarkerFile.mrk
         │   ├── sub-0001_task-AEF_run-02_meg.acq
         │   ├── sub-0001_task-AEF_run-02_meg.eeg
         │   ├── sub-0001_task-AEF_run-02_meg.hc
@@ -14,4 +18,4 @@ bids
         │   └── sub-0001_task-AEF_run-02_meg.res4
         └── sub-0001_task-AEF_run-02_meg.json
 
-3 directories, 11 files
+3 directories, 15 files

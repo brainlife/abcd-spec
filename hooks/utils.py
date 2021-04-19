@@ -194,11 +194,13 @@ def copyfile_ctf(src, dest):
     file_types = ('.acq', '.eeg', '.hc', '.hist', '.infods', '.bak',
                   '.meg4', '.newds', '.res4')
     # Rename files in dest with the name of the dest directory
-    fnames = [f for f in os.listdir(src) if f.endswith(file_types)]
+    #fnames = [f for f in os.listdir(src) if f.endswith(file_types)]
+    fnames = [f for f in os.listdir(src)]
     bids_folder_name = os.path.splitext(os.path.split(dest)[-1])[0]
-    print(bids_folder_name)
-    print(dest)
     for fname in fnames:
         ext = os.path.splitext(fname)[-1]
-        link(os.path.join(src, fname),
-                  os.path.join(dest, bids_folder_name + ext))
+        if fname.endswith(file_types):
+            link(os.path.join(src, fname), os.path.join(dest, bids_folder_name + ext))
+
+        else:
+            link(os.path.join(src, fname), os.path.join(dest, fname))
