@@ -6,6 +6,7 @@ import os
 import sys
 import re
 import nibabel as nib
+import os.path as op
 
 ANAT_T1W = "58c33bcee13a50849b25879a"
 ANAT_T2W = "594c0325fa1d2e5a1f0beda5"
@@ -169,16 +170,19 @@ def link(src, dest):
 def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
+def copytree(src, dest):
+    link(src, dest)
+    for fname in os.listdir(src):
+        link(os.path.join(src, fname), os.path.join(dest, fname))
+
 def copyfile_ctf(src, dest):
     """Copy and rename CTF files to a new location.
-
     Parameters
     ----------
     src : str | pathlib.Path
         Path to the source raw .ds folder.
     dest : str | pathlib.Path
         Path to the destination of the new bids folder.
-
     See Also
     --------
     copyfile_brainvision
@@ -186,21 +190,15 @@ def copyfile_ctf(src, dest):
     copyfile_edf
     copyfile_eeglab
     copyfile_kit
-
     """
-    if not os.path.exists(dest):
-        os.makedirs(dest)
+    copytree(src, dest)
     # list of file types to rename
     file_types = ('.acq', '.eeg', '.hc', '.hist', '.infods', '.bak',
                   '.meg4', '.newds', '.res4')
     # Rename files in dest with the name of the dest directory
-    #fnames = [f for f in os.listdir(src) if f.endswith(file_types)]
-    fnames = [f for f in os.listdir(src)]
-    bids_folder_name = os.path.splitext(os.path.split(dest)[-1])[0]
+    fnames = [f for f in os.listdir(dest) if f.endswith(file_types)]
+    bids_folder_name = op.splitext(op.split(dest)[-1])[0]
     for fname in fnames:
-        ext = os.path.splitext(fname)[-1]
-        if fname.endswith(file_types):
-            link(os.path.join(src, fname), os.path.join(dest, bids_folder_name + ext))
-
-        else:
-            link(os.path.join(src, fname), os.path.join(dest, fname))
+        ext = op.splitext(fname)[-1]
+        os.rename(op.join(dest, fname),
+                  op.join(dest, bids_folder_name + ext))
