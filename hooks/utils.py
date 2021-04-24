@@ -124,9 +124,9 @@ def outputSidecar(path, input):
                     updated_pe = correctPE(input, path)
                     input["meta"]["PhaseEncodingDirection"] = updated_pe
 
-        #adjust subject field in sidecar
-        subject = input["meta"]["subject"]
-        input["meta"]["subject"] = re.sub(r'[^0-9]+', '', subject)
+        #adjust subject field in sidecar (one dataset has a redundant prefix sub-)
+        #subject = input["meta"]["subject"]
+        #input["meta"]["subject"] = re.sub('sub-', '', subject)
 
         json.dump(input["meta"], outfile)
 
