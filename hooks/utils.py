@@ -60,6 +60,7 @@ def correctPE(input, nii_img, nii_key=None):
     else:
         print("Cannot read PhaseEncodingDirection.")
 
+    print(f"Phase Encoding Direction: {pe_direction}")
     axes = (("R", "L"), ("A", "P"), ("S", "I"))
     proper_ax_idcs = {"i": 0, "j": 1, "k": 2}
 
@@ -100,6 +101,48 @@ def correctPE(input, nii_img, nii_key=None):
         print(f"Phase Encoding Direction updated: {proper_pe_direction}")
 
     return proper_pe_direction
+
+def determineDir(input, nii_img, nii_key=None):
+    '''
+    Takes pe_direction and image orientation to determine direction
+    required by BIDS "_dir-" label
+
+    Based on https://github.com/nipreps/fmriprep/issues/2341 and original code
+    comes from Chris Markiewicz and Mathias Goncalves
+    '''
+    if nii_key in input["meta"]:
+        pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
+    elif "PhaseEncodingDirection" in input["meta"]:
+        pe_direction = input["meta"]["PhaseEncodingDirection"]
+    else:
+        print("Cannot read PhaseEncodingDirection.")
+
+    img = nib.load(nii_img)
+    ornt = nib.aff2axcodes(img.affine)
+
+    axes = (("R", "L"), ("A", "P"), ("S", "I"))
+    ax_idcs = {"i": 0, "j": 1, "k": 2}
+    axcode = ornt[ax_idcs[pe_direction[0]]]
+    inv = pe_direction[1:] == "-"
+
+    if pe_direction[0] == 'i':
+        if 'L' in axcode:
+            inv = not inv
+    elif pe_direction[0] == 'j':
+        if 'P' in axcode:
+            inv = not inv
+    elif pe_direction[0] == 'k':
+        if 'I' in axcode:
+            inv = not inv
+
+    for ax in axes:
+        for flip in (ax, ax[::-1]):
+            if flip[not inv].startswith(axcode):
+                direction = "".join(flip)
+
+    print(f"Direction: {direction}")
+
+    return direction
 
 def outputSidecar(path, input):
     with open(path, 'w') as outfile:
