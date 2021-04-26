@@ -29,6 +29,7 @@ bids
         └── func
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-1_bold.json
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-1_bold.nii.gz
+            ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-1_sbref.json
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-1_sbref.nii.gz
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-2_bold.json
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-2_bold.nii.gz
@@ -38,4 +39,4 @@ bids
             ├── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-2_sbref.json
             └── sub-NDARINVFRJ6LFD5_ses-baselineYear1Arm1_task-rest_run-2_sbref.nii.gz
 
-9 directories, 29 files
+9 directories, 30 files

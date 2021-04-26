@@ -22,6 +22,8 @@ bids
         ├── fmap
         │   ├── sub-9002_ses-1_dir-AP_epi.json
         │   ├── sub-9002_ses-1_dir-AP_epi.nii.gz
+        │   ├── sub-9002_ses-1_dir-PA_epi.json
+        │   ├── sub-9002_ses-1_dir-PA_epi.nii.gz
         │   ├── sub-9002_ses-1_magnitude1.nii.gz
         │   ├── sub-9002_ses-1_magnitude2.nii.gz
         │   ├── sub-9002_ses-1_phase1.json
@@ -32,4 +34,4 @@ bids
             ├── sub-9002_ses-1_task-rest_desc-confounds_regressors.json
             └── sub-9002_ses-1_task-rest_desc-confounds_regressors.tsv
 
-8 directories, 24 files
+8 directories, 26 files
