@@ -53,7 +53,19 @@ def getModality(input):
 
 def correctPE(input, nii_img, nii_key=None):
 
-    if nii_key in input["meta"]:
+    #if nii_key in input["meta"]:
+    #    pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
+    #elif "PhaseEncodingDirection" in input["meta"]:
+    #    pe_direction = input["meta"]["PhaseEncodingDirection"]
+    #else:
+    #    print("Cannot read PhaseEncodingDirection.")
+
+    json_sidecar=nii_img[:-6]+"json"
+    if os.path.exists(json_sidecar):
+        with open(json_sidecar) as f:
+            json_sidecar = json.load(f)
+        pe_direction=json_sidecar["PhaseEncodingDirection"]
+    elif nii_key in input["meta"]:
         pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
     elif "PhaseEncodingDirection" in input["meta"]:
         pe_direction = input["meta"]["PhaseEncodingDirection"]
@@ -110,7 +122,19 @@ def determineDir(input, nii_img, nii_key=None):
     Based on https://github.com/nipreps/fmriprep/issues/2341 and original code
     comes from Chris Markiewicz and Mathias Goncalves
     '''
-    if nii_key in input["meta"]:
+    #if nii_key in input["meta"]:
+    #    pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
+    #elif "PhaseEncodingDirection" in input["meta"]:
+    #    pe_direction = input["meta"]["PhaseEncodingDirection"]
+    #else:
+    #    print("Cannot read PhaseEncodingDirection.")
+
+    json_sidecar=nii_img[:-6]+"json"
+    if os.path.exists(json_sidecar):
+        with open(json_sidecar) as f:
+            json_sidecar = json.load(f)
+        pe_direction=json_sidecar["PhaseEncodingDirection"]
+    elif nii_key in input["meta"]:
         pe_direction = input["meta"][nii_key]["PhaseEncodingDirection"]
     elif "PhaseEncodingDirection" in input["meta"]:
         pe_direction = input["meta"]["PhaseEncodingDirection"]
