@@ -238,9 +238,14 @@ def clean(v):
     return re.sub(r'[^a-zA-Z0-9]+', '', v)
 
 def copytree(src, dest):
-    link(src, dest)
+    #link(src, dest)
+    os.makedirs(dest)
+    recover = "../"
+    depth = len(dest.split("/"))
+    for i in range(1, depth):
+        recover += "../"
     for fname in os.listdir(src):
-        link(os.path.join(src, fname), os.path.join(dest, fname))
+        os.symlink(os.path.join(recover+src, fname), os.path.join(dest, fname))
 
 def copyfile_ctf(src, dest):
     """Copy and rename CTF files to a new location.
