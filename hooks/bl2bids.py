@@ -92,9 +92,11 @@ for id, input in enumerate(config["_inputs"]):
         name+="_acq-"+acq
         short_name+="_acq-"+acq
 
-    if "space" in input["meta"]:
+    #space entity is present only in the eeg modality and only in the short_name,
+    #i.e. only for electrodes and coordsystem
+    if "space" in input["meta"] and modality == "eeg":
         space = utils.clean(input["meta"]["space"])
-        name+="_space-"+space
+        #name+="_space-"+space
         short_name+="_space-"+space
 
     run = None
