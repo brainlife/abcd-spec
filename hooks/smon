@@ -5,10 +5,12 @@ import subprocess
 import json
 import time
 import sys
+import shutil
 
 name="_smon.out"
 
 sid=os.getsid(os.getpid())
+
 
 def get_size(start_path = '.'):
     total_size = 0
@@ -72,7 +74,7 @@ with open(name, "w") as outfile:
 
     #query for gpu info
     gpus = []
-    try:
+    if shutil.which("nvidia-smi") is not None:
         out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pci.bus_id,driver_version,memory.total,compute_mode", "--format=csv"]).decode("utf-8")
         lines=out.strip().split("\n")
         header=lines.pop(0)
@@ -86,8 +88,6 @@ with open(name, "w") as outfile:
                 "memory.total": cols[4],
                 "compute_mode": cols[5],
             })
-    except Exception as err:
-        print(err)
 
     #dump info that doesn't change on the first entry
     json.dump({
@@ -118,7 +118,7 @@ with open(name, "w") as outfile:
 
         #query gpu usage
         gpus = []
-        try:
+        if shutil.which("nvidia-smi") is not None:
             out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pstate,temperature.gpu,utilization.gpu,utilization.memory", "--format=csv"]).decode("utf-8")
             lines=out.strip().split("\n")
             header=lines.pop(0)
@@ -133,8 +133,6 @@ with open(name, "w") as outfile:
                     "utilization.memory": int(cols[5][:-1]), #remove %
                     #"fan.speed": int(cols[6][:-1]), #remove % ([N/A] on bridges2)
                 })
-        except Exception as err:
-            None
 
         #query process under current session (query every 2 seconds for 1 minute)
         processes = {}
