@@ -67,12 +67,17 @@ fi
 if [ ! -z "$IGNORE_PPN" ]; then
     #some cluster doesn't like ppn (like bridges2 gpu-shared - which treats it like cpus-per-gpu)
     echo "IGNORE_PPN set.. renmaing ppn":
-    sed -i "s/ppn=/oldppn=/g" _jobheader
+    sed -i "s/ppn=/ppn_old=/g" _jobheader
 fi
 
 if [ ! -z "$IGNORE_VMEM" ]; then
     echo "IGNORE_VMEM set.. renaming vmem":
-    sed -i "s/vmem=/oldvmem=/g" _jobheader
+    sed -i "s/vmem=/vmem_old=/g" _jobheader
+fi
+
+if [ ! -z "$IGNORE_NODES" ]; then
+    echo "IGNORE_NODES set.. renaming nodes":
+    sed -i "s/nodes=/nodes_old=/g" _jobheader
 fi
 
 [ ! -z "$SBATCH" ] && sbatch_opt="$sbatch_opt $SBATCH"
