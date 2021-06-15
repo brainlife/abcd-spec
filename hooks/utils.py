@@ -194,6 +194,10 @@ def outputSidecar(path, input):
         #adjust subject field in sidecar (one dataset has a redundant prefix sub-)
         #subject = input["meta"]["subject"]
         #input["meta"]["subject"] = re.sub('sub-', '', subject)
+        
+        #clean subject field in sidecar
+        subject = input["meta"]["subject"]
+        input["meta"]["subject"] = clean(subject)
 
         json.dump(input["meta"], outfile)
 
