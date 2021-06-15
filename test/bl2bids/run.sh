@@ -17,6 +17,9 @@ do
     rm -rf bids
     rm -f output
     ../../../../hooks/bl2bids 
+
+    [ -f check.sh ] && ./check.sh
+
     tree bids | tee output
     diff expected output | tee log
     if [[ -s log ]]; 
