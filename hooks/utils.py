@@ -198,6 +198,14 @@ def outputSidecar(path, input):
         #clean subject field in sidecar
         subject = input["meta"]["subject"]
         input["meta"]["subject"] = clean(subject)
+        
+        #fix acquisition in sidecar
+        if "acquisition" in input["meta"]:
+            acq = utils.clean(input["meta"]["acquisition"])
+            input["meta"]["acquisition"] = acq
+        elif "acq" in input["meta"]:
+            acq = utils.clean(input["meta"]["acq"])
+            input["meta"]["acq"] = acq
 
         json.dump(input["meta"], outfile)
 
