@@ -73,21 +73,25 @@ with open(name, "w") as outfile:
     #https://confluence.csiro.au/display/SC/Reference+Guide%3A+Migrating+from+Torque+to+SLURMt
 
     #query for gpu info
-    gpus = []
+    gpus = None
     if shutil.which("nvidia-smi") is not None:
-        out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pci.bus_id,driver_version,memory.total,compute_mode", "--format=csv"]).decode("utf-8")
-        lines=out.strip().split("\n")
-        header=lines.pop(0)
-        for line in lines:
-            cols=line.split(", ")
-            gpus.append({
-                "index": cols[0],
-                "name": cols[1],
-                "bus_id": cols[2],
-                "driver_version": cols[3],
-                "memory.total": cols[4],
-                "compute_mode": cols[5],
-            })
+        try:
+            out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pci.bus_id,driver_version,memory.total,compute_mode", "--format=csv"]).decode("utf-8")
+            lines=out.strip().split("\n")
+            header=lines.pop(0)
+            gpus = []
+            for line in lines:
+                cols=line.split(", ")
+                gpus.append({
+                    "index": cols[0],
+                    "name": cols[1],
+                    "bus_id": cols[2],
+                    "driver_version": cols[3],
+                    "memory.total": cols[4],
+                    "compute_mode": cols[5],
+                })
+        except subprocess.CalledProcessError as e:
+            print(e)
 
     #dump info that doesn't change on the first entry
     json.dump({
@@ -117,8 +121,8 @@ with open(name, "w") as outfile:
     while True:
 
         #query gpu usage
-        gpus = []
-        if shutil.which("nvidia-smi") is not None:
+        if gpus != None:
+            gpus = []
             out=subprocess.check_output(["nvidia-smi", "--query-gpu=index,name,pstate,temperature.gpu,utilization.gpu,utilization.memory", "--format=csv"]).decode("utf-8")
             lines=out.strip().split("\n")
             header=lines.pop(0)

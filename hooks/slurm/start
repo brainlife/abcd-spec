@@ -16,14 +16,14 @@ set -e
 rm -f exit-code
 
 if [ -f brainlife ]; then
-	main=brainlife
+    main=brainlife
 else
-	if [ -f main ]; then
-		main=main
-	else
-		echo "no main/brainlife script.. don't know how to start this"
-		exit 1
-	fi
+    if [ -f main ]; then
+        main=main
+    else
+        echo "no main/brainlife script.. don't know how to start this"
+        exit 1
+    fi
 fi
 
 true > _jobheader
@@ -65,19 +65,28 @@ if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader >
 fi
 
 if [ ! -z "$IGNORE_PPN" ]; then
-	#some cluster doesn't like ppn (like bridges2 gpu-shared - which treats it like cpus-per-gpu)
-	echo "ignoring ppn":
-	sed -i "s/ppn=[0-9]\+//g" _jobheader
-	cat _jobheader
+    #some cluster doesn't like ppn (like bridges2 gpu-shared - which treats it like cpus-per-gpu)
+    echo "IGNORE_PPN set.. renmaing ppn":
+    sed -i "s/ppn=/ppn_old=/g" _jobheader
+fi
+
+if [ ! -z "$IGNORE_VMEM" ]; then
+    echo "IGNORE_VMEM set.. renaming vmem":
+    sed -i "s/vmem=/vmem_old=/g" _jobheader
+fi
+
+if [ ! -z "$IGNORE_NODES" ]; then
+    echo "IGNORE_NODES set.. renaming nodes":
+    sed -i "s/nodes=/nodes_old=/g" _jobheader
 fi
 
 [ ! -z "$SBATCH" ] && sbatch_opt="$sbatch_opt $SBATCH"
 
 #--login seems to be default everywhere except bridges? on bridges, .bash_profile won't get loaded without --login
 if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
-	echo "#!/bin/bash --login" > _main
+    echo "#!/bin/bash --login" > _main
 else
-	echo "#!/bin/bash" > _main
+    echo "#!/bin/bash" > _main
 fi
 
 cat _jobheader >> _main

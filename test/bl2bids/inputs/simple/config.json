@@ -78,7 +78,7 @@
                 "VariableFlipAngleFlag": "N",
                 "PatientPosition": "HFS",
                 "PhaseEncodingDirection": "i-",
-                "subject": "11061",
+                "subject": "sub-11061",
                 "nifti_headers": {
                     "sizeof_hdr": 348,
                     "data_type": "",

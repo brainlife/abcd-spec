@@ -3,3 +3,4 @@ hooks/_smon.out
 test/bl2bids/inputs/*/bids
 test/bl2bids/inputs/*/expected
 test/bl2bids/inputs/*/output
+release.sh
