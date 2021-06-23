@@ -96,7 +96,8 @@ for id, input in enumerate(config["_inputs"]):
     if input["_multi"] and run == None:
         if acq == None:
             acq="id%d" %(id+1)
-        dest+="_acq-"+acq
+        name+="_acq-"+acq
+        short_name+="_acq-"+acq
 
     #space entity is present only in the eeg modality and only in the short_name,
     #i.e. only for electrodes and coordsystem
