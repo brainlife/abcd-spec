@@ -91,6 +91,12 @@ for id, input in enumerate(config["_inputs"]):
         acq = utils.clean(input["meta"]["acq"])
         name+="_acq-"+acq
         short_name+="_acq-"+acq
+        
+    #handle multiple input by adding acq
+    if input["_multi"] and run == None:
+        if acq == None:
+            acq="id%d" %(id+1)
+        dest+="_acq-"+acq
 
     #space entity is present only in the eeg modality and only in the short_name,
     #i.e. only for electrodes and coordsystem
@@ -135,12 +141,6 @@ for id, input in enumerate(config["_inputs"]):
 
     dest=path+"/"+name
     short_dest=path+"/"+short_name #does not contain task and run
-
-    #handle multiple input by adding acq
-    if input["_multi"] and run == None:
-        if acq == None:
-            acq="id%d" %(id+1)
-        dest+="_acq-"+acq
 
     ##################################################
     ##
