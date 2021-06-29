@@ -201,10 +201,10 @@ def outputSidecar(path, input):
         
         #fix acquisition in sidecar
         if "acquisition" in input["meta"]:
-            acq = utils.clean(input["meta"]["acquisition"])
+            acq = clean(input["meta"]["acquisition"])
             input["meta"]["acquisition"] = acq
         elif "acq" in input["meta"]:
-            acq = utils.clean(input["meta"]["acq"])
+            acq = clean(input["meta"]["acq"])
             input["meta"]["acq"] = acq
 
         json.dump(input["meta"], outfile)
