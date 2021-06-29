@@ -49,6 +49,27 @@
         "testdata/func/physio.json",
         "testdata/func-1/physio.json"
     ],
+    "bold-single": [
+        "testdata/func-single/bold.nii.gz"
+    ],
+    "events-single": [
+        "testdata/func-single/events.tsv"
+    ],
+    "events_json-single": [
+        "testdata/func-single/events.json"
+    ],
+    "sbref-single": [
+        "testdata/func-single//sbref.nii.gz"
+    ],
+    "sbref_json-single": [
+        "testdata/func-single/sbref.json"
+    ],
+    "physio-single": [
+        "testdata/func-single/physio.tsv.gz"
+    ],
+    "physio_json-single": [
+        "testdata/func-single/physio.json"
+    ],
     "output_resolution": 1.2,
     "skipbidsvalidation": true,
     "_app": "5dc1c2e57f55b85a93bd3021",
@@ -1227,6 +1248,94 @@
                 "physio",
                 "physio_json"
             ]
+        },
+        {
+            "id": "fmri",
+            "task_id": "multi",
+            "subdir": "testdata/func-single",
+            "meta": {
+                "PulseSequenceType": "Multiband, Multi-echo pCASL, gradient echo EPI",
+                "RepetitionTime": 4,
+                "Manufacturer": "GE MEDICAL SYSTEMS",
+                "NumberShots": 1,
+                "MagneticFieldStrength": 3,
+                "PartialFourier": 0.75,
+                "EchoTime": 0.0091,
+                "FlipAngle": 90,
+                "CogAtlasID": "https://www.cognitiveatlas.org/task/id/trm_4c898f079d05e/",
+                "SliceEncodingDirection": "k",
+                "MultibandAccellerationFactor": 4,
+                "ParallelReductionFactorInPlane": 2,
+                "TaskName": "bilateralfingertapping",
+                "SliceTiming": [
+                    0,
+                    0.5591,
+                    0.0932,
+                    0.6523,
+                    0.1864,
+                    0.7455,
+                    0.2796,
+                    0.8386,
+                    0.3727,
+                    0.9318,
+                    0.4659,
+                    0,
+                    0.5591,
+                    0.0932,
+                    0.6523,
+                    0.1864,
+                    0.7455,
+                    0.2796,
+                    0.8386,
+                    0.3727,
+                    0.9318,
+                    0.4659,
+                    0,
+                    0.5591,
+                    0.0932,
+                    0.6523,
+                    0.1864,
+                    0.7455,
+                    0.2796,
+                    0.8386,
+                    0.3727,
+                    0.9318,
+                    0.4659,
+                    0,
+                    0.5591,
+                    0.0932,
+                    0.6523,
+                    0.1864,
+                    0.7455,
+                    0.2796,
+                    0.8386,
+                    0.3727,
+                    0.9318,
+                    0.4659
+                ],
+                "subject": "01",
+                "task": "bilateralfingertapping",
+                "echo": "1"
+            },
+            "tags": [
+                "task-bilateralfingertapping",
+                "echo-1"
+            ],
+            "datatype": "59b685a08e5d38b0b331ddc5",
+            "datatype_tags": [
+                "bilateralfingertapping"
+            ],
+            "keys": [
+                "bold-single",
+                "events-single",
+                "events_json-single",
+                "sbref-single",
+                "sbref_json-single",
+                "physio-single",
+                "physio_json-single"
+            ],
+            "project": "60cc9d7dcdfdb514c6fefde5",
+            "dataset_id": "60cc9d7fcdfdb5cafefefdf5"
         }
     ]
 }
