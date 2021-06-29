@@ -93,7 +93,12 @@ for id, input in enumerate(config["_inputs"]):
         short_name+="_acq-"+acq
         
     #handle multiple input by adding acq
-    if input["_multi"] and run == None:
+    num_inputs = 1
+    for key in input["keys"]:
+        if isinstance(config[key], list):
+            num_inputs = len(config[key])
+    print("--> Number of inputs for %s found: %s" %(modality, num_inputs))
+    if input["_multi"] and "run" not in input["meta"] and num_inputs>1:
         if acq == None:
             acq="id%d" %(id+1)
         name+="_acq-"+acq
