@@ -20,18 +20,18 @@ fi
 chmod +x $main
 
 if [ -z "$BRAINLIFE_NOSMON" ]; then
-        echo "nohup-ing main"
-        #can't put time on nohup
-        nohup bash -c "./$main;
-        echo \$? > exit-code" > output.log 2> error.log &
-        echo $! > pid
-else
         echo "nohup-ing main with smon"
         #can't put time on nohup
         nohup bash -c "smon & smonpid=\$!;
         ./$main;
         echo \$? > exit-code;
         kill \$smonpid" > output.log 2> error.log &
+        echo $! > pid
+else
+        echo "nohup-ing main without smon"
+        #can't put time on nohup
+        nohup bash -c "./$main;
+        echo \$? > exit-code" > output.log 2> error.log &
         echo $! > pid
 fi
 
