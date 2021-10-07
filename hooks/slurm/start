@@ -47,7 +47,7 @@ if [[ $HOSTNAME == *"bridges.psc.edu" ]]; then
 fi
 
 #pbs uses vmem which is not read by slurm as mem which then allows job to be shared
-if [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader > /dev/null; then
+if [ -z "$IGNORE_VMEM" ] && [[ $HOSTNAME != *".stampede2.tacc.utexas.edu" ]] && grep "vmem=" _jobheader > /dev/null; then
     mem=$(grep "vmem=" _jobheader | node -e '
         let str = "";
         process.stdin.on("data", (data)=>{ str += data; });
@@ -117,7 +117,8 @@ chmod +x $main #in case user forgets it
 
 echo "kill \$smonpid" >> _main
 
+set -x
 sbatch $sbatch_opt --parsable -o "slurm-%j.log" -e "slurm-%j.err" _main | tail -1 > jobid
-echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"
+#echo "submitted jobid:" $(cat jobid) " with opts $sbatch_opt"
 
 
