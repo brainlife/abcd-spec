@@ -11,14 +11,14 @@ if [ ! -z $BRAINLIFE_LOCAL_VALIDATOR ] && [[ "$SERVICE" = brainlife/validator* ]
 fi
 
 if [ ! -f jobid ];then
-	echo "no jobid - not yet submitted?"
-	exit 3
+    echo "no jobid - not yet submitted?"
+    exit 3
 fi
 
 jobid=`cat jobid`
 if [ -z $jobid ]; then
-	echo "jobid is empty.. failed to submit?"
-	exit 3
+    echo "jobid is empty.. failed to submit?"
+    exit 2
 fi
 
 if [ -f exit-code ]
@@ -32,19 +32,26 @@ then
     #non 0 exit code..
     logname="slurm-$jobid.err"
     if [ -z $logname ]; then
-	    echo "finished with exit code $code (.err empty)"
+        echo "finished with exit code $code (.err empty)"
     elif [ -f $logname ]; then
-	tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
+    tail -10 $logname | grep -v -e '^$' | tail -1 #skip empty line
     else 
         echo "finished with exit code $code (no .err log)"
     fi
     exit 2
 fi
 
+#remove .mcrCache9.2 if job finished
+if [ -f exit-code ] && [ -d .mcrCache* ]
+then
+        echo "removing .mcrCache* directory to reduce inode usage"
+        rm -rf .mcrCache*
+fi
+
 jobstate=`scontrol show job $jobid | grep JobState | cut -f4 -d' ' | cut -f2 -d'='`
 if [ -z $jobstate ]; then
-	echo "no job state.. odd"
-	exit 2
+    echo "no job state.. odd"
+    exit 2
 fi
 
 #TODO .. I need to handle all slurm states such as
@@ -53,7 +60,7 @@ fi
 if [ $jobstate == "PENDING" ]; then
         eststart=`timeout 1 squeue -h -o "%S" -j $jobid`
         echo "Waiting in the queue - estimated start time: $eststart"
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "RUNNING" ]; then
     logname="slurm-$jobid.log"
@@ -74,35 +81,35 @@ fi
 
 echo $jobstate
 if [ $jobstate == "COMPLETEING" ]; then
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "CONFIGURING" ]; then
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "COMPLETING" ]; then
-	exit 0
+    exit 0
 fi
 if [ $jobstate == "REQUEUE_HOLD" ]; then
-	echo "Requeue Hold"
-	exit 0 
+    echo "Requeue Hold"
+    exit 0 
 fi
 
 if [ $jobstate == "COMPLETED" ]; then
-	exit 1
+    exit 1
 fi
 
 if [ $jobstate == "CANCELLED" ]; then
-	exit 2
+    exit 2
 fi
 if [ $jobstate == "NODE_FAIL" ]; then
-	exit 2
+    exit 2
 fi
 if [ $jobstate == "TIMEOUT" ]; then
-	exit 2
+    exit 2
 fi
 if [ $jobstate == "FAILED" ]; then
-	echo "Job failed"
-	exit 2
+    echo "Job failed"
+    exit 2
 fi
 echo "unknown state: $jobstate"
 exit 3
