@@ -91,7 +91,7 @@ for id, input in enumerate(config["_inputs"]):
         acq = utils.clean(input["meta"]["acq"])
         name+="_acq-"+acq
         short_name+="_acq-"+acq
-        
+
     #handle multiple input by adding acq
     num_inputs = 1
     for key in input["keys"]:
@@ -238,6 +238,7 @@ for id, input in enumerate(config["_inputs"]):
         # magnitude.nii.gz
         # fieldmap.nii.gz
         # fieldmap.json (Units(like "rad/s") and IntendedFor should be set)
+        # magnitude.json (Units(like "rad/s") and IntendedFor should be set)
 
         # [CASE 4] Multiple phase encoded directions ("pepolar")
         # dir-<label>_epi.nii.gz
