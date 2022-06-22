@@ -5,7 +5,6 @@ import pathlib
 import os
 import sys
 import re
-import errno
 import nibabel as nib
 import os.path as op
 
@@ -241,15 +240,7 @@ def link(src, dest):
                 os.symlink(recover+src, dest, True)
             else:
                 print("hard-linking (existing)", src, "to (new link)", dest)
-                try:
-                    os.link(src, dest)
-                except OSError as e:
-                    if e.errno == errno.EXDEV:
-                        print("soft-linking (existing)", src, "to (new link)", dest)
-                        os.symlink(src, dest)
-                    else:
-                        raise e
-
+                os.link(src, dest)
         else:
             print(src, "not found")
     except FileExistsError:
