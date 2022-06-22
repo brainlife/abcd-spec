@@ -2,5 +2,7 @@
 
 set -x
 
-hookdir=$(dirname $(dirname $(realpath "$0")))
-singularity exec -B $hookdir -B $(realpath `pwd`) -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids.py
+hookdir=$(dirname $(realpath "$0"))
+taskdir=$(dirname $(realpath `pwd`))
+
+singularity exec -B $hookdir -B $taskdir -e docker://brainlife/dipy:1.1.1 $hookdir/bl2bids.py
