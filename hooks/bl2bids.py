@@ -409,7 +409,7 @@ if "TASK_ID" in os.environ:
 desc = {
   "Name": name,
   "BIDSVersion": "1.4.0",
-  "Authors": [ "Brainlife <brlife@iu.edu>" ]
+  "Authors": [ "Brainlife <brainlife.io@gmail.com>" ]
 }
 pathlib.Path("bids").mkdir(parents=True, exist_ok=True)
 with open("bids/dataset_description.json", 'w') as f:
