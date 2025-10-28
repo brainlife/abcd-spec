@@ -9,6 +9,11 @@ import nibabel as nib
 
 import utils
 
+def _resolve(p):
+    if isinstance(p, str):
+        return os.path.realpath(os.path.expandvars(os.path.expanduser(p)))
+    return p
+
 with open('config.json') as f:
     config = json.load(f)
 
@@ -19,19 +24,21 @@ if not "_inputs" in config:
 intended_paths = []
 
 #map the path specified by keys for each input
-multi_counts = {} #to handle mulltiple inputs
+multi_counts = {}  # to handle multiple inputs
 for id, input in enumerate(config["_inputs"]):
     input["_key2path"] = {}
     for key in input["keys"]:
-        if isinstance(config[key], list):
+        val = config[key]
+        if isinstance(val, list):
             input["_multi"] = True
             if key not in multi_counts:
                 multi_counts[key] = 0
-            input["_key2path"][key] = config[key][multi_counts[key]]
+            chosen = val[multi_counts[key]]
+            input["_key2path"][key] = _resolve(chosen)
             multi_counts[key] += 1
         else:
             input["_multi"] = False
-            input["_key2path"][key] = config[key]
+            input["_key2path"][key] = _resolve(val)
 
 #now construct bids structure!
 for id, input in enumerate(config["_inputs"]):
@@ -164,21 +171,70 @@ for id, input in enumerate(config["_inputs"]):
         utils.outputSidecar(dest+"_T2w.json", input)
 
     elif input["datatype"] == utils.DWI:
-        src=os.path.join(input_dir, 'dwi.nii.gz')
-        utils.link(src, dest+"_dwi.nii.gz")
-        src=os.path.join(input_dir, 'dwi.bvals')
-        utils.link(src, dest+"_dwi.bval")
-        src=os.path.join(input_dir, 'dwi.bvecs')
-        utils.link(src, dest+"_dwi.bvec")
-        src=os.path.join(input_dir, 'sbref.nii.gz')
-        utils.link(src, dest+"_sbref.nii.gz")
-        src=os.path.join(input_dir, 'sbref.json')
-        utils.link(src, dest+"_sbref.json")
+        print("--> Modality: dwi")
 
-        utils.outputSidecar(dest+"_dwi.json", input)
+        # Build correct DWI path including session if available
+        if session:
+            bids_dwi_dir = f"bids/sub-{subject}/ses-{session}/dwi"
+        else:
+            bids_dwi_dir = f"bids/sub-{subject}/dwi"
+        os.makedirs(bids_dwi_dir, exist_ok=True)
 
-        dest_under_sub = "/".join(dest.split("/")[2:])
-        intended_paths.append(dest_under_sub+"_dwi.nii.gz")
+
+        # Find all DWI directories that might exist under input_dir
+        dwi_dirs = []
+        for root, dirs, files in os.walk(input_dir):
+            if any(fname.startswith("dwi") and fname.endswith(".nii.gz") for fname in files):
+                dwi_dirs.append(root)
+
+        print(f"--> Number of inputs for dwi found: {len(dwi_dirs)}")
+
+        run_counter = 1
+        for dwi_dir in sorted(dwi_dirs):
+            dwi_dir_upper = dwi_dir.upper()
+
+            # detect acquisition from folder name
+            if "AP" in dwi_dir_upper:
+                acq_label = "_acq-AP"
+            elif "PA" in dwi_dir_upper:
+                acq_label = "_acq-PA"
+            elif "LR" in dwi_dir_upper:
+                acq_label = "_acq-LR"
+            elif "RL" in dwi_dir_upper:
+                acq_label = "_acq-RL"
+            else:
+                acq_label = f"_run-{run_counter}"
+
+            dest_base = f"{bids_dwi_dir}/sub-{subject}{acq_label}_dwi"
+
+            # gather sources
+            nii = os.path.join(dwi_dir, "dwi.nii.gz")
+            bval = os.path.join(dwi_dir, "dwi.bvals")
+            bvec = os.path.join(dwi_dir, "dwi.bvecs")
+            json_file = os.path.join(dwi_dir, "dwi.json")
+            sbref = os.path.join(dwi_dir, "sbref.nii.gz")
+            sbref_json = os.path.join(dwi_dir, "sbref.json")
+
+            # link or copy (fallback handled inside utils.link)
+            for src, ext in [
+                (nii, ".nii.gz"),
+                (bval, ".bval"),
+                (bvec, ".bvec"),
+                (json_file, ".json"),
+                (sbref, "_sbref.nii.gz"),
+                (sbref_json, "_sbref.json"),
+            ]:
+                if os.path.exists(src):
+                    utils.link(src, dest_base + ext)
+                else:
+                    print(src, "not found")
+
+            utils.outputSidecar(dest_base + ".json", input)
+
+            dest_under_sub = "/".join(dest_base.split("/")[2:])
+            intended_paths.append(dest_under_sub + ".nii.gz")
+
+            run_counter += 1
 
     elif input["datatype"] == utils.FUNC_TASK:
         src=os.path.join(input_dir, 'bold.nii.gz')
