@@ -80,7 +80,7 @@ if [ $jobstate == "RUNNING" ]; then
 fi
 
 echo $jobstate
-if [ $jobstate == "COMPLETEING" ]; then
+if [ $jobstate == "COMPLETING" ]; then
     exit 0
 fi
 if [ $jobstate == "CONFIGURING" ]; then

@@ -90,7 +90,7 @@ for id, input in enumerate(config["_inputs"]):
             name+="_task-id%d" %(id+1)
 
     #meta contains both acq and acquisition set to different value
-    #I am not sure why, but let's make acqusition take precedence
+    #I am not sure why, but let's make acquisition take precedence
     acq = None
     if "acquisition" in input["meta"]:
         acq = utils.clean(input["meta"]["acquisition"])
@@ -426,7 +426,7 @@ for id, input in enumerate(config["_inputs"]):
         utils.outputSidecar(dest+"_eeg.json", input)
 
     else:
-        #others are considered delivatives and the entire files/dirs will be copied over
+        #others are considered derivatives and the entire files/dirs will be copied over
         for key in input["keys"]:
             print("..", key)
             base = os.path.basename(config[key])

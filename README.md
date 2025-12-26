@@ -113,7 +113,7 @@ Start script can output startup log to stdout, or any error messages to stderr. 
 
 This script will be executed by workflow manager periodically to query status of the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use commands such as `qstat` or `condor_status` to query for your application.
 
-Please see [ABCD default hook scritps](https://github.com/brain-life/abcd-spec/tree/master/hooks) as an example.
+Please see [ABCD default hook scripts](https://github.com/brain-life/abcd-spec/tree/master/hooks) as an example.
 
 #### Exit Code
 
@@ -229,7 +229,7 @@ SERVICE_BRANCH: Name of the service branch (if specified by the user)
 
 ### Workflow directory
 
-ABCD workflow manager should git clones requested service on remote resource's scratch space as a new work directory for each task and set the current directory to that directory prior to executing ABCD hooks. Application can therefore expect to find all files that are distributed via the specifed github repository (with `--depth 1` to omit git history, however).
+ABCD workflow manager should git clones requested service on remote resource's scratch space as a new work directory for each task and set the current directory to that directory prior to executing ABCD hooks. Application can therefore expect to find all files that are distributed via the specified github repository (with `--depth 1` to omit git history, however).
 
 ### Input Parameters (config.json)
 
