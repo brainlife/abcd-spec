@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import json
+import errno
+import shutil
 import pathlib
 import os
 import sys
@@ -240,7 +242,14 @@ def link(src, dest):
                 os.symlink(recover+src, dest, True)
             else:
                 print("hard-linking (existing)", src, "to (new link)", dest)
-                os.link(src, dest)
+                try:
+                    os.link(src, dest)
+                except OSError as error:
+                    if error.errno != errno.EXDEV:
+                        raise
+                    # Mounted inputs (e.g. S3) may live on a different filesystem.
+                    print("cross-device link; copying", src, "to", dest)
+                    shutil.copyfile(src, dest)
         else:
             print(src, "not found")
     except FileExistsError:
