@@ -1,0 +1,143 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "eeg",
+        "entities": [
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".json",
+          ".edf",
+          ".vhdr",
+          ".vmrk",
+          ".eeg",
+          ".set",
+          ".fdt",
+          ".bdf"
+        ],
+        "files": [
+          {
+            "bids_part": "eeg.json",
+            "file_id": "eeg_json",
+            "sidecar": "missing"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "missing"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "EGI .raw is not a BIDS EEG format, so it is not mapped; convert to EDF, BDF, BrainVision or EEGLAB first.",
+        "suffix": "eeg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5dec20ff6c0bd9f84485779f",
+    "desc": "Raw EEG from an EGI (Geodesic/Philips) net in EGI simple binary .raw format, stored as a file named 'eeg'.",
+    "name": "neuro/eeg/egi",
+    "original": {
+      "desc": "EGI EEG datatype",
+      "file_descs": {
+        "egi": "EGI data"
+      },
+      "readme": "Edit me"
+    },
+    "readme": "Edit me\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.egi.json"
+  },
+  "files": [
+    {
+      "desc": "EGI simple binary (.raw) EEG recording, stored without extension.",
+      "filename": "eeg",
+      "id": "egi",
+      "required": true
+    },
+    {
+      "desc": "BIDS EEG sidecar: recording parameters.",
+      "filename": "eeg.json",
+      "id": "eeg_json",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "Channel names, types, units and status.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "Event onsets, durations and types.",
+      "filename": "events.tsv",
+      "id": "events",
+      "proposed": true,
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Recording dates and free-text fields in the header, markers or events."
+    ],
+    "information_kinds": [
+      "function",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level EEG without standard identity fields, linkable through a participant code.",
+    "sharing_cautions": [
+      "Check header and event text for names and dates before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 3 if the EGI header, events or sidecars name the participant or give exact dates."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (eeg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml",
+      "https://brainlife.io/api/warehouse/datatype (neuro/eeg/egi)"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "64075386c538c16a826b5818",
+        "name": "EGI to mne/raw",
+        "purpose": "converts EGI .raw EEG to MNE raw FIF"
+      }
+    ],
+    "intended_use": [
+      "Raw EGI EEG input for conversion to MNE raw."
+    ],
+    "not_suitable_for": [
+      "EGI .mff folders; the converter reads the .raw format.",
+      "Direct BIDS export: EGI .raw is not a BIDS EEG format."
+    ],
+    "outputs_of": []
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no T1w/T2w ratio suffix (MWFmap is myelin water fraction, a different measure).",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5fad54c27e8ecba2c3aa0c24",
+    "desc": "Volumetric myelin map (map.nii.gz), the T1w/T2w ratio computed with Connectome Workbench.",
+    "name": "neuro/myelin-map",
+    "original": {
+      "desc": "nifti volume containing myelin map",
+      "file_descs": {
+        "map": "The myelin map"
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Cortical and tract myelin mapping and summary statistics.\n\n**Not for:** Quantitative myelin content; T1w/T2w is a relative proxy with no bias correction. Use when the T1w and T2w were not aligned.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 14 Apps, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.myelin-map.json"
+  },
+  "files": [
+    {
+      "desc": "The myelin map",
+      "filename": "map.nii.gz",
+      "id": "map",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "A ratio of whole-head images keeps the facial outline"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5 applied under uncertainty: whole-head inputs can leave facial anatomy visible.",
+    "sharing_cautions": [
+      "Brain-mask or deface before sharing"
+    ],
+    "tier_conditions": [
+      "Tier 2 when computed from defaced or brain-extracted images"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "computes mean diffusion measures"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "608da87c8fe49f54761a9455",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "608da73d8fe49ff0f31a929d",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "6115e055a5a04ca30df9f71e",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI (No SNR masking)",
+        "purpose": "will map volumated measure files"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "extracts summary statistics"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "computes the mean and standard deviation of diffusion"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "builds structural connectivity matrices"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "computes tract profiles of tensor"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "computes tract profiles of tensor, NODDI, myelin or quantitative MRI measures along segmented white matter"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "computes tract profiles of a myelin map along segmented white matter tracts"
+      }
+    ],
+    "intended_use": [
+      "Cortical and tract myelin mapping and summary statistics."
+    ],
+    "not_suitable_for": [
+      "Quantitative myelin content; T1w/T2w is a relative proxy with no bias correction.",
+      "Use when the T1w and T2w were not aligned."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "60355b8a3a0011acbb52c3c5",
+        "name": "Compute myelin map using T1w / T2w ratio",
+        "purpose": "computes a volumetric myelin map as the T1w/T2w ratio"
+      }
+    ]
+  }
+}

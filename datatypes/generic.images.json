@@ -1,0 +1,278 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Figures have no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5967b799b09297d8d831709e",
+    "desc": "Set of images (any browser format) in an images/ folder, indexed by images.json; shown as a gallery, mostly QC figures.",
+    "name": "generic/images",
+    "original": {
+      "desc": "Collection of various images with metadata",
+      "file_descs": {
+        "images": "",
+        "images_json": "It should look like\n\n{\n    \"images\": [\n        {\n            \"filename\": \"images/brainmask.svg\",\n            \"name\": \"brainmask\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/carpetplot.svg\",\n            \"name\": \"carpetplot\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/sampling_scheme.gif\",\n            \"name\": \"sampling_scheme\",\n            \"desc\": \"TODO\"\n        }\n    ]\n}"
+      },
+      "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype."
+    },
+    "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.images.json"
+  },
+  "files": [
+    {
+      "desc": "JSON index: an \"images\" array of {filename, name, desc}.",
+      "filename": "images.json",
+      "id": "images_json",
+      "required": true
+    },
+    {
+      "desc": "Folder of image files listed in images.json.",
+      "dirname": "images",
+      "id": "images",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Figures may show subject IDs, dates or anatomy of one participant."
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived figures without direct identifiers are Tier 2.",
+    "sharing_cautions": [
+      "Check embedded labels and titles for identifiers before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 1 for group-level or non-human figures.",
+      "Tier 3 if it shows recognisable facial anatomy or names."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/62a20ab1ab3e6697805fc07f.json",
+      "catalog/apps/6a0f03d63a6b01e36dea4343.json",
+      "catalog/apps/6ab710149702e3d739255de7.json",
+      "catalog/apps/68111293da629ed3b167b0fe.json",
+      "catalog/apps/65a9a68c4ce5ac2907f02c52.json",
+      "catalog/apps/6220e63e5d8ab5d5f01fb8c1.json",
+      "catalog/apps/5e90d0b1952fef2bba7bc991.json",
+      "catalog/apps/5e9d30c6f1745d6b05f681b7.json",
+      "catalog/apps/5fe00ea457aacde3b62f7704.json",
+      "catalog/apps/5e8e162f952fef6d527b6d09.json",
+      "catalog/apps/604b9bbf38fe120d9bef80f2.json",
+      "catalog/apps/5e9272ed3f18bacda81d973e.json",
+      "catalog/apps/6109ecd3b991116939bee534.json",
+      "catalog/apps/628ceb91d0697cf1eaed4a14.json",
+      "catalog/apps/69cb8d9c34e133351885ac23.json",
+      "catalog/apps/69efefaf5e3b9b921dbc2456.json",
+      "catalog/apps/69d978d404be87075a57b265.json",
+      "catalog/apps/69f02b435e3b9b921dbcfb1f.json",
+      "catalog/apps/6ab713059702e3d7392578e1.json",
+      "catalog/apps/596cdb1a88ae6f0021531d6a.json",
+      "catalog/apps/5a54f0b84f89380027a9a48d.json",
+      "catalog/apps/5b0614c6d85b030192ff6aae.json",
+      "catalog/apps/69ca2f0934e13335187cfbbd.json",
+      "catalog/apps/5cb0c93f454d3c00353fa0d3.json",
+      "catalog/apps/5ed02b780a8ed88a57482c92.json",
+      "catalog/apps/5ed02bb20a8ed87a11482d81.json",
+      "catalog/apps/6023450fab40ca71564cb1e6.json",
+      "catalog/apps/60a6a8f922b42a89506ff897.json",
+      "catalog/apps/69ca22f834e13335187c6ae7.json",
+      "catalog/apps/5cf00841059f7a0036ff383f.json",
+      "catalog/apps/69cc4e4934e13335188d9217.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Visual QC of App results, e.g. registration, tracts or tract profiles."
+    ],
+    "not_suitable_for": [
+      "Input to analysis Apps; prefer report/html for rich reports."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "62a20ab1ab3e6697805fc07f",
+        "name": "Average ERP (MNE)",
+        "purpose": "graph of the evoked potential"
+      },
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "PNG figures of the connectivity matrix, listed in images.json"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "registration QC: edge-overlay before/after, orthoview + per-plane"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "before/after registration QC figures (orthogonal views and slices)"
+      },
+      {
+        "app_id": "65a9a68c4ce5ac2907f02c52",
+        "name": "First Level GLM Analysis",
+        "purpose": "captured PNGs of the graphs, stat-maps and the matrices produced during the processes"
+      },
+      {
+        "app_id": "6220e63e5d8ab5d5f01fb8c1",
+        "name": "Generate figures of white matter tracts overlaid on anatomical image",
+        "purpose": "images of the specified tracts, 6 figures each"
+      },
+      {
+        "app_id": "5e90d0b1952fef2bba7bc991",
+        "name": "Generate figures of whole-brain tractogram (tck)",
+        "purpose": "the directory containing multiple images of the whole brain tractogram"
+      },
+      {
+        "app_id": "5e9d30c6f1745d6b05f681b7",
+        "name": "Generate image of ODF",
+        "purpose": "PNG images of the ODFs in the selected sub-volume"
+      },
+      {
+        "app_id": "5fe00ea457aacde3b62f7704",
+        "name": "Generate images of data mapped to cortical surface",
+        "purpose": "cortical surface map views"
+      },
+      {
+        "app_id": "5e8e162f952fef6d527b6d09",
+        "name": "Generate images of DWI overlaid on T1",
+        "purpose": "directory with out.png showing the DWI b0 and its brain mask outline overlaid on the T1"
+      },
+      {
+        "app_id": "604b9bbf38fe120d9bef80f2",
+        "name": "Generate images of fMRI overlaid on T1",
+        "purpose": "directory with out.png showing the fMRI volume and its mask outline overlaid on the T1"
+      },
+      {
+        "app_id": "5e9272ed3f18bacda81d973e",
+        "name": "Generate images of tissue type masks",
+        "purpose": "directory with gm.png, wm.png, csf.png and gmwmi.png"
+      },
+      {
+        "app_id": "6109ecd3b991116939bee534",
+        "name": "Generate images of tract endpoints on cortical surface",
+        "purpose": "file containing multiple images of different views of each tract endpoint"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "folder of PNG and GIF figures for each tract"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "summary plots of curvature and streamline density by meridian and eccentricity"
+      },
+      {
+        "app_id": "69efefaf5e3b9b921dbc2456",
+        "name": "MRI Registration QC (FA maps)",
+        "purpose": "QC figures (PNG) for axial, coronal and sagittal views and the similarity metrics"
+      },
+      {
+        "app_id": "69d978d404be87075a57b265",
+        "name": "MRI Registration QC (T1w)",
+        "purpose": "QC figures (PNG) for axial, coronal and sagittal views and the similarity metrics"
+      },
+      {
+        "app_id": "69f02b435e3b9b921dbcfb1f",
+        "name": "MRI Registration QC: Pairwise Group Comparison  (FA maps)",
+        "purpose": "pairwise FA registration QC figures"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "registration QC: edge-overlay before/after, orthoview + per-plane"
+      },
+      {
+        "app_id": "596cdb1a88ae6f0021531d6a",
+        "name": "Plot 3D Surfaces",
+        "purpose": "PNG renderings of the surfaces from six views, with an images.json index"
+      },
+      {
+        "app_id": "5a54f0b84f89380027a9a48d",
+        "name": "Plot Eigenfunctions",
+        "purpose": "images of the eigenfunction plotted on each surface, with images.json"
+      },
+      {
+        "app_id": "5b0614c6d85b030192ff6aae",
+        "name": "Reconstruct Surfaces from LB Eigenfunctions",
+        "purpose": "views of original and reconstructed surfaces"
+      },
+      {
+        "app_id": "69ca2f0934e13335187cfbbd",
+        "name": "Retinotopic Connectivity Matrix Computation",
+        "purpose": "retinotopic connectivity matrix figures"
+      },
+      {
+        "app_id": "5cb0c93f454d3c00353fa0d3",
+        "name": "ROC curve (deprecated)",
+        "purpose": "PNG plot of the mean ROC curves and AUCs for multi-LAP and multi-NN for the tract"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "directory of tract profile images for each tract and measure"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "directory of tract profile images for each tract and measure"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "directory of tract profile images for each tract and measure"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "directory of tract profile images for each tract and measure"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "PNG plots of the tract profiles (and reference curve views)"
+      },
+      {
+        "app_id": "5cf00841059f7a0036ff383f",
+        "name": "TractSeg training",
+        "purpose": "TractSeg training metrics"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "track-density images of the VOF per hemisphere and visual-area group"
+      }
+    ]
+  }
+}

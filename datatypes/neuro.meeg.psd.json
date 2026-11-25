@@ -1,0 +1,125 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no spectral-power suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "60c7669e7657d98fe5e128b1",
+    "desc": "Power spectral density of MEG/EEG as a TSV table (channels x frequencies), per channel type, or summary values derived from it.",
+    "name": "neuro/meeg/psd",
+    "original": {
+      "desc": "Power spectral densities of MEG/EEG signals",
+      "file_descs": {
+        "psd": "Rows correspond to channels and columns to the frequencies."
+      },
+      "readme": "Dimensions: channels x freqs"
+    },
+    "readme": "Dimensions: channels x freqs\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.psd.json"
+  },
+  "files": [
+    {
+      "desc": "Rows correspond to channels and columns to the frequencies.",
+      "filename": "psd.tsv",
+      "id": "psd",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual M/EEG spectra can act as a neural fingerprint."
+    ],
+    "information_kinds": [
+      "function",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derivative; step 4 applies if used for identification.",
+    "sharing_cautions": [
+      "Share participant-level spectra only under a controlled agreement."
+    ],
+    "tier_conditions": [
+      "Tier 4 if used as a spectral fingerprint to identify or profile individuals."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61b35c3952911e175a209747",
+        "name": "Average channels",
+        "purpose": "averages PSD over selected channels"
+      },
+      {
+        "app_id": "60b895780ad40d2658ca61fb",
+        "name": "Find frequency peak of PSD data",
+        "purpose": "per-channel peak frequency within a band"
+      },
+      {
+        "app_id": "616d6d2dfc8eb97193ff219a",
+        "name": "Mean amplitude of PSD data",
+        "purpose": "per-channel mean band power"
+      }
+    ],
+    "intended_use": [
+      "Spectral summaries: band power, peak frequency, channel averages."
+    ],
+    "not_suitable_for": [
+      "Mixing channel types (grad, mag, eeg) in one analysis; check tags.",
+      "Tables of peak frequency or mean amplitude, also stored here; check tags."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "61b35c3952911e175a209747",
+        "name": "Average channels",
+        "purpose": "averages PSD over selected channels"
+      },
+      {
+        "app_id": "60b895780ad40d2658ca61fb",
+        "name": "Find frequency peak of PSD data",
+        "purpose": "per-channel peak frequency within a band"
+      },
+      {
+        "app_id": "616d6d2dfc8eb97193ff219a",
+        "name": "Mean amplitude of PSD data",
+        "purpose": "per-channel mean band power"
+      },
+      {
+        "app_id": "616fe817fc8eb96a43000442",
+        "name": "PSD of epoched data",
+        "purpose": "multitaper PSD of epochs per channel type"
+      },
+      {
+        "app_id": "60b7589f0ad40d957dca311a",
+        "name": "PSD of raw data",
+        "purpose": "Welch PSD per channel type from raw data"
+      }
+    ]
+  }
+}

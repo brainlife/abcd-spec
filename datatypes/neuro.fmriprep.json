@@ -1,0 +1,90 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "A whole fMRIPrep derivatives directory, not a single BIDS suffix; layout here is undocumented.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "64640a72d391caf6ef169dc7",
+    "desc": "Unclear: temporary fMRIPrep output directory, written only by the undocumented 'TDA Computing' App.",
+    "name": "neuro/fmriprep",
+    "original": {
+      "desc": "temporary output for fmriprep directories",
+      "file_descs": {
+        "fmriprep": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Passing a full fMRIPrep output between steps of one analysis.\n\n**Not for:** Long-term storage or sharing; owner review needed to document contents.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.fmriprep.json"
+  },
+  "files": [
+    {
+      "desc": "fMRIPrep output directory; exact contents undocumented.",
+      "dirname": "fmriprep",
+      "id": "fmriprep",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "fMRIPrep outputs include a preprocessed whole-head T1w that can show the face"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5 applied under uncertainty: fMRIPrep directories normally contain non-skull-stripped anatomy.",
+    "sharing_cautions": [
+      "Check for whole-head anatomical images and free-text reports before sharing"
+    ],
+    "tier_conditions": [
+      "Tier 2 once anatomical images that show the face are removed or defaced"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Passing a full fMRIPrep output between steps of one analysis."
+    ],
+    "not_suitable_for": [
+      "Long-term storage or sharing; owner review needed to document contents."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6845b40b187eaf3617cb1183",
+        "name": "TDA Computing",
+        "purpose": "not documented in the App manifest"
+      }
+    ]
+  }
+}

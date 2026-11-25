@@ -1,0 +1,133 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "T2starw.nii",
+            "file_id": "t2starw"
+          },
+          {
+            "bids_part": "T2starw.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "Magnitude and phase are told apart by tags; BIDS uses the part-mag/part-phase entity.",
+        "suffix": "T2starw",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "64792b1c79d13f6418e4fb75",
+    "desc": "T2*-weighted gradient-echo MRI (NIfTI), magnitude or phase (tags part-mag, part-phase), possibly multi-echo; input to QSM.",
+    "name": "neuro/anat/t2starw",
+    "original": {
+      "desc": "T2starw",
+      "file_descs": {
+        "t2starw": "T2starw NIfTI volume"
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Phase unwrapping and B0/T2* mapping (ROMEO) towards QSM. Atlas-based segmentation of T2*-weighted magnitude images.\n\n**Not for:** Apps expecting magnitude when the object is phase; check the part-mag or part-phase tag. Multi-echo processing when echo times are missing from metadata.\n\n**BIDS:** anat/T2starw (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.t2starw.json"
+  },
+  "files": [
+    {
+      "desc": "T2starw NIfTI volume",
+      "filename": "t2starw.nii",
+      "id": "t2starw",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Face may be recognisable in whole-head 3D gradient-echo images",
+      "JSON metadata may hold acquisition dates, institution or device serials"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5 (unknown, provisional): whole-head images may show identifying anatomy.",
+    "sharing_cautions": [
+      "Deface before sharing outside a controlled project"
+    ],
+    "tier_conditions": [
+      "Tier 2 once defaced, or if the field of view excludes the face"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "67210bc9851d5f6d753ec63e",
+        "name": "ROMEO Phase Unwrapping",
+        "purpose": "performs phase offset removal, phase unwrapping, phase quality mapping, robust masking"
+      },
+      {
+        "app_id": "6717c8f2168d1cbcfbd02315",
+        "name": "Segment T2starw image using MNI152",
+        "purpose": "segments a T2*-weighted magnitude image"
+      }
+    ],
+    "intended_use": [
+      "Phase unwrapping and B0/T2* mapping (ROMEO) towards QSM.",
+      "Atlas-based segmentation of T2*-weighted magnitude images."
+    ],
+    "not_suitable_for": [
+      "Apps expecting magnitude when the object is phase; check the part-mag or part-phase tag.",
+      "Multi-echo processing when echo times are missing from metadata."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "65dc275e1f6c7e7fa05bc366",
+        "name": "QSM Data Generator",
+        "purpose": "simulates T2*-weighted magnitude and phase images and a ground-truth susceptibility map"
+      },
+      {
+        "app_id": "67210bc9851d5f6d753ec63e",
+        "name": "ROMEO Phase Unwrapping",
+        "purpose": "performs phase offset removal, phase unwrapping, phase quality mapping, robust masking"
+      }
+    ]
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "atlas",
+          "segmentation",
+          "scale",
+          "hemisphere",
+          "density",
+          "space",
+          "description"
+        ],
+        "extensions": [
+          ".label.gii",
+          ".dlabel.nii",
+          ".tsv",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "hemi-L_dseg.label.gii",
+            "file_id": "left"
+          },
+          {
+            "bids_part": "hemi-R_dseg.label.gii",
+            "file_id": "right"
+          },
+          {
+            "bids_part": "dseg.tsv",
+            "file_id": "label",
+            "sidecar": "file"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "Only label annotations map to surface dseg; tags must tell; metrics and time series are not standardised.",
+        "suffix": "dseg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5f78b377268f76598c29b27a",
+    "desc": "Experimental: left/right GIFTI data per surface vertex (measures, time series or label annotations), with optional label.json.",
+    "name": "neuro/surface/data",
+    "original": {
+      "desc": "(experimental) surface data data.nii only contains measures at each vertices. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
+      "file_descs": {
+        "label": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+        "left": "",
+        "right": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Surface-based analysis of fMRI time series, measures or parcellations.\n\n**Not for:** Use without the matching surface mesh (neuro/surface/vertices) and space tag.\n\n**BIDS:** anat/dseg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 12 Apps, output of 10 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.data.json"
+  },
+  "files": [
+    {
+      "desc": "Left hemisphere vertex data (GIFTI).",
+      "filename": "left.gii",
+      "id": "left",
+      "required": true
+    },
+    {
+      "desc": "Right hemisphere vertex data (GIFTI).",
+      "filename": "right.gii",
+      "id": "right",
+      "required": true
+    },
+    {
+      "desc": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+      "filename": "label.json",
+      "id": "label",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Participant-level surface data; time series can fingerprint"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
+    "sharing_cautions": [
+      "Share with participant codes only"
+    ],
+    "tier_conditions": [
+      "Tier 4 when surface time series are used as functional fingerprints"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "64a32d3a3a63cf17374f6e75",
+        "name": "Compute Anatomical Statistics",
+        "purpose": "computes FreeSurfer anatomical statistics"
+      },
+      {
+        "app_id": "603b030878e65d363cd1b3d0",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface",
+        "purpose": "computes per-ROI summary statistics"
+      },
+      {
+        "app_id": "62c20d12f3194eded6fb203c",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Freesurfer computations",
+        "purpose": "computes per-ROI statistics of cortex-mapped diffusion measures"
+      },
+      {
+        "app_id": "6143a6a57a38b00ad39f50e9",
+        "name": "Connectivity Gradients",
+        "purpose": "computes functional connectivity gradients from left and right surface fMRI time series"
+      },
+      {
+        "app_id": "6144b8987a38b0c6c8a05697",
+        "name": "Convert surface datatypes to cortexmap datatype",
+        "purpose": "converts surface/vertices and surface/data datatypes into a cortexmap, renaming GIFTI files into Connectome"
+      },
+      {
+        "app_id": "6413b54073d2685502bf53b4",
+        "name": "Convert surface-based annotation in standard space to parcellation (volume)",
+        "purpose": "converts left and right surface annotations on an fsaverage template into a volumetric parcellation"
+      },
+      {
+        "app_id": "6571c9c4b094062da673d810",
+        "name": "Extract event-related timeseries - Surface",
+        "purpose": "not documented in the App manifest"
+      },
+      {
+        "app_id": "683643f5187eaf3617aeae36",
+        "name": "FSL Probabilistic Tractography Algorithm",
+        "purpose": "runs FSL probtrackx2 (GPU) surface-seeded probabilistic tractography from BedpostX samples"
+      },
+      {
+        "app_id": "603b047b78e65dec6fd1b5dc",
+        "name": "Parcellation Statistics - Surface",
+        "purpose": "computes per-parcel cortical surface statistics"
+      },
+      {
+        "app_id": "62100c47c16bfbf27e09a18f",
+        "name": "Resample surface data from fsaverage space",
+        "purpose": "resamples left and right hemisphere surface data from an fsaverage template mesh to fs_LR"
+      },
+      {
+        "app_id": "6418ddc773d2685502c32bfa",
+        "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+        "purpose": "resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric"
+      },
+      {
+        "app_id": "63ed0c21c538c16a822e6b8f",
+        "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
+        "purpose": "resamples template-surface labels to a subject's FreeSurfer surfaces and maps them into ribbon-constrained"
+      }
+    ],
+    "intended_use": [
+      "Surface-based analysis of fMRI time series, measures or parcellations."
+    ],
+    "not_suitable_for": [
+      "Use without the matching surface mesh (neuro/surface/vertices) and space tag."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6571c9c4b094062da673d810",
+        "name": "Extract event-related timeseries - Surface",
+        "purpose": "not documented in the App manifest"
+      },
+      {
+        "app_id": "6a10364f28b7a0de6b25dbd2",
+        "name": "Extract Source Time Series",
+        "purpose": "extracts mean source time courses for selected labels of a FreeSurfer atlas from an MEG/EEG source estimate"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "preprocesses fMRI with fMRIPrep 20.2.1"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "preprocesses BOLD fMRI with fMRIPrep 21.0.1"
+      },
+      {
+        "app_id": "6016dcdc321a4aafce6decd5",
+        "name": "Multi-Atlas Transfer Tool",
+        "purpose": "maps a chosen cortical atlas"
+      },
+      {
+        "app_id": "6115c829a5a04c2a80f9e7f7",
+        "name": "pRFs / Benson14-Retinotopy",
+        "purpose": "predicts retinotopic maps"
+      },
+      {
+        "app_id": "62100c47c16bfbf27e09a18f",
+        "name": "Resample surface data from fsaverage space",
+        "purpose": "resamples left and right hemisphere surface data from an fsaverage template mesh to fs_LR"
+      },
+      {
+        "app_id": "6169c901fc8eb97d1efe09fe",
+        "name": "Temporary converter of parcellation/surface-deprecated datatypes to surface datatypes",
+        "purpose": "converts the deprecated parcellation/surface datatype into the current surface/vertices and surface/data"
+      },
+      {
+        "app_id": "6418ddc773d2685502c32bfa",
+        "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+        "purpose": "resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric"
+      },
+      {
+        "app_id": "63ed0c21c538c16a822e6b8f",
+        "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
+        "purpose": "resamples template-surface labels to a subject's FreeSurfer surfaces and maps them into ribbon-constrained"
+      }
+    ]
+  }
+}

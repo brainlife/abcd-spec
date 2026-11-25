@@ -1,0 +1,162 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [
+          "subject",
+          "session",
+          "space",
+          "label",
+          "desc"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "desc-brain_mask.nii.gz",
+            "file_id": "nodif_brain_mask"
+          },
+          {
+            "bids_part": "mask.nii.gz",
+            "file_id": "bundle_segmentations"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "Only the mask files map to BIDS mask; peaks, TOMs and tractograms have no BIDS suffix.",
+        "suffix": "mask",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "630d072219b13f0a0ee3cd15",
+    "desc": "Full TractSeg output directory: peaks, brain mask, bundle and ending segmentations, tract orientation maps, bundle tractograms and tractometry.",
+    "name": "neuro/tractseg",
+    "original": {
+      "desc": "Tractseg output directory containing bundle_segmentations, endings_segmentations, Tractometry_peaks.csv, etc..",
+      "file_descs": {
+        "TOM": "(Collection of .nii.gz files)",
+        "TOM_trackings": "(Collection of .tck files)",
+        "Tractometry_peaks": "Columns look like \"AF_left;AF_right;ATR_left;ATR_right;CC_1;CC_2\"",
+        "bundle_segmentations": "",
+        "endings_segmentations": "",
+        "nodif_brain_mask": "",
+        "peaks": ""
+      },
+      "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```"
+    },
+    "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tractseg.json"
+  },
+  "files": [
+    {
+      "desc": "Brain mask in DWI space.",
+      "filename": "nodif_brain_mask.nii.gz",
+      "id": "nodif_brain_mask",
+      "required": true
+    },
+    {
+      "desc": "CSD peaks image TractSeg segmented from.",
+      "filename": "peaks.nii.gz",
+      "id": "peaks",
+      "required": true
+    },
+    {
+      "desc": "Directory of binary bundle masks (72 bundles).",
+      "dirname": "bundle_segmentations",
+      "id": "bundle_segmentations",
+      "required": true
+    },
+    {
+      "desc": "Directory of bundle start and end region masks.",
+      "dirname": "endings_segmentations",
+      "id": "endings_segmentations",
+      "required": true
+    },
+    {
+      "desc": "Directory of tract orientation maps, one per bundle.",
+      "dirname": "TOM",
+      "id": "TOM",
+      "required": true
+    },
+    {
+      "desc": "Directory of bundle-specific .tck tractograms.",
+      "dirname": "TOM_trackings",
+      "id": "TOM_trackings",
+      "required": true
+    },
+    {
+      "desc": "CSV of tractometry values per bundle.",
+      "filename": "Tractometry_peaks.csv",
+      "id": "Tractometry_peaks",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
+    "sharing_cautions": [
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
+    ],
+    "tier_conditions": [
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "638b5d866881d56fbfacc8f0",
+        "name": "Tractometry over tensor",
+        "purpose": "TractSeg tractometry of tensor measures"
+      }
+    ],
+    "intended_use": [
+      "Tractometry of tensor or other maps along TractSeg bundles."
+    ],
+    "not_suitable_for": [
+      "Apps expecting a single tractogram or mask set; use the separate track/tck and tractmasks outputs."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TractSeg bundle segmentation from DWI"
+      },
+      {
+        "app_id": "634dc433fa262bbde2b3003a",
+        "name": "TractSeg from peaks",
+        "purpose": "TractSeg bundle segmentation from peaks"
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Evaluation summary; BIDS 1.11.2 has no counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6ada73fa1e6d29036a18edcc",
+    "desc": "aggregate.json of segmentation evaluation metrics averaged over a batch: mean, population SD and count per metric, raw and neighbour-corrected.",
+    "name": "neuro/seg-eval-metric-agg",
+    "original": {
+      "desc": "Equal-weight per-image segmentation metrics: mean, population standard deviation, and valid-value count for raw and target-informed neighbor-corrected results.",
+      "file_descs": {
+        "aggregate": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Summarising segmentation performance of a team or batch.\n\n**Not for:** Per-image inspection; use neuro/seg-eval-metrics.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.seg-eval-metric-agg.json"
+  },
+  "files": [
+    {
+      "desc": "JSON of per-metric mean, SD and n, with team, batch and input dataset IDs.",
+      "filename": "aggregate.json",
+      "id": "aggregate",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 1,
+    "human_neurodata": "no",
+    "identifying_risks": [
+      "Team and batch IDs identify contributors, not participants"
+    ],
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 2: aggregated evaluation scores with no participant-level neurodata.",
+    "sharing_cautions": [
+      "Check that team names may be published"
+    ],
+    "tier_conditions": []
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Summarising segmentation performance of a team or batch."
+    ],
+    "not_suitable_for": [
+      "Per-image inspection; use neuro/seg-eval-metrics."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6ada74881e6d29036a18f175",
+        "name": "Segmentation evaluation metric aggregation",
+        "purpose": "aggregates a batch of CONNECTS segmentation evaluation metrics into per-metric means and population standard"
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Reports have no BIDS file counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5ed53b69da664506f88e6df9",
+    "desc": "PDF report or figure, e.g. QA summaries, network plots or quality ratings; for viewing, not for downstream Apps.",
+    "name": "report/pdf",
+    "original": {
+      "desc": "Unstructured PDF file for reporting. This datatype is not meant to be used by downstream Apps.",
+      "file_descs": {
+        "pdf": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Viewing QA reports and figures from App runs.\n\n**Not for:** Input to downstream Apps.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/report.pdf.json"
+  },
+  "files": [
+    {
+      "desc": "PDF report.",
+      "filename": "report.pdf",
+      "id": "pdf",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Report may show subject IDs, dates or anatomy of one participant."
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived figures without direct identifiers are Tier 2.",
+    "sharing_cautions": [
+      "Check embedded labels and titles for identifiers before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 1 for group-level or non-human figures.",
+      "Tier 3 if it shows recognisable facial anatomy or names."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/6ae8ea220758eb5253a558d1.json",
+      "catalog/apps/5e8ccbef952fef68c17b4095.json",
+      "catalog/apps/62a552e9ab3e66978060fa26.json",
+      "catalog/apps/5eefdb0b78d63f4c2fd37637.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Viewing QA reports and figures from App runs."
+    ],
+    "not_suitable_for": [
+      "Input to downstream Apps."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "dMRI QA report"
+      },
+      {
+        "app_id": "5e8ccbef952fef68c17b4095",
+        "name": "Network Visualization",
+        "purpose": "network visualisation"
+      },
+      {
+        "app_id": "62a552e9ab3e66978060fa26",
+        "name": "Predict functional connectivity from structural connectivity",
+        "purpose": "functional-from-structural connectivity figures"
+      },
+      {
+        "app_id": "5eefdb0b78d63f4c2fd37637",
+        "name": "Qoala-T Model A",
+        "purpose": "FreeSurfer quality rating figure"
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS micr OCT is microscopy; ophthalmic OCT has no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5ebe0bbbb969982124072325",
+    "desc": "Retinal OCT layer-thickness export from Voxeleron Orion (CSV) for left (OS) and right (OD) eyes, with foveal centroid files.",
+    "name": "optometry/oct",
+    "original": {
+      "desc": "Raw data from compatible systems with the Orion® software (Voxeleron, LLC, Pleasanton, CA, USA), and an associated centroid indicator file",
+      "file_descs": {
+        "od_centroid": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+        "od_raw": "The raw output from a Voxeleron OCT device for the right eye.  D in the name stem is an abbreviation for dexter, indicating right.",
+        "os_centroid": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+        "os_raw": "The raw output from a Voxeleron OCT device for the left eye.  S in the name stem is an abbreviation for sinister, indicating left."
+      },
+      "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md"
+    },
+    "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/optometry.oct.json"
+  },
+  "files": [
+    {
+      "desc": "The raw output from a Voxeleron OCT device for the left eye.  S in the name stem is an abbreviation for sinister, indicating left.",
+      "filename": "OS_raw.csv",
+      "id": "os_raw",
+      "required": true
+    },
+    {
+      "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+      "filename": "OS_centroid.csv",
+      "id": "os_centroid",
+      "required": true
+    },
+    {
+      "desc": "The raw output from a Voxeleron OCT device for the right eye.  D in the name stem is an abbreviation for dexter, indicating right.",
+      "filename": "OD_raw.csv",
+      "id": "od_raw",
+      "required": true
+    },
+    {
+      "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+      "filename": "OD_centroid.csv",
+      "id": "od_centroid",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Device exports can include patient IDs and exam dates; rare retinal conditions."
+    ],
+    "information_kinds": [
+      "anatomy",
+      "health_status"
+    ],
+    "rationale": "Tool 1 step 6: participant-level retinal anatomy; step 8 for rare conditions.",
+    "sharing_cautions": [
+      "Remove device patient IDs and exam dates before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 3 if the export keeps patient names, IDs or exam dates."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5ec4646f41ba118064f44d41",
+        "name": "Voxeleron OCT data Processing",
+        "purpose": "retinal layer thickness summaries per visual-field degree"
+      }
+    ],
+    "intended_use": [
+      "Retinal layer thickness by visual-field eccentricity with the Voxeleron OCT App."
+    ],
+    "not_suitable_for": [
+      "OCT images: this holds Orion thickness exports, not B-scans."
+    ],
+    "outputs_of": []
+  }
+}

@@ -1,0 +1,783 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "tractography.tck",
+            "file_id": "track"
+          },
+          {
+            "bids_part": "tractography.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no tractography suffix; the export map uses a proposed (BEP) derivative suffix.",
+        "suffix": "tractography",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5907d922436ee50ffde9c549",
+    "desc": "Whole-brain or bundle tractogram as a single MRtrix .tck file of streamline coordinates in scanner (mm) space.",
+    "name": "neuro/track/tck",
+    "original": {
+      "desc": "MRtrix Track Data (.tck)",
+      "file_descs": {
+        "track": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Input to tract segmentation, streamline filtering (SIFT, COMMIT, LiFE) and connectome construction. Format conversion to .trk, .trx or Zarr Vectors for viewing and sharing.\n\n**Not for:** Use with images in a different space without a reference image or transform. Group statistics directly; derive tractmeasures or connectomes first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 81 Apps, output of 56 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.tck.json"
+  },
+  "files": [
+    {
+      "desc": "MRtrix .tck streamline file.",
+      "filename": "track.tck",
+      "id": "track",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
+    "sharing_cautions": [
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
+    ],
+    "tier_conditions": [
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5cf8256e94cb4c02b711c745",
+        "name": "AFQ Tract Classification",
+        "purpose": "AFQ tract classification from tractogram and dtiInit"
+      },
+      {
+        "app_id": "5d6f9160398672065e49642f",
+        "name": "Anatomically-informed multi-LAP",
+        "purpose": "anatomically-informed multi-LAP bundle segmentation"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "ANTs warp of a tractogram to MNI space"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "apply ANTs transforms to a tractogram"
+      },
+      {
+        "app_id": "592dc03eb3cd7c00211dc239",
+        "name": "Binary Tract Masks",
+        "purpose": "binary tract masks from a tract classification"
+      },
+      {
+        "app_id": "62a7bf96ab3e66978061f0af",
+        "name": "Bundle segmented tracks by eccentricity",
+        "purpose": "split tracts into eccentricity sub-bundles"
+      },
+      {
+        "app_id": "5d940c37f6484af52e6a8799",
+        "name": "Bundle segmented tracks by eccentricity - Deprecated",
+        "purpose": "split tracts into eccentricity sub-bundles (deprecated)"
+      },
+      {
+        "app_id": "63bb4690daffe2c2408e5d63",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation",
+        "purpose": "split tracts into sub-bundles by endpoint parcels"
+      },
+      {
+        "app_id": "63ba6203daffe2c2408d4c89",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation (multiple parcellations)",
+        "purpose": "split tracts into sub-bundles by several parcellations"
+      },
+      {
+        "app_id": "5d6fcae439867216d8496442",
+        "name": "Classifyber",
+        "purpose": "Classifyber bundle segmentation trained on examples"
+      },
+      {
+        "app_id": "5df937ff32bff0566ae23cff",
+        "name": "Classifyber - segmentation",
+        "purpose": "pre-trained Classifyber bundle segmentation"
+      },
+      {
+        "app_id": "63ba1a04daffe2c2408d0422",
+        "name": "Combine classified white matter tracts",
+        "purpose": "merge classified tracts into combined tracts"
+      },
+      {
+        "app_id": "5f794bde268f765c3929bda2",
+        "name": "Compute macro-structural statistics of tracts using Dipy",
+        "purpose": "DIPY macrostructure statistics per tract"
+      },
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "COMMIT streamline weights from tractogram and DWI"
+      },
+      {
+        "app_id": "62681cd2f3858674a29f554e",
+        "name": "Compute streamline weights using SIFT2",
+        "purpose": "SIFT2 streamline weights from tractogram and FODs"
+      },
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "structural connectivity matrix from a tractogram"
+      },
+      {
+        "app_id": "6441babdd391caf6efc8fa6c",
+        "name": "Convert assignments from structural connectivity to wmc datatype",
+        "purpose": "convert connectivity streamline assignments to WMC"
+      },
+      {
+        "app_id": "5c0ab6e6f9b4a2002efc1618",
+        "name": "Convert tck to trk in DWI space",
+        "purpose": "convert .tck to .trk with DWI reference"
+      },
+      {
+        "app_id": "5c0e7f30f9b4a2002efc16ab",
+        "name": "Convert tck to trk in T1 space",
+        "purpose": "convert .tck to .trk with T1w reference"
+      },
+      {
+        "app_id": "5d89980e9842202a887ec261",
+        "name": "Convert wmc to trk",
+        "purpose": "convert WMC and tractogram to one .trk"
+      },
+      {
+        "app_id": "626bf253f3858674a2a6c9fb",
+        "name": "Create networkneuro datatype for visualization",
+        "purpose": "package tractogram and matrices for the networkneuro viewer"
+      },
+      {
+        "app_id": "5ad79504363fd5002759a6b5",
+        "name": "DSC evaluation (wmc - wmc)",
+        "purpose": "Dice overlap between two WMCs of one tractogram"
+      },
+      {
+        "app_id": "63e559e7c538c16a8222163e",
+        "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
+        "purpose": "Dice overlap between WMCs of separate tractograms"
+      },
+      {
+        "app_id": "5dd06111c4ae28135d29adae",
+        "name": "Extract multi-tcks from wmc + wbfg or composite tck",
+        "purpose": "split a tractogram into per-tract .tck files by WMC"
+      },
+      {
+        "app_id": "69cc201034e13335188b87f1",
+        "name": "Fiber Bundle Skeleton Computation",
+        "purpose": "bundle skeleton (centreline) streamline"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "SIFT filtering of a tractogram"
+      },
+      {
+        "app_id": "626c5a55f3858674a2a7d7c3",
+        "name": "Filter WMC Datatype",
+        "purpose": "remove filtered-out streamlines from a WMC"
+      },
+      {
+        "app_id": "5e90d0b1952fef2bba7bc991",
+        "name": "Generate figures of whole-brain tractogram (tck)",
+        "purpose": "figures of a whole-brain tractogram (QC)"
+      },
+      {
+        "app_id": "5cc9ea944b5e4502275edb99",
+        "name": "Generate tract endpoint maps",
+        "purpose": "endpoint density maps per tract"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "per-tract figures with wma_pyTools"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "gyral bias metrics from streamlines and curvature"
+      },
+      {
+        "app_id": "5baa44b1d0be8b002776b8f7",
+        "name": "LiFE (dwi)",
+        "purpose": "LiFE evaluation of a tractogram from DWI"
+      },
+      {
+        "app_id": "58d15dece13a50849b258842",
+        "name": "LiFE with dtiInit",
+        "purpose": "LiFE evaluation of a tractogram with dtiInit"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "extract retinotopic connections from a tractogram"
+      },
+      {
+        "app_id": "62213ffe5d8ab5d5f02166c3",
+        "name": "Merge Tractography (tcks) together with MRTrix3",
+        "purpose": "merge several tractograms with MRtrix3"
+      },
+      {
+        "app_id": "5e8b98eb952fef035f7b1653",
+        "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
+        "purpose": "merge two tractograms with MRtrix3"
+      },
+      {
+        "app_id": "5e8b5ae6952fefe5407b097e",
+        "name": "merge2TCKs",
+        "purpose": "merge two tractograms (MATLAB)"
+      },
+      {
+        "app_id": "5d5c2a214cfacf00366c0fd0",
+        "name": "mergeTCK",
+        "purpose": "merge several tractograms (MATLAB)"
+      },
+      {
+        "app_id": "5d14bc062daec10035f3f86e",
+        "name": "multi-LAP",
+        "purpose": "multi-LAP bundle segmentation from examples"
+      },
+      {
+        "app_id": "5bcdefeadc47f70026e8c6ac",
+        "name": "Network Matrices",
+        "purpose": "structural network matrices from a tractogram"
+      },
+      {
+        "app_id": "5b0f1c515858d874a472dea7",
+        "name": "Posterior Associative White Matter Tracts Segmentation",
+        "purpose": "posterior associative tract segmentation"
+      },
+      {
+        "app_id": "5cc9eca04b5e4502275edba6",
+        "name": "Remove Tract Outliers",
+        "purpose": "remove outlier streamlines per tract"
+      },
+      {
+        "app_id": "5bdc3c2218c7cd002708d78d",
+        "name": "Resample tck",
+        "purpose": "resample streamlines"
+      },
+      {
+        "app_id": "69ca2f0934e13335187cfbbd",
+        "name": "Retinotopic Connectivity Matrix Computation",
+        "purpose": "retinotopic connectivity matrices"
+      },
+      {
+        "app_id": "626ab5b3f3858674a2a3f407",
+        "name": "Sample streamlines based on labels assignments",
+        "purpose": "keep streamlines by a label file"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "segment connections between visual areas"
+      },
+      {
+        "app_id": "5dc9d8ee5017f0bde0519db5",
+        "name": "Segment tractogram into fiber categories",
+        "purpose": "segment tractogram into fibre categories by endpoints"
+      },
+      {
+        "app_id": "5f77e8cd268f7638af29a925",
+        "name": "Segment tracts into multiple bundles using QuickBundles",
+        "purpose": "split tracts with QuickBundles"
+      },
+      {
+        "app_id": "5e54514f5b9d90668672d5fc",
+        "name": "Segment Tracts with ROIs",
+        "purpose": "refine tracts with ROI inclusion/exclusion"
+      },
+      {
+        "app_id": "5e82b9eadd840e693ae970be",
+        "name": "Segment white matter tracts using pyAFQ",
+        "purpose": "pyAFQ segmentation of 20 major tracts"
+      },
+      {
+        "app_id": "643eff84d391caf6efc2c3e0",
+        "name": "Segment whole-brain tractogram -  Parcellation",
+        "purpose": "streamlines connecting parcellation labels"
+      },
+      {
+        "app_id": "6434cc4f0c37c61d0177fb5a",
+        "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+        "purpose": "streamlines connecting eccentricity parcels"
+      },
+      {
+        "app_id": "610cad1fe1a90d476797cffe",
+        "name": "Segment Wholebrain Tractogram with ROIs",
+        "purpose": "segment a tractogram with ROIs"
+      },
+      {
+        "app_id": "628a4e34d0697cf1eae9b915",
+        "name": "Segment with ROIs",
+        "purpose": "segment tracts with user-defined ROI rules"
+      },
+      {
+        "app_id": "69ca07bd34e13335187bffbc",
+        "name": "Streamline Cleaning",
+        "purpose": "clean spurious streamlines"
+      },
+      {
+        "app_id": "6844f692187eaf3617c91e03",
+        "name": "Streamline Selection by Parcellation",
+        "purpose": "extract streamlines by parcellation labels"
+      },
+      {
+        "app_id": "629a6ee47f60950a54cc82f6",
+        "name": "Structural connectivity & White Matter Classification (WMC) using DIPY",
+        "purpose": "connectivity matrix and WMC from a parcellation"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "structural connectomes (SCMRT)"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "SIFT2-weighted structural connectomes (SCMRT)"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "structural connectomes without labels or weights (SCMRT)"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "visual white matter connectomics by polar angle and eccentricity"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "convert .tck to .trk"
+      },
+      {
+        "app_id": "6068bf10c7f80a3c109411b0",
+        "name": "Track Density Masks",
+        "purpose": "streamline density map per tract"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "Vistasoft tract profiles of diffusion measures"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "Vistasoft tract profiles of NODDI measures"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "DIPY tract profiles of diffusion measures"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "Vistasoft tract profiles of a myelin map"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "DIPY along-tract profiles of tensor measures"
+      },
+      {
+        "app_id": "69d811ef04be87075a5028ba",
+        "name": "TractcCloud",
+        "purpose": "TractCloud registration-free tract parcellation"
+      },
+      {
+        "app_id": "611aa462a5a04c4672fb671b",
+        "name": "Tractogram cleaning with DIPY's quickBundles",
+        "purpose": "QuickBundlesX tractogram cleaning"
+      },
+      {
+        "app_id": "69cc37e434e13335188cb201",
+        "name": "Tractogram clustering",
+        "purpose": "cluster a tractogram into medoid streamlines"
+      },
+      {
+        "app_id": "5cc9c6b44b5e4502275edb4b",
+        "name": "Tractography quality check",
+        "purpose": "tractogram and tract QC statistics"
+      },
+      {
+        "app_id": "6aa8586984691735460e523e",
+        "name": "trak2zarr-vectors",
+        "purpose": "convert a tractogram to Zarr Vectors"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "VOF extraction and cortical coverage"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "visual-area connections by eccentricity and polar angle"
+      },
+      {
+        "app_id": "63d2d63b40f494735c431d00",
+        "name": "Warp tractogram to MNI space using precomputed transformation",
+        "purpose": "warp a tractogram to MNI with a precomputed transform"
+      },
+      {
+        "app_id": "5cc73ef44ed9df00317f6288",
+        "name": "White Matter Anatomy Segmentation",
+        "purpose": "wma_tools anatomical tract segmentation"
+      },
+      {
+        "app_id": "6acfe9b83db9ceda5263760f",
+        "name": "White Matter Anatomy Segmentation Plus (wmaSeg++)",
+        "purpose": "wmaSeg++ anatomical tract segmentation"
+      },
+      {
+        "app_id": "5cc9ccca4b5e4502275edb56",
+        "name": "WMA Tract Segmentation with Atlas",
+        "purpose": "tract segmentation by atlas region pairs"
+      },
+      {
+        "app_id": "5cc9ce364b5e4502275edb5e",
+        "name": "WMA Tract Segmentation with ROIs",
+        "purpose": "tract segmentation by ROI pairs"
+      },
+      {
+        "app_id": "6aac40a4906b4cece80af519",
+        "name": "wmc to tcks",
+        "purpose": "split a tractogram into per-tract .tck files by WMC"
+      }
+    ],
+    "intended_use": [
+      "Input to tract segmentation, streamline filtering (SIFT, COMMIT, LiFE) and connectome construction.",
+      "Format conversion to .trk, .trx or Zarr Vectors for viewing and sharing."
+    ],
+    "not_suitable_for": [
+      "Use with images in a different space without a reference image or transform.",
+      "Group statistics directly; derive tractmeasures or connectomes first."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "MRtrix3 ACT tractography from precomputed CSD"
+      },
+      {
+        "app_id": "63910aef6881d56fbfc2f75e",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD - No DWI & T1w input",
+        "purpose": "MRtrix3 ACT tractography from precomputed CSD and 5TT mask"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "ANTs warp of a tractogram to MNI space"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "apply ANTs transforms to a tractogram"
+      },
+      {
+        "app_id": "63bb4690daffe2c2408e5d63",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation",
+        "purpose": "split tracts into sub-bundles by endpoint parcels"
+      },
+      {
+        "app_id": "63ba6203daffe2c2408d4c89",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation (multiple parcellations)",
+        "purpose": "split tracts into sub-bundles by several parcellations"
+      },
+      {
+        "app_id": "63ba1a04daffe2c2408d0422",
+        "name": "Combine classified white matter tracts",
+        "purpose": "merge classified tracts into combined tracts"
+      },
+      {
+        "app_id": "629a7dd17f60950a54ccc68f",
+        "name": "Convert tcks to tck and WMC",
+        "purpose": "merge per-tract .tck files into one tck and WMC"
+      },
+      {
+        "app_id": "5b9940206e02fb0028e11626",
+        "name": "Convert trk to tck",
+        "purpose": "convert .trk to .tck"
+      },
+      {
+        "app_id": "5baa3fc9d0be8b002776b8de",
+        "name": "Ensemble Tracking (dwi)",
+        "purpose": "MRtrix 0.2 ensemble tractography from DWI"
+      },
+      {
+        "app_id": "592dbbccb3cd7c00211dc235",
+        "name": "Ensemble Tracking with dtiInit",
+        "purpose": "MRtrix 0.2 ensemble tractography from dtiInit"
+      },
+      {
+        "app_id": "69cc201034e13335188b87f1",
+        "name": "Fiber Bundle Skeleton Computation",
+        "purpose": "bundle skeleton (centreline) streamline"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "SIFT filtering of a tractogram"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "extract retinotopic connections from a tractogram"
+      },
+      {
+        "app_id": "62213ffe5d8ab5d5f02166c3",
+        "name": "Merge Tractography (tcks) together with MRTrix3",
+        "purpose": "merge several tractograms with MRtrix3"
+      },
+      {
+        "app_id": "5e8b98eb952fef035f7b1653",
+        "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
+        "purpose": "merge two tractograms with MRtrix3"
+      },
+      {
+        "app_id": "5e8b5ae6952fefe5407b097e",
+        "name": "merge2TCKs",
+        "purpose": "merge two tractograms (MATLAB)"
+      },
+      {
+        "app_id": "5d5c2a214cfacf00366c0fd0",
+        "name": "mergeTCK",
+        "purpose": "merge several tractograms (MATLAB)"
+      },
+      {
+        "app_id": "5baaa881d0be8b002776b954",
+        "name": "MRtrix2 Tracking (dwi)",
+        "purpose": "MRtrix 0.2 tractography from DWI"
+      },
+      {
+        "app_id": "58cdf136e13a50849b258836",
+        "name": "MRtrix2 Tracking with dtiInit",
+        "purpose": "MRtrix 0.2 tractography from dtiInit"
+      },
+      {
+        "app_id": "5e9dced9f1745d6994f692c0",
+        "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
+        "purpose": "MRtrix3 ACT iFOD2 whole-brain tractography"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "MRtrix3 iFOD2 ROI-to-ROI tracking"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "optic radiation tracking and retinotopic segmentation"
+      },
+      {
+        "app_id": "6ac56c3bc004e522d21a9946",
+        "name": "Particle Filtering Tractography (PFT)",
+        "purpose": "DIPY particle filtering tractography"
+      },
+      {
+        "app_id": "5aac2437f0b5260027e24ae1",
+        "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
+        "purpose": "MRtrix3 ACT ensemble tractography (RACE-Track)"
+      },
+      {
+        "app_id": "5bdc3c2218c7cd002708d78d",
+        "name": "Resample tck",
+        "purpose": "resample streamlines"
+      },
+      {
+        "app_id": "5e516420cb80941d63f51b0e",
+        "name": "ROI to ROI Tracking - MRTrix 0.2.12",
+        "purpose": "MRtrix 0.2 ROI-to-ROI tracking"
+      },
+      {
+        "app_id": "626ab5b3f3858674a2a3f407",
+        "name": "Sample streamlines based on labels assignments",
+        "purpose": "keep streamlines by a label file"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "segment connections between visual areas"
+      },
+      {
+        "app_id": "5e54514f5b9d90668672d5fc",
+        "name": "Segment Tracts with ROIs",
+        "purpose": "refine tracts with ROI inclusion/exclusion"
+      },
+      {
+        "app_id": "643eff84d391caf6efc2c3e0",
+        "name": "Segment whole-brain tractogram -  Parcellation",
+        "purpose": "streamlines connecting parcellation labels"
+      },
+      {
+        "app_id": "6434cc4f0c37c61d0177fb5a",
+        "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+        "purpose": "streamlines connecting eccentricity parcels"
+      },
+      {
+        "app_id": "610cad1fe1a90d476797cffe",
+        "name": "Segment Wholebrain Tractogram with ROIs",
+        "purpose": "segment a tractogram with ROIs"
+      },
+      {
+        "app_id": "69ca07bd34e13335187bffbc",
+        "name": "Streamline Cleaning",
+        "purpose": "clean spurious streamlines"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "visual white matter connectomics by polar angle and eccentricity"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "surface-enhanced tractography (SET)"
+      },
+      {
+        "app_id": "628a45c0d0697cf1eae9a3fe",
+        "name": "Track the aLIC",
+        "purpose": "aLIC tracking and segmentation"
+      },
+      {
+        "app_id": "5ec584961f44640f6b9e2658",
+        "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "optic radiation tracking with MRtrix3 iFOD2"
+      },
+      {
+        "app_id": "5d65964c39867291e349624a",
+        "name": "Track the Human Optic RAdiation (THORA) - Trekker",
+        "purpose": "optic radiation tracking with Trekker"
+      },
+      {
+        "app_id": "5ddb7138936ca3c660c58a46",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
+        "purpose": "optic radiation ConTrack tracking by eccentricity"
+      },
+      {
+        "app_id": "5ddce502936ca3bec8c5b4b7",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
+        "purpose": "optic radiation ConTrack tracking"
+      },
+      {
+        "app_id": "5f51279442c17258f764c7ee",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
+        "purpose": "optic tract tracking with MRtrix3"
+      },
+      {
+        "app_id": "5ecc12711f4464fbe69ec07f",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "optic tract tracking with MRtrix3 iFOD2"
+      },
+      {
+        "app_id": "5ecca2f11f446435999ed9f9",
+        "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
+        "purpose": "optic tract tracking with Trekker"
+      },
+      {
+        "app_id": "62a7b499ab3e66978061e46c",
+        "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
+        "purpose": "ConTrack tracking between eccentricity ROIs"
+      },
+      {
+        "app_id": "5f5a8c510c8f95df586610fd",
+        "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
+        "purpose": "visual white matter tracking with Trekker by eccentricity"
+      },
+      {
+        "app_id": "611aa462a5a04c4672fb671b",
+        "name": "Tractogram cleaning with DIPY's quickBundles",
+        "purpose": "QuickBundlesX tractogram cleaning"
+      },
+      {
+        "app_id": "69cc37e434e13335188cb201",
+        "name": "Tractogram clustering",
+        "purpose": "cluster a tractogram into medoid streamlines"
+      },
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TractSeg bundle segmentation from DWI"
+      },
+      {
+        "app_id": "634dc433fa262bbde2b3003a",
+        "name": "TractSeg from peaks",
+        "purpose": "TractSeg bundle segmentation from peaks"
+      },
+      {
+        "app_id": "5ecc9bfe1f446412299ed644",
+        "name": "Trekker",
+        "purpose": "Trekker whole-brain tractography"
+      },
+      {
+        "app_id": "5ecc95311f446482f59ed395",
+        "name": "Trekker ROI Tracking (DWI)",
+        "purpose": "Trekker ROI-to-ROI tracking"
+      },
+      {
+        "app_id": "5f52e1c542c172f98a6532e4",
+        "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
+        "purpose": "Trekker ROI tracking by eccentricity"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "VOF extraction and cortical coverage"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "visual-area connections by eccentricity and polar angle"
+      },
+      {
+        "app_id": "63d2d63b40f494735c431d00",
+        "name": "Warp tractogram to MNI space using precomputed transformation",
+        "purpose": "warp a tractogram to MNI with a precomputed transform"
+      }
+    ]
+  }
+}

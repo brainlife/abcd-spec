@@ -1,0 +1,117 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no source-estimate suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "65fe0a4ee6256cac94a94de9",
+    "desc": "MEG/EEG source estimate (MNE STC): left and right hemisphere .stc files of source time courses on the cortical surface.",
+    "name": "neuro/meeg/stc",
+    "original": {
+      "desc": "Boundary Element Model",
+      "file_descs": {
+        "stc-lh": "",
+        "stc-rh": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Extracting label time courses or morphing to fsaverage for group analysis.\n\n**Not for:** Volume source estimates; only surface STC pairs are supported. Group comparison before morphing to a common brain (fsaverage tag).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 2 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.stc.json"
+  },
+  "files": [
+    {
+      "desc": "Right-hemisphere source time courses (.stc).",
+      "filename": "inv-rh.stc",
+      "id": "stc-rh",
+      "required": true
+    },
+    {
+      "desc": "Left-hemisphere source time courses (.stc).",
+      "filename": "inv-lh.stc",
+      "id": "stc-lh",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Vertex layout follows the individual cortical surface unless morphed."
+    ],
+    "information_kinds": [
+      "function",
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level functional derivative linkable through a participant code.",
+    "sharing_cautions": [
+      "Prefer fsaverage-morphed estimates for sharing."
+    ],
+    "tier_conditions": [
+      "Tier 4 if used to decode or profile individual cognitive states."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6a10364f28b7a0de6b25dbd2",
+        "name": "Extract Source Time Series",
+        "purpose": "atlas label time courses from source estimates"
+      },
+      {
+        "app_id": "66d84258774d6f044dbeff91",
+        "name": "Morph  to average brain",
+        "purpose": "morphs source estimates to fsaverage"
+      }
+    ],
+    "intended_use": [
+      "Extracting label time courses or morphing to fsaverage for group analysis."
+    ],
+    "not_suitable_for": [
+      "Volume source estimates; only surface STC pairs are supported.",
+      "Group comparison before morphing to a common brain (fsaverage tag)."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "66d58968774d6f044db9c7f1",
+        "name": "Inverse operator",
+        "purpose": "dSPM inverse and source estimate from forward, covariance and epochs"
+      },
+      {
+        "app_id": "66d84258774d6f044dbeff91",
+        "name": "Morph  to average brain",
+        "purpose": "morphs source estimates to fsaverage"
+      },
+      {
+        "app_id": "69b1489a6bb1f71b25b69642",
+        "name": "Source Estimate",
+        "purpose": "applies an inverse operator to evoked data, giving source estimates"
+      }
+    ]
+  }
+}

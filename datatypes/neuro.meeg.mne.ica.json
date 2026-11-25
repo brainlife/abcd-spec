@@ -1,0 +1,130 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no ICA decomposition suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6283e821d0697cf1eade9d5c",
+    "desc": "ICA decomposition of MEG/EEG in MNE format (ica.fif): unmixing matrix, components and the list of excluded components.",
+    "name": "neuro/meeg/mne/ica",
+    "original": {
+      "desc": "to be edited",
+      "file_descs": {
+        "ica": ""
+      },
+      "readme": "to be edited"
+    },
+    "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.ica.json"
+  },
+  "files": [
+    {
+      "desc": "MNE ICA FIF with the fitted decomposition and excluded components.",
+      "filename": "ica.fif",
+      "id": "ica",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "MNE measurement info in the ICA FIF can carry subject_info, meas_date and digitised head points."
+    ],
+    "information_kinds": [
+      "function",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level M/EEG derivative linkable through a participant code.",
+    "sharing_cautions": [
+      "Run mne anonymize (info) before sharing outside a controlled project."
+    ],
+    "tier_conditions": [
+      "Tier 3 if the measurement info keeps subject_info (name, birth date) or meas_date."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "627a60e9d0697cf1eacb34d7",
+        "name": "app-forward",
+        "purpose": "reads a head-MRI transform under this datatype (unused)"
+      },
+      {
+        "app_id": "633449badb978c79919ced98",
+        "name": "app-ICA-plot",
+        "purpose": "plots ICA component topographies"
+      },
+      {
+        "app_id": "63358117db978c7991a302cb",
+        "name": "app-selecting-ICA-components-manually",
+        "purpose": "marks ICA components for exclusion"
+      },
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "optional ICA input, not used by the code"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "removes ICA components from raw data"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "removes ICA components from epochs"
+      }
+    ],
+    "intended_use": [
+      "Removing artifact components (EOG, ECG) from the same raw or epoched data."
+    ],
+    "not_suitable_for": [
+      "Other recordings than the one it was fitted on.",
+      "Head-MRI transforms (one App reads a transform from this datatype)."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "63358117db978c7991a302cb",
+        "name": "app-selecting-ICA-components-manually",
+        "purpose": "marks ICA components for exclusion"
+      },
+      {
+        "app_id": "63344389db978c79919cbb82",
+        "name": "Setup and fit ICA",
+        "purpose": "fits ICA on raw data"
+      },
+      {
+        "app_id": "643d4757d391caf6efbbb068",
+        "name": "Setup and fit ICA",
+        "purpose": "fits ICA on epochs"
+      }
+    ]
+  }
+}

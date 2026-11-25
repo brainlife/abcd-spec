@@ -5,3 +5,5 @@ test/bl2bids/inputs/*/expected
 test/bl2bids/inputs/*/output
 release.sh
 __pycache__/
+.superpowers/
+snapshots/

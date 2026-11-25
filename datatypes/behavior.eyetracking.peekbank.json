@@ -1,0 +1,117 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Peekbank's relational tables have no BIDS counterpart; BIDS eye tracking uses *_physio.tsv.gz.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5d62f38749e403160c93f96a",
+    "desc": "Unclear: Peekbank tables (CSV) of child looking-while-listening eye-tracking: datasets, subjects, trials, gaze and AOI data.",
+    "name": "behavior/eyetracking/peekbank",
+    "original": {
+      "desc": "TBD.. https://github.com/langcog/peekbank/blob/master/static/peekbank-schema.json",
+      "file_descs": {
+        "aoi_data": "",
+        "aoi_regions": "",
+        "datasets": "",
+        "subjects": "",
+        "trials": "",
+        "xy_data": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Unclear; no App uses it. Likely archiving Peekbank-format eye-tracking datasets.\n\n**Not for:** Use before owner review: the record says 'TBD' and no App reads it.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/behavior.eyetracking.peekbank.json"
+  },
+  "files": [
+    {
+      "desc": "Peekbank aoi_timepoints: area-of-interest looked at per time point.",
+      "filename": "aoi_data.csv",
+      "id": "aoi_data",
+      "required": true
+    },
+    {
+      "desc": "Peekbank AOI region coordinates on the stimulus screen.",
+      "filename": "aoi_regions.csv",
+      "id": "aoi_regions",
+      "required": false
+    },
+    {
+      "desc": "Peekbank datasets table: source dataset and citation.",
+      "filename": "datasets.csv",
+      "id": "datasets",
+      "required": true
+    },
+    {
+      "desc": "Peekbank subjects table: participant codes, age and sex.",
+      "filename": "subjects.csv",
+      "id": "subjects",
+      "required": true
+    },
+    {
+      "desc": "Peekbank trials table: trial order and stimuli.",
+      "filename": "trials.csv",
+      "id": "trials",
+      "required": true
+    },
+    {
+      "desc": "Peekbank xy_timepoints: raw gaze coordinates per time point.",
+      "filename": "xy_data.csv",
+      "id": "xy_data",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Child participants; age and sex in small samples."
+    ],
+    "information_kinds": [
+      "behaviour",
+      "demographics"
+    ],
+    "rationale": "Tool 1 step 6: coded participant-level behavioural data; step 8 for small child samples.",
+    "sharing_cautions": [
+      "Check subjects.csv for identifiers and consent for child data."
+    ],
+    "tier_conditions": [
+      "Tier 3 if subjects.csv holds names, birth dates or lab identifiers."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "braindatagovernance/data/tiers.yml",
+      "https://github.com/langcog/peekbank (schema link in brainlife.original.desc)"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Unclear; no App uses it. Likely archiving Peekbank-format eye-tracking datasets."
+    ],
+    "not_suitable_for": [
+      "Use before owner review: the record says 'TBD' and no App reads it."
+    ],
+    "outputs_of": []
+  }
+}

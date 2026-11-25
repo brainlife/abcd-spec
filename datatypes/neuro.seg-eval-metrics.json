@@ -1,0 +1,94 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Evaluation metrics; BIDS 1.11.2 has no counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6aa992dfdeee1367b435f3b8",
+    "desc": "metrics.json comparing a segmentation with a ground-truth mask: voxel overlap, neighbour-corrected, topology and component metrics.",
+    "name": "neuro/seg-eval-metrics",
+    "original": {
+      "desc": "Segmentation/mask evaluation metrics (voxel, target-informed neighbor-corrected, topology, connected-component) output as JSON, produced by the seg-eval-metrics app.",
+      "file_descs": {
+        "metrics": "Evaluation metrics JSON (voxel/topology/component comparisons of a moving mask against a ground-truth mask)."
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Benchmarking segmentation methods, e.g. axon segmentation of microscopy.\n\n**Not for:** Comparing masks of different shapes or grids.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.seg-eval-metrics.json"
+  },
+  "files": [
+    {
+      "desc": "Evaluation metrics JSON (voxel/topology/component comparisons of a moving mask against a ground-truth mask).",
+      "filename": "metrics.json",
+      "id": "metrics",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 1,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "None expected; numbers summarise mask agreement"
+    ],
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 2: summary scores that reveal no participant-level neurodata.",
+    "sharing_cautions": [
+      "Check embedded dataset IDs before release"
+    ],
+    "tier_conditions": [
+      "Tier 2 if the JSON embeds participant identifiers or images"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6ada74881e6d29036a18f175",
+        "name": "Segmentation evaluation metric aggregation",
+        "purpose": "aggregates a batch of CONNECTS segmentation evaluation metrics into per-metric means and population standard"
+      }
+    ],
+    "intended_use": [
+      "Benchmarking segmentation methods, e.g. axon segmentation of microscopy."
+    ],
+    "not_suitable_for": [
+      "Comparing masks of different shapes or grids."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6aa993d6deee1367b4361c43",
+        "name": "CONNECTS Validation Engine",
+        "purpose": "evaluates a 3D segmentation against a ground-truth mask, computing voxel overlap"
+      }
+    ]
+  }
+}

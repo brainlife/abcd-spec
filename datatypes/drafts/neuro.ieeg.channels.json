@@ -1,0 +1,110 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "ieeg",
+        "entities": [
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".json",
+          ".tsv"
+        ],
+        "files": [
+          {
+            "bids_part": "channels.json",
+            "file_id": "json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "tsv",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "channels",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "desc": "TODO",
+    "name": "neuro/ieeg/channels",
+    "original": {
+      "desc": "",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "BIDS channels.json",
+      "ext": ".json",
+      "filename": "channels.json",
+      "id": "json",
+      "required": false
+    },
+    {
+      "desc": "BIDS channels.tsv",
+      "ext": ".tsv",
+      "filename": "channels.tsv",
+      "id": "tsv",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "ezbids aimport/tools/draft_datatypes.py, imported by tools/bldt.py",
+    "sources": [
+      "ezbids aimport datatype_drafts/neuro.ieeg.channels.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

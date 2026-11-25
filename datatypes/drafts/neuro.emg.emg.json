@@ -1,0 +1,122 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "emg",
+        "entities": [
+          "subject",
+          "session",
+          "task",
+          "acquisition",
+          "run",
+          "recording"
+        ],
+        "extensions": [
+          ".json",
+          ".edf",
+          ".bdf"
+        ],
+        "files": [
+          {
+            "bids_part": "emg.json",
+            "file_id": "json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "emg.edf",
+            "file_id": "edf"
+          },
+          {
+            "bids_part": "emg.bdf",
+            "file_id": "bdf"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "emg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "desc": "TODO",
+    "name": "neuro/emg/emg",
+    "original": {
+      "desc": "",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "BIDS emg.json",
+      "ext": ".json",
+      "filename": "emg.json",
+      "id": "json",
+      "required": true
+    },
+    {
+      "desc": "BIDS emg.edf",
+      "ext": ".edf",
+      "filename": "emg.edf",
+      "id": "edf",
+      "required": false
+    },
+    {
+      "desc": "BIDS emg.bdf",
+      "ext": ".bdf",
+      "filename": "emg.bdf",
+      "id": "bdf",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "ezbids aimport/tools/draft_datatypes.py, imported by tools/bldt.py",
+    "sources": [
+      "ezbids aimport datatype_drafts/neuro.emg.emg.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

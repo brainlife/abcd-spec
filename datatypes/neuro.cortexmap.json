@@ -1,0 +1,389 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "atlas",
+          "segmentation",
+          "scale",
+          "hemisphere",
+          "density",
+          "space",
+          "description"
+        ],
+        "extensions": [
+          ".label.gii",
+          ".dlabel.nii",
+          ".tsv",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "hemi-L_dseg.label.gii",
+            "file_id": "cortexmap"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "Only label/ parcellations map to BIDS surface dseg; surf/ geometry and func/ metrics are not standardised.",
+        "suffix": "dseg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5c58aa5ef9109beac4b52f61",
+    "desc": "Connectome Workbench style cortical surface folder: GIFTI surfaces (surf/), mapped measures (func/) and parcellation labels (label/) per hemisphere.",
+    "name": "neuro/cortexmap",
+    "original": {
+      "desc": "Cortext Mapping",
+      "file_descs": {
+        "cortexmap": ""
+      },
+      "readme": "todo"
+    },
+    "readme": "todo\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.cortexmap.json"
+  },
+  "files": [
+    {
+      "desc": "Folder with surf/, func/ (.func.gii) and label/ (.label.gii) GIFTI files per hemisphere.",
+      "dirname": "cortexmap",
+      "id": "cortexmap",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual cortical geometry and measures are participant-level"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
+    "sharing_cautions": [
+      "Share with participant codes only, inside a controlled project"
+    ],
+    "tier_conditions": [
+      "Tier 1 when averaged across enough participants that no individual can be singled out"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6102f439b99111e76fbb74e4",
+        "name": "Compute average cortexmap data for group analysis",
+        "purpose": "averages cortexmap surfaces and surface measures across subjects on a common standard mesh"
+      },
+      {
+        "app_id": "603b030878e65d363cd1b3d0",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface",
+        "purpose": "computes per-ROI summary statistics"
+      },
+      {
+        "app_id": "62c20d12f3194eded6fb203c",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Freesurfer computations",
+        "purpose": "computes per-ROI statistics of cortex-mapped diffusion measures"
+      },
+      {
+        "app_id": "62abfcd7ab3e66978063bf43",
+        "name": "Compute summary statistics of diffusion measures mapped to visual regions binned by eccentricity - Benson14",
+        "purpose": "computes mean diffusion measures and FreeSurfer anatomical measures"
+      },
+      {
+        "app_id": "64f8e257e4d2e9108d91e7f5",
+        "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
+        "purpose": "computes FreeSurfer anatomical statistics"
+      },
+      {
+        "app_id": "64646748d391caf6ef186b2e",
+        "name": "Compute summed cortexmap data for group analysis",
+        "purpose": "sums cortexmap surface measures across subjects on a common standard mesh"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "maps DTI/DKI tensor measures and optional NODDI volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "maps NODDI (ndi, isovf, odi) volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "608da87c8fe49f54761a9455",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "maps quantitative MRI maps"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "maps DTI/DKI tensor measures and optional NODDI volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "maps NODDI (ndi, isovf, odi) volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5f6cdaae6bbee32c629a2904",
+        "name": "Cortex Tissue Mapping (Native Space) - Gray Matter Density",
+        "purpose": "extracts the gray-matter density map from an MRtrix3 5-tissue-type image and maps it"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "608da73d8fe49ff0f31a929d",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "6115dd7aa5a04cc30cf9f3fe",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI",
+        "purpose": "maps quantitative MRI maps"
+      },
+      {
+        "app_id": "6115e055a5a04ca30df9f71e",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI (No SNR masking)",
+        "purpose": "will map volumated measure files"
+      },
+      {
+        "app_id": "647eba7279d13f6418ee3656",
+        "name": "Extract anatomical statistics inside data mapped to cortical surface",
+        "purpose": "computes FreeSurfer anatomical statistics"
+      },
+      {
+        "app_id": "64670c6ad391caf6ef1f24bb",
+        "name": "Extract anatomical statistics inside tract endpoints mapped to cortical surface",
+        "purpose": "computes FreeSurfer anatomical statistics"
+      },
+      {
+        "app_id": "5f76303c268f76393329775a",
+        "name": "Extract summary statistics of diffusion measures mapped to cortical surface inside tract endpoints",
+        "purpose": "computes summary statistics"
+      },
+      {
+        "app_id": "5fe00ea457aacde3b62f7704",
+        "name": "Generate images of data mapped to cortical surface",
+        "purpose": "renders JPEG images of cortical surface maps"
+      },
+      {
+        "app_id": "63fba472c538c16a824ff4ef",
+        "name": "Map  ROIs to cortical surface",
+        "purpose": "maps volumetric ROIs such as tract endpoints onto FreeSurfer-derived cortical surfaces in native and MNI"
+      },
+      {
+        "app_id": "64307e9c73d2685502f2e152",
+        "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses",
+        "purpose": "maps volumetric tract endpoint ROIs onto FreeSurfer-derived cortical surfaces in native and MNI"
+      },
+      {
+        "app_id": "64420964d391caf6efc9b767",
+        "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses - fsaverage",
+        "purpose": "maps template-space (warped) tract endpoint ROIs onto an fsaverage cortical"
+      },
+      {
+        "app_id": "6101a824b9911153e8ba5f55",
+        "name": "Resample cortexmap data to a standard mesh using Connectome Workbench",
+        "purpose": "resamples the surfaces, measures and labels of a cortexmap from the subject's native FreeSurfer mesh"
+      },
+      {
+        "app_id": "654e690db094062da631e99b",
+        "name": "Resample cortexmap data to a standard mesh using Connectome Workbench - fsaverage",
+        "purpose": "resamples the surfaces, measures and labels of an fsaverage-space cortexmap to the standard fs_LR 32k or 164k"
+      },
+      {
+        "app_id": "6445f459d391caf6efcd64b8",
+        "name": "Smooth data mapped to cortical surface",
+        "purpose": "smooths every surface measure in a cortexmap"
+      }
+    ],
+    "intended_use": [
+      "Analysing diffusion, myelin or other measures mapped onto the cortical midthickness surface.",
+      "Per-parcel surface statistics and group averaging on a standard mesh."
+    ],
+    "not_suitable_for": [
+      "Group averaging before resampling every subject to the same standard mesh."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6102f439b99111e76fbb74e4",
+        "name": "Compute average cortexmap data for group analysis",
+        "purpose": "averages cortexmap surfaces and surface measures across subjects on a common standard mesh"
+      },
+      {
+        "app_id": "64f8e257e4d2e9108d91e7f5",
+        "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
+        "purpose": "computes FreeSurfer anatomical statistics"
+      },
+      {
+        "app_id": "64646748d391caf6ef186b2e",
+        "name": "Compute summed cortexmap data for group analysis",
+        "purpose": "sums cortexmap surface measures across subjects on a common standard mesh"
+      },
+      {
+        "app_id": "6144b8987a38b0c6c8a05697",
+        "name": "Convert surface datatypes to cortexmap datatype",
+        "purpose": "converts surface/vertices and surface/data datatypes into a cortexmap, renaming GIFTI files into Connectome"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "maps DTI/DKI tensor measures and optional NODDI volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "maps NODDI (ndi, isovf, odi) volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "608da87c8fe49f54761a9455",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "maps quantitative MRI maps"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "maps DTI/DKI tensor measures and optional NODDI volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "maps NODDI (ndi, isovf, odi) volumes onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "5f6cdaae6bbee32c629a2904",
+        "name": "Cortex Tissue Mapping (Native Space) - Gray Matter Density",
+        "purpose": "extracts the gray-matter density map from an MRtrix3 5-tissue-type image and maps it"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "608da73d8fe49ff0f31a929d",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness"
+      },
+      {
+        "app_id": "6115dd7aa5a04cc30cf9f3fe",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI",
+        "purpose": "maps quantitative MRI maps"
+      },
+      {
+        "app_id": "6115e055a5a04ca30df9f71e",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI (No SNR masking)",
+        "purpose": "will map volumated measure files"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "maps DTI and NODDI measures onto HCP PostFreeSurfer native and 32k fs_LR cortical surfaces"
+      },
+      {
+        "app_id": "613a78182012731985c885a5",
+        "name": "Create structural derivatives for cortexmap datatype",
+        "purpose": "creates a cortexmap from a FreeSurfer output"
+      },
+      {
+        "app_id": "622bd8be5d8ab5d5f034854a",
+        "name": "Freesurfer Longitudinal Statistics",
+        "purpose": "computes longitudinal cortical change"
+      },
+      {
+        "app_id": "63fba472c538c16a824ff4ef",
+        "name": "Map  ROIs to cortical surface",
+        "purpose": "maps volumetric ROIs such as tract endpoints onto FreeSurfer-derived cortical surfaces in native and MNI"
+      },
+      {
+        "app_id": "64307e9c73d2685502f2e152",
+        "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses",
+        "purpose": "maps volumetric tract endpoint ROIs onto FreeSurfer-derived cortical surfaces in native and MNI"
+      },
+      {
+        "app_id": "64420964d391caf6efc9b767",
+        "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses - fsaverage",
+        "purpose": "maps template-space (warped) tract endpoint ROIs onto an fsaverage cortical"
+      },
+      {
+        "app_id": "6101a824b9911153e8ba5f55",
+        "name": "Resample cortexmap data to a standard mesh using Connectome Workbench",
+        "purpose": "resamples the surfaces, measures and labels of a cortexmap from the subject's native FreeSurfer mesh"
+      },
+      {
+        "app_id": "654e690db094062da631e99b",
+        "name": "Resample cortexmap data to a standard mesh using Connectome Workbench - fsaverage",
+        "purpose": "resamples the surfaces, measures and labels of an fsaverage-space cortexmap to the standard fs_LR 32k or 164k"
+      },
+      {
+        "app_id": "6445f459d391caf6efcd64b8",
+        "name": "Smooth data mapped to cortical surface",
+        "purpose": "smooths every surface measure in a cortexmap"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "builds polar-angle-by-eccentricity visual cortex parcels from pRF maps and segments the tractogram"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram"
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS counterpart for streamline labels in 1.11.2.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "58f10a90436ee50ffd9063c5",
+    "desc": "Deprecated white matter classification: output.mat with classification and fibre group (FG) streamlines, plus optional counts, tract JSON and surfaces.",
+    "name": "neuro/wmc-deprecated",
+    "original": {
+      "desc": "White Matter Classification and FG structure",
+      "file_descs": {
+        "fibercounts": "",
+        "output": "",
+        "surfaces": "",
+        "tracts": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Conversion to the current neuro/wmc datatype.\n\n**Not for:** New analyses; convert to neuro/wmc first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.wmc-deprecated.json"
+  },
+  "files": [
+    {
+      "desc": "MATLAB file with the classification and embedded fibre groups.",
+      "filename": "output.mat",
+      "id": "output",
+      "required": true
+    },
+    {
+      "desc": "Text file of streamline counts per tract.",
+      "filename": "output_fibercounts.txt",
+      "id": "fibercounts",
+      "required": false
+    },
+    {
+      "desc": "Per-tract JSON files for the viewer.",
+      "dirname": "tracts",
+      "id": "tracts",
+      "required": false
+    },
+    {
+      "desc": "Surface meshes of associated ROIs for the viewer.",
+      "dirname": "surfaces",
+      "id": "surfaces",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
+    "sharing_cautions": [
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
+    ],
+    "tier_conditions": [
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5ce30cda40363b00353677ec",
+        "name": "Convert wmc-deprecated to wmc",
+        "purpose": "convert wmc-deprecated to wmc"
+      }
+    ],
+    "intended_use": [
+      "Conversion to the current neuro/wmc datatype."
+    ],
+    "not_suitable_for": [
+      "New analyses; convert to neuro/wmc first."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5b0f1c515858d874a472dea7",
+        "name": "Posterior Associative White Matter Tracts Segmentation",
+        "purpose": "posterior associative tract segmentation"
+      }
+    ]
+  }
+}

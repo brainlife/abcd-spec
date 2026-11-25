@@ -1,0 +1,128 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "Chimap.nii",
+            "file_id": "qsm"
+          },
+          {
+            "bids_part": "Chimap.json",
+            "file_id": "qsm_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "BIDS Chimap requires ppm units, which the datatype does not fix.",
+        "suffix": "Chimap",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "62b03ee2ab3e66978064ed79",
+    "desc": "Quantitative susceptibility map (NIfTI), estimated by a QSM pipeline or simulated as ground truth.",
+    "name": "neuro/qsm",
+    "original": {
+      "desc": "Quantitative Susceptibility Map",
+      "file_descs": {
+        "qsm": ""
+      },
+      "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT"
+    },
+    "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.qsm.json"
+  },
+  "files": [
+    {
+      "desc": "Susceptibility (Chi) map.",
+      "filename": "qsm.nii",
+      "id": "qsm",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar with units and reconstruction parameters (BIDS Chimap.json).",
+      "filename": "qsm.json",
+      "id": "qsm_json",
+      "proposed": true,
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "JSON metadata may hold acquisition dates, institution or device serials"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derived map, usually brain-masked.",
+    "sharing_cautions": [],
+    "tier_conditions": [
+      "Tier 1 with human_neurodata no when simulated (ground-truth tag)"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6722807d851d5f6d75426b00",
+        "name": "Hybrid QSM-weighted T1 Generator",
+        "purpose": "generates a hybrid contrast image from a T1-weighted image and a QSM map"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "benchmarks QSM estimates against a ground-truth map"
+      }
+    ],
+    "intended_use": [
+      "Benchmarking QSM estimates against a ground truth.",
+      "Hybrid QSM-weighted T1 contrast generation."
+    ],
+    "not_suitable_for": [
+      "Comparing maps with different units or reference regions."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "65dc275e1f6c7e7fa05bc366",
+        "name": "QSM Data Generator",
+        "purpose": "simulates T2*-weighted magnitude and phase images and a ground-truth susceptibility map"
+      }
+    ]
+  }
+}

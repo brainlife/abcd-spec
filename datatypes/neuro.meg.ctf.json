@@ -1,0 +1,195 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "meg",
+        "entities": [
+          "processing",
+          "split",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          "/",
+          ".ds/",
+          ".json",
+          ".fif",
+          ".sqd",
+          ".con",
+          ".raw",
+          ".ave",
+          ".mrk",
+          ".kdf",
+          ".mhd",
+          ".trg",
+          ".chn",
+          ".dat"
+        ],
+        "files": [
+          {
+            "bids_part": "meg.ds",
+            "file_id": "ds"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "coordsystem.json",
+            "file_id": "coordsystem",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "headshape.pos",
+            "file_id": "headshape"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "meg.json",
+            "file_id": "meg_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "Lacks the REQUIRED *_meg.json (proposed); other sidecars are carried.",
+        "suffix": "meg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6000714baacf9e22a6a691c8",
+    "desc": "Raw MEG from a CTF system: one .ds folder per run (.meg4, .res4 and related files), with optional BIDS sidecars.",
+    "name": "neuro/meg/ctf",
+    "original": {
+      "desc": "Magnetoencephalography (MEG) in CTF (folder with .ds extension)",
+      "file_descs": {
+        "channels": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. To avoid confusion, the channels SHOULD be listed in the order they appear in the MEG data file. Missing values MUST be indicated with n/a.",
+        "coordsystem": " A JSON document specifying the coordinate system(s) used for the MEG, EEG, head localization coils, and anatomical landmarks.",
+        "ds": "this directory contains various CTF items (.meg4, .res4, .acq, .hc, .hist, ,ec..)",
+        "events": "",
+        "events_json": "",
+        "headshape": "The OPTIONAL digitized positions of the head points. Head shape and electrode description"
+      },
+      "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf"
+    },
+    "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.ctf.json"
+  },
+  "files": [
+    {
+      "desc": "this directory contains various CTF items (.meg4, .res4, .acq, .hc, .hist, ,ec..)",
+      "dirname": "meg.ds",
+      "id": "ds",
+      "required": true
+    },
+    {
+      "desc": "Digitised head-shape points (.pos).",
+      "filename": "headshape.pos",
+      "id": "headshape",
+      "required": false
+    },
+    {
+      "desc": "Channel names, types, units and status.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "required": false
+    },
+    {
+      "desc": "Coordinate system and fiducials for sensor positions.",
+      "filename": "coordsystem.json",
+      "id": "coordsystem",
+      "required": false
+    },
+    {
+      "desc": "Event onsets, durations and types.",
+      "filename": "events.tsv",
+      "id": "events",
+      "required": false
+    },
+    {
+      "desc": "Descriptions of the events.tsv columns.",
+      "filename": "events.json",
+      "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "BIDS MEG sidecar: recording parameters.",
+      "filename": "meg.json",
+      "id": "meg_json",
+      "proposed": true,
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "CTF .res4/.infods files can hold participant name, run date and operator.",
+      "Recording dates and free-text fields in sidecars or events."
+    ],
+    "information_kinds": [
+      "function",
+      "physiology",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: raw EEG/MEG headers can hold participant identity and acquisition dates; the more protective tier holds until they are scrubbed.",
+    "sharing_cautions": [
+      "Anonymise headers (e.g. mne-bids anonymize) before sharing outside a controlled project."
+    ],
+    "tier_conditions": [
+      "Tier 2 once the CTF header and sidecars are anonymised (no names, birth dates, recording dates)."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (meg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "628b6054d0697cf1eaeb1972",
+        "name": "CTF to mne/raw",
+        "purpose": "converts CTF .ds MEG to MNE raw FIF"
+      },
+      {
+        "app_id": "60d08cb5cdfdb50acdff5893",
+        "name": "Split MEG file [ctf]",
+        "purpose": "splits CTF MEG into two FIF segments"
+      }
+    ],
+    "intended_use": [
+      "Raw CTF MEG input for conversion to MNE raw or splitting into FIF segments."
+    ],
+    "not_suitable_for": [
+      "Analysis that needs the BIDS *_meg.json parameters, which this datatype does not carry."
+    ],
+    "outputs_of": []
+  }
+}

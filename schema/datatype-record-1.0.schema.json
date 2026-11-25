@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/brainlife/abcd-spec/schema/datatype-record-1.0.schema.json",
+  "title": "brainlife.io datatype catalog record",
+  "type": "object",
+  "required": ["spec", "brainlife", "files", "usage", "bids", "governance", "provenance"],
+  "additionalProperties": false,
+  "$defs": {
+    "strings": {"type": "array", "items": {"type": "string"}},
+    "app": {
+      "type": "object",
+      "required": ["app_id", "name", "purpose"],
+      "additionalProperties": false,
+      "properties": {"app_id": {"type": "string"}, "name": {"type": "string"}, "purpose": {"type": "string"}}
+    }
+  },
+  "properties": {
+    "spec": {"const": "brainlife-datatype-record/1.0"},
+    "brainlife": {
+      "type": "object",
+      "required": ["name", "desc", "readme", "original"],
+      "additionalProperties": false,
+      "properties": {
+        "_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+        "name": {"type": "string", "minLength": 1},
+        "desc": {"type": "string", "maxLength": 200},
+        "readme": {"type": "string"},
+        "original": {
+          "type": "object",
+          "required": ["desc", "readme"],
+          "additionalProperties": false,
+          "properties": {"desc": {"type": "string"}, "readme": {"type": "string"},
+                         "file_descs": {"type": "object", "additionalProperties": {"type": "string"}}}
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "desc", "required"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "filename": {"type": "string"},
+          "dirname": {"type": "string"},
+          "ext": {"type": "string"},
+          "desc": {"type": "string"},
+          "required": {"type": "boolean"},
+          "proposed": {"type": "boolean"}
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "required": ["inputs_of", "outputs_of", "intended_use", "not_suitable_for"],
+      "additionalProperties": false,
+      "properties": {
+        "inputs_of": {"type": "array", "items": {"$ref": "#/$defs/app"}},
+        "outputs_of": {"type": "array", "items": {"$ref": "#/$defs/app"}},
+        "intended_use": {"$ref": "#/$defs/strings"},
+        "not_suitable_for": {"$ref": "#/$defs/strings"}
+      }
+    },
+    "bids": {
+      "type": "object",
+      "required": ["correspondences", "checked_against"],
+      "additionalProperties": false,
+      "properties": {
+        "correspondences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["datatype", "suffix", "extensions", "entities", "level", "match", "files", "tags", "notes"],
+            "additionalProperties": false,
+            "properties": {
+              "datatype": {"type": "string"},
+              "suffix": {"type": "string"},
+              "extensions": {"$ref": "#/$defs/strings"},
+              "entities": {"$ref": "#/$defs/strings"},
+              "level": {"enum": ["raw", "derivative"]},
+              "match": {"enum": ["equivalent", "partial", "none", "TODO"]},
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["file_id", "bids_part"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "file_id": {"type": "string"},
+                    "bids_part": {"type": "string"},
+                    "sidecar": {"enum": ["file", "meta", "missing"]},
+                    "meta_fields": {"$ref": "#/$defs/strings"}
+                  }
+                }
+              },
+              "tags": {"$ref": "#/$defs/strings"},
+              "notes": {"type": "string"}
+            }
+          }
+        },
+        "checked_against": {
+          "type": "object",
+          "required": ["bids_version", "schema_version"],
+          "additionalProperties": false,
+          "properties": {"bids_version": {"type": "string"}, "schema_version": {"type": "string"}}
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["human_neurodata", "default_tier", "tier_conditions", "information_kinds", "identifying_risks", "sharing_cautions", "rationale"],
+      "additionalProperties": false,
+      "properties": {
+        "human_neurodata": {"enum": ["yes", "no", "depends", "TODO"]},
+        "default_tier": {"type": "integer", "minimum": 0, "maximum": 5},
+        "tier_conditions": {"$ref": "#/$defs/strings"},
+        "information_kinds": {
+          "type": "array",
+          "items": {"enum": ["anatomy", "function", "behaviour", "physiology", "identity", "health_status", "demographics", "none"]}
+        },
+        "identifying_risks": {"$ref": "#/$defs/strings"},
+        "sharing_cautions": {"$ref": "#/$defs/strings"},
+        "rationale": {"type": "string"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["drafted_by", "sources", "todo"],
+      "additionalProperties": false,
+      "properties": {
+        "drafted_by": {"type": "string"},
+        "sources": {"$ref": "#/$defs/strings"},
+        "todo": {"$ref": "#/$defs/strings"}
+      }
+    }
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "ISOVF.nii.gz",
+            "file_id": "isovf"
+          }
+        ],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no NODDI suffixes; the export map uses a non-BIDS suffix ICVF.",
+        "suffix": "ICVF",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5ed02a620a8ed8e39c482a61",
+    "desc": "NODDI fit (AMICO) as NIfTI maps: neurite density (NDI), orientation dispersion (ODI), isotropic volume fraction (ISOVF) and main direction.",
+    "name": "neuro/noddi",
+    "original": {
+      "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+      "file_descs": {
+        "dir": "",
+        "isovf": "",
+        "ndi": "",
+        "odi": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Tract profiles, cortical mapping, connectome weights and ROI statistics of microstructure.\n\n**Not for:** Trusting NDI or ISOVF from single-shell fits; only ODI is reliable there.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 19 Apps, output of 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.noddi.json"
+  },
+  "files": [
+    {
+      "desc": "Principal fibre direction per voxel.",
+      "filename": "dir.nii.gz",
+      "id": "dir",
+      "required": true
+    },
+    {
+      "desc": "Neurite density index (intracellular volume fraction).",
+      "filename": "ndi.nii.gz",
+      "id": "ndi",
+      "required": true
+    },
+    {
+      "desc": "Isotropic (free water) volume fraction.",
+      "filename": "isovf.nii.gz",
+      "id": "isovf",
+      "required": true
+    },
+    {
+      "desc": "Orientation dispersion index.",
+      "filename": "odi.nii.gz",
+      "id": "odi",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "NIfTI headers or metadata may carry subject codes or dates",
+      "Rare lesions or anomalies can be recognisable in small samples"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed diffusion MRI without direct identifiers.",
+    "sharing_cautions": [
+      "Share with coded subject IDs under a data use agreement",
+      "Check headers and metadata for identifiers before release"
+    ],
+    "tier_conditions": [
+      "Tier 1 only as a group-averaged template",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "apply transforms to diffusion metric maps"
+      },
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "diffusion measures per FreeSurfer parcel"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "diffusion measures per parcel of a volumetric parcellation"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "diffusion measures per subcortical structure"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "map diffusion measures onto the cortical surface (native and MNI)"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "map NODDI measures onto the cortical surface (native and MNI)"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "map diffusion measures onto the native cortical surface"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "map NODDI measures onto the native cortical surface"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "Fukutomi 2018 cortical NODDI/DTI mapping replication"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "diffusion metric statistics inside ROIs"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "diffusion measures within tissue types"
+      },
+      {
+        "app_id": "5ed02d3c0a8ed86d37483300",
+        "name": "Generate images of NODDI",
+        "purpose": "slice images of NODDI maps (QC)"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "register NODDI maps to a T1w/T2w image"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "structural connectomes (SCMRT)"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "SIFT2-weighted structural connectomes (SCMRT)"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "structural connectomes without labels or weights (SCMRT)"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "Vistasoft tract profiles of diffusion measures"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "Vistasoft tract profiles of NODDI measures"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "DIPY tract profiles of diffusion measures"
+      }
+    ],
+    "intended_use": [
+      "Tract profiles, cortical mapping, connectome weights and ROI statistics of microstructure."
+    ],
+    "not_suitable_for": [
+      "Trusting NDI or ISOVF from single-shell fits; only ODI is reliable there."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "COMMIT streamline weights from tractogram and DWI"
+      },
+      {
+        "app_id": "5ed02c520a8ed8e7bb483031",
+        "name": "Noddi Amico",
+        "purpose": "NODDI fit with AMICO (multi-shell)"
+      },
+      {
+        "app_id": "5ed02ca70a8ed8a9c04831d3",
+        "name": "NODDI Amico (single shell)",
+        "purpose": "NODDI fit with AMICO (single shell)"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "register NODDI maps to a T1w/T2w image"
+      },
+      {
+        "app_id": "5ed0324ce3f453693e267d1f",
+        "name": "Temporary converter app from NODDI-deprecated to NODDI datatype",
+        "purpose": "convert deprecated NODDI to current NODDI"
+      }
+    ]
+  }
+}

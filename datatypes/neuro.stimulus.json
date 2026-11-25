@@ -1,0 +1,102 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "BIDS stim is a continuous .tsv.gz recording; aperture images belong in stimuli/.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5afc7c555858d874a40c6dda",
+    "desc": "Stimulus aperture movie (NIfTI, pixels x pixels x time, values 0-1) shown during a retinotopy BOLD run.",
+    "name": "neuro/stimulus",
+    "original": {
+      "desc": "stimulus movie",
+      "file_descs": {
+        "stim": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Stimulus input to pRF model fitting (AFNI, analyzePRF, mrTools).\n\n**Not for:** Runs whose number of frames differs from the BOLD volumes.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** Input to 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.stimulus.json"
+  },
+  "files": [
+    {
+      "desc": "Stimulus aperture sequence, one frame per BOLD volume.",
+      "ext": ".gz",
+      "filename": "stim.nii.gz",
+      "id": "stim",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 1,
+    "human_neurodata": "no",
+    "identifying_risks": [],
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 1: stimulus material, not participant neurodata.",
+    "sharing_cautions": [],
+    "tier_conditions": []
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "619daaba09959fabbdc0517f",
+        "name": "AFNI pRF",
+        "purpose": "fits a population receptive field model to BOLD fMRI"
+      },
+      {
+        "app_id": "5cae3ef776cdaa0030b9232b",
+        "name": "AnalyzepRF on volume",
+        "purpose": "estimates voxel-wise population receptive fields"
+      },
+      {
+        "app_id": "5afc9831322997002773ed1c",
+        "name": "pRFLife mrTools",
+        "purpose": "fits population receptive field models to BOLD time series and a stimulus image"
+      },
+      {
+        "app_id": "5e9613ce6365e976b7471d50",
+        "name": "pRFLife with mrTools",
+        "purpose": "estimates voxel-wise population receptive fields"
+      },
+      {
+        "app_id": "6172e5864fd85c20b7533e94",
+        "name": "PRFmodel",
+        "purpose": "fits population receptive field models to task fMRI"
+      }
+    ],
+    "intended_use": [
+      "Stimulus input to pRF model fitting (AFNI, analyzePRF, mrTools)."
+    ],
+    "not_suitable_for": [
+      "Runs whose number of frames differs from the BOLD volumes."
+    ],
+    "outputs_of": []
+  }
+}

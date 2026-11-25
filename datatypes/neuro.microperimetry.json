@@ -1,0 +1,88 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no visual-field or microperimetry suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "604976b3ebfe45c4633ae3d2",
+    "desc": "Microperimetry (fundus-controlled perimetry, e.g. MAIA) retinal sensitivity per test point as a TSV: ID, x_deg, y_deg, Threshold.",
+    "name": "neuro/microperimetry",
+    "original": {
+      "desc": "Microperimetry or fundus-controlled perimetry provides an evaluation of visual function by testing the visual field with incorporated eye-tracking. [https://pubmed.ncbi.nlm.nih.gov/33022378/]. This app is optimised for use on binocular integrated data produced by  https://ocular.shinyapps.io/MAIA_binocular_field_app/",
+      "file_descs": {
+        "microperimetry": "A tab-separated values (TSV) file containing 4 columns (ID, x_deg, y_deg, and Threshold\") and sets of values. \n"
+      },
+      "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
+    },
+    "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.microperimetry.json"
+  },
+  "files": [
+    {
+      "desc": "A tab-separated values (TSV) file containing 4 columns (ID, x_deg, y_deg, and Threshold\") and sets of values. \n",
+      "filename": "microperimetry.tsv",
+      "id": "microperimetry",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Rare retinal conditions in small samples."
+    ],
+    "information_kinds": [
+      "function",
+      "health_status"
+    ],
+    "rationale": "Tool 1 step 6: participant-level clinical vision data; step 8 for rare conditions.",
+    "sharing_cautions": [
+      "Remove exam dates and device patient IDs before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 3 if linked to names or exam dates in the export."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "605b9143edebf0f4fdd2a7cc",
+        "name": "MAIA microperimetry analysis",
+        "purpose": "eccentricity-ring averages of MAIA retinal sensitivity"
+      }
+    ],
+    "intended_use": [
+      "Ring-wise retinal sensitivity summaries with the MAIA analysis App."
+    ],
+    "not_suitable_for": [
+      "Space-delimited exports without conversion to TSV."
+    ],
+    "outputs_of": []
+  }
+}

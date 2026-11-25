@@ -1,0 +1,120 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no averaged-response suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5978fd38b09297d8d8aa8746",
+    "desc": "Averaged MEG/EEG responses (evoked/ERP) as MNE-Python Evoked objects in ave.fif, one or more conditions.",
+    "name": "neuro/meeg/mne/evoked",
+    "original": {
+      "desc": "To be edited by Saeed",
+      "file_descs": {
+        "evoked": ""
+      },
+      "readme": "To be edited by Saseed"
+    },
+    "readme": "To be edited by Saseed\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.evoked.json"
+  },
+  "files": [
+    {
+      "desc": "MNE Evoked FIF (ave.fif) with one or more condition averages.",
+      "filename": "ave.fif",
+      "id": "evoked",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "MNE measurement info in the evoked FIF can carry subject_info, meas_date and digitised head points."
+    ],
+    "information_kinds": [
+      "function",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level M/EEG derivative linkable through a participant code.",
+    "sharing_cautions": [
+      "Run mne anonymize (info) before sharing outside a controlled project."
+    ],
+    "tier_conditions": [
+      "Tier 3 if the measurement info keeps subject_info (name, birth date) or meas_date."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (meg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "noise covariance from empty-room raw, epoch baselines or evoked data"
+      },
+      {
+        "app_id": "69b11c0f6bb1f71b25b601e7",
+        "name": "Make Forward Solution",
+        "purpose": "MEG/EEG forward solution from source space, transform and BEM"
+      },
+      {
+        "app_id": "65d830b7eab7bb5c3ca39327",
+        "name": "Read info",
+        "purpose": "dumps evoked measurement info to info.txt"
+      },
+      {
+        "app_id": "69b1489a6bb1f71b25b69642",
+        "name": "Source Estimate",
+        "purpose": "applies an inverse operator to evoked data, giving source estimates"
+      }
+    ],
+    "intended_use": [
+      "Input for source estimation, forward modelling (sensor info) and ERP inspection."
+    ],
+    "not_suitable_for": [
+      "Noise covariance estimation except as a last resort."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "62a20ab1ab3e6697805fc07f",
+        "name": "Average ERP (MNE)",
+        "purpose": "averages selected conditions into an evoked response"
+      },
+      {
+        "app_id": "6a594cfc13254aef69af404a",
+        "name": "Average ERPs",
+        "purpose": "averages epochs into condition ERPs"
+      },
+      {
+        "app_id": "62697515f3858674a2a22372",
+        "name": "Compute evoked",
+        "purpose": "averages epochs into evoked responses"
+      }
+    ]
+  }
+}

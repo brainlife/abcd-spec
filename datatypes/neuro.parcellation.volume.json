@@ -1,0 +1,601 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "atlas",
+          "segmentation",
+          "scale",
+          "resolution",
+          "space",
+          "description"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".tsv",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "dseg.nii.gz",
+            "file_id": "parc"
+          },
+          {
+            "bids_part": "dseg.tsv",
+            "file_id": "label",
+            "sidecar": "file"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "label.json carries the dseg.tsv lookup in a different format; atlas- and space- come from tags.",
+        "suffix": "dseg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5c1a7489f9109beac4a88a1f",
+    "desc": "Volumetric parcellation or segmentation (parc.nii.gz) with label.json mapping each integer value to a region name.",
+    "name": "neuro/parcellation/volume",
+    "original": {
+      "desc": "(aka \"segmentation\") parc.nii.gz containing volumetric parcellation / atlas, along with a key.txt file indicating the coorespondance between parc.nii.gz labels and human readable region names.",
+      "file_descs": {
+        "key": "deprecated. please use label.json",
+        "label": "json file mapping each voxel values to parcellation label / desc.",
+        "parc": ""
+      },
+      "readme": "`label.json` should look like this\n```\n[\n    {\n        \"name\": \"unknown\",\n        \"desc\": \"voxel value 0 indicates that the voxel doesn't belong to any segmentation\",\n        \"voxel_value\": 0\n    },\n    {\n        \"name\": \"Left-Cerebral-Exterior\",\n        \"desc\": \"voxel value 1 indicates that the voxel belong to Left-Cerebral-Exterior\",\n        \"voxel_value\": 1\n    },\n...\n]\n\n```\n\n`key.txt`(deprecated by label.json) should look like this\n\n```\n0 -> 0 == Unknown\n1 -> 1 == Left-Cerebral-Exterior\n2 -> 2 == Left-Cerebral-White-Matter\n3 -> 3 == Left-Cerebral-Cortex\n4 -> 4 == Left-Lateral-Ventricle\n5 -> 5 == Left-Inf-Lat-Vent\n6 -> 6 == Left-Cerebellum-Exterior\n7 -> 7 == Left-Cerebellum-White-Matter\n8 -> 8 == Left-Cerebellum-Cortex\n9 -> 9 == Left-Thalamus\n10 -> 10 == Left-Thalamus-Proper\n11 -> 11 == Left-Caudate\n12 -> 12 == Left-Putamen\n13 -> 13 == Left-Pallidum\n14 -> 14 == 3rd-Ventricle\n15 -> 15 == 4th-Ventricle\n16 -> 16 == Brain-Stem\n17 -> 17 == Left-Hippocampus\n18 -> 18 == Left-Amygdala\n19 -> 19 == Left-Insula\n20 -> 20 == Left-Operculum\n21 -> 21 == Line-1\n22 -> 22 == Line-2\n23 -> 23 == Line-3\n24 -> 24 == CSF\n25 -> 25 == Left-Lesion\n26 -> 26 == Left-Accumbens-area\n27 -> 27 == Left-Substancia-Nigra\n28 -> 28 == Left-VentralDC\n29 -> 29 == Left-undetermined\n```"
+    },
+    "readme": "`label.json` should look like this\n```\n[\n    {\n        \"name\": \"unknown\",\n        \"desc\": \"voxel value 0 indicates that the voxel doesn't belong to any segmentation\",\n        \"voxel_value\": 0\n    },\n    {\n        \"name\": \"Left-Cerebral-Exterior\",\n        \"desc\": \"voxel value 1 indicates that the voxel belong to Left-Cerebral-Exterior\",\n        \"voxel_value\": 1\n    },\n...\n]\n\n```\n\n`key.txt`(deprecated by label.json) should look like this\n\n```\n0 -> 0 == Unknown\n1 -> 1 == Left-Cerebral-Exterior\n2 -> 2 == Left-Cerebral-White-Matter\n3 -> 3 == Left-Cerebral-Cortex\n4 -> 4 == Left-Lateral-Ventricle\n5 -> 5 == Left-Inf-Lat-Vent\n6 -> 6 == Left-Cerebellum-Exterior\n7 -> 7 == Left-Cerebellum-White-Matter\n8 -> 8 == Left-Cerebellum-Cortex\n9 -> 9 == Left-Thalamus\n10 -> 10 == Left-Thalamus-Proper\n11 -> 11 == Left-Caudate\n12 -> 12 == Left-Putamen\n13 -> 13 == Left-Pallidum\n14 -> 14 == 3rd-Ventricle\n15 -> 15 == 4th-Ventricle\n16 -> 16 == Brain-Stem\n17 -> 17 == Left-Hippocampus\n18 -> 18 == Left-Amygdala\n19 -> 19 == Left-Insula\n20 -> 20 == Left-Operculum\n21 -> 21 == Line-1\n22 -> 22 == Line-2\n23 -> 23 == Line-3\n24 -> 24 == CSF\n25 -> 25 == Left-Lesion\n26 -> 26 == Left-Accumbens-area\n27 -> 27 == Left-Substancia-Nigra\n28 -> 28 == Left-VentralDC\n29 -> 29 == Left-undetermined\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.parcellation.volume.json"
+  },
+  "files": [
+    {
+      "desc": "NIfTI volume of integer region labels.",
+      "filename": "parc.nii.gz",
+      "id": "parc",
+      "required": true
+    },
+    {
+      "desc": "deprecated. please use label.json",
+      "filename": "key.txt",
+      "id": "key",
+      "required": false
+    },
+    {
+      "desc": "json file mapping each voxel values to parcellation label / desc.",
+      "filename": "label.json",
+      "id": "label",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Low; individual region shapes are participant-level"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
+    "sharing_cautions": [
+      "Share with participant codes only"
+    ],
+    "tier_conditions": [
+      "Tier 1 for template-space atlases with no participant data"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "applies an existing ANTs or FSL transform"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "applies an existing ANTs or FSL transform"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "applies an existing ANTs or FSL transform"
+      },
+      {
+        "app_id": "6138cab4584a762c35417ac8",
+        "name": "Apply warp to Parcellation",
+        "purpose": "applies an existing FSL nonlinear warp to a volumetric parcellation"
+      },
+      {
+        "app_id": "63bb4690daffe2c2408e5d63",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation",
+        "purpose": "splits tracts from a white matter classification into sub-bundles"
+      },
+      {
+        "app_id": "63ba6203daffe2c2408d4c89",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation (multiple parcellations)",
+        "purpose": "splits tracts from a white matter classification into sub-bundles"
+      },
+      {
+        "app_id": "6091fb348fe49f74c01c20ed",
+        "name": "Clean parcellations",
+        "purpose": "removes unwanted or missing parcels from a volumetric parcellation and renumbers the remaining parcels"
+      },
+      {
+        "app_id": "63fe9a8dc538c16a825b6577",
+        "name": "Combine two parcellations into a single parcellation",
+        "purpose": "merges two volumetric parcellations into one"
+      },
+      {
+        "app_id": "623bbbaa5d8ab5d5f04af6f4",
+        "name": "Compute dice similarity coefficient between parcels in parcellations",
+        "purpose": "computes the Dice similarity coefficient of each parcel between a parcellation and a reference parcellation"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
+      },
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "computes a structural connectivity matrix between the regions of a volumetric parcellation from an MRtrix"
+      },
+      {
+        "app_id": "6aa993d6deee1367b4361c43",
+        "name": "CONNECTS Validation Engine",
+        "purpose": "evaluates a 3D segmentation against a ground-truth mask, computing voxel overlap"
+      },
+      {
+        "app_id": "6441babdd391caf6efc8fa6c",
+        "name": "Convert assignments from structural connectivity to wmc datatype",
+        "purpose": "converts structural connectivity streamline assignments"
+      },
+      {
+        "app_id": "5eb0a0650d21177fad4287d9",
+        "name": "Convert network neuro matrix to conmat",
+        "purpose": "converts one measure's matrix from the Network Neuro raw networkmatrices output"
+      },
+      {
+        "app_id": "626bf253f3858674a2a6c9fb",
+        "name": "Create networkneuro datatype for visualization",
+        "purpose": "packages a tractogram, a parcellation and connectivity matrices into the networkneuro datatype"
+      },
+      {
+        "app_id": "61645a25fc8eb9c745fa2f2e",
+        "name": "DBB_DiceScore",
+        "purpose": "computes the Dice similarity coefficient"
+      },
+      {
+        "app_id": "5ed05fe8e3f4538080268585",
+        "name": "fMRI Timeseries Extraction",
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
+      },
+      {
+        "app_id": "5c720cf63e2f2c0030a23486",
+        "name": "fMRI to Connectivity Matrices",
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
+      },
+      {
+        "app_id": "5f5277bf42c17215e36504d8",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Glasser Parcellation)",
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space from a subject-space Glasser"
+      },
+      {
+        "app_id": "5c364d71836af601cc85864d",
+        "name": "Generate ROIs from an atlas",
+        "purpose": "extracts single or merged ROIs as NIfTI files from a volumetric parcellation"
+      },
+      {
+        "app_id": "60f83f2db991118b34b56b02",
+        "name": "Generate ROIs in Anatomical Space",
+        "purpose": "generates ROIs in anatomical"
+      },
+      {
+        "app_id": "6192cd0d983d5bb13f951b61",
+        "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
+      },
+      {
+        "app_id": "6192d0a4983d5bb13f958870",
+        "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
+      },
+      {
+        "app_id": "60f5a0bab99111586bb464ae",
+        "name": "Generate ROIs in FMRI Space",
+        "purpose": "generates ROIs in fMRI space from FreeSurfer labels"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "generates figures for each tract of a white matter classification"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "computes parcel-wise gyral bias metrics"
+      },
+      {
+        "app_id": "5bcdefeadc47f70026e8c6ac",
+        "name": "Network Matrices",
+        "purpose": "builds structural network adjacency matrices"
+      },
+      {
+        "app_id": "5fea87300cd861959f168ef8",
+        "name": "Parcellation Statistics - Volume",
+        "purpose": "computes volume and cortical thickness of every ROI in a volumetric parcellation"
+      },
+      {
+        "app_id": "629a6d3c7f60950a54cc7a6e",
+        "name": "Postprocess parcellation: island removal & inflation",
+        "purpose": "remove islands (unconnected components) from and/or inflate a given volumetric parcellation"
+      },
+      {
+        "app_id": "6041f75166d5ce1daf6efb55",
+        "name": "PyNets",
+        "purpose": "estimates ensembles of structural"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "benchmarks one or more QSM susceptibility estimates against a ground-truth map, computing RMSE, NRMSE, HFEN"
+      },
+      {
+        "app_id": "641a10fd73d2685502c4daec",
+        "name": "Reslice parcellation to match input anatomy",
+        "purpose": "reslices a volumetric parcellation onto the voxel grid of a T1-weighted image"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "segments a tractogram into connections between visual areas of a visual-area parcellation"
+      },
+      {
+        "app_id": "643eff84d391caf6efc2c3e0",
+        "name": "Segment whole-brain tractogram -  Parcellation",
+        "purpose": "segments a whole-brain tractogram into streamlines that connect a parcellation's labels"
+      },
+      {
+        "app_id": "6434cc4f0c37c61d0177fb5a",
+        "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+        "purpose": "segments a whole-brain tractogram into streamlines that connect a parcellation's labels"
+      },
+      {
+        "app_id": "6844f692187eaf3617c91e03",
+        "name": "Streamline Selection by Parcellation",
+        "purpose": "an automated and reproducible pipeline to extract streamlines from a tractogram based on a labeled"
+      },
+      {
+        "app_id": "629a6ee47f60950a54cc82f6",
+        "name": "Structural connectivity & White Matter Classification (WMC) using DIPY",
+        "purpose": "generate a structural connectivity matrix and a White Matter Classification structure for a given"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "builds structural connectivity matrices"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "builds SIFT2-weighted structural connectivity matrices"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "builds structural connectivity matrices"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "builds polar-angle-by-eccentricity visual cortex parcels from pRF maps and segments the tractogram"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "this application converts tractography files from the .tck format to the .trk format"
+      },
+      {
+        "app_id": "67858b5e81d348aa56483324",
+        "name": "Tract Shape Analysis",
+        "purpose": "computes tract shape measures"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "extracts the left and right vertical occipital fasciculus"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram"
+      },
+      {
+        "app_id": "5cc9ccca4b5e4502275edb56",
+        "name": "WMA Tract Segmentation with Atlas",
+        "purpose": "segments a tractogram into tracts"
+      }
+    ],
+    "intended_use": [
+      "Defining network nodes, ROIs and per-region statistics."
+    ],
+    "not_suitable_for": [
+      "Use in another space without nearest-neighbour resampling.",
+      "Use without label.json, which defines the region names."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6138cab4584a762c35417ac8",
+        "name": "Apply warp to Parcellation",
+        "purpose": "applies an existing FSL nonlinear warp to a volumetric parcellation"
+      },
+      {
+        "app_id": "5deece232d1c254a76929834",
+        "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
+        "purpose": "segments hippocampal subfields from co-registered T1-weighted and T2-weighted images"
+      },
+      {
+        "app_id": "6aaab5abd53b7ad2023f031e",
+        "name": "axonsynth-inference",
+        "purpose": "segments axons in a 3D light-sheet microscopy volume"
+      },
+      {
+        "app_id": "5dbe0820fdefb1e42b771dda",
+        "name": "Bayesian Analysis of Retinotopic Maps",
+        "purpose": "refines measured pRF maps"
+      },
+      {
+        "app_id": "69e801a668c5c4b1c53aac9c",
+        "name": "Brain Atlas Mapping",
+        "purpose": "maps a retinotopic or cortical atlas"
+      },
+      {
+        "app_id": "5fb2f28a7e8ecb7444aaf372",
+        "name": "CIT168 parcellation of human subcortical brain nuclei",
+        "purpose": "generates a subject-specific parcellation of subcortical nuclei"
+      },
+      {
+        "app_id": "6091fb348fe49f74c01c20ed",
+        "name": "Clean parcellations",
+        "purpose": "removes unwanted or missing parcels from a volumetric parcellation and renumbers the remaining parcels"
+      },
+      {
+        "app_id": "63fe9a8dc538c16a825b6577",
+        "name": "Combine two parcellations into a single parcellation",
+        "purpose": "merges two volumetric parcellations into one"
+      },
+      {
+        "app_id": "641b5c1973d2685502c71360",
+        "name": "Convert freesurfer annotations to parcellation",
+        "purpose": "converts a FreeSurfer 7.3.2 aparc, aparc.a2009s or aparc.DKTatlas +aseg volume into a volumetric parcellation"
+      },
+      {
+        "app_id": "63ef1363c538c16a82347d5b",
+        "name": "Convert hippocampal and amygdala segmentation into parcellation",
+        "purpose": "converts FreeSurfer hippocampal subfield and amygdala nuclei segmentations"
+      },
+      {
+        "app_id": "6413b54073d2685502bf53b4",
+        "name": "Convert surface-based annotation in standard space to parcellation (volume)",
+        "purpose": "converts left and right surface annotations on an fsaverage template into a volumetric parcellation"
+      },
+      {
+        "app_id": "63ef12e8c538c16a823464ba",
+        "name": "Convert thalamic segmentation into parcellation",
+        "purpose": "converts FreeSurfer thalamic nuclei segmentation"
+      },
+      {
+        "app_id": "63ef1390c538c16a823485b6",
+        "name": "Convert thalamic, hippocampal and amygdala segmentation into parcellation",
+        "purpose": "converts FreeSurfer thalamic nuclei and hippocampal/amygdala segmentations into two volumetric parcellations"
+      },
+      {
+        "app_id": "60ef07acddc2dff22965f239",
+        "name": "DBB_ANTsCortThickSeg",
+        "purpose": "segments brain tissues in a T1-weighted image"
+      },
+      {
+        "app_id": "60f83394b99111089ab55f80",
+        "name": "DBB_DisSeg",
+        "purpose": "segments a T1-weighted brain image into CSF, gray matter, white matter, deep gray matter, brainstem"
+      },
+      {
+        "app_id": "5e46ff4e1eafff7a00f9899e",
+        "name": "DenseUnet-based Automatic Rapid Tool for brain Segmentation (DARTS)",
+        "purpose": "segments a T1-weighted image into 102 brain regions, similar to FreeSurfer aparc+aseg"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "preprocesses task or resting fMRI"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "preprocesses BOLD fMRI with fMRIPrep 21.0.1"
+      },
+      {
+        "app_id": "5fe1056057aacd480f2f8e48",
+        "name": "Freesurfer 7.1.1",
+        "purpose": "runs FreeSurfer 7.1.1 recon-all on a T1-weighted image"
+      },
+      {
+        "app_id": "621abcaa5d8ab5d5f015c555",
+        "name": "Freesurfer 7.1.1 - Multiple T1w Inputs",
+        "purpose": "freesurfer segments the t1w anatomical data into functionally different parts of the brain"
+      },
+      {
+        "app_id": "62fa925519b13f0a0edd5c7c",
+        "name": "Freesurfer 7.3.2",
+        "purpose": "runs FreeSurfer 7.3.2 recon-all on a T1-weighted image"
+      },
+      {
+        "app_id": "63bb2398daffe2c2408e24cc",
+        "name": "Generate Eccentricity Parcellations from pRF - Diffusion Space",
+        "purpose": "generates a volumetric parcellation in DWI"
+      },
+      {
+        "app_id": "5f5a7b200c8f95f36765fee9",
+        "name": "Generate Eccentricity Parcellations from Visual ROIs",
+        "purpose": "combines eccentricity-binned visual ROIs for one eccentricity range"
+      },
+      {
+        "app_id": "5fc953b61828bc065252abf2",
+        "name": "Generate Parcellation (Volume) from ROIs",
+        "purpose": "combines a directory of binary NIfTI ROIs into a single volumetric parcellation"
+      },
+      {
+        "app_id": "643ef709d391caf6efc27c7d",
+        "name": "Generate Polar Angle Parcellations from pRF - Diffusion Space",
+        "purpose": "generates a volumetric parcellation in DWI"
+      },
+      {
+        "app_id": "5f86894be6432df0c492cd28",
+        "name": "Generate ROIs for Visual White Matter Analysis in Freesurfer Space (Benson pRF)",
+        "purpose": "generates ROIs for visual white matter analysis in FreeSurfer"
+      },
+      {
+        "app_id": "5ec69cdd1f4464c1e69e3a21",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Benson pRF)",
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space: V1 and other visual areas"
+      },
+      {
+        "app_id": "5f5277bf42c17215e36504d8",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Glasser Parcellation)",
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space from a subject-space Glasser"
+      },
+      {
+        "app_id": "60f83f2db991118b34b56b02",
+        "name": "Generate ROIs in Anatomical Space",
+        "purpose": "generates ROIs in anatomical"
+      },
+      {
+        "app_id": "6192cd0d983d5bb13f951b61",
+        "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
+      },
+      {
+        "app_id": "6192d0a4983d5bb13f958870",
+        "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
+      },
+      {
+        "app_id": "60f5a0bab99111586bb464ae",
+        "name": "Generate ROIs in FMRI Space",
+        "purpose": "generates ROIs in fMRI space from FreeSurfer labels"
+      },
+      {
+        "app_id": "5f52cc4b42c17250a7651b63",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Diffusion Space",
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
+      },
+      {
+        "app_id": "62757902cbc76827b7240da9",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - fMRI Space",
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
+      },
+      {
+        "app_id": "5f873282e6432d41a892e131",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Freesurfer Space",
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
+      },
+      {
+        "app_id": "6016dcdc321a4aafce6decd5",
+        "name": "Multi-Atlas Transfer Tool",
+        "purpose": "maps a chosen cortical atlas"
+      },
+      {
+        "app_id": "5d54568576a4090027b0a0da",
+        "name": "Nobrainer - BrainParcellation",
+        "purpose": "segments a T1-weighted image into a FreeSurfer-style whole-brain parcellation"
+      },
+      {
+        "app_id": "629a6d3c7f60950a54cc7a6e",
+        "name": "Postprocess parcellation: island removal & inflation",
+        "purpose": "remove islands (unconnected components) from and/or inflate a given volumetric parcellation"
+      },
+      {
+        "app_id": "6115c829a5a04c2a80f9e7f7",
+        "name": "pRFs / Benson14-Retinotopy",
+        "purpose": "predicts retinotopic maps"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "preprocesses DWI with QSIPrep 0.24.0"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "preprocesses DWI with QSIPrep 0.15.3"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "preprocesses DWI with QSIPrep 0.24.0"
+      },
+      {
+        "app_id": "65dc275e1f6c7e7fa05bc366",
+        "name": "QSM Data Generator",
+        "purpose": "simulates T2*-weighted magnitude and phase images and a ground-truth susceptibility map from a synthetic"
+      },
+      {
+        "app_id": "641a10fd73d2685502c4daec",
+        "name": "Reslice parcellation to match input anatomy",
+        "purpose": "reslices a volumetric parcellation onto the voxel grid of a T1-weighted image"
+      },
+      {
+        "app_id": "6717c8f2168d1cbcfbd02315",
+        "name": "Segment T2starw image using MNI152",
+        "purpose": "segments a T2*-weighted magnitude image"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "builds polar-angle-by-eccentricity visual cortex parcels from pRF maps and segments the tractogram"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram"
+      },
+      {
+        "app_id": "6418ddc773d2685502c32bfa",
+        "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+        "purpose": "resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric"
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "SPIM.tif",
+            "file_id": "tif",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "File has no extension and no JSON sidecar; technique assumed light-sheet from the App.",
+        "suffix": "SPIM",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "68dc0642f9e4ee316ef66c03",
+    "desc": "Light-sheet microscopy TIFF stack, created for the APEX hackathon; input to TIFF-to-Zarr v3 deskewing.",
+    "name": "tif",
+    "original": {
+      "desc": "Microscopy data for the APEX hackathon",
+      "file_descs": {
+        "tif": "Basic tif file"
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Deskewing light-sheet TIFF into Zarr v3.\n\n**Not for:** General microscopy; prefer neuro/tiff-volume or neuro/ome-zarr.\n\n**BIDS:** micr/SPIM (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/tif.json"
+  },
+  "files": [
+    {
+      "desc": "Basic tif file",
+      "filename": "tif",
+      "id": "tif",
+      "required": true
+    },
+    {
+      "desc": "BIDS microscopy JSON sidecar (e.g. PixelSize, PixelSizeUnits).",
+      "filename": "tif.json",
+      "id": "json",
+      "proposed": true,
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Specimen IDs in TIFF tags may link to a donor."
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 2: human status depends on the specimen; participant-level tissue images carry no direct identifiers (Tier 2), non-human data is Tier 1.",
+    "sharing_cautions": [
+      "Confirm species and donor consent terms before sharing human tissue images."
+    ],
+    "tier_conditions": [
+      "Tier 1 when the specimen is non-human (e.g. mouse) or synthetic.",
+      "Tier 2 for human tissue linked to a donor or specimen code."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/68dc466bf9e4ee316ef80dfc.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "68dc466bf9e4ee316ef80dfc",
+        "name": "Convert_Tiff_to_Zarr3",
+        "purpose": "light-sheet TIFF to deskew"
+      }
+    ],
+    "intended_use": [
+      "Deskewing light-sheet TIFF into Zarr v3."
+    ],
+    "not_suitable_for": [
+      "General microscopy; prefer neuro/tiff-volume or neuro/ome-zarr."
+    ],
+    "outputs_of": []
+  }
+}

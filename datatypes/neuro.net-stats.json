@@ -1,0 +1,105 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no standard for network statistics.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6478dad979d13f6418e31932",
+    "desc": "Directory of CSV network tables: connectivity matrices (conmats.csv) and global and per-node network measures, tagged by subject.",
+    "name": "neuro/net-stats",
+    "original": {
+      "desc": "This datatype is intended for network-related statistics. In similar vein as parc-stats",
+      "file_descs": {
+        "net-stats": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Group analysis of network measures across subjects.\n\n**Not for:** Comparing networks built with different parcellations or thresholds.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.net-stats.json"
+  },
+  "files": [
+    {
+      "desc": "Directory of CSV tables (conmats.csv, global_measures.csv, local_measures.csv).",
+      "dirname": "net-stats",
+      "id": "net-stats",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual connectomes can re-identify a person across datasets (connectome fingerprinting)"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derivative; step 7 moves fingerprint use to Tier 4.",
+    "sharing_cautions": [
+      "Remove subject identifiers beyond participant codes before sharing"
+    ],
+    "tier_conditions": [
+      "Tier 4 when used or released as connectome fingerprints or to predict traits or behaviour",
+      "Tier 1 when averaged across enough participants that no individual can be singled out"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Group analysis of network measures across subjects."
+    ],
+    "not_suitable_for": [
+      "Comparing networks built with different parcellations or thresholds."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "64f8e0a6e4d2e9108d91cb87",
+        "name": "Extract connectivity matrices from network datatype",
+        "purpose": "converts a network datatype"
+      },
+      {
+        "app_id": "649f24c53a63cf17374a4595",
+        "name": "Extract network statistics and connectivity matrices from network datatype",
+        "purpose": "converts a network datatype"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "segments a tractogram into connections between visual areas of a visual-area parcellation"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram"
+      }
+    ]
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Figures have no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "59666a40b09297d8d8271dfc",
+    "desc": "Single PNG image, usually a QC or result figure written by an App. Deprecated; use generic/images or report/html.",
+    "name": "generic/image/png",
+    "original": {
+      "desc": "PNG Image (deprecated by images datatype)",
+      "file_descs": {
+        "image": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Viewing a single QC or result figure from an App run.\n\n**Not for:** Input to analysis Apps; it holds a picture, not data.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 25 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.image.png.json"
+  },
+  "files": [
+    {
+      "desc": "PNG image file.",
+      "filename": "image.png",
+      "id": "image",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Figure may show subject IDs, dates or anatomy of one participant."
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived figures without direct identifiers are Tier 2.",
+    "sharing_cautions": [
+      "Check embedded labels and titles for identifiers before sharing."
+    ],
+    "tier_conditions": [
+      "Tier 1 for group-level or non-human figures.",
+      "Tier 3 if it shows recognisable facial anatomy or names."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/62b9789af3194eded6f719a6.json",
+      "catalog/apps/63340c27db978c79919b9684.json",
+      "catalog/apps/644884a9d391caf6efd69605.json",
+      "catalog/apps/62b1c272ab3e66978065736f.json",
+      "catalog/apps/62ab109aab3e669780634426.json",
+      "catalog/apps/633449badb978c79919ced98.json",
+      "catalog/apps/63358117db978c7991a302cb.json",
+      "catalog/apps/63341bd2db978c79919bff74.json",
+      "catalog/apps/61b35c3952911e175a209747.json",
+      "catalog/apps/6a594cfc13254aef69af404a.json",
+      "catalog/apps/63340316db978c79919b4c98.json",
+      "catalog/apps/668ba30cf61fb6c31d7970b2.json",
+      "catalog/apps/66a0d6faf61fb6c31d8bb223.json",
+      "catalog/apps/6a9aab920efc94c8a6bb8977.json",
+      "catalog/apps/642dc7d173d2685502ec4d5f.json",
+      "catalog/apps/642e6a3e73d2685502ee851e.json",
+      "catalog/apps/66d58968774d6f044db9c7f1.json",
+      "catalog/apps/616e8787fc8eb9ab81ff9105.json",
+      "catalog/apps/66d84258774d6f044dbeff91.json",
+      "catalog/apps/66bb2db3774d6f044da6e9ca.json",
+      "catalog/apps/616e9266fc8eb95c38ff9532.json",
+      "catalog/apps/5e922401300b4e122081c882.json",
+      "catalog/apps/63358285db978c7991a30e5b.json",
+      "catalog/apps/643fe9edd391caf6efc583aa.json",
+      "catalog/apps/63344389db978c79919cbb82.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Viewing a single QC or result figure from an App run."
+    ],
+    "not_suitable_for": [
+      "Input to analysis Apps; it holds a picture, not data."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "62b9789af3194eded6f719a6",
+        "name": "app-decoding-time-by-time",
+        "purpose": "decoding ROC AUC over time"
+      },
+      {
+        "app_id": "63340c27db978c79919b9684",
+        "name": "Compute EOG artifact SSP projectors",
+        "purpose": "topomap of the EOG projectors (eog_projectors.png) and EOG-evoked joint plots (eog_*.png)"
+      },
+      {
+        "app_id": "644884a9d391caf6efd69605",
+        "name": "Add montage",
+        "purpose": "montage plot"
+      },
+      {
+        "app_id": "62b1c272ab3e66978065736f",
+        "name": "app-artifact-amplitude",
+        "purpose": "drop-log plot showing why epochs were rejected"
+      },
+      {
+        "app_id": "62ab109aab3e669780634426",
+        "name": "app-decoding-full-epochs",
+        "purpose": "box plot (PNG) of cross-validation ROC AUC scores"
+      },
+      {
+        "app_id": "633449badb978c79919ced98",
+        "name": "app-ICA-plot",
+        "purpose": "ica.png with the component topographies"
+      },
+      {
+        "app_id": "63358117db978c7991a302cb",
+        "name": "app-selecting-ICA-components-manually",
+        "purpose": "plot of the ICA component topographies (ica.png)"
+      },
+      {
+        "app_id": "63341bd2db978c79919bff74",
+        "name": "Apply SSP projectors",
+        "purpose": "joint plot (PNG) of the projectors and the ECG-evoked response"
+      },
+      {
+        "app_id": "61b35c3952911e175a209747",
+        "name": "Average channels",
+        "purpose": "plot of the averaged PSD with its standard deviation (avg_channels.png)"
+      },
+      {
+        "app_id": "6a594cfc13254aef69af404a",
+        "name": "Average ERPs",
+        "purpose": "ERP joint plots per condition"
+      },
+      {
+        "app_id": "63340316db978c79919b4c98",
+        "name": "Compute ECG artifact SSP projectors",
+        "purpose": "topomap of the ECG projectors and ECG-evoked joint plots (PNG)"
+      },
+      {
+        "app_id": "668ba30cf61fb6c31d7970b2",
+        "name": "Compute ECG artifact SSP projectors - epoched data",
+        "purpose": "topographic maps of the ECG projectors and joint plots of the average ECG artifact"
+      },
+      {
+        "app_id": "66a0d6faf61fb6c31d8bb223",
+        "name": "Coregistration MRI with MEG",
+        "purpose": "plot of the coregistration"
+      },
+      {
+        "app_id": "6a9aab920efc94c8a6bb8977",
+        "name": "Filter cHPI",
+        "purpose": "power spectral density plots before and after filtering"
+      },
+      {
+        "app_id": "642dc7d173d2685502ec4d5f",
+        "name": "Filter data",
+        "purpose": "filter frequency-response plot (filter_response.png) and PSD of the filtered data"
+      },
+      {
+        "app_id": "642e6a3e73d2685502ee851e",
+        "name": "Filter data",
+        "purpose": "frequency-response plot (PNG) of the applied filter"
+      },
+      {
+        "app_id": "66d58968774d6f044db9c7f1",
+        "name": "Inverse operator",
+        "purpose": "figures of the source time course"
+      },
+      {
+        "app_id": "616e8787fc8eb9ab81ff9105",
+        "name": "MNE - Autoreject",
+        "purpose": "figures from MNE - Autoreject"
+      },
+      {
+        "app_id": "66d84258774d6f044dbeff91",
+        "name": "Morph  to average brain",
+        "purpose": "plot of the morphed source estimate"
+      },
+      {
+        "app_id": "66bb2db3774d6f044da6e9ca",
+        "name": "Noise Covariance Matrix for MEEG",
+        "purpose": "covariance figure (may be empty)"
+      },
+      {
+        "app_id": "616e9266fc8eb95c38ff9532",
+        "name": "Plot bands topomap",
+        "purpose": "PNG topomaps of band power for gradiometers and magnetometers"
+      },
+      {
+        "app_id": "5e922401300b4e122081c882",
+        "name": "Plot response function",
+        "purpose": "A png of the response function mapped to a sphere"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "overlay plot of the signal before and after ICA application"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "plot_overlay.png comparing the data before and after removing the components"
+      },
+      {
+        "app_id": "63344389db978c79919cbb82",
+        "name": "Setup and fit ICA",
+        "purpose": "topographic plot of the first ICA components and property plots of selected components"
+      }
+    ]
+  }
+}

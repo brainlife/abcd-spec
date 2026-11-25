@@ -1,0 +1,208 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "tractography.trk",
+            "file_id": "track"
+          },
+          {
+            "bids_part": "tractography.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no tractography suffix; the export map uses a proposed (BEP) derivative suffix.",
+        "suffix": "tractography",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5b956f6cd7b3f1e24e9121ce",
+    "desc": "Tractogram as a TrackVis .trk file (1000-byte header with reference volume geometry, then streamlines).",
+    "name": "neuro/track/trk",
+    "original": {
+      "desc": "TrackVis (.trk). Track file is one single binary file, with the first 1000 bytes as the header and the rest as the body.",
+      "file_descs": {
+        "track": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Input to DIPY tools such as RecoBundles, BUAN profiles and streamline registration. Conversion to .tck or TinyTrack for MRtrix and DSI Studio Apps.\n\n**Not for:** Apps expecting MRtrix .tck without conversion. Assuming the header space matches another image without checking its affine.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 9 Apps, output of 13 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trk.json"
+  },
+  "files": [
+    {
+      "desc": "TrackVis .trk streamline file.",
+      "filename": "track.trk",
+      "id": "track",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
+    "sharing_cautions": [
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
+    ],
+    "tier_conditions": [
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "60a8274222b42a39e77140e5",
+        "name": "[WIP] Create animation from trk",
+        "purpose": "animation frames of .trk streamlines (work in progress)"
+      },
+      {
+        "app_id": "60e605644cb704633c072687",
+        "name": "BUAN Bundle Profiles",
+        "purpose": "BUAN bundle profiles of an anatomical measure"
+      },
+      {
+        "app_id": "5b9940206e02fb0028e11626",
+        "name": "Convert trk to tck",
+        "purpose": "convert .trk to .tck"
+      },
+      {
+        "app_id": "5f6a7c2bcfa3656568c9d1b4",
+        "name": "dsi-studio-trk2tt",
+        "purpose": "convert .trk to DSI Studio TinyTrack"
+      },
+      {
+        "app_id": "5bbfbbc71f00c80027644894",
+        "name": "RecoBundles",
+        "purpose": "DIPY RecoBundles bundle extraction"
+      },
+      {
+        "app_id": "6b00b45188e26e6de7e1b89a",
+        "name": "RecoBundles X",
+        "purpose": "RecoBundlesX bundle recognition"
+      },
+      {
+        "app_id": "5ea9b710f1745d6d4af842f2",
+        "name": "Streamlines Linear Registration (slr)",
+        "purpose": "streamline-based linear registration of .trk"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "deep-learning filtering of implausible streamlines"
+      },
+      {
+        "app_id": "6aa8586984691735460e523e",
+        "name": "trak2zarr-vectors",
+        "purpose": "convert a tractogram to Zarr Vectors"
+      }
+    ],
+    "intended_use": [
+      "Input to DIPY tools such as RecoBundles, BUAN profiles and streamline registration.",
+      "Conversion to .tck or TinyTrack for MRtrix and DSI Studio Apps."
+    ],
+    "not_suitable_for": [
+      "Apps expecting MRtrix .tck without conversion.",
+      "Assuming the header space matches another image without checking its affine."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TractoFlow preprocessing and PFT tractography"
+      },
+      {
+        "app_id": "5c0ab6e6f9b4a2002efc1618",
+        "name": "Convert tck to trk in DWI space",
+        "purpose": "convert .tck to .trk with DWI reference"
+      },
+      {
+        "app_id": "5c0e7f30f9b4a2002efc16ab",
+        "name": "Convert tck to trk in T1 space",
+        "purpose": "convert .tck to .trk with T1w reference"
+      },
+      {
+        "app_id": "5d89980e9842202a887ec261",
+        "name": "Convert wmc to trk",
+        "purpose": "convert WMC and tractogram to one .trk"
+      },
+      {
+        "app_id": "5f6a7bd0cfa3655296c9d143",
+        "name": "dsi-studio-tt2trk",
+        "purpose": "convert DSI Studio TinyTrack to .trk"
+      },
+      {
+        "app_id": "5ea9b710f1745d6d4af842f2",
+        "name": "Streamlines Linear Registration (slr)",
+        "purpose": "streamline-based linear registration of .trk"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "convert .tck to .trk"
+      },
+      {
+        "app_id": "5ea7dcbbf1745d2293f80794",
+        "name": "Tracking using Closest Peaks algorithm",
+        "purpose": "DIPY closest-peaks tracking"
+      },
+      {
+        "app_id": "5b21774b16fe38002748e5ef",
+        "name": "Tracking using Deterministic algorithm",
+        "purpose": "DIPY deterministic tracking"
+      },
+      {
+        "app_id": "5ea7dc4ef1745d4963f80739",
+        "name": "Tracking using EuDX algorithm",
+        "purpose": "DIPY EuDX tracking"
+      },
+      {
+        "app_id": "5ea7d53bf1745d82a5f80509",
+        "name": "Tracking using Particle Filtering (PFT)",
+        "purpose": "DIPY particle filtering tracking"
+      },
+      {
+        "app_id": "5ea7dbebf1745d70baf80678",
+        "name": "Tracking using Probabilistic algorithm",
+        "purpose": "DIPY probabilistic tracking"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "deep-learning filtering of implausible streamlines"
+      }
+    ]
+  }
+}

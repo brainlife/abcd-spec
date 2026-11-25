@@ -1,0 +1,183 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no connectivity-network suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5ed0352de3f453b13b267dae",
+    "desc": "Network (nodes, edges, metadata) in gzipped JSON Graph Format v2, e.g. a structural or functional connectome; replaces conmat.",
+    "name": "generic/network",
+    "original": {
+      "desc": "Generic network data structure containing nodes and edges with various metadata using JGF v2 format. This datatype will replace the existing \"conmat\" datatype eventually.",
+      "file_descs": {
+        "network": ""
+      },
+      "readme": "This datatype uses gzipped JSON structured in \"v2 JSON graph format\" (https://github.com/jsongraph/json-graph-specification) used by companies such as BioDati, ADSWorks, etc.\n\nHere is an example JSON structure\n\n```json\n{\n  \"graph\": {\n    \"directed\": false,\n    \"type\": \"graph type\",\n    \"label\": \"graph label\",\n    \"metadata\": {\n      \"user-defined\": \"values\"\n    },\n    \"nodes\": {\n      \"0\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(0)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      },\n      \"1\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(1)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    },\n    \"edges\": [\n      {\n        \"source\": \"0\",\n        \"relation\": \"edge relationship\",\n        \"target\": \"1\",\n        \"directed\": false,\n        \"label\": \"edge label\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    ]\n  }\n}\n\n```\n\n# Notes\n\nAlthough JGF allow for multiple graphs object by storing an array of objects under \"graph\" key, we ask that we only store one graph for this json as not all Apps are designed to handle multiple graphs. On the other hand, all Apps that uses this datatype should check to make sure that the object under \"graph\" key is no an array.\n"
+    },
+    "readme": "This datatype uses gzipped JSON structured in \"v2 JSON graph format\" (https://github.com/jsongraph/json-graph-specification) used by companies such as BioDati, ADSWorks, etc.\n\nHere is an example JSON structure\n\n```json\n{\n  \"graph\": {\n    \"directed\": false,\n    \"type\": \"graph type\",\n    \"label\": \"graph label\",\n    \"metadata\": {\n      \"user-defined\": \"values\"\n    },\n    \"nodes\": {\n      \"0\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(0)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      },\n      \"1\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(1)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    },\n    \"edges\": [\n      {\n        \"source\": \"0\",\n        \"relation\": \"edge relationship\",\n        \"target\": \"1\",\n        \"directed\": false,\n        \"label\": \"edge label\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    ]\n  }\n}\n\n```\n\n# Notes\n\nAlthough JGF allow for multiple graphs object by storing an array of objects under \"graph\" key, we ask that we only store one graph for this json as not all Apps are designed to handle multiple graphs. On the other hand, all Apps that uses this datatype should check to make sure that the object under \"graph\" key is no an array.\n\n**Sharing:** Tier 4 (functionally revealing derivative) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.network.json"
+  },
+  "files": [
+    {
+      "desc": "Gzipped JSON Graph Format v2 file with one or more networks.",
+      "filename": "network.json.gz",
+      "id": "network",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 4,
+    "human_neurodata": "depends",
+    "identifying_risks": [
+      "Individual connectomes can re-identify a participant across datasets."
+    ],
+    "information_kinds": [
+      "anatomy",
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level connectomes are functionally revealing derivatives (connectome fingerprints).",
+    "sharing_cautions": [
+      "Share participant-level connectomes only under controlled access."
+    ],
+    "tier_conditions": [
+      "Tier 1 for group-average or non-human networks.",
+      "Tier 4 for a participant's connectome, which can act as a fingerprint."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/63028e6f19b13f0a0ee0a35c.json",
+      "catalog/apps/6197cbd45464ddc6f09a3a98.json",
+      "catalog/apps/64f8e0a6e4d2e9108d91cb87.json",
+      "catalog/apps/649f24c53a63cf17374a4595.json",
+      "catalog/apps/5e79cdc2dd840e9395e866a2.json",
+      "catalog/apps/5ea70853f1745db7d9f7b0dc.json",
+      "catalog/apps/5e4ad2fd1eafff0efcf9d011.json",
+      "catalog/apps/5e76ea90de643b5e7c2a9404.json",
+      "catalog/apps/5f718f9e6bbee362ba9adef2.json",
+      "catalog/apps/5e8ccbef952fef68c17b4095.json",
+      "catalog/apps/5f1fa182beafe9548f622a7e.json",
+      "catalog/apps/60b961b10ad40d58e1ca7fe7.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "63028e6f19b13f0a0ee0a35c",
+        "name": "Compute Network Backbone",
+        "purpose": "disparity-filter backbone extraction"
+      },
+      {
+        "app_id": "6197cbd45464ddc6f09a3a98",
+        "name": "ERGMs for Brain Networks",
+        "purpose": "ERGM model fitting"
+      },
+      {
+        "app_id": "64f8e0a6e4d2e9108d91cb87",
+        "name": "Extract connectivity matrices from network datatype",
+        "purpose": "export to CSV connectivity matrices"
+      },
+      {
+        "app_id": "649f24c53a63cf17374a4595",
+        "name": "Extract network statistics and connectivity matrices from network datatype",
+        "purpose": "export matrices and network statistics to CSV"
+      },
+      {
+        "app_id": "5e79cdc2dd840e9395e866a2",
+        "name": "Network Communities",
+        "purpose": "community detection"
+      },
+      {
+        "app_id": "5ea70853f1745db7d9f7b0dc",
+        "name": "Network Measurements",
+        "purpose": "network measures and null-model statistics"
+      },
+      {
+        "app_id": "5e4ad2fd1eafff0efcf9d011",
+        "name": "Network Null Model",
+        "purpose": "null-model generation"
+      },
+      {
+        "app_id": "5e76ea90de643b5e7c2a9404",
+        "name": "Network Preprocess",
+        "purpose": "edge thresholding and filtering"
+      },
+      {
+        "app_id": "5f718f9e6bbee362ba9adef2",
+        "name": "Network Report",
+        "purpose": "HTML network report"
+      },
+      {
+        "app_id": "5e8ccbef952fef68c17b4095",
+        "name": "Network Visualization",
+        "purpose": "2D network visualisation"
+      }
+    ],
+    "intended_use": [
+      "Graph analyses: measures, communities, null models, backbones, reports."
+    ],
+    "not_suitable_for": [
+      "Comparing networks built with different parcellations or edge weights without harmonising them."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "63028e6f19b13f0a0ee0a35c",
+        "name": "Compute Network Backbone",
+        "purpose": "backbone network"
+      },
+      {
+        "app_id": "5f1fa182beafe9548f622a7e",
+        "name": "Conmat to network",
+        "purpose": "conversion from conmat"
+      },
+      {
+        "app_id": "5e79cdc2dd840e9395e866a2",
+        "name": "Network Communities",
+        "purpose": "network annotated with communities"
+      },
+      {
+        "app_id": "5ea70853f1745db7d9f7b0dc",
+        "name": "Network Measurements",
+        "purpose": "network annotated with measures"
+      },
+      {
+        "app_id": "5e4ad2fd1eafff0efcf9d011",
+        "name": "Network Null Model",
+        "purpose": "null-model network ensemble"
+      },
+      {
+        "app_id": "5e76ea90de643b5e7c2a9404",
+        "name": "Network Preprocess",
+        "purpose": "preprocessed network"
+      },
+      {
+        "app_id": "60b961b10ad40d58e1ca7fe7",
+        "name": "Time series to network",
+        "purpose": "connectivity from regional time series"
+      }
+    ]
+  }
+}

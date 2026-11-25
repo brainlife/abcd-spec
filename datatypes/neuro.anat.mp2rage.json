@@ -1,0 +1,286 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "flip",
+          "inversion",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "inv-1_part-mag_MP2RAGE.nii.gz",
+            "file_id": "mag_inv1"
+          },
+          {
+            "bids_part": "inv-1_part-mag_MP2RAGE.json",
+            "file_id": "mag_inv1_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "inv-1_part-phase_MP2RAGE.nii.gz",
+            "file_id": "phase_inv1"
+          },
+          {
+            "bids_part": "inv-1_part-phase_MP2RAGE.json",
+            "file_id": "phase_inv1_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "inv-2_part-mag_MP2RAGE.nii.gz",
+            "file_id": "mag_inv2"
+          },
+          {
+            "bids_part": "inv-2_part-mag_MP2RAGE.json",
+            "file_id": "mag_inv2_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "inv-2_part-phase_MP2RAGE.nii.gz",
+            "file_id": "phase_inv2"
+          },
+          {
+            "bids_part": "inv-2_part-phase_MP2RAGE.json",
+            "file_id": "phase_inv2_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "One object bundles the inv/part file collection plus the UNIT1 image.",
+        "suffix": "MP2RAGE",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "UNIT1.nii.gz",
+            "file_id": "unit1"
+          },
+          {
+            "bids_part": "UNIT1.json",
+            "file_id": "unit1_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "UNIT1",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "60634f0de4a8347569337f97",
+    "desc": "MP2RAGE acquisition (NIfTI): magnitude and phase of both inversions, optional UNI image, with JSON sidecars. Experimental.",
+    "name": "neuro/anat/mp2rage",
+    "original": {
+      "desc": "(experimental) tentative data format for MP2RAGE in brainlife. Modeling after https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#inputs-are-file-collections",
+      "file_descs": {
+        "mag_inv1": "",
+        "mag_inv1_json": "",
+        "mag_inv2": "",
+        "mag_inv2_json": "",
+        "phase_inv1": "",
+        "phase_inv1_json": "",
+        "phase_inv2": "",
+        "phase_inv2_json": "",
+        "unit1": "",
+        "unit1_json": "(stored in bids derivatives)"
+      },
+      "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it.. "
+    },
+    "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it..\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.mp2rage.json"
+  },
+  "files": [
+    {
+      "desc": "Magnitude image of the first inversion.",
+      "filename": "mag.inv1.nii.gz",
+      "id": "mag_inv1",
+      "required": true
+    },
+    {
+      "desc": "Phase image of the first inversion.",
+      "filename": "phase.inv1.nii.gz",
+      "id": "phase_inv1",
+      "required": false
+    },
+    {
+      "desc": "Magnitude image of the second inversion.",
+      "filename": "mag.inv2.nii.gz",
+      "id": "mag_inv2",
+      "required": true
+    },
+    {
+      "desc": "Phase image of the second inversion.",
+      "filename": "phase.inv2.nii.gz",
+      "id": "phase_inv2",
+      "required": false
+    },
+    {
+      "desc": "Uniform (UNI) T1-weighted image combined from both inversions.",
+      "filename": "unit1.nii.gz",
+      "id": "unit1",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the first-inversion magnitude image.",
+      "filename": "mag.inv1.json",
+      "id": "mag_inv1_json",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the first-inversion phase image.",
+      "filename": "phase.inv1.json",
+      "id": "phase_inv1_json",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the second-inversion magnitude image.",
+      "filename": "mag.inv2.json",
+      "id": "mag_inv2_json",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the second-inversion phase image.",
+      "filename": "phase.inv2.json",
+      "id": "phase_inv2_json",
+      "required": false
+    },
+    {
+      "desc": "(stored in bids derivatives)",
+      "filename": "unit1.json",
+      "id": "unit1_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Face is recognisable in non-defaced images",
+      "JSON metadata may hold acquisition dates, institution or device serials"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: recognisable identifying anatomy.",
+    "sharing_cautions": [
+      "Deface before sharing outside a controlled project",
+      "Strip acquisition dates and device identifiers from metadata before sharing"
+    ],
+    "tier_conditions": [
+      "Tier 2 once defaced and header-scrubbed"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "60832a3789df43532e6dbb7b",
+        "name": "Align mp2rage to ACPC Plane (HCP-based)",
+        "purpose": "aligns MP2RAGE images to the ACPC plane"
+      },
+      {
+        "app_id": "6081c1d389df434ba96922ae",
+        "name": "Align mp2rage volumes to T1 using FSL Flirt",
+        "purpose": "aligns MP2RAGE volumes to a T1-weighted image"
+      },
+      {
+        "app_id": "608b188b89df43179075b628",
+        "name": "Compute T1 and R1 maps from MP2RAGE",
+        "purpose": "estimates quantitative T1 and R1 maps from a denoised Siemens MP2RAGE acquisition"
+      },
+      {
+        "app_id": "607f1682932bd76bbbfdffda",
+        "name": "Denoise MP2RAGE UNI",
+        "purpose": "denoises the UNI image of a Siemens MP2RAGE acquisition by robust combination"
+      },
+      {
+        "app_id": "6083329689df4317546dd88a",
+        "name": "FSL Anat (mp2rage)",
+        "purpose": "runs FSL fsl_anat anatomical preprocessing on MP2RAGE images"
+      }
+    ],
+    "intended_use": [
+      "UNI denoising and T1/R1 mapping (needs sidecars with sequence parameters).",
+      "ACPC or T1w alignment of all MP2RAGE volumes together."
+    ],
+    "not_suitable_for": [
+      "T1/R1 mapping when sidecars lack MagneticFieldStrength, RepetitionTime or inversion times.",
+      "Public sharing before defacing."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "60832a3789df43532e6dbb7b",
+        "name": "Align mp2rage to ACPC Plane (HCP-based)",
+        "purpose": "aligns MP2RAGE images to the ACPC plane"
+      },
+      {
+        "app_id": "6081c1d389df434ba96922ae",
+        "name": "Align mp2rage volumes to T1 using FSL Flirt",
+        "purpose": "aligns MP2RAGE volumes to a T1-weighted image"
+      },
+      {
+        "app_id": "607f1682932bd76bbbfdffda",
+        "name": "Denoise MP2RAGE UNI",
+        "purpose": "denoises the UNI image of a Siemens MP2RAGE acquisition by robust combination"
+      },
+      {
+        "app_id": "6083329689df4317546dd88a",
+        "name": "FSL Anat (mp2rage)",
+        "purpose": "runs FSL fsl_anat anatomical preprocessing on MP2RAGE images"
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no FreeSurfer longitudinal layout.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "59bbfadd6b956e1c2ae89ef3",
+    "desc": "FreeSurfer longitudinal base: the within-subject template subject directory plus the mri/ files of each timepoint used to build it.",
+    "name": "neuro/freesurfer/longitudinal-template",
+    "original": {
+      "desc": "Freesurfer longitudinal base template and mri/ files for each timepoints used to generate the template ",
+      "file_descs": {
+        "template": "",
+        "timepoints": ""
+      },
+      "readme": "Run freesurfer "
+    },
+    "readme": "Run freesurfer\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.freesurfer.longitudinal-template.json"
+  },
+  "files": [
+    {
+      "desc": "recon-all -base subject directory (within-subject template).",
+      "dirname": "template",
+      "id": "template",
+      "required": true
+    },
+    {
+      "desc": "mri/ files of each cross-sectional timepoint used for the template.",
+      "dirname": "timepoints",
+      "id": "timepoints",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Template and timepoint mri/ volumes keep the face of the input T1w"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: contains recognisable facial anatomy from the input T1w images.",
+    "sharing_cautions": [
+      "Deface or strip whole-head volumes before sharing"
+    ],
+    "tier_conditions": [
+      "Tier 2 when inputs were defaced, or after removing whole-head volumes"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61e1a03433cb3deb499043ba",
+        "name": "Freesurfer 7.1.1 Longitudinal (Step 2/2)",
+        "purpose": "runs FreeSurfer 7.1.1 recon-all -long on one timepoint against the longitudinal base template from Step 1/2"
+      },
+      {
+        "app_id": "622bd8be5d8ab5d5f034854a",
+        "name": "Freesurfer Longitudinal Statistics",
+        "purpose": "computes longitudinal cortical change"
+      }
+    ],
+    "intended_use": [
+      "Step 2 of FreeSurfer longitudinal processing and longitudinal statistics."
+    ],
+    "not_suitable_for": [
+      "Cross-sectional analysis; use the per-timepoint neuro/freesurfer outputs."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "61e195b233cb3deb499027b4",
+        "name": "Freesurfer 7.1.1 Longitudinal (Step1/2)",
+        "purpose": "builds a FreeSurfer 7.1.1 longitudinal base"
+      }
+    ]
+  }
+}

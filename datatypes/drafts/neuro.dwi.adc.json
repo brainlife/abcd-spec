@@ -1,0 +1,135 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [
+          "direction",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "ADC.nii.gz",
+            "file_id": "nii_gz"
+          },
+          {
+            "bids_part": "ADC.nii",
+            "file_id": "nii"
+          },
+          {
+            "bids_part": "ADC.ome.zarr",
+            "file_id": "ome_zarr"
+          },
+          {
+            "bids_part": "ADC.json",
+            "file_id": "json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "ADC",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "desc": "TODO",
+    "name": "neuro/dwi/adc",
+    "original": {
+      "desc": "",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "BIDS ADC.nii.gz",
+      "ext": ".nii.gz",
+      "filename": "ADC.nii.gz",
+      "id": "nii_gz",
+      "required": false
+    },
+    {
+      "desc": "BIDS ADC.nii",
+      "ext": ".nii",
+      "filename": "ADC.nii",
+      "id": "nii",
+      "required": false
+    },
+    {
+      "desc": "BIDS ADC.ome.zarr/",
+      "dirname": "ADC.ome.zarr",
+      "ext": ".ome.zarr",
+      "id": "ome_zarr",
+      "required": false
+    },
+    {
+      "desc": "BIDS ADC.json",
+      "ext": ".json",
+      "filename": "ADC.json",
+      "id": "json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "ezbids aimport/tools/draft_datatypes.py, imported by tools/bldt.py",
+    "sources": [
+      "ezbids aimport datatype_drafts/neuro.dwi.adc.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

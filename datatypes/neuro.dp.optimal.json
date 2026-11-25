@@ -1,0 +1,92 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Unclear MATLAB fitting result with no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5afe38b15858d874a48650a6",
+    "desc": "Unclear: two MATLAB files (fe_optimal.mat, info.mat) from an 'optimal fitting by DP', probably of a LiFE model; no App uses it.",
+    "name": "neuro/dp/optimal",
+    "original": {
+      "desc": "Optimal Fitting by DP",
+      "file_descs": {
+        "fe_optimal": "result of optimal fitting by dp",
+        "info": "fitting info"
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Keeping legacy optimal-fit results; no current App reads or writes this datatype.\n\n**Not for:** New work until the owner documents what the fit is; owner review needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dp.optimal.json"
+  },
+  "files": [
+    {
+      "desc": "result of optimal fitting by dp",
+      "ext": ".mat",
+      "filename": "fe_optimal.mat",
+      "id": "fe_optimal",
+      "required": true
+    },
+    {
+      "desc": "fitting info",
+      "ext": ".mat",
+      "filename": "info.mat",
+      "id": "info",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Content undocumented; treat as participant-level"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6 assumed: likely a participant-level model fit; uncertainty noted.",
+    "sharing_cautions": [
+      "Do not share until the content is documented"
+    ],
+    "tier_conditions": [
+      "Re-assess once the owner documents the content"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml",
+      "https://brainlife.io/api/warehouse/datatype?find={\"name\":\"neuro/dp/optimal\"}"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Keeping legacy optimal-fit results; no current App reads or writes this datatype."
+    ],
+    "not_suitable_for": [
+      "New work until the owner documents what the fit is; owner review needed."
+    ],
+    "outputs_of": []
+  }
+}

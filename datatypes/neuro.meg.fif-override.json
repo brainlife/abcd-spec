@@ -1,0 +1,240 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "meg",
+        "entities": [
+          "processing",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".json",
+          ".tsv"
+        ],
+        "files": [
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "headshape.pos",
+            "file_id": "headshape"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "Bundles replacement sidecars of several suffixes; info.txt and destination.fif have no BIDS counterpart.",
+        "suffix": "channels",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "608195ce89df435fd26893c1",
+    "desc": "Sidecar-only companion to neuro/meg/fif: replacement channels.tsv, head positions, destination, events.tsv and info.txt from MEG Apps.",
+    "name": "neuro/meg/fif-override",
+    "original": {
+      "desc": "This datatype augments the original neuro/meg/fif data with various extra information, such as bad channels stored in channels.tsv, and bad epoch (TODO which file stores this?)",
+      "file_descs": {
+        "channels": "channels.tsv containing any columns that were not present on the original channels.tsv. For example, \"status\" column could contain good/bad values to indicate that the channel should be removed from the further processing. Please see https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv for full descriptions.",
+        "destination": "",
+        "events": "",
+        "events_json": "",
+        "headshape": "",
+        "info": ""
+      },
+      "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n"
+    },
+    "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif-override.json"
+  },
+  "files": [
+    {
+      "desc": "BIDS channels.tsv with updated status (e.g. bad channels found by an App).",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "required": false
+    },
+    {
+      "desc": "Time-varying head positions (.pos) computed from cHPI.",
+      "filename": "headshape.pos",
+      "id": "headshape",
+      "required": false
+    },
+    {
+      "desc": "Mean head-position transform (destination.fif) to realign runs.",
+      "filename": "destination.fif",
+      "id": "destination",
+      "required": false
+    },
+    {
+      "desc": "events.tsv from event detection; some Apps store bad-epoch or ICA indices here instead.",
+      "filename": "events.tsv",
+      "id": "events",
+      "required": false
+    },
+    {
+      "desc": "Descriptions of the events.tsv columns.",
+      "filename": "events.json",
+      "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "Text dump (info.txt) of MNE measurement info, for inspection.",
+      "filename": "info.txt",
+      "id": "info",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "info.txt can print subject_info, measurement date and head digitisation."
+    ],
+    "information_kinds": [
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level sidecar metadata linkable through a participant code.",
+    "sharing_cautions": [
+      "Check info.txt before sharing; drop it if it shows identity fields."
+    ],
+    "tier_conditions": [
+      "Tier 3 if info.txt shows subject_info (name, birth date) or the measurement date."
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (meg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "69b2af986bb1f71b25b95b29",
+        "name": "app-bad-channel-temp",
+        "purpose": "reads channels.tsv status to mark bad channels"
+      },
+      {
+        "app_id": "602bc6a33a001123014c442a",
+        "name": "Apply Maxwell filtering",
+        "purpose": "reads override sidecars; writes updated channels.tsv"
+      },
+      {
+        "app_id": "60700d80c7f80a2c9095701f",
+        "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
+        "purpose": "reads destination; writes headshape.pos head positions"
+      },
+      {
+        "app_id": "6065cee9d040085be2b0a9b7",
+        "name": "Compute mean head position across MEG runs",
+        "purpose": "reads headshape.pos; writes destination.fif"
+      },
+      {
+        "app_id": "605e0a9616c60638446315ee",
+        "name": "Detect bad channels using Maxwell Filtering",
+        "purpose": "reads head positions; writes channels.tsv with bad channels"
+      },
+      {
+        "app_id": "64f993aee4d2e9108d92bb8c",
+        "name": "Drop bad epochs",
+        "purpose": "reads a bad-epoch index list stored in events.tsv"
+      },
+      {
+        "app_id": "625d3130cc8ab2b339ea2692",
+        "name": "Epochs from events",
+        "purpose": "reads an optional events.tsv"
+      },
+      {
+        "app_id": "64075b6fc538c16a826b67be",
+        "name": "Mark bad data",
+        "purpose": "reads channels.tsv status to mark bad channels"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "reads a list of ICA components to exclude"
+      }
+    ],
+    "intended_use": [
+      "Passing bad channels, head positions and events between MEG Apps without rewriting the FIF."
+    ],
+    "not_suitable_for": [
+      "Standalone data: it only makes sense next to the recording it describes.",
+      "BIDS export of events.tsv when it holds index lists instead of events."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "602bc6a33a001123014c442a",
+        "name": "Apply Maxwell filtering",
+        "purpose": "reads override sidecars; writes updated channels.tsv"
+      },
+      {
+        "app_id": "60700d80c7f80a2c9095701f",
+        "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
+        "purpose": "reads destination; writes headshape.pos head positions"
+      },
+      {
+        "app_id": "6065cee9d040085be2b0a9b7",
+        "name": "Compute mean head position across MEG runs",
+        "purpose": "reads headshape.pos; writes destination.fif"
+      },
+      {
+        "app_id": "605e0a9616c60638446315ee",
+        "name": "Detect bad channels using Maxwell Filtering",
+        "purpose": "reads head positions; writes channels.tsv with bad channels"
+      },
+      {
+        "app_id": "632993fd71291bb27f9ab7c9",
+        "name": "Extract events from MEG/EEG raw data",
+        "purpose": "writes detected events as events.tsv"
+      },
+      {
+        "app_id": "65d6ed97eab7bb5c3ca1729e",
+        "name": "Read info",
+        "purpose": "writes info.txt dump of raw info"
+      },
+      {
+        "app_id": "65d8305ceab7bb5c3ca3875b",
+        "name": "Read info",
+        "purpose": "writes info.txt dump of epochs info"
+      },
+      {
+        "app_id": "65d830b7eab7bb5c3ca39327",
+        "name": "Read info",
+        "purpose": "writes info.txt dump of evoked info"
+      },
+      {
+        "app_id": "63f6067fc538c16a82408b5b",
+        "name": "Show events in file",
+        "purpose": "writes detected events as events.tsv"
+      }
+    ]
+  }
+}

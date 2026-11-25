@@ -1,0 +1,98 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS counterpart for DWI quality-control tables.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5f6bf981cfa36596f6ca7dd4",
+    "desc": "DSI Studio DWI quality-control table (TSV): image dimension, resolution, DWI count, max b-value, neighbouring-DWI correlation, bad slices.",
+    "name": "dsistudio/tractmeasure",
+    "original": {
+      "desc": "DSIStudio tractmeasure in .tsv format",
+      "file_descs": {
+        "tractmeasure": ""
+      },
+      "readme": "```\nFileName\tImage dimension\tResolution\tDWI count\tMax b-value\tNeighboring DWI correlation\t# Bad Slices\ndwi\t96 96 63 \t2.2917 2.2917 2.3 \t50\t1001.005981\t0.900497\t0\n\n```"
+    },
+    "readme": "```\nFileName\tImage dimension\tResolution\tDWI count\tMax b-value\tNeighboring DWI correlation\t# Bad Slices\ndwi\t96 96 63 \t2.2917 2.2917 2.3 \t50\t1001.005981\t0.900497\t0\n\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/dsistudio.tractmeasure.json"
+  },
+  "files": [
+    {
+      "desc": "TSV of DSI Studio DWI QC values.",
+      "filename": "tractmeasure.tsv",
+      "id": "tractmeasure",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Rows or file names may carry subject and session codes"
+    ],
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 4: participant-level data-quality measures without direct identifiers; they reveal little about the person.",
+    "sharing_cautions": [
+      "Use coded subject IDs and drop dates"
+    ],
+    "tier_conditions": [
+      "Tier 1 once reduced to group statistics with no participant rows"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5f6ce9c96bbee3b9469a3127",
+        "name": "Compile qc data from tractmeasures (tsv) data",
+        "purpose": "compile DSI Studio QC tables across subjects"
+      }
+    ],
+    "intended_use": [
+      "DWI quality control and compiling QC across subjects."
+    ],
+    "not_suitable_for": [
+      "Tract analyses; despite the name it holds DWI QC, not tract measures."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5f6ce9c96bbee3b9469a3127",
+        "name": "Compile qc data from tractmeasures (tsv) data",
+        "purpose": "compile DSI Studio QC tables across subjects"
+      },
+      {
+        "app_id": "5f6b8de3cfa3655f0bca477d",
+        "name": "dsi-studio-qc",
+        "purpose": "DSI Studio DWI quality control"
+      }
+    ]
+  }
+}

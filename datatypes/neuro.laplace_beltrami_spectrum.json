@@ -1,0 +1,100 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no standard for shape spectra.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "59399b95436ee50ffdc08381",
+    "desc": "Laplace-Beltrami spectrum of 3D surface meshes: eigenvalues per surface (spectrum.json), optionally eigenvectors (eigenvectors.mat).",
+    "name": "neuro/laplace_beltrami_spectrum",
+    "original": {
+      "desc": "Output from Laplace Beltrami Spectrum App",
+      "file_descs": {
+        "eigenvectors": "",
+        "spectrum": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Shape analysis and comparison of tract or structure surfaces.\n\n**Not for:** Comparing spectra from meshes with very different resolution or decimation.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.laplace_beltrami_spectrum.json"
+  },
+  "files": [
+    {
+      "desc": "JSON of Laplace-Beltrami eigenvalues per surface.",
+      "filename": "spectrum.json",
+      "id": "spectrum",
+      "required": true
+    },
+    {
+      "desc": "MATLAB file of eigenvectors per surface (optional).",
+      "filename": "eigenvectors.mat",
+      "id": "eigenvectors",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Shape spectra of brain structures can act as individual fingerprints"
+    ],
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
+    "sharing_cautions": [
+      "Do not release alongside identifiable data without review"
+    ],
+    "tier_conditions": [
+      "Tier 4 when spectra are used as shape fingerprints (e.g. BrainPrint) to identify individuals"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Shape analysis and comparison of tract or structure surfaces."
+    ],
+    "not_suitable_for": [
+      "Comparing spectra from meshes with very different resolution or decimation."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5a64d43c3a1b10004544482a",
+        "name": "Laplace Beltrami Spectrum: Eigenvalues and Eigenvectors",
+        "purpose": "computes the Laplace-Beltrami spectrum"
+      },
+      {
+        "app_id": "5a53b2be56e507002d1a9628",
+        "name": "Laplace Beltrami Spectrum: Eigenvalues Only",
+        "purpose": "computes the Laplace-Beltrami spectrum"
+      }
+    ]
+  }
+}

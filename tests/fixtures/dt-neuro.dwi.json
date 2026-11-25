@@ -1,0 +1,64 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": ["subject", "session", "acquisition", "direction", "run"],
+        "extensions": [".nii.gz", ".bval", ".bvec", ".json"],
+        "files": [
+          {"bids_part": "dwi.nii.gz", "file_id": "dwi"},
+          {"bids_part": "dwi.bvec", "file_id": "bvecs"},
+          {"bids_part": "dwi.bval", "file_id": "bvals"},
+          {"bids_part": "dwi.json", "file_id": "_meta_", "meta_fields": ["PhaseEncodingDirection", "TotalReadoutTime"], "sidecar": "meta"}
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "brainlife names the gradient files dwi.bvecs/dwi.bvals; BIDS uses .bvec/.bval.",
+        "suffix": "dwi",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "58c33c5fe13a50849b25879b",
+    "desc": "Diffusion-weighted MRI (NIfTI) with b-vectors and b-values.",
+    "name": "neuro/dwi",
+    "original": {
+      "desc": "Diffusion-weighted magnetic resonance data (dMRI), saved in NIfTI-1 format.",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {"desc": "4D diffusion-weighted image.", "filename": "dwi.nii.gz", "id": "dwi", "required": true},
+    {"desc": "Gradient directions, one column per volume.", "filename": "dwi.bvecs", "id": "bvecs", "required": true},
+    {"desc": "b-values, one per volume.", "filename": "dwi.bvals", "id": "bvals", "required": true},
+    {"desc": "Single-band reference for multi-band acquisitions.", "filename": "sbref.nii.gz", "id": "sbref", "required": false},
+    {"desc": "Sidecar of the single-band reference.", "filename": "sbref.json", "id": "sbref_json", "required": false}
+  ],
+  "governance": {
+    "default_tier": 2,
+    "human_neurodata": "yes",
+    "identifying_risks": ["Header fields can hold acquisition dates and scanner serial numbers."],
+    "information_kinds": ["anatomy"],
+    "rationale": "Participant-level MRI without a recognisable face (Tool 1, step 6).",
+    "sharing_cautions": ["Strip acquisition dates and device serials from metadata before public release."],
+    "tier_conditions": ["Tier 3 if header or metadata identifiers are kept."]
+  },
+  "provenance": {
+    "drafted_by": "test fixture",
+    "sources": ["GET /api/warehouse/datatype"],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [{"app_id": "5dd8b3b6d1a4ed12d2f8ab95", "name": "dMRI preprocessing", "purpose": "Denoise and correct distortions."}],
+    "intended_use": ["Tractography and microstructure modelling."],
+    "not_suitable_for": ["Analyses needing raw k-space data."],
+    "outputs_of": []
+  }
+}

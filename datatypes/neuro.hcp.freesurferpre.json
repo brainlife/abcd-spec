@@ -1,0 +1,82 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Pipeline output folder; no BIDS derivative layout.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5b3abb88d7b3f1e24e431321",
+    "desc": "HCP Pipelines PreFreeSurfer output folder. No registered App reads or writes it.",
+    "name": "neuro/hcp/freesurferpre",
+    "original": {
+      "desc": "HCP PreFS Output",
+      "file_descs": {
+        "hcp_freesurferpre": ""
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** Intermediate HCP structural preprocessing results.\n\n**Not for:** No registered App uses this datatype; owner review needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.freesurferpre.json"
+  },
+  "files": [
+    {
+      "desc": "Directory with HCP PreFreeSurfer outputs.",
+      "dirname": "output",
+      "id": "hcp_freesurferpre",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Includes whole-head T1w/T2w images with recognisable faces"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: recognisable identifying anatomy.",
+    "sharing_cautions": [
+      "Deface before sharing outside a controlled project"
+    ],
+    "tier_conditions": [
+      "Tier 2 once whole-head anatomical images are defaced or removed"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "Intermediate HCP structural preprocessing results."
+    ],
+    "not_suitable_for": [
+      "No registered App uses this datatype; owner review needed."
+    ],
+    "outputs_of": []
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "FLAIR.nii.gz",
+            "file_id": "flair"
+          },
+          {
+            "bids_part": "FLAIR.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "FLAIR",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5d9cf81c0eed545f51bf75df",
+    "desc": "FLAIR anatomical MRI volume (NIfTI): T2-weighted with CSF suppressed, sensitive to white matter lesions.",
+    "name": "neuro/anat/flair",
+    "original": {
+      "desc": "Fluid Attenuated Inversion Recovery (flair). The Flair sequence is similar to a T2-weighted image except that the TE and TR times are very long. By doing so, abnormalities remain bright but normal CSF fluid is attenuated and made dark. This sequence is very sensitive to pathology and makes the differentiation between CSF and an abnormality much easier.",
+      "file_descs": {
+        "flair": "The flair iamge"
+      },
+      "readme": ""
+    },
+    "readme": "**Use for:** White matter lesion segmentation (e.g. LST-AI) together with a T1w. Synthesis of an MP-RAGE-like T1w from clinical FLAIR (SynthSR).\n\n**Not for:** Cortical reconstruction or tissue segmentation that expects T1 contrast. Public sharing before defacing; lesions may reveal a diagnosis.\n\n**BIDS:** anat/FLAIR (equivalent)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 7 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.flair.json"
+  },
+  "files": [
+    {
+      "desc": "The flair image",
+      "filename": "flair.nii.gz",
+      "id": "flair",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 3,
+    "human_neurodata": "yes",
+    "identifying_risks": [
+      "Face is recognisable in non-defaced images",
+      "Lesions can reveal a diagnosis such as multiple sclerosis"
+    ],
+    "information_kinds": [
+      "anatomy",
+      "identity",
+      "health_status"
+    ],
+    "rationale": "Tool 1 step 5: recognisable identifying anatomy.",
+    "sharing_cautions": [
+      "Deface before sharing outside a controlled project",
+      "Check for rare conditions in small samples"
+    ],
+    "tier_conditions": [
+      "Tier 2 once defaced and header-scrubbed"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
+    ],
+    "todo": []
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6421c7b673d2685502d75f2e",
+        "name": "Apply mask to extract brain data - FLAIR",
+        "purpose": "applies an existing brain mask to a FLAIR image"
+      },
+      {
+        "app_id": "63e53625c538c16a82211861",
+        "name": "FSL Brain Extraction (BET) on FLAIR",
+        "purpose": "removes non-brain tissue from a FLAIR image"
+      },
+      {
+        "app_id": "6368285ffa262bbde2df0028",
+        "name": "FSL Reorient and Crop FLAIR",
+        "purpose": "reorients a FLAIR image to the standard orientation"
+      },
+      {
+        "app_id": "63daa6b4c538c16a820a6520",
+        "name": "Generate brain extracted image with SynthStrip (FLAIR)",
+        "purpose": "skull-strips a FLAIR image"
+      },
+      {
+        "app_id": "635ab24ffa262bbde2c74054",
+        "name": "Generate images of FLAIR",
+        "purpose": "generates a PNG of mid-axial, sagittal and coronal slices of a FLAIR image"
+      },
+      {
+        "app_id": "635c9132fa262bbde2cb9d70",
+        "name": "Generate synthetic MP-RAGE T1 image from clinical FLAIR data",
+        "purpose": "synthesises a 1 mm isotropic MP-RAGE-like T1-weighted image"
+      },
+      {
+        "app_id": "696072758df58ba7d1a1131d",
+        "name": "LST-AI",
+        "purpose": "segments multiple sclerosis white matter lesions from T1-weighted and FLAIR images"
+      }
+    ],
+    "intended_use": [
+      "White matter lesion segmentation (e.g. LST-AI) together with a T1w.",
+      "Synthesis of an MP-RAGE-like T1w from clinical FLAIR (SynthSR)."
+    ],
+    "not_suitable_for": [
+      "Cortical reconstruction or tissue segmentation that expects T1 contrast.",
+      "Public sharing before defacing; lesions may reveal a diagnosis."
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6421c7b673d2685502d75f2e",
+        "name": "Apply mask to extract brain data - FLAIR",
+        "purpose": "applies an existing brain mask to a FLAIR image"
+      },
+      {
+        "app_id": "63e53625c538c16a82211861",
+        "name": "FSL Brain Extraction (BET) on FLAIR",
+        "purpose": "removes non-brain tissue from a FLAIR image"
+      },
+      {
+        "app_id": "6368285ffa262bbde2df0028",
+        "name": "FSL Reorient and Crop FLAIR",
+        "purpose": "reorients a FLAIR image to the standard orientation"
+      },
+      {
+        "app_id": "63daa6b4c538c16a820a6520",
+        "name": "Generate brain extracted image with SynthStrip (FLAIR)",
+        "purpose": "skull-strips a FLAIR image"
+      }
+    ]
+  }
+}
