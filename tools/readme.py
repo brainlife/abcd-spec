@@ -65,7 +65,7 @@ def _facts(m):
     return ["| | |", "|---|---|"] + [f"| {icon} **{name}** | {value} |" for icon, name, value in rows] + [""]
 
 
-def render(m):
+def render(m, references=True):
     lines = [BEGIN, "", f"> **{_cell(m['summary'])}**", ""]
     if m.get("description") not in (None, UNKNOWN):
         lines += [_cell(m["description"]), ""]
@@ -95,7 +95,7 @@ def render(m):
                 desc += " Options: " + ", ".join(f"`{o['value']}`" for o in p["options"]) + "."
             lines.append(f"| `{p['id'].strip()}` | {p['type']} | {_value(p.get('default'))} | {desc.strip()} |")
         lines += ["", "</details>", ""]
-    if m.get("citations"):
+    if references and m.get("citations"):
         lines.append("📚 **References used by this App:**")
         for c in m["citations"]:
             text = _cell(c.get("text")) or ""

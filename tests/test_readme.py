@@ -81,3 +81,7 @@ def test_parameters_are_collapsible():
     block = readme.render(EXAMPLE)
     assert f"<summary><b>⚙️ Parameters</b> ({len(EXAMPLE['parameters'])})</summary>" in block
     assert block.index("<details>") < block.index("| `hires` |") < block.index("</details>")
+
+
+def test_references_can_be_left_out():
+    assert "10.1016/j.neuroimage.2012.01.021" not in readme.render(EXAMPLE, references=False)

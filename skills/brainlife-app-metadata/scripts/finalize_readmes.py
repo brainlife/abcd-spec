@@ -100,6 +100,23 @@ CITE_TIP = ("> [!TIP]\n> If you use this App in your work, please cite the App, 
             "brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.")
 
 
+def dedupe_citations(text):
+    """Keep the first bullet for each DOI in the Citing section."""
+    m = re.search(r"^## [^\n]*Cit[^\n]*\n(.*?)(?=^## |\Z)", text, re.M | re.S)
+    if not m:
+        return text
+    seen, out = set(), []
+    for line in m.group(1).splitlines(keepends=True):
+        d = re.search(r"doi\.org/(10\.[^)\s]+)", line) if line.lstrip().startswith("- ") else None
+        key = d.group(1).lower().rstrip(".") if d else None
+        if key and key in seen:
+            continue
+        if key:
+            seen.add(key)
+        out.append(line)
+    return text[:m.start(1)] + "".join(out) + text[m.end(1):]
+
+
 def visual(text):
     def icon(m):
         hashes, title = m.group(1), m.group(2).strip()
@@ -127,12 +144,17 @@ def build_one(item, src):
     pm = manifest(primary["manifest"])
     text = re.sub(r'<p align="center">\s*\n(?:\s*<a [^\n]*img\.shields\.io[^\n]*\n)+\s*</p>',
                   lambda _: header_badges(primary.get("doi")), text, count=1)
-    text = text.replace("<!-- BLOCK -->", readme.render(pm).rstrip("\n"))
+    text = text.replace("<!-- BLOCK -->", readme.render(pm, references=False).rstrip("\n"))
     app_cite = f"- {primary['name']}. brainlife.io App." + (
         f" [doi:{primary['doi']}](https://doi.org/{primary['doi']})" if primary.get("doi") else "")
-    cites = "\n".join([app_cite, *tool_citations(item, text), BL_CITES])
+    app_refs = [f"- {c.get('text', '').strip()} [doi:{c['doi']}](https://doi.org/{c['doi']})".replace("  ", " ")
+                if c.get("doi") else f"- {c.get('text', '').strip()}" for c in pm.get("citations", [])
+                if c.get("text") or c.get("doi")]
+    cites = "\n".join([app_cite, *app_refs, *tool_citations(item, text), BL_CITES])
     text = text.replace("<!-- BRAINLIFE-CITATIONS -->", cites).replace("<!-- FUNDING -->", FUNDING)
-    text = visual(text)
+    text = re.sub(r"\(?<?\b(?:franpest|pestilli|franco\.pestilli|fpestilli)@[A-Za-z0-9.]+\b>?\)?",
+                  "([@francopestilli](https://github.com/francopestilli))", text)
+    text = visual(dedupe_citations(text))
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text, cff(item, primary, text)
 
