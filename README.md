@@ -337,9 +337,7 @@ Apps in the `brainlife` org were written from their code; the rest are generated
 with `python tools/catalog.py <manifest-dir> catalog`.
 
 `schema/datatypes.json` is a snapshot of brainlife datatype names used for validation. The design
-is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowers/specs/2026-11-24-app-spec-v2-design.md);
-the skill that audits and backfills App metadata is in
-[`skills/brainlife-app-metadata`](skills/brainlife-app-metadata/SKILL.md).
+is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowers/specs/2026-11-24-app-spec-v2-design.md).
 
 ## 🧰 Misc.
 
