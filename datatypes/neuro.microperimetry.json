@@ -1,0 +1,78 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "604976b3ebfe45c4633ae3d2",
+    "desc": "TODO",
+    "name": "neuro/microperimetry",
+    "original": {
+      "desc": "Microperimetry or fundus-controlled perimetry provides an evaluation of visual function by testing the visual field with incorporated eye-tracking. [https://pubmed.ncbi.nlm.nih.gov/33022378/]. This app is optimised for use on binocular integrated data produced by  https://ocular.shinyapps.io/MAIA_binocular_field_app/",
+      "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
+    },
+    "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
+  },
+  "files": [
+    {
+      "desc": "A tab-separated values (TSV) file containing 4 columns (ID, x_deg, y_deg, and Threshold\") and sets of values. \n",
+      "filename": "microperimetry.tsv",
+      "id": "microperimetry",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "605b9143edebf0f4fdd2a7cc",
+        "name": "MAIA microperimetry analysis",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

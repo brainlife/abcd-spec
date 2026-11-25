@@ -6,6 +6,7 @@
     bldt.py draft --snapshot S --bids B --aimport A.json
                                        create or refresh datatypes/<slug>.json
     bldt.py import-drafts DIR --bids B convert ezbids aimport datatype drafts into datatypes/drafts/
+    bldt.py generate                   render readmes, rewrite schema/datatypes.json
     bldt.py diff [--only NAME]         what push would change on brainlife.io (read-only)
     bldt.py push [--only NAME] [--approve-size]
                                        write desc, readme, files and bids, with an undo log
@@ -27,6 +28,7 @@ import time
 import urllib.request
 
 import dtbids
+import dtreadme
 import dtrecord
 import dtsync
 
@@ -72,7 +74,7 @@ def _correspondences(name, live, index, rows):
     maps = (live.get("bids") or {}).get("maps") or []
     out = []
     for row in rows:
-        if row["brainlife"]["datatype"] != name or not row["bids"].get("suffix"):
+        if not row.get("brainlife") or row["brainlife"]["datatype"] != name or not row["bids"].get("suffix"):
             continue
         key = (row["bids"]["datatype"], row["bids"]["suffix"])
         bids = index.get(key, {"extensions": [], "entities": [], "level": "raw"})
@@ -179,9 +181,19 @@ def import_drafts(directory, bids_schema):
     return out
 
 
+def generate(records):
+    """Render each finished record's readme; return the schema/datatypes.json listing."""
+    for record in records.values():
+        if not record["provenance"]["todo"]:
+            record["brainlife"]["readme"] = dtreadme.render(record, dtsync._catalog_url(dtsync.CATALOG_URL, record))
+    return sorted(({"id": r["brainlife"]["_id"], "name": n} for n, r in records.items() if "_id" in r["brainlife"]),
+                  key=lambda d: d["name"])
+
+
 def _get_json(url):
-    with urllib.request.urlopen(url, timeout=60) as r:
-        return json.load(r)
+    req = urllib.request.Request(url, headers={"User-Agent": "brainlife-abcd-spec bldt.py"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read())
 
 
 def pull(api=API, out=ROOT / "snapshots"):
@@ -278,6 +290,7 @@ def main(argv=None):
         c.add_argument("--drafts", action="store_true", help="register reviewed drafts (POST) instead")
         c.add_argument("--admins", default="", help="comma-separated auth subs for new datatypes")
         c.add_argument("--approve-size", action="store_true")
+    sub.add_parser("generate")
     u = sub.add_parser("undo")
     u.add_argument("log")
     a = p.parse_args(argv)
@@ -321,6 +334,12 @@ def main(argv=None):
                 dtrecord.save(root / old.name, record)
                 old.unlink()
             print(f"undo log: {log}")
+    elif a.cmd == "generate":
+        records = dtrecord.load_all(root)
+        listing = generate(records)
+        _save_all(records, root)
+        (ROOT / "schema" / "datatypes.json").write_text(json.dumps(listing, indent=1) + "\n")
+        print(f"{len(listing)} datatypes listed, {len(records)} records")
     elif a.cmd == "undo":
         kept = dtsync.undo(a.log, Http())
         if kept:

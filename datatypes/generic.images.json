@@ -1,0 +1,265 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5967b799b09297d8d831709e",
+    "desc": "TODO",
+    "name": "generic/images",
+    "original": {
+      "desc": "Collection of various images with metadata",
+      "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype."
+    },
+    "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype."
+  },
+  "files": [
+    {
+      "desc": "It should look like\n\n{\n    \"images\": [\n        {\n            \"filename\": \"images/brainmask.svg\",\n            \"name\": \"brainmask\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/carpetplot.svg\",\n            \"name\": \"carpetplot\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/sampling_scheme.gif\",\n            \"name\": \"sampling_scheme\",\n            \"desc\": \"TODO\"\n        }\n    ]\n}",
+      "filename": "images.json",
+      "id": "images_json",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "dirname": "images",
+      "id": "images",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[1].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "62a20ab1ab3e6697805fc07f",
+        "name": "Average ERP (MNE)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65a9a68c4ce5ac2907f02c52",
+        "name": "First Level GLM Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6220e63e5d8ab5d5f01fb8c1",
+        "name": "Generate figures of white matter tracts overlaid on anatomical image",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e90d0b1952fef2bba7bc991",
+        "name": "Generate figures of whole-brain tractogram (tck)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9d30c6f1745d6b05f681b7",
+        "name": "Generate image of ODF",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fe00ea457aacde3b62f7704",
+        "name": "Generate images of data mapped to cortical surface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8e162f952fef6d527b6d09",
+        "name": "Generate images of DWI overlaid on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "604b9bbf38fe120d9bef80f2",
+        "name": "Generate images of fMRI overlaid on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9272ed3f18bacda81d973e",
+        "name": "Generate images of tissue type masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6109ecd3b991116939bee534",
+        "name": "Generate images of tract endpoints on cortical surface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69efefaf5e3b9b921dbc2456",
+        "name": "MRI Registration QC (FA maps)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69d978d404be87075a57b265",
+        "name": "MRI Registration QC (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f02b435e3b9b921dbcfb1f",
+        "name": "MRI Registration QC: Pairwise Group Comparison  (FA maps)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "596cdb1a88ae6f0021531d6a",
+        "name": "Plot 3D Surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a54f0b84f89380027a9a48d",
+        "name": "Plot Eigenfunctions",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b0614c6d85b030192ff6aae",
+        "name": "Reconstruct Surfaces from LB Eigenfunctions",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca2f0934e13335187cfbbd",
+        "name": "Retinotopic Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cb0c93f454d3c00353fa0d3",
+        "name": "ROC curve (deprecated)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cf00841059f7a0036ff383f",
+        "name": "TractSeg training",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

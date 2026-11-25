@@ -1,0 +1,107 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5f5fa310aff27a5569361cf3",
+    "desc": "TODO",
+    "name": "neuro/func/multiecho",
+    "original": {
+      "desc": "(experimental datatype) Functional bold image using multi-echo ",
+      "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```"
+    },
+    "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "echo-1_bold.nii.gz",
+      "id": "echo1",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "echo-2_bold.nii.gz",
+      "id": "echo2",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "echo-3_bold.nii.gz",
+      "id": "echo3",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "echo-4_bold.nii.gz",
+      "id": "echo4",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "echo-5_bold.nii.gz",
+      "id": "echo5",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "echo-6_bold.nii.gz",
+      "id": "echo6",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "files[4].desc",
+      "files[5].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

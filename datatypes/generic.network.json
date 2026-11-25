@@ -1,0 +1,176 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5ed0352de3f453b13b267dae",
+    "desc": "TODO",
+    "name": "generic/network",
+    "original": {
+      "desc": "Generic network data structure containing nodes and edges with various metadata using JGF v2 format. This datatype will replace the existing \"conmat\" datatype eventually.",
+      "readme": "This datatype uses gzipped JSON structured in \"v2 JSON graph format\" (https://github.com/jsongraph/json-graph-specification) used by companies such as BioDati, ADSWorks, etc.\n\nHere is an example JSON structure\n\n```json\n{\n  \"graph\": {\n    \"directed\": false,\n    \"type\": \"graph type\",\n    \"label\": \"graph label\",\n    \"metadata\": {\n      \"user-defined\": \"values\"\n    },\n    \"nodes\": {\n      \"0\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(0)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      },\n      \"1\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(1)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    },\n    \"edges\": [\n      {\n        \"source\": \"0\",\n        \"relation\": \"edge relationship\",\n        \"target\": \"1\",\n        \"directed\": false,\n        \"label\": \"edge label\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    ]\n  }\n}\n\n```\n\n# Notes\n\nAlthough JGF allow for multiple graphs object by storing an array of objects under \"graph\" key, we ask that we only store one graph for this json as not all Apps are designed to handle multiple graphs. On the other hand, all Apps that uses this datatype should check to make sure that the object under \"graph\" key is no an array.\n"
+    },
+    "readme": "This datatype uses gzipped JSON structured in \"v2 JSON graph format\" (https://github.com/jsongraph/json-graph-specification) used by companies such as BioDati, ADSWorks, etc.\n\nHere is an example JSON structure\n\n```json\n{\n  \"graph\": {\n    \"directed\": false,\n    \"type\": \"graph type\",\n    \"label\": \"graph label\",\n    \"metadata\": {\n      \"user-defined\": \"values\"\n    },\n    \"nodes\": {\n      \"0\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(0)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      },\n      \"1\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(1)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    },\n    \"edges\": [\n      {\n        \"source\": \"0\",\n        \"relation\": \"edge relationship\",\n        \"target\": \"1\",\n        \"directed\": false,\n        \"label\": \"edge label\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    ]\n  }\n}\n\n```\n\n# Notes\n\nAlthough JGF allow for multiple graphs object by storing an array of objects under \"graph\" key, we ask that we only store one graph for this json as not all Apps are designed to handle multiple graphs. On the other hand, all Apps that uses this datatype should check to make sure that the object under \"graph\" key is no an array.\n"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "network.json.gz",
+      "id": "network",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "63028e6f19b13f0a0ee0a35c",
+        "name": "Compute Network Backbone",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6197cbd45464ddc6f09a3a98",
+        "name": "ERGMs for Brain Networks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64f8e0a6e4d2e9108d91cb87",
+        "name": "Extract connectivity matrices from network datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "649f24c53a63cf17374a4595",
+        "name": "Extract network statistics and connectivity matrices from network datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e79cdc2dd840e9395e866a2",
+        "name": "Network Communities",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea70853f1745db7d9f7b0dc",
+        "name": "Network Measurements",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e4ad2fd1eafff0efcf9d011",
+        "name": "Network Null Model",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e76ea90de643b5e7c2a9404",
+        "name": "Network Preprocess",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f718f9e6bbee362ba9adef2",
+        "name": "Network Report",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8ccbef952fef68c17b4095",
+        "name": "Network Visualization",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "63028e6f19b13f0a0ee0a35c",
+        "name": "Compute Network Backbone",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f1fa182beafe9548f622a7e",
+        "name": "Conmat to network",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e79cdc2dd840e9395e866a2",
+        "name": "Network Communities",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea70853f1745db7d9f7b0dc",
+        "name": "Network Measurements",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e4ad2fd1eafff0efcf9d011",
+        "name": "Network Null Model",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e76ea90de643b5e7c2a9404",
+        "name": "Network Preprocess",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b961b10ad40d58e1ca7fe7",
+        "name": "Time series to network",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

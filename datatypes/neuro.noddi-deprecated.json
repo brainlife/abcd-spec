@@ -1,0 +1,126 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "ICVF.nii.gz",
+            "file_id": "icvf"
+          },
+          {
+            "bids_part": "ISOVF.nii.gz",
+            "file_id": "isovf"
+          },
+          {
+            "bids_part": "ODI.nii.gz",
+            "file_id": "od"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "ICVF",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5bd77a8615a8683a39440dab",
+    "desc": "TODO",
+    "name": "neuro/noddi-deprecated",
+    "original": {
+      "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "dir.nii.gz",
+      "id": "dir",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "icvf.nii.gz",
+      "id": "icvf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "isovf.nii.gz",
+      "id": "isovf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "od.nii.gz",
+      "id": "od",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5ed0324ce3f453693e267d1f",
+        "name": "Temporary converter app from NODDI-deprecated to NODDI datatype",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

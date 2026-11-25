@@ -1,0 +1,354 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5e56dc330f7fa604cc3cc291",
+    "desc": "TODO",
+    "name": "report/html",
+    "original": {
+      "desc": "Unstructured HTML content. This is meant for reporting / HTML output - not as data to be re-used by downstream Apps.",
+      "readme": "This datatype is used to store output from nbconvert for jupyter notebook and must be stored in secondary storage. Therefore, it is configured to use secondary output"
+    },
+    "readme": "This datatype is used to store output from nbconvert for jupyter notebook and must be stored in secondary storage. Therefore, it is configured to use secondary output"
+  },
+  "files": [
+    {
+      "desc": "html to open. if index.html does not exist, it will pick the first .html file found within the data-object",
+      "filename": "index.html",
+      "id": "index",
+      "required": false
+    },
+    {
+      "desc": "Any contents referenced by index.html",
+      "dirname": "html",
+      "id": "html",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[31].purpose",
+      "usage.outputs_of[32].purpose",
+      "usage.outputs_of[33].purpose",
+      "usage.outputs_of[34].purpose",
+      "usage.outputs_of[35].purpose",
+      "usage.outputs_of[36].purpose",
+      "usage.outputs_of[37].purpose",
+      "usage.outputs_of[38].purpose",
+      "usage.outputs_of[39].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[40].purpose",
+      "usage.outputs_of[41].purpose",
+      "usage.outputs_of[42].purpose",
+      "usage.outputs_of[43].purpose",
+      "usage.outputs_of[44].purpose",
+      "usage.outputs_of[45].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "644884a9d391caf6efd69605",
+        "name": "Add montage",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "627a5fc1d0697cf1eacb310b",
+        "name": "app- covariance",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "627a60e9d0697cf1eacb34d7",
+        "name": "app-forward",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "602bc6a33a001123014c442a",
+        "name": "Apply Maxwell filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a982566d90f157078e200c3",
+        "name": "Automated  coregistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a20ab1ab3e6697805fc07f",
+        "name": "Average ERP (MNE)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a594cfc13254aef69af404a",
+        "name": "Average ERPs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62697515f3858674a2a22372",
+        "name": "Compute evoked",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642daf2d73d2685502ebfd09",
+        "name": "Concatenate raws",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66a0d6faf61fb6c31d8bb223",
+        "name": "Coregistration MRI with MEG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab185055c0098e715283cc1",
+        "name": "CPU Scaling Benchmark",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "605e0a9616c60638446315ee",
+        "name": "Detect bad channels using Maxwell Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "625d3130cc8ab2b339ea2692",
+        "name": "Epochs from events",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "632993fd71291bb27f9ab7c9",
+        "name": "Extract events from MEG/EEG raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a10364f28b7a0de6b25dbd2",
+        "name": "Extract Source Time Series",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a9aab920efc94c8a6bb8977",
+        "name": "Filter cHPI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642dc7d173d2685502ec4d5f",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642e6a3e73d2685502ee851e",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66d58968774d6f044db9c7f1",
+        "name": "Inverse operator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69a975972b471cb9af9a2b53",
+        "name": "Make BEM model",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a16ce9b39b7923b4723bc14",
+        "name": "Matlab docker test",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a4256eb76d8d577a7f7dc5a",
+        "name": "MNE-BIDS-Pipeline [2]: MEEG Sensor analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a42620176d8d577a7f84adf",
+        "name": "MNE-BIDS-Pipeline [3]: MEEG Source analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66d84258774d6f044dbeff91",
+        "name": "Morph  to average brain",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f718f9e6bbee362ba9adef2",
+        "name": "Network Report",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66bb2db3774d6f044da6e9ca",
+        "name": "Noise Covariance Matrix for MEEG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61d7351c33cb3deb4984e8d5",
+        "name": "Participant Report",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69987a9c6e2ca4d7f508a8b9",
+        "name": "Plot average epochs by conditions",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f827fa262bbde2d99ce0",
+        "name": "Run MRIQC on Functional Data - FMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f75ffa262bbde2d97922",
+        "name": "Run MRIQC on Structural Data - T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f7e2fa262bbde2d98b4a",
+        "name": "Run MRIQC on Structural Data - T2w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63344389db978c79919cbb82",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643d4757d391caf6efbbb068",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63f6067fc538c16a82408b5b",
+        "name": "Show events in file",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b1489a6bb1f71b25b69642",
+        "name": "Source Estimate",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

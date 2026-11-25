@@ -1,0 +1,163 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5fad54c27e8ecba2c3aa0c24",
+    "desc": "TODO",
+    "name": "neuro/myelin-map",
+    "original": {
+      "desc": "nifti volume containing myelin map",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "The myelin map",
+      "filename": "map.nii.gz",
+      "id": "map",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "608da87c8fe49f54761a9455",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "608da73d8fe49ff0f31a929d",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115e055a5a04ca30df9f71e",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI (No SNR masking)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "60355b8a3a0011acbb52c3c5",
+        "name": "Compute myelin map using T1w / T2w ratio",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

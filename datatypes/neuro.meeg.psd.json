@@ -1,0 +1,121 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "60c7669e7657d98fe5e128b1",
+    "desc": "TODO",
+    "name": "neuro/meeg/psd",
+    "original": {
+      "desc": "Power spectral densities of MEG/EEG signals",
+      "readme": "Dimensions: channels x freqs"
+    },
+    "readme": "Dimensions: channels x freqs"
+  },
+  "files": [
+    {
+      "desc": "Rows correspond to channels and columns to the frequencies.",
+      "filename": "psd.tsv",
+      "id": "psd",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61b35c3952911e175a209747",
+        "name": "Average channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b895780ad40d2658ca61fb",
+        "name": "Find frequency peak of PSD data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616d6d2dfc8eb97193ff219a",
+        "name": "Mean amplitude of PSD data",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "61b35c3952911e175a209747",
+        "name": "Average channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b895780ad40d2658ca61fb",
+        "name": "Find frequency peak of PSD data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616d6d2dfc8eb97193ff219a",
+        "name": "Mean amplitude of PSD data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616fe817fc8eb96a43000442",
+        "name": "PSD of epoched data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b7589f0ad40d957dca311a",
+        "name": "PSD of raw data",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

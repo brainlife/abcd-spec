@@ -1,0 +1,337 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "61797fc39538685e5db952b0",
+    "desc": "TODO",
+    "name": "neuro/meeg/mne/epochs",
+    "original": {
+      "desc": "Datatype to describe the mne.Epochs class",
+      "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`"
+    },
+    "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`"
+  },
+  "files": [
+    {
+      "desc": "mne.Epochs class which contains Epochs extracted from a Raw MEEG data instance.",
+      "filename": "meg-epo.fif",
+      "id": "epo",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "62b9789af3194eded6f719a6",
+        "name": "app-decoding-time-by-time",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62b1c272ab3e66978065736f",
+        "name": "app-artifact-amplitude",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62ab109aab3e669780634426",
+        "name": "app-decoding-full-epochs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69a01e199c090f938559bbdd",
+        "name": "app-detect-bad-channels-eeg-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64080961c538c16a826ccdc0",
+        "name": "Apply baseline correction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a982566d90f157078e200c3",
+        "name": "Automated  coregistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a86e1ab3d6b58548ca9ad20",
+        "name": "Autoreject",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a20ab1ab3e6697805fc07f",
+        "name": "Average ERP (MNE)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a594cfc13254aef69af404a",
+        "name": "Average ERPs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "668ba30cf61fb6c31d7970b2",
+        "name": "Compute ECG artifact SSP projectors - epoched data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62697515f3858674a2a22372",
+        "name": "Compute evoked",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64f993aee4d2e9108d92bb8c",
+        "name": "Drop bad epochs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642e6a3e73d2685502ee851e",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a99d91ed90f157078ecfd32",
+        "name": "GEDAI EEG denoising (epochs)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64074e65c538c16a826b3587",
+        "name": "Interpolate bad channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66d58968774d6f044db9c7f1",
+        "name": "Inverse operator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b11c0f6bb1f71b25b601e7",
+        "name": "Make Forward Solution",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b135756bb1f71b25b65574",
+        "name": "Make Inverse Operator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d57e8ceab7bb5c3c9fcd92",
+        "name": "Mark bad data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616e8787fc8eb9ab81ff9105",
+        "name": "MNE - Autoreject",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66bb2db3774d6f044da6e9ca",
+        "name": "Noise Covariance Matrix for MEEG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69987a9c6e2ca4d7f508a8b9",
+        "name": "Plot average epochs by conditions",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616e9266fc8eb95c38ff9532",
+        "name": "Plot bands topomap",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616fe817fc8eb96a43000442",
+        "name": "PSD of epoched data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d8305ceab7bb5c3ca3875b",
+        "name": "Read info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64080ddec538c16a826ce8c6",
+        "name": "Set EEG reference",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643d4757d391caf6efbbb068",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b1489a6bb1f71b25b69642",
+        "name": "Source Estimate",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "62b1c272ab3e66978065736f",
+        "name": "app-artifact-amplitude",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69a01e199c090f938559bbdd",
+        "name": "app-detect-bad-channels-eeg-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64080961c538c16a826ccdc0",
+        "name": "Apply baseline correction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a86e1ab3d6b58548ca9ad20",
+        "name": "Autoreject",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64f993aee4d2e9108d92bb8c",
+        "name": "Drop bad epochs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "625d3130cc8ab2b339ea2692",
+        "name": "Epochs from events",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616e7fd8fc8eb90a21ff8eaa",
+        "name": "Epochs of equal length",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642e6a3e73d2685502ee851e",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a99d91ed90f157078ecfd32",
+        "name": "GEDAI EEG denoising (epochs)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64074e65c538c16a826b3587",
+        "name": "Interpolate bad channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d57e8ceab7bb5c3c9fcd92",
+        "name": "Mark bad data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616e8787fc8eb9ab81ff9105",
+        "name": "MNE - Autoreject",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64080ddec538c16a826ce8c6",
+        "name": "Set EEG reference",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

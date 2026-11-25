@@ -1,0 +1,98 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5f6954c7cfa36577f4c96595",
+    "desc": "TODO",
+    "name": "neuro/dsistudio/tinytrack",
+    "original": {
+      "desc": "The TinyTrack (*.tt.gz) file is a track format used in DSI Studio to store track coordinates. The TT files are MATLAB matrix file stored in V4 version. The tt.gz files are the TT files compressed by gzip. To load a TT file into Matlab, extract the *.tt.gz file into an uncompressed .tt file. Then rename the .tt file to .mat file and load it using Matlab. ",
+      "readme": "> http://dsi-studio.labsolver.org/Manual/export-data-to-matlab\n\nThe following is a list of matrix used in TT file:\n\n## dimension\n\nA 1-by-3 vector storing the dimension of the containing image. \n\n## voxel_size\n\nA 1-by-3 vector storing the voxel size in mm.\n \n## track\n\nA int8 array storing the coordinates. The array has the following format\n\n[16-byte track header][3 x n_1 bytes of track data][16-byte track header][3 x n_2 bytes of track data]...\n\nThe 16-byte header stores 4 bytes of coordinate count, followed (x,y,z) of the first coodinate multiplied by 32 and converted to 32-bit signed integer.\n   \n```\n   struct {\n        uint32_t count;    // number of coordinates\n        int32_t x;         // first coordinate (x*32,y*32,z*32)\n        int32_t y; \n        int32_t z; \n        } h;\n ```\n\nThe track data are series of coodinates intervals (dx1,dy1,dz1)(dx2,dy2,dz2) multiplied by 32 and converted to 8-bit signed integer.\n\nFor example, the first track coordinates is (x,y,z)/32, and the second coodinates is calculated by { (x,y,z) + (dx1,dy1,dz1) }/32"
+    },
+    "readme": "> http://dsi-studio.labsolver.org/Manual/export-data-to-matlab\n\nThe following is a list of matrix used in TT file:\n\n## dimension\n\nA 1-by-3 vector storing the dimension of the containing image. \n\n## voxel_size\n\nA 1-by-3 vector storing the voxel size in mm.\n \n## track\n\nA int8 array storing the coordinates. The array has the following format\n\n[16-byte track header][3 x n_1 bytes of track data][16-byte track header][3 x n_2 bytes of track data]...\n\nThe 16-byte header stores 4 bytes of coordinate count, followed (x,y,z) of the first coodinate multiplied by 32 and converted to 32-bit signed integer.\n   \n```\n   struct {\n        uint32_t count;    // number of coordinates\n        int32_t x;         // first coordinate (x*32,y*32,z*32)\n        int32_t y; \n        int32_t z; \n        } h;\n ```\n\nThe track data are series of coodinates intervals (dx1,dy1,dz1)(dx2,dy2,dz2) multiplied by 32 and converted to 8-bit signed integer.\n\nFor example, the first track coordinates is (x,y,z)/32, and the second coodinates is calculated by { (x,y,z) + (dx1,dy1,dz1) }/32"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "tt.gz",
+      "id": "tt",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "67817af681d348aa5645c5b5",
+        "name": "dsi-studio-trk-ana",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a7bd0cfa3655296c9d143",
+        "name": "dsi-studio-tt2trk",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5f6c0db66bbee327dd99efa4",
+        "name": "dsi-studio-trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a7c2bcfa3656568c9d1b4",
+        "name": "dsi-studio-trk2tt",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

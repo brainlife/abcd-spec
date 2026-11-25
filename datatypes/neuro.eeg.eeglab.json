@@ -1,0 +1,171 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "eeg",
+        "entities": [
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".json",
+          ".edf",
+          ".vhdr",
+          ".vmrk",
+          ".eeg",
+          ".set",
+          ".fdt",
+          ".bdf"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "eeg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "60007410aacf9e4edda691d4",
+    "desc": "TODO",
+    "name": "neuro/eeg/eeglab",
+    "original": {
+      "desc": "The format used by MATLAB toolbox EEGLAB (.set and .fdt)",
+      "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
+    },
+    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "eeg.fdt",
+      "id": "fdt",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "eeg.set",
+      "id": "set",
+      "required": true
+    },
+    {
+      "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "required": false
+    },
+    {
+      "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+      "filename": "electrodes.tsv",
+      "id": "electrodes",
+      "required": false
+    },
+    {
+      "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+      "filename": "coordsystem.json",
+      "id": "coordsystem",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.tsv",
+      "id": "events",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.json",
+      "id": "events_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[5].desc",
+      "files[6].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "60dc97c6cdfdb5ebe50156fb",
+        "name": "EEG Data Quality",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b6340d0697cf1eaeb2a74",
+        "name": "EEGLAB to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6793e2ee81d348aa5654e893",
+        "name": "EEGPrep",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "60dc97c6cdfdb5ebe50156fb",
+        "name": "EEG Data Quality",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6793e2ee81d348aa5654e893",
+        "name": "EEGPrep",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

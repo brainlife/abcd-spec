@@ -1,0 +1,140 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "59307a08436ee50ffd973278",
+    "desc": "TODO",
+    "name": "neuro/3Dsurfaces",
+    "original": {
+      "desc": "3D surface stored in .vtk(s)",
+      "readme": "A list of .vtk files with any names stored inside `surfaces` directory."
+    },
+    "readme": "A list of .vtk files with any names stored inside `surfaces` directory."
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "dirname": "surfaces",
+      "id": "surfaces",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "59fa4fec98d5fa005dc3d55b",
+        "name": "Decimate and/or Convert 3D surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a64d43c3a1b10004544482a",
+        "name": "Laplace Beltrami Spectrum: Eigenvalues and Eigenvectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a53b2be56e507002d1a9628",
+        "name": "Laplace Beltrami Spectrum: Eigenvalues Only",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "596cdb1a88ae6f0021531d6a",
+        "name": "Plot 3D Surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a54f0b84f89380027a9a48d",
+        "name": "Plot Eigenfunctions",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b0614c6d85b030192ff6aae",
+        "name": "Reconstruct Surfaces from LB Eigenfunctions",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "593049d7ff090a00210eff05",
+        "name": "3D Tract Surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b083f9341711001e958b2b7",
+        "name": "Convert Pial (Cortical) and White Matter Surfaces from Freesurfer",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59fa4fec98d5fa005dc3d55b",
+        "name": "Decimate and/or Convert 3D surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aa826baf315ba00317fe086",
+        "name": "Freesurfer Labels to 3D Surfaces",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b0614c6d85b030192ff6aae",
+        "name": "Reconstruct Surfaces from LB Eigenfunctions",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

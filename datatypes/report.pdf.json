@@ -1,0 +1,97 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5ed53b69da664506f88e6df9",
+    "desc": "TODO",
+    "name": "report/pdf",
+    "original": {
+      "desc": "Unstructured PDF file for reporting. This datatype is not meant to be used by downstream Apps.",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "report.pdf",
+      "id": "pdf",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8ccbef952fef68c17b4095",
+        "name": "Network Visualization",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a552e9ab3e66978060fa26",
+        "name": "Predict functional connectivity from structural connectivity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eefdb0b78d63f4c2fd37637",
+        "name": "Qoala-T Model A",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

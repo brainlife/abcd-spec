@@ -1,0 +1,257 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "ISOVF.nii.gz",
+            "file_id": "isovf"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "ICVF",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5ed02a620a8ed8e39c482a61",
+    "desc": "TODO",
+    "name": "neuro/noddi",
+    "original": {
+      "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "dir.nii.gz",
+      "id": "dir",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "ndi.nii.gz",
+      "id": "ndi",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "isovf.nii.gz",
+      "id": "isovf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "odi.nii.gz",
+      "id": "odi",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02d3c0a8ed86d37483300",
+        "name": "Generate images of NODDI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02c520a8ed8e7bb483031",
+        "name": "Noddi Amico",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02ca70a8ed8a9c04831d3",
+        "name": "NODDI Amico (single shell)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed0324ce3f453693e267d1f",
+        "name": "Temporary converter app from NODDI-deprecated to NODDI datatype",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

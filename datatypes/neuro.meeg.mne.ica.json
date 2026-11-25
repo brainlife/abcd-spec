@@ -1,0 +1,128 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "6283e821d0697cf1eade9d5c",
+    "desc": "TODO",
+    "name": "neuro/meeg/mne/ica",
+    "original": {
+      "desc": "to be edited",
+      "readme": "to be edited"
+    },
+    "readme": "to be edited"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "ica.fif",
+      "id": "ica",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "627a60e9d0697cf1eacb34d7",
+        "name": "app-forward",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "633449badb978c79919ced98",
+        "name": "app-ICA-plot",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63358117db978c7991a302cb",
+        "name": "app-selecting-ICA-components-manually",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "63358117db978c7991a302cb",
+        "name": "app-selecting-ICA-components-manually",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63344389db978c79919cbb82",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643d4757d391caf6efbbb068",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

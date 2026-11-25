@@ -1,0 +1,532 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "GFA.nii.gz",
+            "file_id": "fa"
+          },
+          {
+            "bids_part": "MD.nii.gz",
+            "file_id": "md"
+          },
+          {
+            "bids_part": "RD.nii.gz",
+            "file_id": "rd"
+          },
+          {
+            "bids_part": "AD.nii.gz",
+            "file_id": "ad"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "GFA",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5a79df48d071a1753f1d661b",
+    "desc": "TODO",
+    "name": "neuro/tensor",
+    "original": {
+      "desc": "Diffusion Tensor Image Scalars",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "Tensor measure / Fractional anisotropy (normalized fraction of anisotropic component)",
+      "ext": ".gz",
+      "filename": "fa.nii.gz",
+      "id": "fa",
+      "required": true
+    },
+    {
+      "desc": "Tensor measure / Mean Diffusivity (microm^2/msec)",
+      "ext": ".gz",
+      "filename": "md.nii.gz",
+      "id": "md",
+      "required": true
+    },
+    {
+      "desc": "Tensor measure / Radial Diffusivity (microm^2/msec)",
+      "ext": ".gz",
+      "filename": "rd.nii.gz",
+      "id": "rd",
+      "required": true
+    },
+    {
+      "desc": "Tensor measure / Axial Diffusivity (microm^2/msec)",
+      "ext": ".gz",
+      "filename": "ad.nii.gz",
+      "id": "ad",
+      "required": true
+    },
+    {
+      "desc": "??",
+      "ext": ".gz",
+      "filename": "cl.nii.gz",
+      "id": "cl",
+      "required": false
+    },
+    {
+      "desc": "??",
+      "ext": ".gz",
+      "filename": "cp.nii.gz",
+      "id": "cp",
+      "required": false
+    },
+    {
+      "desc": "??",
+      "ext": ".gz",
+      "filename": "cs.nii.gz",
+      "id": "cs",
+      "required": false
+    },
+    {
+      "desc": "??",
+      "ext": ".gz",
+      "filename": "tensors.nii.gz",
+      "id": "tensors",
+      "required": false
+    },
+    {
+      "desc": "??",
+      "ext": ".gz",
+      "filename": "kurtosis.nii.gz",
+      "id": "kurtosis",
+      "required": false
+    },
+    {
+      "desc": "DKI measure / Geodesic Anisotropy (normalized fraction of geodesic component)",
+      "filename": "ga.nii.gz",
+      "id": "ga",
+      "required": false
+    },
+    {
+      "desc": "DKI measure / Mean kurtosis (microm^2/msec)",
+      "filename": "mk.nii.gz",
+      "id": "mk",
+      "required": false
+    },
+    {
+      "desc": "DKI measure / Axial kurtosis (microm^2/msec)",
+      "filename": "ak.nii.gz",
+      "id": "ak",
+      "required": false
+    },
+    {
+      "desc": "DKI measure / Radial kurtosis (microm^2/msec)",
+      "filename": "rk.nii.gz",
+      "id": "rk",
+      "required": false
+    },
+    {
+      "desc": "RGB color value assigned for each voxel (colored FA)",
+      "filename": "rgb.nii.gz",
+      "id": "rgb",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5adbe476da9f040027366d14",
+        "name": "ANTs tensor registration based on FA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67dc4fa6da629ed3b1e083d4",
+        "name": "app-tcks2tractmasks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60e605644cb704633c072687",
+        "name": "BUAN Bundle Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cec04eef2a7449dcd03c49",
+        "name": "Create white matter mask from FA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fd7a1ee57aacd10b72ebecf",
+        "name": "earlyCNN",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d0b9371b629b467fa47511",
+        "name": "FOD (CSD) Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "683643f5187eaf3617aeae36",
+        "name": "FSL Probabilistic Tractography Algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88c763952fefb8487ac014",
+        "name": "Generate images of tensor",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6192cd0d983d5bb13f951b61",
+        "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69efefaf5e3b9b921dbc2456",
+        "name": "MRI Registration QC (FA maps)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f02b435e3b9b921dbcfb1f",
+        "name": "MRI Registration QC: Pairwise Group Comparison  (FA maps)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bcdefeadc47f70026e8c6ac",
+        "name": "Network Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b21753e16fe38002748e5e1",
+        "name": "Tensor Mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dcbbf1745d2293f80794",
+        "name": "Tracking using Closest Peaks algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b21774b16fe38002748e5ef",
+        "name": "Tracking using Deterministic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dc4ef1745d4963f80739",
+        "name": "Tracking using EuDX algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dbebf1745d70baf80678",
+        "name": "Tracking using Probabilistic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "638b5d866881d56fbfacc8f0",
+        "name": "Tractometry over tensor",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa95136afcdcceef4c40294",
+        "name": "Warp T1 and tensor",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5adbe476da9f040027366d14",
+        "name": "ANTs tensor registration based on FA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a77640c5bf7fb0039f2f809",
+        "name": "dt6 To Nifti Converter",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fd7a1ee57aacd10b72ebecf",
+        "name": "earlyCNN",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ae9d732f446980028b15ec2",
+        "name": "Fit DKI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efb6673279e0028adfc01",
+        "name": "Fit DTI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ad394922b42ae2f1766b79",
+        "name": "Fit Tensor Model using MRTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e7f90e9dd840e81aae91906",
+        "name": "FSL DTIFIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9dced9f1745d6994f692c0",
+        "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aac2437f0b5260027e24ae1",
+        "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd90c912d1348297f077fe",
+        "name": "test_dtifit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa95136afcdcceef4c40294",
+        "name": "Warp T1 and tensor",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

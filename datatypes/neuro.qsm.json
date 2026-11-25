@@ -1,0 +1,92 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "62b03ee2ab3e66978064ed79",
+    "desc": "TODO",
+    "name": "neuro/qsm",
+    "original": {
+      "desc": "Quantitative Susceptibility Map",
+      "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT"
+    },
+    "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "qsm.nii",
+      "id": "qsm",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6722807d851d5f6d75426b00",
+        "name": "Hybrid QSM-weighted T1 Generator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "65dc275e1f6c7e7fa05bc366",
+        "name": "QSM Data Generator",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

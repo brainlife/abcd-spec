@@ -1,0 +1,89 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5d7055105cee3829d5314c19",
+    "desc": "TODO",
+    "name": "openscience/reprolit",
+    "original": {
+      "desc": "This is the data type for the paper: Open science and communal culture promote women's participation, diversity and discovery. You can visit this link for more information: https://github.com/contactaditya/BrainlifeCadreCollaboration/blob/master/Notes.txt",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "Lancet Dictionary. This is a csv file which is a dictionary of words which are most commonly used in scientific papers and publications. This dictionary classifies the various words under different categories such as feminine, masculine, learning, competition, policing, innovation, pro social motives, collaboration, team, team focused, individual focused. ",
+      "filename": "lancet_dictionary.csv",
+      "id": "dictionary",
+      "required": true
+    },
+    {
+      "desc": "This is a csv file which is used to built a collaboration network from the 3157 unique author ID's in the Open Science literature. Apart from building the collaboration network we also performed connected component analysis of the network to measure the degree of isolation of individual sub-networks of authors within each literature.",
+      "filename": "open-old.csv",
+      "id": "open-old",
+      "required": true
+    },
+    {
+      "desc": "This is a csv file which contains data from Microsoft Academic Graph, consisting of 2,926 scientific articles and conference proceedings published between 2010 and 2017 that included Open Science or Reproducibility as a field of study. This sample consisted of 879 Open Science papers and 2,047 Reproducibility papers.",
+      "filename": "open_science_journal.csv",
+      "id": "journal",
+      "required": true
+    },
+    {
+      "desc": "This is a csv file which is used to built a collaboration network from the 8766 unique author ID's in the Reproducibility literature. Apart from building the collaboration network we also performed connected component analysis of the network to measure the degree of isolation of individual sub-networks of authors within each literature.",
+      "filename": "repro-old.csv",
+      "id": "repro-old",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

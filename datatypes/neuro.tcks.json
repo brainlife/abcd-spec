@@ -1,0 +1,194 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5dcf0047c4ae28d7f2298f48",
+    "desc": "TODO",
+    "name": "neuro/tcks",
+    "original": {
+      "desc": "collection of tck files with json file describing each tck file",
+      "readme": "tcks.json sample\n\n```\n[\n    {\n        \"name\": \"forcepsMinor\",\n        \"color\": [0.8147236864,0.2550951155,0.004634224134],\n        \"filename\": \"forcepsMinor.json\"\n    },\n    {\n        \"name\": \"forcepsMajor\",\n        \"color\": [0.9057919371,0.5059570517,0.7749104647],\n        \"filename\": \"forcepsMajor.json\"\n    },\n]\n```"
+    },
+    "readme": "tcks.json sample\n\n```\n[\n    {\n        \"name\": \"forcepsMinor\",\n        \"color\": [0.8147236864,0.2550951155,0.004634224134],\n        \"filename\": \"forcepsMinor.json\"\n    },\n    {\n        \"name\": \"forcepsMajor\",\n        \"color\": [0.9057919371,0.5059570517,0.7749104647],\n        \"filename\": \"forcepsMajor.json\"\n    },\n]\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "dirname": "tcks",
+      "id": "tcks",
+      "required": true
+    },
+    {
+      "desc": "A json file containing a list of object for each tck files stored inside the tcks directory. ",
+      "filename": "tcks.json",
+      "id": "tcks_json",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "67dc4fa6da629ed3b1e083d4",
+        "name": "app-tcks2tractmasks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629a7dd17f60950a54ccc68f",
+        "name": "Convert tcks to tck and WMC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a4d63d7fd4363a2275e6018",
+        "name": "Streamline Cleaning (Multiple Tracts)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67858b5e81d348aa56483324",
+        "name": "Tract Shape Analysis",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5df937ff32bff0566ae23cff",
+        "name": "Classifyber - segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dd06111c4ae28135d29adae",
+        "name": "Extract multi-tcks from wmc + wbfg or composite tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00b45188e26e6de7e1b89a",
+        "name": "RecoBundles X",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a4d63d7fd4363a2275e6018",
+        "name": "Streamline Cleaning (Multiple Tracts)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6844f692187eaf3617c91e03",
+        "name": "Streamline Selection by Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acfe9b83db9ceda5263760f",
+        "name": "White Matter Anatomy Segmentation Plus (wmaSeg++)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aac40a4906b4cece80af519",
+        "name": "wmc to tcks",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

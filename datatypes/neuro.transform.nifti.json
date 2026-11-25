@@ -1,0 +1,381 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5bbfb28071454db2a890fbce",
+    "desc": "TODO",
+    "name": "neuro/transform/nifti",
+    "original": {
+      "desc": "Linear & Non-Linear Image Warping in FSL format (warp.nii.gz / inverse-warp.nii.gz)",
+      "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
+    },
+    "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "warp.nii.gz",
+      "id": "warp",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "inverse-warp.nii.gz",
+      "id": "inverse-warp",
+      "required": false
+    },
+    {
+      "desc": "Both linear and non-linear transform should at least have affine.txt. We are currently setting this optional for older Apps that are yet to generate affine.txt. In the future, affine.txt will be the only required file.",
+      "filename": "affine.txt",
+      "id": "affine",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "63cc4d5fef2a7449dccbae87",
+        "name": "Apply warp to or from standard space to ROIs (T2w) - Scanner T2 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "612fd650584a769e283c22d5",
+        "name": "Apply warp to BOLD data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6595f4a088f9ba41b78132dd",
+        "name": "Apply warp to or from standard space to bundle masks (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4c7bef2a7449dccba44b",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d52d7feab7bb5c3c9f3041",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4c5eef2a7449dccb9a9c",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - Scanner T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4d91ef2a7449dccbb6dd",
+        "name": "Apply warp to or from standard space to ROIs (T2w) - ACPC T2 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6138cab4584a762c35417ac8",
+        "name": "Apply warp to Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "608da87c8fe49f54761a9455",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio) (No SNR masking)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "613a78182012731985c885a5",
+        "name": "Create structural derivatives for cortexmap datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60cb69e0cdfdb50220fee1c3",
+        "name": "DBB_preprocessing_t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63fba472c538c16a824ff4ef",
+        "name": "Map  ROIs to cortical surface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64307e9c73d2685502f2e152",
+        "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60e4c42e4cb7040aec068b83",
+        "name": "Reslice ROIs to match input anatomy (with affine)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6547351fb094062da62517b1",
+        "name": "Temp apply warp peaks bundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa95136afcdcceef4c40294",
+        "name": "Warp T1 and tensor",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63d2d63b40f494735c431d00",
+        "name": "Warp tractogram to MNI space using precomputed transformation",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6542962db094062da61f1221",
+        "name": "Align T1 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bc0f0d0afd0bc0027efcd66",
+        "name": "Align T2 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa981bc16d2ef0408f7a0bf",
+        "name": "anatomix-t1w-dwi-registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5adbe476da9f040027366d14",
+        "name": "ANTs tensor registration based on FA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6166e55afc8eb93fb7fce780",
+        "name": "ANTsRegistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6331b1fe2aea314314dbd0f2",
+        "name": "Compute and Apply warp from subject-to-standard space to ROIs (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e6a8ebd8740673152a3d18f",
+        "name": "EPI T1 Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d0b9371b629b467fa47511",
+        "name": "FOD (CSD) Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6083329689df4317546dd88a",
+        "name": "FSL Anat (mp2rage)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e3c87ae9362b7166cf9c7f4",
+        "name": "FSL Anat (T1)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec6eda01f4464acbc9e54ec",
+        "name": "FSL Anat (T2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aaad3f2f2db0d99df4cae83",
+        "name": "impact-reg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d177a0c9315be198f7d59",
+        "name": "T1w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68deefbe12d1348297f2ee44",
+        "name": "T2w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66b5180b774d6f044d9fad3f",
+        "name": "XformPauliVTA",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

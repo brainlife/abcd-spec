@@ -1,0 +1,115 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "67366373ff1a4a439d7fd7f4",
+    "desc": "TODO",
+    "name": "neuro/pet",
+    "original": {
+      "desc": "Positron Emission Tomography (PET).",
+      "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html)."
+    },
+    "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html)."
+  },
+  "files": [
+    {
+      "desc": "NifTI file containing dynamic or static PET imaging data",
+      "filename": "pet.nii.gz",
+      "id": "pet_nii",
+      "required": false
+    },
+    {
+      "desc": "TSV file containing manual or automatically sampled PET blood data limited to: time, plasma_radioactivity, metabolite_parent_fraction, whole_blood_radioactivity,  metabolite_parent_fraction,  hplc_recover_fractions. ",
+      "filename": "blood.tsv",
+      "id": "blood_tsv",
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar file containing PET radiochemistry, pharmaceutical, time, reconstruction, hardware, institution, tissue, de-identification, and task data. ",
+      "filename": "pet.json",
+      "id": "pet_json",
+      "required": false
+    },
+    {
+      "desc": "JSON file describing the columns contained in a blood.tsv file.",
+      "filename": "blood.json",
+      "id": "blood_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6717eddd168d1cbcfbd09901",
+        "name": "PET Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "674a1d316bb7513283da1681",
+        "name": "petdeface",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6717eddd168d1cbcfbd09901",
+        "name": "PET Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "674a1d316bb7513283da1681",
+        "name": "petdeface",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

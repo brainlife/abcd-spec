@@ -1,0 +1,215 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "608ac8b089df43e33c758fa1",
+    "desc": "TODO",
+    "name": "neuro/anat/qmri",
+    "original": {
+      "desc": "Quantitative MRI derivatives",
+      "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain)."
+    },
+    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain)."
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "T1.nii.gz",
+      "id": "T1map",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "T1.json",
+      "id": "T1map_json",
+      "required": false
+    },
+    {
+      "desc": "In general, this is for output only. For App, please assume this files to not exist and compute it by intervening T1map",
+      "filename": "R1.nii.gz",
+      "id": "R1map",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "R1.json",
+      "id": "R1map_json",
+      "required": false
+    },
+    {
+      "desc": "In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+      "filename": "M0.nii.gz",
+      "id": "M0map",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "M0.json",
+      "id": "M0map_json",
+      "required": false
+    },
+    {
+      "desc": "proton density\n",
+      "filename": "PD.nii.gz",
+      "id": "PD",
+      "required": false
+    },
+    {
+      "desc": "macromolecular tissue volume. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+      "filename": "MTV.nii.gz",
+      "id": "MTV",
+      "required": false
+    },
+    {
+      "desc": "volume of interacting water proton. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+      "filename": "VIP.nii.gz",
+      "id": "VIP",
+      "required": false
+    },
+    {
+      "desc": "surface interaction rate. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+      "filename": "SIR.nii.gz",
+      "id": "SIR",
+      "required": false
+    },
+    {
+      "desc": "Water fraction. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+      "filename": "WF.nii.gz",
+      "id": "WF",
+      "required": false
+    },
+    {
+      "desc": "Voxels represent the calculated effective transverse relaxation time T2* in seconds. T2* is shorter than T2 because it incorporates additional dephasing from magnetic field inhomogeneities.",
+      "filename": "R2star.nii.gz",
+      "id": "R2star",
+      "required": false
+    },
+    {
+      "desc": "The inverse of T2* (1/T2*) in s^-1.",
+      "filename": "T2star.nii.gz",
+      "id": "T2star",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[3].desc",
+      "files[5].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "61099a0db991115733beac81",
+        "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610993adb991116691be9916",
+        "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef66ba5c67a0dd33d29d98a",
+        "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd7aa5a04cc30cf9f3fe",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "608b188b89df43179075b628",
+        "name": "Compute T1 and R1 maps from MP2RAGE",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67210bc9851d5f6d753ec63e",
+        "name": "ROMEO Phase Unwrapping",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

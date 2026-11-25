@@ -1,0 +1,1548 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "T1w.nii.gz",
+            "file_id": "t1"
+          },
+          {
+            "bids_part": "T1w.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "T1w",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "58c33bcee13a50849b25879a",
+    "desc": "TODO",
+    "name": "neuro/anat/t1w",
+    "original": {
+      "desc": "T1-weighted magnetic resonance data (MRI), saved in NIfTI-1 format.",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "ext": ".gz",
+      "filename": "t1.nii.gz",
+      "id": "t1",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[100].purpose",
+      "usage.inputs_of[101].purpose",
+      "usage.inputs_of[102].purpose",
+      "usage.inputs_of[103].purpose",
+      "usage.inputs_of[104].purpose",
+      "usage.inputs_of[105].purpose",
+      "usage.inputs_of[106].purpose",
+      "usage.inputs_of[107].purpose",
+      "usage.inputs_of[108].purpose",
+      "usage.inputs_of[109].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[110].purpose",
+      "usage.inputs_of[111].purpose",
+      "usage.inputs_of[112].purpose",
+      "usage.inputs_of[113].purpose",
+      "usage.inputs_of[114].purpose",
+      "usage.inputs_of[115].purpose",
+      "usage.inputs_of[116].purpose",
+      "usage.inputs_of[117].purpose",
+      "usage.inputs_of[118].purpose",
+      "usage.inputs_of[119].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[120].purpose",
+      "usage.inputs_of[121].purpose",
+      "usage.inputs_of[122].purpose",
+      "usage.inputs_of[123].purpose",
+      "usage.inputs_of[124].purpose",
+      "usage.inputs_of[125].purpose",
+      "usage.inputs_of[126].purpose",
+      "usage.inputs_of[127].purpose",
+      "usage.inputs_of[128].purpose",
+      "usage.inputs_of[129].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[130].purpose",
+      "usage.inputs_of[131].purpose",
+      "usage.inputs_of[132].purpose",
+      "usage.inputs_of[133].purpose",
+      "usage.inputs_of[134].purpose",
+      "usage.inputs_of[135].purpose",
+      "usage.inputs_of[136].purpose",
+      "usage.inputs_of[137].purpose",
+      "usage.inputs_of[138].purpose",
+      "usage.inputs_of[139].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[140].purpose",
+      "usage.inputs_of[141].purpose",
+      "usage.inputs_of[142].purpose",
+      "usage.inputs_of[143].purpose",
+      "usage.inputs_of[144].purpose",
+      "usage.inputs_of[145].purpose",
+      "usage.inputs_of[146].purpose",
+      "usage.inputs_of[147].purpose",
+      "usage.inputs_of[148].purpose",
+      "usage.inputs_of[149].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[150].purpose",
+      "usage.inputs_of[151].purpose",
+      "usage.inputs_of[152].purpose",
+      "usage.inputs_of[153].purpose",
+      "usage.inputs_of[154].purpose",
+      "usage.inputs_of[155].purpose",
+      "usage.inputs_of[156].purpose",
+      "usage.inputs_of[157].purpose",
+      "usage.inputs_of[158].purpose",
+      "usage.inputs_of[159].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[160].purpose",
+      "usage.inputs_of[161].purpose",
+      "usage.inputs_of[162].purpose",
+      "usage.inputs_of[163].purpose",
+      "usage.inputs_of[164].purpose",
+      "usage.inputs_of[165].purpose",
+      "usage.inputs_of[166].purpose",
+      "usage.inputs_of[167].purpose",
+      "usage.inputs_of[168].purpose",
+      "usage.inputs_of[169].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[170].purpose",
+      "usage.inputs_of[171].purpose",
+      "usage.inputs_of[172].purpose",
+      "usage.inputs_of[173].purpose",
+      "usage.inputs_of[174].purpose",
+      "usage.inputs_of[175].purpose",
+      "usage.inputs_of[176].purpose",
+      "usage.inputs_of[177].purpose",
+      "usage.inputs_of[178].purpose",
+      "usage.inputs_of[179].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[42].purpose",
+      "usage.inputs_of[43].purpose",
+      "usage.inputs_of[44].purpose",
+      "usage.inputs_of[45].purpose",
+      "usage.inputs_of[46].purpose",
+      "usage.inputs_of[47].purpose",
+      "usage.inputs_of[48].purpose",
+      "usage.inputs_of[49].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[50].purpose",
+      "usage.inputs_of[51].purpose",
+      "usage.inputs_of[52].purpose",
+      "usage.inputs_of[53].purpose",
+      "usage.inputs_of[54].purpose",
+      "usage.inputs_of[55].purpose",
+      "usage.inputs_of[56].purpose",
+      "usage.inputs_of[57].purpose",
+      "usage.inputs_of[58].purpose",
+      "usage.inputs_of[59].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[60].purpose",
+      "usage.inputs_of[61].purpose",
+      "usage.inputs_of[62].purpose",
+      "usage.inputs_of[63].purpose",
+      "usage.inputs_of[64].purpose",
+      "usage.inputs_of[65].purpose",
+      "usage.inputs_of[66].purpose",
+      "usage.inputs_of[67].purpose",
+      "usage.inputs_of[68].purpose",
+      "usage.inputs_of[69].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[70].purpose",
+      "usage.inputs_of[71].purpose",
+      "usage.inputs_of[72].purpose",
+      "usage.inputs_of[73].purpose",
+      "usage.inputs_of[74].purpose",
+      "usage.inputs_of[75].purpose",
+      "usage.inputs_of[76].purpose",
+      "usage.inputs_of[77].purpose",
+      "usage.inputs_of[78].purpose",
+      "usage.inputs_of[79].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[80].purpose",
+      "usage.inputs_of[81].purpose",
+      "usage.inputs_of[82].purpose",
+      "usage.inputs_of[83].purpose",
+      "usage.inputs_of[84].purpose",
+      "usage.inputs_of[85].purpose",
+      "usage.inputs_of[86].purpose",
+      "usage.inputs_of[87].purpose",
+      "usage.inputs_of[88].purpose",
+      "usage.inputs_of[89].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[90].purpose",
+      "usage.inputs_of[91].purpose",
+      "usage.inputs_of[92].purpose",
+      "usage.inputs_of[93].purpose",
+      "usage.inputs_of[94].purpose",
+      "usage.inputs_of[95].purpose",
+      "usage.inputs_of[96].purpose",
+      "usage.inputs_of[97].purpose",
+      "usage.inputs_of[98].purpose",
+      "usage.inputs_of[99].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[31].purpose",
+      "usage.outputs_of[32].purpose",
+      "usage.outputs_of[33].purpose",
+      "usage.outputs_of[34].purpose",
+      "usage.outputs_of[35].purpose",
+      "usage.outputs_of[36].purpose",
+      "usage.outputs_of[37].purpose",
+      "usage.outputs_of[38].purpose",
+      "usage.outputs_of[39].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[40].purpose",
+      "usage.outputs_of[41].purpose",
+      "usage.outputs_of[42].purpose",
+      "usage.outputs_of[43].purpose",
+      "usage.outputs_of[44].purpose",
+      "usage.outputs_of[45].purpose",
+      "usage.outputs_of[46].purpose",
+      "usage.outputs_of[47].purpose",
+      "usage.outputs_of[48].purpose",
+      "usage.outputs_of[49].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[50].purpose",
+      "usage.outputs_of[51].purpose",
+      "usage.outputs_of[52].purpose",
+      "usage.outputs_of[53].purpose",
+      "usage.outputs_of[54].purpose",
+      "usage.outputs_of[55].purpose",
+      "usage.outputs_of[56].purpose",
+      "usage.outputs_of[57].purpose",
+      "usage.outputs_of[58].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "64bd5b923a63cf17376f2fb7",
+        "name": "Warp reference Ventral Putamen ROI(s) to Subject Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6afa5a85b9274454de109cba",
+        "name": "15-11-2026-test-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60832a3789df43532e6dbb7b",
+        "name": "Align mp2rage to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6081c1d389df434ba96922ae",
+        "name": "Align mp2rage volumes to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6542962db094062da61f1221",
+        "name": "Align T1 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6081c92b89df431f726940d8",
+        "name": "Align T2  to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "632c9b506985655cc5892a9a",
+        "name": "anat-fslswap-app",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d6f9160398672065e49642f",
+        "name": "Anatomically-informed multi-LAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa981bc16d2ef0408f7a0bf",
+        "name": "anatomix-t1w-dwi-registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6166e55afc8eb93fb7fce780",
+        "name": "ANTsRegistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6abe66fd4548ca9c8dd700a9",
+        "name": "app-bet-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af5f4e3d38d664fc13ff1d6",
+        "name": "app-bet-t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af61ee4d38d664fc14148cb",
+        "name": "app-brain-extract",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b0601b888e26e6de7fabdf6",
+        "name": "app-brain-extraction-multiagent-test-23-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acd401a3db9ceda52513e46",
+        "name": "app-brain-extraction-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00e13188e26e6de7e2d38d",
+        "name": "app-mpat-tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6123dbd52301762133d575a5",
+        "name": "app-skullStrip",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acd29eb3db9ceda5250d16c",
+        "name": "app-test-multiagent-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a46798ba7a5514f2b34ba88",
+        "name": "app-testasdsad",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c77273d2685502d74513",
+        "name": "Apply mask to extract brain data - T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6595f4a088f9ba41b78132dd",
+        "name": "Apply warp to or from standard space to bundle masks (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4c7bef2a7449dccba44b",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d52d7feab7bb5c3c9f3041",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4c5eef2a7449dccb9a9c",
+        "name": "Apply warp to or from standard space to ROIs (T1w) - Scanner T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c72e7e3badd19003102e8d3",
+        "name": "Attention ROI warp",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5deece232d1c254a76929834",
+        "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ac39b3014f0d4002802e150",
+        "name": "BIDS Mrtrix3 Connectome",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aaffb4ec931e60132a6a4a0",
+        "name": "BIDS Tracula (under development)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592dc03eb3cd7c00211dc239",
+        "name": "Binary Tract Masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69e801a668c5c4b1c53aac9c",
+        "name": "Brain Atlas Mapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00ed4e88e26e6de7e301a1",
+        "name": "Brain Extraction (FSL BET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b0600b488e26e6de7fab2cc",
+        "name": "Brain Extraction (FSL BET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6adfa8172579cf1fd63eec20",
+        "name": "BRAIN EXTRACTION APP TEST 10/26/26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6afa5518b9274454de107c0e",
+        "name": "brain-extract-14-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af7a5963dfea83ca970ddd1",
+        "name": "brain-extraction-13-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6912e3bdbbce85384baf9e2e",
+        "name": "brainlife-hello",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f3593e84615e04651bf9364",
+        "name": "C-PAC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a4e8622e7a2ee0035d0b8e3",
+        "name": "Check T1 Orientation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fb2f28a7e8ecb7444aaf372",
+        "name": "CIT168 parcellation of human subcortical brain nuclei",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d6fcae439867216d8496442",
+        "name": "Classifyber",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5df937ff32bff0566ae23cff",
+        "name": "Classifyber - segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635ec09efa262bbde2cdfbd8",
+        "name": "Combine 2D T1w images into a single 3D volume - 2 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635db2d4fa262bbde2ccdb89",
+        "name": "Combine 2D T1w images into a single 3D volume - 3 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6340875ffa262bbde2a153f7",
+        "name": "combine-scans-rois",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6331b1fe2aea314314dbd0f2",
+        "name": "Compute and Apply warp from subject-to-standard space to ROIs (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60355b8a3a0011acbb52c3c5",
+        "name": "Compute myelin map using T1w / T2w ratio",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62681cd2f3858674a29f554e",
+        "name": "Compute streamline weights using SIFT2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "641b5c1973d2685502c71360",
+        "name": "Convert freesurfer annotations to parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ef1363c538c16a82347d5b",
+        "name": "Convert hippocampal and amygdala segmentation into parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0e7f30f9b4a2002efc16ab",
+        "name": "Convert tck to trk in T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ef12e8c538c16a823464ba",
+        "name": "Convert thalamic segmentation into parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ef1390c538c16a823485b6",
+        "name": "Convert thalamic, hippocampal and amygdala segmentation into parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d89980e9842202a887ec261",
+        "name": "Convert wmc to trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab185055c0098e715283cc1",
+        "name": "CPU Scaling Benchmark",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6286a9ced0697cf1eae44a76",
+        "name": "Create MNI coordinate-based ROIS and warp to subject space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef07acddc2dff22965f239",
+        "name": "DBB_ANTsCortThickSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60f83394b99111089ab55f80",
+        "name": "DBB_DisSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60cb69e0cdfdb50220fee1c3",
+        "name": "DBB_preprocessing_t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e46ff4e1eafff7a00f9899e",
+        "name": "DenseUnet-based Automatic Rapid Tool for brain Segmentation (DARTS)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ad79504363fd5002759a6b5",
+        "name": "DSC evaluation (wmc - wmc)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63e559e7c538c16a8222163e",
+        "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "58c56cf7e13a50849b258800",
+        "name": "dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bbf8a5cfcb14c00272a4971",
+        "name": "DWI preproc and nonlinear registration to T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e6a8ebd8740673152a3d18f",
+        "name": "EPI T1 Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6adfab472579cf1fd63f1d3e",
+        "name": "FABER BRAIN EXTRACTION TEST 10/26/26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc201034e13335188b87f1",
+        "name": "Fiber Bundle Skeleton Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db224e98aeeee0f87f25c1f",
+        "name": "Fit Constrained Deconvolution Model for Tracking",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6036ca8c3a001153f254ebf4",
+        "name": "Fit qT1 models using mrQ",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa45626e138ec86474ea032",
+        "name": "Franco Python Template",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fe1056057aacd480f2f8e48",
+        "name": "Freesurfer 7.1.1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "621abcaa5d8ab5d5f015c555",
+        "name": "Freesurfer 7.1.1 - Multiple T1w Inputs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62fa925519b13f0a0edd5c7c",
+        "name": "Freesurfer 7.3.2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59714d376c3b7e0029153f53",
+        "name": "Freesurfer Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e03c7c332bff0800ae2a47b",
+        "name": "Freesurfer on OSG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e3c87ae9362b7166cf9c7f4",
+        "name": "FSL Anat (T1)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7a41762ee82cf68a71b837",
+        "name": "FSL BET Skull Strip",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a54faf541fd04003f9d488b",
+        "name": "FSL Brain Extraction (BET) on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60707f8bc7f80a0cb895d6ca",
+        "name": "FSL Reorient and Crop T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa484c538c16a820a4f22",
+        "name": "Generate brain extracted image with SynthStrip (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6220e63e5d8ab5d5f01fb8c1",
+        "name": "Generate figures of white matter tracts overlaid on anatomical image",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8e162f952fef6d527b6d09",
+        "name": "Generate images of DWI overlaid on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "604b9bbf38fe120d9bef80f2",
+        "name": "Generate images of fMRI overlaid on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88c72d952fefe0a07abfb6",
+        "name": "Generate images of T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9272ed3f18bacda81d973e",
+        "name": "Generate images of tissue type masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60f83f2db991118b34b56b02",
+        "name": "Generate ROIs in Anatomical Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "636dcc6d487d94b9e6eb8e9b",
+        "name": "Generate synthetic MP-RAGE T1 image from T1w and T2w data using SynthSR Hyperfine",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635c90d3fa262bbde2cb91de",
+        "name": "Generate synthetic MP-RAGE T1 image from T1w data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ffee3dfaacf9e53e7a67093",
+        "name": "HCP Pipelines - Structural preprocessing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f592ced0c8f9597ac65ae41",
+        "name": "HD-BET",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6722807d851d5f6d75426b00",
+        "name": "Hybrid QSM-weighted T1 Generator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa48155e138ec0c3e4ea742",
+        "name": "Justin Reslice T1w App",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa47f87e138ec5bfa4ea73d",
+        "name": "Little Test",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "696072758df58ba7d1a1131d",
+        "name": "LST-AI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f66ac1fcfa365f139c92998",
+        "name": "MatLab App Example",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eee4834d39ceb0c28a114a0",
+        "name": "midway align and average T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a42620176d8d577a7f84adf",
+        "name": "MNE-BIDS-Pipeline [3]: MEEG Source analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aa08aa96f97ad0033d4d86b",
+        "name": "Mouse Segmentation Pipeline",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69d978d404be87075a57b265",
+        "name": "MRI Registration QC (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9dced9f1745d6994f692c0",
+        "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a813e52dc4031003b8b36f9",
+        "name": "mrtrix3 preprocess",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d14bc062daec10035f3f86e",
+        "name": "multi-LAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d54568576a4090027b0a0da",
+        "name": "Nobrainer - BrainParcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61d7351c33cb3deb4984e8d5",
+        "name": "Participant Report",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c8189cd2fbcc20034b39e60",
+        "name": "Peaks extraction with MRtrix",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6717eddd168d1cbcfbd09901",
+        "name": "PET Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "674a1d316bb7513283da1681",
+        "name": "petdeface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef2c397c67a0d84a529667a",
+        "name": "pydeface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6041f75166d5ce1daf6efb55",
+        "name": "PyNets",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aac2437f0b5260027e24ae1",
+        "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00b45188e26e6de7e1b89a",
+        "name": "RecoBundles X",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69a2f2846aa19e60b5145d91",
+        "name": "recon-all-for-meeeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59fb2f15c996d0002d47ee1d",
+        "name": "Register DWI to T1 using Vistasoft",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd8eb312d1348297f052c5",
+        "name": "Register DWI to T1 with FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "641a10fd73d2685502c4daec",
+        "name": "Reslice parcellation to match input anatomy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a590f422b42ad40d6fb317",
+        "name": "Reslice ROIs to match input anatomy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60e4c42e4cb7040aec068b83",
+        "name": "Reslice ROIs to match input anatomy (with affine)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635af57bfa262bbde2c82de7",
+        "name": "Reslice T1w to Isotropic Voxel Dimensions using FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f75ffa262bbde2d97922",
+        "name": "Run MRIQC on Structural Data - T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6463fd1cd391caf6ef165d51",
+        "name": "Segment tissue types using FSL Fast",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca07bd34e13335187bffbc",
+        "name": "Streamline Cleaning",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a4d63d7fd4363a2275e6018",
+        "name": "Streamline Cleaning (Multiple Tracts)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67e3e7a8da629ed3b1fa9aaa",
+        "name": "Suma app",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d2f5e0c9315be199006d4",
+        "name": "SynthStrip (GPU) T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69bb047ddc348e0524f05a3b",
+        "name": "T1-w Template Construction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d177a0c9315be198f7d59",
+        "name": "T1w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68deefbe12d1348297f2ee44",
+        "name": "T2w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6547351fb094062da62517b1",
+        "name": "Temp apply warp peaks bundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6466565bd391caf6ef1d2fb3",
+        "name": "Temporary brain extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63e6761bc538c16a82248f0e",
+        "name": "Test app to add value to t1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59779342749315002f268594",
+        "name": "Test Gradient Flip for dtiInit processing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa46d70e138ec6b634ea36b",
+        "name": "Test Python Template for Class",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68138f71da629ed3b16c64cf",
+        "name": "Test_1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629fb60a7f60950a54d5e63b",
+        "name": "Tissue-specific SNR (and other tissue-specific metrics)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db234008aeeee3329f25d9c",
+        "name": "Tissue-type segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cf5dceef2a7449dcd2ec6a",
+        "name": "Tissue-type segmentation with hsvs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6068bf10c7f80a3c109411b0",
+        "name": "Track Density Masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628a45c0d0697cf1eae9a3fe",
+        "name": "Track the aLIC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddb7138936ca3c660c58a46",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddce502936ca3bec8c5b4b7",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a7b499ab3e66978061e46c",
+        "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67858b5e81d348aa56483324",
+        "name": "Tract Shape Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc37e434e13335188cb201",
+        "name": "Tractogram clustering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b50a45b786e0f002791d301",
+        "name": "Volume-based Multiple Linear Regression",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61158b45a5a04c9673f9d510",
+        "name": "Warp density-probability from subject space to MNI space - copy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63dd70b3c538c16a82114734",
+        "name": "Warp ROIs for Visual White Matter From MNI to T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c7319a5badd19003102e8d8",
+        "name": "Warp ROIs from subject space to MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa95136afcdcceef4c40294",
+        "name": "Warp T1 and tensor",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66b5180b774d6f044d9fad3f",
+        "name": "XformPauliVTA",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6afa5a85b9274454de109cba",
+        "name": "15-11-2026-test-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6542962db094062da61f1221",
+        "name": "Align T1 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "632c9b506985655cc5892a9a",
+        "name": "anat-fslswap-app",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6166e55afc8eb93fb7fce780",
+        "name": "ANTsRegistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6abe66fd4548ca9c8dd700a9",
+        "name": "app-bet-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af5f4e3d38d664fc13ff1d6",
+        "name": "app-bet-t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af61ee4d38d664fc14148cb",
+        "name": "app-brain-extract",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b0601b888e26e6de7fabdf6",
+        "name": "app-brain-extraction-multiagent-test-23-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acd401a3db9ceda52513e46",
+        "name": "app-brain-extraction-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6123dbd52301762133d575a5",
+        "name": "app-skullStrip",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acd29eb3db9ceda5250d16c",
+        "name": "app-test-multiagent-brain-extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a46798ba7a5514f2b34ba88",
+        "name": "app-testasdsad",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c77273d2685502d74513",
+        "name": "Apply mask to extract brain data - T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00ed4e88e26e6de7e301a1",
+        "name": "Brain Extraction (FSL BET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b0600b488e26e6de7fab2cc",
+        "name": "Brain Extraction (FSL BET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6adfa8172579cf1fd63eec20",
+        "name": "BRAIN EXTRACTION APP TEST 10/26/26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6afa5518b9274454de107c0e",
+        "name": "brain-extract-14-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6af7a5963dfea83ca970ddd1",
+        "name": "brain-extraction-13-11-26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635ec09efa262bbde2cdfbd8",
+        "name": "Combine 2D T1w images into a single 3D volume - 2 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635db2d4fa262bbde2ccdb89",
+        "name": "Combine 2D T1w images into a single 3D volume - 3 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60cb69e0cdfdb50220fee1c3",
+        "name": "DBB_preprocessing_t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6adfab472579cf1fd63f1d3e",
+        "name": "FABER BRAIN EXTRACTION TEST 10/26/26",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa45626e138ec86474ea032",
+        "name": "Franco Python Template",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59714d376c3b7e0029153f53",
+        "name": "Freesurfer Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e3c87ae9362b7166cf9c7f4",
+        "name": "FSL Anat (T1)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7a41762ee82cf68a71b837",
+        "name": "FSL BET Skull Strip",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a54faf541fd04003f9d488b",
+        "name": "FSL Brain Extraction (BET) on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60707f8bc7f80a0cb895d6ca",
+        "name": "FSL Reorient and Crop T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa484c538c16a820a4f22",
+        "name": "Generate brain extracted image with SynthStrip (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635c9132fa262bbde2cb9d70",
+        "name": "Generate synthetic MP-RAGE T1 image from clinical FLAIR data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "636dcc6d487d94b9e6eb8e9b",
+        "name": "Generate synthetic MP-RAGE T1 image from T1w and T2w data using SynthSR Hyperfine",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635c90d3fa262bbde2cb91de",
+        "name": "Generate synthetic MP-RAGE T1 image from T1w data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635c911afa262bbde2cb988d",
+        "name": "Generate synthetic MP-RAGE T1 image from T2w data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f592ced0c8f9597ac65ae41",
+        "name": "HD-BET",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6722807d851d5f6d75426b00",
+        "name": "Hybrid QSM-weighted T1 Generator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa48155e138ec0c3e4ea742",
+        "name": "Justin Reslice T1w App",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa47f87e138ec5bfa4ea73d",
+        "name": "Little Test",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eee4834d39ceb0c28a114a0",
+        "name": "midway align and average T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6717eddd168d1cbcfbd09901",
+        "name": "PET Deface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "674a1d316bb7513283da1681",
+        "name": "petdeface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef2c397c67a0d84a529667a",
+        "name": "pydeface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635af57bfa262bbde2c82de7",
+        "name": "Reslice T1w to Isotropic Voxel Dimensions using FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d2f5e0c9315be199006d4",
+        "name": "SynthStrip (GPU) T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69bb047ddc348e0524f05a3b",
+        "name": "T1-w Template Construction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d177a0c9315be198f7d59",
+        "name": "T1w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6466565bd391caf6ef1d2fb3",
+        "name": "Temporary brain extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63e6761bc538c16a82248f0e",
+        "name": "Test app to add value to t1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa46d70e138ec6b634ea36b",
+        "name": "Test Python Template for Class",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fa95136afcdcceef4c40294",
+        "name": "Warp T1 and tensor",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "flip",
+          "inversion",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "MP2RAGE",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "60634f0de4a8347569337f97",
+    "desc": "TODO",
+    "name": "neuro/anat/mp2rage",
+    "original": {
+      "desc": "(experimental) tentative data format for MP2RAGE in brainlife. Modeling after https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#inputs-are-file-collections",
+      "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it.. "
+    },
+    "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it.. "
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "mag.inv1.nii.gz",
+      "id": "mag_inv1",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "phase.inv1.nii.gz",
+      "id": "phase_inv1",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "mag.inv2.nii.gz",
+      "id": "mag_inv2",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "phase.inv2.nii.gz",
+      "id": "phase_inv2",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "unit1.nii.gz",
+      "id": "unit1",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "mag.inv1.json",
+      "id": "mag_inv1_json",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "phase.inv1.json",
+      "id": "phase_inv1_json",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "mag.inv2.json",
+      "id": "mag_inv2_json",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "phase.inv2.json",
+      "id": "phase_inv2_json",
+      "required": false
+    },
+    {
+      "desc": "(stored in bids derivatives)",
+      "filename": "unit1.json",
+      "id": "unit1_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "files[4].desc",
+      "files[5].desc",
+      "files[6].desc",
+      "files[7].desc",
+      "files[8].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "60832a3789df43532e6dbb7b",
+        "name": "Align mp2rage to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6081c1d389df434ba96922ae",
+        "name": "Align mp2rage volumes to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "608b188b89df43179075b628",
+        "name": "Compute T1 and R1 maps from MP2RAGE",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "607f1682932bd76bbbfdffda",
+        "name": "Denoise MP2RAGE UNI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6083329689df4317546dd88a",
+        "name": "FSL Anat (mp2rage)",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "60832a3789df43532e6dbb7b",
+        "name": "Align mp2rage to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6081c1d389df434ba96922ae",
+        "name": "Align mp2rage volumes to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "607f1682932bd76bbbfdffda",
+        "name": "Denoise MP2RAGE UNI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6083329689df4317546dd88a",
+        "name": "FSL Anat (mp2rage)",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

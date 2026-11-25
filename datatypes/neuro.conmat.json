@@ -1,0 +1,166 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5d34d9f744947d8aea0e0d2f",
+    "desc": "TODO",
+    "name": "neuro/conmat",
+    "original": {
+      "desc": "Connectivity Matrix",
+      "readme": "\n# `index.json`\n\n`/csv` directory contains any number of .csv files. `index.json` is used to describe each .csv files. It looks like this\n\n```\n[\n    {\n        \"filename\": \"correlation.csv\",\n        \"unit\": \"xyz^3\",\n        \"name\": \"corrleation between 2 parc\",\n        \"desc\": \"edit me\"\n    }\n]\n```\n\n# `label.json`\n\nDescribes what each column/row corresponds to (in the same order of the column/row in the correlation.csv). It hould look like this.\n\n```\n[\n    {\n        \"name\": \"self-loop\",\n        \"desc\": \"index(x,x) is the diagonal\"\n    },\n    {\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\",\n        \"label\": \"1001\",\n        \"voxel_value\": 1\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_Striate.label\",\n        \"label\": \"1002\",\n        \"voxel_value\": 2\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr.label\",\n        \"label\": \"1003\",\n        \"voxel_value\": 3\n    },\n...\n]\n```"
+    },
+    "readme": "\n# `index.json`\n\n`/csv` directory contains any number of .csv files. `index.json` is used to describe each .csv files. It looks like this\n\n```\n[\n    {\n        \"filename\": \"correlation.csv\",\n        \"unit\": \"xyz^3\",\n        \"name\": \"corrleation between 2 parc\",\n        \"desc\": \"edit me\"\n    }\n]\n```\n\n# `label.json`\n\nDescribes what each column/row corresponds to (in the same order of the column/row in the correlation.csv). It hould look like this.\n\n```\n[\n    {\n        \"name\": \"self-loop\",\n        \"desc\": \"index(x,x) is the diagonal\"\n    },\n    {\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\",\n        \"label\": \"1001\",\n        \"voxel_value\": 1\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_Striate.label\",\n        \"label\": \"1002\",\n        \"voxel_value\": 2\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr.label\",\n        \"label\": \"1003\",\n        \"voxel_value\": 3\n    },\n...\n]\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "index.json",
+      "id": "index",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "label.json",
+      "id": "label",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "dirname": "csv",
+      "id": "csv",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5f1fa182beafe9548f622a7e",
+        "name": "Conmat to network",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626bf253f3858674a2a6c9fb",
+        "name": "Create networkneuro datatype for visualization",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a552e9ab3e66978060fa26",
+        "name": "Predict functional connectivity from structural connectivity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "621e582f5d8ab5d5f01b357c",
+        "name": "Structural connectivity predictors",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb0a0650d21177fad4287d9",
+        "name": "Convert network neuro matrix to conmat",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c720cf63e2f2c0030a23486",
+        "name": "fMRI to Connectivity Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca2f0934e13335187cfbbd",
+        "name": "Retinotopic Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629a6ee47f60950a54cc82f6",
+        "name": "Structural connectivity & White Matter Classification (WMC) using DIPY",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "621e582f5d8ab5d5f01b357c",
+        "name": "Structural connectivity predictors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

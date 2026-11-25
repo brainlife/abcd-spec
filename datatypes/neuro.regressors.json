@@ -1,0 +1,223 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "notspecific",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "regressors.tsv",
+            "file_id": "regressors"
+          },
+          {
+            "bids_part": "regressors.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "regressors",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5c4f6a8af9109beac4b3dae0",
+    "desc": "TODO",
+    "name": "neuro/regressors",
+    "original": {
+      "desc": "Confounds (or nuisance regressors) are variables representing fluctuations with a potential non-neuronal origin. Such non-neuronal fluctuations may drive spurious results in fMRI data analysis, including standard activation GLM and functional It is possible to minimize confounding effects of non-neuronal signals by including them as nuisance regressors in the GLM design matrix or regressing them out from the fMRI data - a procedure known as denoising. connectivity analyses. ",
+      "readme": "It is possible to minimize confounding effects of non-neuronal signals by including them as nuisance regressors in the GLM design matrix or regressing them out from the fMRI data - a procedure known as denoising. There is currently no consensus on an optimal denoising strategy in the fMRI community. Rather, different strategies have been proposed, which achieve different compromises between how much of the non-neuronal fluctuations are effectively removed, and how much of neuronal fluctuations are damaged in the process. The fMRIPrep pipeline generates a large array of possible confounds. (from Please see https://fmriprep.org/en/stable/outputs.html#confounds for more detail)"
+    },
+    "readme": "It is possible to minimize confounding effects of non-neuronal signals by including them as nuisance regressors in the GLM design matrix or regressing them out from the fMRI data - a procedure known as denoising. There is currently no consensus on an optimal denoising strategy in the fMRI community. Rather, different strategies have been proposed, which achieve different compromises between how much of the non-neuronal fluctuations are effectively removed, and how much of neuronal fluctuations are damaged in the process. The fMRIPrep pipeline generates a large array of possible confounds. (from Please see https://fmriprep.org/en/stable/outputs.html#confounds for more detail)"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "regressors.tsv",
+      "id": "regressors",
+      "required": true
+    },
+    {
+      "desc": "JSON file containing a dictionary with key corresponding to each column in regressors.tsv and object containing information such as     \n\n\"CumulativeVarianceExplained\": 0.1424663887,\n    \"Mask\": \"CSF\",\n    \"Method\": \"aCompCor\",\n    \"Retained\": true,\n    \"SingularValue\": 146.001826739,\n    \"VarianceExplained\": 0.1424663887\n\nThis information is used to perform a component based noise correction method (CompCor)\n",
+      "filename": "regressors.json",
+      "id": "json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6143a6a57a38b00ad39f50e9",
+        "name": "Connectivity Gradients",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698d8d41318fe6e4e1e8a3e9",
+        "name": "fitlins",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed05fe8e3f4538080268585",
+        "name": "fMRI Timeseries Extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c720cf63e2f2c0030a23486",
+        "name": "fMRI to Connectivity Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a984afbd90f157078e3390e",
+        "name": "hyssong-fmripreprocessing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6041f75166d5ce1daf6efb55",
+        "name": "PyNets",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6230bbbb5d8ab5d5f038b43a",
+        "name": "Convert quality control (qc) data from eddy to regressors datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef7997ddc2df54d26631cd",
+        "name": "FSL Eddy (CUDA)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a042f7dea4d9f77d88731d1",
+        "name": "FSL Top-up & Eddy Correct & QC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f0c3975e3b9b921dbe89d4",
+        "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f827fa262bbde2d99ce0",
+        "name": "Run MRIQC on Functional Data - FMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f75ffa262bbde2d97922",
+        "name": "Run MRIQC on Structural Data - T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f7e2fa262bbde2d98b4a",
+        "name": "Run MRIQC on Structural Data - T2w",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

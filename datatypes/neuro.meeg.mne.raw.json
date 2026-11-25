@@ -1,0 +1,410 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "61893398e8be76b34cb9826e",
+    "desc": "TODO",
+    "name": "neuro/meeg/mne/raw",
+    "original": {
+      "desc": "https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "raw.fif",
+      "id": "mne",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "63340c27db978c79919b9684",
+        "name": "Compute EOG artifact SSP projectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67f3f80ada629ed3b127f324",
+        "name": "Add flat channel",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644884a9d391caf6efd69605",
+        "name": "Add montage",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aeba162e5002a0fe6b0eef1",
+        "name": "Annotate raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b2af986bb1f71b25b95b29",
+        "name": "app-bad-channel-temp",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699eddc41c904fbe50d8b484",
+        "name": "app-resample-raw-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63341bd2db978c79919bff74",
+        "name": "Apply SSP projectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a982566d90f157078e200c3",
+        "name": "Automated  coregistration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63340316db978c79919b4c98",
+        "name": "Compute ECG artifact SSP projectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66aa17e7774d6f044d97f1e9",
+        "name": "Compute forward model MEEG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698f0a5e88100c81ffc8a41d",
+        "name": "Compute Noise Covariance",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642daf2d73d2685502ebfd09",
+        "name": "Concatenate raws",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "66a0d6faf61fb6c31d8bb223",
+        "name": "Coregistration MRI with MEG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a3e829476d8d577a7e33a03",
+        "name": "Crop raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "625d3130cc8ab2b339ea2692",
+        "name": "Epochs from events",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "616e7fd8fc8eb90a21ff8eaa",
+        "name": "Epochs of equal length",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "632993fd71291bb27f9ab7c9",
+        "name": "Extract events from MEG/EEG raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a9aab920efc94c8a6bb8977",
+        "name": "Filter cHPI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642dc7d173d2685502ec4d5f",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a99d91dd90f157078ecfd29",
+        "name": "GEDAI EEG denoising (raw)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d6c8e0eab7bb5c3ca13e15",
+        "name": "Interpolate bad channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b11c0f6bb1f71b25b601e7",
+        "name": "Make Forward Solution",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64075b6fc538c16a826b67be",
+        "name": "Mark bad data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a09e07dea4d9f77d8a14397",
+        "name": "maxwell-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64008e33c538c16a825f68df",
+        "name": "Plot all projectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b7589f0ad40d957dca311a",
+        "name": "PSD of raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d6ed97eab7bb5c3ca1729e",
+        "name": "Read info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "647df9b979d13f6418ec0ba1",
+        "name": "Resample",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63344389db978c79919cbb82",
+        "name": "Setup and fit ICA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63f6067fc538c16a82408b5b",
+        "name": "Show events in file",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b139f022b42a6dc5771dd2",
+        "name": "Split MEG file",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "67f3f80ada629ed3b127f324",
+        "name": "Add flat channel",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644884a9d391caf6efd69605",
+        "name": "Add montage",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aeba162e5002a0fe6b0eef1",
+        "name": "Annotate raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69b2af986bb1f71b25b95b29",
+        "name": "app-bad-channel-temp",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699eddc41c904fbe50d8b484",
+        "name": "app-resample-raw-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b67eed0697cf1eaeb5031",
+        "name": "BDF to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699ec5fa1c904fbe50d8776e",
+        "name": "bdf2mne-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b6938d0697cf1eaeb6077",
+        "name": "BRAINVISION to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642daf2d73d2685502ebfd09",
+        "name": "Concatenate raws",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a3e829476d8d577a7e33a03",
+        "name": "Crop raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b6054d0697cf1eaeb1972",
+        "name": "CTF to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b6b3ed0697cf1eaeb70e9",
+        "name": "EDF to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b6340d0697cf1eaeb2a74",
+        "name": "EEGLAB to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64075386c538c16a826b5818",
+        "name": "EGI to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a8d9b56ad4d4a4b5327f838",
+        "name": "FIF to MNE Raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628b5c89d0697cf1eaeaffad",
+        "name": "FIF to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a9aab920efc94c8a6bb8977",
+        "name": "Filter cHPI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "642dc7d173d2685502ec4d5f",
+        "name": "Filter data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a99d91dd90f157078ecfd29",
+        "name": "GEDAI EEG denoising (raw)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d6c8e0eab7bb5c3ca13e15",
+        "name": "Interpolate bad channels",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64075b6fc538c16a826b67be",
+        "name": "Mark bad data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a09e07dea4d9f77d8a14397",
+        "name": "maxwell-v2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63358285db978c7991a30e5b",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "647df9b979d13f6418ec0ba1",
+        "name": "Resample",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

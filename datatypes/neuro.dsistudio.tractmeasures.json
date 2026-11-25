@@ -1,0 +1,98 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5f6aa135cfa3656ab4c9e245",
+    "desc": "TODO",
+    "name": "neuro/dsistudio/tractmeasures",
+    "original": {
+      "desc": "Directory containing .tsv formatted tractmeasures",
+      "readme": "Edit me"
+    },
+    "readme": "Edit me"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "dirname": "tractmeasures",
+      "id": "tractmeasures",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5f73a86a0a320c3226112026",
+        "name": "Compile measures from dsistudio tractmeasures datatype",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5f73a86a0a320c3226112026",
+        "name": "Compile measures from dsistudio tractmeasures datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a01dfcfa365587cc9995f",
+        "name": "dsi-studio-atk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67817af681d348aa5645c5b5",
+        "name": "dsi-studio-trk-ana",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

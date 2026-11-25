@@ -1,0 +1,153 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5c478b7bf9109beac4520be6",
+    "desc": "TODO",
+    "name": "neuro/parcellation/surface-deprecated",
+    "original": {
+      "desc": "(this datatype has been deprecated by  surface/data and surface/vertices) Contains lh.parc.annot.gii and rh.parc.annot.gii for surface parcellation / annotation. key.txt contains the labels. This datatype also contains various surface files (inflated, pial, and white) for reference purpose. For more advanced analysis, you will probably want to provide your own surface file.",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "lh.parc.annot.gii",
+      "id": "lh_annot",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "rh.parc.annot.gii",
+      "id": "rh_annot",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "lh.parc.inflated.gii",
+      "id": "lh_inflated_surf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "rh.parc.inflated.gii",
+      "id": "rh_inflated_surf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "lh.parc.pial.gii",
+      "id": "lh_pial_surf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "rh.parc.pial.gii",
+      "id": "rh_pial_surf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "lh.parc.white.gii",
+      "id": "lh_white_surf",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "rh.parc.white.gii",
+      "id": "rh_white_surf",
+      "required": true
+    },
+    {
+      "desc": "deprecated. please use label.json.. example 1001 -> 1 == lh.Background+FreeSurfer_Defined_Medial_Wall.label 1002 -> 2 == lh.17Networks_LH_VisCent_Striate.label 1003 -> 3 == lh.17Networks_LH_VisCent_ExStr.label 1004 -> 4 == lh.17Networks_LH_VisPeri_Striate.label",
+      "filename": "key.txt",
+      "id": "key",
+      "required": false
+    },
+    {
+      "desc": "json file mapping each voxel values to parcellation label / desc. [ { \"name\": \"unknown\", \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \"voxel_value\": 0 },",
+      "filename": "label.json",
+      "id": "label",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "files[4].desc",
+      "files[5].desc",
+      "files[6].desc",
+      "files[7].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6169c901fc8eb97d1efe09fe",
+        "name": "Temporary converter of parcellation/surface-deprecated datatypes to surface datatypes",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5dbe0820fdefb1e42b771dda",
+        "name": "Bayesian Analysis of Retinotopic Maps",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115c829a5a04c2a80f9e7f7",
+        "name": "pRFs / Benson14-Retinotopy",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

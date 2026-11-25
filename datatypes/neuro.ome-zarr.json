@@ -1,0 +1,620 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "TEM",
+        "tags": [
+          "TEM"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "SEM",
+        "tags": [
+          "SEM"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "uCT",
+        "tags": [
+          "uCT"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "BF",
+        "tags": [
+          "BF"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "DF",
+        "tags": [
+          "DF"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "PC",
+        "tags": [
+          "PC"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "DIC",
+        "tags": [
+          "DIC"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "FLUO",
+        "tags": [
+          "FLUO"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "CONF",
+        "tags": [
+          "CONF"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "PLI",
+        "tags": [
+          "PLI"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "CARS",
+        "tags": [
+          "CARS"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "2PE",
+        "tags": [
+          "2PE"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "MPE",
+        "tags": [
+          "MPE"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "SR",
+        "tags": [
+          "SR"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "NLO",
+        "tags": [
+          "NLO"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "OCT",
+        "tags": [
+          "OCT"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "SPIM",
+        "tags": [
+          "SPIM"
+        ]
+      },
+      {
+        "datatype": "micr",
+        "entities": [
+          "sample",
+          "stain",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".ome.tif",
+          ".ome.btf",
+          ".ome.zarr/",
+          ".png",
+          ".tif",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "XPCT",
+        "tags": [
+          "XPCT"
+        ]
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6a99e5d7d90f157078ed790c",
+    "desc": "TODO",
+    "name": "neuro/ome-zarr",
+    "original": {
+      "desc": "OME-Zarr (OME-NGFF) multidimensional bioimaging store",
+      "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility."
+    },
+    "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility."
+  },
+  "files": [
+    {
+      "desc": "OME-Zarr store root",
+      "dirname": "data.ome.zarr",
+      "id": "zarr",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "bids.correspondences[10].match",
+      "bids.correspondences[11].match",
+      "bids.correspondences[12].match",
+      "bids.correspondences[13].match",
+      "bids.correspondences[14].match",
+      "bids.correspondences[15].match",
+      "bids.correspondences[16].match",
+      "bids.correspondences[17].match",
+      "bids.correspondences[1].match",
+      "bids.correspondences[2].match",
+      "bids.correspondences[3].match",
+      "bids.correspondences[4].match",
+      "bids.correspondences[5].match",
+      "bids.correspondences[6].match",
+      "bids.correspondences[7].match",
+      "bids.correspondences[8].match",
+      "bids.correspondences[9].match",
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6aa83e4384691735460bde17",
+        "name": "AC Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa993d6deee1367b4361c43",
+        "name": "CONNECTS Validation Engine",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aaad3f2f2db0d99df4cae83",
+        "name": "impact-reg",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6aa83e4384691735460bde17",
+        "name": "AC Segmentation",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

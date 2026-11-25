@@ -1,0 +1,91 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5ed834cdda66453cde8edfb7",
+    "desc": "TODO",
+    "name": "generic/timeseries-deprecated",
+    "original": {
+      "desc": "Generic time-series datatype",
+      "readme": "This datatype can be used to store time-series data in .hdf5 data format. \n\nInside the `timeseries.hdf5`, it is expected to have the following 2 objects\n\n```\n/timeseries\n   --TODO describe--\n/regionids\n   --TODO describe--\n```\n\ntimeseries and regionids are stored as following.\n> https://github.com/brainlife/app-time-series-2-network/blob/master/src/makemat.py\n\n```\n                h5f.create_dataset('timeseries',\n                                   data=times,\n                                   compression=\"gzip\")\n                h5f.create_dataset('regionids',\n                                   data=np.array(regions))\n\n```"
+    },
+    "readme": "This datatype can be used to store time-series data in .hdf5 data format. \n\nInside the `timeseries.hdf5`, it is expected to have the following 2 objects\n\n```\n/timeseries\n   --TODO describe--\n/regionids\n   --TODO describe--\n```\n\ntimeseries and regionids are stored as following.\n> https://github.com/brainlife/app-time-series-2-network/blob/master/src/makemat.py\n\n```\n                h5f.create_dataset('timeseries',\n                                   data=times,\n                                   compression=\"gzip\")\n                h5f.create_dataset('regionids',\n                                   data=np.array(regions))\n\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "timeseries.hdf5",
+      "id": "timeseries",
+      "required": true
+    },
+    {
+      "desc": "associated label metadata for creation of func network",
+      "filename": "key.txt",
+      "id": "key",
+      "required": false
+    },
+    {
+      "desc": "associated label metadata for creation of func network",
+      "filename": "label.json",
+      "id": "label",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5fbc2d627e8ecb4e35abe62f",
+        "name": "Create Edge Time Series",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

@@ -1,0 +1,1277 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [
+          "direction",
+          "part",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json",
+          ".bvec",
+          ".bval"
+        ],
+        "files": [
+          {
+            "bids_part": "dwi.nii.gz",
+            "file_id": "dwi"
+          },
+          {
+            "bids_part": "dwi.bvecs",
+            "file_id": "bvecs"
+          },
+          {
+            "bids_part": "dwi.bvals",
+            "file_id": "bvals"
+          },
+          {
+            "bids_part": "dwi.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "dwi",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "58c33c5fe13a50849b25879b",
+    "desc": "TODO",
+    "name": "neuro/dwi",
+    "original": {
+      "desc": "Diffusion-weighted magnetic resonance data (dMRI), saved in NIfTI-1 format.",
+      "readme": "Used brainlife/validator-neuro-dwi for validator"
+    },
+    "readme": "Used brainlife/validator-neuro-dwi for validator"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "ext": ".gz",
+      "filename": "dwi.nii.gz",
+      "id": "dwi",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "dwi.bvecs",
+      "id": "bvecs",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "dwi.bvals",
+      "id": "bvals",
+      "required": true
+    },
+    {
+      "desc": "Single-band reference for one or more multi-band dwi images.",
+      "filename": "sbref.nii.gz",
+      "id": "sbref",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "sbref.json",
+      "id": "sbref_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[4].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[100].purpose",
+      "usage.inputs_of[101].purpose",
+      "usage.inputs_of[102].purpose",
+      "usage.inputs_of[103].purpose",
+      "usage.inputs_of[104].purpose",
+      "usage.inputs_of[105].purpose",
+      "usage.inputs_of[106].purpose",
+      "usage.inputs_of[107].purpose",
+      "usage.inputs_of[108].purpose",
+      "usage.inputs_of[109].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[110].purpose",
+      "usage.inputs_of[111].purpose",
+      "usage.inputs_of[112].purpose",
+      "usage.inputs_of[113].purpose",
+      "usage.inputs_of[114].purpose",
+      "usage.inputs_of[115].purpose",
+      "usage.inputs_of[116].purpose",
+      "usage.inputs_of[117].purpose",
+      "usage.inputs_of[118].purpose",
+      "usage.inputs_of[119].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[120].purpose",
+      "usage.inputs_of[121].purpose",
+      "usage.inputs_of[122].purpose",
+      "usage.inputs_of[123].purpose",
+      "usage.inputs_of[124].purpose",
+      "usage.inputs_of[125].purpose",
+      "usage.inputs_of[126].purpose",
+      "usage.inputs_of[127].purpose",
+      "usage.inputs_of[128].purpose",
+      "usage.inputs_of[129].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[130].purpose",
+      "usage.inputs_of[131].purpose",
+      "usage.inputs_of[132].purpose",
+      "usage.inputs_of[133].purpose",
+      "usage.inputs_of[134].purpose",
+      "usage.inputs_of[135].purpose",
+      "usage.inputs_of[136].purpose",
+      "usage.inputs_of[137].purpose",
+      "usage.inputs_of[138].purpose",
+      "usage.inputs_of[139].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[140].purpose",
+      "usage.inputs_of[141].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[42].purpose",
+      "usage.inputs_of[43].purpose",
+      "usage.inputs_of[44].purpose",
+      "usage.inputs_of[45].purpose",
+      "usage.inputs_of[46].purpose",
+      "usage.inputs_of[47].purpose",
+      "usage.inputs_of[48].purpose",
+      "usage.inputs_of[49].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[50].purpose",
+      "usage.inputs_of[51].purpose",
+      "usage.inputs_of[52].purpose",
+      "usage.inputs_of[53].purpose",
+      "usage.inputs_of[54].purpose",
+      "usage.inputs_of[55].purpose",
+      "usage.inputs_of[56].purpose",
+      "usage.inputs_of[57].purpose",
+      "usage.inputs_of[58].purpose",
+      "usage.inputs_of[59].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[60].purpose",
+      "usage.inputs_of[61].purpose",
+      "usage.inputs_of[62].purpose",
+      "usage.inputs_of[63].purpose",
+      "usage.inputs_of[64].purpose",
+      "usage.inputs_of[65].purpose",
+      "usage.inputs_of[66].purpose",
+      "usage.inputs_of[67].purpose",
+      "usage.inputs_of[68].purpose",
+      "usage.inputs_of[69].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[70].purpose",
+      "usage.inputs_of[71].purpose",
+      "usage.inputs_of[72].purpose",
+      "usage.inputs_of[73].purpose",
+      "usage.inputs_of[74].purpose",
+      "usage.inputs_of[75].purpose",
+      "usage.inputs_of[76].purpose",
+      "usage.inputs_of[77].purpose",
+      "usage.inputs_of[78].purpose",
+      "usage.inputs_of[79].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[80].purpose",
+      "usage.inputs_of[81].purpose",
+      "usage.inputs_of[82].purpose",
+      "usage.inputs_of[83].purpose",
+      "usage.inputs_of[84].purpose",
+      "usage.inputs_of[85].purpose",
+      "usage.inputs_of[86].purpose",
+      "usage.inputs_of[87].purpose",
+      "usage.inputs_of[88].purpose",
+      "usage.inputs_of[89].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[90].purpose",
+      "usage.inputs_of[91].purpose",
+      "usage.inputs_of[92].purpose",
+      "usage.inputs_of[93].purpose",
+      "usage.inputs_of[94].purpose",
+      "usage.inputs_of[95].purpose",
+      "usage.inputs_of[96].purpose",
+      "usage.inputs_of[97].purpose",
+      "usage.inputs_of[98].purpose",
+      "usage.inputs_of[99].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[31].purpose",
+      "usage.outputs_of[32].purpose",
+      "usage.outputs_of[33].purpose",
+      "usage.outputs_of[34].purpose",
+      "usage.outputs_of[35].purpose",
+      "usage.outputs_of[36].purpose",
+      "usage.outputs_of[37].purpose",
+      "usage.outputs_of[38].purpose",
+      "usage.outputs_of[39].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[40].purpose",
+      "usage.outputs_of[41].purpose",
+      "usage.outputs_of[42].purpose",
+      "usage.outputs_of[43].purpose",
+      "usage.outputs_of[44].purpose",
+      "usage.outputs_of[45].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5c5087d514061b00377b22d4",
+        "name": "Align DWI to Dtiinit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa981bc16d2ef0408f7a0bf",
+        "name": "anatomix-t1w-dwi-registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "697852fef8addc864bba6174",
+        "name": "app-dmipy-jax",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00e13188e26e6de7e2d38d",
+        "name": "app-mpat-tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67bd17931b629b467f6eceb7",
+        "name": "app-set-datatype_tag-debiased",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67b90a2c1b629b467f664a27",
+        "name": "app-set-datatype_tag-preprocessed",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69c475112f6899fd66a0c459",
+        "name": "app-set-dwi-datatype_tag-preprocessed",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7e473d2685502d76a6e",
+        "name": "Apply mask to extract brain data - DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "615b769ffc8eb96633f613aa",
+        "name": "bedpostx",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ac39b3014f0d4002802e150",
+        "name": "BIDS Mrtrix3 Connectome",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aaffb4ec931e60132a6a4a0",
+        "name": "BIDS Tracula (under development)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a4fb3d1fdf677004993ee18",
+        "name": "Check DWI Orientation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b58b3f3786e0f002791d384",
+        "name": "Check Gradient Flip",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6340875ffa262bbde2a153f7",
+        "name": "combine-scans-rois",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea7b12d39cebfb5ca08df0",
+        "name": "Compute  tSNR of DMRI Images",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f794bde268f765c3929bda2",
+        "name": "Compute macro-structural statistics of tracts using Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bca308550fdf50028c6342c",
+        "name": "Compute SNR on Corpus Callosum",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6441babdd391caf6efc8fa6c",
+        "name": "Convert assignments from structural connectivity to wmc datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0ab6e6f9b4a2002efc1618",
+        "name": "Convert tck to trk in DWI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cdaae6bbee32c629a2904",
+        "name": "Cortex Tissue Mapping (Native Space) - Gray Matter Density",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd7aa5a04cc30cf9f3fe",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef1211e78d63f25fbd39e02",
+        "name": "Create brainmask of DWI using MrTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7bf49f1745d5b2ff80319",
+        "name": "Denoising using LPCA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7c33bf1745d4582f803e1",
+        "name": "Denoising using Marcenko-Pastur PCA (MP-PCA)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a271f814e57c077cf5e3476",
+        "name": "Denoising using Non Local Means (NLM)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "697838c1f8addc864bba24cd",
+        "name": "dmipy-jax-fit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a01dfcfa365587cc9995f",
+        "name": "dsi-studio-atk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6960bacfa3657551c967e1",
+        "name": "dsi-studio-dwi2src",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6b8de3cfa3655f0bca477d",
+        "name": "dsi-studio-qc",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "58c56cf7e13a50849b258800",
+        "name": "dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "611301a3a5a04c0a6df90472",
+        "name": "DWI Debias",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efecd73279e0028adfc1f",
+        "name": "DWI Info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bbf8a5cfcb14c00272a4971",
+        "name": "DWI preproc and nonlinear registration to T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a977430d90f157078dd6c7b",
+        "name": "DWI SNR (HM vs VM)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a33dc3ef90cc0f09fc0dc64",
+        "name": "DWI test",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a33e018f90cc0f09fc0fdea",
+        "name": "DWI TEST 0",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68227aa40c9315be1979f2ed",
+        "name": "dwi2b0",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baa3fc9d0be8b002776b8de",
+        "name": "Ensemble Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e6a8ebd8740673152a3d18f",
+        "name": "EPI T1 Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5df431a62dac9b59e0ae1355",
+        "name": "Extract b0 images from DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a8125122b42a158170e126",
+        "name": "Extract diffusion metrics inside ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6144aa977a38b05b4ba047f6",
+        "name": "Extract DWI volumes of choice",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "677861ac60f3a0c86ee31072",
+        "name": "Extract selected b-values from DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60282ffddea2e28693797e57",
+        "name": "Extract shell from DWI image",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61d5e77d33cb3deb49834d4a",
+        "name": "extract_b0_masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db224e98aeeee0f87f25c1f",
+        "name": "Fit Constrained Deconvolution Model for Tracking",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efc8673279e0028adfc08",
+        "name": "Fit CSA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efd2973279e0028adfc18",
+        "name": "Fit CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ae9d732f446980028b15ec2",
+        "name": "Fit DKI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efb6673279e0028adfc01",
+        "name": "Fit DTI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7b4d2f1745d1c26f80269",
+        "name": "Fit IVIM",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b217a3e16fe38002748e5ff",
+        "name": "Fit MAPMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ad394922b42ae2f1766b79",
+        "name": "Fit Tensor Model using MRTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c63a9c3f2362b00318046c2",
+        "name": "FSL Brain Extraction (BET) on DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e7f90e9dd840e81aae91906",
+        "name": "FSL DTIFIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef7997ddc2df54d26631cd",
+        "name": "FSL Eddy (CUDA)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef76e8ddc2df373e6630a0",
+        "name": "FSL Eddy (OpenMP)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef1c3dddc2df157165f72b",
+        "name": "FSL Eddy-correct",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c54df0f12cbcc01e1635aff",
+        "name": "FSL Top-up & Eddy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62d1aab8f3194eded6010de9",
+        "name": "FSL Top-up & Eddy Correct",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a042f7dea4d9f77d88731d1",
+        "name": "FSL Top-up & Eddy Correct & QC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f0c3975e3b9b921dbe89d4",
+        "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6971100c3e635860268930c6",
+        "name": "FSL Top-up & Eddy Correct - w/fMAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daae58c538c16a820a77f4",
+        "name": "Generate brain extracted image with SynthStrip (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63bb2398daffe2c2408e24cc",
+        "name": "Generate Eccentricity Parcellations from pRF - Diffusion Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "617061bffc8eb9a0ee00a911",
+        "name": "Generate images of all DWI volumes and create gif",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88c6f0952fef0a3d7abf59",
+        "name": "Generate images of DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8e162f952fef6d527b6d09",
+        "name": "Generate images of DWI overlaid on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8ccf72952fef2eb67b4252",
+        "name": "Generate images of mask overlaid on DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643ef709d391caf6efc27c7d",
+        "name": "Generate Polar Angle Parcellations from pRF - Diffusion Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec69cdd1f4464c1e69e3a21",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Benson pRF)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5277bf42c17215e36504d8",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Glasser Parcellation)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6192cd0d983d5bb13f951b61",
+        "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6192d0a4983d5bb13f958870",
+        "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52cc4b42c17250a7651b63",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Diffusion Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baa44b1d0be8b002776b8f7",
+        "name": "LiFE (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fd0f921678a9161d04a61cc",
+        "name": "Linearly align DWI to another DWI with FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb99e5ee8e7ace25d8a9dcc",
+        "name": "Make white matter mask in dwi space from Freesurfer",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e419e50301ffc2c9833fe09",
+        "name": "mergeDWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5de1664e936ca31ee1c610f5",
+        "name": "Mrtrix2 CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baaa881d0be8b002776b954",
+        "name": "MRtrix2 Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9dced9f1745d6994f692c0",
+        "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a813e52dc4031003b8b36f9",
+        "name": "mrtrix3 preprocess",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02c520a8ed8e7bb483031",
+        "name": "Noddi Amico",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02ca70a8ed8a9c04831d3",
+        "name": "NODDI Amico (single shell)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65a84fa74ce5ac2907eca5ec",
+        "name": "Normalize DWI data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c8189cd2fbcc20034b39e60",
+        "name": "Peaks extraction with MRtrix",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6041f75166d5ce1daf6efb55",
+        "name": "PyNets",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aac2437f0b5260027e24ae1",
+        "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59fb2f15c996d0002d47ee1d",
+        "name": "Register DWI to T1 using Vistasoft",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd8eb312d1348297f052c5",
+        "name": "Register DWI to T1 with FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cd1cc287d889900340f6f0e",
+        "name": "Remove First B0 (temp)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7c768f1745db773f8041d",
+        "name": "Remove Gibbs Ringing from your DWI data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ae8dbccf446980028b15e95",
+        "name": "Reslice",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "633336fcdb978c799193d995",
+        "name": "Reslice ROIs to match input DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e516420cb80941d63f51b0e",
+        "name": "ROI to ROI Tracking - MRTrix 0.2.12",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f77e8cd268f7638af29a925",
+        "name": "Segment tracts into multiple bundles using QuickBundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e54514f5b9d90668672d5fc",
+        "name": "Segment Tracts with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e82b9eadd840e693ae970be",
+        "name": "Segment white matter tracts using pyAFQ",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610cad1fe1a90d476797cffe",
+        "name": "Segment Wholebrain Tractogram with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a5100c306b9e8003f1ee684",
+        "name": "Segmentation with Median Otsu",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592db717b3cd7c00211dc230",
+        "name": "Split Shells",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59779342749315002f268594",
+        "name": "Test Gradient Flip for dtiInit processing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7164f389d3cd2a98ca10c7",
+        "name": "test-app-dwi2b0",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd90c912d1348297f077fe",
+        "name": "test_dtifit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629fb60a7f60950a54d5e63b",
+        "name": "Tissue-specific SNR (and other tissue-specific metrics)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628a45c0d0697cf1eae9a3fe",
+        "name": "Track the aLIC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec584961f44640f6b9e2658",
+        "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d65964c39867291e349624a",
+        "name": "Track the Human Optic RAdiation (THORA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f51279442c17258f764c7ee",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc12711f4464fbe69ec07f",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecca2f11f446435999ed9f9",
+        "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5a8c510c8f95df586610fd",
+        "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc9bfe1f446412299ed644",
+        "name": "Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc95311f446482f59ed395",
+        "name": "Trekker ROI Tracking (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52e1c542c172f98a6532e4",
+        "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5c5087d514061b00377b22d4",
+        "name": "Align DWI to Dtiinit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "697852fef8addc864bba6174",
+        "name": "app-dmipy-jax",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67bd17931b629b467f6eceb7",
+        "name": "app-set-datatype_tag-debiased",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67b90a2c1b629b467f664a27",
+        "name": "app-set-datatype_tag-preprocessed",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69c475112f6899fd66a0c459",
+        "name": "app-set-dwi-datatype_tag-preprocessed",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7e473d2685502d76a6e",
+        "name": "Apply mask to extract brain data - DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7bf49f1745d5b2ff80319",
+        "name": "Denoising using LPCA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7c33bf1745d4582f803e1",
+        "name": "Denoising using Marcenko-Pastur PCA (MP-PCA)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a271f814e57c077cf5e3476",
+        "name": "Denoising using Non Local Means (NLM)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "697838c1f8addc864bba24cd",
+        "name": "dmipy-jax-fit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "58c56cf7e13a50849b258800",
+        "name": "dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "611301a3a5a04c0a6df90472",
+        "name": "DWI Debias",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bbf8a5cfcb14c00272a4971",
+        "name": "DWI preproc and nonlinear registration to T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68227aa40c9315be1979f2ed",
+        "name": "dwi2b0",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e6a8ebd8740673152a3d18f",
+        "name": "EPI T1 Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5df431a62dac9b59e0ae1355",
+        "name": "Extract b0 images from DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6144aa977a38b05b4ba047f6",
+        "name": "Extract DWI volumes of choice",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "677861ac60f3a0c86ee31072",
+        "name": "Extract selected b-values from DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60282ffddea2e28693797e57",
+        "name": "Extract shell from DWI image",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c63a9c3f2362b00318046c2",
+        "name": "FSL Brain Extraction (BET) on DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef7997ddc2df54d26631cd",
+        "name": "FSL Eddy (CUDA)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef76e8ddc2df373e6630a0",
+        "name": "FSL Eddy (OpenMP)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef1c3dddc2df157165f72b",
+        "name": "FSL Eddy-correct",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c54df0f12cbcc01e1635aff",
+        "name": "FSL Top-up & Eddy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62d1aab8f3194eded6010de9",
+        "name": "FSL Top-up & Eddy Correct",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a042f7dea4d9f77d88731d1",
+        "name": "FSL Top-up & Eddy Correct & QC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f0c3975e3b9b921dbe89d4",
+        "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6971100c3e635860268930c6",
+        "name": "FSL Top-up & Eddy Correct - w/fMAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daae58c538c16a820a77f4",
+        "name": "Generate brain extracted image with SynthStrip (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fd0f921678a9161d04a61cc",
+        "name": "Linearly align DWI to another DWI with FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e419e50301ffc2c9833fe09",
+        "name": "mergeDWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a813e52dc4031003b8b36f9",
+        "name": "mrtrix3 preprocess",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65a84fa74ce5ac2907eca5ec",
+        "name": "Normalize DWI data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "59fb2f15c996d0002d47ee1d",
+        "name": "Register DWI to T1 using Vistasoft",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd8eb312d1348297f052c5",
+        "name": "Register DWI to T1 with FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cd1cc287d889900340f6f0e",
+        "name": "Remove First B0 (temp)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7c768f1745db773f8041d",
+        "name": "Remove Gibbs Ringing from your DWI data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ae8dbccf446980028b15e95",
+        "name": "Reslice",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a5100c306b9e8003f1ee684",
+        "name": "Segmentation with Median Otsu",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592db717b3cd7c00211dc230",
+        "name": "Split Shells",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7164f389d3cd2a98ca10c7",
+        "name": "test-app-dwi2b0",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

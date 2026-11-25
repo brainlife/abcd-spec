@@ -1,0 +1,1107 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5a281aee2c214c9ba83ce620",
+    "desc": "TODO",
+    "name": "neuro/mask",
+    "original": {
+      "desc": "Volume Mask",
+      "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type."
+    },
+    "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type."
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "ext": ".gz",
+      "filename": "mask.nii.gz",
+      "id": "mask",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[100].purpose",
+      "usage.inputs_of[101].purpose",
+      "usage.inputs_of[102].purpose",
+      "usage.inputs_of[103].purpose",
+      "usage.inputs_of[104].purpose",
+      "usage.inputs_of[105].purpose",
+      "usage.inputs_of[106].purpose",
+      "usage.inputs_of[107].purpose",
+      "usage.inputs_of[108].purpose",
+      "usage.inputs_of[109].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[110].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[42].purpose",
+      "usage.inputs_of[43].purpose",
+      "usage.inputs_of[44].purpose",
+      "usage.inputs_of[45].purpose",
+      "usage.inputs_of[46].purpose",
+      "usage.inputs_of[47].purpose",
+      "usage.inputs_of[48].purpose",
+      "usage.inputs_of[49].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[50].purpose",
+      "usage.inputs_of[51].purpose",
+      "usage.inputs_of[52].purpose",
+      "usage.inputs_of[53].purpose",
+      "usage.inputs_of[54].purpose",
+      "usage.inputs_of[55].purpose",
+      "usage.inputs_of[56].purpose",
+      "usage.inputs_of[57].purpose",
+      "usage.inputs_of[58].purpose",
+      "usage.inputs_of[59].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[60].purpose",
+      "usage.inputs_of[61].purpose",
+      "usage.inputs_of[62].purpose",
+      "usage.inputs_of[63].purpose",
+      "usage.inputs_of[64].purpose",
+      "usage.inputs_of[65].purpose",
+      "usage.inputs_of[66].purpose",
+      "usage.inputs_of[67].purpose",
+      "usage.inputs_of[68].purpose",
+      "usage.inputs_of[69].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[70].purpose",
+      "usage.inputs_of[71].purpose",
+      "usage.inputs_of[72].purpose",
+      "usage.inputs_of[73].purpose",
+      "usage.inputs_of[74].purpose",
+      "usage.inputs_of[75].purpose",
+      "usage.inputs_of[76].purpose",
+      "usage.inputs_of[77].purpose",
+      "usage.inputs_of[78].purpose",
+      "usage.inputs_of[79].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[80].purpose",
+      "usage.inputs_of[81].purpose",
+      "usage.inputs_of[82].purpose",
+      "usage.inputs_of[83].purpose",
+      "usage.inputs_of[84].purpose",
+      "usage.inputs_of[85].purpose",
+      "usage.inputs_of[86].purpose",
+      "usage.inputs_of[87].purpose",
+      "usage.inputs_of[88].purpose",
+      "usage.inputs_of[89].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[90].purpose",
+      "usage.inputs_of[91].purpose",
+      "usage.inputs_of[92].purpose",
+      "usage.inputs_of[93].purpose",
+      "usage.inputs_of[94].purpose",
+      "usage.inputs_of[95].purpose",
+      "usage.inputs_of[96].purpose",
+      "usage.inputs_of[97].purpose",
+      "usage.inputs_of[98].purpose",
+      "usage.inputs_of[99].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[31].purpose",
+      "usage.outputs_of[32].purpose",
+      "usage.outputs_of[33].purpose",
+      "usage.outputs_of[34].purpose",
+      "usage.outputs_of[35].purpose",
+      "usage.outputs_of[36].purpose",
+      "usage.outputs_of[37].purpose",
+      "usage.outputs_of[38].purpose",
+      "usage.outputs_of[39].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[40].purpose",
+      "usage.outputs_of[41].purpose",
+      "usage.outputs_of[42].purpose",
+      "usage.outputs_of[43].purpose",
+      "usage.outputs_of[44].purpose",
+      "usage.outputs_of[45].purpose",
+      "usage.outputs_of[46].purpose",
+      "usage.outputs_of[47].purpose",
+      "usage.outputs_of[48].purpose",
+      "usage.outputs_of[49].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[50].purpose",
+      "usage.outputs_of[51].purpose",
+      "usage.outputs_of[52].purpose",
+      "usage.outputs_of[53].purpose",
+      "usage.outputs_of[54].purpose",
+      "usage.outputs_of[55].purpose",
+      "usage.outputs_of[56].purpose",
+      "usage.outputs_of[57].purpose",
+      "usage.outputs_of[58].purpose",
+      "usage.outputs_of[59].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[60].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "64bd5b923a63cf17376f2fb7",
+        "name": "Warp reference Ventral Putamen ROI(s) to Subject Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "619daaba09959fabbdc0517f",
+        "name": "AFNI pRF",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cae3ef776cdaa0030b9232b",
+        "name": "AnalyzepRF on volume",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63910aef6881d56fbfc2f75e",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD - No DWI & T1w input",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69efdf8d5e3b9b921dbbee2a",
+        "name": "app-set-datatype_tag-brain-dwi",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7ce73d2685502d764c0",
+        "name": "Apply mask to extract brain data - BOLD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7e473d2685502d76a6e",
+        "name": "Apply mask to extract brain data - DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7b673d2685502d75f2e",
+        "name": "Apply mask to extract brain data - FLAIR",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c77273d2685502d74513",
+        "name": "Apply mask to extract brain data - T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7a073d2685502d756d8",
+        "name": "Apply mask to extract brain data - T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c72e7e3badd19003102e8d3",
+        "name": "Attention ROI warp",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "615b769ffc8eb96633f613aa",
+        "name": "bedpostx",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b2975d616fe38002748e79a",
+        "name": "clever",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea7b12d39cebfb5ca08df0",
+        "name": "Compute  tSNR of DMRI Images",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62681cd2f3858674a29f554e",
+        "name": "Compute streamline weights using SIFT2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "608b188b89df43179075b628",
+        "name": "Compute T1 and R1 maps from MP2RAGE",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa993d6deee1367b4361c43",
+        "name": "CONNECTS Validation Engine",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea8548d39ceb4a30a090eb",
+        "name": "Cortex Tissue Mapping (Native & Template Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea858dd39ceb8483a09252",
+        "name": "Cortex Tissue Mapping (Native & Template Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356cdd3a0011c55f52e65c",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd26a5a04cb2b8f9f32f",
+        "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88a5d39cebf15aa0948c",
+        "name": "Cortex Tissue Mapping (Native Space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eea88bed39ceb789aa09510",
+        "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cdaae6bbee32c629a2904",
+        "name": "Cortex Tissue Mapping (Native Space) - Gray Matter Density",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60356c413a00110c6952e4e5",
+        "name": "Cortex Tissue Mapping (Native Space) - Myelin Mapping (T1w/T2w ratio)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115dd7aa5a04cc30cf9f3fe",
+        "name": "Cortex Tissue Mapping (Native Space) - qMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6cc1836bbee392069a19a6",
+        "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6286a9ced0697cf1eae44a76",
+        "name": "Create MNI coordinate-based ROIS and warp to subject space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ef07acddc2dff22965f239",
+        "name": "DBB_ANTsCortThickSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60f83394b99111089ab55f80",
+        "name": "DBB_DisSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60cb69e0cdfdb50220fee1c3",
+        "name": "DBB_preprocessing_t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "607f1682932bd76bbbfdffda",
+        "name": "Denoise MP2RAGE UNI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "611301a3a5a04c0a6df90472",
+        "name": "DWI Debias",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6412059573d2685502bce9de",
+        "name": "Extract summary measures within tissue types",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65a9a68c4ce5ac2907f02c52",
+        "name": "First Level GLM Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db224e98aeeee0f87f25c1f",
+        "name": "Fit Constrained Deconvolution Model for Tracking",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efc8673279e0028adfc08",
+        "name": "Fit CSA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efd2973279e0028adfc18",
+        "name": "Fit CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ae9d732f446980028b15ec2",
+        "name": "Fit DKI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b1efb6673279e0028adfc01",
+        "name": "Fit DTI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7b4d2f1745d1c26f80269",
+        "name": "Fit IVIM",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60ad394922b42ae2f1766b79",
+        "name": "Fit Tensor Model using MRTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "698d8d41318fe6e4e1e8a3e9",
+        "name": "fitlins",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed05fe8e3f4538080268585",
+        "name": "fMRI Timeseries Extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c720cf63e2f2c0030a23486",
+        "name": "fMRI to Connectivity Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e7f90e9dd840e81aae91906",
+        "name": "FSL DTIFIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "683643f5187eaf3617aeae36",
+        "name": "FSL Probabilistic Tractography Algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8ccf72952fef2eb67b4252",
+        "name": "Generate images of mask overlaid on DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8ccdb3952fef30b27b41e3",
+        "name": "Generate images of masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9272ed3f18bacda81d973e",
+        "name": "Generate images of tissue type masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec69cdd1f4464c1e69e3a21",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Benson pRF)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5277bf42c17215e36504d8",
+        "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Glasser Parcellation)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60f83f2db991118b34b56b02",
+        "name": "Generate ROIs in Anatomical Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6192cd0d983d5bb13f951b61",
+        "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6192d0a4983d5bb13f958870",
+        "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60f5a0bab99111586bb464ae",
+        "name": "Generate ROIs in FMRI Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52cc4b42c17250a7651b63",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Diffusion Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62757902cbc76827b7240da9",
+        "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - fMRI Space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a984afbd90f157078e3390e",
+        "name": "hyssong-fmripreprocessing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aaad3f2f2db0d99df4cae83",
+        "name": "impact-reg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5de1664e936ca31ee1c610f5",
+        "name": "Mrtrix2 CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec2c8f541ba11eecbf40ba5",
+        "name": "Mrtrix2 CSD (dtiinit)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dee40612d1348297f2b0d2",
+        "name": "N4 Bias Field Correction (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bcdefeadc47f70026e8c6ac",
+        "name": "Network Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02c520a8ed8e7bb483031",
+        "name": "Noddi Amico",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02ca70a8ed8a9c04831d3",
+        "name": "NODDI Amico (single shell)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ac56c3bc004e522d21a9946",
+        "name": "Particle Filtering Tractography (PFT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c8189cd2fbcc20034b39e60",
+        "name": "Peaks extraction with MRtrix",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9613ce6365e976b7471d50",
+        "name": "pRFLife with mrTools",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6041f75166d5ce1daf6efb55",
+        "name": "PyNets",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6130060d584a7684793c3e5f",
+        "name": "Regional Homogeneity (ReHo)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e516420cb80941d63f51b0e",
+        "name": "ROI to ROI Tracking - MRTrix 0.2.12",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cf9582f94cb4c02b711c797",
+        "name": "rsHRF",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61395cfa584a767f674249ec",
+        "name": "Seed-based Correlation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6463fd1cd391caf6ef165d51",
+        "name": "Segment tissue types using FSL Fast",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6466565bd391caf6ef1d2fb3",
+        "name": "Temporary brain extraction",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dd90c912d1348297f077fe",
+        "name": "test_dtifit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec584961f44640f6b9e2658",
+        "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d65964c39867291e349624a",
+        "name": "Track the Human Optic RAdiation (THORA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddb7138936ca3c660c58a46",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddce502936ca3bec8c5b4b7",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f51279442c17258f764c7ee",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc12711f4464fbe69ec07f",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecca2f11f446435999ed9f9",
+        "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a7b499ab3e66978061e46c",
+        "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5a8c510c8f95df586610fd",
+        "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dcbbf1745d2293f80794",
+        "name": "Tracking using Closest Peaks algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b21774b16fe38002748e5ef",
+        "name": "Tracking using Deterministic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dc4ef1745d4963f80739",
+        "name": "Tracking using EuDX algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7d53bf1745d82a5f80509",
+        "name": "Tracking using Particle Filtering (PFT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dbebf1745d70baf80678",
+        "name": "Tracking using Probabilistic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67858b5e81d348aa56483324",
+        "name": "Tract Shape Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc9bfe1f446412299ed644",
+        "name": "Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc95311f446482f59ed395",
+        "name": "Trekker ROI Tracking (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52e1c542c172f98a6532e4",
+        "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67214a58851d5f6d753f7fa8",
+        "name": "V-SHARP Background Field Removal",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "61158b45a5a04c9673f9d510",
+        "name": "Warp density-probability from subject space to MNI space - copy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c7319a5badd19003102e8d8",
+        "name": "Warp ROIs from subject space to MNI space",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "69efdf8d5e3b9b921dbbee2a",
+        "name": "app-set-datatype_tag-brain-dwi",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ae8ea220758eb5253a558d1",
+        "name": "CMC invivo dMRI (NORDIC)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bca308550fdf50028c6342c",
+        "name": "Compute SNR on Corpus Callosum",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c6391dcf2362b00318046b8",
+        "name": "Convert brainmask from dtiinit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ef1211e78d63f25fbd39e02",
+        "name": "Create brainmask of DWI using MrTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cec04eef2a7449dcd03c49",
+        "name": "Create white matter mask from FA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60cb69e0cdfdb50220fee1c3",
+        "name": "DBB_preprocessing_t1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baa3fc9d0be8b002776b8de",
+        "name": "Ensemble Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592dbbccb3cd7c00211dc235",
+        "name": "Ensemble Tracking with dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db224e98aeeee0f87f25c1f",
+        "name": "Fit Constrained Deconvolution Model for Tracking",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c63a9c3f2362b00318046c2",
+        "name": "FSL Brain Extraction (BET) on DWI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63e53625c538c16a82211861",
+        "name": "FSL Brain Extraction (BET) on FLAIR",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc079c54ed9df00317f61a8",
+        "name": "FSL Brain Extraction (BET) on fMRI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a54faf541fd04003f9d488b",
+        "name": "FSL Brain Extraction (BET) on T1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c58b7e012cbcc01e1635b88",
+        "name": "FSL Brain Extraction (BET) on T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c54df0f12cbcc01e1635aff",
+        "name": "FSL Top-up & Eddy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62d1aab8f3194eded6010de9",
+        "name": "FSL Top-up & Eddy Correct",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a042f7dea4d9f77d88731d1",
+        "name": "FSL Top-up & Eddy Correct & QC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f0c3975e3b9b921dbe89d4",
+        "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6971100c3e635860268930c6",
+        "name": "FSL Top-up & Eddy Correct - w/fMAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daae58c538c16a820a77f4",
+        "name": "Generate brain extracted image with SynthStrip (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa6b4c538c16a820a6520",
+        "name": "Generate brain extracted image with SynthStrip (FLAIR)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63dab271c538c16a820a860f",
+        "name": "Generate brain extracted image with SynthStrip (FMRI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa484c538c16a820a4f22",
+        "name": "Generate brain extracted image with SynthStrip (T1w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa536c538c16a820a5864",
+        "name": "Generate brain extracted image with SynthStrip (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f592ced0c8f9597ac65ae41",
+        "name": "HD-BET",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "696072758df58ba7d1a1131d",
+        "name": "LST-AI",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb99e5ee8e7ace25d8a9dcc",
+        "name": "Make white matter mask in dwi space from Freesurfer",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb99e8ee8e7ac579b8a9e25",
+        "name": "Make white matter mask in dwi space from Freesurfer (dtiinit)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6016dcdc321a4aafce6decd5",
+        "name": "Multi-Atlas Transfer Tool",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02c520a8ed8e7bb483031",
+        "name": "Noddi Amico",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02ca70a8ed8a9c04831d3",
+        "name": "NODDI Amico (single shell)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6813adca85187fc27e51938d",
+        "name": "qsiprep test suna - full config",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65dc275e1f6c7e7fa05bc366",
+        "name": "QSM Data Generator",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67210bc9851d5f6d753ec63e",
+        "name": "ROMEO Phase Unwrapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6463fd1cd391caf6ef165d51",
+        "name": "Segment tissue types using FSL Fast",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a5100c306b9e8003f1ee684",
+        "name": "Segmentation with Median Otsu",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "682d2f5e0c9315be199006d4",
+        "name": "SynthStrip (GPU) T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dedb4412d1348297f299eb",
+        "name": "SynthStrip (GPU) T2w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b21753e16fe38002748e5e1",
+        "name": "Tensor Mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5db234008aeeee3329f25d9c",
+        "name": "Tissue-type segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cf5dceef2a7449dcd2ec6a",
+        "name": "Tissue-type segmentation with hsvs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec584961f44640f6b9e2658",
+        "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d65964c39867291e349624a",
+        "name": "Track the Human Optic RAdiation (THORA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f51279442c17258f764c7ee",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc12711f4464fbe69ec07f",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecca2f11f446435999ed9f9",
+        "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5a8c510c8f95df586610fd",
+        "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc9bfe1f446412299ed644",
+        "name": "Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc95311f446482f59ed395",
+        "name": "Trekker ROI Tracking (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52e1c542c172f98a6532e4",
+        "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67214a58851d5f6d753f7fa8",
+        "name": "V-SHARP Background Field Removal",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5a28180e67007b77e4d51cce",
+        "name": "White Matter Mask",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

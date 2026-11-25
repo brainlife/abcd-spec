@@ -1,0 +1,919 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "tractography.tck",
+            "file_id": "track"
+          },
+          {
+            "bids_part": "tractography.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "tractography",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5907d922436ee50ffde9c549",
+    "desc": "TODO",
+    "name": "neuro/track/tck",
+    "original": {
+      "desc": "MRtrix Track Data (.tck)",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "track.tck",
+      "id": "track",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[42].purpose",
+      "usage.inputs_of[43].purpose",
+      "usage.inputs_of[44].purpose",
+      "usage.inputs_of[45].purpose",
+      "usage.inputs_of[46].purpose",
+      "usage.inputs_of[47].purpose",
+      "usage.inputs_of[48].purpose",
+      "usage.inputs_of[49].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[50].purpose",
+      "usage.inputs_of[51].purpose",
+      "usage.inputs_of[52].purpose",
+      "usage.inputs_of[53].purpose",
+      "usage.inputs_of[54].purpose",
+      "usage.inputs_of[55].purpose",
+      "usage.inputs_of[56].purpose",
+      "usage.inputs_of[57].purpose",
+      "usage.inputs_of[58].purpose",
+      "usage.inputs_of[59].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[60].purpose",
+      "usage.inputs_of[61].purpose",
+      "usage.inputs_of[62].purpose",
+      "usage.inputs_of[63].purpose",
+      "usage.inputs_of[64].purpose",
+      "usage.inputs_of[65].purpose",
+      "usage.inputs_of[66].purpose",
+      "usage.inputs_of[67].purpose",
+      "usage.inputs_of[68].purpose",
+      "usage.inputs_of[69].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[70].purpose",
+      "usage.inputs_of[71].purpose",
+      "usage.inputs_of[72].purpose",
+      "usage.inputs_of[73].purpose",
+      "usage.inputs_of[74].purpose",
+      "usage.inputs_of[75].purpose",
+      "usage.inputs_of[76].purpose",
+      "usage.inputs_of[77].purpose",
+      "usage.inputs_of[78].purpose",
+      "usage.inputs_of[79].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[80].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[14].purpose",
+      "usage.outputs_of[15].purpose",
+      "usage.outputs_of[16].purpose",
+      "usage.outputs_of[17].purpose",
+      "usage.outputs_of[18].purpose",
+      "usage.outputs_of[19].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[20].purpose",
+      "usage.outputs_of[21].purpose",
+      "usage.outputs_of[22].purpose",
+      "usage.outputs_of[23].purpose",
+      "usage.outputs_of[24].purpose",
+      "usage.outputs_of[25].purpose",
+      "usage.outputs_of[26].purpose",
+      "usage.outputs_of[27].purpose",
+      "usage.outputs_of[28].purpose",
+      "usage.outputs_of[29].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[30].purpose",
+      "usage.outputs_of[31].purpose",
+      "usage.outputs_of[32].purpose",
+      "usage.outputs_of[33].purpose",
+      "usage.outputs_of[34].purpose",
+      "usage.outputs_of[35].purpose",
+      "usage.outputs_of[36].purpose",
+      "usage.outputs_of[37].purpose",
+      "usage.outputs_of[38].purpose",
+      "usage.outputs_of[39].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[40].purpose",
+      "usage.outputs_of[41].purpose",
+      "usage.outputs_of[42].purpose",
+      "usage.outputs_of[43].purpose",
+      "usage.outputs_of[44].purpose",
+      "usage.outputs_of[45].purpose",
+      "usage.outputs_of[46].purpose",
+      "usage.outputs_of[47].purpose",
+      "usage.outputs_of[48].purpose",
+      "usage.outputs_of[49].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[50].purpose",
+      "usage.outputs_of[51].purpose",
+      "usage.outputs_of[52].purpose",
+      "usage.outputs_of[53].purpose",
+      "usage.outputs_of[54].purpose",
+      "usage.outputs_of[55].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5cf8256e94cb4c02b711c745",
+        "name": "AFQ Tract Classification",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d6f9160398672065e49642f",
+        "name": "Anatomically-informed multi-LAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592dc03eb3cd7c00211dc239",
+        "name": "Binary Tract Masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a7bf96ab3e66978061f0af",
+        "name": "Bundle segmented tracks by eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d940c37f6484af52e6a8799",
+        "name": "Bundle segmented tracks by eccentricity - Deprecated",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63bb4690daffe2c2408e5d63",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ba6203daffe2c2408d4c89",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation (multiple parcellations)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d6fcae439867216d8496442",
+        "name": "Classifyber",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5df937ff32bff0566ae23cff",
+        "name": "Classifyber - segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ba1a04daffe2c2408d0422",
+        "name": "Combine classified white matter tracts",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f794bde268f765c3929bda2",
+        "name": "Compute macro-structural statistics of tracts using Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62681cd2f3858674a29f554e",
+        "name": "Compute streamline weights using SIFT2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a0f03d63a6b01e36dea4343",
+        "name": "Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6441babdd391caf6efc8fa6c",
+        "name": "Convert assignments from structural connectivity to wmc datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0ab6e6f9b4a2002efc1618",
+        "name": "Convert tck to trk in DWI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0e7f30f9b4a2002efc16ab",
+        "name": "Convert tck to trk in T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d89980e9842202a887ec261",
+        "name": "Convert wmc to trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626bf253f3858674a2a6c9fb",
+        "name": "Create networkneuro datatype for visualization",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ad79504363fd5002759a6b5",
+        "name": "DSC evaluation (wmc - wmc)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63e559e7c538c16a8222163e",
+        "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dd06111c4ae28135d29adae",
+        "name": "Extract multi-tcks from wmc + wbfg or composite tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc201034e13335188b87f1",
+        "name": "Fiber Bundle Skeleton Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626c5a55f3858674a2a7d7c3",
+        "name": "Filter WMC Datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e90d0b1952fef2bba7bc991",
+        "name": "Generate figures of whole-brain tractogram (tck)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc9ea944b5e4502275edb99",
+        "name": "Generate tract endpoint maps",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628ceb91d0697cf1eaed4a14",
+        "name": "Generate tract figures (wma_pyTools)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb8d9c34e133351885ac23",
+        "name": "Gyral Bias Analysis",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baa44b1d0be8b002776b8f7",
+        "name": "LiFE (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "58d15dece13a50849b258842",
+        "name": "LiFE with dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62213ffe5d8ab5d5f02166c3",
+        "name": "Merge Tractography (tcks) together with MRTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8b98eb952fef035f7b1653",
+        "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8b5ae6952fefe5407b097e",
+        "name": "merge2TCKs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d5c2a214cfacf00366c0fd0",
+        "name": "mergeTCK",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d14bc062daec10035f3f86e",
+        "name": "multi-LAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bcdefeadc47f70026e8c6ac",
+        "name": "Network Matrices",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b0f1c515858d874a472dea7",
+        "name": "Posterior Associative White Matter Tracts Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc9eca04b5e4502275edba6",
+        "name": "Remove Tract Outliers",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bdc3c2218c7cd002708d78d",
+        "name": "Resample tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca2f0934e13335187cfbbd",
+        "name": "Retinotopic Connectivity Matrix Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626ab5b3f3858674a2a3f407",
+        "name": "Sample streamlines based on labels assignments",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc9d8ee5017f0bde0519db5",
+        "name": "Segment tractogram into fiber categories",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f77e8cd268f7638af29a925",
+        "name": "Segment tracts into multiple bundles using QuickBundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e54514f5b9d90668672d5fc",
+        "name": "Segment Tracts with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e82b9eadd840e693ae970be",
+        "name": "Segment white matter tracts using pyAFQ",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643eff84d391caf6efc2c3e0",
+        "name": "Segment whole-brain tractogram -  Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6434cc4f0c37c61d0177fb5a",
+        "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610cad1fe1a90d476797cffe",
+        "name": "Segment Wholebrain Tractogram with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628a4e34d0697cf1eae9b915",
+        "name": "Segment with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca07bd34e13335187bffbc",
+        "name": "Streamline Cleaning",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6844f692187eaf3617c91e03",
+        "name": "Streamline Selection by Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629a6ee47f60950a54cc82f6",
+        "name": "Structural connectivity & White Matter Classification (WMC) using DIPY",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6165b253fc8eb97e54faca55",
+        "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f2ac098beafe9595162c249",
+        "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6068bf10c7f80a3c109411b0",
+        "name": "Track Density Masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02b780a8ed88a57482c92",
+        "name": "Tract Analysis Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed02bb20a8ed87a11482d81",
+        "name": "Tract Analysis Profiles (NODDI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6023450fab40ca71564cb1e6",
+        "name": "Tract Analysis Profiles - Dipy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60a6a8f922b42a89506ff897",
+        "name": "Tract Analysis Profiles - Myelin mapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca22f834e13335187c6ae7",
+        "name": "Tract Profile Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69d811ef04be87075a5028ba",
+        "name": "TractcCloud",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "611aa462a5a04c4672fb671b",
+        "name": "Tractogram cleaning with DIPY's quickBundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc37e434e13335188cb201",
+        "name": "Tractogram clustering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc9c6b44b5e4502275edb4b",
+        "name": "Tractography quality check",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa8586984691735460e523e",
+        "name": "trak2zarr-vectors",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63d2d63b40f494735c431d00",
+        "name": "Warp tractogram to MNI space using precomputed transformation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc73ef44ed9df00317f6288",
+        "name": "White Matter Anatomy Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6acfe9b83db9ceda5263760f",
+        "name": "White Matter Anatomy Segmentation Plus (wmaSeg++)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc9ccca4b5e4502275edb56",
+        "name": "WMA Tract Segmentation with Atlas",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc9ce364b5e4502275edb5e",
+        "name": "WMA Tract Segmentation with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aac40a4906b4cece80af519",
+        "name": "wmc to tcks",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5e88b8bf952fef39d57abcf2",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63910aef6881d56fbfc2f75e",
+        "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD - No DWI & T1w input",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ce719f440363b003536782e",
+        "name": "ANTs tractogram registration in MNI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63bb4690daffe2c2408e5d63",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ba6203daffe2c2408d4c89",
+        "name": "Bundle segmented tracks by eccentricity - Parcellation (multiple parcellations)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ba1a04daffe2c2408d0422",
+        "name": "Combine classified white matter tracts",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "629a7dd17f60950a54ccc68f",
+        "name": "Convert tcks to tck and WMC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b9940206e02fb0028e11626",
+        "name": "Convert trk to tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baa3fc9d0be8b002776b8de",
+        "name": "Ensemble Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "592dbbccb3cd7c00211dc235",
+        "name": "Ensemble Tracking with dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc201034e13335188b87f1",
+        "name": "Fiber Bundle Skeleton Computation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62682dc8f3858674a29f9c3f",
+        "name": "Filter Streamlines using SIFT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cb643c34e133351883ce84",
+        "name": "Map Retinotopic Connections",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62213ffe5d8ab5d5f02166c3",
+        "name": "Merge Tractography (tcks) together with MRTrix3",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8b98eb952fef035f7b1653",
+        "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e8b5ae6952fefe5407b097e",
+        "name": "merge2TCKs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d5c2a214cfacf00366c0fd0",
+        "name": "mergeTCK",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5baaa881d0be8b002776b954",
+        "name": "MRtrix2 Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "58cdf136e13a50849b258836",
+        "name": "MRtrix2 Tracking with dtiInit",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e9dced9f1745d6994f692c0",
+        "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5eb5d968dca08712b9a766fd",
+        "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ad144840e072a00d8aed712",
+        "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ac56c3bc004e522d21a9946",
+        "name": "Particle Filtering Tractography (PFT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5aac2437f0b5260027e24ae1",
+        "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bdc3c2218c7cd002708d78d",
+        "name": "Resample tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e516420cb80941d63f51b0e",
+        "name": "ROI to ROI Tracking - MRTrix 0.2.12",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "626ab5b3f3858674a2a3f407",
+        "name": "Sample streamlines based on labels assignments",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6750d2386bb7513283dfa718",
+        "name": "Segment structural connections across visual areas",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e54514f5b9d90668672d5fc",
+        "name": "Segment Tracts with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643eff84d391caf6efc2c3e0",
+        "name": "Segment whole-brain tractogram -  Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6434cc4f0c37c61d0177fb5a",
+        "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "610cad1fe1a90d476797cffe",
+        "name": "Segment Wholebrain Tractogram with ROIs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69ca07bd34e13335187bffbc",
+        "name": "Streamline Cleaning",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "648d4de5b10869ed4e9ada5b",
+        "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a7616602ee82cf68a5a49c0",
+        "name": "Surface-Enhanced Tractography (SET)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "628a45c0d0697cf1eae9a3fe",
+        "name": "Track the aLIC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec584961f44640f6b9e2658",
+        "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d65964c39867291e349624a",
+        "name": "Track the Human Optic RAdiation (THORA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddb7138936ca3c660c58a46",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ddce502936ca3bec8c5b4b7",
+        "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f51279442c17258f764c7ee",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc12711f4464fbe69ec07f",
+        "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecca2f11f446435999ed9f9",
+        "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62a7b499ab3e66978061e46c",
+        "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f5a8c510c8f95df586610fd",
+        "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "611aa462a5a04c4672fb671b",
+        "name": "Tractogram cleaning with DIPY's quickBundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc37e434e13335188cb201",
+        "name": "Tractogram clustering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "634dc433fa262bbde2b3003a",
+        "name": "TractSeg from peaks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc9bfe1f446412299ed644",
+        "name": "Trekker",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ecc95311f446482f59ed395",
+        "name": "Trekker ROI Tracking (DWI)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f52e1c542c172f98a6532e4",
+        "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69cc4e4934e13335188d9217",
+        "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64842d58b10869ed4e8bbd16",
+        "name": "Visual areas structural connections by eccentricity and polar angle",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63d2d63b40f494735c431d00",
+        "name": "Warp tractogram to MNI space using precomputed transformation",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

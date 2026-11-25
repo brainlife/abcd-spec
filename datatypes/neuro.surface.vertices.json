@@ -1,0 +1,165 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5f78b255268f764bdd29b254",
+    "desc": "TODO",
+    "name": "neuro/surface/vertices",
+    "original": {
+      "desc": "Surface vertices (3D mesh) stored in <left/right>/<name>.gii. Where <name> is the name of the surface such as pial, white, inflated, etc. ",
+      "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```"
+    },
+    "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "dirname": "right",
+      "id": "right",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "dirname": "left",
+      "id": "left",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "64a32d3a3a63cf17374f6e75",
+        "name": "Compute Anatomical Statistics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "603b030878e65d363cd1b3d0",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62c20d12f3194eded6fb203c",
+        "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Freesurfer computations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6144b8987a38b0c6c8a05697",
+        "name": "Convert surface datatypes to cortexmap datatype",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6418ddc773d2685502c32bfa",
+        "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ed0c21c538c16a822e6b8f",
+        "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "69e801a668c5c4b1c53aac9c",
+        "name": "Brain Atlas Mapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6016dcdc321a4aafce6decd5",
+        "name": "Multi-Atlas Transfer Tool",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6115c829a5a04c2a80f9e7f7",
+        "name": "pRFs / Benson14-Retinotopy",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6169c901fc8eb97d1efe09fe",
+        "name": "Temporary converter of parcellation/surface-deprecated datatypes to surface datatypes",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6418ddc773d2685502c32bfa",
+        "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63ed0c21c538c16a822e6b8f",
+        "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

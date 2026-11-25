@@ -78,3 +78,41 @@ def test_import_drafts_have_no_id(tmp_path):
     assert "_id" not in d["brainlife"] and d["files"][0]["required"] is False
     assert dtrecord.validate(d) == []
     assert {"file_id": "json", "bids_part": "angio.json", "sidecar": "file"} in d["bids"]["correspondences"][0]["files"]
+
+
+def test_generate_lists_registered_datatypes_and_renders_readmes():
+    d = copy.deepcopy(DWI)
+    del d["brainlife"]["_id"]
+    d["brainlife"]["name"] = "neuro/anat/angio"
+    records = {"neuro/dwi": copy.deepcopy(DWI), "neuro/anat/angio": d}
+    listing = bldt.generate(records)
+    assert listing == [{"id": DWI["brainlife"]["_id"], "name": "neuro/dwi"}]
+    assert records["neuro/dwi"]["brainlife"]["readme"].rstrip().endswith("datatypes/neuro.dwi.json")
+
+
+def test_get_json_sends_a_user_agent(monkeypatch):
+    seen = {}
+
+    class Resp:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return b"{}"
+
+    def fake_urlopen(req, timeout):
+        seen["ua"] = req.get_header("User-agent")
+        return Resp()
+
+    monkeypatch.setattr(bldt.urllib.request, "urlopen", fake_urlopen)
+    bldt._get_json("https://example.org/x.json")
+    assert seen["ua"].startswith("brainlife-abcd-spec")
+
+
+def test_draft_ignores_placeholder_aimport_rows():
+    rows = ROWS + [{"bids": {"datatype": "anat", "suffix": "T2w"}, "brainlife": None, "status": "planned"}]
+    out = bldt.draft(SNAP, MINI, APP_INDEX, rows, {})
+    assert out["neuro/anat/t1w"]["bids"]["correspondences"][0]["suffix"] == "T1w"

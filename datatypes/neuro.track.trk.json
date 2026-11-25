@@ -1,0 +1,229 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "dwi",
+        "entities": [],
+        "extensions": [],
+        "files": [
+          {
+            "bids_part": "tractography.trk",
+            "file_id": "track"
+          },
+          {
+            "bids_part": "tractography.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "derivative",
+        "match": "TODO",
+        "notes": "from the existing bids.maps on brainlife.io",
+        "suffix": "tractography",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5b956f6cd7b3f1e24e9121ce",
+    "desc": "TODO",
+    "name": "neuro/track/trk",
+    "original": {
+      "desc": "TrackVis (.trk). Track file is one single binary file, with the first 1000 bytes as the header and the rest as the body.",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "track.trk",
+      "id": "track",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "60a8274222b42a39e77140e5",
+        "name": "[WIP] Create animation from trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60e605644cb704633c072687",
+        "name": "BUAN Bundle Profiles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b9940206e02fb0028e11626",
+        "name": "Convert trk to tck",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a7c2bcfa3656568c9d1b4",
+        "name": "dsi-studio-trk2tt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bbfbbc71f00c80027644894",
+        "name": "RecoBundles",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6b00b45188e26e6de7e1b89a",
+        "name": "RecoBundles X",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea9b710f1745d6d4af842f2",
+        "name": "Streamlines Linear Registration (slr)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6aa8586984691735460e523e",
+        "name": "trak2zarr-vectors",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6887ea8af3900f18d5f9f81d",
+        "name": "app-tractoflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0ab6e6f9b4a2002efc1618",
+        "name": "Convert tck to trk in DWI space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c0e7f30f9b4a2002efc16ab",
+        "name": "Convert tck to trk in T1 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5d89980e9842202a887ec261",
+        "name": "Convert wmc to trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f6a7bd0cfa3655296c9d143",
+        "name": "dsi-studio-tt2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea9b710f1745d6d4af842f2",
+        "name": "Streamlines Linear Registration (slr)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dcbbf1745d2293f80794",
+        "name": "Tracking using Closest Peaks algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5b21774b16fe38002748e5ef",
+        "name": "Tracking using Deterministic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dc4ef1745d4963f80739",
+        "name": "Tracking using EuDX algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7d53bf1745d82a5f80509",
+        "name": "Tracking using Particle Filtering (PFT)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ea7dbebf1745d70baf80678",
+        "name": "Tracking using Probabilistic algorithm",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5f035c35c67a0de2212abf6a",
+        "name": "Tractogram Filtering",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

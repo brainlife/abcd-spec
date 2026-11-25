@@ -1,0 +1,527 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "fmap",
+        "entities": [
+          "direction",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json",
+          ".bval",
+          ".bvec"
+        ],
+        "files": [
+          {
+            "bids_part": "phasediff.nii.gz",
+            "file_id": "phasediff"
+          },
+          {
+            "bids_part": "phasediff.json",
+            "file_id": "phasediff_json"
+          },
+          {
+            "bids_part": "magnitude1.nii.gz",
+            "file_id": "magnitude1"
+          },
+          {
+            "bids_part": "magnitude2.nii.gz",
+            "file_id": "magnitude2"
+          },
+          {
+            "bids_part": "fmap.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          },
+          {
+            "bids_part": "fieldmap.nii.gz",
+            "file_id": "fieldmap"
+          },
+          {
+            "bids_part": "fieldmap.json",
+            "file_id": "fieldmap_json"
+          },
+          {
+            "bids_part": "phase1.nii.gz",
+            "file_id": "phase1"
+          },
+          {
+            "bids_part": "phase1.json",
+            "file_id": "phase1_json"
+          },
+          {
+            "bids_part": "phase2.nii.gz",
+            "file_id": "phase2"
+          },
+          {
+            "bids_part": "phase2.json",
+            "file_id": "phase2_json"
+          }
+        ],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "epi",
+        "tags": [
+          "pepolar"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "phasediff",
+        "tags": [
+          "phasediff"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "magnitude1",
+        "tags": [
+          "phasediff"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "magnitude2",
+        "tags": [
+          "phasediff"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "phase1",
+        "tags": [
+          "2phasemag"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "phase2",
+        "tags": [
+          "2phasemag"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "fieldmap",
+        "tags": [
+          "single"
+        ]
+      },
+      {
+        "datatype": "fmap",
+        "entities": [
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "magnitude",
+        "tags": [
+          "single"
+        ]
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "5c390505f9109beac42b00df",
+    "desc": "TODO",
+    "name": "neuro/fmap",
+    "original": {
+      "desc": "fieldmaps measure the magnetic field inhomogeniety. epi images often exhibit signal dropout and spatial distortion in regions where the magnetic field is inhomogenous (often around the fontal cortex and medial temporal lobe). We can not recover the lost signal, but we can attempt to undistort images using fieldmaps",
+      "readme": "This datatype follows the BIDS fieldmap specification\n\n> https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#types-of-fieldmaps\n\nAlthough all of the files in this datatypes are \"optional\", in reality, depending on which *case* the fmap uses, a different set of files are required."
+    },
+    "readme": "This datatype follows the BIDS fieldmap specification\n\n> https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#types-of-fieldmaps\n\nAlthough all of the files in this datatypes are \"optional\", in reality, depending on which *case* the fmap uses, a different set of files are required."
+  },
+  "files": [
+    {
+      "desc": "for phasediff",
+      "ext": ".gz",
+      "filename": "phasediff.nii.gz",
+      "id": "phasediff",
+      "required": false
+    },
+    {
+      "desc": "for phasediff",
+      "ext": ".json",
+      "filename": "phasediff.json",
+      "id": "phasediff_json",
+      "required": false
+    },
+    {
+      "desc": "for single",
+      "ext": ".gz",
+      "filename": "magnitude.nii.gz",
+      "id": "magnitude",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "ext": ".json",
+      "filename": "magnitude.json",
+      "id": "magnitude_json",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag, phasediff",
+      "ext": ".gz",
+      "filename": "magnitude1.nii.gz",
+      "id": "magnitude1",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "ext": ".json",
+      "filename": "magnitude1.json",
+      "id": "magnitude1_json",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag, phasediff(optional)",
+      "ext": ".gz",
+      "filename": "magnitude2.nii.gz",
+      "id": "magnitude2",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "ext": ".json",
+      "filename": "magnitude2.json",
+      "id": "magnitude2_json",
+      "required": false
+    },
+    {
+      "desc": "for single",
+      "ext": ".gz",
+      "filename": "fieldmap.nii.gz",
+      "id": "fieldmap",
+      "required": false
+    },
+    {
+      "desc": "for single",
+      "ext": ".json",
+      "filename": "fieldmap.json",
+      "id": "fieldmap_json",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag",
+      "ext": ".gz",
+      "filename": "phase1.nii.gz",
+      "id": "phase1",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag",
+      "ext": ".json",
+      "filename": "phase1.json",
+      "id": "phase1_json",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag",
+      "ext": ".gz",
+      "filename": "phase2.nii.gz",
+      "id": "phase2",
+      "required": false
+    },
+    {
+      "desc": "for 2phasemag",
+      "ext": ".json",
+      "filename": "phase2.json",
+      "id": "phase2_json",
+      "required": false
+    },
+    {
+      "desc": "for pepolar",
+      "ext": ".gz",
+      "filename": "epi1.nii.gz",
+      "id": "epi1",
+      "required": false
+    },
+    {
+      "desc": "for pepolar",
+      "ext": ".json",
+      "filename": "epi1.json",
+      "id": "epi1_json",
+      "required": false
+    },
+    {
+      "desc": "for pepolar",
+      "ext": ".gz",
+      "filename": "epi2.nii.gz",
+      "id": "epi2",
+      "required": false
+    },
+    {
+      "desc": "for pepolar",
+      "ext": ".json",
+      "filename": "epi2.json",
+      "id": "epi2_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "bids.correspondences[1].match",
+      "bids.correspondences[2].match",
+      "bids.correspondences[3].match",
+      "bids.correspondences[4].match",
+      "bids.correspondences[5].match",
+      "bids.correspondences[6].match",
+      "bids.correspondences[7].match",
+      "brainlife.desc",
+      "files[3].desc",
+      "files[5].desc",
+      "files[7].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a042f7dea4d9f77d88731d1",
+        "name": "FSL Top-up & Eddy Correct & QC",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69f0c3975e3b9b921dbe89d4",
+        "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6971100c3e635860268930c6",
+        "name": "FSL Top-up & Eddy Correct - w/fMAP",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dc1c2e57f55b85a93bd3021",
+        "name": "QSIPrep - Preprocessing workflow",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65fbb683e6256cac94a67490",
+        "name": "QSM Evaluation",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67214a58851d5f6d753f7fa8",
+        "name": "V-SHARP Background Field Removal",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "67210bc9851d5f6d753ec63e",
+        "name": "ROMEO Phase Unwrapping",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67214a58851d5f6d753f7fa8",
+        "name": "V-SHARP Background Field Removal",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

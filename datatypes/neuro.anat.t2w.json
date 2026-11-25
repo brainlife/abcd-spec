@@ -1,0 +1,446 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "T2w",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "594c0325fa1d2e5a1f0beda5",
+    "desc": "TODO",
+    "name": "neuro/anat/t2w",
+    "original": {
+      "desc": "T2 weighted",
+      "readme": ""
+    },
+    "readme": ""
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "ext": ".gz",
+      "filename": "t2.nii.gz",
+      "id": "t2",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[10].purpose",
+      "usage.inputs_of[11].purpose",
+      "usage.inputs_of[12].purpose",
+      "usage.inputs_of[13].purpose",
+      "usage.inputs_of[14].purpose",
+      "usage.inputs_of[15].purpose",
+      "usage.inputs_of[16].purpose",
+      "usage.inputs_of[17].purpose",
+      "usage.inputs_of[18].purpose",
+      "usage.inputs_of[19].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[20].purpose",
+      "usage.inputs_of[21].purpose",
+      "usage.inputs_of[22].purpose",
+      "usage.inputs_of[23].purpose",
+      "usage.inputs_of[24].purpose",
+      "usage.inputs_of[25].purpose",
+      "usage.inputs_of[26].purpose",
+      "usage.inputs_of[27].purpose",
+      "usage.inputs_of[28].purpose",
+      "usage.inputs_of[29].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[30].purpose",
+      "usage.inputs_of[31].purpose",
+      "usage.inputs_of[32].purpose",
+      "usage.inputs_of[33].purpose",
+      "usage.inputs_of[34].purpose",
+      "usage.inputs_of[35].purpose",
+      "usage.inputs_of[36].purpose",
+      "usage.inputs_of[37].purpose",
+      "usage.inputs_of[38].purpose",
+      "usage.inputs_of[39].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[40].purpose",
+      "usage.inputs_of[41].purpose",
+      "usage.inputs_of[42].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.inputs_of[9].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[10].purpose",
+      "usage.outputs_of[11].purpose",
+      "usage.outputs_of[12].purpose",
+      "usage.outputs_of[13].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose",
+      "usage.outputs_of[9].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "63cc4d5fef2a7449dccbae87",
+        "name": "Apply warp to or from standard space to ROIs (T2w) - Scanner T2 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6081c92b89df431f726940d8",
+        "name": "Align T2  to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bc0f0d0afd0bc0027efcd66",
+        "name": "Align T2 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69aaf3006bb1f71b25ac8e59",
+        "name": "Apply  Transformations to Tractography Data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7a073d2685502d756d8",
+        "name": "Apply mask to extract brain data - T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab7101d9702e3d739255df3",
+        "name": "Apply Transformations to Diffusion Metrics",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "699649c10d5bc1a5dc0c4099",
+        "name": "Apply transformations to mask",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "69af59bc6bb1f71b25b2bedf",
+        "name": "Apply Transformations to Multiple Tractography Files",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67cf5f311b629b467fa0f8f8",
+        "name": "Apply transformations to T1w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67d8661eda629ed3b1d365ad",
+        "name": "Apply transformations to tract masks",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63cc4d91ef2a7449dccbb6dd",
+        "name": "Apply warp to or from standard space to ROIs (T2w) - ACPC T2 space",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5deece232d1c254a76929834",
+        "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635edc39fa262bbde2ce3490",
+        "name": "Combine 2D T2w images into a single 3D volume - 2 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635edc73fa262bbde2ce3e92",
+        "name": "Combine 2D T2w images into a single 3D volume - 3 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60355b8a3a0011acbb52c3c5",
+        "name": "Compute myelin map using T1w / T2w ratio",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab710149702e3d739255de7",
+        "name": "DTI Metrics-to-Anatomical Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68111293da629ed3b167b0fe",
+        "name": "DWI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5dfceebd32bff0640ce27bbd",
+        "name": "fMRIPrep - Surface Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63516c2bfa262bbde2b7dfb6",
+        "name": "fMRIPrep - Surface Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c61c69f14027a01b14adcb3",
+        "name": "fMRIPrep - Volume Output",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63458604fa262bbde2a93af2",
+        "name": "fMRIPrep - Volume Output - ICA-AROMA",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5fe1056057aacd480f2f8e48",
+        "name": "Freesurfer 7.1.1",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "621abcaa5d8ab5d5f015c555",
+        "name": "Freesurfer 7.1.1 - Multiple T1w Inputs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62fa925519b13f0a0edd5c7c",
+        "name": "Freesurfer 7.3.2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e03c7c332bff0800ae2a47b",
+        "name": "Freesurfer on OSG",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec6eda01f4464acbc9e54ec",
+        "name": "FSL Anat (T2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c58b7e012cbcc01e1635b88",
+        "name": "FSL Brain Extraction (BET) on T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6070841ec7f80a148795d7c4",
+        "name": "FSL Reorient and Crop T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa536c538c16a820a5864",
+        "name": "Generate brain extracted image with SynthStrip (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5e88c743952fef67fc7abfe5",
+        "name": "Generate images of T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "636dcc6d487d94b9e6eb8e9b",
+        "name": "Generate synthetic MP-RAGE T1 image from T1w and T2w data using SynthSR Hyperfine",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635c911afa262bbde2cb988d",
+        "name": "Generate synthetic MP-RAGE T1 image from T2w data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ffee3dfaacf9e53e7a67093",
+        "name": "HCP Pipelines - Structural preprocessing",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dee40612d1348297f2b0d2",
+        "name": "N4 Bias Field Correction (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6ab713059702e3d7392578e1",
+        "name": "NODDI-to-Anatomical MRI Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68efcb9a36eef15688d7b23c",
+        "name": "QSIPrep (Multi-Session)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635b2b28fa262bbde2c8ad93",
+        "name": "Reslice T2w to Isotropic Voxel Dimensions using FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6363f7e2fa262bbde2d98b4a",
+        "name": "Run MRIQC on Structural Data - T2w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dedb4412d1348297f299eb",
+        "name": "SynthStrip (GPU) T2w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68deefbe12d1348297f2ee44",
+        "name": "T2w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "678197d281d348aa5645e813",
+        "name": "tck2trk",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64b7e3673a63cf1737697586",
+        "name": "test2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "67858b5e81d348aa56483324",
+        "name": "Tract Shape Analysis",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6081c92b89df431f726940d8",
+        "name": "Align T2  to T1 using FSL Flirt",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5bc0f0d0afd0bc0027efcd66",
+        "name": "Align T2 to ACPC Plane (HCP-based)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6421c7a073d2685502d756d8",
+        "name": "Apply mask to extract brain data - T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635edc39fa262bbde2ce3490",
+        "name": "Combine 2D T2w images into a single 3D volume - 2 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635edc73fa262bbde2ce3e92",
+        "name": "Combine 2D T2w images into a single 3D volume - 3 orientations",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ec6eda01f4464acbc9e54ec",
+        "name": "FSL Anat (T2)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5c58b7e012cbcc01e1635b88",
+        "name": "FSL Brain Extraction (BET) on T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6070841ec7f80a148795d7c4",
+        "name": "FSL Reorient and Crop T2",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63daa536c538c16a820a5864",
+        "name": "Generate brain extracted image with SynthStrip (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dee40612d1348297f2b0d2",
+        "name": "N4 Bias Field Correction (T2w)",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "635b2b28fa262bbde2c8ad93",
+        "name": "Reslice T2w to Isotropic Voxel Dimensions using FSL",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68dedb4412d1348297f299eb",
+        "name": "SynthStrip (GPU) T2w",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "68deefbe12d1348297f2ee44",
+        "name": "T2w-to-T1w Registration",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64b7e3673a63cf1737697586",
+        "name": "test2",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

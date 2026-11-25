@@ -1,0 +1,216 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "608195ce89df435fd26893c1",
+    "desc": "TODO",
+    "name": "neuro/meg/fif-override",
+    "original": {
+      "desc": "This datatype augments the original neuro/meg/fif data with various extra information, such as bad channels stored in channels.tsv, and bad epoch (TODO which file stores this?)",
+      "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n"
+    },
+    "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n"
+  },
+  "files": [
+    {
+      "desc": "channels.tsv containing any columns that were not present on the original channels.tsv. For example, \"status\" column could contain good/bad values to indicate that the channel should be removed from the further processing. Please see https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv for full descriptions.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "headshape.pos",
+      "id": "headshape",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "destination.fif",
+      "id": "destination",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.tsv",
+      "id": "events",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.json",
+      "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "info.txt",
+      "id": "info",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "files[4].desc",
+      "files[5].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.inputs_of[4].purpose",
+      "usage.inputs_of[5].purpose",
+      "usage.inputs_of[6].purpose",
+      "usage.inputs_of[7].purpose",
+      "usage.inputs_of[8].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose",
+      "usage.outputs_of[3].purpose",
+      "usage.outputs_of[4].purpose",
+      "usage.outputs_of[5].purpose",
+      "usage.outputs_of[6].purpose",
+      "usage.outputs_of[7].purpose",
+      "usage.outputs_of[8].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "69b2af986bb1f71b25b95b29",
+        "name": "app-bad-channel-temp",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "602bc6a33a001123014c442a",
+        "name": "Apply Maxwell filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60700d80c7f80a2c9095701f",
+        "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6065cee9d040085be2b0a9b7",
+        "name": "Compute mean head position across MEG runs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "605e0a9616c60638446315ee",
+        "name": "Detect bad channels using Maxwell Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64f993aee4d2e9108d92bb8c",
+        "name": "Drop bad epochs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "625d3130cc8ab2b339ea2692",
+        "name": "Epochs from events",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "64075b6fc538c16a826b67be",
+        "name": "Mark bad data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "643fe9edd391caf6efc583aa",
+        "name": "Reject ICA components",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "602bc6a33a001123014c442a",
+        "name": "Apply Maxwell filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60700d80c7f80a2c9095701f",
+        "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6065cee9d040085be2b0a9b7",
+        "name": "Compute mean head position across MEG runs",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "605e0a9616c60638446315ee",
+        "name": "Detect bad channels using Maxwell Filtering",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "632993fd71291bb27f9ab7c9",
+        "name": "Extract events from MEG/EEG raw data",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d6ed97eab7bb5c3ca1729e",
+        "name": "Read info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d8305ceab7bb5c3ca3875b",
+        "name": "Read info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "65d830b7eab7bb5c3ca39327",
+        "name": "Read info",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "63f6067fc538c16a82408b5b",
+        "name": "Show events in file",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

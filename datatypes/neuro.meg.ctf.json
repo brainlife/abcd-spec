@@ -1,0 +1,152 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": [
+      {
+        "datatype": "meg",
+        "entities": [
+          "processing",
+          "split",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          "/",
+          ".ds/",
+          ".json",
+          ".fif",
+          ".sqd",
+          ".con",
+          ".raw",
+          ".ave",
+          ".mrk",
+          ".kdf",
+          ".mhd",
+          ".trg",
+          ".chn",
+          ".dat"
+        ],
+        "files": [],
+        "level": "raw",
+        "match": "TODO",
+        "notes": "",
+        "suffix": "meg",
+        "tags": []
+      }
+    ]
+  },
+  "brainlife": {
+    "_id": "6000714baacf9e22a6a691c8",
+    "desc": "TODO",
+    "name": "neuro/meg/ctf",
+    "original": {
+      "desc": "Magnetoencephalography (MEG) in CTF (folder with .ds extension)",
+      "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf"
+    },
+    "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf"
+  },
+  "files": [
+    {
+      "desc": "this directory contains various CTF items (.meg4, .res4, .acq, .hc, .hist, ,ec..)",
+      "dirname": "meg.ds",
+      "id": "ds",
+      "required": true
+    },
+    {
+      "desc": "The OPTIONAL digitized positions of the head points. Head shape and electrode description",
+      "filename": "headshape.pos",
+      "id": "headshape",
+      "required": false
+    },
+    {
+      "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. To avoid confusion, the channels SHOULD be listed in the order they appear in the MEG data file. Missing values MUST be indicated with n/a.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "required": false
+    },
+    {
+      "desc": " A JSON document specifying the coordinate system(s) used for the MEG, EEG, head localization coils, and anatomical landmarks.",
+      "filename": "coordsystem.json",
+      "id": "coordsystem",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.tsv",
+      "id": "events",
+      "required": false
+    },
+    {
+      "desc": "TODO",
+      "filename": "events.json",
+      "id": "events_json",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "bids.correspondences[0].match",
+      "brainlife.desc",
+      "files[4].desc",
+      "files[5].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "628b6054d0697cf1eaeb1972",
+        "name": "CTF to mne/raw",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60d08cb5cdfdb50acdff5893",
+        "name": "Split MEG file [ctf]",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

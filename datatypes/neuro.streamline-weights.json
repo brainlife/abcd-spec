@@ -1,0 +1,92 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5dcecaffc4ae284155298383",
+    "desc": "TODO",
+    "name": "neuro/streamline-weights",
+    "original": {
+      "desc": "A text file containing a list of streamline-weights in each line. This is intended to be used with algorithms like SIFT2, LiFE, and COMMIT that filter streamlines based on different anatomical and diffusion properties.",
+      "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```"
+    },
+    "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "weights.csv",
+      "id": "weights",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "644170e4d391caf6efc7e038",
+        "name": "Structural Connectome MRTrix3 (SCMRT)",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "626c8036f3858674a2a803fd",
+        "name": "Compute streamline weights using COMMIT",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "62681cd2f3858674a29f554e",
+        "name": "Compute streamline weights using SIFT2",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

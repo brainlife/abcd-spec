@@ -1,0 +1,78 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "61b1867f7577fd30683bcaf5",
+    "desc": "TODO",
+    "name": "neuro/track/trx",
+    "original": {
+      "desc": "TRX: A community-oriented tractography file format",
+      "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
+    },
+    "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
+  },
+  "files": [
+    {
+      "desc": "trx is a directory containing various sub-directories such as dpg / dpv / dps / groups / heaer.json  / etc",
+      "filename": "track.trx",
+      "id": "track",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "6aa8586984691735460e523e",
+        "name": "trak2zarr-vectors",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "604a4553ebfe4559de3af944",
+    "desc": "TODO",
+    "name": "generic/timeseries",
+    "original": {
+      "desc": "A time series is a chronologically ordered series of numeric values. Time series will generally be stored as tables, with a row of column headers indicating the name of the series. ",
+      "readme": "Based on https://github.com/bids-standard/bids-specification/pull/519/files\n\ntimeseries.tsv.gz will contain a table that looks like the following\n\n```\ncolname1 colname2 colname3\n12                98                 11\n11                34                 53\n54                34                 34\n```\n\n## metadata/sidecar (config.json)\n\n```\n{\n    \"SamplingFrequency\": 1.5,\n    \"StartTime\": \"2012-02-03T923:33:35Z\",\n}\n```\n\nThe metadata (sidecar) for this object contains information about a few key attributes (SamplingFrequency, and StartTime) and column definitions for each measurement\n\n## timeseries.json\n\n```\n{\n    \"colname1\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname2\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname3\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     }\n     ....\n}\n```\n\n`SamplingFrequency` is required for uniform time series data (in seconds). \n\nFor non-uniform time series data, there should be `onset`, and `duration` columns (units in seconds). Please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/05-task-events.html as an example.\n\n`StartTime` is optional.\n\n\n# label.json should look like this\n\n```\n[\n    {\n        \"voxel_value\": 1,\n        \"label\": \"1001\",\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\"\n    },\n    {\n        \"voxel_value\": 2,\n        \"label\": \"1002\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_1.label\"\n    },\n    {\n        \"voxel_value\": 3,\n        \"label\": \"1003\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_2.label\"\n    },\n```"
+    },
+    "readme": "Based on https://github.com/bids-standard/bids-specification/pull/519/files\n\ntimeseries.tsv.gz will contain a table that looks like the following\n\n```\ncolname1 colname2 colname3\n12                98                 11\n11                34                 53\n54                34                 34\n```\n\n## metadata/sidecar (config.json)\n\n```\n{\n    \"SamplingFrequency\": 1.5,\n    \"StartTime\": \"2012-02-03T923:33:35Z\",\n}\n```\n\nThe metadata (sidecar) for this object contains information about a few key attributes (SamplingFrequency, and StartTime) and column definitions for each measurement\n\n## timeseries.json\n\n```\n{\n    \"colname1\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname2\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname3\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     }\n     ....\n}\n```\n\n`SamplingFrequency` is required for uniform time series data (in seconds). \n\nFor non-uniform time series data, there should be `onset`, and `duration` columns (units in seconds). Please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/05-task-events.html as an example.\n\n`StartTime` is optional.\n\n\n# label.json should look like this\n\n```\n[\n    {\n        \"voxel_value\": 1,\n        \"label\": \"1001\",\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\"\n    },\n    {\n        \"voxel_value\": 2,\n        \"label\": \"1002\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_1.label\"\n    },\n    {\n        \"voxel_value\": 3,\n        \"label\": \"1003\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_2.label\"\n    },\n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "timeseries.tsv.gz",
+      "id": "tsv",
+      "required": true
+    },
+    {
+      "desc": "Associated label metadata for creation of func network",
+      "filename": "timeseries.json",
+      "id": "json",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.inputs_of[1].purpose",
+      "usage.inputs_of[2].purpose",
+      "usage.inputs_of[3].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose",
+      "usage.outputs_of[2].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "629e58a57f60950a54d386d2",
+        "name": "Clustering edge time series",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6048fde5ebfe45fb1b3acdda",
+        "name": "Edge time series",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6117984ca5a04c6800fa6973",
+        "name": "HOI_toolbox",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "60b961b10ad40d58e1ca7fe7",
+        "name": "Time series to network",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "6048fde5ebfe45fb1b3acdda",
+        "name": "Edge time series",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "6a10364f28b7a0de6b25dbd2",
+        "name": "Extract Source Time Series",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "5ed05fe8e3f4538080268585",
+        "name": "fMRI Timeseries Extraction",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

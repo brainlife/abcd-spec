@@ -1,0 +1,131 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "630d072219b13f0a0ee3cd15",
+    "desc": "TODO",
+    "name": "neuro/tractseg",
+    "original": {
+      "desc": "Tractseg output directory containing bundle_segmentations, endings_segmentations, Tractometry_peaks.csv, etc..",
+      "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```"
+    },
+    "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```"
+  },
+  "files": [
+    {
+      "desc": "TODO",
+      "filename": "nodif_brain_mask.nii.gz",
+      "id": "nodif_brain_mask",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "filename": "peaks.nii.gz",
+      "id": "peaks",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "dirname": "bundle_segmentations",
+      "id": "bundle_segmentations",
+      "required": true
+    },
+    {
+      "desc": "TODO",
+      "dirname": "endings_segmentations",
+      "id": "endings_segmentations",
+      "required": true
+    },
+    {
+      "desc": "(Collection of .nii.gz files)",
+      "dirname": "TOM",
+      "id": "TOM",
+      "required": true
+    },
+    {
+      "desc": "(Collection of .tck files)",
+      "dirname": "TOM_trackings",
+      "id": "TOM_trackings",
+      "required": true
+    },
+    {
+      "desc": "Columns look like \"AF_left;AF_right;ATR_left;ATR_right;CC_1;CC_2\"",
+      "filename": "Tractometry_peaks.csv",
+      "id": "Tractometry_peaks",
+      "required": false
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "files[0].desc",
+      "files[1].desc",
+      "files[2].desc",
+      "files[3].desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for",
+      "usage.outputs_of[0].purpose",
+      "usage.outputs_of[1].purpose"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "638b5d866881d56fbfacc8f0",
+        "name": "Tractometry over tensor",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": [
+      {
+        "app_id": "5cc3ccf94ed9df00317f6203",
+        "name": "TractSeg",
+        "purpose": "TODO"
+      },
+      {
+        "app_id": "634dc433fa262bbde2b3003a",
+        "name": "TractSeg from peaks",
+        "purpose": "TODO"
+      }
+    ]
+  }
+}

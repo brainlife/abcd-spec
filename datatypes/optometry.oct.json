@@ -1,0 +1,96 @@
+{
+  "bids": {
+    "checked_against": {
+      "bids_version": "1.11.2",
+      "schema_version": "2.0.0"
+    },
+    "correspondences": []
+  },
+  "brainlife": {
+    "_id": "5ebe0bbbb969982124072325",
+    "desc": "TODO",
+    "name": "optometry/oct",
+    "original": {
+      "desc": "Raw data from compatible systems with the Orion® software (Voxeleron, LLC, Pleasanton, CA, USA), and an associated centroid indicator file",
+      "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md"
+    },
+    "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md"
+  },
+  "files": [
+    {
+      "desc": "The raw output from a Voxeleron OCT device for the left eye.  S in the name stem is an abbreviation for sinister, indicating left.",
+      "filename": "OS_raw.csv",
+      "id": "os_raw",
+      "required": true
+    },
+    {
+      "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+      "filename": "OS_centroid.csv",
+      "id": "os_centroid",
+      "required": true
+    },
+    {
+      "desc": "The raw output from a Voxeleron OCT device for the right eye.  D in the name stem is an abbreviation for dexter, indicating right.",
+      "filename": "OD_raw.csv",
+      "id": "od_raw",
+      "required": true
+    },
+    {
+      "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+      "filename": "OD_centroid.csv",
+      "id": "od_centroid",
+      "required": true
+    }
+  ],
+  "governance": {
+    "default_tier": 0,
+    "human_neurodata": "TODO",
+    "identifying_risks": [
+      "TODO"
+    ],
+    "information_kinds": [],
+    "rationale": "TODO",
+    "sharing_cautions": [
+      "TODO"
+    ],
+    "tier_conditions": [
+      "TODO"
+    ]
+  },
+  "provenance": {
+    "drafted_by": "tools/bldt.py draft",
+    "sources": [
+      "https://brainlife.io/api/warehouse/datatype",
+      "catalog/index.json"
+    ],
+    "todo": [
+      "brainlife.desc",
+      "governance.default_tier",
+      "governance.human_neurodata",
+      "governance.identifying_risks",
+      "governance.rationale",
+      "governance.sharing_cautions",
+      "governance.tier_conditions",
+      "usage.inputs_of[0].purpose",
+      "usage.intended_use",
+      "usage.not_suitable_for"
+    ]
+  },
+  "spec": "brainlife-datatype-record/1.0",
+  "usage": {
+    "inputs_of": [
+      {
+        "app_id": "5ec4646f41ba118064f44d41",
+        "name": "Voxeleron OCT data Processing",
+        "purpose": "TODO"
+      }
+    ],
+    "intended_use": [
+      "TODO"
+    ],
+    "not_suitable_for": [
+      "TODO"
+    ],
+    "outputs_of": []
+  }
+}
