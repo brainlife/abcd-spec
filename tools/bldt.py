@@ -6,21 +6,29 @@
     bldt.py draft --snapshot S --bids B --aimport A.json
                                        create or refresh datatypes/<slug>.json
     bldt.py import-drafts DIR --bids B convert ezbids aimport datatype drafts into datatypes/drafts/
+    bldt.py diff [--only NAME]         what push would change on brainlife.io (read-only)
+    bldt.py push [--only NAME] [--approve-size]
+                                       write desc, readme, files and bids, with an undo log
+    bldt.py push --drafts --admins SUBS register reviewed drafts as new datatypes
+    bldt.py undo LOG                   restore the records listed in an undo log
 
 Drafting fills what can be derived (ids, files, Apps that use the datatype, BIDS correspondences)
 and marks judgement fields "TODO"; provenance.todo lists them. Values already reviewed in an
-existing record are kept. Nothing here writes to brainlife.io.
+existing record are kept. Only push and undo write to brainlife.io.
 """
 import argparse
+import base64
 import copy
 import datetime
 import json
 import pathlib
 import sys
+import time
 import urllib.request
 
 import dtbids
 import dtrecord
+import dtsync
 
 ROOT = dtrecord.ROOT
 API = "https://brainlife.io/api/warehouse"
@@ -184,6 +192,66 @@ def pull(api=API, out=ROOT / "snapshots"):
     return path
 
 
+class Http:
+    """Warehouse API with the token from `bl login` (~/.config/brainlife.io/.jwt)."""
+
+    def __init__(self, api=API, token_path=pathlib.Path.home() / ".config" / "brainlife.io" / ".jwt"):
+        try:
+            self.token = pathlib.Path(token_path).read_text().strip()
+            payload = self.token.split(".")[1]
+            claims = json.loads(base64.urlsafe_b64decode(payload + "=" * (-len(payload) % 4)))
+        except (OSError, IndexError, ValueError):
+            sys.exit(f"No brainlife.io login token at {token_path}. Run `bl login` in a terminal first.")
+        if claims.get("exp", 0) < time.time():
+            sys.exit("The brainlife.io login token has expired. Run `bl login` in a terminal first.")
+        self.api = api
+
+    def _send(self, method, path, body=None):
+        data = None if body is None else json.dumps(body).encode()
+        req = urllib.request.Request(self.api + path, data=data, method=method,
+                                     headers={"Authorization": f"Bearer {self.token}",
+                                              "Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            text = r.read().decode()
+        return json.loads(text) if text else None
+
+    def get(self, path):
+        return self._send("GET", path)
+
+    def put(self, path, body):
+        return self._send("PUT", path, body)
+
+    def post(self, path, body):
+        return self._send("POST", path, body)
+
+    def delete(self, path):
+        return self._send("DELETE", path)
+
+
+def _latest_snapshot():
+    snaps = sorted((ROOT / "snapshots").glob("*/datatypes.json"))
+    if not snaps:
+        sys.exit("No snapshot; run `bldt.py pull` first.")
+    return {d["name"]: d for d in json.loads(snaps[-1].read_text())["datatypes"]}
+
+
+def _changes(only, drafts, admins):
+    records = dtrecord.load_all(ROOT / "datatypes")
+    records = {n: r for n, r in records.items() if ("_id" in r["brainlife"]) != drafts and (not only or n in only)}
+    unfinished = [n for n, r in records.items() if r["provenance"]["todo"] or dtrecord.validate(r)]
+    if unfinished:
+        sys.exit(f"Records with TODOs or errors: {', '.join(unfinished)}")
+    live_now = {d["name"]: d for d in _get_json(f"{API}/datatype?limit=0")["datatypes"]}
+    return dtsync.plan(records, live_now, _latest_snapshot(), admins=admins)
+
+
+def _report(changes):
+    for c in changes:
+        skipped = f"  skipped (edited on brainlife.io since pull): {', '.join(c['skipped'])}" if c["skipped"] else ""
+        print(f"{c['method']} {c['name']}: {', '.join(c['body']) or '-'}  {c['size_before']} -> {c['size_after']} bytes{skipped}")
+    print(f"total {sum(c['size_before'] for c in changes)} -> {sum(c['size_after'] for c in changes)} bytes")
+
+
 def _save_all(records, root):
     for name, r in records.items():
         folder = root if "_id" in r["brainlife"] else root / "drafts"
@@ -204,6 +272,14 @@ def main(argv=None):
     i = sub.add_parser("import-drafts")
     i.add_argument("directory")
     i.add_argument("--bids", required=True)
+    for cmd in ("diff", "push"):
+        c = sub.add_parser(cmd)
+        c.add_argument("--only", action="append", default=[])
+        c.add_argument("--drafts", action="store_true", help="register reviewed drafts (POST) instead")
+        c.add_argument("--admins", default="", help="comma-separated auth subs for new datatypes")
+        c.add_argument("--approve-size", action="store_true")
+    u = sub.add_parser("undo")
+    u.add_argument("log")
     a = p.parse_args(argv)
     root = ROOT / "datatypes"
     if a.cmd == "pull":
@@ -227,6 +303,28 @@ def main(argv=None):
                   if n not in existing}
         _save_all(drafts, root)
         print(f"{len(drafts)} drafts")
+    elif a.cmd in ("diff", "push"):
+        changes = _changes(set(a.only), a.drafts, [s for s in a.admins.split(",") if s])
+        _report(changes)
+        errors = dtsync.check_budget(changes, a.approve_size)
+        if errors:
+            sys.exit("Size budget exceeded (use --approve-size after review):\n" + "\n".join(errors))
+        if a.cmd == "push":
+            stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            log = ROOT / "docs" / "backfill" / "datatypes" / f"{stamp}-undo.json"
+            log.parent.mkdir(parents=True, exist_ok=True)
+            created = dtsync.push(changes, Http(), log)
+            for name, _id in created.items():
+                old = root / "drafts" / f"{dtrecord.slug(name)}.json"
+                record = dtrecord.load(old)
+                record["brainlife"]["_id"] = _id
+                dtrecord.save(root / old.name, record)
+                old.unlink()
+            print(f"undo log: {log}")
+    elif a.cmd == "undo":
+        kept = dtsync.undo(a.log, Http())
+        if kept:
+            print(f"Kept (in use): {', '.join(kept)}")
 
 
 if __name__ == "__main__":
