@@ -1,6 +1,6 @@
 # GitHub About backfill, 2026-11-24
 
-Done with the `brainlife-app-metadata` skill (`skills/brainlife-app-metadata`). Metadata only:
+Done with the `brainlife-app-metadata` skill. Metadata only:
 no App code, branch, input, output or parameter was touched, and nothing was written to
 brainlife.io.
 

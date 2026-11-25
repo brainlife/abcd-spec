@@ -1,7 +1,7 @@
 <!--
   brainlife App README template (from the brainlife/app-freesurfer README).
   Replace everything in <ANGLE BRACKETS>, delete sections that do not apply, and keep the order.
-  Style guide: https://github.com/brainlife/abcd-spec/blob/master/skills/brainlife-app-metadata/readme-style.md
+  Model: https://github.com/brainlife/app-freesurfer#readme
   Delete this comment when done.
 -->
 
@@ -93,7 +93,7 @@ output/
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX (add a `CITATION.cff`).
 
 - <APP NAME>. brainlife.io App. [doi:10.25663/brainlife.app.<N>](https://doi.org/10.25663/brainlife.app.<N>)
-- <PAPERS FOR THE SOFTWARE THE APP USES; see skills/brainlife-app-metadata/tool-citations.json for verified references>
+- <PAPERS FOR THE SOFTWARE THE APP USES; cite each tool's own paper, with its DOI>
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
