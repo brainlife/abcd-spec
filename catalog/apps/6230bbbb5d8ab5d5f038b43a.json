@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert quality control (qc) data from eddy to regressors datatype",
+  "version": "main",
+  "summary": "Converts eddy quality-control outputs (motion parameters and RMS movement) into a regressors TSV for use as nuisance variables in statistical analyses; a conversion utility.",
+  "description": "Reads the eddy_parameters, eddy_movement_rms and eddy_restricted_movement_rms files from an eddy output directory and writes regressors.tsv with translation, rotation, eddy-current terms and framewise displacement columns. Use it after an App that runs FSL eddy and keeps its QC files.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "6230bbbb5d8ab5d5f038b43a",
+    "github": "brainlife/app-convert-eddyqc-to-regressor",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "topPath",
+      "datatype": "raw",
+      "datatype_tags": [
+        "eddyqc"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of eddy outputs.",
+      "config_keys": [
+        "topPath"
+      ],
+      "requirements": "Must contain files matching eddy_parameters, eddy_movement_rms and eddy_restricted_movement_rms."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "eddyqc"
+      ],
+      "description": "regressors.tsv with per-volume translation, rotation, eddy-current and framewise displacement columns."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.610",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ]
+}

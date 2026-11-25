@@ -1,0 +1,125 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-coreg-v2",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69aad0156bb1f71b25ac111b",
+    "github": "obVdo/app-coreg-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/trans",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiducials",
+      "type": "string",
+      "description": "auto, estimated, or JSON dict",
+      "default": "auto",
+      "placeholder": "auto"
+    },
+    {
+      "id": "icp_iterations_1",
+      "type": "number",
+      "description": "First ICP pass iterations",
+      "default": 6,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "icp_iterations_2",
+      "type": "number",
+      "description": "Second ICP pass iterations",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "nasion_weight_1",
+      "type": "number",
+      "description": "Nasion weight (coarse pass)",
+      "default": 2,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "nasion_weight_2",
+      "type": "number",
+      "description": "Nasion weight (fine pass)",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "omit_distance_mm",
+      "type": "number",
+      "description": "Outlier threshold (mm)",
+      "default": 5,
+      "placeholder": "5"
+    }
+  ],
+  "runtime": {
+    "container": "aunnikri642/app-freesurfer-mne-source-recon",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.901",
+  "deprecated_by": "6a982566d90f157078e200c3"
+}

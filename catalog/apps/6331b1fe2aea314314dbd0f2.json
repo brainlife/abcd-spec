@@ -1,0 +1,230 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute and Apply warp from subject-to-standard space to ROIs (T1w)",
+  "version": "1.0",
+  "summary": "Registers a T1-weighted image to a standard template (MNI152 or NIHPD) with FSL flirt and fnirt, then warps a set of ROIs with the resulting warp; also outputs the warp fields.",
+  "description": "Linearly aligns the T1w image to the chosen template with flirt, derives a rigid ACPC alignment, computes a nonlinear fnirt warp and its inverse, then applies the selected warp to every ROI with applywarp. If a warp is already present it is reused instead of recomputed. Use it to move ROIs between a subject's T1w space and template space; optional reorient and crop steps help with images not in standard orientation or with a large field of view.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+  ],
+  "registry": {
+    "id": "6331b1fe2aea314314dbd0f2",
+    "github": "brainlife/app-register-rois-mni",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical image of the subject.",
+      "config_keys": [
+        "input"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of NIfTI ROIs to warp; every file in it is warped.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "standard_nonlin_warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "standard"
+      ],
+      "description": "FSL fnirt warp field (warp.nii.gz), its inverse (inverse-warp.nii.gz) and the rigid ACPC affine (affine.txt) between the T1w image and the template.",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "standard"
+      ],
+      "description": "Output directory for all the data derivatives generated",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "warped"
+      ],
+      "description": "The ROIs resampled with the selected warp, binarized if binarize is set."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "input_type",
+      "type": "enum",
+      "description": "This controls the datatype (T1 or T2) to use. This should not be changed. Only used to keep the github repository between the two apps the same",
+      "default": "T1",
+      "options": [
+        {
+          "value": "T1",
+          "label": "T1",
+          "description": "T1"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "Standard template (MNI152 at several resolutions, MNI152NLin2009cAsym, or NIHPD pediatric) whose space the warp maps to or from; used as the applywarp reference.",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "1.0 mm MNI 152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "MNI152_0.7mm",
+          "label": "MNI152_0.7mm",
+          "description": "0.7 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_0.8mm",
+          "label": "MNI152_0.8mm",
+          "description": "0.8 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_2mm",
+          "label": "MNI152_2mm",
+          "description": "2.0 mm MNI 152 template"
+        },
+        {
+          "value": "tpl-MNI152NLin2009cAsym_res-01",
+          "label": "tpl-MNI152NLin2009cAsym_res-01",
+          "description": "tpl-MNI152NLin2009cAsym_res-01"
+        },
+        {
+          "value": "tpl-MNI152NLin2009cAsym_res-02",
+          "label": "tpl-MNI152NLin2009cAsym_res-02",
+          "description": "tpl-MNI152NLin2009cAsym_res-02"
+        }
+      ]
+    },
+    {
+      "id": "interp",
+      "type": "enum",
+      "description": "Interpolation passed to FSL applywarp when resampling the ROIs: nn (nearest neighbour, keeps labels and masks discrete) or spline.",
+      "default": "nn",
+      "options": [
+        {
+          "value": "nn",
+          "label": "nn",
+          "description": "nn"
+        },
+        {
+          "value": "spline",
+          "label": "spline",
+          "description": "spline"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "warp_to_use",
+      "type": "enum",
+      "description": "Which field to apply: warp (subject-to-template, moves subject-space ROIs into template space) or inv_warp (template-to-subject, moves template-space ROIs into subject space).",
+      "default": "warp",
+      "options": [
+        {
+          "value": "warp",
+          "label": "warp",
+          "description": "warp"
+        },
+        {
+          "value": "inv_warp",
+          "label": "inv_warp",
+          "description": "inv_warp"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "If true, crop the input with FSL robustfov before registration (removes neck/large field of view); the crop is applied to the ROIs too.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "If true, reorient the input to standard orientation with fslreorient2std before registration; the reorientation is applied to the ROIs too.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "binarize",
+      "type": "boolean",
+      "description": "If true, this will binarize the ROIs",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 8.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.670",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

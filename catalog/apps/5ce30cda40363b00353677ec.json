@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert wmc-deprecated to wmc",
+  "version": "1.0",
+  "summary": "Converts a deprecated white matter classification (wmc-deprecated, output.mat) into the current wmc datatype (classification.mat with tract JSONs and surfaces).",
+  "description": "Saves the classification structure from the old output.mat as classification.mat, copies any surfaces, and rewrites the tract JSON files with coordinates rounded to two decimals. The new datatype stores only streamline indices, so it must be used together with the original tractogram. Use it to make old classifications usable by current Apps. Utility App.",
+  "kind": "native",
+  "topics": [
+    "conversion",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ce30cda40363b00353677ec",
+    "github": "brainlife/app-convert-wmc2wmc",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Deprecated WMC classification (output.mat with tracts/ JSON files and optional surfaces/).",
+      "config_keys": [
+        "segmentation"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "WMC classification (classification.mat with streamline indices, tracts/ JSONs and surfaces/).",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/python:2.7.16",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.201",
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Conversion failed.",
+      "cause": "The output wmc directory is empty.",
+      "fix": "Check that the input contains output.mat and tracts/."
+    }
+  ]
+}

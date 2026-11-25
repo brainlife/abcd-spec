@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "RecoBundles X",
+  "version": "v0.1.0",
+  "summary": "Recognizes white matter bundles in a whole-brain .trk tractogram with scilpy BundleSeg (RecoBundlesX) against a population atlas downloaded from Zenodo, and outputs a WMC classification and per-bundle .tck files.",
+  "description": "Downloads the selected RecobundlesX/BundleSeg atlas from Zenodo, filters streamlines by length (minL-maxL), registers the atlas T1 to the subject T1 with an ANTs affine (antsRegistrationSyNQuick), and runs scil_tractogram_segment_with_bundleseg with multi-parameter voting. Use it for atlas-based bundle extraction from whole-brain tractograms. It needs internet access; the WMC index covers only recognized streamlines, not the full input tractogram.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6b00b45188e26e6de7e1b89a",
+    "github": "gamorosino/app-recobundles-x",
+    "branch": "v0.1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram in TrackVis (.trk) format.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Subject T1-weighted anatomy used for ANTs affine registration to the atlas space.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification: recognized bundle assignments for each streamline."
+    },
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "description": "Recognized bundles as a collection of MRtrix (.tck) files, one per bundle."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "enum",
+      "description": "Atlas version to download from Zenodo at runtime. v3.0 = Zenodo 7950602 (RecobundlesX \u2192 BundleSeg transition); v2.2 = Zenodo 7729059; v2.0 = Zenodo 7562635.",
+      "default": "v3.0",
+      "options": [
+        {
+          "value": "v3.0",
+          "label": "v3.0 (Zenodo 7950602 \u2014 recommended)"
+        },
+        {
+          "value": "v2.2",
+          "label": "v2.2 (Zenodo 7729059)"
+        },
+        {
+          "value": "v2.0",
+          "label": "v2.0 (Zenodo 7562635)"
+        }
+      ]
+    },
+    {
+      "id": "minL",
+      "type": "number",
+      "description": "Minimum streamline length (mm). Streamlines shorter than this are discarded before bundle recognition.",
+      "default": 20
+    },
+    {
+      "id": "maxL",
+      "type": "number",
+      "description": "Maximum streamline length (mm). Streamlines longer than this are discarded before bundle recognition.",
+      "default": 200
+    },
+    {
+      "id": "seeds",
+      "type": "number",
+      "description": "Random number generator seed for reproducibility.",
+      "default": 0
+    },
+    {
+      "id": "minimal_vote_ratio",
+      "type": "number",
+      "description": "Minimum fraction of multi-parameter runs in which a streamline must be recognized to be kept in the final bundle.",
+      "default": 0.5
+    },
+    {
+      "id": "processes",
+      "type": "number",
+      "description": "Number of parallel threads.",
+      "default": 1,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "scilus/scilus:2.3.0"
+  },
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "scilpy",
+      "version": "2.3.0",
+      "url": "https://github.com/scilus/scilpy"
+    },
+    {
+      "name": "ANTs"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

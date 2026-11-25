@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DBB_DisSeg",
+  "version": "2.0.0",
+  "summary": "Segments a T1-weighted brain image into CSF, gray matter, white matter, deep gray matter, brainstem and cerebellum with the DBB 3D U-Net (DisSeg, TensorFlow), after ANTs histogram matching.",
+  "description": "Histogram-matches the T1w to a reference image with ANTs ImageMath, then predicts a six-class tissue segmentation inside the given brain mask with the 3D U-Net used as baseline in the Distorted Brain Benchmark (DBB) for paediatric patients with brain malformations. Use it for tissue segmentation of T1w images, including distorted or paediatric brains. Needs a brain mask aligned with the T1w; the prediction container runs with GPU support (singularity --nv).",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "machine-learning",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60f83394b99111089ab55f80",
+    "github": "gamorosino/bl_app_dbb_DisSeg",
+    "branch": "2.0.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image to segment.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask of the T1w image, used to restrict the prediction.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Same grid as the T1w."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "segmentation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Tissue segmentation (segmentation.nii.gz) with label.json: 1 CSF, 2 gray matter, 3 white matter, 4 deep gray matter, 5 brainstem, 6 cerebellum."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.548",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    },
+    {
+      "name": "TensorFlow",
+      "version": "2.9"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2022.119486",
+      "text": "Amorosino G., Peruzzo D., Redaelli D., Olivetti E., Arrigoni F., Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

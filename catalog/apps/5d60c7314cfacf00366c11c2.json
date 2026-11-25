@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment thalamic nuclei",
+  "version": "v1.0",
+  "summary": "Segments the thalamus into its nuclei with FreeSurfer 7.1.0 segmentThalamicNuclei.sh on an existing FreeSurfer output and returns the FreeSurfer directory with the thalamic nuclei segmentation added.",
+  "description": "Copies the input FreeSurfer subject directory and runs segmentThalamicNuclei.sh (probabilistic atlas built from histology) to add ThalamicNuclei volumes to mri/. Use it when an analysis needs thalamic nuclei such as the LGN, for example the visual white matter ROI Apps. The input must be a completed recon-all output.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5d60c7314cfacf00366c11c2",
+    "github": "brainlife/app-segment-thalamic-nuclei",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the freesurfer datatype",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "thalamic_nuclei"
+      ],
+      "description": "Output freesurfer datatype including thalamic nuclei segmentation",
+      "datatype_tags_pass": "freesurfer"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.0",
+    "resources": {
+      "cpus": 2,
+      "memory_gb": 20,
+      "walltime_hours": 0.75
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.222",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/fswiki/ThalamicNuclei"
+    }
+  ]
+}

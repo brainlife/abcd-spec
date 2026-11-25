@@ -1,0 +1,134 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROI to ROI Tracking - deprecated",
+  "version": "1.0",
+  "summary": "This app will perform tracking between 2 cortical regions of interest (ROIs) from either a freesurfer parcellation or an atlas parcellation.",
+  "description": "This app will perform tracking between 2 cortical regions of interest (ROIs) from either a freesurfer parcellation or an atlas parcellation.  Inputs include: parcellation (freesurfer; atlas optional) with ROI niftis (generated from app-roiGeneration), dt6 from dtiinit, and ROI pairings. Outputs include a track.tck for each pairing of ROIs, a classification structure, and a fg_classified structure which can then be fed into other apps on the website (example: Clean WMC Output).",
+  "kind": "native",
+  "topics": [
+    "tracking"
+  ],
+  "registry": {
+    "id": "5b01f6849ae9260026c8ddc6",
+    "github": "brainlife/app-roi2roitracking",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the rois datatype",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the freesurfer datatype",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DTIINIT datatype",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "roi2roi"
+      ],
+      "description": "The classification structure  (deprecated) including a classification.mat structure that contains the streamline indices in the tractogram."
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "roi2roi"
+      ],
+      "description": "Tractogram (tck) generated"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "max_lmax",
+      "type": "number",
+      "description": "Max numb of params for CSD.\nLeave empty if you know it.",
+      "required": false,
+      "placeholder": "Auto Calculate"
+    },
+    {
+      "id": "num_repetitions",
+      "type": "number",
+      "description": "this allows you to track multiple times the very same tract.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 10
+    },
+    {
+      "id": "roiPair",
+      "type": "string",
+      "description": "Space-separated pairing of ROI numbers or ROI names you'd like to track between\n\nNeeds to correspond to ROIs from ROI Generation app, or from locally stored ROIs\n\nexample: 45 54; L_FEF_sphere_bin L_PIT_sphere_bin",
+      "default": ""
+    },
+    {
+      "id": "maxlength",
+      "type": "number",
+      "description": "maximum length of each streamline generated",
+      "default": 200
+    },
+    {
+      "id": "minlength",
+      "type": "number",
+      "description": "minimum length of each streamline generated",
+      "default": 10
+    },
+    {
+      "id": "stepsize",
+      "type": "number",
+      "description": "step size for tracking",
+      "default": 0.2
+    },
+    {
+      "id": "max_num",
+      "type": "number",
+      "description": "maximum number of tracts to generate",
+      "default": 1000000
+    },
+    {
+      "id": "num_fibers",
+      "type": "number",
+      "description": "desired number of fibers per tracking output",
+      "default": 500000
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 36
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.34",
+  "deprecated_by": "5e516420cb80941d63f51b0e"
+}

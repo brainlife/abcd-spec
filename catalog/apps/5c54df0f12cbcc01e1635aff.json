@@ -1,0 +1,155 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Top-up & Eddy",
+  "version": "1.1",
+  "summary": "Corrects susceptibility distortion, eddy currents and motion in a DWI acquired with two opposite phase-encoding directions using FSL topup and eddy_openmp.",
+  "description": "Merges the b0 volumes of both phase-encoding series, estimates the susceptibility field with FSL topup (b02b0.cnf), then runs eddy_openmp with --repol on the concatenated series and rotates the bvecs; a brain mask of the corrected DWI is made with bet. Use it when you have a reverse phase-encoded DWI; if not, use an eddy-only App. Note: the shell test that selects the encoding direction is always true in this branch, so acq_params.txt is always written for PA/AP regardless of the encode setting.",
+  "kind": "native",
+  "topics": [
+    "preprocessing",
+    "dwi",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c54df0f12cbcc01e1635aff",
+    "github": "brainlife/app-FSLTopupEddy",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "diff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI acquired in the primary phase-encoding direction, with bvecs and bvals.",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval"
+      ]
+    },
+    {
+      "id": "rdiff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI acquired with the reversed phase-encoding direction, with bvecs and bvals.",
+      "config_keys": [
+        "rdif",
+        "rbvc",
+        "rbvl"
+      ],
+      "requirements": "Must have the same image dimensions as diff."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "Corrected DWI concatenating both phase-encoding series, with eddy-rotated bvecs and merged bvals.",
+      "datatype_tags_pass": "diff"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "Brain mask of the corrected DWI (FSL bet)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param",
+      "type": "number",
+      "description": "This is the 'dwell time'. Please see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy/Faq#How_do_I_know_what_to_put_into_my_--acqp_file for more information about this specific parameter."
+    },
+    {
+      "id": "encode",
+      "type": "enum",
+      "description": "Phase encoding direction of the diff (not rdiff), i.e. first, inputted dwi.\n\nfor example, if the phase encoding direction of the first inputted dwi is 'PA', then select 'PA'. If it was 'AP', then select 'AP'",
+      "default": "PA",
+      "options": [
+        {
+          "value": "PA",
+          "label": "posterior-->anterior",
+          "description": "Phase encoding direction of first input was done in posterior/anterior direction"
+        },
+        {
+          "value": "AP",
+          "label": "anterior-->posterior",
+          "description": "Phase encoding direction of first input was done in anterior/posterior"
+        },
+        {
+          "value": "LR",
+          "label": "left-->right",
+          "description": "Phase encoding direction of first input was done in left/right"
+        },
+        {
+          "value": "RL",
+          "label": "right-->left",
+          "description": "Phase encoding direction of first input was done in right/left"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.155",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Andersson JLR, Skare S, Ashburner J. How to correct susceptibility distortions in spin-echo echo-planar images: application to diffusion tensor imaging. NeuroImage 20(2):870-888 (2003)."
+    },
+    {
+      "text": "Smith SM, Jenkinson M, Woolrich MW, et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-219 (2004)."
+    },
+    {
+      "text": "Graham MS, Drobnjak I, Zhang H. Quantitative assessment of the susceptibility artefact and its interaction with motion in diffusion MRI. PLoS ONE 12(10) (2017)."
+    },
+    {
+      "text": "Andersson JLR, Sotiropoulos SN. An integrated approach to correction for off-resonance effects and subject movement in diffusion MR imaging. NeuroImage 125:1063-1078 (2016)."
+    },
+    {
+      "text": "Andersson JLR, Graham MS, Zsoldos E, Sotiropoulos SN. Incorporating outlier detection and replacement into a non-parametric framework for movement and distortion correction of diffusion MR images. NeuroImage 141:556-572 (2016)."
+    },
+    {
+      "text": "Andersson JLR, Graham MS, Drobnjak I, Zhang H, Filippini N, Bastiani M. Towards a comprehensive framework for movement and distortion correction of diffusion MR images: Within volume movement. NeuroImage 152:450-466 (2017)."
+    },
+    {
+      "text": "Andersson JLR, Graham MS, Drobnjak I, Zhang H, Campbell J. Susceptibility-induced distortion that varies due to motion: Correction in diffusion MR without acquiring additional data. NeuroImage 171:277-295 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "dwi/dwi.nii.gz was not produced.",
+      "fix": "Check the topup and eddy log output; confirm both DWI series have matching dimensions."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

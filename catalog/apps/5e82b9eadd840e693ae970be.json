@@ -1,0 +1,104 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment white matter tracts using pyAFQ",
+  "version": "0.4.1",
+  "summary": "Segments a whole-brain tractogram into the 20 AFQ major white matter tracts with pyAFQ 0.4.1, registering DWI to MNI and using Mori-atlas waypoint ROIs, and outputs a white matter classification.",
+  "description": "Registers the DWI b0 to the MNI152NLin2009cAsym T2w template (optionally affine first, then SyN), builds the AFQ bundle dictionary of waypoint ROIs, and runs pyAFQ segmentation on the tractogram. Outputs a classification structure with the names and streamline indices of the AFQ tracts, plus FreeSurfer surfaces for visualisation. DWI and tractogram must be in the same space.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "5e82b9eadd840e693ae970be",
+    "github": "brainlife/app-pyafq-segment",
+    "branch": "0.4.1"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory of the Freesurfer datatype. This is used for the visualization.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the whole-brain tractogram to be segmented.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype used to generate the whole-brain tractogram.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "afq"
+      ],
+      "description": "The AFQ classification structure including a classification.mat structure that contains the streamline indices in the whole-brain tractogram."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "affine",
+      "type": "boolean",
+      "description": "If true, will first align the DWI to the MNI template using an affine registration before computing the non-linear warp. However, if this has already been done, the non-linear warp should work just fine and this can be set to false",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 60,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.295",
+  "software": [
+    {
+      "name": "pyAFQ",
+      "version": "0.4.1",
+      "url": "https://github.com/yeatmanlab/pyAFQ"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license available in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable (provided automatically on brainlife.io)."
+    }
+  ]
+}

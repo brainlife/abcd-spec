@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert wmc to trk",
+  "version": "1.2",
+  "summary": "Converts a white matter classification and its .tck tractogram into a single .trk file with nibabel, storing each streamline's tract index as bundle_code.",
+  "description": "Loads the tck, the classification index and the T1 affine, and saves trk/track.trk with the classification index as data_per_streamline['bundle_code'] (0 = unclassified). Use it to hand classified tracts to tools that read TrackVis files.",
+  "kind": "native",
+  "topics": [
+    "convert",
+    "dwi",
+    "conversion",
+    "nibabel",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5d89980e9842202a887ec261",
+    "github": "brainlife/app-wmctotrk",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) whose index labels each streamline.",
+      "config_keys": [
+        "wmc"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image whose affine defines the trk space.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram (.tck) the classification refers to.",
+      "config_keys": [
+        "tck"
+      ],
+      "requirements": "Must have the same streamlines, in the same order, as the classification index."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [
+        "wmc"
+      ],
+      "description": "Tractogram (track.trk) with per-streamline bundle_code.",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.231",
+  "category": "conversion",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "scipy"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "maintainers": [
+    "David Hunt",
+    "Paolo Avesani"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ANTs tractogram registration in MNI space",
+  "version": "2.0",
+  "summary": "Registers a .tck tractogram and its T1-weighted image to the MNI152 1.25 mm template with an ANTs SyN non-linear warp, outputting the warped tractogram, the warped T1 and the warp fields.",
+  "description": "Skull-strips the T1 with FSL bet (or applies the provided brain mask), computes an ANTs SyN warp from the T1 to the MNI152 T1 1.25 mm brain template, applies it to the tractogram with MRtrix3 tcktransform and to the T1. Use it to bring tractograms into MNI space for template-based bundle segmentation. All inputs must be in the same anatomical space and come from the same subject; the App checks the subject IDs and stops if they differ.",
+  "kind": "native",
+  "topics": [
+    "alignment",
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "registration",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5ce719f440363b003536782e",
+    "github": "giulia-berto/app-ants-mni",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram to register",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 to use for the transformation",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Brain mask (if not provided, the BET algorithm will be used)",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track_aligned",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "mni_space"
+      ],
+      "description": "Tractogram registered in MNI space",
+      "datatype_tags_pass": "0"
+    },
+    {
+      "id": "warps",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "t1_warping_mni152"
+      ],
+      "description": "warp and inverse-warp used for the registration"
+    },
+    {
+      "id": "t1_aligned",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "mni_space"
+      ],
+      "description": "T1 registered in MNI space",
+      "datatype_tags_pass": "1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "giuliaberto/ants2-mrtrix3-fsl6:1.1",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.202",
+  "software": [
+    {
+      "name": "ANTs",
+      "url": "http://stnava.github.io/ANTs/"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Avants BB, Epstein CL, Grossman M, Gee JC. Symmetric diffeomorphic image registration with cross-correlation: evaluating automated labeling of elderly and neurodegenerative brain. Medical Image Analysis 12(1):26-41 (2008)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Inputs subject IDs incorrectly inserted. Check them again.",
+      "cause": "The tractogram, T1 and mask come from different subjects.",
+      "fix": "Select inputs from the same subject."
+    },
+    {
+      "message": "Transformation failed.",
+      "fix": "Check the T1 image and brain extraction."
+    }
+  ]
+}

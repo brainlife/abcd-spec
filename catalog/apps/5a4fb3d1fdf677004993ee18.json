@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Check DWI Orientation",
+  "version": "master",
+  "summary": "Reports the orientation (neurological or radiological) of a diffusion-weighted (DWI) NIfTI image with FSL fslorient; a quality-control utility that produces no new image data.",
+  "description": "Runs fslorient on the diffusion-weighted (DWI) image and writes the reported orientation (NEUROLOGICAL or RADIOLOGICAL) to product.json, shown on brainlife.io. Use it to check data before processing that assumes a particular voxel orientation. It does not change or reorient the image.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "qa",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "5a4fb3d1fdf677004993ee18",
+    "github": "brainlife/app-checkOrientation",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "diffusion-weighted (DWI) NIfTI image whose orientation is checked.",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "raw",
+      "datatype_tags": [
+        "orientation",
+        "dwi"
+      ],
+      "description": "Placeholder output; the orientation result is reported in product.json rather than as files."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/bl.app.20",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

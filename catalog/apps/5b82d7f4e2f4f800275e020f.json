@@ -1,0 +1,112 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractSeg",
+  "version": "1.7.3",
+  "summary": "Brainlife App for MIC-DKFZ/TractSeg. A tool for fast and accurate white matter bundle segmentation from Diffusion MRI using pretrained pytorch ML model.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5b82d7f4e2f4f800275e020f",
+    "github": "brainlife/app-tractseg",
+    "branch": "1.7.3"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "tract_segmentations"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "endingmasks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "ending_segmentations"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "preprocess",
+      "type": "boolean",
+      "description": "Run preprocessing step to align the input image to MNI. The input image must have the same \"orientation\" as the Human Connectome Project data (MNI space) (LEFT must be on the same side as LEFT of the HCP data). If the image orientation and the gradient orientation of your data is the same as in examples/Diffusion.nii.gz you are fine. Otherwise you should rigidly register your image to MNI space (the brains do not have to be perfectly aligned but must have the same LEFT/RIGHT orientation).",
+      "default": false
+    },
+    {
+      "id": "csd",
+      "type": "enum",
+      "description": "Choose the type of constrained spherical deconvolution (CSD) to run. If you have a registered T1 and multi-shell data, you can choose csd_msmt_5tt, otherwise choose the default.",
+      "default": "csd",
+      "options": [
+        {
+          "value": "csd",
+          "label": "csd",
+          "description": "standard CSD"
+        },
+        {
+          "value": "csd_msmt_5tt",
+          "label": "csd_msmt_5tt",
+          "description": "multi-tissue constrained spherical deconvolution (CSD) of multi-shell data "
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/tractseg:1.7.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/bl.app.95",
+  "deprecated_by": "5cc3ccf94ed9df00317f6203"
+}

@@ -1,0 +1,50 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MRIQC",
+  "version": "0.14.2",
+  "summary": "Runs MRIQC pipeline (http://mriqc.readthedocs.io/en/stable/reports/smri.html) from Poldrack Lab on selected T1 anatomy.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "qa"
+  ],
+  "registry": {
+    "id": "599a387b321afa0023e821ee",
+    "github": "brainlife/app-mriqc",
+    "branch": "0.14.2"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mriqc"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "t1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "poldracklab/mriqc:0.14.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 24
+    }
+  },
+  "doi": "10.25663/bl.app.52",
+  "deprecated_by": "6363f75ffa262bbde2d97922"
+}

@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Time Series to Network",
+  "version": "master",
+  "summary": "convert an NxT time series to an NxN functional connectivity matrix",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5eded100c5972bf65db3e2f9",
+    "github": "brainlife/app-time-series-2-network",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "timeseries",
+      "datatype": "generic/timeseries-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "timeseries",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cm",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "discard",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0,
+      "required": false
+    },
+    {
+      "id": "similaritymeas",
+      "type": "enum",
+      "description": "unknown",
+      "default": "correlation",
+      "options": [
+        {
+          "value": "correlation",
+          "label": "correlation"
+        },
+        {
+          "value": "partialcorrelation",
+          "label": "partial correlation"
+        },
+        {
+          "value": "covariance",
+          "label": "covariance"
+        }
+      ],
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "faskowit/app-fmri-2-mat:brnch-0.1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.372",
+  "deprecated_by": "60b961b10ad40d58e1ca7fe7"
+}

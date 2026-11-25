@@ -1,0 +1,77 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-selecting-ICA-components-manually",
+  "version": "master",
+  "summary": "Marks ICA components for exclusion in an MNE ICA object and saves it with a plot of the components (MNE-Python).",
+  "description": "Reads an MNE ICA solution, sets ica.exclude and saves the updated ICA file with a topography plot of the components. Use it to record which artefact components should be removed before applying ICA to MEG/EEG data. Warning: on this branch the excluded components are hard-coded to [0, 1] and the exclude parameter is not read.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63358117db978c7991a302cb",
+    "github": "zahransa/app-selecting-ICA-components-manually",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "ica",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MNE ICA solution file (ica.fif).",
+      "config_keys": [
+        "ica"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "description": "ICA file (ica.fif) with the excluded components set."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Plot of the ICA component topographies (ica.png)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "exclude",
+      "type": "number",
+      "description": "Intended indices of the ICA components to exclude; currently not read by main.py (components 0 and 1 are always excluded)."
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.678",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit DKI",
+  "version": "1.1.1",
+  "summary": "Fit a Diffusion Kurtosis Imaging model to multishell Diffusion-weighted data (dipy_fit_dki)",
+  "description": "Wraps the DIPY 1.1.1 dipy_fit_dki workflow to fit a diffusion kurtosis model inside a brain or white matter mask and writes the diffusion and kurtosis tensors with derived scalar maps. Use it to get kurtosis measures (MK, AK, RK) in addition to tensor measures. It requires multi-shell DWI; single-shell data are rejected by the input tag.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy",
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ae9d732f446980028b15ec2",
+    "github": "dipy/bl_apps_dipy_fit_dki",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!single_shell"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This App will only work with multishell datasets.",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is normally a white matter mask. But you could also pass the whole brain mask instead if you are interested in tensor measures in the gray matter, for example.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dki"
+      ],
+      "description": "DKI fit outputs from dipy_fit_dki: tensors.nii.gz (diffusion tensor), kurtosis.nii.gz (kurtosis tensor) and the scalar maps it writes (FA, MD, AD, RD, MK, AK, RK and others)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "b-value at or below which volumes are treated as b=0 (dipy_fit_dki --b0_threshold).",
+      "default": 50,
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 24,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/bl.app.9",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
+}

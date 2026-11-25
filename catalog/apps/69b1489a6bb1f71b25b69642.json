@@ -1,0 +1,172 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Source Estimate",
+  "version": "v1.0",
+  "summary": "Apply a pre-computed inverse operator to evoked MEG/EEG data and produce source estimates (STCs).",
+  "description": "Uses mne.minimum_norm.apply_inverse to produce one STC per evoked condition (or one from the averaged epochs if no evoked file is given), optionally morphed to fsaverage, with QC figures and an HTML report. Needs an inverse operator (e.g. from app-inverse-v2) and either evoked or epochs data; the FreeSurfer subject is used for surface plots and morphing.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "freesurfer",
+    "meg",
+    "mne-python",
+    "source-localization"
+  ],
+  "registry": {
+    "id": "69b1489a6bb1f71b25b69642",
+    "github": "BrainlifeMEEG/source-estimate",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "inverse",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Inverse operator (inv.fif) from an inverse-operator App.",
+      "config_keys": [
+        "forward",
+        "inverse"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional FreeSurfer subject directory for brain-surface plots and fsaverage morphing.",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional epochs, averaged to one evoked when no evoked input is given.",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional evoked data, single or multi-condition; takes priority over epochs.",
+      "config_keys": [
+        "evoked"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/stc",
+      "datatype_tags": [
+        "stc"
+      ],
+      "description": "Source estimates (STC), one per condition, plus fsaverage-morphed copies if requested."
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report with the source estimates and QC figures."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Inverse method: dSPM, sLORETA, MNE or eLORETA (default dSPM).",
+      "default": "",
+      "options": [
+        {
+          "value": "dSPM",
+          "label": "dSPM"
+        },
+        {
+          "value": "MNE",
+          "label": "MNE"
+        },
+        {
+          "value": "eLORETA",
+          "label": "eLORETA"
+        },
+        {
+          "value": "sLORETA",
+          "label": "sLORETA"
+        }
+      ]
+    },
+    {
+      "id": "snr",
+      "type": "number",
+      "description": "Assumed signal-to-noise ratio; sets lambda2 = 1/SNR^2 (3 for averaged evoked data, 1-2 for noisy data).",
+      "default": 3
+    },
+    {
+      "id": "pick_ori",
+      "type": "string",
+      "description": "Source orientation constraint: empty/None for free orientation or normal.",
+      "default": "None"
+    },
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "If set, crops each evoked to start at tmin before applying the inverse.",
+      "required": false,
+      "advanced": true,
+      "units": "s"
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "If set, crops each evoked to end at tmax before applying the inverse.",
+      "required": false,
+      "advanced": true,
+      "units": "s"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 40,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.906",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ]
+}

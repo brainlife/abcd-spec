@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Regional Homogeneity (ReHo)",
+  "version": "main",
+  "summary": "Computes a voxelwise Regional Homogeneity (ReHo) map from BOLD fMRI with AFNI 3dReHo, z-scores it and optionally smooths it with 3dBlurToFWHM.",
+  "description": "Runs AFNI 3dReHo (Kendall's coefficient of concordance over a 7, 19 or 27-voxel neighbourhood) on the BOLD series, z-scores the map using its mean and standard deviation, and, if fwhm is not 0, blurs it to that smoothness with 3dBlurToFWHM. Use it for local functional connectivity analysis of resting-state fMRI. An optional brain mask restricts the computation.",
+  "kind": "native",
+  "topics": [
+    "afni",
+    "brainlife",
+    "fmri",
+    "connectomics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6130060d584a7684793c3e5f",
+    "github": "anibalsolon/app-reho",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "4D BOLD fMRI series (ideally preprocessed).",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional brain mask restricting ReHo and smoothing to voxels inside it.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be on the same grid as the BOLD image."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "reho",
+      "datatype": "neuro/reho",
+      "datatype_tags": [],
+      "description": "Z-scored ReHo map (reho.nii.gz), smoothed when fwhm is not 0."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "neighborhood",
+      "type": "enum",
+      "description": "Number of voxels in the neighbourhood passed to 3dReHo -nneigh: 7 (faces), 19 (faces and edges) or 27 (faces, edges and corners).",
+      "default": "27",
+      "options": [
+        {
+          "value": "7",
+          "label": "face-wise neighbors"
+        },
+        {
+          "value": "19",
+          "label": "face- and edge-wise neighbors"
+        },
+        {
+          "value": "27",
+          "label": "face-, edge-, and node-wise neighbors"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "fwhm",
+      "type": "number",
+      "description": "Smoothing parameter (in mm). Blurs the image until it reaches the FWHM smoothness.",
+      "default": 0,
+      "minimum": 0,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/app-reho:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.567",
+  "software": [
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ]
+}

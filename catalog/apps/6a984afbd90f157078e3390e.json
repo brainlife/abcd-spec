@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "hyssong-fmripreprocessing",
+  "version": "main",
+  "summary": "Denoises an fMRIPrep-preprocessed BOLD run with AFNI and FSL: brain masking, intensity normalization, nuisance regression (24 motion, WM, CSF, global signal, high-pass) with frame censoring, and spatial smoothing.",
+  "description": "Port of Hayoung Song's post-fMRIPrep notebook: masks the BOLD with the fMRIPrep brain mask (3dcalc), scales intensities (fslmaths -inm 10000), builds high-pass and confound regressors (1dBport, 3dDeconvolve), regresses them out while censoring frames flagged by fMRIPrep motion-outlier columns (3dTproject), and smooths with 3dmerge. Use it to prepare task or rest BOLD for functional-connectivity analyses. Inputs must come from the same fMRIPrep run; tr must be set, and fd_thres is only used to report the percentage of high-motion frames.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "denoising",
+    "afni",
+    "fsl",
+    "fmriprep",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a984afbd90f157078e3390e",
+    "github": "gamorosino/app-hyssong-fmripreprocessing",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "fMRIPrep-preprocessed BOLD (space-MNI152NLin2009cAsym, desc-preproc)",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "func"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask matching the BOLD input (from fMRIPrep)",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "confounds",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "fMRIPrep confounds regressors.tsv for the same BOLD run",
+      "config_keys": [
+        "confounds"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "preproc_bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "denoised",
+        "preprocessed"
+      ],
+      "description": "Brain-masked, intensity-normalized, nuisance-regressed (24 motion parameters + WM + CSF + global signal + high-pass), and spatially smoothed BOLD, ready for functional-connectivity analyses.",
+      "datatype_tags_pass": "bold"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tr",
+      "type": "number",
+      "description": "Repetition time (seconds) of the BOLD acquisition",
+      "default": ""
+    },
+    {
+      "id": "fd_thres",
+      "type": "number",
+      "description": "Framewise displacement threshold (mm) used to flag/censor high-motion frames",
+      "default": 0.5
+    },
+    {
+      "id": "fwhm",
+      "type": "number",
+      "description": "Full-width half-max (mm) of the spatial smoothing kernel applied at the end",
+      "default": 5
+    },
+    {
+      "id": "hpass_cutoff",
+      "type": "number",
+      "description": "High-pass filter cutoff frequency in Hz (default 0.0078 Hz corresponds to a 128s period)",
+      "default": 0.0078,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/fmriprep@sha256:102db5fe8b0a34298f2eb2fd5962ad99ff0a948d258cbf08736fcc1b845cad9f",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.958",
+  "software": [
+    {
+      "name": "AFNI"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "fMRIPrep container",
+      "version": "20.2.3"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check that the BOLD, mask and confounds come from the same fMRIPrep run and that tr is set."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

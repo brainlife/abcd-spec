@@ -1,0 +1,162 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Map Retinotopic Connections",
+  "version": "main",
+  "summary": "Extracts the streamlines connecting two visual areas (optionally restricted to eccentricity, polar-angle and hemisphere bins) from a template tractogram using retinotopic maps and MRtrix3 tckedit, and warps the tract into subject space with ANTs.",
+  "description": "Builds ROI masks of the two visual areas and the requested eccentricity and polar-angle bins from template-space retinotopic maps (Benson-style varea, eccentricity and polar angle), selects the template streamlines connecting them with tckedit (endpoints only and ordered ROIs by default), then maps the selected tract into the subject's space using the given affine and warp or, if they are absent, an ANTs registration of the subject T1 to the template T1. Use it to obtain retinotopically defined visual pathways (e.g. V1-V2 for a given eccentricity band) in a subject without subject-level tractography.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "registration",
+    "mrtrix3",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69cb643c34e133351883ce84",
+    "github": "gamorosino/app-map-retinotopic-tracts",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Template-space (e.g. occipital) tractogram from which the pathway is extracted.",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Template-space retinotopic maps; eccentricity, polarAngle and varea (visual area labels) are used to define the ROIs.",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "varea",
+        "surfaces",
+        "prf_surfaces"
+      ],
+      "requirements": "Must be in the same space as the template tractogram and template T1."
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Precomputed affine and warp between template and subject; if both are present, registration is skipped.",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    },
+    {
+      "id": "t1_template",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image of the template space.",
+      "config_keys": [
+        "t1_template"
+      ]
+    },
+    {
+      "id": "t1_subject",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image of the target subject.",
+      "config_keys": [
+        "t1_subject"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Selected tract warped to subject space (.tck), with the template-space segment and registration outputs in the output folder."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "visual_area_a",
+      "type": "string",
+      "description": "First visual area label (e.g. V1).",
+      "default": "V1"
+    },
+    {
+      "id": "visual_area_b",
+      "type": "string",
+      "description": "Second visual area label (e.g. V2).",
+      "default": "V2"
+    },
+    {
+      "id": "ecc_bin",
+      "type": "string",
+      "description": "Eccentricity bin in degrees (e.g. '0-16'); empty means all.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "polar_bin",
+      "type": "string",
+      "description": "Polar angle bin in degrees (e.g. '165-180'); empty means all.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "hemisphere",
+      "type": "string",
+      "description": "Hemisphere to extract: L, R, or empty for both.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ends_only",
+      "type": "boolean",
+      "description": "Require the streamline endpoints (not any point) to be in the ROIs (tckedit -ends_only).",
+      "default": true
+    },
+    {
+      "id": "roi_order",
+      "type": "boolean",
+      "description": "Require streamlines to traverse the ROIs in order (ordered ROI filtering).",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:latest",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.913",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "ANTs"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

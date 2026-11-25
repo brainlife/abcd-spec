@@ -1,0 +1,160 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract diffusion metrics inside ROIs",
+  "version": "v1.2",
+  "summary": "Extracts summary statistics (min, max, mean, median, mode, SD, non-zero count) of tensor, NODDI and myelin maps inside each ROI with Connectome Workbench, as CSVs.",
+  "description": "Optionally inflates the ROIs (MATLAB smooth3), resamples ROIs and metric maps to the DWI grid with FreeSurfer mri_vol2vol, computes per-ROI statistics with wb_command -volume-stats, and writes one CSV per statistic. Values of metrics whose median is below 0.01 (for example diffusivities in mm2/s) are multiplied by 1000.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "diffusion-modeling",
+    "statistics",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60a8125122b42a158170e126",
+    "github": "brainlife/app-extract-diffusion-metrics-rois",
+    "branch": "v1.2"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tensor datatype files",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the NODDI datatype files",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "myelin",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map, resampled to the DWI grid like the diffusion maps.",
+      "config_keys": [
+        "myelin"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the ROIs within which diffusion metrics will be extracted",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "ROIs must be in the same space as the DWI (resampled with --regheader)."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "rois",
+        "diffusion"
+      ],
+      "description": "Directory of CSVs (MIN, MAX, MEAN, MEDIAN, MODE, STDEV, COUNT_NONZERO) with one row per ROI and one column per metric."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inflate",
+      "type": "boolean",
+      "description": "Inflate (smooth and re-binarise) the ROIs before extracting metrics.",
+      "default": false
+    },
+    {
+      "id": "smooth",
+      "type": "number",
+      "description": "Box-kernel size for ROI inflation (odd number); used only when inflate is true.",
+      "default": 1,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 0.33
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.525",
+  "category": "statistics",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "neurodebian1604-r2017a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives",
+      "cause": "parc-stats/MEAN.csv was not produced.",
+      "fix": "Check that ROIs and metric maps are in DWI space and inspect the logs."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

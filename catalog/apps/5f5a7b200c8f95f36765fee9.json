@@ -1,0 +1,137 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate Eccentricity Parcellations from Visual ROIs",
+  "version": "eccentricity-parcellation-v1.2",
+  "summary": "Combines eccentricity-binned visual ROIs for one eccentricity range (min_degree to max_degree) into a single volumetric parcellation, optionally adding the LGN and optic chiasm ROIs, using AFNI.",
+  "description": "Takes the ROIs produced by the eccentricity ROI Apps (files named *.Ecc<min>to<max>.nii.gz), selects those matching one eccentricity range and merges them with AFNI 3dTcat/3dTstat into a parcellation with key.txt and label.json. The FreeSurfer input provides the <inputparc>+aseg volume used as the reference grid. Use it after one of the 'Generate Visual Regions of Interest Binned by Eccentricity' Apps; min_degree and max_degree must match a bin that exists in the ROI directory.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "afni",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f5a7b200c8f95f36765fee9",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "eccentricity-parcellation-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of eccentricity-binned visual ROIs (files named *.Ecc<min>to<max>.nii.gz), optionally including LGN and optic-chiasm ROIs.",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output used to create the <inputparc>+aseg volume that defines the output grid.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "Volumetric parcellation of the visual ROIs in the selected eccentricity range, with key.txt and label.json."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_degree",
+      "type": "string",
+      "description": "Minimum eccentricity degree for parcellation. Can only be one value",
+      "default": "0"
+    },
+    {
+      "id": "max_degree",
+      "type": "string",
+      "description": "Maximum eccentricity degree for parcellation. Can only be one value",
+      "default": "5"
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "FreeSurfer parcellation whose +aseg volume is converted to NIfTI and used as the reference grid for the output parcellation.",
+      "default": "",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas"
+        }
+      ]
+    },
+    {
+      "id": "include_lgn",
+      "type": "boolean",
+      "description": "If true, add the LGN ROIs (*lgn*.nii.gz) from the input ROI directory to the parcellation.",
+      "default": false
+    },
+    {
+      "id": "include_oc",
+      "type": "boolean",
+      "description": "If true, add the optic chiasm ROI (*optic-chiasm.nii.gz) from the input ROI directory to the parcellation.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.417",
+  "software": [
+    {
+      "name": "AFNI",
+      "version": "16.3.0",
+      "url": "https://afni.nimh.nih.gov/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "parcellation file missing files missing.",
+      "cause": "parc/parc.nii.gz was not created, usually because no ROI matched the requested eccentricity range.",
+      "fix": "Set min_degree/max_degree to a bin present in the input ROIs."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

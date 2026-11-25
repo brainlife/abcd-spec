@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Anatomy Segmentation",
+  "version": "1.8",
+  "summary": "Classifies streamlines into known anatomical tracts.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5ac8e11671d0210718658ee2",
+    "github": "brainlife/app-wmaSeg",
+    "branch": "1.8"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "tracks",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "wmaSeg"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "tracks"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 31,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.41",
+  "deprecated_by": "5cc73ef44ed9df00317f6288"
+}

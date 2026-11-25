@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert tractmeasures datatype to tractprofile datatype",
+  "version": "v1.1",
+  "summary": "Converts a tractmeasures CSV (all tracts in one table) into the deprecated tractprofile format with one profile CSV per tract, using pandas.",
+  "description": "Utility that splits the tractmeasures table by structureID and writes one <tract>_profiles.csv per tract without the subject, structure and node ID columns. Use it only to feed Apps that still require the deprecated tractprofile datatype.",
+  "kind": "native",
+  "topics": [
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60a6ce3d22b42a2f7f701fa7",
+    "github": "brainlife/app-convert-tractmeasures-2-tractprofile",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract profiles table (tractmeasures.csv) with subjectID, structureID and nodeID columns.",
+      "config_keys": [
+        "tractmeasures"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "description": "Directory with one <tract>_profiles.csv per tract (tractprofile format).",
+      "datatype_tags_pass": "tractmeasures"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.524",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

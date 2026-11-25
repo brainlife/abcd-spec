@@ -1,0 +1,201 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Retinotopic Connectivity Matrix Computation",
+  "version": "v0.15",
+  "summary": "Computes retinotopic structural connectivity matrices between visual areas and eccentricity/polar-angle bins from an MRtrix tractogram and pRF maps, using MRtrix3 tck2connectome or tckedit.",
+  "description": "Builds retinotopic ROI patches from pRF eccentricity, polar-angle and Benson visual-area maps, assigns streamlines to them and counts connections normalized by ROI volume. In bin_by_bin mode it outputs an eccentricity-by-eccentricity matrix between two visual areas; in area_by_area mode one 12 x 12 visual-area matrix per bin. Use it to study how white matter connectivity follows the visual-field map. The varea map must use Benson labels (V1=1 ... V3a=12), and the tractogram and pRF maps must be in the same space.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "connectomics",
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69ca2f0934e13335187cfbbd",
+    "github": "gamorosino/app-retinotopic-connectivity",
+    "branch": "v0.15"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain MRtrix .tck tractogram.",
+      "config_keys": [
+        "track"
+      ],
+      "requirements": "Must be in the same space as the pRF maps."
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Population receptive field maps; the code uses eccentricity, polarAngle and varea (Benson visual-area labels).",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "varea",
+        "surfaces",
+        "prf_surfaces"
+      ],
+      "requirements": "varea must use Benson labels 1-12 (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a)."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "PNG figures of the connectivity matrices and optional eccentricity (dva) summary plots, listed in images.json."
+    },
+    {
+      "id": "matrices",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "Connectivity matrices as CSV files (streamline density) with index.json and label.json."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ecc_bins",
+      "type": "string",
+      "description": "Defines eccentricity intervals (degrees of visual angle).\nExample: \"0-2,2-4,4-6,4-8\"\nUse \"all\" to disable eccentricity binning.",
+      "default": "0-1,1-2,2-3,3-4,4-5,5-6,6-7,7-8,8-9,9-10,10-20",
+      "required": false
+    },
+    {
+      "id": "polar_bins",
+      "type": "string",
+      "description": "Defines polar angle intervals (degrees).\nExample: \"0-90,90-180\"\nUse \"all\" to disable polar binning.",
+      "default": "all",
+      "required": false
+    },
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "area_by_area\nCompute connectivity between visual areas within each eccentricity/polar bin.\nProduces one matrix per bin (or a single matrix if bins are set to \"all\").\nbin_by_bin\nCompute connectivity between eccentricity bins across two visual areas.\nProduces a single ecc \u00d7 ecc matrix.",
+      "default": "bin_by_bin",
+      "options": [
+        {
+          "value": "bin_by_bin",
+          "label": "A"
+        },
+        {
+          "value": "area_by_area",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "visual_area_a",
+      "type": "string",
+      "description": "First visual area used for connectivity analysis.\n(Only used when mode = \"bin_by_bin\")",
+      "default": "V1"
+    },
+    {
+      "id": "visual_area_b",
+      "type": "string",
+      "description": "Second visual area used for connectivity analysis.\n(Only used when mode = \"bin_by_bin\")",
+      "default": "V2",
+      "required": true
+    },
+    {
+      "id": "color_map",
+      "type": "string",
+      "description": "Controls matrix visualization.\n\nSingle value (e.g., \"viridis\", \"hot\", \"red\"): used for single-matrix modes;\nMultiple values (e.g., \"red,blue,green\"): one color per eccentricity bin (only in area_by_area mode)",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "area_matrix_method",
+      "type": "enum",
+      "description": "connectome: \nFast method using MRtrix tck2connectome (endpoint voxel assignment).\npairwise: \nSlower but stricter method using explicit streamline filtering (tckedit).\n(Only used when mode = \"areas_by_areas\")",
+      "default": "connectome",
+      "options": [
+        {
+          "value": "pairwise",
+          "label": "pairwise"
+        },
+        {
+          "value": "connectome",
+          "label": "connectome"
+        }
+      ]
+    },
+    {
+      "id": "roi_order",
+      "type": "boolean",
+      "description": "true \u2192 enforce ordered endpoint matching (A\u2192B and B\u2192A computed separately, then merged; used when <area_matrix_method> =  pairwise)",
+      "default": true
+    },
+    {
+      "id": "ends_only",
+      "type": "boolean",
+      "description": "true \u2192 only test streamline endpoints against ROIs (stricter); \nfalse \u2192 test the full streamline trajectory against ROIs; \n(used when <area_matrix_method> =  pairwise)",
+      "default": true
+    },
+    {
+      "id": "make_dva_summary",
+      "type": "boolean",
+      "description": "generate eccentricity-based summary plots",
+      "default": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "Parallel processing:\n\n-1 \u2192 use all available CPU cores; \n1 \u2192 run serially; \n>1 \u2192 use specified number of workers;",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "matrix_elements",
+      "type": "enum",
+      "description": "matrix_elements: Defines whether the bin-by-bin matrix rows/columns represent eccentricity bins (eccentricity) or polar-angle bins (polar).(Only used when mode = \"bin_by_bin\")",
+      "default": "eccentricity",
+      "options": [
+        {
+          "value": "eccentricity",
+          "label": "eccentricity"
+        },
+        {
+          "value": "polar",
+          "label": "polar"
+        }
+      ],
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0"
+  },
+  "doi": "10.25663/brainlife.app.910",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier JD et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: Missing required file",
+      "fix": "Provide a pRF input with eccentricity, polarAngle and varea maps and a tractogram."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

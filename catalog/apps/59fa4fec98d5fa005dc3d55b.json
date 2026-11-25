@@ -1,0 +1,124 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Decimate and/or Convert 3D surfaces",
+  "version": "v2.0",
+  "summary": "Reduces the vertex and face count of 3D surface meshes with VTK decimation and optionally converts them between vtk, ply, stl and glTF formats.",
+  "description": "Reads every surface of the chosen input format in the input directory, decimates it with vtkDecimatePro (topology preserved) by the requested fraction, cleans it and writes it in the chosen output format (glb output is produced via STL). A color.json is copied through. Use it to make large meshes lighter for visualisation or to convert mesh formats.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "postprocessing",
+    "surface-analysis",
+    "visualization"
+  ],
+  "registry": {
+    "id": "59fa4fec98d5fa005dc3d55b",
+    "github": "kitchell/app-decimatemesh",
+    "branch": "v2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of 3D surface meshes (vtk, ply or stl).",
+      "config_keys": [
+        "surfdir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [
+        "reduced"
+      ],
+      "description": "Decimated (and optionally converted) surface meshes, one per input surface."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reduction",
+      "type": "number",
+      "description": "percentage you would like to reduce the surface by",
+      "default": 0.1,
+      "minimum": 0,
+      "maximum": 1,
+      "placeholder": "percentage to reduce the surface"
+    },
+    {
+      "id": "infiletype",
+      "type": "enum",
+      "description": "input data filetype",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "stl",
+          "label": ".stl",
+          "description": "use .stl format"
+        },
+        {
+          "value": "ply",
+          "label": ".ply",
+          "description": "use .ply format"
+        },
+        {
+          "value": "vtk",
+          "label": ".vtk",
+          "description": "use .vtk format"
+        }
+      ]
+    },
+    {
+      "id": "outfiletype",
+      "type": "enum",
+      "description": "output data filetype",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "stl",
+          "label": ".stl",
+          "description": "use .stl format"
+        },
+        {
+          "value": "ply",
+          "label": ".ply",
+          "description": "use .ply format"
+        },
+        {
+          "value": "vtk",
+          "label": ".vtk",
+          "description": "use .vtk format"
+        },
+        {
+          "value": "glb",
+          "label": ".glb",
+          "description": "use .glb format"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "lukin0110/docker-vtk-python",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.148",
+  "software": [
+    {
+      "name": "VTK",
+      "url": "https://vtk.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ]
+}

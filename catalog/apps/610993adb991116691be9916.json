@@ -1,0 +1,174 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
+  "version": "parc-stats-volume-diffusion-v1.0",
+  "summary": "Computes volume, cortical thickness and mean diffusion measures (DTI, optional NODDI, myelin, qMRI) in each ROI of a volumetric parcellation with FreeSurfer mri_segstats.",
+  "description": "Resamples the parcellation and each measure map to the FreeSurfer subject (header-based, nearest neighbour), projects cortical thickness into the volume and summarises every measure per parcel with mri_segstats, writing parc_nodes.csv and rois.csv. Use it to get per-region diffusion statistics for a custom volumetric parcellation. Inputs must be aligned with the FreeSurfer anatomy.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "parcellation",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "610993adb991116691be9916",
+    "github": "brainlife/app-freesurfer-stats",
+    "branch": "parc-stats-volume-diffusion-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation with its label key.",
+      "config_keys": [
+        "parcellation",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be aligned with the FreeSurfer subject."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Output directory of FreeSurfer recon-all for the subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DTI (and optionally DKI) measures such as FA, MD, RD and AD.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional NODDI maps (NDI, ISOVF, ODI).",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "myelin",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map.",
+      "config_keys": [
+        "myelin"
+      ]
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional quantitative MRI maps (T1, R1, M0, PD, MTV, VIP, SIR, WF).",
+      "config_keys": [
+        "T1",
+        "T1_json",
+        "R1",
+        "R1_json",
+        "M0",
+        "M0_json",
+        "PD",
+        "MTV",
+        "VIP",
+        "SIR",
+        "WF"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "diffusion_metrics"
+      ],
+      "description": "parc_nodes.csv and rois.csv with volume, thickness and mean measure values per parcel.",
+      "datatype_tags_pass": "parc"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "diffusion_metrics"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "parc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29,
+      "walltime_hours": 2.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.553",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "freesurfer-stats",
+      "url": "https://github.com/fphammerle/freesurfer-stats"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9, 179-194 (1999)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computation failed. check derivatives and error log",
+      "fix": "Check that measure maps and parcellation are valid and aligned with the FreeSurfer anatomy."
+    }
+  ]
+}

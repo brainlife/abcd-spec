@@ -1,0 +1,106 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate synthetic MP-RAGE T1 image from T1w and T2w data using SynthSR Hyperfine",
+  "version": "hyperfine-v1.0",
+  "summary": "Synthesises a 1 mm isotropic MP-RAGE-like T1-weighted image from paired low-field (Hyperfine) T1w and T2w scans with FreeSurfer 7.3.2 SynthSR Hyperfine.",
+  "description": "Runs mri_synthsr_hyperfine on a T1-weighted and a T2-weighted scan of the same subject to produce a synthetic 1 mm MP-RAGE T1w volume. Use it for portable low-field (Hyperfine) acquisitions before T1w-based processing. The output is synthetic and should not be used for quantitative intensity analyses.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "machine-learning",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "636dcc6d487d94b9e6eb8e9b",
+    "github": "brainlife/app-synthsr",
+    "branch": "hyperfine-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Low-field T1-weighted image of the subject.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Low-field T2-weighted image of the same subject and session.",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "synthetic_mprage",
+        "mri_synthsr",
+        "t1",
+        "t2"
+      ],
+      "description": "Synthetic 1 mm isotropic MP-RAGE-like T1-weighted image.",
+      "datatype_tags_pass": "t1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "Base name checked for the output image file (<type>.nii.gz); the script always writes t1.nii.gz, so leave as t1.",
+      "default": "t1",
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.705",
+  "software": [
+    {
+      "name": "FreeSurfer (mri_synthsr_hyperfine)",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSR"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2021.118206",
+      "text": "Iglesias JE, Billot B, Balbastre Y, et al. Joint super-resolution and synthesis of 1mm isotropic MP-RAGE volumes from clinical MRI exams with scans of different orientation, resolution and contrast. NeuroImage 237, 118206 (2021)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs",
+      "cause": "mri_synthsr did not write the output image.",
+      "fix": "Check the log for mri_synthsr errors."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Test Gradient Flip for dtiInit processing",
+  "version": "master",
+  "summary": "Tests whether DWI gradient directions (bvecs) need flipping by running Vistasoft dtiInit and whole-brain tracking with unflipped and x-, y- and z-flipped bvecs and comparing the number of long fibres.",
+  "description": "Runs Vistasoft dtiInit four times (no flip, x, y, z flip of the bvecs), tracks deterministic whole-brain fibres for each and counts long streamlines (50-250 mm); the flip giving the most long fibres is reported in results.txt. Use it to diagnose bvec orientation errors before dtiInit processing. It runs MATLAB and SPM from host modules (module load matlab/spm) rather than a container, so it only runs where those modules exist.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "quality-control",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "59779342749315002f268594",
+    "github": "brainlife/app-testgradientflip",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals/bvecs to test.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image used by dtiInit for alignment.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "results",
+      "datatype": "raw",
+      "datatype_tags": [
+        "test_gradient_flip"
+      ],
+      "description": "Per-flip dtiInit outputs and fibre groups, and results.txt reporting the long-fibre count for each flip."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "phaseEncodeDir",
+      "type": "enum",
+      "description": "dtiInit phase-encode direction. Note: main.m hard-codes phaseEncodeDir = 2 and does not read this key from config.json.",
+      "default": "2",
+      "options": [
+        {
+          "value": "2",
+          "label": "y dimension",
+          "description": "use the y dimension"
+        },
+        {
+          "value": "1",
+          "label": "x dimension",
+          "description": "use the x dimension"
+        },
+        {
+          "value": "3",
+          "label": "z dimension",
+          "description": "use the z dimension"
+        }
+      ]
+    },
+    {
+      "id": "rotateBvecsWithCanXform",
+      "type": "boolean",
+      "description": "Rotate the bvectors according to the canonical xForm",
+      "default": true
+    },
+    {
+      "id": "rotateBvecsWithRx",
+      "type": "boolean",
+      "description": "Rotate the bvectors according to the prescription",
+      "default": true
+    },
+    {
+      "id": "eddyCorrect",
+      "type": "enum",
+      "description": "dtiInit eddy-current/motion correction setting. Note: main.m reads it with isprop on a struct, which is always false, so the default (-1) is used.",
+      "default": "1",
+      "options": [
+        {
+          "value": "-1",
+          "label": "no eddy current or motion correction"
+        },
+        {
+          "value": "1",
+          "label": "do eddy current and motion correction"
+        },
+        {
+          "value": "0",
+          "label": "only do motion correction"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/bl.app.18",
+  "software": [
+    {
+      "name": "Vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "MATLAB"
+    },
+    {
+      "name": "SPM"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "results.txt was not produced.",
+      "fix": "Check the MATLAB log of dtiInit and fibre tracking."
+    }
+  ]
+}

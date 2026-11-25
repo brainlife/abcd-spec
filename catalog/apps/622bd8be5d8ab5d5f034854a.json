@@ -1,0 +1,177 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Longitudinal Statistics",
+  "version": "v1.0-free_7_1_1-wb_1_5_0",
+  "summary": "Computes longitudinal cortical change (average, rate, percent change, symmetrised percent change) with FreeSurfer long_mris_slopes from longitudinally processed timepoints, and outputs parcellation CSVs and a cortexmap.",
+  "description": "Builds a qdec table from the longitudinal timepoints and the timeframe, runs long_mris_slopes for the surface measures on fsaverage, then converts the results to GIFTI with Connectome Workbench and summarises them per region of the aparc, aparc.a2009s and DKT parcellations. Use it after running the FreeSurfer longitudinal base and long steps to quantify change between timepoints. Needs the longitudinal FreeSurfer outputs of each timepoint and the base template of the same subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "622bd8be5d8ab5d5f034854a",
+    "github": "brainlife/app-freesurfer-longitudinal-statistics",
+    "branch": "v1.0-free_7_1_1-wb_1_5_0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfers",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "longitudinal"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "FreeSurfer longitudinal (long) outputs of each timepoint of the subject, in time order.",
+      "config_keys": [
+        "freesurfers"
+      ]
+    },
+    {
+      "id": "freesurfer_template_base",
+      "datatype": "neuro/freesurfer/longitudinal-template",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer longitudinal base template of the subject, built from the same timepoints.",
+      "config_keys": [
+        "freesurfer_template_base",
+        "timepoints"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc_stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "aparc",
+        "aparc_a2009s",
+        "aparc_DKTatlas",
+        "freesurfer_longitudinal"
+      ],
+      "description": "this will contain stats from all three freesurfer parcellations"
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "freesurfer_longitudinal"
+      ],
+      "description": "this will contain surface versions of computed stats for visualizations and group analyses on the surface"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsaverage",
+      "type": "enum",
+      "description": "fsaverage space for statistic computation",
+      "default": "fsaverage6",
+      "options": [
+        {
+          "value": "fsaverage",
+          "label": "fsaverage",
+          "description": "fsaverage"
+        },
+        {
+          "value": "fsaverage4",
+          "label": "fsaverage4",
+          "description": "fsaverage4"
+        },
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "fsaverage5"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "fsaverage6"
+        },
+        {
+          "value": "fsaverage3",
+          "label": "fsaverage3",
+          "description": "fsaverage3"
+        }
+      ]
+    },
+    {
+      "id": "validator_csv",
+      "type": "enum",
+      "description": "this is the csv to be used by the validator",
+      "default": "longitudinal_stats_aparc.a2009s",
+      "options": [
+        {
+          "value": "longitudinal_stats_aparc",
+          "label": "longitudinal_stats_aparc",
+          "description": "longitudinal_stats_aparc"
+        },
+        {
+          "value": "longitudinal_stats_aparc.a2009s",
+          "label": "longitudinal_stats_aparc.a2009s",
+          "description": "longitudinal_stats_aparc.a2009s"
+        },
+        {
+          "value": "longitudinal_stats_aparc.DKTatlas",
+          "label": "longitudinal_stats_aparc.DTKatlas",
+          "description": "longitudinal_stats_aparc.DKTatlas"
+        }
+      ]
+    },
+    {
+      "id": "timeframe",
+      "type": "string",
+      "description": "this is a space separated list of timepoint sampling to compute the rate of change",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.609",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2010.07.020",
+      "text": "Reuter M., Rosas H.D., Fischl B. Highly Accurate Inverse Consistent Registration: A Robust Approach. NeuroImage 53(4):1181-1196 (2010)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2011.02.076",
+      "text": "Reuter M., Fischl B. Avoiding Asymmetry-Induced Bias in Longitudinal Image Processing. NeuroImage 57(1):19-21 (2011)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2012.02.084",
+      "text": "Reuter M., Schmansky N.J., Rosas H.D., Fischl B. Within-Subject Template Estimation for Unbiased Longitudinal Image Analysis. NeuroImage 61(4):1402-1418 (2012)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "longitudinal_stats_aparc.DKTatlas.csv was not produced.",
+      "fix": "Check that the timepoints and base come from the FreeSurfer longitudinal Apps and that timeframe has one value per timepoint."
+    }
+  ]
+}

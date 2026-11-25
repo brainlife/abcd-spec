@@ -1,0 +1,89 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MRI Registration QC (T1w)",
+  "version": "v0.7",
+  "summary": "Checks the quality of a T1-weighted image registration by computing similarity metrics (NMI, NCC, MSE, SSIM) between a fixed and a registered moving image and producing checkerboard, edge-overlay and difference QC figures.",
+  "description": "Reorients both images to RAS+, averages 4-D images over time, resamples the moving image into the fixed grid if needed, then computes normalised mutual information, normalised cross-correlation, mean squared error and SSIM with a qualitative label (excellent/good/fair/poor). It writes metrics.json and per-view PNG figures (fixed, moving, checkerboard with edge overlay, absolute difference), plus AFNI edge-alignment montages when AFNI is available. Use it after a registration App to check alignment; it does not change the images.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "nibabel",
+    "quality-control",
+    "registration",
+    "visualization"
+  ],
+  "registry": {
+    "id": "69d978d404be87075a57b265",
+    "github": "gamorosino/app-mri-registration-qc",
+    "branch": "v0.7"
+  },
+  "inputs": [
+    {
+      "id": "fixed",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reference (fixed) T1-weighted image.",
+      "config_keys": [
+        "fixed"
+      ]
+    },
+    {
+      "id": "moving",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Registered (moving) T1-weighted image to compare with the fixed image.",
+      "config_keys": [
+        "moving"
+      ],
+      "requirements": "Should already be registered to the fixed image; a different voxel grid is resampled with the affine."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "QC figures (PNG) for axial, coronal and sagittal views and the similarity metrics."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "checkerboard_tiles",
+      "type": "number",
+      "description": "A visualization that alternates patches of two images in a checkerboard pattern to highlight local alignment differences.",
+      "default": 8
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.921",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: 'fixed' image path is missing from config.json",
+      "fix": "Provide the fixed (reference) input."
+    },
+    {
+      "message": "Error: 'moving' image path is missing from config.json",
+      "fix": "Provide the moving (registered) input."
+    }
+  ]
+}

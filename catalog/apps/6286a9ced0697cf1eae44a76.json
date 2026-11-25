@@ -1,0 +1,104 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create MNI coordinate-based ROIS and warp to subject space",
+  "version": "master",
+  "summary": "Creates spherical and planar ROIs from MNI coordinates and warps them to a subject's T1 space with ANTs SyN registration, outputting an ROIs directory.",
+  "description": "Builds sphere ROIs (x, y, z, radius) and planar ROIs (axis = coordinate) on the MNI152 1 mm template with wma_pyTools, registers the subject T1 to MNI with antsRegistration (rigid, affine and SyN, using the brain masks), and applies the inverse transform with nearest-label interpolation to bring each ROI into subject space. Use it to define coordinate-based ROIs for tractography segmentation. It needs a T1 and a brain mask of the same subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "registration",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6286a9ced0697cf1eae44a76",
+    "github": "DanNBullock/app-createMNI_ROIS_and_warp2subj",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "AnatomicalT1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Subject T1-weighted image used as the registration target space for the ROIs.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "brainMask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask of the subject T1, used to restrict the registration.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be in the same space as the T1."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "The requested spherical and planar ROIs, contained within a directory named \"rois\"."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spheres",
+      "type": "string",
+      "description": "Any number of sphere requests, with each request delimited by a semicolon (;).\n\nWithin each request, the first three (3) numbers correspond to the X, Y, and Z coordinates of the sphere centroid.  The final (fourth) number corresponds to the sphere radius.  Coordinates can be delimited by commas (,) or spaces ( ).",
+      "default": "",
+      "placeholder": "\"0,0,0,3;5,5,5,5\""
+    },
+    {
+      "id": "planes",
+      "type": "string",
+      "description": "Any number of planar requests, with each request delimited by a semicolon (;).\n\nWithin each request, the first value is a letter (x, y, or z) corresponding to the planar slice the ROI should correspond to.  In this way, x will return a sagittal slice, y will return a coronal slice, and z will return a transverse slice.  The value following the equals (=) symbol corresponds to the spatial coordinate that the plane should occur at along the specified axis.",
+      "default": "",
+      "placeholder": "\"x=5; y=-7\""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0",
+    "resources": {
+      "memory_gb": 10,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.629",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    },
+    {
+      "name": "DIPY container",
+      "version": "1.4.1"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BUAN Compute Bundles Profiles ",
+  "version": "1.1.1",
+  "summary": "Computes BUAN bundle profiles of white matter pathways with the DIPY 1.1.1 dipy_buan_profiles workflow, comparing subject bundles against model bundles and saving the profiles in HDF5 files.",
+  "description": "Wraps dipy_buan_profiles (Bundle Analytics, Chandio et al. 2020) with --no_disks, a model bundle folder and a subject folder read from config.json, writing results to output/. Note that the registry record defines no inputs, outputs or parameters, while main expects model_bundle_folder, subject_folder and no_disks in config.json, so the App cannot be run as registered (see report).",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "statistics",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fce6ccd678a91c40249c0cd",
+    "github": "brainlife/bl_apps_dipy_buan_profiles",
+    "branch": "1.1.1"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.456",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Chandio BQ, et al. Bundle analytics, a computational framework for investigating the shapes and profiles of brain pathways across populations. Scientific Reports 10, 17149 (2020)."
+    }
+  ]
+}

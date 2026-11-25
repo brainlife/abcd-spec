@@ -1,0 +1,216 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Profile Computation",
+  "version": "main",
+  "summary": "Computes along-tract profiles of diffusion metrics (FA, MD, RD, AD) for a tractogram with DIPY, using optional centroid, medoid or skeleton reference curves, and outputs tractmeasures CSVs and profile plots.",
+  "description": "Resamples each streamline to n_points nodes, orients them against a reference curve (QuickBundles/MBKM centroid or medoid, a tracklib density skeleton, or its nearest real streamline), samples the scalar maps along the nodes with optional distance weighting, and computes a dispersion measure. In the brainlife configuration it runs once per tensor metric (fa, md, ad, rd) and merges the results. Use it to compare microstructure along a bundle across subjects; the tractogram should contain a single bundle in the same space as the tensor maps.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "statistics",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69ca22f834e13335187c6ae7",
+    "github": "gamorosino/app-compute-tract-profile",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of a single white matter bundle (.tck).",
+      "config_keys": [
+        "tck"
+      ],
+      "requirements": "Must be in the same space as the tensor maps and the reference T1."
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tensor (DTI) dataset; its FA, MD, AD and RD maps are profiled.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "reference",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1-weighted image used as spatial reference for loading .tck streamlines.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "PNG plots of the tract profiles (and reference curve views)."
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "description": "Tractmeasures CSV with the profile of each metric at every node."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_points",
+      "type": "number",
+      "description": "Number of nodes each streamline is resampled to along the tract.",
+      "default": 100
+    },
+    {
+      "id": "centroid_method",
+      "type": "enum",
+      "description": "Reference curve used to orient streamlines and weight nodes: none, QuickBundles centroid or medoid, tracklib density skeleton, or the real streamline nearest to the skeleton.",
+      "default": "skeleton",
+      "options": [
+        {
+          "value": "none",
+          "label": "none"
+        },
+        {
+          "value": "centroid-qb",
+          "label": "centroid-qb"
+        },
+        {
+          "value": "medoid-qb",
+          "label": "medoid-qb"
+        },
+        {
+          "value": "skeleton",
+          "label": "skeleton"
+        },
+        {
+          "value": "nn_skeleton",
+          "label": "nn_skeleton"
+        }
+      ]
+    },
+    {
+      "id": "weight_node_by_centroid",
+      "type": "boolean",
+      "description": "If true, weights each node's contribution by its distance to the reference curve (--weight-node-by-centroid).",
+      "default": true
+    },
+    {
+      "id": "dispersion_metric",
+      "type": "enum",
+      "description": "Dispersion measure computed across streamlines at each node: std, cv, var or mad.",
+      "default": "mad",
+      "options": [
+        {
+          "value": "std",
+          "label": "std"
+        },
+        {
+          "value": "cv",
+          "label": "cv"
+        },
+        {
+          "value": "var",
+          "label": "var"
+        },
+        {
+          "value": "mad",
+          "label": "mad"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "color_map",
+      "type": "string",
+      "description": "Matplotlib colormap used in the profile plots.",
+      "default": "jet",
+      "required": false
+    },
+    {
+      "id": "perc",
+      "type": "number",
+      "description": "Percentile of the voxel density used to extract the skeleton backbone (skeleton methods).",
+      "default": 0.95,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "smooth_density",
+      "type": "boolean",
+      "description": "If true, applies Gaussian smoothing to the voxel density map before skeleton extraction.",
+      "default": false
+    },
+    {
+      "id": "length_thr",
+      "type": "number",
+      "description": "Minimum length fraction for a backbone segment to be kept (skeleton methods).",
+      "default": 0.25,
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "id": "no_legend",
+      "type": "boolean",
+      "description": "If true, hides the legend in the profile plots.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.911",
+  "software": [
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "tracklib"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21(5):809-813 (2024)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Merge multiple ROIs together using AFNI",
+  "version": "merge-rois-v1.1",
+  "summary": "Merges selected ROIs from an rois dataset into new combined ROIs with AFNI 3dcalc, for left and right hemisphere lists and a chosen output name.",
+  "description": "Utility that reads an rois directory, combines the ROIs whose numbers are listed in mergeROIsL and mergeROIsR (one line per merged ROI) into new ROIs named ROI<mergename>.nii.gz, and outputs them with the original ROIs. Use it to build larger ROIs (for example a lobe or a functional network) from smaller ones before tracking or functional analysis. ROI numbers refer to the input file names (ROI<number>.nii.gz).",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "afni",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63b7476fdaffe2c240863ad0",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "merge-rois-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of binary NIfTI ROIs named ROI<number>.nii.gz to be merged.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "The directory containing all of the ROIs",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mergeROIsL",
+      "type": "string",
+      "description": "Left hemisphere ROI numbers you would like to merge into a single ROI\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each set of ROIs on a new line. the mergename field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. freesurfer-11111 freesurfer-111112\nfreesurfer-11113 freesurfer-11114 freesurfer-11115",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "mergeROIsR",
+      "type": "string",
+      "description": "Right hemisphere ROI numbers you would like to merge into a single ROI.\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each set of ROIs on a new line. the mergename field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. freesurfer-12111 freesurfer-121112\nfreesurfer-12113 freesurfer-12114 freesurfer-12115",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "mergename",
+      "type": "string",
+      "description": "Name for the ROI that you would like merged. The output will be in the following format: ROI${mergename}.nii.gz\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each name on a line. this field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. test1\ntest2",
+      "default": "",
+      "required": false,
+      "multiline": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/afni:16.3.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.710",
+  "software": [
+    {
+      "name": "AFNI",
+      "version": "16.3.0",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

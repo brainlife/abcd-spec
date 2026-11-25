@@ -1,0 +1,121 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractogram cleaning with DIPY's quickBundles",
+  "version": "main",
+  "summary": "Removes spurious streamlines from a .tck tractogram by clustering it with DIPY QuickBundlesX and culling streamlines in small clusters, also splitting an optional white matter classification.",
+  "description": "Clusters the whole-brain tractogram with dipy.segment.bundles.qbx_and_merge and keeps only streamlines in clusters with more than streamThresh members; the rest are written to a separate culled tractogram. If a white matter classification is supplied, its labels are split to match the surviving and culled streamlines. Use it as a quick outlier-removal step after tractography. The README is an unfilled template, and qbThreshes is parsed but not passed to the clustering, which always uses thresholds 30, 20, 10, 5 mm.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "611aa462a5a04c4672fb671b",
+    "github": "DanNBullock/app-filterViaQuickbundles",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A whole brain tractogram that is to be subjected to a cull of extraneous or otherwise spurious streamlines",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional white matter classification (classification.mat) indexing the tractogram's streamlines; its labels are carried over to the surviving and culled outputs.",
+      "config_keys": [
+        "classification",
+        "tracts",
+        "surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck_survived",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "The output tractogram which has had some number of spurious or extraneous streamlines removed.",
+      "datatype_tags_pass": "tractogram"
+    },
+    {
+      "id": "wmc_survived",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "A WMC corresponding to the surviving streamlines.   Identities passed through if WMC input provided, otherwise ignore."
+    },
+    {
+      "id": "tck_culled",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "culled"
+      ],
+      "description": "A tractogram containing the streamlines that were culled",
+      "datatype_tags_pass": "tractogram"
+    },
+    {
+      "id": "wmc_culled",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "culled"
+      ],
+      "description": "A WMC corresponding to the culled streamlines.   Identities passed through if WMC input provided, otherwise ignore."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "streamThresh",
+      "type": "number",
+      "description": "The minimum streamlines (and thus an **integer**) needed in a quickBundles cluster in order to survive the culling process.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    {
+      "id": "qbThreshes",
+      "type": "string",
+      "description": "Comma-separated QuickBundlesX distance thresholds; parsed by the code but not passed to qbx_and_merge, so the defaults 30,20,10,5 are always used.",
+      "default": "32,16,8,3",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 30,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.564",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.4.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock"
+  ]
+}

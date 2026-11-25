@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "SynthStrip (GPU) T2w",
+  "version": "main",
+  "summary": "Skull-strips a T2-weighted image with FreeSurfer SynthStrip (mri_synthstrip, deep learning, GPU or CPU) and outputs the brain-extracted image and a binary brain mask.",
+  "description": "Runs mri_synthstrip from the freesurfer/synthstrip 1.7 container on a single T2-weighted NIfTI. By default it runs on a GPU (the -gpu container with Singularity --nv); set use_gpu to false to run on CPU. Optionally excludes CSF from the mask (no_csf). Use it as a robust, contrast-agnostic brain extraction step before registration or segmentation.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "machine-learning",
+    "preprocessing",
+    "segmentation"
+  ],
+  "registry": {
+    "id": "68dedb4412d1348297f299eb",
+    "github": "gamorosino/app-synthstrip-gpu",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2-weighted anatomical image (NIfTI) to skull-strip.",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t2_brain",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "description": "Stripped T2w image (brain)"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Brain mask"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "no_csf",
+      "type": "boolean",
+      "description": "If you would like to compute the immediate boundary of the brain, excluding surrounding CSF, use the no_csf flag.",
+      "default": false
+    },
+    {
+      "id": "use_gpu",
+      "type": "boolean",
+      "description": "You can disable GPU usage and fall back to the CPU instead; this may cause processing times to increase anywhere from slightly to considerably.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "freesurfer/synthstrip:1.7-gpu",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.875",
+  "software": [
+    {
+      "name": "SynthStrip",
+      "version": "1.7",
+      "url": "https://surfer.nmr.mgh.harvard.edu/docs/synthstrip/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hoopes A, Mora JS, Dalca AV, Fischl B, Hoffmann M. SynthStrip: skull-stripping for any brain image. NeuroImage 260:119474 (2022)."
+    },
+    {
+      "text": "Kelley W, Ngo N, Dalca AV, Fischl B, Z\u00f6llei L, Hoffmann M. Boosting skull-stripping performance for pediatric brain images. 2024 IEEE ISBI, pp. 1-5 (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Datatype not supported",
+      "cause": "Neither t1 nor t2 is set in config.json.",
+      "fix": "Provide exactly one anatomical input (t1 or t2)."
+    }
+  ]
+}

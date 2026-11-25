@@ -1,0 +1,140 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROI Generation (old)",
+  "version": "non_dtiinit",
+  "summary": "Generate a parcellation volume (and roi nifti files split into each label) for specific ROIs, or every ROI, for a parcellation from freesurfer output and/or input parcellation volume. This App can also inflate input parcellation volume toward non-white matter voxels.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5c54d89912cbcc01e1635aeb",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "non_dtiinit"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dwi image used to register freesurfer parcellation and white matter mask generated from it, as well as input parcellation volume (optional).",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Freesurfer is used to generate the white matter mask, as well as to generate the output ROI volumes if Freesurfer labels are specified for ROI input.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The parcellation input used to generate the output ROIs. It must contain voxels with corresponding ROI labels to be selected.",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If specified, it will be used as white matter mask instead of using Freesurfer output. Only used if you are inflating the ROI.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Parcellation nifti of all ROIs"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "Copy of the parcellation/volume except each ROIs are split into different nifti files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ROI",
+      "type": "string",
+      "description": "Enter ROI numbers from Freesurfer colorLUT (https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT) and/or key.txt (parcellation) for the cortical ROIs wanted. This App assumes that label number will not collide between Freesurfer and parcellation key.txt.\n\nExample: 45,54",
+      "default": ""
+    },
+    {
+      "id": "subcort",
+      "type": "string",
+      "description": "Enter the number of the subcortical ROI (if wanted).\n\nSubcortical ROIs will be outputted with a leading 0 before the number (i.e. ROI012) for subcortical ROI 12. This is in order to avoid repetition in numbers between cortical and subcortical LUTs",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "inflate",
+      "type": "number",
+      "description": "If ROI inflation into WM is wanted, specify the number of inflated voxels desired.",
+      "default": 0,
+      "required": false
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "Choose which Freesurfer parcellation to use as input",
+      "default": "aparc",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    },
+    {
+      "id": "whitematter",
+      "type": "boolean",
+      "description": "Leave this off to trim the INSET to exclude voxels in WM, excluding those which overlap an input WM                        skeleton, SKEL (see `-wm_skel', below; to trim off                        CSF, see separate `-csf_skel').  NB: trimming is done                        before volume thresholding the ROIs, so fewer ROIs                        might pass, or some input regions might be split                        apart creating a greater number of regions.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.154",
+  "deprecated_by": "5da537382b4f67d8f7e67166"
+}

@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of tensor",
+  "version": "tensor-v1.0.0",
+  "summary": "Generates PNGs of mid-axial, sagittal and coronal slices of each DTI (FA, MD, AD, RD) and, when present, DKI (GA, AK, MK, RK) map with FSL slicer, for quick QA of a tensor fit.",
+  "description": "Runs FSL slicer -a on every map in the tensor datatype and writes one PNG per map to raw/. Kurtosis maps are rendered only when GA is present in the input. Use it to check a DTI/DKI fit or make figures; it does not modify the data.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "dwi",
+    "diffusion-modeling",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e88c763952fefb8487ac014",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "tensor-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tensor datatype with FA, MD, RD and AD maps, plus optional kurtosis maps (GA, AK, MK, RK).",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "tensor"
+      ],
+      "description": "Directory with one PNG per tensor map (fa.png, md.png, ad.png, rd.png and, for DKI, ga.png, mk.png, ak.png, rk.png)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.302",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

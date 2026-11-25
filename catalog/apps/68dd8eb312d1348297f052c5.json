@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Register DWI to T1 with FSL",
+  "version": "main",
+  "summary": "Example App that aligns a preprocessed DWI to a T1-weighted image with FSL flirt and outputs the resampled DWI.",
+  "description": "Runs flirt with the T1w as reference on the DWI image and writes the result as the output DWI. The README describes it as example code for running an FSL command on brainlife. Caveats from the code: the cost parameter is read but not passed to flirt, bvecs are not rotated, and bvals/bvecs are copied from dwi.bvals/dwi.bvecs in the working directory rather than from the input, so the App is not suitable for real analyses as committed.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "68dd8eb312d1348297f052c5",
+    "github": "VKarlaftis/cmc_brainlife_registration",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is a DWI pre-processed data to be aligned to a T1 image",
+      "config_keys": [
+        "input",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the reference image to aligned the DWI data to",
+      "config_keys": [
+        "ref"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed",
+        "t1_aligned"
+      ],
+      "description": "DWI resampled to the T1w space by flirt (dwi.nii.gz) with bvals and bvecs."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "cost",
+      "type": "string",
+      "description": "Intended flirt cost function; read from config.json but not passed to flirt.",
+      "default": "leastsq",
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "memory_gb": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.873",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ]
+}

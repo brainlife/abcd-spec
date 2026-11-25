@@ -1,0 +1,178 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Filter data",
+  "version": "v1.0",
+  "summary": "Band-pass, high-pass or low-pass filters raw MEG/EEG data with MNE-Python Raw.filter, optionally adding notch filters, and reports the filter response and PSD.",
+  "description": "Applies mne.io.Raw.filter (FIR or IIR) with the chosen cut-offs and, if notch frequencies are given, Raw.notch_filter to remove line noise and harmonics. Saves the filtered raw data, a filter frequency-response plot, a PSD plot and an HTML report comparing original and filtered data. Use it early in MEG/EEG preprocessing; leave l_freq or h_freq empty for a low-pass or high-pass only.",
+  "kind": "native",
+  "topics": [
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "denoising",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "642dc7d173d2685502ec4d5f",
+    "github": "BrainlifeMEEG/filter-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "filt-raw"
+      ],
+      "description": "Filtered raw data (raw.fif)."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Filter frequency-response plot (filter_response.png) and PSD of the filtered data (psd.png)."
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report comparing original and filtered data."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "l_freq",
+      "type": "number",
+      "description": "[ float | None ]  For FIR filters, the lower pass-band edge; for IIR filters, the lower cutoff frequency. If None the data are only low-passed."
+    },
+    {
+      "id": "h_freq",
+      "type": "number",
+      "description": "[ float | None ]  For FIR filters, the upper pass-band edge; for IIR filters, the upper cutoff frequency. If None the data are only high-passed."
+    },
+    {
+      "id": "notch",
+      "type": "string",
+      "description": "Comma separated list of frequencies to filter out.\nNota: A separate filter is applied for this purpose.",
+      "default": "",
+      "required": false,
+      "placeholder": "50, 100, 200"
+    },
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "[ str | array_like | slice | None ]  Channels to include. Slices and lists of integers will be interpreted as channel indices. In lists, channel type strings (e.g., ['meg', 'eeg']) will pick channels of those types, channel name strings (e.g., ['MEG0111', 'MEG2623'] will pick the given channels. Can also be the string values \u201call\u201d to pick all channels, or \u201cdata\u201d to pick data channels. None (default) will pick all data channels. Note that channels in info['bads'] will be included if their names or indices are explicitly provided.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "filter_length",
+      "type": "string",
+      "description": "[ str | int ]  Length of the FIR filter to use (if applicable):\n    \u2018auto\u2019 (default): The filter length is chosen based on the size of the transition regions (6.6 times the reciprocal of the shortest transition band for fir_window=\u2019hamming\u2019 and fir_design=\u201dfirwin2\u201d, and half that for \u201cfirwin\u201d).\n    str: A human-readable time in units of \u201cs\u201d or \u201cms\u201d (e.g., \u201c10s\u201d or \u201c5500ms\u201d) will be converted to that number of samples if phase=\"zero\", or the shortest power-of-two length at least that duration for phase=\"zero-double\".\n    int: Specified length in samples. For fir_design=\u201dfirwin\u201d, this should not be used.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "l_trans_bandwidth",
+      "type": "string",
+      "description": "[ float | str ]  Width of the transition band at the low cut-off frequency in Hz (high pass or cutoff 1 in bandpass). Can be \u201cauto\u201d (default) to use a multiple of l_freq:\nmin(max(l_freq * 0.25, 2), l_freq)\n Only used for method='fir'.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "h_trans_bandwidth",
+      "type": "string",
+      "description": "Width of the transition band at the high cut-off frequency in Hz, or 'auto' to choose it from h_freq; used only for FIR filtering.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "method",
+      "type": "string",
+      "description": "[ str ]  \u2018fir\u2019 will use overlap-add FIR filtering, \u2018iir\u2019 will use IIR forward-backward filtering (via filtfilt).",
+      "default": "fir",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "iir_params",
+      "type": "string",
+      "description": "[ dict | None ]  Dictionary of parameters to use for IIR filtering. If iir_params is None and method=\u201diir\u201d, 4th order Butterworth will be used. For more information, see mne.filter.construct_iir_filter().",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "phase",
+      "type": "string",
+      "description": "[ str ]  Phase of the filter, only used if method='fir'. Symmetric linear-phase FIR filters are constructed, and if phase='zero' (default), the delay of this filter is compensated for, making it non-causal. If phase='zero-double', then this filter is applied twice, once forward, and once backward (also making it non-causal). If 'minimum', then a minimum-phase filter will be constricted and applied, which is causal but has weaker stop-band suppression.",
+      "default": "zero",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "fir_window",
+      "type": "string",
+      "description": "[ str ]  The window to use in FIR design, can be \u201chamming\u201d (default), \u201chann\u201d (default in 0.13), or \u201cblackman\u201d.",
+      "default": "hamming",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "fir_design",
+      "type": "string",
+      "description": "[ str ]  Can be \u201cfirwin\u201d (default) to use scipy.signal.firwin(), or \u201cfirwin2\u201d to use scipy.signal.firwin2(). \u201cfirwin\u201d uses a time-domain design technique that generally gives improved attenuation using fewer samples than \u201cfirwin2\u201d.",
+      "default": "firwin",
+      "advanced": true
+    },
+    {
+      "id": "skip_by_annotation",
+      "type": "string",
+      "description": "[ str | list of str ]  If a string (or list of str), any annotation segment that begins with the given string will not be included in filtering, and segments on either side of the given excluded annotated segment will be filtered separately (i.e., as independent signals). The default (('edge', 'bad_acq_skip') will separately filter any segments that were concatenated by mne.concatenate_raws() or mne.io.Raw.append(), or separated during acquisition. To disable, provide an empty list. Only used if inst is raw.",
+      "default": "('edge', 'bad_acq_skip')",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "pad",
+      "type": "string",
+      "description": "[ str ]  The type of padding to use. Supports all numpy.pad() mode options. Can also be \"reflect_limited\", which pads with a reflected version of each vector mirrored on the first and last values of the vector, followed by zeros.\nOnly used for method='fir'.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.757",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ]
+}

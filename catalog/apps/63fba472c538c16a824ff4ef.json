@@ -1,0 +1,138 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Map  ROIs to cortical surface",
+  "version": "endpoints-v1.0",
+  "summary": "Maps volumetric ROIs such as tract endpoints onto FreeSurfer-derived cortical surfaces in native and MNI space with FreeSurfer mri_vol2surf and Connectome Workbench, as a cortexmap.",
+  "description": "Builds GIFTI surfaces from FreeSurfer (native and, with the warp, MNI), resamples each ROI to the FreeSurfer ribbon and projects it onto the surface with mri_vol2surf (projfrac-max 0 to 1), writing one func file per ROI and hemisphere. If an existing cortexmap is given, the ROIs are added to it. ROIs must be in the same space as the FreeSurfer anatomy. Requires a FreeSurfer license; v1.1 adds smoothing options.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63fba472c538c16a824ff4ef",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "endpoints-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric ROIs (e.g. tract endpoint ROIs) as NIfTI files; each ROI is mapped onto the cortical surface.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "ROIs must be aligned with the FreeSurfer anatomy."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from Freesurfer",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "These files are needed to generate surfaces in template space (usually MNI). If you need to generate these files, please look at brainlife app FSL Anat. A version of this app not requiring this input is being generated",
+      "config_keys": [
+        "warp",
+        "inverse_warp"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If cortexmap datatype has already been generated, update the datatype with the endpoint ROIs",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "rois"
+      ],
+      "description": "The cortexmap output, containing the surfaces and mapped data",
+      "datatype_tags_pass": "rois"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives"
+      ],
+      "description": "A directory containing all of the derivatives generated. Useful for QA and debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas "
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 2.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.736",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ]
+}

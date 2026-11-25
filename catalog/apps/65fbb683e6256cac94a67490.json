@@ -1,0 +1,135 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "QSM Evaluation",
+  "version": "main",
+  "summary": "Benchmarks one or more QSM susceptibility estimates against a ground-truth map, computing RMSE, NRMSE, HFEN, XSIM, MAD, CC, NMI and GXE overall and per region, and reports them as an HTML figure and table.",
+  "description": "Computes error metrics between each QSM estimate and a ground-truth susceptibility map (RMSE, NRMSE, HFEN, XSIM, MAD, CC, NMI, GXE), overall and per ROI of a segmentation, and reports per-ROI value distributions and SNR from the GRE magnitude when available. The field strength comes from the estimate's MagneticFieldStrength metadata or B0. Use it to benchmark QSM pipelines, for example on simulated data with known ground truth. The README is an unfilled template; behaviour is taken from main.py and eval.py.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "qsm",
+    "quality-control",
+    "statistics"
+  ],
+  "registry": {
+    "id": "65fbb683e6256cac94a67490",
+    "github": "astewartau/qsm-evaluation-brainlife",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "qsm_estimate",
+      "datatype": "neuro/qsm",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Estimated susceptibility map produced by a QSM pipeline.",
+      "config_keys": [
+        "qsm_estimate"
+      ]
+    },
+    {
+      "id": "qsm_groundtruth",
+      "datatype": "neuro/qsm",
+      "datatype_tags": [
+        "ground-truth"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Ground truth susceptibility map (e.g. produced by COSMOS or the QSM Data Generator App).",
+      "config_keys": [
+        "qsm_groundtruth"
+      ]
+    },
+    {
+      "id": "qsm_segmentation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional volumetric segmentation (parc + label.json) defining ROIs for per-region metrics.",
+      "config_keys": [
+        "parc",
+        "label"
+      ]
+    },
+    {
+      "id": "qsm_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional mask restricting the evaluation region.",
+      "config_keys": [
+        "qsm_mask"
+      ]
+    },
+    {
+      "id": "fieldmap_tissue",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single",
+        "tissue"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional tissue field map with GRE magnitude; the magnitude is used to compute per-ROI SNR.",
+      "config_keys": [
+        "magnitude",
+        "magnitude_json",
+        "fieldmap",
+        "fieldmap_json"
+      ]
+    },
+    {
+      "id": "phase_quality",
+      "datatype": "raw",
+      "datatype_tags": [
+        "phase-quality"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional phase-quality map (phase-quality.nii.gz) used in the evaluation.",
+      "config_keys": [
+        "phase_quality"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "html",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "Report of QSM Evaluation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "python:3.9-bookworm",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.822",
+  "software": [
+    {
+      "name": "qsm-forward"
+    },
+    {
+      "name": "scikit-image"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "plotly"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "'B0' is needed in config.json or 'MagneticFieldStrength' in qsm_estimate metadata!",
+      "fix": "Set MagneticFieldStrength in the QSM estimate metadata."
+    }
+  ]
+}

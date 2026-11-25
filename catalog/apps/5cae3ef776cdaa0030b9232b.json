@@ -1,0 +1,220 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AnalyzepRF on volume",
+  "version": "master",
+  "summary": "Estimates voxel-wise population receptive fields (polar angle, eccentricity, size, R2) from retinotopy fMRI and its stimulus with Kendrick Kay's analyzePRF toolbox.",
+  "description": "Fits the analyzePRF compressive spatial summation model to each voxel of the fMRI time series given the stimulus aperture. Voxels are restricted to the provided mask or, if none, to the FreeSurfer cortical ribbon in the selected lobes (occipital by default). fMRI can optionally be slice-time and motion corrected and globally regressed. Designed for HCP 7T retinotopy data; the stimulus must match the fMRI timing.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "freesurfer"
+  ],
+  "registry": {
+    "id": "5cae3ef776cdaa0030b9232b",
+    "github": "davhunt/app-analyzePRF",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Retinotopy task fMRI time series (bold).",
+      "config_keys": [
+        "fmri"
+      ]
+    },
+    {
+      "id": "stim",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Stimulus aperture as a pixelsX x pixelsY x time NIfTI with values in [0,1].",
+      "config_keys": [
+        "stim"
+      ],
+      "requirements": "Must match the temporal dimension (TR) of the fMRI."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Used to generate .vtk surfaces",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional mask in fMRI space restricting the voxels analysed (for example V1).",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "pRF maps (polar angle, eccentricity, receptive field size, R2, exponent, gain, mean volume) as NIfTI, plus surface VTKs."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frontal",
+      "type": "boolean",
+      "description": "Include frontal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "parietal",
+      "type": "boolean",
+      "description": "Include parietal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "temporal",
+      "type": "boolean",
+      "description": "Include temporal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "occipital",
+      "type": "boolean",
+      "description": "Include occipital cortex in analysis",
+      "default": true
+    },
+    {
+      "id": "preprocess",
+      "type": "boolean",
+      "description": "Perform slice-timing and head motion correction on fMRI if not already preprocessed",
+      "default": true
+    },
+    {
+      "id": "TR",
+      "type": "number",
+      "description": "Repetition time of fMRI (read from the nii header if unspecified)",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "pxtodeg",
+      "type": "number",
+      "description": "Conversion factor from pixels to degrees subtended for visual stimulus (16 deg / 200 px for HCP data)",
+      "default": 0.08
+    },
+    {
+      "id": "gsr",
+      "type": "enum",
+      "description": "Specifies whether global signal regression (GSR) on input fMRI should be done, conversion to % change from baseline",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "no GSR"
+        },
+        {
+          "value": "pvn",
+          "label": "per-voxel normalization",
+          "description": "regresses out mean signal per voxel"
+        },
+        {
+          "value": "gms",
+          "label": "grand-mean scaling",
+          "description": "regresses out global mean"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "wantquick",
+      "type": "boolean",
+      "description": "Use seedmode -2 and perform very quick PRF analysis\n\n% - When <seedmode> is -2, optimization is not performed and instead the best seed based on the super-grid is returned as the final estimate.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "seedmode0",
+      "type": "boolean",
+      "description": "seedmode 0:\n% - The first seed is a generic large pRF that is centered with respect to the stimulus, has a pRF size equal to 1/4th of the stimulus extent (thus, +/- 2 pRF sizes matches the stimulus extent), and has an exponent of 0.5.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "seedmode1",
+      "type": "boolean",
+      "description": "seedmode 1:\n% - The second seed is a generic small pRF that is just like the first seed except has a pRF size that is 10 times smaller.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "seedmode2",
+      "type": "boolean",
+      "description": "seedmode 2:\n% - The third seed is a \"supergrid\" seed that is identified by performing a quick grid search prior to optimization (similar in spirit to methods described in Dumoulin and Wandell, 2008).  In this procedure, a list of potential seeds is constructed by \n%   exploring a range of eccentricities, angles, and exponents.  For each potential \n%   seed, the model prediction is computed, and the seed that produces the closest \n%   match to the data is identified.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 12,
+      "memory_gb": 120,
+      "walltime_hours": 96
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.177",
+  "software": [
+    {
+      "name": "analyzePRF",
+      "url": "https://github.com/kendrickkay/analyzePRF"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1152/jn.00105.2013",
+      "text": "Kay KN, Winawer J, Mezer A, Wandell BA. Compressive spatial summation in human visual cortex. J Neurophysiol 110(2):481-494 (2013)."
+    },
+    {
+      "doi": "10.1523/JNEUROSCI.1724-17.2017",
+      "text": "Zhou J, Benson NC, Kay KN, Winawer J. Compressive temporal summation in human visual cortex. J Neurosci 38(3):691-709 (2018)."
+    },
+    {
+      "text": "Benson NC, et al. The Human Connectome Project 7 Tesla retinotopy dataset: Description and population receptive field analysis. J Vis 18(13):23 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    },
+    {
+      "message": "output missing",
+      "cause": "prf/r2.nii.gz was not produced by the pRF fit.",
+      "fix": "Check the fMRI, stimulus and mask inputs and the MATLAB log."
+    }
+  ]
+}

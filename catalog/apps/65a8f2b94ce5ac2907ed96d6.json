@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make watershed BEM",
+  "version": "v1.0",
+  "summary": "Computes watershed BEM surfaces (inner skull, outer skull, scalp) from a FreeSurfer reconstruction with MNE-Python make_watershed_bem, for MEG/EEG forward modelling.",
+  "description": "Copies the FreeSurfer subject directory, runs mne.bem.make_watershed_bem (which wraps FreeSurfer's watershed algorithm) to add the BEM surfaces, and builds an HTML QC report of the surfaces over the MRI. Use it before computing a BEM solution and forward model for source localisation. Needs a completed recon-all directory and a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "eeg",
+    "meg",
+    "source-localization",
+    "freesurfer",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "65a8f2b94ce5ac2907ed96d6",
+    "github": "BrainlifeMEEG/make-watershed-bem",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all subject directory.",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "bem"
+      ],
+      "description": "Copy of the FreeSurfer subject directory with the watershed BEM surface files added."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 8
+    },
+    "licenses_required": [
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.807",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

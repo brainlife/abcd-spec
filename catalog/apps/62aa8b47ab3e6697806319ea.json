@@ -1,0 +1,113 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bundle segmented tracks by eccentricity - Parcellation (Matlab)",
+  "version": "v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62aa8b47ab3e6697806319ea",
+    "github": "brainlife/app-eccentricity-classification",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "wbFG",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wbFG"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractNames",
+      "type": "string",
+      "description": "name of tracts",
+      "default": ""
+    },
+    {
+      "id": "visualArea",
+      "type": "string",
+      "description": "name of visual area ROIs with eccentricity. ex: varea",
+      "default": ""
+    },
+    {
+      "id": "MinDegree",
+      "type": "string",
+      "description": "unknown",
+      "default": "0 15 30"
+    },
+    {
+      "id": "MaxDegree",
+      "type": "string",
+      "description": "unknown",
+      "default": "3 30 90"
+    },
+    {
+      "id": "operations",
+      "type": "string",
+      "description": "unknown",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.649",
+  "deprecated_by": "63ba6203daffe2c2408d4c89"
+}

@@ -1,0 +1,40 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-testasdsad",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a46798ba7a5514f2b34ba88",
+    "github": "gamorosino/bl-app-test",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.946"
+}

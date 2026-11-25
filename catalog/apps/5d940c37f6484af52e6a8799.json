@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bundle segmented tracks by eccentricity - Deprecated",
+  "version": "v1.0",
+  "summary": "Deprecated (use 'Bundle segmented tracks by eccentricity'): splits segmented white matter tracts into sub-bundles by pRF eccentricity ROIs with MATLAB wma_tools and outputs a new tract classification.",
+  "description": "For each named tract in the input classification, keeps the streamlines that pass the requested operation against each eccentricity-bin ROI of a visual area (for example V1 ROIs between 0-3, 15-30 and 30-90 degrees) and writes a new classification with one tract per tract/eccentricity bin. Use it to bundle the optic radiation or similar visual tracts by eccentricity; it needs eccentricity ROIs named ROI<visualArea>.Ecc<min>to<max>.nii.gz, as produced by pRF-based ROI Apps.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "vistasoft"
+  ],
+  "registry": {
+    "id": "5d940c37f6484af52e6a8799",
+    "github": "brainlife/app-eccentricity-classification",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) containing the tracts to split.",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "wbFG",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) that the classification indexes.",
+      "config_keys": [
+        "wbFG"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Eccentricity ROIs derived from pRF mapping.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "Files must be named ROI<visualArea>.Ecc<MinDegree>to<MaxDegree>.nii.gz for every visual area and degree bin requested."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "New white matter classification with one tract per input tract and eccentricity bin (named <tract>_Ecc<min>to<max>), plus tract JSON files for visualisation and fiber counts."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractNames",
+      "type": "string",
+      "description": "name of tracts",
+      "default": ""
+    },
+    {
+      "id": "visualArea",
+      "type": "string",
+      "description": "name of visual area ROIs with eccentricity. ex: varea",
+      "default": ""
+    },
+    {
+      "id": "MinDegree",
+      "type": "string",
+      "description": "Space-separated lower bounds (degrees of eccentricity) of the bins; paired with MaxDegree.",
+      "default": "0 15 30"
+    },
+    {
+      "id": "MaxDegree",
+      "type": "string",
+      "description": "Space-separated upper bounds (degrees of eccentricity) of the bins; paired with MinDegree.",
+      "default": "3 30 90"
+    },
+    {
+      "id": "operations",
+      "type": "string",
+      "description": "Space-separated wma_tools ROI operation per tract (for example endpoints or and) used to keep streamlines relative to each eccentricity ROI.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.232",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

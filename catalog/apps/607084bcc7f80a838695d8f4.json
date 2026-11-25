@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Reorient - Task",
+  "version": "2.0",
+  "summary": "Reorients a task fMRI series to the standard (MNI152) orientation with FSL fslreorient2std, passing events, sbref and physio files through.",
+  "description": "Runs fslreorient2std on the BOLD image and copies every other file of the input (events, sbref, physio and their sidecars) to the output unchanged. Cropping (robustfov) is meant for anatomical images and is off by default. It only reorients; it does not register or resample to a template.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "607084bcc7f80a838695d8f4",
+    "github": "brainlife/app-crop_reorient",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Task fMRI datatype: BOLD series plus optional events, sbref and physio files with JSON sidecars.",
+      "config_keys": [
+        "input",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "crop_reorient"
+      ],
+      "description": "The task fMRI datatype with the reoriented BOLD image and the other files copied unchanged.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "Run fslreorient2std on the BOLD image.",
+      "default": true
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "Run robustfov on the BOLD image; only meant for T1/T2 images, leave false.",
+      "default": false,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.502",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "6.0.4-patched2"
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
+}

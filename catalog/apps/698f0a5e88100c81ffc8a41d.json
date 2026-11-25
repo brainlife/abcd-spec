@@ -1,0 +1,168 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute Noise Covariance",
+  "version": "v1.0",
+  "summary": "Estimates the MEG/EEG noise covariance matrix with MNE-Python from an empty-room recording or the pre-stimulus baseline of epochs (or an ad hoc diagonal covariance from evoked data), with diagnostic plots and a report.",
+  "description": "Uses the first available input in priority order: an empty-room recording (mne.compute_raw_covariance), evoked data (diagonal ad hoc covariance, only if ad_hoc_fallback is true), or epochs (mne.compute_covariance on the tmin-tmax baseline). Optionally flags and interpolates channels with outlying variance first. Writes cov.fif, diagnostic plots and an HTML report with rank and conditioning messages. Use it before building an inverse operator; prefer empty-room data or a pre-stimulus baseline over the ad hoc fallback. The ica input is not read by main.py.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "source-localization"
+  ],
+  "registry": {
+    "id": "698f0a5e88100c81ffc8a41d",
+    "github": "BrainlifeMEEG/noise-covariance",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "empty-room",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Empty-room recording used for noise covariance. This data should be preprocessed (e.g., Maxwell filtered, band-passed) to match the experimental data and remove line noise.",
+      "config_keys": [
+        "empty_room"
+      ]
+    },
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Epoched MEG/EEG data; the pre-stimulus baseline (tmin to tmax) is used to estimate noise covariance.",
+      "config_keys": [
+        "epochs"
+      ]
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Use only if epoch or empty room data isn't available.",
+      "config_keys": [
+        "evoked"
+      ]
+    },
+    {
+      "id": "ica",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "ICA solution (MNE); not used by main.py in this version.",
+      "config_keys": [
+        "ica"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [],
+      "description": "Computed noise covariance matrix"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report with covariance matrix, noise spectra and (for epochs) whitening diagnostics."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Estimator method for noise covariance.",
+      "default": "",
+      "options": [
+        {
+          "value": "shrunk",
+          "label": "shrunk"
+        },
+        {
+          "value": "empirical",
+          "label": "empirical"
+        },
+        {
+          "value": "diagonal_fixed",
+          "label": "diagonal_fixed"
+        },
+        {
+          "value": "auto",
+          "label": "auto"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "rank",
+      "type": "string",
+      "description": "Rank estimation parameter ('info', 'full', or a 'dict'[eg: {'mag': 90, 'eeg': 45}]).",
+      "default": "None",
+      "required": false,
+      "placeholder": "None"
+    },
+    {
+      "id": "tmin",
+      "type": "string",
+      "description": "Time corresponding to first sample of data used for covariance calculation. None or a number",
+      "default": "None",
+      "required": false,
+      "placeholder": "None"
+    },
+    {
+      "id": "tmax",
+      "type": "string",
+      "description": "Time corresponding to last sample of data used for covariance calculation. None or a  number",
+      "default": "0",
+      "required": false,
+      "placeholder": "0"
+    },
+    {
+      "id": "auto_bad_channels",
+      "type": "boolean",
+      "description": "Automatically detect and interpolate bad channels based on variance.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "bad_channel_threshold",
+      "type": "number",
+      "description": "Variance threshold multiplier. Channels with variance > N times the median will be marked bad (e.g., 5).",
+      "default": 5,
+      "required": false
+    },
+    {
+      "id": "ad_hoc_fallback",
+      "type": "boolean",
+      "description": "Return ad hoc noise covariance, use only when there is no epochs or empty room recordings",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 32,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.891",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ]
+}

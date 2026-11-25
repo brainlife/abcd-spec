@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "test_dtifit",
+  "version": "main",
+  "summary": "Test App that fits a diffusion tensor to DWI within a brain mask with FSL dtifit and outputs FA, MD, AD, RD and tensor maps.",
+  "description": "Runs dtifit (FSL 6.0.4) and copies FA, MD, the tensor, L1 as AD, and the mean of L2 and L3 as RD into the tensor output. Registered as a test App; use a maintained DTI App for production.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "fsl"
+  ],
+  "registry": {
+    "id": "68dd90c912d1348297f077fe",
+    "github": "swarrington1/test_dtifit",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask in DWI space.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "fsl",
+        "dti"
+      ],
+      "description": "DTI maps: fa, md, ad, rd and tensors."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "memory_gb": 2,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.874",
+  "software": [
+    {
+      "name": "FSL dtifit",
+      "version": "6.0.4"
+    }
+  ]
+}

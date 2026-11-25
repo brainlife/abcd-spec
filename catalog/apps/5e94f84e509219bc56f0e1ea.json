@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "mergeROI",
+  "version": "master",
+  "summary": "Merges two named ROIs, or all ROIs, of an ROI collection into a single binary ROI with a compiled MATLAB (vistasoft) script.",
+  "description": "Reads the ROI NIfTI files of an rois dataset and combines the two requested ROIs (or every ROI when either name is left empty) into one binary ROI containing all their voxels. Use it to build a larger region from smaller ones before tracking or analysis. The ROIs must be in the same space; misaligned ROIs give an unusable output without an error.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e94f84e509219bc56f0e1ea",
+    "github": "svincibo/app-mergeROI",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "roi",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of ROI NIfTI files (rois folder) in the same space.",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "ROI collection containing the single merged ROI."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roi1_name",
+      "type": "string",
+      "description": "If this field is left empty, the all rois within the ROI dataset will be merged.",
+      "default": "",
+      "required": false,
+      "placeholder": "Enter the name of the .nii.gz file (e.g., ROI0012, ca23) contained in the ROI."
+    },
+    {
+      "id": "roi2_name",
+      "type": "string",
+      "description": "If this field is left empty, the all rois within the ROI dataset will be merged.",
+      "default": "",
+      "required": false,
+      "placeholder": "Enter the name of the .nii.gz file (e.g., ROI0012, ca23) contained in the ROI."
+    },
+    {
+      "id": "roiout_name",
+      "type": "string",
+      "description": "Name of the merged output ROI file; required (the App stops with an error when it is empty).",
+      "default": "",
+      "placeholder": "Enter the name desired for the merged ROI."
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.314",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    },
+    {
+      "name": "vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "You must enter a name for the output ROI.",
+      "fix": "Set roiout_name."
+    },
+    {
+      "message": "output roi folder missing",
+      "fix": "Check the log for the MATLAB error; the ROI names must match files in the input."
+    }
+  ]
+}

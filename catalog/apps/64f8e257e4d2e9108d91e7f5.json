@@ -1,0 +1,121 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
+  "version": "benson-prf-endpoints-v1.3-anatomical",
+  "summary": "Computes FreeSurfer anatomical statistics (vertex count, surface area, gray matter volume, thickness, curvature) within Benson14 visual areas, overall and restricted to cortexmap maps, and outputs parc-stats CSVs.",
+  "description": "Converts the Benson14 visual-area map from the prf input onto the FreeSurfer white surface, multiplies it with each cortex-mapped map to build visual-area labels, converts them to annotations and runs mris_anatomical_stats and mri_segstats on curvature for each. Use it to measure cortical morphometry in visual areas V1, V2, V3 and others defined by Benson14 retinotopy. Needs the FreeSurfer subject directory, the Benson14 prf output and a cortexmap of the same subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64f8e257e4d2e9108d91e7f5",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "benson-prf-endpoints-v1.3-anatomical"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject, used for surfaces and anatomical statistics.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Benson14 retinotopy output providing per-hemisphere varea (visual area) surface maps.",
+      "config_keys": [
+        "prf_surfaces"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Cortexmap whose func/ maps are combined with the visual areas to define the labels.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "benson14_visual_areas"
+      ],
+      "description": "benson_varea_prf_anatomical.csv with anatomical and curvature statistics for each Benson14 visual area, overall and within each cortexmap map."
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "benson14_visual_areas"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "benson14_visual_areas"
+      ],
+      "description": "Derivatives generated during run for debugging"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.797",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "No benson*.csv was produced.",
+      "fix": "Check the job log and intermediate files."
+    }
+  ]
+}

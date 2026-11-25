@@ -1,0 +1,107 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute macro-structural statistics of tracts using Dipy",
+  "version": "v1.0",
+  "summary": "Computes per-tract macrostructure (streamline count, mean length, mean curvature, voxel count, centroid orientation) from a classified tractogram with DIPY, as a CSV.",
+  "description": "For each tract in the classification, computes streamline count, average length, mean curvature and mean orientation of the QuickBundles centroid, and the number of voxels the tract occupies (density map on the DWI grid), and writes tractmeasures.csv. Use it to compare tract shape and size across subjects.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "statistics",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f794bde268f765c3929bda2",
+    "github": "brainlife/app-compute-tract-stats",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image; only its grid and affine are used as the reference space.",
+      "config_keys": [
+        "dwi"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) assigning streamlines to tracts.",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram (.tck) the classification refers to.",
+      "config_keys": [
+        "tractogram"
+      ],
+      "requirements": "Must match the classification and be in the DWI space."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "macro"
+      ],
+      "description": "tractmeasures.csv with one row per tract: streamline_count, average_length, average_curvature, voxel_count and centroid_x/y/z (mean orientation of the tract centroid).",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/pyafq:dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.439",
+  "category": "statistics",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. DIPY, a library for the analysis of diffusion MRI data. Frontiers in Neuroinformatics 8:8 (2014)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "tractmeasures.csv was not written.",
+      "fix": "Check that the tractogram and classification match."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

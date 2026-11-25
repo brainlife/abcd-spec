@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert tck to trk in DWI space",
+  "version": "1.0",
+  "summary": "Converts an MRtrix .tck tractogram to TrackVis .trk format with nibabel, using a DWI image as the reference space for the trk header; a format conversion utility.",
+  "description": "Loads the .tck streamlines with nibabel and saves them as track.trk with the voxel-to-RAS affine, voxel sizes, dimensions and voxel order taken from the DWI NIfTI. Use it when a downstream tool needs .trk; the streamlines are not transformed, so the tractogram must already be in the space of the DWI image.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "conversion",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c0ab6e6f9b4a2002efc1618",
+    "github": "brainlife/app-convert-tck-to-trk",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The DWI file will provide the reference space for the tractogram in output stored according to the TRK specifications.",
+      "config_keys": [
+        "dwi"
+      ],
+      "requirements": "The tck streamlines must already be in the space of this DWI image."
+    },
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A tractogram encoded according to the Mrtrix specifications.",
+      "config_keys": [
+        "tck"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [
+        "dwi"
+      ],
+      "description": "The tractogram encoded following the TRK specifications. The reference space of streamlines is redefined according to the space of the DWI file given in input.",
+      "datatype_tags_pass": "tck"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.13",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.132",
+  "software": [
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "track.trk was not written or is empty.",
+      "fix": "Check that the tck file is valid and the reference image is a readable NIfTI."
+    }
+  ]
+}

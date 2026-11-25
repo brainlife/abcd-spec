@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract connectivity matrices from network datatype",
+  "version": "no-measures-v1.0",
+  "summary": "Converts a network datatype (JSON graph without node measurements) into a CSV table of connectivity matrices with pybrainlife, a format conversion utility.",
+  "description": "Loads the compressed JSON graph with jgf/igraph and uses pybrainlife to extract its connectivity matrix as conmats.csv tagged with the subject and session. Use it for networks that have no measurements; use the full variant to also export global and local network statistics.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "network-analysis"
+  ],
+  "registry": {
+    "id": "64f8e0a6e4d2e9108d91cb87",
+    "github": "brainlife/app-convert-network-netstats",
+    "branch": "no-measures-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "!measurements"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Network datatype (compressed JSON graph) without measurements.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "net-stats",
+      "datatype": "neuro/net-stats",
+      "datatype_tags": [
+        "conmat"
+      ],
+      "description": "CSV table conmats.csv with the connectivity matrix.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.796",
+  "software": [
+    {
+      "name": "pybrainlife"
+    },
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ]
+}

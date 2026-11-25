@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert trk to tck",
+  "version": "master",
+  "summary": "Converts a TrackVis .trk tractogram to MRtrix .tck format with NiBabel; a format conversion utility.",
+  "description": "Loads the .trk file with nibabel.streamlines and saves the same streamlines as track.tck. Use it to feed TrackVis tractograms to Apps that require the tck datatype. Streamline coordinates are converted as handled by NiBabel; no filtering or resampling is done.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "convert",
+    "dwi",
+    "nibabel",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5b9940206e02fb0028e11626",
+    "github": "brainlife/app-trk2tck",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram in TrackVis .trk format.",
+      "config_keys": [
+        "trk"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "The same tractogram in MRtrix .tck format.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.14",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/bl.app.100",
+  "software": [
+    {
+      "name": "NiBabel",
+      "url": "https://nipy.org/nibabel/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1002/ima.22005",
+      "text": "Tournier J-D, Calamante F, Connelly A. MRtrix: Diffusion tractography in crossing fiber regions. Int J Imaging Syst Technol 22:53-66 (2012)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

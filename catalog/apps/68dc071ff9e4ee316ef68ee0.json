@@ -1,0 +1,187 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Precomputed Multi-resolution Mesh Generation",
+  "version": "v0.1",
+  "summary": "Generates Neuroglancer precomputed 3D meshes, with optional multi-resolution levels of detail, from a precomputed segmentation volume using igneous.",
+  "description": "Runs igneous meshing tasks on a local precomputed segmentation layer, then a merge pass that writes either single-resolution mesh manifests or unsharded multi-resolution meshes (when nlod > 0). Use it to make segmentation objects viewable as surfaces in Neuroglancer. The input must be a precomputed segmentation layer (the code reads <layer>/segmentation); the processed layer directory is moved into the output directory. The cloudpath parameter is not read: the path is always derived from the input.",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "visualization",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "68dc071ff9e4ee316ef68ee0",
+    "github": "jhuapl-boss/bossdb-brainlife-apps",
+    "branch": "v0.1"
+  },
+  "inputs": [
+    {
+      "id": "cloudpath",
+      "datatype": "neuro/precomputed/volume",
+      "datatype_tags": [
+        "segmentation"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Neuroglancer precomputed segmentation layer; the code meshes the 'segmentation' subdirectory of the input.",
+      "config_keys": [
+        "layer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/precomputed/mesh",
+      "datatype_tags": [],
+      "description": "The precomputed layer directory with the generated mesh fragments and mesh manifests (or multi-resolution meshes)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "cloudpath",
+      "type": "string",
+      "description": "Not read by the code; the layer path is always built from the input as file://<layer>/segmentation.",
+      "default": "file://data/segmentation"
+    },
+    {
+      "id": "out_dir",
+      "type": "string",
+      "description": "Local directory into which the processed layer (with meshes) is moved.",
+      "default": "out"
+    },
+    {
+      "id": "mip",
+      "type": "number",
+      "description": "Resolution level (mip) of the segmentation at which meshes are generated.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 8
+    },
+    {
+      "id": "shape",
+      "type": "string",
+      "description": "Size in voxels (x y z) of each meshing task, as three space- or comma-separated integers.",
+      "default": "256 256 256",
+      "required": false
+    },
+    {
+      "id": "simplification ",
+      "type": "boolean",
+      "description": "Intended to toggle quadratic edge-collapse mesh simplification; the code reads the key 'simplification' (no trailing space), so this setting is not applied and simplification stays on.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "dust_threshold",
+      "type": "number",
+      "description": "Skip objects smaller than this many voxels; empty means no filtering.",
+      "minimum": 0,
+      "required": false,
+      "advanced": true,
+      "placeholder": "null"
+    },
+    {
+      "id": "object_ids",
+      "type": "string",
+      "description": "Optional list of label IDs (comma- or space-separated) to mesh; empty meshes all labels.",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "placeholder": "null"
+    },
+    {
+      "id": "fill_missing",
+      "type": "boolean",
+      "description": "Fill missing chunks with zeros instead of raising an error.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "encoding",
+      "type": "string",
+      "description": "Mesh encoding passed to igneous ('precomputed' or 'draco').",
+      "default": "precomputed",
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "progress",
+      "type": "boolean",
+      "description": "Show a progress bar during meshing.",
+      "default": false,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "spatial_index",
+      "type": "boolean",
+      "description": "Generate a spatial index for bounding-box queries.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "sharded",
+      "type": "boolean",
+      "description": "Generate shard fragments for a later sharded format.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "manifest_magnitude",
+      "type": "number",
+      "description": "Magnitude for the manifest/merge pass, controlling index granularity.",
+      "default": 3,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "parallel",
+      "type": "boolean",
+      "description": "Run igneous tasks in parallel on all cores (true) or single-threaded (false).",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "nlod",
+      "type": "number",
+      "description": "Number of extra levels of detail; values above 0 create multi-resolution meshes, 0 writes single-resolution manifests.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 3,
+      "advanced": true
+    },
+    {
+      "id": "vqb",
+      "type": "number",
+      "description": "Vertex quantization bits for multi-resolution meshes.",
+      "default": 16,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "min_chunk_size",
+      "type": "string",
+      "description": "Minimum chunk size (x y z) for multi-resolution meshes.",
+      "default": "256 256 256",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "xenesd1/bossdb-brainlife:mesh",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 64,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.870",
+  "software": [
+    {
+      "name": "igneous",
+      "url": "https://github.com/seung-lab/igneous"
+    }
+  ]
+}

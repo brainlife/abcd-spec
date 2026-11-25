@@ -1,0 +1,42 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Group Analysis",
+  "version": "master",
+  "summary": "Aggregates FreeSurfer statistics across subjects, computing group mean and standard deviation of aseg volumes and of aparc thickness, gray matter volume and surface area, and shows them as bar plots.",
+  "description": "Reads stats/aseg.stats and lh/rh.aparc.stats from each FreeSurfer input and writes product.json with bar plots of the across-subject mean and standard deviation per structure (voxel count, volume, normalised intensity, cortical thickness, gray matter volume and surface area). Use it for a quick visual group summary of FreeSurfer outputs on brainlife; it produces no output datasets. Needs several FreeSurfer outputs.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "statistics",
+    "visualization",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b7f0f89b3e3800027ce9b6c",
+    "github": "brainlife/app-freesurfer-agg",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "FreeSurfer subject directories (one per subject) whose stats/aseg.stats and stats/lh|rh.aparc.stats files are aggregated.",
+      "config_keys": [
+        "outputs"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/bl.app.94"
+}

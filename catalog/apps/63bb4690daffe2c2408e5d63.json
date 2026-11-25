@@ -1,0 +1,110 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bundle segmented tracks by eccentricity - Parcellation",
+  "version": "mrtrix3-v1.0",
+  "summary": "Splits tracts from a white matter classification into sub-bundles by the parcels their streamline endpoints reach in a parcellation (for example eccentricity bins), using MRtrix3, and outputs a new classification and tractogram.",
+  "description": "Extracts each selected tract from the classification, assigns its streamlines to parcels with MRtrix3 tck2connectome, keeps streamlines whose two endpoints fall in parcels with the same base label (left/right prefixes ignored), and rebuilds a classification with one tract per tract/parcel. Use it to bundle visual tracts such as the optic radiation by eccentricity parcels. The parcellation must be in the same space as the tractogram.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "63bb4690daffe2c2408e5d63",
+    "github": "brainlife/app-eccentricity-classification",
+    "branch": "mrtrix3-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parcellations",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation whose labels define the bins (for example eccentricity parcels), with label.json.",
+      "config_keys": [
+        "parcellations",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) indexing the tractogram.",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "wbFG",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram (.tck) indexed by the classification.",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "New classification with one tract per selected input tract and parcel (named <tract>_<parcel>), with tract JSON files and fiber counts.",
+      "datatype_tags_pass": "wmc"
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "Tractogram (.tck) concatenating the parcel-specific sub-bundles.",
+      "datatype_tags_pass": "wbFG"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "selectIndices",
+      "type": "string",
+      "description": "indices of tracts to bundle",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pyafq:1.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.714",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    }
+  ]
+}

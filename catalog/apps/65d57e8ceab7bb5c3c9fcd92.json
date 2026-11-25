@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mark bad data",
+  "version": "v1.0",
+  "summary": "Marks bad channels and annotates bad time segments by hand in MNE-Python epoched MEG/EEG data, saving the updated epochs.",
+  "description": "Appends the listed channel names to epo.info['bads'] and, if given, parses the multiline annotations text (onset, duration, description[, channels]) into mne.Annotations that replace existing annotations. Use it to record manual QC decisions before later processing. Channel names are not validated; as committed, the channel check for channel-specific annotations refers to an undefined variable, so such annotations will fail.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "preprocessing",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "65d57e8ceab7bb5c3c9fcd92",
+    "github": "BrainlifeMEEG/mark-bad-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data (MNE epochs FIF).",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "bads_marked"
+      ],
+      "description": "The input epochs with updated bad channels and annotations (meg-epo.fif).",
+      "datatype_tags_pass": "epo"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Comma-separated channels to reject (e.g. \"MEG2422,MEG2321\").",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "annotations",
+      "type": "string",
+      "description": "A multiline text describing segments to discard, following a format compatible with mne.Annotations: \"start, duration, description[, channels]\"",
+      "default": "",
+      "required": false,
+      "multiline": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.815",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ]
+}

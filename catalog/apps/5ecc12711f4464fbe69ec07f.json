@@ -1,0 +1,230 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
+  "version": "optic-tract-v1.0",
+  "summary": "Tracks the human optic tract between LGN ROIs and the optic chiasm with MRtrix3 iFOD2 probabilistic tractography (optionally anatomically constrained) and outputs a tractogram and tract classification.",
+  "description": "Uses the LGN ROI(s) in roiPair and the optic chiasm ROI given in oc as seed and inclusion regions for MRtrix3 tckgen, optionally ensembled over lmax, curvature, step size and FOD cutoff, and outputs one tract per requested hemisphere in a tractogram and classification. ROIs must be on the DWI grid and aligned with it.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tracking",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5ecc12711f4464fbe69ec07f",
+    "github": "brainlife/app-mrtrix3-roi2roi-tracking",
+    "branch": "optic-tract-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path's to the DWI image and it's associated bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path to the constrained spherical deconvolution (CSD) outputs, including all lmax csd images generated and the response.txt file.",
+      "config_keys": [
+        "response",
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path to the rois directory including both the ROIs listed in the 'roiPair' config",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "ROIs must be on the same grid as the DWI image (or set reslice where available) and aligned to it."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path to the five tissue type brain image generated from mrtrix3's 5ttgen function.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "This is the path to the brain mask of the DWI image. This is optional. If left empty, app will generate brainmask automatically.",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "wm_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "This is the path to the precomputed white matter mask. if left empty, one will be generated automatically",
+      "config_keys": [
+        "wm_mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "roi_mrtrix3_ifod2"
+      ],
+      "description": "This is the output tractogram containing all of the tracks generated"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "roi_mrtrix3_ifod2"
+      ],
+      "description": "This is the classification structure that refers to the generated tractogram"
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "This is the brainmask output. If input was used, this is just a copy and doesn't need to be archived."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "The minimum allowable streamline length to be generated (number)\nexample: 10",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "The maximum allowable streamline length to be generated (number)\nexample: 10",
+      "default": 200
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "The maximum spherical harmonic order (lmax) to use. If left empty, this will be identified automatically. (number)",
+      "default": 8,
+      "required": false
+    },
+    {
+      "id": "minfodamp",
+      "type": "string",
+      "description": "The minimum FOD amplitude to use as a cutoff (mrtrix3 flag -cutoff) (number)\nex: 0.025",
+      "default": "0.025"
+    },
+    {
+      "id": "stepsize",
+      "type": "string",
+      "description": "Step size to use for tracking (number)\nex: 0.25",
+      "default": "0.25"
+    },
+    {
+      "id": "roiPair",
+      "type": "string",
+      "description": "this field is here in order to allow for the option for only tracking one hemisphere or both hemispheres. If you want to track one hemisphere, enter the exact name of the LGN roi you want to track from (example: '008109'). If both hemispheres are desired, enter both LGN ROI numbers (example: '008109 008209'). Please see your ROI datatype for the exact ROI numbers/names.",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "oc",
+      "type": "string",
+      "description": "this is the exact ROI number/name of the optic chiasm from your ROIs datatype that you would like to track to. Example: '085'. Please see your ROI datatype for the exact ROI numbers/names.",
+      "default": ""
+    },
+    {
+      "id": "count",
+      "type": "number",
+      "description": "total number of streamlines",
+      "default": 500
+    },
+    {
+      "id": "maxtrials",
+      "type": "number",
+      "description": "Sets the maximum number of attempts to generate streamline from the seed point. Default=1000000.",
+      "default": 1000000
+    },
+    {
+      "id": "curvatures",
+      "type": "string",
+      "description": "maximum angle of curvature (in degrees). can be multiple (i.e. ensemble) or one value. default: 45",
+      "default": "15"
+    },
+    {
+      "id": "single_lmax",
+      "type": "boolean",
+      "description": "Determines whether single lmax (true) or ensemble lmax (false) will be performed",
+      "default": true
+    },
+    {
+      "id": "multiple_seed",
+      "type": "boolean",
+      "description": "If true, this will set the seeds of tractography to be present in both the seeding and termination ROIs. This will also set the tracking to be bidirectional.",
+      "default": false
+    },
+    {
+      "id": "act",
+      "type": "boolean",
+      "description": "If true, this will use the anatomically constrained tractography framework for tracking. This will include backtracking. \n\nIf false, the white matter mask will be used as a tracking mask. The ROIs will be added to the white matter mask. If the ROIs haven't been resliced to diffusion space, set reslice to true in order to get this to work.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 30,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.352",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ]
+}

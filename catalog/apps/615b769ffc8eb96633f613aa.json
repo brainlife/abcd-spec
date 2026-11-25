@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "bedpostx",
+  "version": "main",
+  "summary": "Fits FSL BedpostX (GPU version, FSL 6.0.1) multi-fibre ball-and-stick models to preprocessed DWI within a brain mask, producing the sample distributions needed for probabilistic tractography.",
+  "description": "Runs bedpostx_gpu on the DWI, bvals, bvecs and nodif brain mask to estimate up to nf fibre orientations per voxel with MCMC sampling. Use it before FSL probtrackx. Needs preprocessed (eddy/motion corrected) DWI and a brain mask in the same space, and a GPU node.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "fsl"
+  ],
+  "registry": {
+    "id": "615b769ffc8eb96633f613aa",
+    "github": "sandrahanekamp/app-bedpostx",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "A 4D series of data volumes. This will include diffusion-weighted volumes and volume(s) with no diffusion weighting.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain",
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "3D binary brain mask volume derived from running bet on nodif (i.e. on a volume with no diffusion weighting). Created using FSL Brain Extraction (BET) on DWI brainlife/app-FSLBET",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/FSLBedpostX",
+      "datatype_tags": [
+        "bedpostx",
+        "preprocessed",
+        "dwi"
+      ],
+      "description": "This folder contains the entire set of folders and files outputted by the FSL BedpostX  process",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "nf",
+      "type": "number",
+      "description": "Maximum number of fibres to fit in each voxel.",
+      "default": 3
+    },
+    {
+      "id": "bi",
+      "type": "number",
+      "description": "burnin period, default 1000",
+      "default": 1000
+    },
+    {
+      "id": "fudge",
+      "type": "number",
+      "description": "ARD fudge factor (integer) controlling automatic relevance determination of extra fibres.",
+      "default": 1
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.578",
+  "software": [
+    {
+      "name": "FSL BedpostX (bedpostx_gpu)",
+      "version": "6.0.1",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PSD of epoched data",
+  "version": "main",
+  "summary": "Computes the power spectral density of epoched MEG/EEG data per channel type (gradiometers, magnetometers, EEG) with the MNE-Python multitaper method, with PSD plots.",
+  "description": "Reads MNE epochs, computes the multitaper PSD (mne.time_frequency.psd_multitaper) separately for grad, mag and EEG channels within the chosen frequency and time range, averages across epochs, converts to dB and saves one TSV (channels x frequencies) per channel type plus figures. Use it to inspect spectral content of epoched data. Only channel types present in the data produce output.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "616fe817fc8eb96a43000442",
+    "github": "guiomar/app-epoch-psd",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "megfif",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epochs"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data in MNE -epo.fif format.",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_psd_grad",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "grad",
+        "epoched"
+      ],
+      "description": "psd.tsv with the epoch-averaged gradiometer PSD in dB (channels x frequencies).",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_psd_mag",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "mag",
+        "epoched"
+      ],
+      "description": "psd.tsv with the epoch-averaged magnetometer PSD in dB (channels x frequencies).",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_psd_eeg",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "eeg",
+        "epoched"
+      ],
+      "description": "psd.tsv with the epoch-averaged EEG PSD in dB, uV^2/Hz (channels x frequencies).",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "psd_image",
+        "epoched"
+      ],
+      "description": "PNG figures of the PSD (psd_mne.png and psd_computed.png).",
+      "datatype_tags_pass": "megfif"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fmin",
+      "type": "number",
+      "description": "Min frequency of interest.",
+      "default": 0
+    },
+    {
+      "id": "fmax",
+      "type": "number",
+      "description": "Max frequency of interest.",
+      "default": 100,
+      "required": true
+    },
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "Min time of interest.",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "Max time of interest.",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "bandwidth",
+      "type": "number",
+      "description": "The bandwidth of the multi taper windowing function in Hz. The default value is a window half-bandwidth of 4.",
+      "default": 4
+    },
+    {
+      "id": "adaptive",
+      "type": "boolean",
+      "description": "Use adaptive weights to combine the tapered spectra into PSD (slow, use n_jobs >> 1 to speed up computation).",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "low_bias",
+      "type": "boolean",
+      "description": "Only use tapers with more than 90% spectral concentration within bandwidth.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "normalization",
+      "type": "enum",
+      "description": "Either \u201cfull\u201d or \u201clength\u201d (default). If \u201cfull\u201d, the PSD will be normalized by the sampling rate as well as the length of the signal (as in nitime).",
+      "default": "full",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full",
+          "description": "PSD will be normalized by the length of the signal"
+        },
+        {
+          "value": "length",
+          "label": "Length",
+          "description": "the PSD will be normalized by the sampling rate as well as the length of the signal"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "proj",
+      "type": "boolean",
+      "description": "Apply SSP projection vectors.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "Not read: the code always sets picks to None and processes grad, mag and EEG channels separately.",
+      "default": "None",
+      "required": true,
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.587",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
+}

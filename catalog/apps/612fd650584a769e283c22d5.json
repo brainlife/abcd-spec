@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply warp to BOLD data",
+  "version": "v1.0",
+  "summary": "Applies an existing FSL nonlinear warp to BOLD fMRI data with FSL applywarp, resampling it into MNI152 2 mm or NIHPD template space.",
+  "description": "Runs applywarp (nearest-neighbour interpolation) on the func/task image with the supplied warp field, using MNI152 T1 2 mm as the reference for every MNI choice or the selected NIHPD template, and sets the output space tag. It does not compute a registration; the warp must map the BOLD data's space to the chosen template. A slice image is produced for alignment checking.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "fsl",
+    "registration"
+  ],
+  "registry": {
+    "id": "612fd650584a769e283c22d5",
+    "github": "brainlife/app-warp-bold",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "BOLD fMRI image (func/task) to warp.",
+      "config_keys": [
+        "input"
+      ]
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Nonlinear warp field (warp) to the template space.",
+      "config_keys": [
+        "warp"
+      ],
+      "requirements": "Must map the BOLD image's space to the selected template."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "warped"
+      ],
+      "description": "The warped BOLD file",
+      "datatype_tags_pass": "bold"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "Template defining the output space: any MNI152 option uses the MNI152 T1 2 mm image as applywarp reference; NIHPD options use the matching pediatric template.",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "The 1mm MNI_152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.566",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

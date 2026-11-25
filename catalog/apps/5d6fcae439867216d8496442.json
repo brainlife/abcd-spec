@@ -1,0 +1,133 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Classifyber",
+  "version": "1.0",
+  "summary": "Segments white matter bundles in a target tractogram with Classifyber, a streamline-based linear classifier trained on example segmentations from other subjects.",
+  "description": "Runs both the training and test phases of Classifyber: for each requested bundle it learns a binary linear classifier from example subjects' segmented bundles (combining streamline geometry, connectivity and atlas features in MNI space) and applies it to the target subject's tractogram. Use it for automatic bundle segmentation when segmented examples are available; for the test phase only, use brainlife.app.265. The moving tractograms, segmentations and T1s must be given in the same subject order, and the code checks that subject IDs match.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "machine-learning",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5d6fcae439867216d8496442",
+    "github": "FBK-NILab/app-classifyber",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentations of moving (examples) subjects (they should be extracted from the tractogram provided)",
+      "config_keys": [
+        "segmentations",
+        "tracts"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms of moving (example) subjects",
+      "config_keys": [
+        "tractograms_moving"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Ts1 of moving (example) subjects",
+      "config_keys": [
+        "t1s_moving"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "classifyber"
+      ],
+      "description": "White matter classification (classification.mat plus per-tract JSON files) of the selected bundles in the target tractogram.",
+      "datatype_tags_pass": "2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas (refer to the README.md for the mapping)",
+      "default": "",
+      "placeholder": "allowed values: 1-20 (if AFQ examples provided), 38-45 (if WMA examples provided)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 40,
+      "walltime_hours": 12
+    }
+  },
+  "doi": "10.25663/brainlife.app.228",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "0.16.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2020.117402",
+      "text": "Berto G, Bullock D, Astolfi P, et al. Classifyber, a robust streamline-based linear classifier for white matter bundle segmentation. NeuroImage (2020)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Inputs subject id incorrectly inserted. Check them again.",
+      "fix": "Give the target tractogram and T1 of the same subject, and the example segmentations, tractograms and T1s in the same subject order."
+    }
+  ]
+}

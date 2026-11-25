@@ -1,0 +1,167 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "CONNECTS Validation Engine",
+  "version": "v0.2.0",
+  "summary": "Evaluates a 3D segmentation against a ground-truth mask, computing voxel overlap (Dice, IoU, precision, recall), neighbour-tolerant, topology (Betti numbers, Euler characteristic) and connected-component metrics as JSON with QC figures.",
+  "description": "Accepts each mask as an OME-Zarr store, a volumetric parcellation, a NIfTI mask or (for the tested mask) a 3D TIFF stack, binarises both with foreground_labels (all non-zero voxels when empty) and computes the metrics from the lincbrain axonsynth metrics module, writing metrics/metrics.json and mid-slice comparison figures. Provide exactly one input for the tested mask and one for the ground truth; both must have the same shape. The neighbour-corrected metrics use the target and are for evaluation only.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "quality-control",
+    "segmentation",
+    "statistics"
+  ],
+  "registry": {
+    "id": "6aa993d6deee1367b4361c43",
+    "github": "gamorosino/app-seg-eval-metrics",
+    "branch": "v0.2.0"
+  },
+  "inputs": [
+    {
+      "id": "moving_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving/testing mask as an ome-zarr store (alternative to moving_parc).",
+      "config_keys": [
+        "moving_ome_zarr"
+      ]
+    },
+    {
+      "id": "moving_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving/testing mask as a volumetric parcellation NIfTI (alternative to moving_ome_zarr/moving_tif).",
+      "config_keys": [
+        "moving_parc"
+      ]
+    },
+    {
+      "id": "moving_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving/testing mask as a NIfTI binary mask (alternative to moving_ome_zarr/moving_parc/moving_tif).",
+      "config_keys": [
+        "moving_mask"
+      ]
+    },
+    {
+      "id": "moving_tif",
+      "datatype": "neuro/tiff-volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving/testing mask as a 3D TIFF stack (alternative to moving_ome_zarr/moving_parc/moving_mask).",
+      "config_keys": [
+        "moving_tif"
+      ]
+    },
+    {
+      "id": "gt_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Ground-truth mask as an ome-zarr store (alternative to gt_parc).",
+      "config_keys": [
+        "gt_ome_zarr"
+      ]
+    },
+    {
+      "id": "gt_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Ground-truth mask as a volumetric parcellation NIfTI (alternative to gt_ome_zarr/gt_mask).",
+      "config_keys": [
+        "gt_parc"
+      ]
+    },
+    {
+      "id": "gt_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Ground-truth mask as a NIfTI binary mask (alternative to gt_ome_zarr/gt_parc).",
+      "config_keys": [
+        "gt_mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "metrics",
+      "datatype": "neuro/seg-eval-metrics",
+      "datatype_tags": [],
+      "description": "Voxel, neighbor-corrected, topology, and component evaluation metrics as JSON."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "foreground_labels",
+      "type": "string",
+      "description": "Comma-separated integer label values treated as foreground when binarizing a parc/ome-zarr input. Empty means every nonzero voxel is foreground.",
+      "default": ""
+    },
+    {
+      "id": "zarr_level",
+      "type": "string",
+      "description": "Internal ome-zarr array/group path (multiscale resolution level) to read.",
+      "default": "0",
+      "advanced": true,
+      "placeholder": "0"
+    },
+    {
+      "id": "neighbor_rounds",
+      "type": "number",
+      "description": "Number of face-neighbor dilation rounds used for the target-informed tolerance correction.",
+      "default": 2,
+      "advanced": true,
+      "placeholder": "2"
+    },
+    {
+      "id": "include_topology",
+      "type": "boolean",
+      "description": "Include Betti number / Euler characteristic comparison.",
+      "default": true
+    },
+    {
+      "id": "include_components",
+      "type": "boolean",
+      "description": "Include connected-component overlap metrics (splits/merges/matched IoU).",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/app-seg-eval-metrics:0.3.0",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.973",
+  "software": [
+    {
+      "name": "NumPy"
+    },
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "zarr"
+    },
+    {
+      "name": "tifffile"
+    }
+  ]
+}

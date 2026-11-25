@@ -1,0 +1,39 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "VOIT: V1 to V4 Visual Cortex Prediction",
+  "version": "main",
+  "summary": "Research code that reconstructs viewed images from V1 fMRI responses (Vim-1 dataset) by predicting V4 activity with neural networks and decoding it through Stable Diffusion latents; not runnable as a brainlife App.",
+  "description": "The repository trains an MLP that maps V1 voxel responses to V4 responses, a second model that maps V4 to a PCA-compressed Stable Diffusion latent, and decodes the latent with the Stable Diffusion VAE (optionally refined with img2img); a Streamlit UI (app.py) runs inference. It has no brainlife main script and no registered inputs, outputs or parameters, so it cannot be executed on brainlife.io as registered.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "machine-learning",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a3db17a76d8d577a7da9770",
+    "github": "eliasvarkey/VOIT-V1-to-V4-Visual-Cortex-Prediction",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.938",
+  "software": [
+    {
+      "name": "PyTorch"
+    },
+    {
+      "name": "diffusers"
+    },
+    {
+      "name": "Stable Diffusion v1.5"
+    },
+    {
+      "name": "Streamlit"
+    }
+  ]
+}

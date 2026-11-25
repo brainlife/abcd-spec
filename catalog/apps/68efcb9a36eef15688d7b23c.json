@@ -1,0 +1,420 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "QSIPrep (Multi-Session)",
+  "version": "0.24.0-multi-sess",
+  "summary": "Preprocesses DWI with QSIPrep 0.24.0 (denoising, Gibbs unringing, eddy head-motion and TOPUP distortion correction, coregistration to the T1w) and outputs the preprocessed DWI, T1w, brain mask, tissue segmentation, confounds, image QC and an HTML report.",
+  "description": "Converts the T1w and one or more DWI runs to BIDS (optionally naming the runs from the BidsGuess metadata so opposite phase-encoding pairs are grouped) and runs QSIPrep participant-level preprocessing with the selected denoising, unringing, head-motion, B1 bias and PEPOLAR settings, then maps the outputs to brainlife datatypes in ACPC/T1w or MNI152NLin2009cAsym space. Use it for multi-shell, HCP-style data acquired with opposite phase-encoding directions; a second DWI must have the opposite phase-encoding direction of the first. Needs a FreeSurfer license on the compute resource. This branch also accepts optional T2w and field map inputs, checks bvec/bval integrity before running and validates phase-encoding metadata with a QSIPrep 1.0.1 helper.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "denoising",
+    "qsiprep",
+    "bids",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "68efcb9a36eef15688d7b23c",
+    "github": "gamorosino/app-qsiprep-gb",
+    "branch": "0.24.0-multi-sess"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!qsiprep"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image of the subject (not already processed by QSIPrep).",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!qsiprep",
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "One or more raw DWI runs with bvals, bvecs and optional sbref.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ],
+      "requirements": "Multiple runs should be opposite phase-encoding acquisitions; with dwi_use_bidsguess the metadata should contain BidsGuess."
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2-weighted image of the same subject.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional field map files for susceptibility distortion correction.",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude_json",
+        "magnitude1",
+        "magnitude1_json",
+        "magnitude2",
+        "magnitude2_json",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "qsiprep",
+        "preprocessed"
+      ],
+      "description": "Preprocessed DWI in ACPC space with bvals and bvecs (FSL-style, or MRtrix-style when xflip is true).",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "output_anat_preproc",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "qsiprep",
+        "preprocessed"
+      ],
+      "description": "Preprocessed T1w in the selected output space.",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "output_dseg",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "QSIPrep tissue segmentation (dseg) in the selected space."
+    },
+    {
+      "id": "output_brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Brain mask of the preprocessed T1w."
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "QSIPrep HTML report with figures."
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "DWI confounds time series (regressors.tsv)."
+    },
+    {
+      "id": "dwiqc",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dwiqc"
+      ],
+      "description": "QSIPrep DWI image quality metrics (dwiqc.csv)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "output_resolution",
+      "type": "number",
+      "description": "The isotropic voxel size in mm the data will be resampled to after preprocessing. NOTE: only dwi data will be resampled. Usually this should be the same as the input resolution.",
+      "default": 1.2,
+      "minimum": 0
+    },
+    {
+      "id": "output_space",
+      "type": "enum",
+      "description": "Volume and surface spaces to resample DWIs into. NOTE: If selecting T1w, the preprocessed T1w image defines the T1w space, not the native T1. Reconstructed surfaces will be registered to the T1w space (ACPC), and not to the input images. WARNING: If selecting template, dwis will be still resampled to the T1w space (and not to the template). *template choice not tested in this version of QSIPrep configuration.",
+      "default": "T1w",
+      "options": [
+        {
+          "value": "T1w",
+          "label": "T1w",
+          "description": "subject anatomical volume"
+        },
+        {
+          "value": "MNI152NLin2009cAsym",
+          "label": "template",
+          "description": "MNI152NLin2009cAsym MNI template space"
+        }
+      ]
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through qsiprep anyway.",
+      "default": false
+    },
+    {
+      "id": "dwi_use_bidsguess",
+      "type": "boolean",
+      "description": "Whether to rename dwi files in bids format based on \"BidsGuess\" field in metadata. If processing opposite PE directions, must check this option, otherwise QSIPrep cannot pickup the correct dwis to combine",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "denoise_method",
+      "type": "enum",
+      "description": "Image-based denoising method.",
+      "default": "dwidenoise",
+      "options": [
+        {
+          "value": "dwidenoise",
+          "label": "dwidenoise",
+          "description": "\u201cdwidenoise\u201d (MRtrix)"
+        },
+        {
+          "value": "patch2self",
+          "label": "patch2self",
+          "description": "\u201cpatch2self\u201d (DIPY)"
+        },
+        {
+          "value": "none",
+          "label": "none",
+          "description": "none"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "distortion_group_merge",
+      "type": "enum",
+      "description": "How to combine images across distorted groups. Use \"average\" HCP style OPE (see QSIPrep documentation for detail: https://qsiprep.readthedocs.io/en/latest/preprocessing.html#preprocessing-hcp-style)",
+      "default": "average",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "Default. Keep distorted groups separate."
+        },
+        {
+          "value": "average",
+          "label": "average",
+          "description": "Average the corrected images of the same q-space coordinate."
+        },
+        {
+          "value": "concat",
+          "label": "concat",
+          "description": "Append images in the 4th dimension."
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "unringing_method",
+      "type": "enum",
+      "description": "Method for Gibbs-ringing removal.",
+      "default": "mrdegibbs",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "no action"
+        },
+        {
+          "value": "mrdegibbs",
+          "label": "mrdegibbs",
+          "description": "use mrdegibbs from mrtrix3"
+        },
+        {
+          "value": "rpg",
+          "label": "rpg"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "b1_biascorrect_stage",
+      "type": "enum",
+      "description": "The stage of processing at which to apply B1 bias correction. Either \u201cfinal\u201d (after resampling), \u201cnone\u201d (skipped entirely) or \u201clegacy\u201d (before concatenation). NOTE: If your sequence has \"prescan norm\" on, then skip b1 biascorrection, otherwise it might introduce artifacts (see documentation: https://qsiprep.readthedocs.io/en/latest/preprocessing.html#denoising-and-merging-images)",
+      "default": "none",
+      "options": [
+        {
+          "value": "final",
+          "label": "final",
+          "description": "bias correct after all data resampled to final space"
+        },
+        {
+          "value": "none",
+          "label": "none",
+          "description": "skip B1 bias correction (choose if use prescan normalization during in scan protocol)"
+        },
+        {
+          "value": "legacy",
+          "label": "legacy",
+          "description": "behave consistent with qsiprep < 0.17"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "hmc_transform",
+      "type": "enum",
+      "description": "Transformation to be optimized during head motion correction.",
+      "default": "Affine",
+      "options": [
+        {
+          "value": "Affine",
+          "label": "Affine"
+        },
+        {
+          "value": "Ridit",
+          "label": "Rigid"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "hmc_model",
+      "type": "enum",
+      "description": "Model used to generate target images for hmc.",
+      "default": "eddy",
+      "options": [
+        {
+          "value": "eddy",
+          "label": "eddy",
+          "description": "FSL eddy"
+        },
+        {
+          "value": "none",
+          "label": "none"
+        },
+        {
+          "value": "3dSHORE",
+          "label": "3dSHORE",
+          "description": "qsiprep method"
+        },
+        {
+          "value": "tensor",
+          "label": "tensor"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "pepolar_method",
+      "type": "enum",
+      "description": "SDC method to be used for PEPOLAR fieldmaps. NOTE: only TOPUP tested.",
+      "default": "TOPUP",
+      "options": [
+        {
+          "value": "TOPUP",
+          "label": "TOPUP",
+          "description": "FSL TOPUP"
+        },
+        {
+          "value": "DRBUDDI",
+          "label": "DRBUDDI"
+        },
+        {
+          "value": "TOPUP+DRBUDDI",
+          "label": "TOPUP+DRBUDDI"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "b0_to_t1w_transform",
+      "type": "enum",
+      "description": "Transformation model for intramodal registration.",
+      "default": "Rigid",
+      "options": [
+        {
+          "value": "Rigid",
+          "label": "Rigid"
+        },
+        {
+          "value": "Affine",
+          "label": "Affine"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "xflip",
+      "type": "boolean",
+      "description": "Save output bvecs in MRtrix-style. If false (default), bvecs will be saved in FSL-style and will be compatible with DIPY and DSI Studio.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "pennbbl/qsiprep:0.24.0",
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.879",
+  "software": [
+    {
+      "name": "QSIPrep",
+      "version": "0.24.0",
+      "url": "https://qsiprep.readthedocs.io"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    },
+    {
+      "name": "QSIPrep (phase-encoding validation helper)",
+      "version": "1.0.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-021-01185-5",
+      "text": "Cieslak M. et al. QSIPrep: an integrative platform for preprocessing and reconstructing diffusion MRI data. Nature Methods 18, 775-778 (2021)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set FREESURFER_LICENSE on the compute resource."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

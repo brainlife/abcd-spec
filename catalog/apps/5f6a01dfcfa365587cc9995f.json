@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-atk",
+  "version": "master",
+  "summary": "DSI Studio augmented fiber tracking and automatic segmentation for mapping major white matter pathways (Yeh, Neuroimage, 2020). The pathway includes projection, association, and commissural pathways.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6a01dfcfa365587cc9995f",
+    "github": "frankyeh/dsi-studio-atk",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fib",
+      "datatype": "neuro/dsistudio/fib",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "tts",
+      "datatype": "neuro/dsistudio/tinytrack-s",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "stat",
+      "datatype": "neuro/dsistudio/tractmeasures",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "target",
+      "type": "string",
+      "description": "Specify which pathways to map.  You may assign partial names to select all matching bundles. Multiple names separated by comma can be included. If not specified, the default text is \n\nFasciculus,Cingulum,Aslant,Cortico,Optic,Fornix,Corpus\n\nThe following is the list of available bundle for selection.\n\nArcuate_Fasciculus_L Arcuate_Fasciculus_R Cingulum_Frontal_Parahippocampal_L Cingulum_Frontal_Parahippocampal_R Cingulum_Frontal_Parietal_L Cingulum_Frontal_Parietal_R Cingulum_Parahippocampal_Parietal_L Cingulum_Parahippocampal_Parietal_R Cingulum_Parahippocampal_L Cingulum_Parahippocampal_R Cingulum_Rarolfactory_Parietal_L Cingulum_Rarolfactory_Parietal_R Extreme_Capsule_L Extreme_Capsule_R Frontal_Aslant_Tract_L Frontal_Aslant_Tract_R Inferior_Fronto_Occipital_Fasciculus_L Inferior_Fronto_Occipital_Fasciculus_R Inferior_Longitudinal_Fasciculus_L Inferior_Longitudinal_Fasciculus_R Middle_Longitudinal_Fasciculus_L Middle_Longitudinal_Fasciculus_R Parietal_Aslant_Tract_L Parietal_Aslant_Tract_R Superior_Longitudinal_Fasciculus1_L Superior_Longitudinal_Fasciculus1_R Superior_Longitudinal_Fasciculus2_L Superior_Longitudinal_Fasciculus2_R Superior_Longitudinal_Fasciculus3_L Superior_Longitudinal_Fasciculus3_R Uncinate_Fasciculus_L Uncinate_Fasciculus_R Vertical_Occipital_Fasciculus_L Vertical_Occipital_Fasciculus_R Acoustic_Radiation_L Acoustic_Radiation_R Corticobulbar_Tract_L Corticobulbar_Tract_R Corticopontine_Tract_L Corticopontine_Tract_R Corticostriatal_Pathway_L Corticostriatal_Pathway_R Corticospinal_Tract_L Corticospinal_Tract_R Corticothalamic_Pathway_L Corticothalamic_Pathway_R Dentatorubrothalamic_Tract_L Dentatorubrothalamic_Tract_R Fornix_L Fornix_R Optic_Radiation_L Optic_Radiation_R Reticulospinal_Tract_L Reticulospinal_Tract_R Anterior_Commissure Corpus_Callosum_Forceps_Minor Corpus_Callosum_Body Corpus_Callosum_Tapetum Corpus_Callosum_Forceps_Major Cerebellum_L Cerebellum_R Inferior_Cerebellar_Peduncle_L Inferior_Cerebellar_Peduncle_R Middle_Cerebellar_Peduncle Superior_Cerebellar_Peduncle Vermis CNII_L CNII_R CNIII_L CNIII_R CNV_L CNV_R CNVII_L CNVII_R CNVIII_L CNVIII_R",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "other",
+      "type": "string",
+      "description": "Other parameters (e.g., --overwrite=1 --export_trk=0 ). For complete list, see http://dsi-studio.labsolver.org/Manual/command-line-for-dsi-studio#TOC-Automatic-tracking-of-bundles",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.423"
+}

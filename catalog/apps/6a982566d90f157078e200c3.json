@@ -1,0 +1,153 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Automated  coregistration ",
+  "version": "v1.0",
+  "summary": "Coregistration aligns the digitized head shape and fiducials (nasion, LPA, RPA) to the FreeSurfer MRI surface. The output transform (trans.fif) is required to compute the forward model.",
+  "description": "Uses mne.coreg.Coregistration: a coarse fiducial fit followed by two ICP passes on head-shape points, dropping points farther than omit_distance_mm. Produces trans.fif and a quality report with alignment views and a fit-distance histogram. Needs a FreeSurfer subject and raw or epoched data with digitisation points; run it before computing a forward model.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "freesurfer",
+    "meg",
+    "mne-python",
+    "registration",
+    "source-localization"
+  ],
+  "registry": {
+    "id": "6a982566d90f157078e200c3",
+    "github": "BrainlifeMEEG/coreg",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory (recon-all output).",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Epoched data with digitisation points (required if raw is not given).",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Raw data with digitisation points (required if epochs is not given).",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/trans",
+      "datatype_tags": [],
+      "description": "MRI-to-head transform (trans.fif)."
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "Coregistration quality report."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiducials",
+      "type": "string",
+      "description": "auto, estimated, or JSON dict",
+      "default": "auto",
+      "placeholder": "auto"
+    },
+    {
+      "id": "icp_iterations_1",
+      "type": "number",
+      "description": "First ICP pass iterations",
+      "default": 6,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "icp_iterations_2",
+      "type": "number",
+      "description": "Second ICP pass iterations",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "nasion_weight_1",
+      "type": "number",
+      "description": "Nasion weight (coarse pass)",
+      "default": 2,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "nasion_weight_2",
+      "type": "number",
+      "description": "Nasion weight (fine pass)",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "omit_distance_mm",
+      "type": "number",
+      "description": "Outlier threshold (mm)",
+      "default": 5,
+      "placeholder": "5"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.957",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Interpolate bad channels",
+  "version": "v1.0",
+  "summary": "Interpolates the channels marked as bad in epoched MEG/EEG data with MNE-Python Epochs.interpolate_bads.",
+  "description": "Reads MNE epochs, spatially interpolates every channel listed in info['bads'] and saves the epochs. Use it after marking bad channels to restore a full channel set before averaging or source analysis. The bads parameter is not read by the code; only channels already marked bad in the input are interpolated.",
+  "kind": "native",
+  "topics": [
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64074e65c538c16a826b3587",
+    "github": "BrainlifeMEEG/interpolate",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif01",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data (meg-epo.fif) with bad channels marked in info['bads'].",
+      "config_keys": [
+        "epo"
+      ],
+      "requirements": "Channel positions are needed for spatial interpolation."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "The input epochs with bad channels interpolated (meg-epo.fif).",
+      "datatype_tags_pass": "fif01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Not read by the code; mark bad channels in the input data instead.",
+      "default": "",
+      "required": false,
+      "placeholder": "E1, E2..."
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.741",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso",
+    "Kamilya Salibayeva"
+  ]
+}

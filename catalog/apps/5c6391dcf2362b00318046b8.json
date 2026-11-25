@@ -1,0 +1,52 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert brainmask from dtiinit",
+  "version": "v1.0.0",
+  "summary": "Utility that copies the brain mask from a vistasoft dtiInit output (dti/bin/brainMask.nii.gz) into a mask datatype.",
+  "description": "Copies dtiInit's DWI brain mask to mask/mask.nii.gz so it can be used by Apps that take a mask input. Temporary converter until dtiInit outputs a mask datatype directly. Needs a dtiInit output.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "conversion",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c6391dcf2362b00318046b8",
+    "github": "brainlife/app-make-mask-from-dtiinit",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Top directory of a dtiInit output; must contain dti/bin/brainMask.nii.gz.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "Brain mask of the DWI from the dtiInit output (mask.nii.gz)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.162"
+}

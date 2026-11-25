@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EGI to mne/raw",
+  "version": "v1.0",
+  "summary": "Converts an EGI EEG .raw file to MNE-Python raw FIF format with mne.io.read_raw_egi, setting EOG/ECG/MISC channel types, bad channels and trigger events, with a QC report and PSD plot.",
+  "description": "Reads the EGI recording, combines the listed stimulus channels into annotations or a synthetic STI 014 trigger channel, labels EOG/ECG/MISC channels, marks listed and (optionally) flat channels as bad, and writes raw.fif with an HTML report and a power spectral density figure. Use it as the import step for EGI (Geodesic) EEG data before MNE-based processing.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "eeg",
+    "mne-python"
+  ],
+  "registry": {
+    "id": "64075386c538c16a826b5818",
+    "github": "BrainlifeMEEG/egi2mne",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "egi1",
+      "datatype": "neuro/eeg/egi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "EGI (Geodesic) EEG recording in .raw format.",
+      "config_keys": [
+        "egi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "eeg",
+        "egi",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "egi1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "eog",
+      "type": "string",
+      "description": "EOG channels if any. Default is None.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ecg",
+      "type": "string",
+      "description": "ECG channels if any. default is None.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Bad channels (comma separated list).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "include",
+      "type": "string",
+      "description": "Which stimulus channels to include (comma separated list).",
+      "default": "D101,D102,D103,D104,D105,D106,D107,D108,D109,D110,D111,D112,D201,D202,D203,D204,D205,D206,D207,D208,D209,D210,D211,D212,DIN1,DIN2",
+      "required": false
+    },
+    {
+      "id": "misc",
+      "type": "string",
+      "description": "Names of channels or list of indices that should be designated MISC channels. Default is None.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "rm_flat",
+      "type": "boolean",
+      "description": "Mark flat channels as bad if True (default).",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "events_as_annotations",
+      "type": "boolean",
+      "description": "If True, annotations are created from experiment events. If False, a synthetic trigger channel STI 014 is created from experiment events.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.742",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ]
+}

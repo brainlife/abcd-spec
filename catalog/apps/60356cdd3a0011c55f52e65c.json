@@ -1,0 +1,189 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Cortex Tissue Mapping (Native & Template Space) - Myelin Mapping (T1w/T2w ratio)",
+  "version": "t1-t2-ratio-v1.1",
+  "summary": "Maps a T1w/T2w ratio myelin map onto a FreeSurfer-derived cortical midthickness surface in native and template (MNI) space with Connectome Workbench, with b0 SNR masking, as a cortexmap.",
+  "description": "Builds GIFTI surfaces from FreeSurfer and samples the T1w/T2w myelin map within the cortical ribbon onto the midthickness surface, following Fukutomi et al. (2018). Vertices with low b0 temporal SNR (computed from the DWI) are masked out. A nonlinear warp is used to also produce template-space (MNI) surfaces. Requires a FreeSurfer license; use the No SNR masking variant when no DWI is available.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60356cdd3a0011c55f52e65c",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "t1-t2-ratio-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals/bvecs; used only to compute a b0 temporal SNR map (mean/std of the b0 volumes) for masking low-SNR cortical vertices.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must contain several b0 volumes (needed to compute the b0 standard deviation) and be in the same space as the measure volumes."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output directory of the same subject; the white and pial surfaces, ribbon.mgz, brain.finalsurfs.mgz and the chosen .annot parcellation are read from it.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional brain mask in DWI space used to mask the SNR map; if missing, one is computed with FSL bet on the mean b0.",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "myelinmap",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [
+        "t1-t2-ratio"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1w/T2w ratio myelin map volume aligned with the FreeSurfer anatomy, mapped to the cortical surface.",
+      "config_keys": [
+        "myelinmap"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Nonlinear warp and inverse warp to a template space (usually MNI), e.g. from the FSL Anat App; used to also produce template-space (mni) surfaces.",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ],
+      "requirements": "The mapping script reads config key inverse_warp while the registry supplies inverse-warp, so template-space surfaces may fail; see report."
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional existing cortexmap from a previous run; if it contains native midthickness surfaces, its surf, label and func files are copied and the new measures are added to it.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "myelin_mapping",
+        "t1-t2-ratio"
+      ],
+      "description": "cortexmap with the myelin map mapped to the surface in func/, plus the GIFTI surfaces in surf/ and parcellation labels in label/."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives",
+        "myelin_mapping",
+        "t1-t2-ratio"
+      ],
+      "description": "Intermediate derivatives (measure volumes, ribbon masks, SNR images, c_ras transform) kept for QA and debugging."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.480",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H, et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "text": "Glasser MF, Sotiropoulos SN, Wilson JA, et al. The minimal preprocessing pipelines for the Human Connectome Project. NeuroImage 80:105-124 (2013)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "snr failed. check logs",
+      "cause": "The b0 SNR image could not be mapped to the cortical surface.",
+      "fix": "Check that the DWI has multiple b0 volumes and is aligned with the FreeSurfer anatomy."
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Conmat to network",
+  "version": "0.2",
+  "summary": "Utility that converts a connectivity matrix (conmat: CSV matrices, index and labels) into a compressed JSON Graph Format network for the brainlife network pipeline.",
+  "description": "Reads each matrix listed in the conmat index.json, attaches the node labels from label.json and the matrix properties, and writes all of them as networks in a JGF file (network.json.gz) with igraph. Use it to feed connectomes into network-analysis Apps that take the network datatype.",
+  "kind": "native",
+  "topics": [
+    "network",
+    "connectomics",
+    "network-analysis",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f1fa182beafe9548f622a7e",
+    "github": "filipinascimento/bl-conmat2network",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "conmat",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Connectivity matrix  file to be converted to a network",
+      "config_keys": [
+        "index",
+        "label",
+        "csv"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "description": "Network file converted from a conmat (connectivity matrix) datatype. All metadata is preserved.",
+      "datatype_tags_pass": "conmat"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.393",
+  "software": [
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1038/nn.4502",
+      "text": "Bassett DS, Sporns O. Network neuroscience. Nat Neurosci 20(3):353 (2017)."
+    },
+    {
+      "doi": "10.1080/00018730601170527",
+      "text": "Costa LdF, Rodrigues FA, Travieso G, Villas Boas PR. Characterization of complex networks: A survey of measurements. Adv Phys 56(1):167-242 (2007)."
+    }
+  ]
+}

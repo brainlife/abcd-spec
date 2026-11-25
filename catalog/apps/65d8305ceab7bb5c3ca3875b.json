@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Read info",
+  "version": "v1.0",
+  "summary": "Utility that writes the measurement info (channels, sampling rate, filters and other metadata) of an MNE epochs file to a text file for inspection.",
+  "description": "Loads epoched MEG/EEG data with mne.read_epochs and writes str(epochs.info) to info.txt, also showing it in the brainlife process view. Use it to check recording metadata without downloading the data. It reads no parameters.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "quality-control",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "65d8305ceab7bb5c3ca3875b",
+    "github": "BrainlifeMEEG/app-info-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data (MNE -epo.fif).",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [
+        "info"
+      ],
+      "description": "Text file (info.txt) with the epochs' info structure.",
+      "datatype_tags_pass": "epo"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.818",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

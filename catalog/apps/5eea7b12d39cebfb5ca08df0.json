@@ -1,0 +1,98 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute  tSNR of DMRI Images",
+  "version": "v1.0",
+  "summary": "Computes a temporal signal-to-noise ratio (tSNR) map from the b0 volumes of a DWI with FSL, following the HCP minimal preprocessing pipeline, and masks it to the brain.",
+  "description": "Extracts the b=0 volumes, divides their temporal mean by their temporal standard deviation and masks the result with the given brain mask, or with an FSL bet mask of the mean b0 if none is given. Use it as a DWI quality-control measure; it needs several b0 volumes for a meaningful standard deviation.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "5eea7b12d39cebfb5ca08df0",
+    "github": "brainlife/app-compute-temporal-snr",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional brain mask in DWI space; if absent, one is made with FSL bet from the mean b0.",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Needs more than one b=0 volume."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "outdir",
+      "datatype": "neuro/snr",
+      "datatype_tags": [
+        "tSNR"
+      ],
+      "description": "Brain-masked tSNR map (snr.nii.gz): mean b0 signal divided by its standard deviation.",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tSNR_derivatives"
+      ],
+      "description": "Intermediate images (b0 volumes, mean, standard deviation, unmasked SNR, mask).",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.378",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Woolrich MW, Jbabdi S, Patenaude B, et al. Bayesian analysis of neuroimaging data in FSL. NeuroImage 45:S173-86 (2009)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "temporal snr calculation failed. see logs and derivatives",
+      "cause": "The masked tSNR image was not produced.",
+      "fix": "Check that the DWI has b0 volumes and that bvals match the DWI."
+    }
+  ]
+}

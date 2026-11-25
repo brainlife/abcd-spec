@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove nodes from tract profiles",
+  "version": "v1.0",
+  "summary": "Trims tract profiles in a tractmeasures table to a given number of central nodes, removing an equal number of nodes from each end, using pandas.",
+  "description": "Utility that keeps the num_nodes central nodes of every tract profile, dropping (total_nodes - num_nodes)/2 nodes at each end, and writes a new tractmeasures CSV. Use it to remove the noisy profile ends near tract terminations before group statistics.",
+  "kind": "native",
+  "topics": [
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "634ec768fa262bbde2b3cb62",
+    "github": "brainlife/app-cut-tractmeasures-nodes",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract profiles table (tractmeasures.csv) with a nodeID column.",
+      "config_keys": [
+        "tractmeasures"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "cut_nodes"
+      ],
+      "description": "Tractmeasures CSV containing only the retained central nodes.",
+      "datatype_tags_pass": "tractmeasures"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "num_nodes",
+      "type": "number",
+      "description": "Number of nodes you'd like to keep in your profiles. Will remove the first and last (total_nodes - num_nodes) / 2",
+      "default": 180
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.685",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ]
+}

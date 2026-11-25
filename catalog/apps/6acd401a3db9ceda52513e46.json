@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-brain-extraction-v2",
+  "version": "main",
+  "summary": "Skull-strips a T1-weighted image with FSL BET and outputs the brain-extracted T1w volume.",
+  "description": "Wraps FSL's bet with a configurable fractional intensity threshold and optional robust centre estimation (-R) or bias field and neck cleanup (-B). Use it for quick brain extraction of a T1w image. Note that the generated wrapper passes the config values directly into a command template, so it may fail as committed (see problems).",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6acd401a3db9ceda52513e46",
+    "github": "gamorosino/app-brain-extraction-v2",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted NIfTI image to skull-strip.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Brain-extracted T1w volume"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0-1)",
+      "default": 0.5,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use BET's robust brain center estimation (-R)",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field + neck cleanup (-B)",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:latest",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.986",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "cause": "bet did not write anything to out_dir.",
+      "fix": "Check the log for the bet or argument error."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

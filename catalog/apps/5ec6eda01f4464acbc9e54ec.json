@@ -1,0 +1,229 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Anat (T2)",
+  "version": "v1.1",
+  "summary": "Preprocesses a T2-weighted image with FSL fsl_anat (optional reorientation, cropping, bias correction, FAST and FIRST segmentation) and aligns it to ACPC and, nonlinearly with FNIRT, to a standard template.",
+  "description": "Optionally reorients (fslreorient2std) and crops (robustfov) the image, runs fsl_anat for bias correction and optional tissue and subcortical segmentation, then computes a rigid ACPC alignment from a 12-dof FLIRT registration to the chosen template and a nonlinear FNIRT warp to the template. Use it as anatomical preprocessing when you need an ACPC-aligned, bias-corrected T2-weighted image and warps to MNI or paediatric (NIHPD) templates. Needs a single T2-weighted image.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "segmentation",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ec6eda01f4464acbc9e54ec",
+    "github": "brainlife/app-fsl-anat",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2-weighted image (NIfTI).",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "acpc",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "preprocessed",
+        "acpc_aligned"
+      ],
+      "description": "ACPC aligned data in 1mm space",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "standard",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "preprocessed",
+        "standard"
+      ],
+      "description": "T2 nonlinearly warped to standard space",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "bias",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "preprocessed",
+        "debiased"
+      ],
+      "description": "bias corrected data in original input space",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "standard_nonlin_warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "preprocessed",
+        "standard",
+        "no_crop_reorient"
+      ],
+      "description": "Nonlinear warp generated from T2 to standard via fnirt",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "standard_nonlin_warp_input",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "preprocessed",
+        "standard",
+        "no_crop_reorient"
+      ],
+      "description": "FNIRT warp between the input and the template (inverse-warp.nii.gz), stored with the crop/reorient tag.",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "Output directory for all the data derivatives generated",
+      "datatype_tags_pass": "t2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "Reorient the image to FSL's standard (reorient2std). Leave as false if already done",
+      "default": false
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "Crop the non-brain material using FSL's robustfov. Leave as false if already done",
+      "default": false
+    },
+    {
+      "id": "bias",
+      "type": "boolean",
+      "description": "Debias the anatomical image. Leave as false if not wanted or already done",
+      "default": false
+    },
+    {
+      "id": "seg",
+      "type": "boolean",
+      "description": "Segment the tissue types using FSLs FAST. Leave as false if not wanted",
+      "default": false
+    },
+    {
+      "id": "subcortseg",
+      "type": "boolean",
+      "description": "(This is T1 only option) Segment the subcortical structures using FSLs FAST.",
+      "default": false,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "input_type",
+      "type": "enum",
+      "description": "This controls the datatype (T1 or T2) to use. This should not be changed. Only used to keep the github repository between the two apps the same",
+      "default": "T2",
+      "options": [
+        {
+          "value": "T2",
+          "label": "T2",
+          "description": "T2"
+        }
+      ]
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "The template to which to align the T2",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "1.0 mm MNI 152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "MNI152_0.7mm",
+          "label": "MNI152_0.7mm",
+          "description": "0.7 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_0.8mm",
+          "label": "MNI152_0.8mm",
+          "description": "0.8 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_2mm",
+          "label": "MNI152_2mm",
+          "description": "2.0 mm MNI 152 template"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 7.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.350",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/fsl_anat",
+      "version": "6.0.4"
+    }
+  ],
+  "citations": [
+    {
+      "text": "fsl_anat: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/fsl_anat"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "The ACPC-aligned image was not produced.",
+      "fix": "Check the log for the failing fsl_anat, FLIRT or FNIRT step; try enabling reorient and crop."
+    }
+  ]
+}

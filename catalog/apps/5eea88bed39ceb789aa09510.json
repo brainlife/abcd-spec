@@ -1,0 +1,178 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Cortex Tissue Mapping (Native Space) (Noddi)",
+  "version": "v1.3-snr-input",
+  "summary": "Maps NODDI (ndi, isovf, odi) volumes onto a FreeSurfer-derived cortical midthickness surface in native space with Connectome Workbench, following Fukutomi et al. (2018), and outputs a cortexmap.",
+  "description": "Builds white, pial, midthickness and inflated GIFTI surfaces from a FreeSurfer run, then samples each NODDI measure within the cortical ribbon onto the midthickness surface (wb_command -volume-to-surface-mapping, myelin-style), with a Gaussian kernel scaled to the DWI voxel size. Optionally masks vertices with low b0 temporal SNR (snr parameter) and converts the chosen FreeSurfer parcellation to GIFTI labels. Surfaces are produced in native space only; use the Native & Template Space App if you also need MNI surfaces. The measure volumes must be in the same space as the DWI and aligned with the FreeSurfer anatomy; a FreeSurfer license is required.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "dwi",
+    "fsl",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5eea88bed39ceb789aa09510",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "v1.3-snr-input"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals/bvecs; used only to compute a b0 temporal SNR map (mean/std of the b0 volumes) for masking low-SNR cortical vertices.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must contain several b0 volumes (needed to compute the b0 standard deviation) and be in the same space as the measure volumes."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from freesurfer",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "NODDI fit outputs (ndi, isovf, odi) in DWI space, mapped to the cortical surface.",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional brain mask in DWI space used to mask the SNR map; if missing, one is computed with FSL bet on the mean b0.",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional existing cortexmap from a previous run; if it contains native midthickness surfaces, its surf, label and func files are copied and the new measures are added to it.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "description": "cortexmap: GIFTI surfaces (white, pial, midthickness, inflated, plus volume and thickness shape files) in surf/, the FreeSurfer parcellation as label files in label/, and the mapped measures per hemisphere as .func.gii files in func/."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives"
+      ],
+      "description": "Intermediate derivatives (measure volumes, ribbon masks, SNR images, c_ras transform) kept for QA and debugging."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "snr",
+      "type": "boolean",
+      "description": "If true, maps the b0 temporal SNR to the surface and masks out vertices with low SNR from the mapped measures; if false, no SNR masking is applied.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.382",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H, et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "text": "Glasser MF, Sotiropoulos SN, Wilson JA, et al. The minimal preprocessing pipelines for the Human Connectome Project. NeuroImage 80:105-124 (2013)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "snr failed. check logs",
+      "cause": "The b0 SNR image could not be mapped to the cortical surface.",
+      "fix": "Check that the DWI has multiple b0 volumes and is aligned with the FreeSurfer anatomy."
+    }
+  ]
+}

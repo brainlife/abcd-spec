@@ -1,0 +1,107 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
+  "version": "master",
+  "summary": "Segments hippocampal subfields from co-registered T1-weighted and T2-weighted images with ASHS 2.0.0 (fast mode) and the UPenn PMC 3T atlas, outputting a volumetric parcellation.",
+  "description": "Runs ashs_main.sh in segmentation mode with the selected atlas, then adds the left and right corrected subfield labels into one parcellation volume with a label.json. Use it for hippocampal subfield volumetry; the T1 and T2 must already be in register. The UPenn PMC atlas does not label the hippocampal head and tail.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "ants",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5deece232d1c254a76929834",
+    "github": "svincibo/app-ashs-segment",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomical image used for hippocampus segmentation. Must be in register with the t2.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t2 anatomical image used for hippocampus segmentation. Must be in register with the t1.",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output-volume",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Hippocampal subfield parcellation (parc.nii.gz, left and right labels combined) with label.json."
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/ashs",
+      "datatype_tags": [],
+      "description": "Raw ASHS working directory, including the final left/right subfield segmentations and snaplabels.txt."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "enum",
+      "description": "ASHS atlas used for segmentation; selects the ASHS container (UPenn PMC 3T atlas).",
+      "default": "",
+      "options": [
+        {
+          "value": "UPENN-PMC-3t",
+          "label": "UPENN-PMC-3t"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ashs-upennpmc:2.0.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 30,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.262",
+  "software": [
+    {
+      "name": "ASHS",
+      "version": "2.0.0",
+      "url": "http://picsl.upenn.edu/software/ashs/"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Yushkevich PA, Pluta J, Wang H, Ding SL, Xie L, Gertje E, Mancuso L, Kliot D, Das SR, Wolk DA. Automated Volumetry and Regional Thickness Analysis of Hippocampal Subfields and Medial Temporal Cortical Structures in Mild Cognitive Impairment. Human Brain Mapping (2015)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Sophia Vinci-Booher"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-trk",
+  "version": "master",
+  "summary": "DSI Studio fiber tracking",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6c0db66bbee327dd99efa4",
+    "github": "frankyeh/dsi-studio-trk",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fib",
+      "datatype": "neuro/dsistudio/fib",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fib",
+        "mapping"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tt",
+      "datatype": "neuro/dsistudio/tinytrack",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiber_count",
+      "type": "number",
+      "description": "Total number of track generated",
+      "default": 10000000,
+      "minimum": 1
+    },
+    {
+      "id": "cmd",
+      "type": "string",
+      "description": "Other command line options, see http://dsi-studio.labsolver.org/Manual/command-line-for-dsi-studio#TOC-Fiber-tracking",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.429"
+}

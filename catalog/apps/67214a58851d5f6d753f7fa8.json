@@ -1,0 +1,100 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "V-SHARP Background Field Removal",
+  "version": "master",
+  "summary": "Removes the background field from a QSM total field map with V-SHARP (QSM.jl in Julia), producing a tissue (local) field map and the eroded V-SHARP mask.",
+  "description": "Installs Julia 1.9.3 and the QSM.jl, NIfTI.jl and MriResearchTools packages at run time, masks the field map, converts it to Hz using the field map units (from input_units or the fieldmap JSON) and the field strength, and runs V-SHARP background field removal. Use it between phase unwrapping/field estimation and dipole inversion in a QSM pipeline. Needs internet access on the compute node; the README is an unfilled template.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "preprocessing",
+    "qsm"
+  ],
+  "registry": {
+    "id": "67214a58851d5f6d753f7fa8",
+    "github": "astewartau/vsharp-brainlife",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fieldmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Total B0 field map with magnitude and JSON sidecars.",
+      "config_keys": [
+        "fieldmap",
+        "fieldmap_json",
+        "magnitude",
+        "magnitude_json"
+      ],
+      "requirements": "Field strength must be in the input metadata (MagneticFieldStrength) or B0; units must be in the fieldmap JSON (Units) or input_units."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask restricting the field map.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single",
+        "tissue"
+      ],
+      "description": "Magnetic field variations caused by tissues (background field removed).",
+      "datatype_tags_pass": "fieldmap"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "V-SHARP mask",
+      "datatype_tags_pass": "mask"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.835",
+  "software": [
+    {
+      "name": "Julia",
+      "version": "1.9.3"
+    },
+    {
+      "name": "QSM.jl",
+      "version": "0.5.4"
+    },
+    {
+      "name": "MriResearchTools.jl",
+      "version": "3.2.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Values for either 'input_units' or 'fieldmap_json' are required!",
+      "fix": "Provide a fieldmap JSON with a Units field."
+    },
+    {
+      "message": "MagneticFieldStrength not found in _inputs for fieldmap",
+      "fix": "Set MagneticFieldStrength in the field map metadata."
+    }
+  ]
+}

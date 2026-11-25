@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Laplace Beltrami Spectrum: Eigenvalues Only",
+  "version": "singularity",
+  "summary": "Computes the Laplace-Beltrami spectrum (eigenvalues) of each VTK surface mesh in a 3D surfaces dataset with compiled MATLAB code and writes them to spectrum.json.",
+  "description": "For every .vtk mesh in the input surfaces directory, normalizes the mesh by surface area, builds the cotangent Laplacian and barycentric mass matrix, and solves for the spectrum_size smallest eigenvalues. Use it to obtain shape descriptors of brain structures or tract surfaces for shape analysis. Meshes with too few vertices for the requested number of eigenvalues are skipped. This branch does not save eigenvectors; use the 'Eigenvalues and Eigenvectors' App for those.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "anatomy",
+    "surface-analysis",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a53b2be56e507002d1a9628",
+    "github": "kitchell/app-LBspectrum_matlab",
+    "branch": "singularity"
+  },
+  "inputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of triangle surface meshes in VTK format, one per structure.",
+      "config_keys": [
+        "surfaces"
+      ],
+      "requirements": "Only *.vtk files are read; each mesh needs more vertices than spectrum_size."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/laplace_beltrami_spectrum",
+      "datatype_tags": [],
+      "description": "spectrum.json with the Laplace-Beltrami eigenvalues for each surface, keyed by surface name.",
+      "datatype_tags_pass": "surfaces"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "save_eigenvectors",
+      "type": "boolean",
+      "description": "this app does not save the eigenvectors",
+      "default": false,
+      "readonly": true
+    },
+    {
+      "id": "spectrum_size",
+      "type": "number",
+      "description": "Number of Laplace-Beltrami eigenvalues to compute per surface (k passed to eigs).",
+      "default": 50
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/bl.app.97",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "JSONlab"
+    },
+    {
+      "name": "geom3d"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
+}

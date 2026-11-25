@@ -1,0 +1,112 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractogram clustering",
+  "version": "main",
+  "summary": "Clusters a large tractogram by embedding streamlines with an orientation-invariant dissimilarity to prototype fibres and running MiniBatch K-Means, outputting one medoid streamline per cluster.",
+  "description": "Resamples the streamlines, embeds each one as its MDF distances to a set of prototype streamlines chosen by farthest-first traversal (Olivetti dissimilarity projection), clusters the embedding with MiniBatch K-Means and selects a real streamline (medoid) per cluster. Use it to compress a very large tractogram into a representative set of streamlines. A reference image is needed to write the output with the right spatial header.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "machine-learning",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69cc37e434e13335188cb201",
+    "github": "gamorosino/app-tract-mbkm-cluster",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram in .tck format.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reference anatomical image defining the tractogram's space, used for format conversion and headers.",
+      "config_keys": [
+        "reference"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_medoids",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Tractogram with one medoid (representative real streamline) per cluster."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_clusters",
+      "type": "number",
+      "description": "Number of MiniBatch K-Means clusters, i.e. the number of medoid streamlines in the output.",
+      "default": 1000
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "Number of parallel jobs; -1 uses all available cores.",
+      "default": -1,
+      "advanced": true
+    },
+    {
+      "id": "max_num_streamlines",
+      "type": "number",
+      "description": "Randomly subsample the input tractogram to a fixed number of streamlines. This is useful for debugging and reducing runtime on large datasets. Note that subsampling may affect clustering quality and reproducibility.",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 5,
+      "memory_gb": 62
+    }
+  },
+  "doi": "10.25663/brainlife.app.916",
+  "license": "BSD-3-Clause",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "scikit-learn"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1109/prni.2012.13",
+      "text": "Olivetti E, Nguyen TB, Garyfallidis E. The approximation of the dissimilarity projection. PRNI (2012)."
+    },
+    {
+      "doi": "10.1109/prni.2013.20",
+      "text": "Olivetti E, Nguyen TB, Garyfallidis E, Agarwal N, Avesani P. Fast clustering for interactive tractography segmentation. PRNI (2013)."
+    },
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. DIPY, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "text": "Sculley D. Web-scale k-means clustering. WWW (2010)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication - DEPRECATED",
+  "version": "master",
+  "summary": "This application is a port of the NODDI Cortex Mapping code (https://github.com/RIKEN-BCIL/NoddiSurfaceMapping) developed by Fukutomi et al.",
+  "description": "This application is a port of the NODDI Cortex Mapping code (https://github.com/RIKEN-BCIL/NoddiSurfaceMapping) developed by Fukutomi et al. The description of methodologies can be found in their 2018 Neuroimage paper (https://www.sciencedirect.com/science/article/pii/S1053811918301058?via%3Dihub). \n\nIf used, please cite:\nFukutomi, H., Glasser, M.F., Zhang, H., Audio, J.A., Coalson, T.S., Okada, T., Togashi, K., Van Essen, D.C., Hayashi, T., 2018. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. Neuroimage.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e8109c5dd840ee057e930dc",
+    "github": "brainlife/app-hcp-cortex-mapping-replication",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "postfreesurfer",
+      "datatype": "neuro/hcp/freesurferpost",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "postfreesurfer"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dir",
+        "icvf",
+        "isovf",
+        "od"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "hcp-cortexmap-derivatives"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.293",
+  "deprecated_by": "5f6cc1836bbee392069a19a6"
+}

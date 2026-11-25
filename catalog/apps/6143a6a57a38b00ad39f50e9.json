@@ -1,0 +1,153 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Connectivity Gradients",
+  "version": "main",
+  "summary": "Computes functional connectivity gradients from left and right surface fMRI time series with BrainSpace, using Schaefer-1000 parcel correlations, and outputs the gradients as surface maps.",
+  "description": "Averages the surface time series within the Schaefer 2018 1000-parcel atlas (fsaverage or HCP 32k space), optionally regresses confounds with nilearn, computes a parcel correlation matrix (optionally thresholded per row) and fits BrainSpace GradientMaps with the chosen approach and kernel. Use it to derive the principal gradients of cortical functional organisation. Input surfaces must be in fsaverage, fsaverage5/6 or HCP 32k space.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "connectomics",
+    "surface-analysis",
+    "nilearn",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6143a6a57a38b00ad39f50e9",
+    "github": "anibalsolon/app-connectivity-gradient",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right hemisphere surface fMRI time series (GIfTI) in fsaverage or HCP 32k space.",
+      "config_keys": [
+        "left",
+        "right",
+        "label"
+      ]
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional confounds table (TSV) regressed from the time series before computing connectivity.",
+      "config_keys": [
+        "confounds",
+        "json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "gradients",
+      "datatype": "neuro/surface/gradient",
+      "datatype_tags": [],
+      "description": "Gradient maps for the left and right hemispheres (GIfTI, one data array per component)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "approach",
+      "type": "enum",
+      "description": "Dimensionality-reduction method used by BrainSpace: diffusion maps, Laplacian eigenmaps or PCA.",
+      "default": "diffusion-maps",
+      "options": [
+        {
+          "value": "diffusion-maps",
+          "label": "diffusion-maps"
+        },
+        {
+          "value": "laplacian-eigenmaps",
+          "label": "laplacian-eigenmaps"
+        },
+        {
+          "value": "pca-maps",
+          "label": "pca-maps"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "kernel",
+      "type": "enum",
+      "description": "Affinity kernel applied to the connectivity matrix before the embedding.",
+      "default": "normalized-angle",
+      "options": [
+        {
+          "value": "pearson",
+          "label": "pearson"
+        },
+        {
+          "value": "spearman",
+          "label": "spearman"
+        },
+        {
+          "value": "normalized-angle",
+          "label": "normalized-angle"
+        },
+        {
+          "value": "cosine",
+          "label": "cosine"
+        },
+        {
+          "value": "gaussian",
+          "label": "gaussian"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "n_components",
+      "type": "number",
+      "description": "Number of gradients to compute.",
+      "default": 2,
+      "minimum": 1,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "random_state",
+      "type": "number",
+      "description": "Random seed for the embedding.",
+      "default": 0,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Row-wise percentile (0-1) below which correlations are set to zero; 0 keeps the full matrix.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/app-connectivity-gradient",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.574",
+  "software": [
+    {
+      "name": "BrainSpace"
+    },
+    {
+      "name": "nilearn"
+    },
+    {
+      "name": "nibabel"
+    }
+  ]
+}

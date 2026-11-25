@@ -1,0 +1,43 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Connectome Evaluator ",
+  "version": "master",
+  "summary": "Estimate the quality of your diffusion-weighted data to map human connectomes.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "quality-check"
+  ],
+  "registry": {
+    "id": "59559aafd9f0e20021415cb6",
+    "github": "brainlife/app-connectome-evaluator",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "life",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "input_fe"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/conneval",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/bl.app.102",
+  "deprecated_by": "5baa44b1d0be8b002776b8f7"
+}

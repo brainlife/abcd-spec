@@ -1,0 +1,113 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segmentation with Median Otsu ",
+  "version": "1.1.1",
+  "summary": "Computes a brain mask from DWI with the DIPY median_otsu method and outputs the masked DWI and the mask.",
+  "description": "Runs dipy_median_otsu (DIPY 1.1.1) on a DWI: the selected volumes (vol_idx, default the first) are median-filtered and Otsu-thresholded to obtain a brain mask, which is then applied to the whole DWI. Use it for quick brain masking of diffusion data before model fitting or tractography. bvals and bvecs are copied unchanged to the output.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy",
+    "dwi",
+    "preprocessing",
+    "segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a5100c306b9e8003f1ee684",
+    "github": "dipy/bl_apps_dipy_median_otsu",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs.",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "masked"
+      ],
+      "description": "Masked DWI (dwi.nii.gz) with the original bvals and bvecs.",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "secondary",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "description": "Binary brain mask computed from the DWI (mask.nii.gz)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "median_radius",
+      "type": "number",
+      "description": "Radius (in voxels) of the applied median filter.",
+      "default": 2
+    },
+    {
+      "id": "numpass",
+      "type": "number",
+      "description": "The number of times to pass of the median filter.",
+      "default": 5
+    },
+    {
+      "id": "autocrop",
+      "type": "boolean",
+      "description": "Check this if you'd want to crop using the bounding box defined by the masked data. For example, if diffusion images are of 1x1x1 (mm^3) or higher resolution auto-cropping could reduce their size in memory and speed up some of the analysis.",
+      "default": false
+    },
+    {
+      "id": "vol_idx",
+      "type": "string",
+      "description": "1D array representing indices of the last dimension of a 4D 'input_volume', i.e., gradients. The input must be provided as \"0 1 2 3 4\".",
+      "default": "0"
+    },
+    {
+      "id": "dilate",
+      "type": "string",
+      "description": "The number of iterations for binary dilation.",
+      "default": "null"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.70",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

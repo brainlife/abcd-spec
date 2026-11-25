@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of FLAIR",
+  "version": "master-app-v1.0.0",
+  "summary": "Generates a PNG of mid-axial, sagittal and coronal slices of a FLAIR image with FSL slicer, for quick visual quality control.",
+  "description": "Runs FSL slicer -a on the input FLAIR image and writes raw/out.png. When the volume parameter is set, fslselectvols first extracts that volume from a 4D image; otherwise slicer renders the image as given. Use it for quick visual QA or for figures; it does not modify the data.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "fsl",
+    "anatomy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "635ab24ffa262bbde2c74054",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "master-app-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/anat/flair",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FLAIR image (anat/flair datatype).",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "flair"
+      ],
+      "description": "Directory with out.png, a mid-axial, sagittal and coronal slice montage of the FLAIR image.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "volume",
+      "type": "string",
+      "description": "Index of the volume to render from a 4D image (passed to fslselectvols --vols). Leave empty to render the image as given.",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.689",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

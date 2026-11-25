@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Little Test",
+  "version": "master",
+  "summary": "Test App from a brain imaging course that resamples an ACPC-aligned T1-weighted image to a requested voxel resolution with DIPY reslice.",
+  "description": "Course exercise forked from the brainlife Python App template. It reslices the T1w image to the outres voxel size with dipy.align.reslice and writes t1.nii.gz. Not intended for production use.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "dipy",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "5fa47f87e138ec5bfa4ea73d",
+    "github": "sunaguo/brainlife-app-test",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "in001",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This t1w data will be resampled with the input \"outres\" resolution.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "The resampled t1w file."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "outres",
+      "type": "string",
+      "description": "Desired out resolution of the t1w data. 3 integers/flow point numbers in millimeters.",
+      "default": "1 1 1",
+      "placeholder": "1 1 1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.446",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ]
+}

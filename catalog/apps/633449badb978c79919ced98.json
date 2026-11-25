@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-ICA-plot ",
+  "version": "master",
+  "summary": "Plots the topographies of the components of an MNE-Python ICA solution (ica.plot_components) as a PNG image.",
+  "description": "Visualisation utility that reads an MNE ICA object (.fif) and saves the scalp topography plot of its components, also shown in the brainlife product. Use it to inspect ICA components before choosing which to reject. Despite the README, it does not detect ECG components.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "visualization",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "633449badb978c79919ced98",
+    "github": "zahransa/app-ICA-plot",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "ica",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Fitted ICA solution in MNE format (-ica.fif).",
+      "config_keys": [
+        "ica"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "ica.png with the component topographies."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.676",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Saeed Zahran"
+  ]
+}

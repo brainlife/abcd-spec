@@ -1,0 +1,326 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "QSIPrep - Preprocessing workflow",
+  "version": "0.15.3",
+  "summary": "Preprocesses DWI with QSIPrep 0.15.3 (denoising, head motion and eddy correction, susceptibility distortion correction, coregistration to the T1w) and outputs the preprocessed DWI, T1w, brain mask, tissue segmentation and HTML report.",
+  "description": "Converts the inputs to BIDS and runs the QSIPrep preprocessing workflow only (no reconstruction), with denoising, unringing and head-motion transform as chosen, resampling the DWI to the requested isotropic resolution in T1w (ACPC) space. Use it as a complete diffusion preprocessing pipeline when you have a T1w image and one or two DWI runs; a second DWI must have the opposite phase-encoding direction, and fieldmaps are used when provided. Needs a FreeSurfer license (used by QSIPrep).",
+  "kind": "native",
+  "topics": [
+    "pipeline",
+    "preprocessing",
+    "dwi",
+    "denoising",
+    "registration",
+    "qsiprep",
+    "bids",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5dc1c2e57f55b85a93bd3021",
+    "github": "brainlife/app-qsiprep",
+    "branch": "0.15.3"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!qsiprep"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 anatomical image.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!qsiprep",
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "DWI volume(s). If you input a second DWI, be sure that it has an opposite Phase Encoding Direction than the first DWI. At the moment, no more than 2 DWIs can be selected.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "fieldmap",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude_json",
+        "magnitude1",
+        "magnitude1_json",
+        "magnitude2",
+        "magnitude2_json",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "qsiprep",
+        "preprocessed"
+      ],
+      "description": "Preprocessed DWI in T1w space with bvals and bvecs (FSL-style unless xflip is set).",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "output_anat_preproc",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "qsiprep",
+        "preprocessed"
+      ],
+      "description": "Preprocessed T1w image (in MNI152NLin2009cAsym space if selected).",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "output_dseg",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "QSIPrep tissue segmentation (dseg) as a volume parcellation."
+    },
+    {
+      "id": "output_brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat",
+        "qsiprep"
+      ],
+      "description": "Brain mask from the anatomical workflow."
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "QSIPrep HTML report with figures."
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "qsiprep"
+      ],
+      "description": "Per-volume confounds table (regressors.tsv) from QSIPrep."
+    },
+    {
+      "id": "dwiqc",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dwiqc"
+      ],
+      "description": "raw directory containing dwi QC reports in dwiqc.json"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "output_resolution",
+      "type": "number",
+      "description": "The isotropic voxel size in mm the data will be resampled to after preprocessing. NOTE: only dwi data will be resampled.",
+      "default": 1.2,
+      "required": true
+    },
+    {
+      "id": "output_space",
+      "type": "enum",
+      "description": "Volume and surface spaces to resample dwis into. NOTE: If selecting T1w, the preprocessed T1w image defines the T1w space, not the native T1.  Reconstructed surfaces will be registered to the T1w space (ACPC), and not to the input images. WARNING: If selecting template, dwis will be still resampled to the T1w space (and not to the template).",
+      "default": "T1w",
+      "options": [
+        {
+          "value": "T1w",
+          "label": "T1w",
+          "description": "subject anatomical volume"
+        },
+        {
+          "value": "MNI152NLin2009cAsym",
+          "label": "template",
+          "description": "MNI space"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through qsiprep anyway.",
+      "default": false
+    },
+    {
+      "id": "denoise_method",
+      "type": "enum",
+      "description": "Image-based denoising method.",
+      "default": "dwidenoise",
+      "options": [
+        {
+          "value": "dwidenoise",
+          "label": "dwidenoise",
+          "description": "\u201cdwidenoise\u201d (MRtrix)"
+        },
+        {
+          "value": "patch2self",
+          "label": "patch2self",
+          "description": "\u201cpatch2self\u201d (DIPY)"
+        },
+        {
+          "value": "none",
+          "label": "none",
+          "description": "none"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "distortion_group_merge",
+      "type": "enum",
+      "description": "How to combine images across distorted groups (only in case of multi dwi inputs).  (at the moment only 'none' can be run).",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "Default. Keep distorted groups separate."
+        },
+        {
+          "value": "average",
+          "label": "average",
+          "description": "Average the corrected images of the same q-space coordinate."
+        },
+        {
+          "value": "concat",
+          "label": "concat",
+          "description": "Append images in the 4th dimension."
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "unringing_method",
+      "type": "enum",
+      "description": "Method for Gibbs-ringing removal.",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "no action"
+        },
+        {
+          "value": "mrdegibbs",
+          "label": "mrdegibbs",
+          "description": "use mrdegibbs from mrtrix3"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "hmc_transform",
+      "type": "enum",
+      "description": "Transformation to be optimized during head motion correction.",
+      "default": "Affine",
+      "options": [
+        {
+          "value": "Affine",
+          "label": "Affine"
+        },
+        {
+          "value": "Rigid",
+          "label": "Rigid"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "infant",
+      "type": "boolean",
+      "description": "Configure pipelines to process infant brains.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "syn_sdc",
+      "type": "boolean",
+      "description": "EXPERIMENTAL:  Use fieldmap-free distortion correction.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "force_syn",
+      "type": "boolean",
+      "description": "EXPERIMENTAL/TEMPORARY:  Use SyN correction in addition to fieldmap correction, if available.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "xflip",
+      "type": "boolean",
+      "description": "Save output bvecs in MRtrix-style. If false (default), bvecs will be saved in FSL-style and will be compatible with DIPY and DSI Studio.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "pennbbl/qsiprep:0.15.3",
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.246",
+  "software": [
+    {
+      "name": "QSIPrep",
+      "version": "0.15.3",
+      "url": "https://qsiprep.readthedocs.io"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1101/2020.09.04.282269",
+      "text": "Cieslak M. et al. QSIPrep: An integrative platform for preprocessing and reconstructing diffusion MRI. bioRxiv 2020.09.04.282269."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

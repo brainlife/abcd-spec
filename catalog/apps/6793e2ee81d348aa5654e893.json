@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EEGPrep",
+  "version": "0.2.22",
+  "summary": "Preprocesses an EEGLAB .set EEG dataset with EEGPrep 0.2.22, a Python port of the EEGLAB pipeline: clean_rawdata artifact rejection (ASR), Picard ICA and ICLabel component classification.",
+  "description": "Loads the EEGLAB dataset, runs clean_artifacts (flatline, channel, line-noise and burst/ASR criteria with fixed settings), decomposes the data with Picard ICA, labels components with ICLabel, and saves the result as an EEGLAB .set file. Use it for automated EEG cleaning that mirrors EEGLAB defaults. Note that at this tag main.py loads config.json.example instead of config.json and the BurstCriterion parameter is not read (burst criterion is hard-coded to 20).",
+  "kind": "native",
+  "topics": [
+    "asr",
+    "cleaner",
+    "eeg",
+    "eeglab",
+    "filtering",
+    "ica",
+    "iclabel",
+    "meeg",
+    "preprocessing",
+    "denoising",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6793e2ee81d348aa5654e893",
+    "github": "sccn/eegprep",
+    "branch": "0.2.22"
+  },
+  "inputs": [
+    {
+      "id": "set",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "EEG dataset in EEGLAB .set format.",
+      "config_keys": [
+        "set"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "results",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "description": "Cleaned EEGLAB dataset (<name>_out.set) with ICA decomposition and ICLabel classifications."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "BurstCriterion",
+      "type": "number",
+      "description": "EGPrep is an automated preprocessing tool for human EEG data built on the validated EEGLAB pipeline, here implemented in Python. It applies clean_rawdata for artifact rejection and ICLabel to identify artifactual muscle components. This pipeline was reported to outperform all other pipelines evaluated in MNE, FieldTrip and Brainstorm, as shown in Figure 5 of https://www.nature.com/articles/s41598-023-27528-0.",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "arnodelorme/eegprep:0.2.22",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.845",
+  "software": [
+    {
+      "name": "EEGPrep",
+      "version": "0.2.22",
+      "url": "https://github.com/sccn/eegprep"
+    }
+  ],
+  "maintainers": [
+    "Dung Truong",
+    "Arnaud Delorme"
+  ]
+}

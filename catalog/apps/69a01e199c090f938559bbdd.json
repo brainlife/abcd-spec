@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-detect-bad-channels-eeg-v2",
+  "version": "working_ver",
+  "summary": "Detects bad EEG channels in epoched data from baseline variance (MAD z-score, dead and flat channels) with MNE-Python and marks them in info['bads'] without interpolation.",
+  "description": "Designed to run before ICA: variance is computed in the pre-stimulus window to avoid flagging channels with strong evoked responses. Channels are flagged if their MAD z-score exceeds z_thresh, their variance is under 1/100 of the median, or they are flat in over half of the epochs; extra channels can be added by name. Epochs are saved unchanged except for the bads list; interpolate after ICA.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "mne-python",
+    "preprocessing",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "69a01e199c090f938559bbdd",
+    "github": "obVdo/app-detect-bad-channels-eeg-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched EEG data (MNE -epo.fif).",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "The same epochs with detected bad channels listed in info['bads']."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "z_thresh",
+      "type": "number",
+      "description": "MAD z-score threshold. Channels flagged if variance deviates more than this many robust SDs from median",
+      "default": 5
+    },
+    {
+      "id": "extra_bads",
+      "type": "string",
+      "description": "Comma-separated channel names to mark bad in addition to those detected.",
+      "default": "",
+      "required": false,
+      "placeholder": "Comma-separated channel names to force-mark bad (e.g. E1,E2)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.897",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2",
+      "url": "https://mne.tools"
+    }
+  ]
+}

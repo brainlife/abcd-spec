@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Shape Signature",
+  "version": "1.0",
+  "summary": "Computes a 128-value shape signature for each tract mask using the flatten layer of a TensorFlow 3D CNN trained to classify TractSeg bundles, and writes them to signature.json.",
+  "description": "Crops each tract mask to its bounding box, resizes it to 64x64x64 and passes it through a Keras 3D convolutional network trained on TractSeg outputs of about 100 subjects, keeping the 128-element flatten layer output as a numerical descriptor of the tract shape. Use it to obtain feature vectors for comparing or clustering tract shapes. Resizing stretches each mask to the box independently along each axis, so absolute size is not preserved.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "machine-learning",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c37b38f836af601cc8587af",
+    "github": "soichih/app-shapesignature",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of binary tract masks (NIfTI), for example TractSeg bundle masks.",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "shape_signature"
+      ],
+      "description": "signature.json mapping each mask file name to its 128 flatten-layer values."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/tensorflow:1.12.0",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.141",
+  "software": [
+    {
+      "name": "TensorFlow",
+      "version": "1.12.0"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "scikit-image"
+    }
+  ],
+  "maintainers": [
+    "Soichi Hayashi"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Anatomy Segmentation",
+  "version": "3.9",
+  "summary": "Segments major white matter tracts from a whole-brain tractogram using the FreeSurfer Destrieux parcellation and anatomical rules in MATLAB wma_tools, and outputs a white matter classification.",
+  "description": "An automated segmentation of major white matter tracts from an input whole brain tractography.  Utilizes a WMQL-like approach (https://tract-querier.readthedocs.io/en/latest/) to segment streamlines, as documented in Bullock et al. 2019 (https://doi.org/10.1007/s00429-019-01907-8).  Makes extensive use of the wma tools library (https://github.com/DanNBullock/wma_tools).",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "tract-segmentation",
+    "vistasoft"
+  ],
+  "registry": {
+    "id": "5cc73ef44ed9df00317f6288",
+    "github": "brainlife/app-wmaSeg",
+    "branch": "3.9"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory; aparc.a2009s+aseg (Destrieux) is converted to NIfTI and used as the anatomical atlas.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "tracks",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck).",
+      "config_keys": [
+        "track"
+      ],
+      "requirements": "Must be in the same space as the FreeSurfer anatomy."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification (classification.mat with tract names and per-streamline index), tract JSON files and cortical surfaces for visualisation."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 12
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.188",
+  "software": [
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1007/s00429-019-01907-8",
+      "text": "Bullock D, Takemura H, Caiafa CF, et al. Associative white matter connecting the dorsal and ventral posterior human cortex. Brain Structure and Function 224(8):2631-2660 (2019)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license available in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable (provided automatically on brainlife.io)."
+    },
+    {
+      "message": "output missing",
+      "cause": "The MATLAB segmentation did not write classification/classification.mat.",
+      "fix": "Check the logs; make sure the tractogram and FreeSurfer output are from the same subject and space."
+    }
+  ]
+}

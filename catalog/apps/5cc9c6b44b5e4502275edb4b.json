@@ -1,0 +1,109 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractography quality check",
+  "version": "1.4",
+  "summary": "Computes quality-control statistics and a summary figure for a whole-brain tractogram and its white matter classification (streamline count, volume, length distribution, per-tract measures) with the MATLAB wma_tools toolkit.",
+  "description": "A quality check application for tractography, and segmentatations.  For the whole brain tractogram, provides a number of statistics associated with average streamline characteristics (i.e. count, volume occupied, avg length, length distribution).  Does the same for the positively weighted streamlines of an FE structure if input.  If a classification structure is input, provides a number of macrostructural statistics like stream count, volume, avg length, whole brain count/volume proportion, etc).",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "quality-control",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc9c6b44b5e4502275edb4b",
+    "github": "brainlife/app-tractographyQualityCheck",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "wbfg",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole brain tractography.  A tractome which covers the entire white matter.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A white matter classification structure which corresponds to the input whole brain tractography entered as a track/tck.",
+      "config_keys": [
+        "classification",
+        "tracts"
+      ],
+      "requirements": "classification.index must have one entry per streamline of the tractogram, otherwise the App stops with a mismatch error."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "image",
+      "datatype": "generic/image/svg",
+      "datatype_tags": [],
+      "description": "SVG figure summarising whole-brain statistics, streamline length distributions and per-tract count and volume proportions.",
+      "datatype_tags_pass": "classification"
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tractography_quantification",
+        "tract_measures"
+      ],
+      "description": "MATLAB results structure (tractomeResultStruc.mat) with all computed whole-brain and per-tract statistics.",
+      "datatype_tags_pass": "classification"
+    },
+    {
+      "id": "resultsSummary",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "macro"
+      ],
+      "description": "tractmeasures.csv with one row for the whole-brain tractogram and one per classified tract: streamline count, volume, length mean/stdev, displacement, endpoint and midpoint statistics and proportions of the whole brain.",
+      "datatype_tags_pass": "classification"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18,
+      "memory_gb": 28
+    }
+  },
+  "doi": "10.25663/brainlife.app.189",
+  "software": [
+    {
+      "name": "wma_tools"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mismatch between classification structure and input fibergroup",
+      "cause": "The classification was made from a different tractogram (different streamline count).",
+      "fix": "Use the classification generated from this exact tractogram."
+    }
+  ]
+}

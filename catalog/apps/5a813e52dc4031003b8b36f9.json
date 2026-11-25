@@ -1,0 +1,346 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "mrtrix3 preprocess",
+  "version": "1.8",
+  "summary": "Preprocesses raw DWI with MRtrix3 3.0.2 following the DESIGNER-style order (PCA denoising, Gibbs ringing removal, FSL topup/eddy, bias correction, Rician noise removal, optional normalisation) and aligns it to a T1w image with epi_reg.",
+  "description": "Converts the DWI (and optional reverse phase-encoded DWI) to MRtrix format, optionally checks gradient orientation, runs dwidenoise, mrdegibbs, dwifslpreproc (eddy, with topup when reverse phase-encoded data are given), dwibiascorrect (ANTs or FSL), Rician noise removal and dwinormalise as selected, then aligns the data and gradients to the brain-extracted T1w with FSL epi_reg and optionally reslices to an isotropic voxel size. Use it to turn converted raw DWI into analysis-ready data for tensor, NODDI or tractography Apps. Needs a raw (not preprocessed) DWI and a T1w of the same subject, ideally ACPC aligned; topup with both phase-encoding directions can take many hours.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "mri",
+    "tractography",
+    "dwi",
+    "preprocessing",
+    "denoising",
+    "registration",
+    "mrtrix3",
+    "fsl",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a813e52dc4031003b8b36f9",
+    "github": "brainlife/app-mrtrix3-preproc",
+    "branch": "1.8"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "the t1w image to align the input dwi image",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The dwi image to preprocess",
+      "config_keys": [
+        "bvec",
+        "bval",
+        "diff"
+      ]
+    },
+    {
+      "id": "reverse",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "optional reverse encoding data set",
+      "config_keys": [
+        "rbvc",
+        "rbvl",
+        "rdif"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "Preprocessed DWI aligned to the T1w (anatomical) space, with rotated bvecs and bvals.",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "eddyqc",
+      "datatype": "raw",
+      "datatype_tags": [
+        "eddyqc"
+      ],
+      "description": "QC output from eddy. Please see quad/qc.pdf file for summary"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "acqd",
+      "type": "enum",
+      "description": "provide the encoding direction used for the dwi data for the preprocessing steps below",
+      "default": "AP",
+      "options": [
+        {
+          "value": "PA",
+          "label": "Posterior -> Anterior (+y)"
+        },
+        {
+          "value": "RL",
+          "label": "Right -> Left (+x)"
+        },
+        {
+          "value": "IS",
+          "label": "Inferior -> Superior (+z)"
+        },
+        {
+          "value": "AP",
+          "label": " anterior -> posterior (-y)"
+        },
+        {
+          "value": "LR",
+          "label": "Left > Right (-x)"
+        },
+        {
+          "value": "SI",
+          "label": "Inferior -> Superior (-z)"
+        }
+      ]
+    },
+    {
+      "id": "dwigradcheck",
+      "type": "boolean",
+      "description": "Check dwi gradient orientation. The default value is 'true', but sometimes with low data quality or low voxel resolution, this process may fail. If that's the case, you may want to set this value as 'false'.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "denoise",
+      "type": "boolean",
+      "description": "Perform PCA denoising on the input data",
+      "default": true
+    },
+    {
+      "id": "degibbs",
+      "type": "boolean",
+      "description": "Perform correction on Gibbs ringing artifact",
+      "default": true
+    },
+    {
+      "id": "eddy",
+      "type": "boolean",
+      "description": "Perform motion and eddy current correction with FSL",
+      "default": true
+    },
+    {
+      "id": "bias",
+      "type": "boolean",
+      "description": "Perform bias correction with ANTs N4",
+      "default": true
+    },
+    {
+      "id": "ricn",
+      "type": "boolean",
+      "description": "Remove Rician background noise",
+      "default": true
+    },
+    {
+      "id": "norm",
+      "type": "boolean",
+      "description": "Perform mode value intensity normalization in white matter",
+      "default": false
+    },
+    {
+      "id": "nval",
+      "type": "number",
+      "description": "The value to which the mode value intensity normalization will normalize the white matter intensity.",
+      "default": 1000,
+      "minimum": 100,
+      "maximum": 50000
+    },
+    {
+      "id": "acpc",
+      "type": "boolean",
+      "description": "Align dwi data and gradients to anatomical (t1w) input using BBR in FSL",
+      "default": true
+    },
+    {
+      "id": "reslice",
+      "type": "string",
+      "description": "The final isotropic voxel dimension in mm of the processed dwi data",
+      "default": "",
+      "required": false,
+      "placeholder": "leave empty to use the native diffusion resolution"
+    },
+    {
+      "id": "eddy_data_is_shelled",
+      "type": "boolean",
+      "description": "Do not check that data is shelled",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "eddy_slm",
+      "type": "enum",
+      "description": "\"Second level model\" that specifies the mathematical form for how the diffusion gradients cause eddy currents. For high quality data with 60 directions, or more, sampled on the whole sphere we have not found any advantage of performing second level modelling. Hence our recommendation for such data is to use none, and that is also the default.\n\nIf the data has quite few directions and/or is has not been sampled on the whole sphere it can be advantageous to specify --slm=linear.",
+      "default": "linear",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "default for eddy"
+        },
+        {
+          "value": "linear",
+          "label": "linear",
+          "description": "default for BL"
+        },
+        {
+          "value": "quadratic",
+          "label": "quadratic"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "eddy_niter",
+      "type": "number",
+      "description": "eddy does not check for convergence. Instead it runs a fixed number of iterations given by --niter. This is not unusual for registration algorithms where each iteration is expensive (i.e. takes long time). Instead we run it for a fixed number of iterations, 5 as default.\n\nIf, on visual inspection, one finds residual movement or EC-induced distortions it is possible that eddy has not fully converged. In that case we primarily recommend that one uses --fwhm=10,0,0,0,0, as described above, to speed up convergence. Only if that fails do we recommend increasing the number of iterations.",
+      "default": 5,
+      "minimum": 0,
+      "maximum": 10,
+      "advanced": true
+    },
+    {
+      "id": "eddy_repol",
+      "type": "boolean",
+      "description": "Remove any slices deemed as outliers and replace them with predictions made by the Gaussian Process. Exactly what constitutes an outlier is affected by the parameters --ol_nstd, --ol_nvox, --ol_type, --ol_pos and --ol_sqr. If the defaults are used for all those parameters an outlier is defined as a slice whose average intensity is at least four standard deviations lower than the expected intensity, where the expectation is given by the Gaussian Process prediction.  The default is to not do outlier replacement since we don't want to risk people using it \"unawares\". However, our experience and tests indicate that it is always a good idea to use --repol.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "eddy_mporder",
+      "type": "number",
+      "description": "If one wants to do slice-to-vol motion correction --mporder should be set to an integer value greater than 0 and less than the number of excitations in a volume. (The timing of acquisition of each slice must be known in order to perform slice-to-volume correction. This is provided to eddy via eddy_slspec option). Only when --mporder > 0 will any of the parameters prefixed by --s2v_ be considered. The larger the value of --mporder, the more degrees of freedom for modelling movement. If --mporder is set to N-1, where N is the number of excitations in a volume, the location of each slice/MB-group is individually estimated. We don't recommend going that high and in our tests we have used values of N/4 -- N/2. The underlying temporal model of movement is a DCT basis-set of order N.\n\nSlice-to-vol motion correction is computationally very expensive so it is only implemented for the CUDA version.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 10,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "eddy_slspec",
+      "type": "string",
+      "description": "Specifies a text-file that describes how the slices/MB-groups were acquired. This information is necessary for eddy to know how a temporally continuous movement translates into location of individual slices/MB-groups. Let us say a given acquisition has N slices and that m is the MB-factor (also known as Simultaneous Multi-Slice (SMS)). Then the file pointed to be --slspec will have N/m rows and m columns. Let us for example assume that we have a data-set which has been acquired with an MB-factor of 3, 15 slices and interleaved slice order. The file would then be\n\n0 5 10\n2 7 12\n4 9 14\n1 6 11\n3 8 13\nwhere the first row \"0 5 10\" specifies that the first, sixth and 11th slice are acquired first and together, followed by the third, eighth and 13th slice etc. For single-band data and for multi-band data with an odd number of excitations/MB-groups it is trivial to work out the --slspec file using the logic of the example. For an even number of excitations/MB-groups it is considerably more difficult and we recommend using a DICOM->niftii converter that writes the exact slice timings into a .JSON file. This can then be used to create the --slspec file.",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "multiline": true,
+      "placeholder": "(leave it empty to not set)"
+    },
+    {
+      "id": "dilate_mask",
+      "type": "boolean",
+      "description": "Apply dilate maskfilter on b0 whole brain mask",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "round_bvals",
+      "type": "boolean",
+      "description": "If you are seeing this error message \"dwipreproc: [ERROR] Unable to determine matching reversed phase-encode direction volume for DWI volume 1\". You might be able to work around it by rounding your bvals to the nearest 50s.",
+      "default": false
+    },
+    {
+      "id": "topup_lambda",
+      "type": "string",
+      "description": "Replace lambda value in topup",
+      "default": "0.005,0.001,0.0001,0.000015,0.000005,0.0000005,0.00000005,0.0000000005,0.00000000001",
+      "advanced": true
+    },
+    {
+      "id": "bias_method",
+      "type": "enum",
+      "description": "Select bias correction algorithm.",
+      "default": "ants",
+      "options": [
+        {
+          "value": "ants",
+          "label": "ANTs",
+          "description": "use ANTs N4 algorithm"
+        },
+        {
+          "value": "fsl",
+          "label": "FSL",
+          "description": "use FSL FAST algorithm"
+        }
+      ]
+    },
+    {
+      "id": "antsb",
+      "type": "string",
+      "description": "Advanced option for ANTs N4 bias field removal.",
+      "default": "[150,3]",
+      "advanced": true
+    },
+    {
+      "id": "antsc",
+      "type": "string",
+      "description": "Advanced option for ANTs N4 bias field removal.",
+      "default": "[200x200,1e-6]",
+      "advanced": true
+    },
+    {
+      "id": "antss",
+      "type": "string",
+      "description": "Advanced option for ANTs N4 bias field removal.",
+      "default": "2",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 19
+    }
+  },
+  "doi": "10.25663/bl.app.68",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.2"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "ANTs"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier J.D. et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.066",
+      "text": "Ades-Aron B. et al. Evaluation of the accuracy and precision of the diffusion parameter EStImation with Gibbs and NoisE removal pipeline. NeuroImage 183:532-543 (2018)."
+    }
+  ]
+}

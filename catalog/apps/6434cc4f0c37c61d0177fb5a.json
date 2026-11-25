@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment whole-brain tractogram by Eccentricity - Parcellation",
+  "version": "mrtrix3-wbfg-v1.0",
+  "summary": "Segments a whole-brain tractogram into streamlines that connect a parcellation's labels (eccentricity parcels) with MRtrix3 tck2connectome and connectome2tck, and outputs the merged tractogram.",
+  "description": "Assigns every streamline to the parcels at its two endpoints with tck2connectome, extracts streamlines per parcel with connectome2tck and concatenates them into one .tck. With both_endpoints set, only streamlines whose two endpoints fall in the same parcel are kept. The parcellation must be in the same space as the tractogram.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "6434cc4f0c37c61d0177fb5a",
+    "github": "brainlife/app-eccentricity-classification",
+    "branch": "mrtrix3-wbfg-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck).",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation of eccentricity bins whose labels define the segmentation.",
+      "config_keys": [
+        "parcellations",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "Tractogram (.tck) of the streamlines assigned to the parcellation's labels.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "both_endpoints",
+      "type": "boolean",
+      "description": "If true, keep only streamlines whose two endpoints fall in the same parcel.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.760",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0",
+      "url": "https://www.mrtrix.org/"
+    }
+  ]
+}

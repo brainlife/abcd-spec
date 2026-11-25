@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove Tract Outliers",
+  "version": "1.3",
+  "summary": "This is a brainlife.io wrapper app for mbaComputeFibersOutliers algorithm. It takes an existing tract classification and prune classified fibers that are unlike other fibers within the same tract.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5c59dc65464fde003639ebb2",
+    "github": "brainlife/app-removeTractOutliers",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "wbfg",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "cleaned"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "centroidSD",
+      "type": "number",
+      "description": "Cut streamlines which are this many standard deviations away from the tract centroid.",
+      "default": 4,
+      "minimum": 1,
+      "placeholder": "4"
+    },
+    {
+      "id": "lengthSD",
+      "type": "number",
+      "description": "Cut streamlines which are this many standard deviations away from the tract average streamline length.",
+      "default": 4,
+      "minimum": 1,
+      "placeholder": "4"
+    },
+    {
+      "id": "maxIter",
+      "type": "number",
+      "description": "The maximum number of iterations to compute tract averages and apply a cut.",
+      "minimum": 1,
+      "placeholder": "5"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 31,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.157",
+  "deprecated_by": "5cc9eca04b5e4502275edba6"
+}

@@ -1,0 +1,160 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute forward model MEEG ",
+  "version": "main",
+  "summary": "Computes an MEG forward solution with MNE-Python from a raw recording, a head-MRI transform and a FreeSurfer subject, building an oct6 source space and a single-layer BEM.",
+  "description": "Sets up an oct6 source space and a single-layer (MEG) BEM model from the FreeSurfer subject supplied in the bem input, then runs mne.make_forward_solution with the raw file's sensor configuration and the head-MRI transform, saving fwd.fif and an (empty) HTML report. Use it before inverse modelling of MEG data. Only include_meg is read from the parameters; EEG is always excluded and mindist (5 mm) and n_jobs (1) are hard-coded, so the other parameters have no effect.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "source-localization",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "66aa17e7774d6f044d97f1e9",
+    "github": "AntonioCauAt/app-fw-solution",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bem1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "bem"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Directory holding a FreeSurfer subject named 'output' (used as subjects_dir) for the source space and BEM.",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "fif1",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw MEG recording in MNE .fif format providing the sensor configuration.",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "trans1",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [
+        "trans"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Head-to-MRI coregistration transform (-trans.fif), registered under the covariance datatype with the 'trans' tag.",
+      "config_keys": [
+        "cov"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [
+        "fwd"
+      ],
+      "description": "MEG forward solution (fwd.fif).",
+      "datatype_tags_pass": "fif1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "trans",
+      "type": "string",
+      "description": "If str, the path to the head<->MRI transform *-trans.fif file produced during coregistration. Can also be 'fsaverage' to use the built-in fsaverage transformation. If trans is None, an identity matrix is assumed.",
+      "default": "true",
+      "required": true
+    },
+    {
+      "id": "src",
+      "type": "string",
+      "description": "Either a path to a source space file or a loaded or generated SourceSpaces.",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "bem",
+      "type": "string",
+      "description": "Filename of the BEM (.fif) to use, or a loaded ConductorModel. See make_bem_model() and make_bem_solution() to create a mne.bem.ConductorModel.",
+      "default": ""
+    },
+    {
+      "id": "include_meg",
+      "type": "boolean",
+      "description": "Include MEG channels in the forward computation (the only parameter the code reads).",
+      "default": true
+    },
+    {
+      "id": "include_eeg",
+      "type": "boolean",
+      "description": "If True (default), include EEG computations.",
+      "default": true
+    },
+    {
+      "id": "mindist",
+      "type": "number",
+      "description": "Minimum distance of sources from inner skull surface (in mm).",
+      "default": 5,
+      "advanced": true
+    },
+    {
+      "id": "ignore_ref",
+      "type": "boolean",
+      "description": "If True, do not include reference channels in compensation. This option should be True for KIT files, since forward computation with reference channels is not currently supported.",
+      "default": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "The number of jobs to run in parallel. If -1, it is set to the number of CPU cores. Requires the joblib package. None (default) is a marker for \u2018unset\u2019 that will be interpreted as n_jobs=1 (sequential execution) unless the call is performed under a joblib.parallel_config context manager that sets another value for n_jobs.",
+      "default": 1,
+      "required": true
+    },
+    {
+      "id": "verbose",
+      "type": "boolean",
+      "description": "Control verbosity of the logging output. If None, use the default verbosity level. See the logging documentation and mne.verbose() for details. Should only be passed as a keyword argument.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.827",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, Luessi M, Larson E, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso",
+    "Antonio Caul\u00edn"
+  ]
+}

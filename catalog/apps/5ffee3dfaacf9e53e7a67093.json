@@ -1,0 +1,168 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "HCP Pipelines - Structural preprocessing",
+  "version": "v4.1.3",
+  "summary": "Runs the HCP Pipelines 4.1.3 structural preprocessing (PreFreeSurfer, FreeSurfer, PostFreeSurfer) on T1- and T2-weighted images with the HCP BIDS-App.",
+  "description": "Converts the inputs to BIDS and runs the HCP Pipelines BIDS-App (bids/hcppipelines:v4.1.3-1) for the chosen stages. Needs at least one T1w and one T2w image. If a FreeSurfer 6 output is given, the FreeSurfer stage is skipped; FreeSurfer 7 output is not supported.",
+  "kind": "native",
+  "topics": [
+    "pipeline",
+    "preprocessing",
+    "anatomy",
+    "freesurfer",
+    "surface-analysis",
+    "bids",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ffee3dfaacf9e53e7a67093",
+    "github": "brainlife/app-hcp-pipeline",
+    "branch": "v4.1.3"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1 image",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2 image",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!v7"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Freesurfer output. With this input, the FreeSurfer step will be skipped. WARNING: FreeSurfer 7.X is not currently supported due to poor quality surface reconstructions. Please provide a FreeSurfer 6.0 output. (NOTE: do not provide this input when using ABCD data)",
+      "config_keys": [
+        "fsin"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/hcp/freesurferpost",
+      "datatype_tags": [],
+      "description": "HCP structural preprocessing output folder (T1w, MNINonLinear and the FreeSurfer subject directory)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "stage",
+      "type": "string",
+      "description": "Which stages to run. Space separated list. (at the moment only the default [PreFreeSurfer FreeSurfer PostFreeSurfer] can be run). If you input a freesurfer folder, the FreeSurfer step will be skipped.",
+      "default": "PreFreeSurfer FreeSurfer PostFreeSurfer",
+      "readonly": true
+    },
+    {
+      "id": "processing_mode",
+      "type": "enum",
+      "description": "Control HCP-Pipeline mode. 'hcp' (HCPStyleData): require T2w and fieldmap modalities. 'legacy' (LegacyStyleData): always ignore T2w and fieldmaps. 'auto': use T2w and/or fieldmaps if available. (at the moment only 'legacy' can be run).",
+      "default": "legacy",
+      "options": [
+        {
+          "value": "hcp",
+          "label": "hcp",
+          "description": "(HCPStyleData): require T2w and fieldmap modalities"
+        },
+        {
+          "value": "legacy",
+          "label": "legacy",
+          "description": "(LegacyStyleData): always ignore T2w and fieldmaps"
+        },
+        {
+          "value": "auto",
+          "label": "auto",
+          "description": "use T2w and/or fieldmaps if available"
+        }
+      ]
+    },
+    {
+      "id": "notalcheck",
+      "type": "boolean",
+      "description": "If you are seeing \"ERROR: Talairach failed\", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis.",
+      "default": false
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through this App anyway.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "bids/hcppipelines:v4.1.3-1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 15
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.465",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "HCP Pipelines",
+      "version": "4.1.3",
+      "url": "https://github.com/Washington-University/HCPpipelines"
+    },
+    {
+      "name": "FreeSurfer",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    },
+    {
+      "name": "Connectome Workbench"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "text": "Glasser MF, Sotiropoulos SN, Wilson JA, et al. The minimal preprocessing pipelines for the Human Connectome Project. NeuroImage 80:105-124 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "app needs minimally a T1w and a T2w. exiting",
+      "cause": "T1w or T2w input missing.",
+      "fix": "Provide both a T1-weighted and a T2-weighted image."
+    },
+    {
+      "message": "ERROR: Talairach failed",
+      "cause": "FreeSurfer Talairach registration failed.",
+      "fix": "Set notalcheck to true."
+    }
+  ],
+  "maintainers": [
+    "Giulia Bert\u00f2",
+    "Soichi Hayashi"
+  ]
+}

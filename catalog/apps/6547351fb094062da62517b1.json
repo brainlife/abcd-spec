@@ -1,0 +1,106 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Temp apply warp peaks bundles",
+  "version": "v1.0",
+  "summary": "Resamples fibre peaks and tract masks into T1w space with FreeSurfer mri_vol2vol and warps them to MNI152 1mm space with an FSL nonlinear warp, using nearest-neighbour interpolation.",
+  "description": "Moves the peaks image and the tract mask volume to the T1w grid by header registration (mri_vol2vol), then applies the given warp with FSL applywarp to the MNI152 T1 1mm template, copying the mask labels. Use it to bring subject peaks and bundle masks into MNI space; the warp must map T1w space to MNI152. The App name marks it as temporary.",
+  "kind": "native",
+  "topics": [
+    "registration",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6547351fb094062da62517b1",
+    "github": "brainlife/app-apply-warp-to-peaks-bundles",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image whose grid is used as the intermediate space.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Nonlinear warp from T1w space to MNI152 (applied with FSL applywarp).",
+      "config_keys": [
+        "warp"
+      ]
+    },
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Fibre orientation peaks image to warp.",
+      "config_keys": [
+        "peaks"
+      ]
+    },
+    {
+      "id": "bundles",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract masks (mask.nii.gz with label.json) to warp.",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "mni"
+      ],
+      "description": "Tract masks in MNI152 1mm space with the original labels.",
+      "datatype_tags_pass": "bundles"
+    },
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [
+        "mni"
+      ],
+      "description": "Peaks image resampled to MNI152 1mm space."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 1.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.801",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ]
+}

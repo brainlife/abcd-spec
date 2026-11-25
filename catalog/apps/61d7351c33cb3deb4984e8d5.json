@@ -1,0 +1,105 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Participant Report",
+  "version": "main",
+  "summary": "Generates a participant-friendly HTML report with interactive viewers for a T1w image, FreeSurfer surfaces and parcellation, white matter tracts and BOLD thumbnails.",
+  "description": "Builds an HTML page section by section for whichever inputs are given: a Papaya viewer of the T1w, FreeSurfer T1, aparc+aseg and pial surfaces, a tract viewer for the wmc tracts and surfaces, and thumbnails of the BOLD series. Use it to share an easy-to-read summary of a participant's data. All inputs are optional; the FreeSurfer section needs a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "visualization",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61d7351c33cb3deb4984e8d5",
+    "github": "brainlife/app-participant-report",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fs",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "FreeSurfer output; T1, aparc+aseg and pial surfaces are shown in the report.",
+      "config_keys": [
+        "fs"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "White matter classification with tract and surface files, shown in an interactive tract viewer.",
+      "config_keys": [
+        "wmctracts",
+        "wmcsurfaces"
+      ]
+    },
+    {
+      "id": "task",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "fMRI time series; thumbnails are generated for the report.",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1-weighted image shown in an interactive volume viewer.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report (index.html) with embedded viewers and images."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 10,
+      "walltime_hours": 0.25
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.601",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0"
+    },
+    {
+      "name": "Papaya",
+      "url": "https://github.com/rii-mango/Papaya"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set FREESURFER_LICENSE on the resource when a FreeSurfer input is given."
+    }
+  ]
+}

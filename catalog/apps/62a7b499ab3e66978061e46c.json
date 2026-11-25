@@ -1,0 +1,255 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
+  "version": "tracking-eccentricity-v1.1",
+  "summary": "Tracks visual white matter between user-chosen pairs of ROIs (such as eccentricity-binned V1 or LGN ROIs) with ConTrack probabilistic tractography.",
+  "description": "For each start/termination ROI pair, resamples the ROIs to the T1, removes them from the CSF and exclusion masks, runs ConTrack, keeps the top-scoring streamlines with contrack_score, and cleans them. Eccentricity binning comes from the ROI names you pass (for example ROIs from a pRF eccentricity App). Needs a dtiinit, a T1, ROIs, pRF, a 5TT mask and FreeSurfer; expect up to 32 hours.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "vistasoft",
+    "freesurfer",
+    "mrtrix3",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62a7b499ab3e66978061e46c",
+    "github": "brainlife/app-contrack-visual-white-matter",
+    "branch": "tracking-eccentricity-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dtiinit output (vistasoft) providing the diffusion data and tensor fit used by ConTrack.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image that defines the working space; ROIs, eccentricity, ribbons and CSF are resampled to it.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ROIs to track between; files are found by the names given in start_roi, term_roi and exclusion_roi.",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Population receptive field (pRF) maps; the eccentricity map is used to split visual cortex into eccentricity bins.",
+      "config_keys": [
+        "eccentricity"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "MRtrix3 five-tissue-type (5TT) mask; its CSF volume is used as an exclusion region.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory; the cortical ribbon (ribbon.mgz, lh/rh.ribbon.mgz) restricts eccentricity to cortex and defines hemisphere exclusions.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "tracking_eccentricity",
+        "visual_white_matter"
+      ],
+      "description": "Tractogram (.tck) of the cleaned ConTrack streamlines for all ROI pairs."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "tracking_eccentricity",
+        "visual_white_matter"
+      ],
+      "description": "White matter classification assigning streamlines to one tract per ROI pair, with tract JSONs for visualisation and fiber counts."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "nSamples",
+      "type": "number",
+      "description": "Number of streamlines desired. NOTE: This may not be final total as tracking is performed without anatomical constraints (i.e. csf exclusion)",
+      "default": 50000
+    },
+    {
+      "id": "maxNodes",
+      "type": "number",
+      "description": "Maximum number of nodes (points) per ConTrack streamline.",
+      "default": 240
+    },
+    {
+      "id": "minNodes",
+      "type": "number",
+      "description": "Minimum number of nodes (points) per ConTrack streamline.",
+      "default": 100
+    },
+    {
+      "id": "stepSize",
+      "type": "number",
+      "description": "ConTrack step size.",
+      "default": 1
+    },
+    {
+      "id": "contrackThreshold",
+      "type": "number",
+      "description": "Number of top-scoring streamlines kept per tract (passed to contrack_score --thresh).",
+      "default": 5000
+    },
+    {
+      "id": "start_roi",
+      "type": "string",
+      "description": "names of seed ROIs for each tract (separated by spaces) you want to track.\n\nTo use this to track by eccentricity, make sure to include the appropriate naming for that specific eccentricity-binned ROI. For example, if you wanted to track lh v1 to rh v1 binned by eccentricity values 7 to 15, and the name of the lh roi is \"ROI.lh.v1.Ecc7to15.nii.gz\", start_roi == \"lh.v1.Ecc7to15\"",
+      "default": ""
+    },
+    {
+      "id": "term_roi",
+      "type": "string",
+      "description": "names of termination ROIs for each tract (separated by spaces) you want to track.\n\nTo use this to track by eccentricity, make sure to include the appropriate naming for that specific eccentricity-binned ROI. For example, if you wanted to track lh v1 to rh v1 binned by eccentricity values 7 to 15, and the name of the rh roi is \"ROI.rh.v1.Ecc7to15.nii.gz\", term_roi == \"rh.v1.Ecc7to15\"",
+      "default": ""
+    },
+    {
+      "id": "inflate_start_roi",
+      "type": "number",
+      "description": "Inflation applied to the start ROIs before tracking (1 = no inflation).",
+      "default": 1
+    },
+    {
+      "id": "inflate_term_roi",
+      "type": "number",
+      "description": "Inflation applied to the termination ROIs before tracking (1 = no inflation).",
+      "default": 1
+    },
+    {
+      "id": "minDistanceClean",
+      "type": "number",
+      "description": "Distance threshold for an ROI-exclusion cleaning step; that step is commented out in this branch, so the value is not used.",
+      "default": 0.87,
+      "advanced": true
+    },
+    {
+      "id": "exclusion_roi",
+      "type": "string",
+      "description": "names of exclusion ROIs for each tract (separated by spaces) you want to track.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 32
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.647",
+  "category": "tractography",
+  "software": [
+    {
+      "name": "ConTrack"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "neurodebian1604-r2017a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1167/8.9.15",
+      "text": "Sherbondy AJ, Dougherty RF, Ben-Shachar M, Napel S, Wandell BA. ConTrack: finding the most likely pathways between brain regions using diffusion tractography. J Vis 8(9):15 (2008)."
+    },
+    {
+      "doi": "10.1167/iovs.14-14737",
+      "text": "Ogawa S, Takemura H, Horiguchi H, et al. White Matter Consequences of Retinal Receptor and Ganglion Cell Damage. Invest Ophthalmol Vis Sci 55(10):6976-6986 (2014)."
+    },
+    {
+      "doi": "10.1007/s00429-018-1702-5",
+      "text": "Yoshimine S, Ogawa S, Horiguchi H, et al. Age-related macular degeneration affects the optic radiation white matter projecting to locations of retinal damage. Brain Struct Funct 223(8):3889-3900 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "tracking failed",
+      "cause": "track.tck was not produced.",
+      "fix": "Check that start_roi, term_roi and exclusion_roi name files present in the rois input and inspect the logs."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license configured.",
+      "fix": "Provide a FreeSurfer license."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

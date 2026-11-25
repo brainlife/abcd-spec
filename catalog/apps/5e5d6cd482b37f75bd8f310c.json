@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract diffusion metrics inside ROIs (DTI)",
+  "version": "v1.1",
+  "summary": "This app will extracts diffusion metrics (tensor) from within ROIs for ROI-level analysis using FSL. Will output metric x ROI NIFTI images. Takes in DWI, tensor, NODDI, and ROIs inputs and outputs a directory with the metric x ROI NIFTI images. Inflation can be performed on the ROIs using SPM.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e5d6cd482b37f75bd8f310c",
+    "github": "brainlife/app-extract-diffusion-metrics-rois",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tensor datatype files",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the ROIs within which diffusion metrics will be extracted",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tensor_metrics"
+      ],
+      "description": "Directory with NIFTI images of each diffusion metrics extracted in each ROI"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inflate",
+      "type": "boolean",
+      "description": "whether or not to inflate the data",
+      "default": false
+    },
+    {
+      "id": "smooth",
+      "type": "number",
+      "description": "if you want to inflate, provide a value by which to inflate the voxels (must by odd number)",
+      "default": 1,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 0.33
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.283",
+  "deprecated_by": "60a8125122b42a158170e126"
+}

@@ -1,0 +1,128 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Freesurfer computations",
+  "version": "updated-surface-dtype-v1.2",
+  "summary": "Computes per-ROI statistics of cortex-mapped diffusion measures with FreeSurfer mri_segstats and anatomical measures with mris_anatomical_stats for a FreeSurfer aparc or an optional surface parcellation, and outputs merged CSVs.",
+  "description": "Scales very small measures (mean below 0.005) by 1000 with Connectome Workbench, then for each hemisphere runs FreeSurfer mri_segstats on every cortex-mapped measure and mris_anatomical_stats (thickness, surface area, volume, curvature) within each parcel of the FreeSurfer aparc and, if given, a surface parcellation. Results are merged into one CSV (also saved as cortex.csv). Use it to obtain parcel-wise cortical diffusion and morphometry tables for group analyses. Needs a cortexmap and the FreeSurfer subject directory of the same subject; a surface parcellation also needs its left and right white surfaces.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "surface-analysis",
+    "parcellation",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62c20d12f3194eded6fb203c",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "updated-surface-dtype-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the cortexmap datatype folder",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "parc_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional surface parcellation (left and right .annot files with a label table); converted onto the FreeSurfer white surface and summarised in addition to the aparc.",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "label"
+      ]
+    },
+    {
+      "id": "parc_surf_vertices",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional left and right white surface meshes on which the surface parcellation is defined; required with parc_surface.",
+      "config_keys": [
+        "right_surf",
+        "left_surf"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject; provides surfaces and the aparc annotation used for statistics.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "mri_segstats",
+        "freesurfer"
+      ],
+      "description": "Csv files for each summary statistic and parcellation",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives"
+      ],
+      "description": "Derivatives generated during run for debugging"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.656",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.2.0"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "merged.csv was not produced.",
+      "fix": "Check the job log and raw derivatives for the failing step."
+    }
+  ]
+}

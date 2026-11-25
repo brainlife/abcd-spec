@@ -1,0 +1,122 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Noise Covariance Matrix for MEEG",
+  "version": "main",
+  "summary": "Computes a noise covariance matrix from the pre-stimulus baseline of MEG epochs with MNE-Python compute_covariance and outputs it as cov.fif.",
+  "description": "Reads the epochs, keeps MEG channels only, and estimates the covariance over the baseline (up to time 0) with the shrunk and empirical estimators and rank taken from the measurement info. Use it to obtain the noise covariance needed for MEG source estimation. The current code ignores all parameters (tmin, tmax, projs, method, keep_sample_mean, rank) and uses fixed settings.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "source-localization",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "66bb2db3774d6f044da6e9ca",
+    "github": "AntonioCauAt/app-noise-cov",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "epo1",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG data in MNE epochs .fif format.",
+      "config_keys": [
+        "epo"
+      ],
+      "requirements": "Epochs must include a pre-stimulus baseline before time 0."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [
+        "matrix"
+      ],
+      "description": "Noise covariance matrix (cov.fif)."
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report (currently written to a different directory by the code, so it may be empty)."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Covariance figure directory (the plotting code is disabled, so it may be empty)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tmin",
+      "type": "string",
+      "description": "Start time for baseline. If None start at first sample.",
+      "default": "None"
+    },
+    {
+      "id": "tmax",
+      "type": "string",
+      "description": "End time for baseline. If None end at last sample.",
+      "default": "None"
+    },
+    {
+      "id": "projs",
+      "type": "string",
+      "description": "List of projectors to use in covariance calculation, or None to indicate that the projectors from the epochs should be inherited. If None, then projectors from all epochs must match.",
+      "default": "None",
+      "advanced": true
+    },
+    {
+      "id": "method",
+      "type": "string",
+      "description": "The method used for covariance estimation. If \u2018empirical\u2019 (default), the sample covariance will be computed. A list can be passed to perform estimates using multiple methods. If \u2018auto\u2019 or a list of methods, the best estimator will be determined based on log-likelihood and cross-validation on unseen data. Valid methods are \u2018empirical\u2019, \u2018diagonal_fixed\u2019, \u2018shrunk\u2019, \u2018oas\u2019, \u2018ledoit_wolf\u2019, \u2018factor_analysis\u2019, \u2018shrinkage\u2019, and \u2018pca\u2019",
+      "default": "empirical"
+    },
+    {
+      "id": "keep_sample_mean",
+      "type": "boolean",
+      "description": "If False, the average response over epochs is computed for each event type and subtracted during the covariance computation. This is useful if the evoked response from a previous stimulus extends into the baseline period of the next. Note. This option is only implemented for method=\u2019empirical\u2019.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "rank ",
+      "type": "string",
+      "description": "This controls the rank computation that can be read from the measurement info or estimated from the data. When a noise covariance is used for whitening, this should reflect the rank of that covariance, otherwise amplification of noise components can occur in whitening.",
+      "default": "None"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.829",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso",
+    "Antonio Caul\u00edn"
+  ]
+}

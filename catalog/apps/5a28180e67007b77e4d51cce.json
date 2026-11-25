@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Mask",
+  "version": "master",
+  "summary": "Creates a binary white matter mask from a FreeSurfer subject's aparc+aseg.mgz segmentation using mri_convert and MATLAB/vistasoft.",
+  "description": "Converts FreeSurfer's aparc+aseg.mgz to RAS-oriented NIfTI and sets to 1 the voxels of a fixed list of FreeSurfer labels (cerebral and cerebellar white matter, corpus callosum, brainstem, thalamus, basal ganglia, ventral diencephalon and related structures), 0 elsewhere. Use it to get a white matter mask, for example for tractography seeding or masking. It needs a completed FreeSurfer recon-all output and runs with MATLAB, vistasoft and FreeSurfer on the host (no container).",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "anatomy",
+    "segmentation",
+    "freesurfer",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a28180e67007b77e4d51cce",
+    "github": "kitchell/app-wmMask",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory from recon-all.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Must contain mri/aparc+aseg.mgz."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter",
+        "anat"
+      ],
+      "description": "Binary white matter mask (mask.nii.gz) in the space of the FreeSurfer volume, RAS orientation; includes subcortical labels listed in make_wm_mask.m."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/bl.app.10",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "jsonlab"
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROMEO Phase Unwrapping",
+  "version": "master",
+  "summary": "Performs phase offset removal, phase unwrapping, phase quality mapping, robust masking, T2* and R2* mapping, and B0 field mapping.",
+  "description": "Processes multi-echo gradient-echo magnitude and phase images with the ROMEO algorithm from the Julia MriResearchTools library: MCPC-3D-S phase offset removal, phase unwrapping, a voxel-wise phase quality map, phase-based masking, T2*/R2* fitting and a B0 field map. Use it as a preprocessing step for QSM or field mapping. main downloads Julia 1.9.3 and installs the Julia packages at run time instead of using a container, so the compute resource needs internet access.",
+  "kind": "native",
+  "topics": [
+    "qsm",
+    "anatomy",
+    "preprocessing",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "67210bc9851d5f6d753ec63e",
+    "github": "astewartau/romeo-brainlife",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "magnitude",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-mag"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Multi-echo T2*-weighted magnitude images (one NIfTI per echo).",
+      "config_keys": [
+        "magnitude"
+      ]
+    },
+    {
+      "id": "phase",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-phase"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Multi-echo T2*-weighted phase images (one NIfTI per echo).",
+      "config_keys": [
+        "phase"
+      ],
+      "requirements": "Echoes must match the magnitude images in number and order."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "unwrapped",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "4D",
+        "unwrapped"
+      ],
+      "description": "Unwrapped phase images",
+      "datatype_tags_pass": "phase"
+    },
+    {
+      "id": "phase-quality",
+      "datatype": "raw",
+      "datatype_tags": [
+        "phase-quality"
+      ],
+      "description": "Phase quality map"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Robust phase-based mask",
+      "datatype_tags_pass": "phase"
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [
+        "T2star",
+        "R2star"
+      ],
+      "description": "T2* and R2* maps",
+      "datatype_tags_pass": "magnitude"
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single"
+      ],
+      "description": "B0 field map",
+      "datatype_tags_pass": "phase"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.834",
+  "software": [
+    {
+      "name": "Julia",
+      "version": "1.9.3"
+    },
+    {
+      "name": "MriResearchTools.jl",
+      "url": "https://github.com/korbinian90/MriResearchTools.jl"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dymerska B, Eckstein K, Bachrata B, Siow B, Trattnig S, Shmueli K, Robinson SD. Phase Unwrapping with a Rapid Opensource Minimum Spanning TreE AlgOrithm (ROMEO). Magn Reason Med (2020)."
+    },
+    {
+      "text": "Eckstein K, Dymerska B, Bachrata B, et al. Computationally Efficient Combination of Multi-channel Phase Data From Multi-echo Acquisitions (ASPIRE). Magn Reason Med (2018)."
+    },
+    {
+      "text": "Hagberg GE, Indovina I, Sanes JN, Posse S. Real-time quantification of T2* changes using multiecho planar imaging and numerical methods. Magn Reason Med 48(5):877-882 (2002)."
+    },
+    {
+      "text": "Hagberg GE, Eckstein K, Tuzzi E, Zhou J, Robinson SD, Scheffler K. Phase-based masking for quantitative susceptibility mapping of the human brain at 9.4T. Magn Reason Med (2022)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2021.118175",
+      "text": "Improved susceptibility weighted imaging at ultra-high field using bipolar multi-echo acquisition and optimized image processing: CLEAR-SWI. NeuroImage 237, 118175 (2021)."
+    }
+  ],
+  "maintainers": [
+    "Ashley Stewart"
+  ]
+}

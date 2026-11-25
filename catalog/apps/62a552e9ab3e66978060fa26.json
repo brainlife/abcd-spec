@@ -1,0 +1,167 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Predict functional connectivity from structural connectivity",
+  "version": "main",
+  "summary": "Computes binary and weighted structural-connectivity predictors (path length, communicability, cosine distance, mean first passage time, matching index, search information, path transitivity) and how well each predicts functional connectivity per brain region.",
+  "description": "Derives 14 network predictors from a structural connectivity matrix and, for every region, correlates each predictor with that region's functional connectivity profile, saving the squared correlations (r^2) per region and predictor. Use it to study local structure-function coupling. The code reads two connectivity matrices (structural first, functional second) from the conmat input although the input is registered as a single matrix, and it writes a CSV (output/csv/rsq.csv) although the output is registered as a PDF report.",
+  "kind": "native",
+  "topics": [
+    "connectomics",
+    "network-analysis",
+    "fmri",
+    "dwi",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62a552e9ab3e66978060fa26",
+    "github": "FarnazZE/bnbl-brainlife-predict-fc-from-sc",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "conmat",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "index",
+        "label",
+        "csv"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "report/pdf",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "gammavals",
+      "type": "number",
+      "description": "convert edge weight to cost",
+      "default": 0.5,
+      "placeholder": "gamma values"
+    },
+    {
+      "id": "predictors",
+      "type": "enum",
+      "description": "Which predictor to evaluate; 'all' evaluates all 14 binary and weighted predictors.",
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": "use all structural connectivity predictors",
+          "description": "use all structural connectivity predictors"
+        },
+        {
+          "value": "PLbin",
+          "label": "Binary path length "
+        },
+        {
+          "value": "Gbin",
+          "label": "Binary communicability"
+        },
+        {
+          "value": "Cosbin",
+          "label": "Binary cosine distance"
+        },
+        {
+          "value": "mfptbin",
+          "label": "Binary mean first passage time"
+        },
+        {
+          "value": "MIbin",
+          "label": "Binary matching index"
+        },
+        {
+          "value": "SIbin",
+          "label": "Binary search information"
+        },
+        {
+          "value": "PTbin",
+          "label": "Binary path transitivity"
+        },
+        {
+          "value": "Gwei",
+          "label": " Weighted communicability"
+        },
+        {
+          "value": "Coswei",
+          "label": " Weighted cosine distance"
+        },
+        {
+          "value": "mfptwei",
+          "label": " Weighted mean first passage time"
+        },
+        {
+          "value": "MIwei",
+          "label": " Weighted matching index"
+        },
+        {
+          "value": "SIwei",
+          "label": " Weighted search information"
+        },
+        {
+          "value": "PTwei",
+          "label": " Weighted path transitivity"
+        },
+        {
+          "value": "PLwei",
+          "label": " Weighted path length "
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "remove nodes",
+      "type": "enum",
+      "description": "remove isolated nodes (row/columns\n with all zero values)",
+      "default": "false",
+      "options": [
+        {
+          "value": "true"
+        },
+        {
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 6,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.646",
+  "software": [
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Esfahlani FZ, Faskowitz J, Slack J, Misic B, Betzel R. Local structure-function relationships in human brain networks across the human lifespan. bioRxiv (2021)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "connectivity matrix (network) should be fully connected",
+      "fix": "Set 'remove nodes' to true to drop isolated nodes."
+    }
+  ],
+  "maintainers": [
+    "Farnaz Zamani Esfahlani"
+  ]
+}

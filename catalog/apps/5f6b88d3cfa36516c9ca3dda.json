@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-src2fib",
+  "version": "master",
+  "summary": "Reconstruction of DWI signals to extract fiber orientations.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6b88d3cfa36516c9ca3dda",
+    "github": "frankyeh/dsi-studio-src2fib",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "src",
+      "datatype": "neuro/dsistudio/src",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "src"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fib",
+      "datatype": "neuro/dsistudio/fib",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "length_ratio",
+      "type": "number",
+      "description": "The length ratio used in GQI and QSDR reconstruction. Larger value leads to sharper resolution but more sensitive to noise.\n*For animal or ex-vivo studies, please use a low value (e.g. 0.6)",
+      "default": 1.25,
+      "minimum": 0.1,
+      "maximum": 2
+    },
+    {
+      "id": "qsdr",
+      "type": "boolean",
+      "description": "Reconstruct data into MNI space using QSDR (for correlational tractography and group analysis)",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.427"
+}

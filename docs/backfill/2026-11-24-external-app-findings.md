@@ -1,0 +1,120 @@
+# Problems noticed in Apps owned by other authors, 2026-11-24
+
+While writing manifests for the 369 active Apps in repos owned by other authors, agents read each
+App's README, `main` and scripts. These are the things they noticed. Nothing was changed in those
+repos; each note is offered to the authors as a friendly heads-up in the README pull request for
+their repo. Credentials found in code were reported privately, not listed here.
+
+- not cloneable: frankyeh/dsi-studio-trk2tt, ShuklaA11/app-tractcloud
+- anibalsolon/blapp-extract-event-signal: main reads `bold`/`bold_events` but the registered input is `data`; Surface App runs NIfTI code on surface data; Dockerfile lacks nilearn.
+- faskowit/app-fmri-2-mat 0.1.6: `inspace` option `label` rejected by run.sh (accepts `data`/`labels`).
+- gamorosino/app-tract-transform: `invert` and `fsl_transform` never read (main); `fsl_transform` never read (v2.0).
+- gamorosino/app-bet-brain-extraction: main runs brain_extract.py with no arguments; checks `out_dir` never written.
+- gamorosino/app-brain-extraction-multiagent-test-23-11-26: writes `t1_brain/` but checks `out_dir/`.
+- mandymejia/app-clever: main.R reads undefined `bold`/`mask`; `kurt_quantile` never passed (code expects `kurt_quant`).
+- guiomar/app-artifact-rejection: README describes a PSD App; saving code commented out; outputs don't match registry.
+- BrainlifeMEEG/app-average-erp: `average_all` compared to string 'True'; that branch never sets `evo`.
+- BrainlifeMEEG/app-eventslog: report written to `out_report/`, registered output id `out_dir_report`.
+- zahransa/app-selecting-ICA-components-manually: `exclude` never read (hard-coded [0, 1]); test output committed.
+- zahransa/app-anatomy: no main; imports missing `library.config`.
+- gamorosino/bl-app-test: README only, no code.
+- anibalsolon/app-ps-oct: test stub, no output.
+- infernoWolf99/brainlife-hello: main reads config.json.sample.
+- Junebeomstics/app-mrtrix3-split-b0s: `target_bval` never read (script reads `bval`); main checks `dwi/` but output goes to `nodif/`.
+- AntonioCauAt/app-morph2averagebrain: `subject_to` never read (fsaverage hard-coded).
+- VKarlaftis/cmc_brainlife_registration: `cost` never passed to flirt; bvals/bvecs copied from working dir; bvecs not rotated.
+- gamorosino/app-gyral-bias-analysis: `input_mode`, `normalize`, inputs `tractogram`, `prf` never read.
+- DanNBullock/app-segment_with_ROIs, app-wma_pyTools-TractFigs: template READMEs.
+- tjgrafft/app-cpu-benchmark: CPU benchmark; T1w input placeholder.
+- not cloneable: frankyeh/dsi-studio-src2fib
+- zahransa/app-covariance: registered branch `master` does not exist (only `main`).
+- openneuropet/app-petdeface: main needs --t1_file/--pet_file CLI args, never reads config.json; 6717eddd parameters input_dir, output_dir, skip_bids_validator, participant_label never read.
+- gamorosino/app-brain-extraction: two Apps on the same branch with identical code (duplicates).
+- gamorosino/app-brain-extraction-11-13-26: no `main`; run_bet.sh writes `t1_brain/` not `t1w_brain`.
+- zahransa/app-time-frequency: no main, inputs or outputs; MNE example only.
+- PranavMahajan25/HOI_toolbox: main runs docker build/run (unsupported on brainlife resources).
+- dPys/app-extract_b0_masks: empty README; outputs written next to input DWI, not `b0_extractions`.
+- dnacombo/app-plot_proj_topomaps-raw: no outputs declared; figure never saved.
+- AntonioCauAt/app-coregistration: `fiducials`, `on_defects` never read; transform output typed meeg/mne/covariance.
+- mbedini/app-fsl-probtrackx: `hemisphere` values "1"/"2" vs main compares "left" (always right); `mask_avoid` vs `mask_avoid_left/_right`; `mask_terminationright` vs `mask_termination_right`.
+- lowripowell/lstaibrainlife: main reads `.inputs["T1_input"]` vs registered `t1`; `lst` without container; `stats` never produced.
+- gamorosino/app-map-atlas: empty README; optional reference input key `t1` but main reads `.reference`.
+- astewartau/App-Segment-T2starw-MNI: default `intense`="test" runs a 1x1x1-iteration registration.
+- sunaguo/brainlife-app-test: course test; `outres` parsed with int() though floats documented.
+- nicomm2002/app-suma: prototype test; T1w unused.
+- swarrington1/test_dtifit, Srajansstar/BRAINOCKER: test Apps (BRAINOCKER runs host Brainstorm; README forbids reuse).
+- soichih/app-trk2mp4: WIP; PNG frames only.
+- DanNBullock/app-de-island_parcellation: template README.
+- FBK-NILab/TractSeg-BrainLife: generic container paoloavesani/docker-test.
+- not cloneable: frankyeh/dsi-studio-dwi2src, frankyeh/dsi-studio-trk, JacobColbyTanner/bnbl_brainlife, Imanj767/fMRI-Persistent-Homology-Analysis
+- zahransa/app-inverse: registered branch `master` does not exist; main is an MNE sample demo with no inputs.
+- zahransa/app-filter: no main; script for another dataset; imports missing `library.config`.
+- gamorosino/15-11-2026-test-brain-extraction: test App, no main, no container.
+- BramshQamar/brainlife_buan_bundle_profile: profiles.py syntax error; json not imported; malformed registry key `    "no_disks": 100,`.
+- dipy/bl_apps_dipy_fit_ivim 1.1.1: main passes `b0_threshold` to --split_b_D and --split_b_S0 (those parameters never read).
+- anibalsolon/PRFmodel-app: `stimulus_diameter` never read; empty README; run.py never called.
+- vnbcs/app-ANTsRegistration: `optional_params` read but unused.
+- BrainlifeMEEG/noise-covariance: `ica` input never read.
+- gamorosino/app-FSLTopupEddy-CUDA: `eddy_niter` never read.
+- BrainlifeMEEG/mark-bad-epo: channel-specific annotations use undefined `raw`.
+- zahransa/app-decoding-full-epochs: 'auditory' condition hard-coded.
+- gamorosino/app-particle-filtering-tractography: README says scilpy, code runs DIPY PFT.
+- gamorosino/app-registration-ants: README describes T1w-to-T1w; App is T2w-to-T1w.
+- bacaron/app-reslice-roi-t1 parcellation-v1.0: README describes the ROI version.
+- astewartau/qsm-evaluation-brainlife, astewartau/vsharp-brainlife, DanNBullock/app-tcks_to_tck_and_WMC: template READMEs; vsharp installs Julia at run time (needs internet), no container.
+- hanna-willis/app-combine-roi-scans: no container.
+- DanNBullock/app-warp_refROI_to_subjSpace vPut-ROIs: README says not meant to run directly.
+- not cloneable: dichio/bl-ERGM, frankyeh/dsi-studio-atk
+- balbasty/app-dwi-test, gamorosino/Test_1: test stubs.
+- gamorosino/app-test-multiagent-brain-extraction: `t1` input has no config key; wrapper expects `t1` and `brain_extracted`; passes `--robust True` to a flag without a value.
+- roijo/NiftyNet v0.6.0, nipreps/petprep 0.0.3: upstream packages with no brainlife main.
+- gamorosino/app-recobundles-x: registered branch v0.1.0 missing (only main); scaffold README.
+- sccn/eegprep 0.2.22: main.py loads config.json.example; `BurstCriterion` never read (hard-coded 20).
+- AntonioCauAt/app-noise-cov: none of `tmin`, `tmax`, `projs`, `method`, `keep_sample_mean`, `rank` read; report saved to `out__dir_report`; figure code commented out.
+- dipy/bl_apps_dipy_denoise_nlmeans: main tests `$RICIAN_OPT` not `$RICIAN`, so --rician always passed.
+- gamorosino/app-FSLTopupEddy topup-eddy_correct-v2.0: `eddy_niter`, `mporder`, `slspec`, `repol`, `harmonize_shells`, `shell_targets`, `shell_tolerance` never read; qc-v0.1: `eddy_niter` never read.
+- DanNBullock/app-createMNI_ROIS_and_warp2subj: plane ROIs saved as copies of the last sphere (`currentSphere` in plane loop).
+- zahransa/app-artifact-amplitude: flat and reject criteria strings must list the same channel types in the same order.
+- davhunt/app-GLMdenoise: only `denoised_bold/run1` exposed though all runs denoised.
+- davhunt/app-qoala-t-model-a: bind-mounts a hard-coded personal path.
+- kitchell/app-AFQ_figures tractogram-v1.0: README describes app-plotAFQ.
+- davhunt/surface_tools: README says WMC input; registry/code use FreeSurfer.
+- FarnazZE/bnbl-brainlife-clustering-edge-time-series: README describes building edge time series; z-scores across regions not time.
+- bacaron/app-mergeTCK two-tck: README describes multi-input mergeTCK. bacaron/app-concatenate-tractmeasures, anibalsolon/app-reho: title-only READMEs.
+- not cloneable: frankyeh/dsi-studio-tt2trk. Missing branches: neurotech-berkeley/Sonus (master), SlicerDMRI/TractCloud (inference-cli), m9h/dmipy (feat/brainlife-app); m9h/dmipy master has no brainlife code.
+- bacaron/app-add-to-t1: README only, test App.
+- joy-neuro/bnbl_brainlife: README describes template; main runs template main.py, not main.m; no inputs/outputs registered.
+- zahransa/app-ICA-plot: README describes ECG detection; code plots ICA components.
+- DanNBullock/app-SNR_Report: template README.
+- AntonioCauAt/app-SSP-projectors-ECG-epoched: reads key `mne` but input is `epo`; calls nonexistent mne.io.read_epochs; passes epochs to compute_proj_ecg; `copy`, `return_drop_log` never read.
+- AntonioCauAt/app-inverse-operator: `loose`, `depth`, `fixed`, `verbose` never read.
+- BrainlifeMEEG/ICA-apply-epo: optional `rejects` input never read.
+- carlota-juarez/MEEG-MNE-BIDS-Source-analysis: `mindset` never read (code reads `mindist`).
+- obVdo/maxwell-v2: parameter id `auto_bad_channels` ends with a tab (never seen); falls back to bundled scanner calibration files.
+- vnbcs/app-fmriprep volume: bold_img taken from AROMA output that exists only when `aroma` true (default false). surface: no `aroma` param, AROMA output always empty.
+- gamorosino/app-brain-extraction-v2: generated _brainlife_run.py passes Python True/False and empty `out` to the CLI.
+- AllenInstitute/ac_hpc: main reads `single_file` vs input `tif`; pip installs at run time; submits sbatch and exits with no output.
+- davhunt/app-darts: model weights at a hard-coded personal path.
+- anibalsolon/bl-app-prfmodel: `mask` input unused; HRF assumes TR 1.5 s; empty README.
+- zahransa/app-decoding-time-by-time: condition and gradiometers hard-coded.
+- filipinascimento/bl-network-report: with default `major`=true and no null model the code iterates over None.
+- kitchell/app-wmMask: no container; README example key `wm` not read.
+- sunaguo/app-qsiprep 6813adca: registered test configuration.
+- gamorosino/app-mpat-tractography: first .tsv/.csv copied to csv.csv.
+- DanNBullock/app-track_aLIC: container unknown; submodule scripts.
+- not cloneable: frankyeh/dsi-studio-qc
+- zahransa/app-forward: registered branch `master` gone (only `main`); transform input registered as ICA datatype, read as head-MRI transform, never used.
+- zahransa/app-maxwell-filtering: no main, inputs, outputs or parameters; copied MNE example.
+- eliasvarkey/VOIT: Streamlit research code, no main or I/O.
+- gamorosino/brain-extract-14-11-26: no main, no container. gamorosino/app-brain-extraction-test: argparse flags misused; output path from `brain` key. gamorosino/app-dwi2b0 test-app-dwi2b0: duplicate test registration.
+- dungscout96/app-test-brainlife EEG Data Quality: reads committed config-dataqual.json; never writes registered output.
+- kitchell/app-plot3Dobjects: local conda env, no container.
+- FarnazZE predict-fc-from-sc: reads two conmats from one input; writes CSV not the registered PDF; non-"all" predictor mishandled. edge-time-series: README says HTML report, code writes TSV.
+- aldensyi/concat_session_app: reads unregistered `auto_resample` (KeyError); non-standard file names.
+- BrainlifeMEEG/SSP-projectors-EOG: reads unregistered `qrs_threshold` (not accepted by compute_proj_eog); `copy`, `return_drop_log` never read.
+- AntonioCauAt/app-fw-solution: only `include_meg` read; trans input registered under covariance datatype.
+- Parameters never read: jhuapl-boss mesh `cloudpath` and `simplification ` (trailing space); bacaron/app-freesurfer multi-T1 `expert?` (code reads `expert`); ctf2mne `eeg`; interpolate `bads`; app-epoch-psd `picks`; filterViaQuickbundles `qbThreshes`; qsm-forward `peak-snr` (code reads `peak_snr`, forces 100); visual-white-matter `inv_length` and others outside both_endpoints mode.
+- svincibo/app-ashs-segment: registry atlas uses brainlife/ashs-upennpmc:2.0.0.
+- jkilmarx/app-template-python, qsm-forward-brainlife, DanNBullock filterViaQuickbundles, DanNBullock DIPY-connectome, app-retinotopic-connectivity v0.20: README describes another App or is a template.
+- gamorosino/app-tck2trk: typo `$21w` means the T2w reference is never selected.
+- jhuapl-boss mesh: `#SBATCH` lines written without `#`, so they run as commands.

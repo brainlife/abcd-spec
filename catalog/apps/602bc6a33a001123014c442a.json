@@ -1,0 +1,247 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply Maxwell filtering",
+  "version": "v1.0",
+  "summary": "Apply Maxwell filtering on MEG signals recorded with Elketa (or MEGIN or Neuromag) machine using MNE Python.",
+  "description": "Wraps mne.preprocessing.maxwell_filter to suppress environmental and system noise in continuous MEG with signal-space separation (SSS), or temporal SSS when st_duration is set, with optional head-movement compensation from a head-position file. Bad channels from a BIDS channels.tsv are interpolated and reported as good. Use it on Elekta/MEGIN/Neuromag recordings before further MEG preprocessing.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "denoising",
+    "meg",
+    "mne-python",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "602bc6a33a001123014c442a",
+    "github": "BrainlifeMEEG/maxwell-filter",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif01",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Maxwell filtering will be applied to MEG signals.",
+      "config_keys": [
+        "fif",
+        "crosstalk",
+        "calibration",
+        "events",
+        "headshape",
+        "channels"
+      ]
+    },
+    {
+      "id": "opt01",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Channels.tsv file in a BIDS compliant format (computed with app-bad-channels), head positions in a .pos file (computed by app-head-pos), and destination file (computed by app-mean-tranformation-matrix). These files will override the events.tsv and channels.tsv linked to the neuro/meg/fif datatype.",
+      "config_keys": [
+        "channels_override",
+        "headshape_override",
+        "destination_override"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "maxwell"
+      ],
+      "description": "MEG signals after Maxwell filtering",
+      "datatype_tags_pass": "fif01"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "maxwell"
+      ],
+      "description": "HTML report with plots of MEG signals before and after Maxwell filtering",
+      "datatype_tags_pass": "fif01"
+    },
+    {
+      "id": "out_dir_channels",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [
+        "maxwell"
+      ],
+      "description": "Updated channels.tsv with previously-bad channels marked good (only produced if a channels file was provided).",
+      "datatype_tags_pass": "opt01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "int_order",
+      "type": "number",
+      "description": "Order of internal component of spherical expansion. The number provided must be an integer.",
+      "default": 8,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "ext_order",
+      "type": "number",
+      "description": "Order of external component of spherical expansion. The number provided must be an integer.",
+      "default": 3,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "st_duration",
+      "type": "number",
+      "description": "If not None, apply tSSS with specified buffer duration (in seconds). The number provided can be a float.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "st_correlation",
+      "type": "number",
+      "description": "Correlation limit between inner and outer subspaces used to reject overlapping intersecting inner/outer signals during tSSS. The number provided can be a float.",
+      "default": 0.98
+    },
+    {
+      "id": "coord_frame",
+      "type": "enum",
+      "description": "The coordinate frame that the origin is specified in, either meg or head.",
+      "default": "head",
+      "options": [
+        {
+          "value": "head"
+        },
+        {
+          "value": "meg"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "regularize",
+      "type": "enum",
+      "description": "The destination location for the head, either in or None.",
+      "default": "in",
+      "options": [
+        {
+          "value": "in"
+        }
+      ],
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "ignore_ref",
+      "type": "boolean",
+      "description": "If True, do not include reference channels in compensation.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "bad_condition",
+      "type": "enum",
+      "description": "How to deal with ill-conditioned SSS matrices, either 'error', 'warning', 'info', or 'ignore'.",
+      "default": "error",
+      "options": [
+        {
+          "value": "error"
+        },
+        {
+          "value": "warning"
+        },
+        {
+          "value": "info"
+        },
+        {
+          "value": "ignore"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "st_fixed",
+      "type": "boolean",
+      "description": "If True, do tSSS using the median head position during the st_duration window.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "st_only",
+      "type": "boolean",
+      "description": "If True, only tSSS projection of MEG data will be performed on the output data.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "origin",
+      "type": "string",
+      "description": "Origin of internal and external multipolar moment space in meters. Can be \"auto\" or three numbers separated by a comma (example: 0, 0, 0).",
+      "default": "auto",
+      "advanced": true
+    },
+    {
+      "id": "skip_by_annotation",
+      "type": "string",
+      "description": "Any annotation segment that begins with the given string will not be included in filtering, and segments on either side of the given excluded annotated segment will be filtered separately. Can be an empty list [].",
+      "default": "[edge, bad_acq_skip]",
+      "advanced": true
+    },
+    {
+      "id": "mag_scale",
+      "type": "string",
+      "description": "The magnetometer scale-factor used to bring the magnetometers to approximately the same order of magnitude as the gradiometers, as they have different units (T vs T/m). The number provided can be a float. Can be \"auto\".",
+      "default": "100",
+      "advanced": true
+    },
+    {
+      "id": "destination",
+      "type": "string",
+      "description": "The 3 elements giving the coordinates to translate to (with no rotations). Can be None or three numbers separated by a comma (example: 0, 0, 0). This parameter must be set to None when a desrination file is provided.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "extended_proj",
+      "type": "string",
+      "description": "The empty-room projection vectors used to extend the external SSS basis (i.e., use eSSS).",
+      "default": "[]",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 12,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.476",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    },
+    {
+      "doi": "10.1063/1.1935742",
+      "text": "Taulu S, Kajola M. Presentation of electromagnetic multichannel data: The signal space separation method. J Appl Phys 97 (2005)."
+    }
+  ]
+}

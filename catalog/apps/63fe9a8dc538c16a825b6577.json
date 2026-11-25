@@ -1,0 +1,107 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Combine two parcellations into a single parcellation",
+  "version": "v1.2",
+  "summary": "Merges two volumetric parcellations into one with relabelled consecutive values and a combined label.json, resolving overlaps in favour of the first, the second or neither.",
+  "description": "Reslices the second parcellation onto the first's grid with FreeSurfer mri_vol2vol (header-based, nearest neighbour), renumbers the labels of both, sums them and handles overlapping voxels according to the overlap option, then writes parc.nii.gz and label.json. Use it to combine, for example, a cortical and a subcortical atlas. Both parcellations must already be aligned to the same subject space.",
+  "kind": "native",
+  "topics": [
+    "parcellation",
+    "anatomy",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63fe9a8dc538c16a825b6577",
+    "github": "brainlife/app-combine-parcellation",
+    "branch": "v1.2"
+  },
+  "inputs": [
+    {
+      "id": "parc_one",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "First volumetric parcellation with its label.json; defines the output grid.",
+      "config_keys": [
+        "parc_one",
+        "label_one"
+      ]
+    },
+    {
+      "id": "parc_two",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Second volumetric parcellation with its label.json.",
+      "config_keys": [
+        "parc_two",
+        "label_two"
+      ],
+      "requirements": "Must be aligned with the first; it is resampled by header only."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "combined"
+      ],
+      "description": "Combined parcellation (parc.nii.gz) with a merged label.json.",
+      "datatype_tags_pass": "parc_one"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "overlap",
+      "type": "enum",
+      "description": "How voxels labelled in both parcellations are resolved: keep the first's label, the second's, or set them to 0.",
+      "default": "first",
+      "options": [
+        {
+          "value": "first",
+          "label": "first",
+          "description": "use the first input parcellation labels if overlap exists"
+        },
+        {
+          "value": "second",
+          "label": "second",
+          "description": "use the second input parcellation labels if overlap exists"
+        },
+        {
+          "value": "remove",
+          "label": "remove",
+          "description": "set all overlap voxels to zero"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.739",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "fix": "Check the log; parc.nii.gz was not written."
+    }
+  ]
+}

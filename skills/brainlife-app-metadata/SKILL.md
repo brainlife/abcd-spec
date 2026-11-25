@@ -79,6 +79,31 @@ branch; if that one is deprecated or absent, the newest non-deprecated App.
 - Always add `brainlife-app`, so the repo is findable as a brainlife App.
 - Only add a topic the evidence supports.
 
+## Enriching a manifest (filling in `unknown`)
+
+Start from the generated draft and read the App's branch: README, `main`, and the scripts `main`
+runs. Fill only descriptive fields; never change `id`, `type`, `datatype`, `datatype_tags`,
+`default`, `options` values, `optional`, `multi`, `config_keys` or anything under `registry`.
+
+- `summary`: as in the style guide below, specific to this branch (version numbers allowed when
+  this branch pins them).
+- `description`: 2–4 sentences: what it does, when to use it, what it needs, when not to use it.
+- `inputs[].description` / `requirements`: what the file is and any condition the code checks or
+  assumes (shell count, alignment, space, resolution).
+- `outputs[].description`: what the output contains, in plain words.
+- `parameters[].description`: what the parameter controls, from the code that reads it. Add
+  `units` only when the code or README states them.
+- `runtime.container`: from `main` or a Dockerfile; `resources` from `#PBS`/`#SBATCH` lines.
+- `software[]`: tools the code actually calls, with versions only when pinned.
+- `citations[]`: only references given in the README or code, with DOI when present.
+- `failure_modes[]`: only error messages that appear in the code or README, with the fix they
+  state or that the code makes obvious.
+- `topics`: lowercase-hyphen, from the topics vocabulary below.
+
+Run `python tools/blapp.py validate <manifest> --registry <record>`; zero errors is required.
+If the README describes a different App or the code contradicts the registry, do not guess:
+leave `unknown` and report it.
+
 ## Output format for drafted About text
 
 One JSON object per repo:
@@ -95,3 +120,16 @@ One JSON object per repo:
 Set `keep_current_description: true` when the current text is already good, and
 `confidence: "low"` when the evidence is thin; low-confidence descriptions are not applied
 without review.
+
+## READMEs for Apps we maintain
+
+Follow `readme-style.md`, with `readme-exemplar.md` (FreeSurfer) as the model. Agents write the
+README with three placeholders; `scripts/finalize_readmes.py` fills them with the generated summary
+(`tools/readme.py`), the citations (the App, the verified tool papers in `tool-citations.json` for
+software the App uses, and `brainlife-citations.md`) and `funding.md`, adds section icons, the cite
+tip and a `CITATION.cff`, then publishes each README through a PR limited to `README.md` and
+`CITATION.cff`.
+
+`scripts/` holds the batch tools used for the 2026-11-24 backfill (brainlife record re-save,
+README and licence PRs). They expect a working directory with the registry snapshot and manifests,
+read the brainlife token from `~/.config/brainlife.io/.jwt`, and write logs so runs can resume.

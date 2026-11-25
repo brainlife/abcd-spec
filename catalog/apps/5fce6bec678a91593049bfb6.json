@@ -1,0 +1,41 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BUAN Compute Bundles Shapes ",
+  "version": "1.1.1",
+  "summary": "Computes shape similarity between bundles of the same type across subjects with the DIPY BUAN (bundle analytics) dipy_buan_shapes workflow.",
+  "description": "Wraps dipy_buan_shapes, which finds shape similarity between input bundles of the same type across a population, as described in Chandio et al. 2020. The code reads clust_thr, threshold and subject_folder from config.json, but no inputs or parameters are registered for this App.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "statistics"
+  ],
+  "registry": {
+    "id": "5fce6bec678a91593049bfb6",
+    "github": "brainlife/bl_apps_dipy_buan_shapes",
+    "branch": "1.1.1"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.455",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Chandio BQ, et al. Bundle analytics, a computational framework for investigating the shapes and profiles of brain pathways across populations. Scientific Reports 10, 17149 (2020)."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate figures of whole-brain tractogram (tck)",
+  "version": "tractogram-v1.0",
+  "summary": "Renders PNG images of a whole-brain .tck tractogram from four views (axial, coronal, left and right sagittal) with DIPY/VTK for visual quality assurance.",
+  "description": "Loads the tractogram with nibabel, renders all streamlines with the DIPY/VTK viewer in a virtual display and saves one image per fixed camera view, listed in images.json. Use it as a quick visual QA of tractography. Camera positions are fixed, so images assume a roughly standard head position.",
+  "kind": "native",
+  "topics": [
+    "quality-check",
+    "dwi",
+    "tractography",
+    "visualization",
+    "quality-control",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e90d0b1952fef2bba7bc991",
+    "github": "kitchell/app-AFQ_figures",
+    "branch": "tractogram-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tractogram (tck)",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "wb_tractogram"
+      ],
+      "description": "The directory containing multiple images of the whole brain tractogram"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/pythonvtk:1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.75
+    }
+  },
+  "doi": "10.25663/brainlife.app.310",
+  "software": [
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "VTK"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Lindsey Kitchell"
+  ]
+}

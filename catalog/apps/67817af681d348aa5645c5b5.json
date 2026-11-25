@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-trk-ana",
+  "version": "main",
+  "summary": "Computes tract shape and size measures (length, span, volume, diameter, surface area, curl, elongation, irregularity) from a DSI Studio tinytrack file with DSI Studio and outputs a TSV table.",
+  "description": "Runs dsi_studio --action=ana --export=stat on the tract file and stores the statistics as tractmeasure.tsv. Use it to quantify tract shape after tractography or bundle recognition in DSI Studio.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dsi-studio",
+    "dwi",
+    "tractography"
+  ],
+  "registry": {
+    "id": "67817af681d348aa5645c5b5",
+    "github": "gamorosino/dsi-studio-trk-ana",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/dsistudio/tinytrack",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract file in DSI Studio tinytrack (.tt.gz) format.",
+      "config_keys": [
+        "tt"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "stats",
+      "datatype": "neuro/dsistudio/tractmeasures",
+      "datatype_tags": [],
+      "description": "Table of tract measures (tractmeasure.tsv)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "dsistudio/dsistudio:hou-2024-12-26",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.842",
+  "software": [
+    {
+      "name": "DSI Studio",
+      "version": "hou-2024-12-26",
+      "url": "http://dsi-studio.labsolver.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2020.117329",
+      "text": "Yeh FC. Shape analysis of the human association pathways. NeuroImage 223:117329 (2020)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: Source or tract file does not exist. Check paths in config.json.",
+      "fix": "Provide a tinytrack input."
+    },
+    {
+      "message": "ERROR: Output file not generated. Check DSI Studio logs.",
+      "fix": "Check the DSI Studio log for errors reading the tract file."
+    }
+  ]
+}

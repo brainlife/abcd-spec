@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Read info",
+  "version": "v1.0",
+  "summary": "Reads the .info attribute of each condition in an MNE evoked file and writes it to a text file for viewing.",
+  "description": "Small utility for inspecting MEG/EEG metadata (channels, sampling rate, filters, projectors) of evoked data. Writes info.txt and shows the same text in the brainlife product view. It reads no configuration parameters.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "65d830b7eab7bb5c3ca39327",
+    "github": "BrainlifeMEEG/app-info-evoked",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "evo",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MNE evoked data (one or more conditions).",
+      "config_keys": [
+        "evo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [
+        "info"
+      ],
+      "description": "Text dump of each evoked condition's .info (info.txt).",
+      "datatype_tags_pass": "evo"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.819",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    }
+  ]
+}

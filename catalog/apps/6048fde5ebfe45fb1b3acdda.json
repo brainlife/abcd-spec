@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Edge time series",
+  "version": "main",
+  "summary": "Computes edge time series (element-wise products of z-scored regional time series for every region pair) from regional fMRI time series.",
+  "description": "Z-scores each regional fMRI time series and multiplies every pair of regions frame by frame, giving one edge time series per region pair (upper triangle). Use it for edge-centric functional connectivity analyses; the time average of the edge time series equals the Pearson correlation. The README says the output is an HTML report, but the code writes a compressed TSV of edge time series with a JSON of region-pair names.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "connectomics",
+    "network-analysis",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6048fde5ebfe45fb1b3acdda",
+    "github": "FarnazZE/bnbl-brainlife-create-edge-time-series",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "ts",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Regional fMRI time series as a TSV (time points in rows, regions in columns) with its JSON sidecar.",
+      "config_keys": [
+        "tsv",
+        "json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "description": "Edge time series (timeseries.tsv.gz, one column per region pair) and timeseries.json naming each pair."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 6,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.489",
+  "software": [
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Faskowitz J, Esfahlani FZ, Jo Y, Sporns O, Betzel RF. Edge-centric functional network representations of human cerebral cortex reveal overlapping system-level architecture. Nat Neurosci 23(12):1644-1654 (2020)."
+    },
+    {
+      "text": "Esfahlani FZ, Jo Y, Faskowitz J, Byrge L, Kennedy DP, Sporns O, Betzel RF. High-amplitude cofluctuations in cortical activity drive functional connectivity. PNAS 117(45) (2020)."
+    }
+  ],
+  "maintainers": [
+    "Farnaz Zamani Esfahlani"
+  ]
+}

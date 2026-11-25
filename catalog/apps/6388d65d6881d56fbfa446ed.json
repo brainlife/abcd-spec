@@ -1,0 +1,53 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert tractmasks to rois",
+  "version": "1.0",
+  "summary": "Converts a tractmasks datatype into a rois datatype by moving the mask files unchanged; a format-conversion utility.",
+  "description": "Moves every file at the top level of the tract masks directory into a rois directory, without changing the images. Use it to feed tract masks to Apps that expect ROIs.",
+  "kind": "native",
+  "topics": [
+    "conversion",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6388d65d6881d56fbfa446ed",
+    "github": "brainlife/app-convert-tractmasks-to-rois",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract masks (one NIfTI per tract).",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "The same masks as a rois datatype."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.707",
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

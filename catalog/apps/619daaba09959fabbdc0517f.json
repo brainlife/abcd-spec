@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AFNI pRF",
+  "version": "main",
+  "summary": "Fits a population receptive field (pRF) model to BOLD fMRI with AFNI 3dNLfim (Conv_PRF, simplex) given a visual stimulus image, and outputs the pRF parameter bucket, fitted signal and polar magnitude and phase maps.",
+  "description": "Demeans and scales the BOLD within an AFNI automask, then fits AFNI's convolved Gaussian pRF model (Conv_PRF, SPM canonical HRF) voxel-wise with 3dNLfim using a random grid search followed by simplex optimisation, with the stimulus aperture images as AFNI_MODEL_PRF_STIM_DSET. Polar magnitude and phase are derived from the fitted x and y centres. Use it for retinotopic mapping experiments with a known stimulus aperture sequence. The HRF reference is generated for a fixed 1.5 s TR, and the brain mask used is computed with 3dAutomask rather than taken from the mask input.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "afni",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "619daaba09959fabbdc0517f",
+    "github": "anibalsolon/bl-app-prfmodel",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Retinotopy BOLD run (the BOLD image is used; events, sbref and physio files are not used).",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "stim",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Stimulus aperture image sequence matching the BOLD time points, used as the pRF stimulus dataset.",
+      "config_keys": [
+        "stim"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask. Not used by the current code (3dAutomask of the BOLD is used instead).",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "Folder with the 3dNLfim pRF parameter bucket (Buck.PRF.nii.gz), fitted time series (snfit.PRF.nii.gz), polar magnitude and phase maps, and intermediate mean, automask and demeaned BOLD images."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "anibalsolon/bl-app-prfmodel:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.598",
+  "software": [
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ]
+}

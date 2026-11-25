@@ -1,0 +1,95 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Run MRIQC on Functional Data - FMRI",
+  "version": "22.0.6",
+  "summary": "Runs MRIQC 22.0.6 on a functional (BOLD) image to compute image quality metrics and produce an individual HTML QC report and a table of quality metrics.",
+  "description": "Wraps the functional (BOLD) image into a single-subject BIDS dataset and runs MRIQC 22.0.6 at the participant level (no group-level stage). Outputs the full MRIQC derivatives, the subject HTML report and a TSV of the image quality metrics (IQMs) for use as regressors or for screening scans. Use it to screen data quality before preprocessing.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "quality-control",
+    "bids",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6363f827fa262bbde2d99ce0",
+    "github": "brainlife/app-mriqc",
+    "branch": "22.0.6"
+  },
+  "inputs": [
+    {
+      "id": "func",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Functional (BOLD) image to evaluate.",
+      "config_keys": [
+        "input",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mriqc",
+        "fmri"
+      ],
+      "description": "Full MRIQC output directory (derivatives, IQM JSON and reports).",
+      "datatype_tags_pass": "func"
+    },
+    {
+      "id": "subject_html",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "mriqc",
+        "fmri"
+      ],
+      "description": "MRIQC individual HTML report for the input image.",
+      "datatype_tags_pass": "func"
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "mriqc",
+        "fmri"
+      ],
+      "description": "TSV table (regressors.tsv) of the image quality metrics computed by MRIQC.",
+      "datatype_tags_pass": "func"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "BIDS data folder MRIQC is run on ('func'); fixed for this App and not meant to be changed.",
+      "default": "func",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/mriqc:22.0.6",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.703",
+  "software": [
+    {
+      "name": "MRIQC",
+      "version": "22.0.6",
+      "url": "https://mriqc.readthedocs.io"
+    }
+  ]
+}

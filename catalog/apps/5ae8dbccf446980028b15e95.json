@@ -1,0 +1,117 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice",
+  "version": "1.1.1",
+  "summary": "Reslices a DWI dataset to a new isotropic voxel size with DIPY dipy_reslice (1.1.1), keeping the bvals and bvecs.",
+  "description": "Runs dipy_reslice to resample a diffusion-weighted image to isotropic voxels of new_vox_size, with configurable interpolation order and boundary handling. Use it before steps that need isotropic or a specific resolution. bvals and bvecs are copied unchanged.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy",
+    "dwi",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "5ae8dbccf446980028b15e95",
+    "github": "dipy/bl_apps_dipy_reslice",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "resliced"
+      ],
+      "description": "The resliced DWI with the original bvals and bvecs.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "order",
+      "type": "number",
+      "description": "Order of interpolation, from 0 to 5.",
+      "default": 1,
+      "minimum": 0,
+      "maximum": 5
+    },
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "Points outside the boundaries of the input are filled according to the given mode.",
+      "default": "constant",
+      "options": [
+        {
+          "value": "constant",
+          "label": "Constant"
+        },
+        {
+          "value": "nearest",
+          "label": "Nearest"
+        },
+        {
+          "value": "reflect",
+          "label": "Reflect"
+        },
+        {
+          "value": "wrap",
+          "label": "Wrap"
+        }
+      ]
+    },
+    {
+      "id": "cval",
+      "type": "number",
+      "description": "The value used for points outside the boundaries of the input if mode='constant'.",
+      "default": 0
+    },
+    {
+      "id": "new_vox_size",
+      "type": "number",
+      "description": "New voxel size.",
+      "default": 1
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.5",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Align mp2rage to ACPC Plane (HCP-based)",
+  "version": "mp2rage-v1.5",
+  "summary": "Aligns MP2RAGE images to the ACPC plane by estimating a 6-DOF rigid FSL alignment of the UNI image to the MNI152 T1 1mm template (or a provided T1w) and applying it to all MP2RAGE volumes.",
+  "description": "Crops the UNI (unit1) image with robustfov, estimates an affine registration to the template with flirt (optionally without resampling), reduces it to a rigid-body transform with aff2rigid and applies it to the MP2RAGE magnitude, phase and UNI volumes. Use it to put MP2RAGE data in ACPC orientation; if a T1w is given, the data are aligned to that T1w instead of the MNI template.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60832a3789df43532e6dbb7b",
+    "github": "brainlife/app-hcp-acpc-alignment",
+    "branch": "mp2rage-v1.5"
+  },
+  "inputs": [
+    {
+      "id": "mp2rage",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/mp2rage datatype to be aligned",
+      "config_keys": [
+        "mag_inv1",
+        "phase_inv1",
+        "mag_inv2",
+        "phase_inv2",
+        "unit1",
+        "mag_inv1_json",
+        "phase_inv1_json",
+        "mag_inv2_json",
+        "phase_inv2_json",
+        "unit1_json"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If you want to align the mp2rage data to a T1 instead of the MNI template, input the T1 here",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "The ACPC aligned anat/mp2rage datatype",
+      "datatype_tags_pass": "mp2rage"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "This template is used to align the input image to standard MNI orientation (acpc aligned). For adult brain, MNI152 should work fine, however, if you have pediatric images please select a template with correct age group in order to ensure that your input image will better align with the template. Otherwise, flirt will fail to correctly align your image.",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "The 1mm MNI_152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        }
+      ]
+    },
+    {
+      "id": "resample",
+      "type": "boolean",
+      "description": "set whether to resample the voxels during alignment. default = true",
+      "default": true
+    },
+    {
+      "id": "interp",
+      "type": "enum",
+      "description": "interpolation type to use",
+      "default": "nearestneighbour",
+      "options": [
+        {
+          "value": "trilinear",
+          "label": "trilinear",
+          "description": "trilinear"
+        },
+        {
+          "value": "nearestneighbour",
+          "label": "nearestneighbour",
+          "description": "nearestneighbour"
+        },
+        {
+          "value": "spline",
+          "label": "spline",
+          "description": "spline"
+        },
+        {
+          "value": "sinc",
+          "label": "sinc",
+          "description": "sinc"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.511",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

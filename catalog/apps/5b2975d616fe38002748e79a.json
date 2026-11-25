@@ -1,0 +1,275 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "clever",
+  "version": "2.0",
+  "summary": "Flags outlying timepoints in an fMRI run with the clever R package (PCA leverage, robust distance and DVARS) for scrubbing and quality control, and outputs an outlier plot and table.",
+  "description": "Masks the BOLD time series into a timepoints-by-voxels matrix, robustly normalises it, keeps high-variance and/or high-kurtosis principal components and measures leverage, robust distance and optionally DVARS for each timepoint, then thresholds them to flag outliers. Use it to choose volumes to scrub or to check fMRI data quality. Needs a 4D BOLD image and a brain mask in the same space. Note: main.R reads the images from undefined variables bold and mask (not input$bold / input$mask) and the parameter kurt_quantile is not in the list of names passed to clever (it expects kurt_quant), so the App may fail or ignore that parameter.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "quality-control",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b2975d616fe38002748e79a",
+    "github": "mandymejia/app-clever",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The brain volume time-course to look for outlying timepoints in.",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The whole brain mask. Voxels to be retained for analysis should be 1; voxels to be discarded should be 0.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "clever",
+      "datatype": "raw",
+      "datatype_tags": [
+        "clever"
+      ],
+      "description": "Outlier detection for high-dimensional data."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "projection",
+      "type": "enum",
+      "description": "`clever` works by first choosing PCs of the data which are likely to contain information about outliers. \n\n`kurtosis` selects PCs of high kurtosis among the PCs which explain the top 90% of variance. It is based on the observation that the presence of outliers often induces high kurtosis. \n\n`variance` selects PCs of greater-than-average variance, and is based on the observation that the larger PCs often contain outlier information, whereas smaller PCs often represent typical variation in the data. We recommend the `kurtosis` method over the `variance` method.\n\n`PCATF` (PCA Trend Filtering) works differently from the other two projection methods: it computes a variation of PCA which minimizes the zero norm of first-differences in each PC score. This has the effect of making PC scores constant within neighborhoods of little change, thus highlighting regions of artifact presence. It is based on the observation that timepoints with artifacts tend to be adjacent (due to an artifact source persisting or otherwise affecting the fMRI across multiple scans).\n\nIf multiple projections are chosen, each projection will be used with each compatible measure of outlyingness.",
+      "default": "variance",
+      "options": [
+        {
+          "value": "kurtosis",
+          "label": "kurtosis"
+        },
+        {
+          "value": "variance",
+          "label": "variance"
+        },
+        {
+          "value": "PCATF",
+          "label": "PCATF"
+        },
+        {
+          "value": "kurtosis, variance",
+          "label": "kurtosis and variance"
+        },
+        {
+          "value": "kurtosis, PCATF",
+          "label": "kurtosis and PCATF"
+        },
+        {
+          "value": "variance, PCATF",
+          "label": "variance and PCATF"
+        },
+        {
+          "value": "kurtosis, variance, PCATF",
+          "label": "kurtosis, variance, and PCATF"
+        }
+      ]
+    },
+    {
+      "id": "out_meas",
+      "type": "enum",
+      "description": "After projecting the data, `clever` computes an outlyingness score for each observation.\n\n`leverage` is based on a regression model using the PC scores as a design matrix. \n\n`robdist` is a robust measure of the minimum covariance determinant (MCD) distance. It is currently being revamped; for now, we recommend the `leverage` option.",
+      "default": "leverage",
+      "options": [
+        {
+          "value": "leverage",
+          "label": "leverage"
+        },
+        {
+          "value": "robdist",
+          "label": "robust distance"
+        },
+        {
+          "value": "leverage, robdist",
+          "label": "leverage and robust distance"
+        }
+      ]
+    },
+    {
+      "id": "DVARS",
+      "type": "enum",
+      "description": "DVARS is another common measure of outlyingness for fMRI data based on the standard deviation of the voxels' change from the previous timepoint. Unlike the other methods, it is not based on first projecting the data.",
+      "default": "TRUE",
+      "options": [
+        {
+          "value": "FALSE",
+          "label": "do not also compute DVARS"
+        },
+        {
+          "value": "TRUE",
+          "label": "also compute DVARS"
+        }
+      ]
+    },
+    {
+      "id": "detrend",
+      "type": "enum",
+      "description": "Should the PCs be detrended before measuring the outlyingness of each observation? Detrending is highly recommended for fMRI data for two reasons. First, temporal trends induce positive or negative kurtosis, contaminating the connection between high kurtosis and outlier presence. Second, trends tend to reduce the size of the in-MCD subset for the robust distance method causing many false positives.\n\nIn addition to `TRUE` and `FALSE`, a third option `kurtosis` can be used to only detrend the PCs for the purpose of measuring kurtosis, and not for the actual outlyingness measurement.\n\nThis option will not affect the PCATF projection, which is never detrended.",
+      "default": "TRUE",
+      "options": [
+        {
+          "value": "TRUE",
+          "label": "detrend"
+        },
+        {
+          "value": "FALSE",
+          "label": "do not detrend"
+        },
+        {
+          "value": "kurtosis",
+          "label": "detrend only for kurtosis"
+        }
+      ]
+    },
+    {
+      "id": "kurt_quantile",
+      "type": "string",
+      "description": "A number between 0 and 1. Only applicable for the `kurtosis` projection method. PCs of kurtosis greater than this quantile will be retained. The quantile will be based on the sampling distribution of kurtosis for Normal, independent data (estimated by simulation or with the theoretical asymptotic distribution). The default value of 0.95 was chosen because the kurtosis of PCs with outliers should easily surpass this quantile, and 0.05 is a reasonable rate for false positives (retaining PCs without outlier information) under the null hypothesis of no outliers.\n\nNote that at least one PC will be retained in each projection, regardless of the value of `kurt_quantile`.",
+      "default": "0.95"
+    },
+    {
+      "id": "id_outliers",
+      "type": "enum",
+      "description": "Should outliers be identified?",
+      "default": "TRUE",
+      "options": [
+        {
+          "value": "TRUE",
+          "label": "Identify outliers"
+        },
+        {
+          "value": "FALSE",
+          "label": "Do not identify outliers"
+        }
+      ]
+    },
+    {
+      "id": "lev_cutoff",
+      "type": "string",
+      "description": "The outlier cutoff value for leverage, as a multiple of the median leverage.",
+      "default": "4",
+      "advanced": true
+    },
+    {
+      "id": "rbd_cutoff",
+      "type": "string",
+      "description": "The outlier cutoff quantile for MCD distance.",
+      "default": "0.9999",
+      "advanced": true
+    },
+    {
+      "id": "lev_images",
+      "type": "string",
+      "description": "Leverage images are currently not supported by the `clever` BrainLife app.",
+      "default": "FALSE",
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "verbose",
+      "type": "enum",
+      "description": "Should occasional updates be printed? Default is `FALSE`.",
+      "default": "FALSE",
+      "options": [
+        {
+          "value": "TRUE",
+          "label": "verbose"
+        },
+        {
+          "value": "FALSE",
+          "label": "silent"
+        }
+      ]
+    },
+    {
+      "id": "main",
+      "type": "string",
+      "description": "Override title for output plot(s).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "sub",
+      "type": "string",
+      "description": "Override subtitle for output plot(s).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "xlab",
+      "type": "string",
+      "description": "Override x-axis label for output plot(s).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ylab",
+      "type": "string",
+      "description": "Override y-axis label for output plot(s).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "png",
+      "type": "string",
+      "description": "Name of file to save plot to.",
+      "default": "cleverPlot.png",
+      "required": false,
+      "placeholder": "cleverPlot.png"
+    },
+    {
+      "id": "csv",
+      "type": "string",
+      "description": "Name of file to save table to.",
+      "default": "cleverTable.csv",
+      "required": false,
+      "placeholder": "cleverTable.csv"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/clever:2.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 31,
+      "walltime_hours": 15
+    }
+  },
+  "doi": "10.25663/bl.app.71",
+  "software": [
+    {
+      "name": "clever (R package)",
+      "url": "https://github.com/mandymejia/clever"
+    },
+    {
+      "name": "R",
+      "version": "4.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2017.12.098",
+      "text": "Afyouni S, Nichols TE. Insight and inference for DVARS. NeuroImage (2018)."
+    }
+  ]
+}

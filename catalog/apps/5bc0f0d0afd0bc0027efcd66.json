@@ -1,0 +1,139 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Align T2 to ACPC Plane (HCP-based)",
+  "version": "1.4",
+  "summary": "Aligns a T2-weighted image to the ACPC plane with a 6-DOF rigid FSL alignment (robustfov, flirt, aff2rigid) to the MNI152 T2 1mm template, following the HCP pipelines, and outputs the aligned image and transform.",
+  "description": "Crops the neck with robustfov, estimates an affine registration to the template (MNI152 or NIHPD) with flirt, reduces it to a rigid-body (6 DOF) transform with aff2rigid and resamples the T2w with spline interpolation. Use it to put a T2w image in a standard ACPC orientation before further anatomical processing; it does not warp the brain to the template shape. Produces an alignment-check PNG.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5bc0f0d0afd0bc0027efcd66",
+    "github": "brainlife/app-hcp-acpc-alignment",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "!acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t2w datatype to be aligned",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "acpc_aligned",
+        "preprocessed"
+      ],
+      "description": "The template aligned T2w image",
+      "datatype_tags_pass": "t2"
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "affine",
+        "t2_to_acpc"
+      ],
+      "description": "Rigid (6 DOF) affine matrix (affine.txt) mapping the input T2w to the ACPC-aligned template space."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "This field controls whether the input image is a T1 or T2. Not meant to be changed. Makes pointing to the same github repository easier.",
+      "default": "T2",
+      "advanced": true
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "The template to which the T2w image is to be aligned",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "The MNI 152 1mm template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        }
+      ]
+    },
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "If true, reorient the image to FSL standard orientation with fslreorient2std. Note: run.sh on branch 1.4 does not read this key, so it has no effect on this version.",
+      "default": true
+    },
+    {
+      "id": "cleanup",
+      "type": "boolean",
+      "description": "Remove templates to save space",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.116",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

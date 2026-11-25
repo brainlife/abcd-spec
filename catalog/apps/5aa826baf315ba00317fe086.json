@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Labels to 3D Surfaces",
+  "version": "v1.0",
+  "summary": "Creates 3D surface meshes for the FreeSurfer aparc+aseg labels (cortical and subcortical regions) with VTK marching cubes, in vtk, ply or stl format.",
+  "description": "Converts mri/aparc+aseg.mgz to NIfTI with FreeSurfer mri_label2vol, then builds a smoothed mesh for each of a fixed list of subcortical and Desikan-Killiany cortical labels with VTK, naming and colouring them from the FreeSurfer colour lookup table. Use it to visualise a FreeSurfer segmentation in 3D. The job checks for a fixed number of output files and fails if any are missing.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "postprocessing",
+    "surface-analysis",
+    "visualization"
+  ],
+  "registry": {
+    "id": "5aa826baf315ba00317fe086",
+    "github": "kitchell/app-3Dfreesurfs",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Must contain mri/aparc+aseg.mgz."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [
+        "freesurfer"
+      ],
+      "description": "One surface mesh per FreeSurfer label, with colour and name information."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "filetype",
+      "type": "enum",
+      "description": "choose output filetype",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "vtk",
+          "label": ".vtk",
+          "description": "use .vtk filetype"
+        },
+        {
+          "value": "ply",
+          "label": ".ply",
+          "description": "use .ply filetype"
+        },
+        {
+          "value": "stl",
+          "label": ".stl",
+          "description": "use .stl filetype"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.98",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "VTK",
+      "url": "https://vtk.org/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "files missing",
+      "cause": "Not every expected label surface was produced.",
+      "fix": "Check that aparc+aseg.mgz contains the standard FreeSurfer labels."
+    }
+  ]
+}

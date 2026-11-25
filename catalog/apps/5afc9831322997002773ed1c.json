@@ -1,0 +1,131 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "pRFLife mrTools",
+  "version": "master",
+  "summary": "Fits population receptive field (pRF) models to BOLD time series and a stimulus image with mrTools, producing polar angle, eccentricity, receptive field width and variance-explained maps.",
+  "description": "This app will compute a population receptive field (i.e. pRF) analysis on a given time series. Inputs needed include: a time series nifti, a stimulus nifti, the measurements of the visual stimulus in space (stimimageunits), and dimensions of a mask (mask; optional). Outputs include: x.nii, y.nii, rfWidth.nii and r2.nii. Please see http://gru.stanford.edu/doku.php/mrTools/tutorialsprf for more detail.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "freesurfer",
+    "vision"
+  ],
+  "registry": {
+    "id": "5afc9831322997002773ed1c",
+    "github": "brainlife/app-prf",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "BOLD fMRI time series from a retinotopic mapping experiment.",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "stimimage",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Stimulus aperture image (NIfTI) shown during the BOLD run, as in the HCP retinotopy datasets.",
+      "config_keys": [
+        "stimimage"
+      ],
+      "requirements": "Should have one frame per BOLD volume."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Freesurfer output used to create mask for visual cortex",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "pRF maps (polarAngle, eccentricity, rfWidth and r2 NIfTI images) plus FreeSurfer white, pial, sphere and inflated surfaces as VTK for visualisation."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "visual_angle_width",
+      "type": "number",
+      "description": "(in degree) full visual angle of the stimulation image. assumes central fixation. It should be 16 for HCP Retinotopy datasets.",
+      "default": 16
+    },
+    {
+      "id": "visual_angle_height",
+      "type": "number",
+      "description": "(in degree) full visual angle of the stimulation image. assumes central fixation. It should be 16 for HCP Retinotopy datasets.",
+      "default": 16
+    },
+    {
+      "id": "frameperiod",
+      "type": "number",
+      "description": "(in seconds) the time for each volume of the BOLD time series (typically the TR)",
+      "default": 1
+    },
+    {
+      "id": "prefitOnly",
+      "type": "boolean",
+      "description": "Only do the grid search that finds approximately good parameters for the model and will not optimize with the nonlinear search. This will speed up the program but will not produce optimized fits. Nonetheless it should be good enough for debugging.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.0",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 120,
+      "walltime_hours": 24
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.31",
+  "software": [
+    {
+      "name": "mrTools",
+      "url": "https://github.com/justingardner/mrTools"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license available in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable (provided automatically on brainlife.io)."
+    },
+    {
+      "message": "output missing",
+      "cause": "The pRF fit did not write prf/r2.nii.gz.",
+      "fix": "Check the logs; make sure the stimulus image matches the BOLD time series in number of frames."
+    }
+  ]
+}

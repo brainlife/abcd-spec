@@ -1,0 +1,72 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dt6 To Nifti Converter",
+  "version": "1.0",
+  "summary": "Converts a dtiInit dt6.mat tensor fit into NIfTI maps of FA, MD, AD, RD and the Westin shape indices (cl, cp, cs) with vistasoft.",
+  "description": "Loads dti/dt6.mat from a dtiInit output, recomputes the eigen-decomposition and writes FA, MD, AD, RD, cl, cp and cs as NIfTI images in the tensor datatype. Use it when a dtiInit output must be used by Apps that take a tensor datatype. Format conversion utility; no model is refitted from the DWI.",
+  "kind": "native",
+  "topics": [
+    "convert",
+    "dwi",
+    "conversion",
+    "diffusion-modeling",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a77640c5bf7fb0039f2f809",
+    "github": "brainlife/app-dt6tonifti",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dtiInit output directory containing dti/dt6.mat.",
+      "config_keys": [
+        "dt6"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "Tensor datatype with FA, MD, AD, RD, cl, cp and cs NIfTI maps."
+    },
+    {
+      "id": "1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tensor"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a"
+  },
+  "doi": "10.25663/bl.app.48",
+  "software": [
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "fa.nii.gz was not written.",
+      "fix": "Check that the input contains dti/dt6.mat."
+    }
+  ]
+}

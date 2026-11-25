@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract event-related timeseries - Surface",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6571c9c4b094062da673d810",
+    "github": "anibalsolon/blapp-extract-event-signal",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "left",
+        "right",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "events",
+      "type": "string",
+      "description": "Event names separated by commas.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/blapp-extract-event-signal",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.804"
+}

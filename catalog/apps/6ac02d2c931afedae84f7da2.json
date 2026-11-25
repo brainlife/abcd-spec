@@ -1,0 +1,151 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DeepRetinotopy",
+  "version": "main",
+  "summary": "DeepRetinotopy brainlife.io app: predict retinotopic maps from cortical anatomy using geometric deep learning. Based on the original deepRetinotopy model by Fernanda L. Ribeiro et al. (2021, 2024, 2025).",
+  "description": "Wraps deepRetinotopy_TheToolbox (Neurodesk vnmd/deepretinotopy container): builds midthickness surfaces and curvature from the native FreeSurfer white/pial surfaces, resamples them to the HCP 32k fs_LR mesh, predicts polar angle, eccentricity and pRF size with a pretrained geometric deep learning model, and maps the predictions back to native surfaces and the T1 volume, with a visual-area parcellation. Use it to estimate retinotopic maps when no retinotopic mapping scan is available. Needs only lh/rh white, pial and sphere.reg surfaces; no FreeSurfer license is required.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "fmri",
+    "surface-analysis",
+    "machine-learning",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6ac02d2c931afedae84f7da2",
+    "github": "gamorosino/app-deepretinotopy",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A single subject's FreeSurfer output directory.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "surf/ must contain lh/rh white, pial and sphere.reg."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [
+        "deepretinotopy"
+      ],
+      "description": "Predicted polar angle, eccentricity and pRF size (rfWidth) maps with a visual-area parcellation and cortical mask, as T1-space volumes and native-surface GIFTIs (prf_surfaces/), plus surface meshes."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "maps",
+      "type": "string",
+      "description": "Comma-separated maps to predict: polarAngle, eccentricity, pRFsize",
+      "default": "polarAngle,eccentricity,pRFsize",
+      "placeholder": "polarAngle,eccentricity,pRFsize"
+    },
+    {
+      "id": "dataset",
+      "type": "string",
+      "description": "Dataset label passed to the deepRetinotopy toolbox",
+      "default": "brainlife",
+      "advanced": true,
+      "placeholder": "brainlife"
+    },
+    {
+      "id": "subject_id",
+      "type": "string",
+      "description": "Internal subject id used when staging the FreeSurfer input",
+      "default": "subject",
+      "advanced": true,
+      "placeholder": "subject"
+    },
+    {
+      "id": "fast",
+      "type": "string",
+      "description": "Fast midthickness generation: yes or no",
+      "default": "yes",
+      "advanced": true,
+      "placeholder": "yes"
+    },
+    {
+      "id": "use_gpu",
+      "type": "boolean",
+      "description": "Pass --nv to Singularity for GPU-accelerated inference",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "container_version",
+      "type": "string",
+      "description": "vnmd/deepretinotopy container tag to pull (default: 1.0.18; use 1.0.19 if your resource has Apptainer >= 1.5.3)",
+      "default": "1.0.18",
+      "advanced": true,
+      "placeholder": "1.0.18"
+    },
+    {
+      "id": "polar_angle_benson",
+      "type": "boolean",
+      "description": "Fold polar angle from 0-360\u00b0 to 0-180\u00b0 (Benson/neuropythy convention; hemisphere encodes left vs right visual field)",
+      "default": true
+    },
+    {
+      "id": "nan_aware_projection",
+      "type": "boolean",
+      "description": "Use NaN-aware barycentric interpolation for surface-to-volume projection (non-finite vertices get zero weight; disable if results look worse than standard prism projection)",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "vnmd/deepretinotopy_1.0.18"
+  },
+  "doi": "10.25663/brainlife.app.983",
+  "license": "GPL-3.0",
+  "software": [
+    {
+      "name": "deepRetinotopy_TheToolbox",
+      "url": "https://github.com/felenitaribeiro/deepRetinotopy_TheToolbox"
+    },
+    {
+      "name": "Connectome Workbench (wb_command)"
+    },
+    {
+      "name": "FreeSurfer (mris_convert)"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2021.118624",
+      "text": "Ribeiro FL, Bollmann S, Puckett AM. Predicting the retinotopic organization of human visual cortex from anatomy using geometric deep learning. NeuroImage 118624 (2021)."
+    },
+    {
+      "doi": "10.1101/2025.11.27.690210",
+      "text": "Ribeiro FL, et al. Predicting functional topography of the human visual cortex from cortical anatomy at scale. bioRxiv (2025)."
+    },
+    {
+      "doi": "10.1038/s41592-023-02145-x",
+      "text": "Renton AI, et al. Neurodesk: an accessible, flexible and portable data analysis environment for reproducible neuroimaging. Nat Methods 21(5):804-808 (2024)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized platform for reproducible neuroscience. Nat Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "'freesurfer' must point at a single subject's FreeSurfer output directory",
+      "fix": "Provide a FreeSurfer subject directory containing surf/."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino",
+    "Junbeom Kwon"
+  ]
+}

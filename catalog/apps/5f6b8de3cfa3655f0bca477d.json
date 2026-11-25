@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-qc",
+  "version": "master",
+  "summary": "Quality control for DWI data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6b8de3cfa3655f0bca477d",
+    "github": "frankyeh/dsi-studio-qc",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "src",
+      "datatype": "neuro/dsistudio/src",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If an SRC file is assigned, DSI Studio will ignore \"dwi\"",
+      "config_keys": [
+        "src"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "stat",
+      "datatype": "dsistudio/tractmeasure",
+      "datatype_tags": [
+        "qc"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.428"
+}

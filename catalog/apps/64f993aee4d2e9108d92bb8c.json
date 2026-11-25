@@ -1,0 +1,91 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Drop bad epochs",
+  "version": "v1.0",
+  "summary": "Drops bad epochs by index from MNE-Python epoched MEG/EEG data with Epochs.drop, taking indices from a parameter and/or a file, with before/after plots and an HTML report.",
+  "description": "Reads epochs, collects the indices to remove from the drop parameter and from an optional file containing comma-separated indices (passed through the events field), removes them with mne.Epochs.drop and saves the remaining epochs together with a summary and figures. Use it to remove epochs flagged as bad by visual inspection or another QC step. Indices refer to the current epochs in the file (0-based).",
+  "kind": "native",
+  "topics": [
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "quality-control",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64f993aee4d2e9108d92bb8c",
+    "github": "BrainlifeMEEG/drop-bad-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched file to remove epochs from.",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "events",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "SPECIAL HACK:\nevents.tsv contains a list of bad trials as a single line with comma-separated indices to drop",
+      "config_keys": [
+        "events"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "no-bad-epo"
+      ],
+      "description": "MNE epochs after dropping"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "drop",
+      "type": "string",
+      "description": "Set epochs to remove by specifying indices to remove. Events are correspondingly modified.",
+      "default": "",
+      "required": false,
+      "placeholder": "1, 5, 16"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 2.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.798",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ]
+}

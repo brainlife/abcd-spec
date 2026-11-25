@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track Density Masks",
+  "version": "master",
+  "summary": "Creates a streamline density map (NIfTI) for each tract in a white matter classification, with optional resizing, thresholding, smoothing and normalisation, using wma_tools.",
+  "description": "Runs bsc_densityMapsFromClassification on the tractogram and classification in the T1's space and writes one density image per tract. Use it to turn tracts into volumetric masks or density maps for overlap or ROI analyses.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6068bf10c7f80a3c109411b0",
+    "github": "brainlife/app-tractDensityMasks",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A reference T1 from which will provide the reference space that the density mask will be created in.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "tractome",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The source tractome that the WMC data object is associated with",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) labelling the tracts.",
+      "config_keys": [
+        "WMC",
+        "tracts",
+        "surfaces"
+      ],
+      "requirements": "Must index the streamlines of the given tractogram."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "NIfTI density masks for each of the structures listed in the input WMC object."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "voxelResize",
+      "type": "number",
+      "description": "the voxel resize parameter.  0 or [] results in no resizing.  Input value indicates the desired isometric voxel size of the output.  WARNING:  given that the node sampling rate is ~ 1mm, resizing of less than 1mm can result in masks with many holes.  Recommend use of smoothing to combat this.",
+      "default": 1,
+      "minimum": 0.1,
+      "maximum": 10
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "The minimum number of streamlines (nodes, in practice) required in a voxel needed to prevent the value from being thresheld to 0.  This is applied AFTER the voxel resize but BEFORE any smoothing is applied.",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "smoothParam",
+      "type": "number",
+      "description": "the smoothing kernel (necessarily odd, corresponding to diameter +1) to be applied to the mask.  Currently implemented as gaussian.",
+      "default": 1,
+      "minimum": 0
+    },
+    {
+      "id": "normalizeBool",
+      "type": "boolean",
+      "description": "Whether or not to apply normalization.  This will occur at the last step.  Will divide by highest density such that values range from 0 to 1.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.498",
+  "software": [
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "neurodebian1604-r2017a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Daniel Bullock"
+  ]
+}

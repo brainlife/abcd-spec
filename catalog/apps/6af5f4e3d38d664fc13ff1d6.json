@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-bet-t1w",
+  "version": "main",
+  "summary": "Skull-strips a T1-weighted image with FSL 6.0.4 BET and outputs the brain-extracted T1w volume.",
+  "description": "Runs FSL bet on a T1w image with a configurable fractional intensity threshold (-f) and optional robust brain centre estimation (-R) or bias field and neck cleanup (-B), inside the brainlife/fsl:6.0.4 container. Use it for brain extraction before registration or segmentation. Lower frac values give larger brain estimates; enable bias_neck_cleanup for images with a lot of neck.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6af5f4e3d38d664fc13ff1d6",
+    "github": "gamorosino/app-bet-t1w",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted NIfTI image to skull-strip.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Skull-stripped T1w brain volume produced by FSL BET"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0-1)",
+      "default": 0.5
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use robust brain centre estimation (-R)",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field + neck cleanup (-B)",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.995",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "cause": "bet did not write t1_brain/t1.nii.gz.",
+      "fix": "Check the log for the bet error."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

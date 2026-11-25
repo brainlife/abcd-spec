@@ -1,0 +1,131 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "pRFs / Benson14-Retinotopy",
+  "version": "v1.3",
+  "summary": "Predicts retinotopic maps (polar angle, eccentricity, pRF size) and visual area labels V1-V3a from a FreeSurfer subject with the Benson 2014 anatomical template in neuropythy.",
+  "description": "Runs neuropythy benson14_retinotopy on a FreeSurfer recon-all directory and reorganises the results into pRF maps (volume and surface), a 12-region visual area parcellation (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a) in volume and on the surface, and GIfTI surfaces. Use it to obtain visual cortex ROIs and retinotopy without functional mapping data. Needs a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "fmri",
+    "parcellation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6115c829a5a04c2a80f9e7f7",
+    "github": "gamorosino/app-benson14-retinotopy",
+    "branch": "v1.3"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Completed FreeSurfer recon-all subject directory.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [
+        "benson14_retinotopy"
+      ],
+      "description": "Predicted pRF maps: polar angle, eccentricity, receptive field size and visual area, as volumes and surface overlays."
+    },
+    {
+      "id": "varea",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "benson14_retinotopy",
+        "varea"
+      ],
+      "description": "Parcellation of visually-responsive cortex into 12 regions12 regions (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a)"
+    },
+    {
+      "id": "varea_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [
+        "parcellation",
+        "varea",
+        "benson14_retinotopy"
+      ],
+      "description": "Parcellation of visually-responsive cortex into 12 regions12 regions (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a)"
+    },
+    {
+      "id": "surfaces",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [
+        "parcellation",
+        "varea",
+        "benson14_retinotopy"
+      ],
+      "description": "White, pial and inflated surfaces of both hemispheres (GIfTI)."
+    },
+    {
+      "id": "parc_deprecated",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [
+        "parcellation",
+        "varea",
+        "benson14_retinotopy"
+      ],
+      "description": "Parcellation of visually-responsive cortex into 12 regions12 regions (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a)"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "the template to use",
+      "default": "Benson14",
+      "options": [
+        {
+          "value": "Benson14",
+          "label": "Benson14",
+          "description": "Benson14"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/neuropythy:0.12.16",
+    "resources": {
+      "cpus": 2,
+      "memory_gb": 20,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.559",
+  "software": [
+    {
+      "name": "neuropythy",
+      "version": "0.12.16",
+      "url": "https://github.com/noahbenson/neuropythy"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.1371/journal.pcbi.1003538",
+      "text": "Benson NC, Butt OH, Brainard DH, Aguirre GK. Correction of distortion in flattened representations of the cortical surface allows prediction of V1-V3 functional organization from anatomy. PLoS Comput Biol 10:e1003538 (2014)."
+    }
+  ]
+}

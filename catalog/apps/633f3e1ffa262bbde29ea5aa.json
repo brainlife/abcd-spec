@@ -1,0 +1,113 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSLmaths-app",
+  "version": "master",
+  "summary": "Combines one ROI from each of two ROI sets with FSL fslmaths (add, subtract, multiply, divide or mask), for example to remove a lesion from a region of interest.",
+  "description": "Copies the named ROI from each input ROI directory and runs fslmaths <roi_1> -<function> <roi_2>, writing the result as a new ROI; with sub the result is clipped to 0-1 so it stays binary. Use it to mask an ROI by a lesion or to merge or intersect ROIs. Both ROIs must be on the same voxel grid; with sub the order of inputs matters.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "fsl",
+    "segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "633f3e1ffa262bbde29ea5aa",
+    "github": "hanna-willis/app-roi-fslmaths",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "rois1",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "If you want to subtract, the order of inputs matters (first ROI is manipulated). For other functions it does not.",
+      "config_keys": [
+        "rois_1_loc"
+      ]
+    },
+    {
+      "id": "rois2",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ROI directory containing the second ROI (roi_2), e.g. a lesion mask, applied to the first.",
+      "config_keys": [
+        "rois_2_loc"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "ROI directory with copies of both input ROIs and the result <output_roi_name>.nii.gz."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roi_1",
+      "type": "string",
+      "description": "File name (without .nii.gz) of the ROI to take from the first ROI input.",
+      "default": ""
+    },
+    {
+      "id": "function",
+      "type": "enum",
+      "description": "fslmaths operation applied as roi_1 -<function> roi_2: add, sub (subtract, then clipped to 0-1), mul, div or mas (mask).",
+      "default": "sub",
+      "options": [
+        {
+          "value": "add"
+        },
+        {
+          "value": "sub"
+        },
+        {
+          "value": "mul"
+        },
+        {
+          "value": "div"
+        },
+        {
+          "value": "mas"
+        }
+      ]
+    },
+    {
+      "id": "roi_2",
+      "type": "string",
+      "description": "File name (without .nii.gz) of the ROI to take from the second ROI input.",
+      "default": ""
+    },
+    {
+      "id": "output_roi_name",
+      "type": "string",
+      "description": "File name (without .nii.gz) for the resulting ROI.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.680",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Hanna Willis",
+    "Brad Caron"
+  ]
+}

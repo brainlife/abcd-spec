@@ -1,0 +1,104 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Anatomy Segmentation Plus (wmaSeg++)",
+  "version": "main",
+  "summary": "Segments major white matter tracts from a whole-brain tractogram with wmaSeg++, a fast Python port of the wma_tools anatomical segmentation (Bullock et al. 2019) using the FreeSurfer Destrieux parcellation.",
+  "description": "Converts the FreeSurfer aparc.a2009s+aseg to NIfTI, then applies anatomically defined ROI, planar and endpoint criteria (ported from the MATLAB wma_tools) in parallel to classify streamlines into named bundles such as the arcuate, IFOF, ILF, MdLF, VOF, cingulum, CST and callosal tracts, and builds VTK surfaces for visualisation. Use it for atlas-free anatomical tract segmentation without a MATLAB runtime. The tractogram and FreeSurfer directory must be from the same subject and in the same space; needs a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "freesurfer",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6acfe9b83db9ceda5263760f",
+    "github": "gamorosino/app-wmaSeg-plusplus",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (TCK format)",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output directory (aparc.a2009s+aseg parcellation required)",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter tract classification: classification.mat, per-tract JSON files, and VTK surfaces."
+    },
+    {
+      "id": "tracts_tck",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "description": "Per-bundle TCK files (one per named tract), as alternative to WMC. Only produced when save_tck is enabled."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "save_tck",
+      "type": "boolean",
+      "description": "Save per-tract TCK files to tracts_tck/ (alternative to WMC)",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 3
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.987",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    },
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1007/s00429-019-01907-8",
+      "text": "Bullock D, Takemura H, Caiafa CF, et al. Associative white matter connecting the dorsal and ventral posterior human cortex. Brain Struct Funct 224(8):2631-2660 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: classification/classification.mat is missing or empty",
+      "fix": "Check the log of the segmentation step; the FreeSurfer directory must contain aparc.a2009s+aseg and match the tractogram space."
+    }
+  ]
+}

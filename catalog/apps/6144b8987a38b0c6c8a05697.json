@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert surface datatypes to cortexmap datatype",
+  "version": "convert-surface-datatype",
+  "summary": "Converts surface/vertices and surface/data datatypes into a cortexmap, renaming GIFTI files into Connectome Workbench conventions for use with its viewers; a format conversion utility.",
+  "description": "Copies the left and right GIFTI surfaces into cortexmap surf/ (adding lh./rh. prefixes and .surf.gii), and the left/right surface data into func/ as data.func.gii, or into label/ as parc.label.gii when a label.json is present. Use it to view or further process surface data with the cortexmap Apps; no resampling or computation is done.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6144b8987a38b0c6c8a05697",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "convert-surface-datatype"
+  },
+  "inputs": [
+    {
+      "id": "surf_data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right hemisphere surface data (GIFTI) and an optional label.json; treated as a parcellation when label.json exists, otherwise as metric data.",
+      "config_keys": [
+        "surf_data_left",
+        "surf_data_right",
+        "label"
+      ]
+    },
+    {
+      "id": "surf_verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right hemisphere surface meshes (GIFTI) that the data are defined on.",
+      "config_keys": [
+        "surf_verts_right",
+        "surf_verts_left"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "description": "cortexmap with the surfaces in surf/ and the data in func/ (metric) or label/ (parcellation).",
+      "datatype_tags_pass": "surf_data"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5,
+      "memory_gb": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.576",
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "No data file was copied into the cortexmap.",
+      "fix": "Check that both surface data hemispheres were provided."
+    }
+  ]
+}

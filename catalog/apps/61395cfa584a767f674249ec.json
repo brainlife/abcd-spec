@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Seed-based Correlation",
+  "version": "main",
+  "summary": "Computes a seed-based functional connectivity map from BOLD fMRI with AFNI: correlates the mean time series of a spherical seed with every voxel in a mask and outputs the Fisher z-transformed correlation image.",
+  "description": "Builds a sphere of the given radius around the seed coordinates (3dUndump), optionally smooths the BOLD to a target FWHM within the mask (3dBlurToFWHM), extracts the seed's mean time series (3dROIstats), correlates it with every voxel in the mask (3dTcorr1D, Pearson) and applies atanh. Use it for seed-based resting-state or task connectivity maps. The seed coordinates are in the coordinate space of the mask and BOLD images, so they must match the space of the data (for example MNI coordinates for MNI-space BOLD).",
+  "kind": "native",
+  "topics": [
+    "afni",
+    "brainlife",
+    "fmri",
+    "network",
+    "connectomics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61395cfa584a767f674249ec",
+    "github": "anibalsolon/app-seed-correlation",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input functional MRI",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Mask of the functional image to be correlated with the seed.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Same grid as the BOLD; also defines the master grid for the seed sphere."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "corr",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [],
+      "description": "Fisher z-transformed Pearson correlation map (corr.nii.gz) between the seed time series and each voxel in the mask.",
+      "datatype_tags_pass": "bold"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "seed",
+      "type": "string",
+      "description": "Coordinates of the functional image to be used as seed.",
+      "default": "0 -54 26",
+      "placeholder": "Seed Coordinate"
+    },
+    {
+      "id": "radius",
+      "type": "number",
+      "description": "Seed radius to capture the average time series",
+      "default": 5,
+      "minimum": 0,
+      "required": true,
+      "placeholder": "Radius in mm"
+    },
+    {
+      "id": "fwhm",
+      "type": "number",
+      "description": "Smoothing parameter (in mm). Blurs the image until it reaches the FWHM smoothness.",
+      "default": 0,
+      "required": false,
+      "placeholder": "Smoothing FWHM, in mm"
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/app-seed-corr:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.571",
+  "software": [
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Laplace Beltrami Spectrum: Eigenvalues and Eigenvectors",
+  "version": "singularity_evecs",
+  "summary": "Computes the Laplace-Beltrami spectrum (eigenvalues and eigenvectors) of each VTK surface mesh in a 3D surfaces dataset with compiled MATLAB code.",
+  "description": "For every .vtk mesh in the input surfaces directory, normalizes the mesh by surface area, builds the cotangent Laplacian and barycentric mass matrix, and solves for the spectrum_size smallest eigenpairs. Eigenvalues go to spectrum.json and, when save_eigenvectors is true, eigenvectors go to eigenvectors.mat. Use it for shape analysis or to reconstruct surfaces from eigenfunctions; meshes with too few vertices for the requested spectrum are skipped.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "anatomy",
+    "surface-analysis",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5a64d43c3a1b10004544482a",
+    "github": "kitchell/app-LBspectrum_matlab",
+    "branch": "singularity_evecs"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of triangle surface meshes in VTK format, one per structure.",
+      "config_keys": [
+        "surfaces"
+      ],
+      "requirements": "Only *.vtk files are read; each mesh needs more vertices than spectrum_size."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/laplace_beltrami_spectrum",
+      "datatype_tags": [],
+      "description": "spectrum.json with the Laplace-Beltrami eigenvalues for each surface, keyed by surface name."
+    },
+    {
+      "id": "1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "eigenvectors"
+      ],
+      "description": "eigenvectors.mat (MATLAB v7.3) with the eigenvectors for each surface, written when save_eigenvectors is true."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "save_eigenvectors",
+      "type": "boolean",
+      "description": "this app saves the eigenvectors",
+      "default": true,
+      "readonly": true
+    },
+    {
+      "id": "spectrum_size",
+      "type": "number",
+      "description": "number of eigenvalues",
+      "default": 50
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/bl.app.96",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "JSONlab"
+    },
+    {
+      "name": "geom3d"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
+}

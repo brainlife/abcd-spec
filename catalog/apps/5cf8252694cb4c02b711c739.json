@@ -1,0 +1,112 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AFQ Tract Classification with LiFE",
+  "version": "1.4",
+  "summary": "Classifies major white matter tracts with AFQ (AFQ_SegmentFiberGroups) from a LiFE-evaluated tractogram and dtiInit output, optionally removing zero-weight LiFE fascicles, and outputs a tract classification.",
+  "description": "This service uses Automated fiber quantification AFQ and fe structure output from LiFE to identify major tract segments and quantify tissue properties along their trajectories. You can choose to have the zero weighted fibers (as determined by LiFE) removed before or after AFQ is applied. useinterhemisphericsplit is a variable from AFQ, which if set to true will cut fibers crossing between hemispheres with a midsaggital plane below z=-10. This is to get rid of CST fibers that appear to cross at the level of the brainstem. For more information about AFQ see https://github.com/yeatmanlab/AFQ/wiki",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "vistasoft"
+  ],
+  "registry": {
+    "id": "5cf8252694cb4c02b711c739",
+    "github": "brainlife/app-tractclassification",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "fe",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "LiFE fe structure (.mat) containing the tractogram and fascicle weights.",
+      "config_keys": [
+        "fe"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dtiInit output; its dt6.mat is used by AFQ to segment the fibers.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "afq",
+        "life"
+      ],
+      "description": "White matter classification (classification.mat with AFQ tract names and per-streamline index) and tract JSON files.",
+      "datatype_tags_pass": "fe"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "useinterhemisphericsplit",
+      "type": "boolean",
+      "description": "Cut fibers crossing between hemispheres with a midsaggital plane below z=-10. This is to get rid of CST (corticospinal tract) fibers that appear to cross at the level of the brainstem",
+      "default": false
+    },
+    {
+      "id": "remove_zero_weighted_fibers",
+      "type": "enum",
+      "description": "Select when you would like the zero weighted fibers removed",
+      "default": "before",
+      "options": [
+        {
+          "value": "before",
+          "label": "Before",
+          "description": "Remove the zero weighted fibers before performing AFQ"
+        },
+        {
+          "value": "after",
+          "label": "After",
+          "description": "Remove the zero weighted fibers after performing AFQ"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 58,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.206",
+  "software": [
+    {
+      "name": "AFQ",
+      "url": "https://github.com/yeatmanlab/AFQ"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "AFQ did not write classification.mat.",
+      "fix": "Check the logs; make sure the LiFE fe structure and dtiInit come from the same subject."
+    }
+  ]
+}

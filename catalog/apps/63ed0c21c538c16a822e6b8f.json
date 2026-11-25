@@ -1,0 +1,144 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
+  "version": "app-v1.0_wb-v1.5.0",
+  "summary": "Resamples template-surface labels to a subject's FreeSurfer surfaces and maps them into ribbon-constrained volume ROIs with Connectome Workbench 1.5.0.",
+  "description": "Converts the template and subject surfaces to GIFTI, resamples each label from the template sphere to the subject sphere (wb_command -label-resample, ADAP_BARY_AREA) and maps it into the subject's FreeSurfer volume with ribbon-constrained label-to-volume mapping, writing one ROI volume per hemisphere. Use it to bring atlas labels defined on fsaverage-like surfaces into a subject's anatomical space. An existing ROIs datatype can be passed so the new ROIs are added to it.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "registration",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63ed0c21c538c16a822e6b8f",
+    "github": "brainlife/app-warp-standard-label-rois",
+    "branch": "app-v1.0_wb-v1.5.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output of the target subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "standard_verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Template (for example fsaverage) surfaces for left and right hemispheres on which the labels are defined.",
+      "config_keys": [
+        "fsaverage_right",
+        "fsaverage_left"
+      ],
+      "requirements": "Must include ?h.sphere.reg.gii; the App exits otherwise."
+    },
+    {
+      "id": "standard_label",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right GIFTI label files on the template surfaces, with a label.json key.",
+      "config_keys": [
+        "label_left",
+        "label_right",
+        "label_json"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "This is useful if you want to copy the new files into a pre-existing rois datatype",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "Volume ROIs of the resampled labels in FreeSurfer subject space."
+    },
+    {
+      "id": "labels_out",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "Labels resampled to the subject's native surfaces (left.gii, right.gii) and label.json."
+    },
+    {
+      "id": "verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "Subject pial, white, inflated and sphere.reg surfaces in GIFTI format.",
+      "datatype_tags_pass": "freesurfer"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives"
+      ],
+      "description": "Intermediate surfaces, labels and volumes."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "apply_affine",
+      "type": "boolean",
+      "description": "This may be an optional parameter for your data. Sometimes the correspondence between freesurfer volume and surface space is off. This will apply a fix in those situations if true. \n\nif the final ROIs don't properly align, try rerunning and setting this to true",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.731",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0",
+      "url": "https://www.humanconnectome.org/software/connectome-workbench"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "surface vertices input is missing sphere.reg. this is required to map between the template and subject spaces. please check and reupload if necessary",
+      "fix": "Provide template surfaces that include sphere.reg."
+    },
+    {
+      "message": "something went wrong. check logs and derivative files",
+      "fix": "Check the log; the resampled label files were not produced."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    }
+  ]
+}

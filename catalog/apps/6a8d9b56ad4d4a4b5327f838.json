@@ -1,0 +1,95 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FIF to MNE Raw",
+  "version": "v1.0",
+  "summary": "Converts one or more MEG/EEG FIF files to MNE-Python Raw with mne.io.read_raw_fif, optionally reassigning channel types and renaming channels, and outputs the raw file(s) with a channel QC report.",
+  "description": "Reads each FIF file with MNE-Python, applies optional channel-type reassignments (for example spare EEG channels used for EOG/ECG) and channel renames, and re-saves it as raw.fif (or raw_<n>.fif for several inputs) with an HTML report of the channel information. Use it to bring FIF recordings into the brainlife MNE pipeline in a consistent format. Supersedes the single-file bl.app.632 registration.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "conversion",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a8d9b56ad4d4a4b5327f838",
+    "github": "BrainlifeMEEG/fif2mne",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "One or more MEG/EEG recordings in FIF format, with optional BIDS sidecars, calibration and cross-talk files.",
+      "config_keys": [
+        "fif",
+        "channels",
+        "headshape",
+        "coordsystem",
+        "calibration",
+        "crosstalk",
+        "destination",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "MNE raw data: raw.fif for a single input, or raw_<n>.fif per input file.",
+      "datatype_tags_pass": "fif"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "channel_types",
+      "type": "string",
+      "description": "Optional channel-type reassignments, comma-separated \"chan_name-new_type\" pairs (e.g. \"EEG061-eog,EEG062-eog,EEG063-ecg,EEG064-misc\" for a system that digitizes EOG/ECG through spare EEG channels). Applied via MNE's set_channel_types() before saving. Default: no reassignment.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "rename_channels",
+      "type": "string",
+      "description": "Optional channel renames, comma-separated \"old_name-new_name\" pairs (e.g. \"EEG061-EOG061,EEG062-EOG062,EEG063-ECG063\"). Applied via MNE's rename_channels(), after channel_types. Default: no renaming.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.955",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
+}

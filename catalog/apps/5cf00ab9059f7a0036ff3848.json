@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractSeg test",
+  "version": "brainlife-app",
+  "summary": "Segments white matter bundles from a subject's CSD peaks with TractSeg using user-trained weights from the TractSeg training App, producing one NIfTI mask per bundle.",
+  "description": "Runs TractSeg inference with custom weights produced by the TractSeg training App. Use it after training TractSeg on your own data; for the standard pretrained model use the original TractSeg App. Needs the CSD peaks of a single subject and the weights/hyperparameter files. Requires a GPU.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "machine-learning",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "5cf00ab9059f7a0036ff3848",
+    "github": "FBK-NILab/TractSeg-BrainLife",
+    "branch": "brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "CSD peaks of the subject to segment.",
+      "config_keys": [
+        "peaks"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "model/pytorch-weights",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pretrained weights of TractSeg",
+      "config_keys": [
+        "npz",
+        "hparam"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "tract_segmentations"
+      ],
+      "description": "Bundle segmentation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "paoloavesani/docker-test",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 5,
+      "gpu": true
+    }
+  },
+  "doi": "10.25663/brainlife.app.205",
+  "software": [
+    {
+      "name": "TractSeg",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    },
+    {
+      "name": "PyTorch"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183:239-253 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "tractseg_output is empty.",
+      "cause": "TractSeg inference produced no masks.",
+      "fix": "Check that the peaks and weights match (same classes and resolution)."
+    }
+  ]
+}

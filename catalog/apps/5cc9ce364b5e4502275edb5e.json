@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "WMA Tract Segmentation with ROIs",
+  "version": "master",
+  "summary": "Segments a tractogram into tracts by keeping streamlines that connect user-specified pairs of ROIs from an ROI directory, using compiled MATLAB wma_tools, and outputs a white matter classification.",
+  "description": "Runs the compiled wma_tools function bsc_SegROIfromPairStringList_v3 on the tractogram and the ROI directory: for each line of roiPairs it combines the listed ROIs into two endpoint regions (optionally inflated) and assigns to a tract the streamlines that connect them. Use it to extract specific connections from a whole-brain tractogram after generating ROIs. Needs a tractogram and ROIs in the same space. The surface-generation step in main reads an 'atlas' config key that this App does not provide.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "segmentation",
+    "tractography",
+    "dwi",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc9ce364b5e4502275edb5e",
+    "github": "brainlife/app-segment-tracts-between-multiple-regions",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) to segment.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "ROI",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of ROI NIfTI files whose numbers are referenced in roiPairs.",
+      "config_keys": [
+        "ROI"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification (classification.mat) with one tract per ROI pair.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roiPairs",
+      "type": "string",
+      "description": "Pairs of ROI sets to segment between: each line is one tract, with the two endpoint sets separated by ';' and each set listing atlas/ROI indices separated by spaces.",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "smoothKernel",
+      "type": "number",
+      "description": "Odd whole-number kernel size used to smooth (inflate) each ROI with MATLAB smooth3 before segmentation; values above 1 inflate the ROI and 0 disables inflation.",
+      "default": 1,
+      "minimum": 1,
+      "placeholder": "1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.191",
+  "software": [
+    {
+      "name": "wma_tools (bsc_SegROIfromPairStringList, compiled MATLAB)",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "VTK"
+    }
+  ]
+}

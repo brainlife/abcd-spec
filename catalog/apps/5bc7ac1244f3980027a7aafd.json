@@ -1,0 +1,91 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Noddi Amico - Deprecated",
+  "version": "1.2",
+  "summary": "This app will fit the Neurite Orientation Dispersion and Density Imaging (NODDI; Zhang et al, 2012) model to multi-shell, normalized DWI data using the Accelerated Microstructure Imaging via Convex Optimization (AMICO; Daducci et al, 2015) toolbox.",
+  "description": "This app will fit the Neurite Orientation Dispersion and Density Imaging (NODDI; Zhang et al, 2012) model to multi-shell, normalized DWI data using the Accelerated Microstructure Imaging via Convex Optimization (AMICO; Daducci et al, 2015) toolbox. Requires normalized, multi-shell DWI data (including bvals and bvecs) and an optional brainmask of the DWI. Will output the four NODDI output files: neurite density index (ndi), orientation dispersion index (odi), isotropic volume fraction (isovf), and the directions (dirs).",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5bc7ac1244f3980027a7aafd",
+    "github": "brainlife/app-noddi-amico",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!single_shell",
+        "!dtiinit"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "mask needs to be made from DWI image",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "description": "The NODDI (deprecated) measures fit using AMICO"
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "noddi"
+      ],
+      "description": "The brainmask of the DWI"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dPar",
+      "type": "number",
+      "description": "The parallel diffusivity parameter. For white matter analyses, use 0.0017. For cortical mapping, use 0.0011",
+      "default": 0.0017
+    },
+    {
+      "id": "advancedMask",
+      "type": "boolean",
+      "description": "Sometimes mask generation does not remove all of the non-brain material. If True, this will make sure the non-brain material is fully removed. Only check if inputting a mask that contains non-brain material",
+      "default": false
+    },
+    {
+      "id": "debias",
+      "type": "boolean",
+      "description": "Select this if you want to perform signal debiasing before NODDI fit",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.117",
+  "deprecated_by": "5ed02c520a8ed8e7bb483031"
+}

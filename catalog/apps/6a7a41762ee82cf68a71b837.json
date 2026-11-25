@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL BET Skull Strip",
+  "version": "main",
+  "summary": "Skull-strips a T1-weighted image with FSL bet using a configurable fractional intensity threshold and outputs the brain-extracted T1w.",
+  "description": "Runs FSL bet on the T1w with -f frac inside the brainlife/fsl 6.0.4 container (robust centre estimation and bias/neck clean-up are not used). Use it as a simple, fast brain extraction; lower frac values give a larger brain outline.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "6a7a41762ee82cf68a71b837",
+    "github": "gamorosino/app-brain-extract-bet",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image (NIfTI) to skull-strip.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Skull-stripped (brain-extracted) T1w image produced by FSL's bet (fractional intensity threshold only; -R disabled, see main)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0-1, default 0.5). Smaller values give larger brain outline estimates.",
+      "default": 0.5,
+      "placeholder": "0.5"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.953",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check the input T1w path and image."
+    }
+  ]
+}

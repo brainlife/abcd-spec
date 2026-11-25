@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Clean parcellations",
+  "version": "v1.0",
+  "summary": "Removes unwanted or missing parcels from a volumetric parcellation and renumbers the remaining parcels consecutively, updating label.json, with nibabel and numpy; a parcellation utility.",
+  "description": "Drops parcels listed in discard_labels plus any parcel present in the image but not in label.json (and vice versa), sets them to 0, renumbers the remaining parcels 1..N and writes a matching label.json. Use it before building networks or summary statistics so node lists match the image. The original key.txt is copied unchanged and does not reflect the renumbering.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6091fb348fe49f74c01c20ed",
+    "github": "brainlife/app-clean-parcellation",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation (parc.nii.gz) with its key.txt and label.json; label.json voxel_value entries define the valid parcels.",
+      "config_keys": [
+        "parcellation",
+        "key",
+        "labels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "cleaned"
+      ],
+      "description": "This parcellation will have missing and unwanted parcels removed from the parcellation. This will help with network generation and summary statistics",
+      "datatype_tags_pass": "parc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "discard_labels",
+      "type": "string",
+      "description": "Space-separated voxel values (from label.json) of the parcels to remove, e.g. \"1 181\"; leave empty to only remove parcels missing from label.json or the image.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.518",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "numpy"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives",
+      "cause": "output/parc.nii.gz was not written.",
+      "fix": "Check that the parcellation has a label.json with voxel_value entries."
+    }
+  ]
+}

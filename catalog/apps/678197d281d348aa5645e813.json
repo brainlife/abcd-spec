@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "tck2trk",
+  "version": "master",
+  "summary": "This application converts tractography files from the .tck format to the .trk format. It uses a reference anatomy image in NIfTI format to ensure proper alignment.",
+  "description": "Converts a .tck tractogram to TrackVis .trk with nibabel, taking the voxel-to-RAS affine, voxel sizes, dimensions and voxel order for the .trk header from a reference image. The reference is the first available of T1w, parcellation or mask (the T2w branch is unreachable because of a typo in main). Use it when a downstream tool needs .trk streamlines; the reference image must be in the same space as the tractogram.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "conversion",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "678197d281d348aa5645e813",
+    "github": "gamorosino/app-tck2trk",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram in MRtrix .tck format.",
+      "config_keys": [
+        "tck"
+      ]
+    },
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T1-weighted image used as the reference for the .trk header (first choice).",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Same space as the tractogram."
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2-weighted reference image; not selected by the current code because of a typo in main.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional mask used as the reference image if no T1w or parcellation is given.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional parcellation used as the reference image if no T1w is given.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "The tractogram converted to TrackVis .trk format."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.08,
+      "memory_gb": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.843",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid anatomical reference found in config.json",
+      "fix": "Provide a T1w, parcellation or mask input as the reference image."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

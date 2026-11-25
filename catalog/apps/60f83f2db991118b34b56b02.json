@@ -1,0 +1,268 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate ROIs in Anatomical Space",
+  "version": "merge-t1-v1.0",
+  "summary": "Generates ROIs in anatomical (T1) space from FreeSurfer labels (cortical parcellation, aseg, thalamic, hippocampal and amygdala nuclei), an optional volume parcellation and pRF visual areas, with optional merging and white matter inflation, using AFNI 3dROIMaker.",
+  "description": "Converts the requested labels from a FreeSurfer output (aparc/aseg, thalamic nuclei, hippocampal subfields, amygdala), an optional volume parcellation and an optional pRF visual-area segmentation into the T1 image space, writes each as a binary ROI, optionally merges ROIs and inflates them into white matter with AFNI 3dROIMaker, and combines them into a parcellation. ROIs are chosen by label number in the *ROIs parameters. Use it to make ROIs on the T1 grid.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "afni",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60f83f2db991118b34b56b02",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "merge-t1-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image used as the reference grid the FreeSurfer labels and ROIs are resliced into.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from freesurfer. If you want thalamic ROIs, make sure to use the output from app-segment-thalamic-nuclei",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The non-freesurfer parcellation to make ROIs from (optional).",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Specify this if you want to use your custom brainmask. If brainmask is not specified, this App will create brainmask from your frmi input using FSL bet.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Specify prf input if you want to generate ROIs from the PRF/varea parcellation.",
+      "config_keys": [
+        "prfDir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "The parcellation containing all of the ROIs in a single nifti"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "The directory containing all of the ROIs"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "parcellationROIs",
+      "type": "string",
+      "description": "If a non-freesurfer parcellation is used, enter ROI numbers from key.txt (parcellation) ROIs wanted.\n\nExample: 45,54\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIparc-#.nii.gz, with # being the number of the ROI",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "subcorticalROIs",
+      "type": "string",
+      "description": "Enter the number of the subcortical ROI (if wanted).\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIsubcortical#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "thalamicROIs",
+      "type": "string",
+      "description": "If thalamic nuclei segmentation from freesurfer is used, enter the number of the thalamic ROI (if wanted).\n\nPlease refer to this color lut (https://github.com/freesurfer/freesurfer/blob/dev/ThalamicNuclei/compressionLookupTable.txt) and your thalamic segmentation for specific ROI numbers\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIthalamus-#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "hippocampalROIs",
+      "type": "string",
+      "description": "If hippocampal segmentation from freesurfer is used, enter the number of the hippocampusROI (if wanted).\n\nPlease refer to this color lut (https://github.com/freesurfer/freesurfer/blob/dev/ThalamicNuclei/compressionLookupTable.txt) and your hippocampal segmentation for specific ROI numbers\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIhippocampus-#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "amygdalaROIs",
+      "type": "string",
+      "description": "If amygdala segmentation from freesurfer is used, enter the number of the amygdala ROI (if wanted).\n\nPlease refer to this color lut (https://github.com/freesurfer/freesurfer/blob/dev/ThalamicNuclei/compressionLookupTable.txt) and your amygdala segmentation for specific ROI numbers\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIamygdala-#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "prfROIs",
+      "type": "string",
+      "description": "If a visual area segmentation from a PRF mapping app is used, enter the number of the visual field ROI (if wanted).\n\nPlease refer to visual area segmentation from the PRF to determine ROI numbers.\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIvarea-#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "freesurferROIs",
+      "type": "string",
+      "description": "If ROIs from the freesurfer segmentation is desired, enter the number of the ROI from the freesurfer colorLUT.\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROIfreesurfer-#.nii.gz, with # being the number of the ROI.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "mergeROIsL",
+      "type": "string",
+      "description": "Left hemisphere ROI numbers and source parcellation you would like to merge into a single ROI\n\nDue to the possibility of different parcellations including the same set of labels, you must specify the source location using the following list of prefixes, followed by the roi number:\n\nfreesurfer: freesurfer-#\nparcellation: parc-#\nsubcortical: subcortical-#\nprf visual areas: varea-#\namygdala: amygdala-#\nhippocampus: hippocampus-#\nthalamus: thalamus-#\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each set of ROIs on a new line. the mergename field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. freesurfer-11111 freesurfer-111112\nfreesurfer-11113 freesurfer-11114 freesurfer-11115",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "mergeROIsR",
+      "type": "string",
+      "description": "Right hemisphere ROI numbers and source parcellation you would like to merge into a single ROI.\n\nDue to the possibility of different parcellations including the same set of labels, you must specify the source location using the following list of prefixes, followed by the roi number:\n\nfreesurfer: freesurfer-#\nparcellation: parc-#\nsubcortical: subcortical-#\nprf visual areas: varea-#\namygdala: amygdala-#\nhippocampus: hippocampus-#\nthalamus: thalamus-#\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each set of ROIs on a new line. the mergename field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. freesurfer-12111 freesurfer-121112\nfreesurfer-12113 freesurfer-12114 freesurfer-12115",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "mergename",
+      "type": "string",
+      "description": "Name for the ROI that you would like merged. The output will be in the following format: ROI${mergename}.nii.gz\n\nif the user wants to merge multiple ROIs made from subset of all ROIs, enter each name on a line. this field will need to correspond to these pairings (i.e. same number of pairings per left and right hemisphere, same order)\n\nex. test1\ntest2",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "parcInflate",
+      "type": "number",
+      "description": "if parcellation ROI inflation into WM is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "thalamusInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for thalamus segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "hippocampusInflate",
+      "type": "string",
+      "description": "if ROI inflation into WM for hippocampal subfield segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "amygdalaInflate",
+      "type": "string",
+      "description": "if ROI inflation into WM for amygdala segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "visInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for visual area segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "freesurferInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for freesurfer segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "The input freesurfer parcellation",
+      "default": "aparc",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    },
+    {
+      "id": "whitematter",
+      "type": "boolean",
+      "description": "If you want to include the white matter in the inflation, which will limit the amount of inflation into the white matter, select 'true'.  However, selecting 'false' will trim the white matter, which may eliminate some potential ROIs.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.549",
+  "software": [
+    {
+      "name": "AFNI",
+      "version": "16.3.0",
+      "url": "https://afni.nimh.nih.gov/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

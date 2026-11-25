@@ -1,0 +1,130 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of diffusion measures mapped to visual regions binned by eccentricity - Benson14",
+  "version": "benson14-prf-eccentricity-stats",
+  "summary": "Computes mean diffusion measures and FreeSurfer anatomical measures (thickness, surface area, volume) within Benson14 visual areas binned by pRF eccentricity, and outputs parc-stats CSVs.",
+  "description": "Takes the Benson14 retinotopy surfaces (visual area and eccentricity maps) from the prf input, binarises the eccentricity map into the requested bins, combines them with the visual-area labels to build eccentricity-binned annotations, and then runs FreeSurfer mri_segstats on each cortex-mapped measure and mris_anatomical_stats on each annotation. Use it to compare diffusion or anatomical measures across visual areas and eccentricity ranges. It needs a cortexmap, the FreeSurfer subject directory and the Benson14 prf output of the same subject. minDegree and maxDegree must list the same number of space-separated values.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62abfcd7ab3e66978063bf43",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "benson14-prf-eccentricity-stats"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Cortex-mapped measures for the subject (func/ directory of per-hemisphere .func.gii measure files).",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject; its white surfaces are used to convert maps and compute anatomical statistics.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Benson14 retinotopy output providing per-hemisphere varea (visual area) and eccentricity surface maps.",
+      "config_keys": [
+        "prf_surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc_stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "eccentricity-binned",
+        "benson14_visual_areas"
+      ],
+      "description": "CSV files of diffusion and anatomical statistics for each eccentricity-binned visual-area parcellation.",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "eccentricity-binned",
+        "benson14_visual_areas"
+      ],
+      "description": "Intermediate text, CSV, GIFTI and annotation files kept for debugging."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "minDegree",
+      "type": "string",
+      "description": "Space-separated lower bounds of the eccentricity bins (for example '0 7' for bins 0-5 and 7-90).",
+      "default": "",
+      "units": "degrees of visual angle"
+    },
+    {
+      "id": "maxDegree",
+      "type": "string",
+      "description": "Space-separated upper bounds of the eccentricity bins, paired with minDegree (for example '5 90').",
+      "default": "",
+      "units": "degrees of visual angle"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.651",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.2.0"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "parc_MEAN.csv was not produced.",
+      "fix": "Check the log; make sure minDegree and maxDegree have the same number of values."
+    }
+  ]
+}

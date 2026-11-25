@@ -1,0 +1,47 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "earlyCNN",
+  "version": "v0.6.0",
+  "summary": "[unmaintained] An open-source convolutional neural networks platform for research in medical image analysis and image-guided therapy",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5fd7a1ee57aacd10b72ebecf",
+    "github": "roijo/NiftyNet",
+    "branch": "v0.6.0"
+  },
+  "inputs": [
+    {
+      "id": "adnideepdti",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dti"
+      ],
+      "optional": true,
+      "multi": true,
+      "description": "FA maps classified by a CNN",
+      "config_keys": [
+        "fa",
+        "md",
+        "ad"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dti",
+        "dipy_reconst_dti"
+      ],
+      "description": "Model of CNN for a 3D"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.459"
+}

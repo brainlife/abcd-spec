@@ -1,0 +1,121 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mouse Segmentation Pipeline",
+  "version": "v0.0",
+  "summary": "Skull-strips a mouse brain MRI by atlas registration and segments it into ROIs with the JHU Mori mouse atlas, using FSL, AFNI, ANTs and NiftyReg in one container.",
+  "description": "Runs a containerised mouse pipeline: optional N4 bias field correction, skull-stripping following the rat MRI/DTI method of Li et al. with the C57BL6 Brookhaven atlas (affine or rigid registration, optional histogram matching), then segmentation by mapping the Mori (JHU) mouse atlas. Use it for mouse, not human, anatomical images. Set orient only if the image's orientation string (as reported by AFNI 3dinfo) is wrong.",
+  "kind": "native",
+  "topics": [
+    "pipeline",
+    "anatomy",
+    "segmentation",
+    "preprocessing",
+    "fsl",
+    "afni",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5aa08aa96f97ad0033d4d86b",
+    "github": "kathrynalpert/app-mouse_seg",
+    "branch": "v0.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Mouse brain anatomical MRI volume (NIfTI).",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mouse_seg"
+      ],
+      "description": "Directory with the pipeline's skull-stripped image and atlas-based ROI segmentation."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "orient",
+      "type": "string",
+      "description": "leave blank unless orientation string is incorrect for image (3dinfo)",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "reg_type",
+      "type": "enum",
+      "description": "When skull-stripping, register target to template affinely (allows scaling) or rigidly (no scaling).",
+      "default": "affine",
+      "options": [
+        {
+          "value": "affine",
+          "label": "Affine"
+        },
+        {
+          "value": "rigid",
+          "label": "Rigid"
+        }
+      ]
+    },
+    {
+      "id": "do_hist_match",
+      "type": "boolean",
+      "description": "When skull-stripping, use histogram matching to propagate template tissue segmentations onto the target image.",
+      "default": true
+    },
+    {
+      "id": "do_n4",
+      "type": "boolean",
+      "description": "Perform N4 (improved nonparametric nonuniform normalization) bias field correction on input.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "katealpert/mouse_seg:v0.0",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/bl.app.75",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0"
+    },
+    {
+      "name": "AFNI"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "NiftyReg"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "Convert3D"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Automatic Skull-stripping of Rat MRI/DTI Scans and Atlas Building (PMC3168953)."
+    },
+    {
+      "text": "Complete Disruption of the Kainate Receptor Gene Family Results in Corticostriatal Dysfunction in Mice (PMID 28228252)."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Deface",
+  "version": "7.1.1",
+  "summary": "Removes facial features from a T1-weighted image with FreeSurfer 7.1.1 mri_deface (talairach_mixed_with_skull and face atlases) for de-identification.",
+  "description": "Runs mri_deface with FreeSurfer's talairach_mixed_with_skull.gca and face.gca atlases (FS_HISTO_STD_THRESH set to 15) to strip the face from a whole-head T1w image, e.g. before sharing data. Inputs already tagged defaced are excluded. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "anatomy",
+    "preprocessing",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "59714d376c3b7e0029153f53",
+    "github": "brainlife/app-deface",
+    "branch": "7.1.1"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!defaced"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-head T1-weighted image to deface.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "defaced"
+      ],
+      "description": "Defaced T1-weighted image (t1.nii.gz).",
+      "datatype_tags_pass": "t1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:7.1.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.146",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    }
+  ]
+}

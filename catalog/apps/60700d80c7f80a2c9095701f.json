@@ -1,0 +1,159 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
+  "version": "master",
+  "summary": "Computes time-varying head positions from continuous HPI (cHPI) signals in MEG .fif data with MNE-Python and outputs a headshape.pos file for Maxwell filtering.",
+  "description": "Uses mne.chpi to compute cHPI amplitudes, coil locations and head positions from the raw .fif and writes them with mne.chpi.write_head_pos. Use it before Maxwell filtering (movement compensation) of MEG recordings made with cHPI. The input must contain cHPI recordings; optional calibration, crosstalk and destination files are passed through.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60700d80c7f80a2c9095701f",
+    "github": "brainlife/app-head-pos",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MEG data in .fif format containing cHPI data.",
+      "config_keys": [
+        "fif"
+      ]
+    },
+    {
+      "id": "Opt",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional destination file computed by app-mean-transformation-matrix.",
+      "config_keys": [
+        "headshape",
+        "destination"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "description": ".pos file containing the time-varying head positions. This file will be used during detection of bad channels in MEG data (app-bad-channels) and Maxwell filtering (app-maxwell-filter) steps."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param_compute_amplitudes_t_step_min",
+      "type": "number",
+      "description": "Minimum time step to use to compute cHPI amplitudes. If correlations are sufficiently high, t_step_max. This value can be a float.",
+      "default": 0.01,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_amplitudes_t_window",
+      "type": "number",
+      "description": "Time window to use to estimate the amplitudes. This value can be a float.",
+      "default": 0.2,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_amplitudes_ext_order",
+      "type": "number",
+      "description": "The external order for SSS-like interfence suppression to compute cHPI amplitudes. This value must be an integer.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_amplitudes_tmin",
+      "type": "number",
+      "description": "Start time of the raw data to use in seconds to compute cHPI amplitudes. This value can be a float.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_amplitudes_tmax",
+      "type": "number",
+      "description": "End time of the raw data to use in seconds to compute cHPI amplitudes. This value can be a float.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_locs_t_step_max",
+      "type": "number",
+      "description": "Maximum step to use to compute HPI coils locations. This value can be a float.",
+      "default": 1,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_locs_too_close",
+      "type": "enum",
+      "description": "How to handle HPI positions too close to sensors when computing HPI coils locations.",
+      "default": "raise",
+      "options": [
+        {
+          "value": "raise"
+        },
+        {
+          "value": "warning"
+        },
+        {
+          "value": "info"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_compute_locs_adjust_dig",
+      "type": "boolean",
+      "description": "If True, adjust the digitization locations used for fitting when computing HPI coils locations.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_head_pos_dist_limit",
+      "type": "number",
+      "description": "Minimum distance (m) to accept for coil position fitting when computing head positions. This value can be a float.",
+      "default": 0.005,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_head_pos_gof_limit",
+      "type": "number",
+      "description": "Minimum goodness of fit to accept for each coil to compute head positions. This value can be a float.",
+      "default": 0.98,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "param_compute_head_pos_adjust_dig",
+      "type": "boolean",
+      "description": "If True, adjust the digitization locations used for fitting when computing head positions.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.499",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev",
+      "url": "https://mne.tools"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice ROIs to match input anatomy (with affine)",
+  "version": "affine-v1.0",
+  "summary": "Moves a set of ROI volumes onto a T1-weighted image's voxel grid by applying an FSL affine transform (optionally inverted) with flirt and nearest-neighbour interpolation, then binarises them.",
+  "description": "For each ROI NIfTI, flirt -applyxfm applies the affine from the transform input (inverted with convert_xfm when inverse is true) using the T1w image as reference, and fslmaths binarises the result. Use it to bring ROIs defined in another space (for example a template) into subject anatomical space when an FSL-format affine is available; nonlinear warps in the transform input are not used.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+  ],
+  "registry": {
+    "id": "60e4c42e4cb7040aec068b83",
+    "github": "bacaron/app-reslice-roi-t1",
+    "branch": "affine-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image used as the reference grid and target space.",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of ROI NIfTI volumes to transform.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    },
+    {
+      "id": "affine",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Transform datatype; only the FSL-format affine matrix (affine key) is read.",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ],
+      "requirements": "The affine must be an FSL (flirt) matrix relating the ROI space and the T1w space."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "resliced",
+        "anat"
+      ],
+      "description": "Binarised ROI volumes in the T1w space and voxel grid.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "If true, the affine is inverted with convert_xfm before it is applied (use when the affine maps anatomy to the ROI space).",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.539",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Jenkinson M, Beckmann CF, Behrens TE, Woolrich MW, Smith SM. FSL. NeuroImage 62:782-790 (2012)."
+    }
+  ]
+}

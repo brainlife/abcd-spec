@@ -1,0 +1,151 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit Constrained Deconvolution Model for Tracking",
+  "version": "csd_generation-v1.0",
+  "summary": "Fits constrained spherical deconvolution (CSD) models to DWI with MRtrix3, using a T1-weighted image for a 5-tissue-type mask, and outputs fibre orientation distributions for one or more lmax values plus the 5TT and brain masks.",
+  "description": "Converts the DWI to MRtrix format, builds a brain mask with FSL bet (or uses the provided brainmask) and a 5-tissue-type image with 5ttgen fsl (or uses the provided 5TT mask), then estimates response functions (dwi2response tournier for single-shell, msmt_5tt for multi-shell) and fits CSD/MSMT-CSD FODs with dwi2fod. Use it to produce the CSD input needed by MRtrix3 tracking Apps. With ensemble enabled it writes every even lmax up to the requested maximum; the requested lmax is capped at the maximum the data supports. Optional multi-tissue intensity normalisation uses mtnormalise.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "mrtrix3"
+  ],
+  "registry": {
+    "id": "5db224e98aeeee0f87f25c1f",
+    "github": "bacaron/app-mrtrix3-act",
+    "branch": "csd_generation-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the mask datatype of the brainmask for the DWI",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the mask datatype of the 5 tissue probability mask from Tissue-type Segmentation (optional). If not inputted, will be generated using MRtrix3",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "description": "The CSD FOD images",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "5tt",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "description": "The 5 tissue probability image generated using MRtrix3"
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "The brainmask of the DWI image"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "spherical harmonic order (lmax) for csd estimation. see https://mrtrix.readthedocs.io/en/3.0_rc2/constrained_spherical_deconvolution/lmax.html for more information on which value to choose",
+      "default": 8
+    },
+    {
+      "id": "premask",
+      "type": "boolean",
+      "description": "If T1 has been skull stripped, select true",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "norm",
+      "type": "boolean",
+      "description": "multi-tissue intensity normalization",
+      "default": false
+    },
+    {
+      "id": "ensemble",
+      "type": "boolean",
+      "description": "if true, will ensemble through max lmax. else, will generate requested lmax",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 48
+    }
+  },
+  "doi": "10.25663/brainlife.app.238",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Tournier J-D, Calamante F, Connelly A. Robust determination of the fibre orientation distribution in diffusion MRI: non-negativity constrained super-resolved spherical deconvolution. NeuroImage 35:1459-1472 (2007)."
+    },
+    {
+      "text": "Jeurissen B, Tournier J-D, Dhollander T, Connelly A, Sijbers J. Multi-tissue constrained spherical deconvolution for improved analysis of multi-shell diffusion MRI data. NeuroImage 103:411-426 (2014)."
+    }
+  ]
+}

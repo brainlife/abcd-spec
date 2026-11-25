@@ -1,0 +1,174 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Deprecated Surface",
+  "version": "v1.1",
+  "summary": "This app will This app will compute multiple summary statistics from measures mapped to the cortical midthickness surface on a per-ROI basis.",
+  "description": "This app will This app will compute multiple summary statistics from measures mapped to the cortical midthickness surface on a per-ROI basis. This app takes in a cortexmap datatype and an optional parcellation/surface datatype. This app will compute the following summary statistics: minimum, maximum, mean, median, mode, standard deviation, sample standard deviation (n-1), and nonzero vertex count. The app will output a csv for each summary measure summarizing the diffusion measures in each ROI parcellation. If no parcellation surface is inputted, the app will just compute stats from the labels file found in the cortexmap datatype (usually aparc.a2009s.labels.gii). These csvs can be used for computing group averages and for performing machine learning analyses.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5eed5e9dd39ceb225da0ed17",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the cortexmap datatype folder",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Path to individual parcellation and annotation files for parcellation/surface datatype. Files: lh_annot: lh.parc.annot.gii; rh_annot: rh.parc.annot.gii; lh_pial_surf: lh.parc.pial.gii; rh_pial_surf: rh.parc.pial.gii",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "lh_pial_surf",
+        "rh_pial_surf"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats"
+      ],
+      "description": "Csv files for each summary statistic and parcellation",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives"
+      ],
+      "description": "Derivatives generated during run for debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsaparc",
+      "type": "enum",
+      "description": "This is the freesurfer aparc you want to compute stats within. Needs to be within the cortexmap/lable dir.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "aparc.DKTatlas"
+        }
+      ]
+    },
+    {
+      "id": "validator_csv",
+      "type": "enum",
+      "description": "unknown",
+      "default": "aparc_MEAN",
+      "options": [
+        {
+          "value": "aparc_MEAN",
+          "label": "aparc_MEAN",
+          "description": "aparc_MEAN"
+        },
+        {
+          "value": "aparc_MAX",
+          "label": "aparc_MAX",
+          "description": "aparc_MAX"
+        },
+        {
+          "value": "aparc_MIN",
+          "label": "aparc_MIN",
+          "description": "aparc_MIN"
+        },
+        {
+          "value": "aparc_MEDIAN",
+          "label": "aparc_MEDIAN",
+          "description": "aparc_MEDIAN"
+        },
+        {
+          "value": "aparc_MODE",
+          "label": "aparc_MODE",
+          "description": "aparc_MODE"
+        },
+        {
+          "value": "aparc_SAMPSTDEV",
+          "label": "aparc_SAMPSTDEV",
+          "description": "aparc_SAMPSTDEV"
+        },
+        {
+          "value": "aparc_STDEV",
+          "label": "aparc_STDEV",
+          "description": "aparc_STDEV"
+        },
+        {
+          "value": "parc_MEAN",
+          "label": "parc_MEAN",
+          "description": "parc_MEAN"
+        },
+        {
+          "value": "parc_MIN",
+          "label": "parc_MIN",
+          "description": "parc_MIN"
+        },
+        {
+          "value": "parc_MAX",
+          "label": "parc_MAX",
+          "description": "parc_MAX"
+        },
+        {
+          "value": "parc_MEDIAN",
+          "label": "parc_MEDIAN",
+          "description": "parc_MEDIAN"
+        },
+        {
+          "value": "parc_MODE",
+          "label": "parc_MODE",
+          "description": "parc_MODE"
+        },
+        {
+          "value": "parc_SAMPSTDEV",
+          "label": "parc_SAMPSTDEV",
+          "description": "parc_SAMPSTDEV"
+        },
+        {
+          "value": "parc_STDEV",
+          "label": "parc_STDEV",
+          "description": "parc_STDEV"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.383",
+  "deprecated_by": "62c20fc9f3194eded6fb2254"
+}

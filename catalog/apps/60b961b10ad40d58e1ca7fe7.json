@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Time series to network",
+  "version": "0.2",
+  "summary": "Computes a connectivity matrix (correlation, covariance, partial correlation, tangent or precision) from regional time series with nilearn and saves it as a network (JGFZ) for the brainlife network pipeline.",
+  "description": "Reads a TSV of time series (one column per node) and its JSON node metadata, computes the chosen nilearn ConnectivityMeasure, zeroes the diagonal and writes a weighted network in compressed JSON Graph Format with the column names and metadata as node properties. Use it to turn parcel-wise fMRI time series into a functional connectivity network for later network analyses.",
+  "kind": "native",
+  "topics": [
+    "network",
+    "fmri",
+    "connectomics",
+    "network-analysis",
+    "nilearn",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60b961b10ad40d58e1ca7fe7",
+    "github": "filipinascimento/bl-timeseries2network",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "timeseries",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input time series used to construct the connectivity matrices.",
+      "config_keys": [
+        "tsv",
+        "json"
+      ],
+      "requirements": "TSV with one column per node (column headers become node labels) and a JSON list with one metadata entry per node."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "description": "Network generated from the connectivity matrix",
+      "datatype_tags_pass": "timeseries"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Measure of similarity used to create the connectivity matrix.\n\n[1] G. Varoquaux et al. \u201cDetection of brain functional-connectivity difference in post-stroke patients using group-level covariance modeling, MICCAI 2010.",
+      "default": "correlation",
+      "options": [
+        {
+          "value": "correlation",
+          "label": "Correlation",
+          "description": "Use Pearson correlation"
+        },
+        {
+          "value": "covariance",
+          "label": "Covariance",
+          "description": "Use covariance similarity"
+        },
+        {
+          "value": "partial correlation",
+          "label": "Partial correlation",
+          "description": "Use partial correlation"
+        },
+        {
+          "value": "tangent",
+          "label": "Tangent space covariance",
+          "description": "Use tangent space covariance [1]"
+        },
+        {
+          "value": "precision",
+          "label": "Precision",
+          "description": "Use precision-based approach"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.3",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.532",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "nilearn"
+    },
+    {
+      "name": "jgf"
+    },
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1038/nn.4502",
+      "text": "Bassett D. S., Sporns O. Network neuroscience. Nature Neuroscience 20(3):353 (2017)."
+    }
+  ],
+  "maintainers": [
+    "Filipi N. Silva"
+  ]
+}

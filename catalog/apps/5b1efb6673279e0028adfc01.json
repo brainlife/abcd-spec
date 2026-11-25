@@ -1,0 +1,98 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit DTI",
+  "version": "1.1.1",
+  "summary": "Fits the diffusion tensor to DWI within a brain mask with DIPY (dipy_fit_dti, weighted least squares) and outputs FA, MD, RD, AD and other DTI maps.",
+  "description": "Runs dipy_fit_dti (DIPY 1.1.1) on a DWI with its bvals, bvecs and a brain mask. Use it to compute standard DTI scalar maps for tract profiling or group analyses. Needs a brain mask aligned to the DWI; b0_threshold sets which volumes count as b=0.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy",
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b1efb6673279e0028adfc01",
+    "github": "dipy/bl_apps_dipy_fit_dti",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs.",
+      "config_keys": [
+        "bvals",
+        "bvecs",
+        "dwi"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask in the same space as the DWI; the tensor is fitted only inside it.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dti"
+      ],
+      "description": "DTI maps written by dipy_fit_dti (tensor, FA, MD, RD, AD, colour FA and related maps)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions",
+      "default": 50,
+      "placeholder": "0.0"
+    },
+    {
+      "id": "bvecs_tol",
+      "type": "number",
+      "description": "Threshold used to check that norm(bvec) = 1 +/- bvecs_tolb-vectors are unit vectors",
+      "default": 0.01,
+      "placeholder": "0.01"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.60",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

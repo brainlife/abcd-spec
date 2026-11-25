@@ -1,0 +1,27 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "test",
+  "version": "t2",
+  "summary": "test fsl_bet",
+  "description": "Test registration of an old branch of app-FSLBET. The t2 branch's main runs FSL bet on a T2-weighted image read from config key t2, but this registry record declares no inputs or outputs, so it cannot be run meaningfully; use the 'FSL Brain Extraction (BET) on T2' App instead.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing"
+  ],
+  "registry": {
+    "id": "64b7e1313a63cf1737695049",
+    "github": "brainlife/app-FSLBET",
+    "branch": "t2"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.790"
+}

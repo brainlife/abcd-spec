@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment T2starw image using MNI152",
+  "version": "v1.0.0",
+  "summary": "Segments a T2*-weighted magnitude image by registering the MNI152 2009b T2 template to it with ANTs SyN and warping the CerebrA atlas labels into subject space.",
+  "description": "Downloads the MNI ICBM152 T2 template and CerebrA segmentation from OSF, registers the template to the T2*w image with ANTs and applies the warp to the CerebrA labels with nearest-neighbour interpolation, writing a parcellation with label.json. The intense parameter sets the registration effort; the default 'test' runs only a minimal registration, so set it to true or false for real use.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "qsm",
+    "registration",
+    "segmentation"
+  ],
+  "registry": {
+    "id": "6717c8f2168d1cbcfbd02315",
+    "github": "astewartau/App-Segment-T2starw-MNI",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "T2starw-image",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-mag"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T2*-weighted magnitude image to segment.",
+      "config_keys": [
+        "t2starw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "MNI152"
+      ],
+      "description": "CerebrA atlas labels warped into T2*w space (parc.nii.gz with label.json)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "string",
+      "description": "Path of the template image registered to the T2*w image.",
+      "default": "template/mni_icbm152_t2_tal_nlin_sym_09b_hires_DL.nii",
+      "readonly": true
+    },
+    {
+      "id": "segmentation",
+      "type": "string",
+      "description": "Path of the atlas segmentation warped into T2*w space.",
+      "default": "template/mni_icbm152_CerebrA_tal_nlin_sym_09c.nii",
+      "readonly": true
+    },
+    {
+      "id": "intense",
+      "type": "enum",
+      "description": "Registration effort: true (more iterations), false (fewer) or test (minimal, for testing).",
+      "default": "test",
+      "options": [
+        {
+          "value": "true",
+          "label": "true"
+        },
+        {
+          "value": "false",
+          "label": "false"
+        },
+        {
+          "value": "test",
+          "label": "test"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "python:3.9-bookworm",
+    "resources": {
+      "memory_gb": 2,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.832",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    },
+    {
+      "name": "osfclient"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Avants BB, Tustison N, Song G. Advanced normalization tools (ANTS). Insight J 2(365):1-35 (2009)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "[ERROR] You must choose a value for intense: true, false, test",
+      "fix": "Set intense to true, false or test."
+    }
+  ]
+}

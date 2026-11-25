@@ -1,0 +1,125 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert surface-based annotation in standard space to parcellation (volume)",
+  "version": "main",
+  "summary": "Converts left and right surface annotations on an fsaverage template into a volumetric parcellation in fsaverage space with FreeSurfer mri_label2vol and Connectome Workbench.",
+  "description": "Projects each hemisphere's annotation into the volume of the chosen fsaverage template (mri_label2vol, filling the cortical ribbon), reads the label names with Connectome Workbench, and combines both hemispheres into one parcellation with label.json. Use it for annotations already in fsaverage (standard) space, not subject space.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectome-workbench",
+    "conversion",
+    "freesurfer",
+    "parcellation"
+  ],
+  "registry": {
+    "id": "6413b54073d2685502bf53b4",
+    "github": "brainlife/app-annotation-to-parcellation",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "annotation",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [
+        "annotation",
+        "standard"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right hemisphere surface annotations in fsaverage space.",
+      "config_keys": [
+        "left",
+        "right"
+      ],
+      "requirements": "Must be defined on the same fsaverage mesh selected in the fsaverage parameter."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "standard"
+      ],
+      "description": "Volumetric parcellation (parc.nii.gz) in fsaverage volume space with label.json.",
+      "datatype_tags_pass": "annotation"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsaverage",
+      "type": "enum",
+      "description": "fsaverage template (mesh resolution) on which the annotations are defined; its brain.mgz is the output volume grid.",
+      "default": "fsaverage",
+      "options": [
+        {
+          "value": "fsaverage",
+          "label": "fsaverage",
+          "description": "fsaverage"
+        },
+        {
+          "value": "fsaverage3",
+          "label": "fsaverage3",
+          "description": "fsaverage3"
+        },
+        {
+          "value": "fsaverage4",
+          "label": "fsaverage4",
+          "description": "fsaverage4"
+        },
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "fsaverage5"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "fsaverage6"
+        },
+        {
+          "value": "fsaverage_sym",
+          "label": "fsaverage_sym",
+          "description": "fsaverage_sym"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.747",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license available in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable (provided automatically on brainlife.io)."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "The left/right volumes or the combined parcellation were not produced.",
+      "fix": "Check that the annotations match the selected fsaverage template."
+    }
+  ]
+}

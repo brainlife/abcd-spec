@@ -1,0 +1,79 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "combine-scans-rois",
+  "version": "master",
+  "summary": "Copies a set of ROIs together with a preprocessed DWI and a T1-weighted image into one folder for visual checking.",
+  "description": "A small utility (adapted from svincibo/app-combineROI) that copies every ROI file, the DWI and the T1w image into output/rois so they can be viewed together. It does no image processing or resampling.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "quality-control",
+    "visualization"
+  ],
+  "registry": {
+    "id": "6340875ffa262bbde2a153f7",
+    "github": "hanna-willis/app-combine-roi-scans",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ROI volumes to include.",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Preprocessed DWI to include.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Preprocessed T1-weighted image to include.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "visual_check"
+      ],
+      "description": "Folder containing the ROIs, the DWI and the T1w image for visual checking."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.681"
+}

@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BDF to mne/raw",
+  "version": "main",
+  "summary": "Converts an EEG recording in BioSemi BDF format to an MNE-Python raw FIF file with mne.io.read_raw_bdf.",
+  "description": "Reads the bdf file with MNE-Python and saves it unchanged as raw.fif so that MNE-based MEG/EEG Apps can use it. The BIDS sidecar files (channels, electrodes, events) carried by the input are not used. Use it as the import step for BioSemi EEG data.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "eeg",
+    "mne-python"
+  ],
+  "registry": {
+    "id": "628b67eed0697cf1eaeb5031",
+    "github": "guiomar/app_bdf2mne",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bdf1",
+      "datatype": "neuro/eeg/bdf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "EEG recording in BioSemi BDF format (with optional BIDS sidecars, which are not read).",
+      "config_keys": [
+        "bdf",
+        "channels",
+        "electrodes",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "eeg",
+        "bdf",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "bdf1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.635",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ]
+}

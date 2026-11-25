@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert wmc to multiple trk",
+  "version": "1.0",
+  "summary": "Takes a white matter classification resulting from a tract segmentation app and outputs one trk file for each segmented tract.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "convert"
+  ],
+  "registry": {
+    "id": "5bf5f6158fd1cc1134215180",
+    "github": "brainlife/app-wmctotrk",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wmc"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "raw",
+      "datatype_tags": [
+        "wmc"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.14.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.127",
+  "deprecated_by": "5c06c3764ed1ac00273e68e3"
+}

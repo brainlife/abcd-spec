@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Test Python Template for Class",
+  "version": "master",
+  "summary": "Class example of the brainlife.io Python App template (marked for deletion): reslices a T1-weighted image to a chosen voxel size with DIPY.",
+  "description": "Test App registered for a class; the registry text says it should be deleted. main.py reslices the T1 with dipy.align.reslice and saves out_dir/t1.nii.gz. Do not use: the default outres (1,1,1) cannot be parsed by main.py, which splits on spaces, and the file is written to out_dir rather than the registered output out_res.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dipy",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fa46d70e138ec6b634ea36b",
+    "github": "brainlife/app-template-python",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "anat01",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is a simple T1w NIFTI-1 file that the app needs to load to resample",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_res",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "THis is a resampled T1w File compatible with a anat/t1w datatype"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "outres",
+      "type": "string",
+      "description": "Output voxel size in mm. main.py expects three space-separated integers (e.g. '1 1 1'); the registered default '1,1,1' fails to parse.",
+      "default": "1,1,1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "memory_gb": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.445",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al., Pestilli F. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. arXiv (2023)."
+    }
+  ],
+  "maintainers": [
+    "Franco Pestilli"
+  ]
+}

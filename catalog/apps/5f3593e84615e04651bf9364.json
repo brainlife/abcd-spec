@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "C-PAC",
+  "version": "main",
+  "summary": "Runs the C-PAC (Configurable Pipeline for the Analysis of Connectomes) BIDS App on a T1w image and task fMRI, with the default or a preconfigured pipeline, and outputs the C-PAC derivatives.",
+  "description": "Pulls the latest C-PAC Singularity image, converts the brainlife inputs to BIDS with bl2bids and runs C-PAC at participant level. Choose a preconfigured pipeline with preconfig, otherwise the default pipeline runs. Use it for fMRI preprocessing and connectome derivatives; expect long run times (up to 48 h).",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "anatomy",
+    "bids",
+    "brainlife-app",
+    "closember",
+    "connectomics",
+    "fmri",
+    "hacktoberfest",
+    "mri",
+    "pipeline",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "5f3593e84615e04651bf9364",
+    "github": "FCP-INDI/app-C-PAC-brainlife.io",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical image.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "func",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Functional (task or rest) BOLD fMRI.",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "c-pac"
+      ],
+      "description": "C-PAC output directory (derivatives and logs; working directory if saveWorkingDir is set)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "preconfig",
+      "type": "string",
+      "description": "For a list of and descriptions of available preconfigured pipelines, see https://fcp-indi.github.io/docs/latest/user/preconfig",
+      "default": "",
+      "required": false,
+      "placeholder": "default"
+    },
+    {
+      "id": "saveWorkingDir",
+      "type": "boolean",
+      "description": "Save the Nipype working directory (which can be quite large). By default only outputs are retained.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "fcpindi/c-pac:latest",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 48
+    }
+  },
+  "doi": "10.25663/brainlife.app.399",
+  "software": [
+    {
+      "name": "C-PAC",
+      "url": "https://fcp-indi.github.io/docs/latest/user"
+    }
+  ]
+}

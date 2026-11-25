@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer on OSG (fsurf)",
+  "version": "master",
+  "summary": "OSG no longer supports fsurf. We are currently working on the new pegasus based workflow. Until it becomes available, please use the other Freesurfer App https://brainlife.io/app/58c56d92e13a50849b258801",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5931c0b8ff090a00210eff09",
+    "github": "brainlife/app-freesurfer-osg",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "defaced"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Using T2 to improve pial surfaces",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hippocampal",
+      "type": "boolean",
+      "description": "Generate an automated segmentation of the hippocampal subfields based on a statistical atlas built primarily upon ultra-high resolution (~0.1 mm isotropic) ex vivo MRI data. This new method can take advantage high-resolution, dedicated images when available (typically, but not necessarily, T2 weighted), and solves a number of limitations of the in vivo atlas that was distributed with FreeSurfer 5.1-5.3, namely",
+      "default": false
+    },
+    {
+      "id": "hires",
+      "type": "boolean",
+      "description": "Check this flag if your input t1 has voxel sizes less than 1mm3 (submillimeter resolution) like HCP 7T. (HCP 3T is 1.25mm). The processing will take a significantly longer time. See https://surfer.nmr.mgh.harvard.edu/fswiki/SubmillimeterRecon",
+      "default": false
+    },
+    {
+      "id": "notalcheck",
+      "type": "boolean",
+      "description": "If you are seeing \"ERROR: Talairach failed\", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis.",
+      "default": false
+    },
+    {
+      "id": "cw256",
+      "type": "boolean",
+      "description": "If a scan has a field-of-view (FOV) greater than 256, check this to force the FOV to 256. You often need to do this for image with sub 1mm voxel size (like HCP 7T)",
+      "default": false
+    },
+    {
+      "id": "debug",
+      "type": "boolean",
+      "description": "Turn on copious amount of freesurfer log",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/bl.app.49",
+  "deprecated_by": "5e03c7c332bff0800ae2a47b"
+}

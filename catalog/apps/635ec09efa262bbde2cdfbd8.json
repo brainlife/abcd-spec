@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Combine 2D T1w images into a single 3D volume - 2 orientations",
+  "version": "two-inputs-v1.0",
+  "summary": "Reconstructs a single high-resolution 3D T1-weighted volume from 2 stacks of 2D T1-weighted slices (axial and coronal) using NiftyMIC super-resolution volume reconstruction.",
+  "description": "Runs niftymic_reconstruct_volume (NiftyMIC) on 2 T1-weighted slice stacks acquired in different orientations (axial and coronal) and combines them into one motion-corrected 3D volume. Use it when only thick-slice 2D acquisitions are available and a single isotropic-like volume is needed for further analysis. All stacks must belong to the same subject and session; intermediate files (motion-correction transforms, masks, NiftyMIC configs) are kept in a separate raw output.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "635ec09efa262bbde2cdfbd8",
+    "github": "bacaron/app-combine-2d-to-3d",
+    "branch": "two-inputs-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "first_input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Stack of 2D T1-weighted slices acquired in the axial orientation.",
+      "config_keys": [
+        "axial"
+      ]
+    },
+    {
+      "id": "second_input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Stack of 2D T1-weighted slices acquired in the coronal orientation.",
+      "config_keys": [
+        "coronal"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "combined_t1ws",
+        "nifty_mic"
+      ],
+      "description": "Reconstructed 3D T1-weighted volume (NIfTI named <type>.nii.gz)."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "nifty_mic_derivatives"
+      ],
+      "description": "NiftyMIC intermediate files: motion-correction folder, stack masks and the config JSON files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "Base name of the reconstructed output file (written as <type>.nii.gz); should match the output datatype (t1 or t2).",
+      "default": "t1",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "renbem/niftymic",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.696",
+  "software": [
+    {
+      "name": "NiftyMIC",
+      "url": "https://github.com/gift-surg/NiftyMIC"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong",
+      "cause": "niftymic_reconstruct_volume did not produce the reconstructed volume.",
+      "fix": "Check the job log for the NiftyMIC error; make sure all inputs are slice stacks of the same subject."
+    }
+  ]
+}

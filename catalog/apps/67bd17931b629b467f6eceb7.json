@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-set-datatype_tag-debiased",
+  "version": "main",
+  "summary": "Utility that copies a T1-aligned DWI (with bvals and bvecs) unchanged so the output carries the debiased datatype tag.",
+  "description": "Copies the input files unchanged to the output (no image processing is done, the main script only copies files with jq and cp). Use it to relabel a dataset with the datatype tag shown on the output when the processing it reflects was done elsewhere. Do not use it to actually process data.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "67bd17931b629b467f6eceb7",
+    "github": "gamorosino/foo",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "t1_aligned",
+        "!debiased"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs; all three files must exist to be copied.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "t1_aligned",
+        "debiased"
+      ],
+      "description": "The same DWI, bvals and bvecs, copied unchanged and tagged debiased."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.847"
+}

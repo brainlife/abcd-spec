@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": " app-decoding-time-by-time ",
+  "version": "main",
+  "summary": "Decodes condition labels over time from MEG gradiometer epochs with MNE-Python SlidingEstimator (standardised logistic regression, 5-fold ROC AUC) and plots the decoding score time course.",
+  "description": "Selects the 'auditory' epochs, keeps the gradiometer channels and fits a scikit-learn pipeline (StandardScaler and LogisticRegression) independently at each time point with mne.decoding.SlidingEstimator, scoring with 5-fold cross-validated ROC AUC against event codes. Outputs a PNG of the mean score over time with the chance level. The condition name and channel type are hard-coded (MNE sample-dataset style 'auditory' left vs right), so it only runs on epochs that contain an 'auditory' condition with two event codes and gradiometers.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "machine-learning",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62b9789af3194eded6f719a6",
+    "github": "zahransa/app-decoding-time-by-time",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MEG epochs (MNE -epo.fif) with an 'auditory' condition.",
+      "config_keys": [
+        "epo"
+      ],
+      "requirements": "Must contain gradiometer channels and events tagged auditory with two classes."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Sensor-Space-Decoding.png: mean cross-validated ROC AUC over time with the chance level."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.655",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    },
+    {
+      "name": "scikit-learn"
+    }
+  ]
+}

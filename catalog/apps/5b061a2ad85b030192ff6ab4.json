@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROI Generation (w/ dtiinit)",
+  "version": "1.0",
+  "summary": "Generate a parcellation volume (and roi nifti files split into each label) for specific ROIs, or every ROI, for a parcellation from freesurfer output and/or input parcellation volume. This App can also inflate input parcellation volume toward non-white matter voxels.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5b061a2ad85b030192ff6ab4",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DTIINIT datatype",
+      "config_keys": [
+        "dtiinit"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the freesurfer datatype",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the parcellation/volume datatype",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Parcellation nifti containing all of the ROIs"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "Directory containing all of the ROIs"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ROI",
+      "type": "string",
+      "description": "Enter the parcellation numbers for the ROIs wanted to be generated\n\nexample: 45,54",
+      "default": ""
+    },
+    {
+      "id": "inflate",
+      "type": "number",
+      "description": "if ROI inflation into WM is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.37",
+  "deprecated_by": "5ec29d1641ba11e054f3edc1"
+}

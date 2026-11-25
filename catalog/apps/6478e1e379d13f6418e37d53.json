@@ -1,0 +1,272 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - first version",
+  "version": "v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6478e1e379d13f6418e37d53",
+    "github": "bacaron/app-visual-white-matter",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "prfVerticesDir",
+        "prfSurfacesDir"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "varea",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "varea_parc",
+        "varea_label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "connectomes",
+      "datatype": "neuro/conmats",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "networks",
+      "datatype": "generic/networks",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "tracts",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "net-stats",
+      "datatype": "neuro/net-stats",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_degree_PA",
+      "type": "string",
+      "description": "unknown",
+      "default": "0 35 80 125 160",
+      "advanced": true
+    },
+    {
+      "id": "max_degree_PA",
+      "type": "string",
+      "description": "unknown",
+      "default": "20 55 100 145 180",
+      "advanced": true
+    },
+    {
+      "id": "min_degree_ECC",
+      "type": "string",
+      "description": "unknown",
+      "default": "0 2 4 6 8",
+      "advanced": true
+    },
+    {
+      "id": "max_degree_ECC",
+      "type": "string",
+      "description": "unknown",
+      "default": "2 4 6 8 90",
+      "advanced": true
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "unknown",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "aparc.DKTatlas"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "both_endpoints",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "assignment_radial_search",
+      "type": "number",
+      "description": "unknown",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "assignment_reverse_search",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "assignment_forward_search",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "inv_length",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "richClubPercentage",
+      "type": "number",
+      "description": "unknown",
+      "default": 90,
+      "advanced": true
+    },
+    {
+      "id": "analysis",
+      "type": "enum",
+      "description": "unknown",
+      "default": "polarAngleMeridiansConnectomics",
+      "options": [
+        {
+          "value": "polarAngleMeridiansConnectomics",
+          "label": "polarAngleMeridiansConnectomics",
+          "description": "polarAngleMeridiansConnectomics"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.780",
+  "deprecated_by": "64842d58b10869ed4e8bbd16"
+}

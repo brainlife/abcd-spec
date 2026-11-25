@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Shape Analysis",
+  "version": "v1.5",
+  "summary": "Computes tract shape measures (length, span, area, volume, elongation, curvature, torsion and more) for each tract in a tcks folder with DSI Studio and DIPY and merges them into one tractmeasures CSV.",
+  "description": "Converts each .tck to .trk using a reference image, computes geometric shape statistics with DSI Studio and curvature/torsion with DIPY, and stacks and merges them into stat/tractmeasures.csv. Only one reference image is needed: the first available of T1w, T2w, parcellation or mask is used. Use it to characterise tract morphology for group analyses.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dsi-studio",
+    "statistics",
+    "tractography"
+  ],
+  "registry": {
+    "id": "67858b5e81d348aa56483324",
+    "github": "gamorosino/app-tcks2tractmeasures",
+    "branch": "v1.5"
+  },
+  "inputs": [
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of per-tract .tck files.",
+      "config_keys": [
+        "tcks",
+        "tcks_json"
+      ],
+      "requirements": "Must contain at least one .tck file."
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1-weighted reference image (used first if present).",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T2-weighted reference image (used if no T1w is given).",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Mask used as reference image if no anatomical image is given.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Parcellation used as reference image if no anatomical image is given.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "stat",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "Tract measures table (tractmeasures.csv) with one row per tract and DSI Studio and DIPY shape metrics."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.92
+    }
+  },
+  "doi": "10.25663/brainlife.app.844",
+  "software": [
+    {
+      "name": "DSI Studio",
+      "version": "hou-2025-04-29",
+      "url": "https://dsi-studio.labsolver.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: no .tck files found in directory",
+      "fix": "Provide a tcks dataset containing .tck files."
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MNE - Autoreject",
+  "version": "main",
+  "summary": "Estimates MEG/EEG epoch rejection thresholds with autoreject and optionally repairs bad channels in epochs with autoreject or RANSAC (MNE-Python).",
+  "description": "Reads an MNE epochs file, optionally fits autoreject.AutoReject or autoreject.Ransac to repair or reject bad epochs, and computes a global peak-to-peak rejection dictionary with autoreject.get_rejection_threshold. Note: on this branch the code that saves the cleaned epochs and the reject-log figure is commented out, and the rejection dictionary is saved in out_dir (reject_dict.npy), so the registered outputs do not match what the code writes; the README describes a PSD App instead.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "quality-control",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "616e8787fc8eb9ab81ff9105",
+    "github": "guiomar/app-artifact-rejection",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "raw01",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epochs"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "MNE epochs file (-epo.fif).",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "clean_epochs"
+      ],
+      "description": "Epoched data (equal length)",
+      "datatype_tags_pass": "raw01"
+    },
+    {
+      "id": "our_dir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "rejection_dict"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [
+        "rejection_log"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "decim",
+      "type": "number",
+      "description": "The decimation factor: Increment for selecting every nth time slice.\n\nTIP: We can use the `decim` parameter to only take every nth time slice.\nThis speeds up the computation time. Note however that for low sampling rates and high decimation parameters, you might not detect \"peaky artifacts\" (with a fast timecourse) in your data. A low amount of decimation however is almost always beneficial at no decrease of accuracy.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 100,
+      "required": false
+    },
+    {
+      "id": "clean_epochs",
+      "type": "boolean",
+      "description": "Return clean epochs (.fif file) in addition to the rejection dictionary",
+      "default": true
+    },
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Repair method used when clean_epochs is true: autoreject (local thresholds) or ransac (bad channel detection).",
+      "default": "autoreject",
+      "options": [
+        {
+          "value": "autoreject",
+          "label": "AutoReject",
+          "description": "ar"
+        },
+        {
+          "value": "ransac",
+          "label": "Ransac",
+          "description": "rsc"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.24dev.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.585",
+  "software": [
+    {
+      "name": "MNE-Python"
+    },
+    {
+      "name": "autoreject",
+      "url": "https://autoreject.github.io"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Jas M, Engemann D, Raimondo F, Bekhti Y, Gramfort A. Automated rejection and repair of bad trials in MEG/EEG. PRNI (2016)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

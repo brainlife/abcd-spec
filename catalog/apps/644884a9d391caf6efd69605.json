@@ -1,0 +1,229 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Add montage",
+  "version": "v1.0",
+  "summary": "Adds a standard MNE electrode or fNIRS montage (10-20, 10-05, BioSemi, EGI and others) to raw MEG/EEG data, with optional channel renaming, and outputs the data, a sensor plot and a QC report.",
+  "description": "Optionally renames channels (old-new pairs) to match the montage naming, builds the montage with mne.channels.make_standard_montage and applies it with raw.set_montage, then saves the raw file, a sensor-position plot, a PSD plot and an HTML QC report. Use it before topographic plotting or source localisation of EEG data that lack channel positions. Channel names must match the montage after renaming.",
+  "kind": "native",
+  "topics": [
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "644884a9d391caf6efd69605",
+    "github": "BrainlifeMEEG/add-montage",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "with_montage"
+      ],
+      "description": "Raw data with channel positions from the montage (raw.fif).",
+      "datatype_tags_pass": "raw"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Montage plot",
+      "datatype_tags_pass": "raw"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report of the process"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "montage",
+      "type": "enum",
+      "description": "Name of the standard MNE montage to apply.",
+      "default": "",
+      "options": [
+        {
+          "value": "standard_1005",
+          "label": "Standard 10-05 ",
+          "description": "Electrodes are named and positioned according to the international 10-05 system (343+3 locations)"
+        },
+        {
+          "value": "standard_1020",
+          "label": "Standard 10-20 (94+3)",
+          "description": "Electrodes are named and positioned according to the international 10-20 system (94+3 locations)"
+        },
+        {
+          "value": "standard_alphabetic",
+          "label": "LETTER-NUMBER (65+3)",
+          "description": "Electrodes are named with LETTER-NUMBER combinations (A1, B2, F4, \u2026) (65+3 locations)"
+        },
+        {
+          "value": "standard_postfixed",
+          "label": "10-20 with postfixes (100+3)",
+          "description": "Electrodes are named according to the international 10-20 system using postfixes for intermediate positions (100+3 locations)"
+        },
+        {
+          "value": "standard_prefixed",
+          "label": "10-20 with prefixes (74+3)",
+          "description": "Electrodes are named according to the international 10-20 system using prefixes for intermediate positions (74+3 locations)"
+        },
+        {
+          "value": "standard_primed",
+          "label": "10-20 with prime marks (' and \") (100+3)",
+          "description": "Electrodes are named according to the international 10-20 system using prime marks (' and '') for intermediate positions (100+3 locations)"
+        },
+        {
+          "value": "biosemi16",
+          "label": "BioSemi 16 (16+3)",
+          "description": "BioSemi cap with 16 electrodes (16+3 locations)"
+        },
+        {
+          "value": "biosemi32",
+          "label": "BioSemi 32 (32+3)",
+          "description": "BioSemi cap with 32 electrodes (32+3 locations)"
+        },
+        {
+          "value": "biosemi64",
+          "label": "BioSemi 64 (64+3)",
+          "description": "BioSemi cap with 64 electrodes (64+3 locations)"
+        },
+        {
+          "value": "biosemi128",
+          "label": "BioSemi 128 (128+3)",
+          "description": "BioSemi cap with 128 electrodes (128+3 locations)"
+        },
+        {
+          "value": "biosemi160",
+          "label": "BioSemi 160 (160+3)",
+          "description": "BioSemi cap with 160 electrodes (160+3 locations)"
+        },
+        {
+          "value": "biosemi256",
+          "label": "BioSemi 256 (256+3)",
+          "description": "BioSemi cap with 256 electrodes (256+3 locations)"
+        },
+        {
+          "value": "easycap-M1",
+          "label": "EasyCap 10-05",
+          "description": "EasyCap with 10-05 electrode names (74 locations)"
+        },
+        {
+          "value": "easycap-M10",
+          "label": "EasyCap numbered",
+          "description": "EasyCap with numbered electrodes (61 locations)"
+        },
+        {
+          "value": "EGI-256",
+          "label": "Geodesic Net",
+          "description": "Geodesic Sensor Net (256 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-32",
+          "label": "HydroCel Geodesic 32 + Cz",
+          "description": "HydroCel Geodesic Sensor Net and Cz (33+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-64_1.0",
+          "label": "HydroCel Geodesic 64",
+          "description": "HydroCel Geodesic Sensor Net (64+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-65_1.0",
+          "label": "HydroCel Geodesic 64 + Cz",
+          "description": "HydroCel Geodesic Sensor Net and Cz (65+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-128",
+          "label": "HydroCel Geodesic 128",
+          "description": "HydroCel Geodesic Sensor Net (128+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-129",
+          "label": "HydroCel Geodesic 128 + Cz",
+          "description": "HydroCel Geodesic Sensor Net and Cz (129+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-256",
+          "label": "HydroCel Geodesic 256",
+          "description": "HydroCel Geodesic Sensor Net (256+3 locations)"
+        },
+        {
+          "value": "GSN-HydroCel-257",
+          "label": "HydroCel Geodesic 256 + Cz",
+          "description": "HydroCel Geodesic Sensor Net and Cz (257+3 locations)"
+        },
+        {
+          "value": "mgh60",
+          "label": "MGH 60",
+          "description": "The (older) 60-channel cap used at MGH (60+3 locations)"
+        },
+        {
+          "value": "mgh70",
+          "label": "MGH 70",
+          "description": "The (newer) 70-channel BrainVision cap used at MGH (70+3 locations)"
+        },
+        {
+          "value": "artinis-octamon",
+          "label": "OctaMon fNIRS",
+          "description": "Artinis OctaMon fNIRS (8 sources, 2 detectors)"
+        },
+        {
+          "value": "artinis-brite23",
+          "label": "Artinis Brite23 fNIRS",
+          "description": "Artinis Brite23 fNIRS (11 sources, 7 detectors)"
+        },
+        {
+          "value": "brainproducts-RNP-BA-128",
+          "label": "BrainProducts 10-10",
+          "description": "Brain Products with 10-10 electrode names (128 channels)"
+        }
+      ]
+    },
+    {
+      "id": "rename_channels",
+      "type": "string",
+      "description": "If the names of channels in your data acquisition system are different from the names in a standard montage, you can use this option to rename the channels in the montage to match your data file (e.g. 'Cz' in 'GSN-HydroCel-257' can be named 'E257' in older EGI acquisition software).\nUsage: type in name of the channel in the montage, dash, and the name used in your dataset (Cz-E257, or E001-E1, for example).",
+      "default": "",
+      "required": false,
+      "placeholder": "Cz-E257"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 10,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.769",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

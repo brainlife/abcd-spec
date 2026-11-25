@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "CPU Scaling Benchmark",
+  "version": "main",
+  "summary": "Utility that benchmarks CPU scaling of a fixed PBKDF2 SHA-256 workload across configurable worker counts and reports runtime, speedup, CPU utilisation and memory in an HTML report.",
+  "description": "Runs a fixed number of deterministic work items with Python multiprocessing at each requested worker count, repeating trials in shuffled order, and verifies results while recording wall time, CPU use and memory. Use it to check how many cores a brainlife compute resource effectively provides; it is not a neuroimaging analysis. The T1w input is a required placeholder and is never read.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6ab185055c0098e715283cc1",
+    "github": "tjgrafft/app-cpu-benchmark",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Required placeholder T1w input for Brainlife app selection. The benchmark does not read or use this image.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "CPU scaling report with downloadable JSON and CSV"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "workers",
+      "type": "string",
+      "description": "Comma-separated worker process counts. Include 1 for baseline. Max 64; values above the resource CPU allocation test oversubscription, not larger instances.",
+      "default": "1,2,4,8,16"
+    },
+    {
+      "id": "tasks",
+      "type": "number",
+      "description": "Fixed number of independent work items per trial. Must be at least the largest worker count.",
+      "default": 64,
+      "minimum": 1,
+      "maximum": 2048
+    },
+    {
+      "id": "iterations",
+      "type": "number",
+      "description": "PBKDF2 SHA-256 iterations per work item. Increase to reduce process-startup overhead relative to computation.",
+      "default": 200000,
+      "minimum": 1000,
+      "maximum": 2000000
+    },
+    {
+      "id": "repeats",
+      "type": "number",
+      "description": "Trials per worker count. Order is shuffled reproducibly each round.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 10
+    },
+    {
+      "id": "memory_mb_per_worker",
+      "type": "number",
+      "description": "MiB allocated and page-touched per worker. Initialization is included in wall time. Not a memory-bandwidth test.",
+      "default": 16,
+      "minimum": 0,
+      "maximum": 256
+    },
+    {
+      "id": "seed",
+      "type": "number",
+      "description": "Deterministic workload and trial-order seed; use the same seed across comparisons.",
+      "default": 42,
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.977",
+  "software": [
+    {
+      "name": "Python 3 standard library"
+    }
+  ]
+}

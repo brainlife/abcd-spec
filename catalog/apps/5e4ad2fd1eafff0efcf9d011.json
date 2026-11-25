@@ -1,0 +1,148 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Null Model",
+  "version": "0.2",
+  "summary": "Generates an ensemble of null-model networks (Erdos-Renyi, Barabasi-Albert or configuration model) matching an input network, using igraph.",
+  "description": "Reads a network (JGF) and, for each network in it, generates count random realisations with the chosen null model; weights can be ignored, sampled or averaged from the original. Use it to build null distributions for network measures computed on connectomes.",
+  "kind": "native",
+  "topics": [
+    "network",
+    "network-analysis",
+    "connectomics",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e4ad2fd1eafff0efcf9d011",
+    "github": "filipinascimento/bl-network-nullmodel",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "null-model"
+      ],
+      "description": "Network file containing the realizations of the null-model.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "count",
+      "type": "number",
+      "description": "Number of null model samples to be generated.",
+      "default": 100,
+      "minimum": 1,
+      "placeholder": "Number of Samples"
+    },
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Model to generate the null samples.\n- random: ER network with same number of nodes and edges as the original network.\n- barabasi: Scale-free model with similar number of nodes and edges as the original network.\n- configuration: Generates a network with same (or similar) degree sequence as the original.",
+      "default": "random",
+      "options": [
+        {
+          "value": "random",
+          "label": "Erd\u0151s\u2013R\u00e9nyi (Random)",
+          "description": "ER network with same number of nodes and edges as the original network."
+        },
+        {
+          "value": "barabasi",
+          "label": "Barab\u00e1si\u2013Albert (scale-free)",
+          "description": "Scale-free model with similar number of nodes and edges as the original network."
+        },
+        {
+          "value": "configuration",
+          "label": "Configuration",
+          "description": "Generates a network with same (or similar) degree sequence as the original."
+        }
+      ]
+    },
+    {
+      "id": "weights",
+      "type": "enum",
+      "description": "How weights should be handled?",
+      "default": "ignore",
+      "options": [
+        {
+          "value": "ignore",
+          "label": "Ignore",
+          "description": "Weights are ignored and the output models are unweighted."
+        },
+        {
+          "value": "sample",
+          "label": "Sample",
+          "description": "Samples the weights from the original weights in order to maintain weight distribution."
+        },
+        {
+          "value": "average",
+          "label": "Average",
+          "description": "All weights have the average weight of the original network."
+        }
+      ]
+    },
+    {
+      "id": "configuration-method",
+      "type": "enum",
+      "description": "If configuration model is selected, this selects the method to be used.\n- Simple:  The generated null model may have self loops and multiple edges.\n- No self-loops and multiple edges: Avoids creating self-loops and multiple edges. (Much slower than \"simple\")\n- Monte-Carlo: Uses Monte-Carlo method to randomize the networks. Based on the Fabien Viger's method.",
+      "default": "simple",
+      "options": [
+        {
+          "value": "simple",
+          "label": "Simple",
+          "description": "The generated null model may have self loops and multiple edges."
+        },
+        {
+          "value": "no_multiple",
+          "label": "No self-loops and multiple edges",
+          "description": "Avoids creating self-loops and multiple edges. (Much slower than \"simple\")"
+        },
+        {
+          "value": "vl",
+          "label": "Monte-Carlo",
+          "description": "Uses Monte-Carlo method to randomize the networks. Based on the Fabien Viger's method."
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.277",
+  "software": [
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Barabasi A-L. Network science. Cambridge University Press (2016)."
+    }
+  ]
+}

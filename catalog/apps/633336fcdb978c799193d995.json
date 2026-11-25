@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice ROIs to match input DWI",
+  "version": "master",
+  "summary": "Reslices a collection of ROIs onto the voxel grid of a DWI image with FreeSurfer mri_vol2vol (header registration, nearest-neighbour interpolation).",
+  "description": "Runs mri_vol2vol --regheader with nearest-neighbour interpolation on every ROI so that it matches the voxel size and grid of the DWI. Use it when ROIs were made on a different voxel grid (for example T1w resolution) but are already aligned to the DWI; it does not register the images. Needs a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "registration",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "633336fcdb978c799193d995",
+    "github": "bacaron/app-reslice-rois-dwi",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image whose voxel grid is the target.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of ROI NIfTI files already aligned (in world coordinates) to the DWI.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "resliced",
+        "dwi"
+      ],
+      "description": "The ROIs resliced to the DWI voxel grid.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.671",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9:179-194 (1999)."
+    }
+  ]
+}

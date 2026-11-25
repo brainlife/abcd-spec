@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Crop and Reorient T1",
+  "version": "1.0",
+  "summary": "This application will crop and reorient the T1 image to standard orientation and FOV using FSL's fslreorient2std and robustfov.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5a0f38bf31769f1e4d46cc58",
+    "github": "brainlife/app-crop_reorient",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "crop_reorient"
+      ],
+      "description": "The crop and/or reoriented T1",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "Run fslreorient2std. This command reorients an image to match the orientation of the standard template images (MNI152) so that they appear \"the same way around\" in FSLView. It requires that the image labels are correct in FSLView before this is run. It is also not a registration tool, so it will not align the image to standard space, it will only apply 90, 180 or 270 degree rotations about the different axes as necessary to get the labels in the same position as the standard template.",
+      "default": false
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "Run robustfov to reduce field-of-view of image to remove lower head and neck.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 8,
+      "walltime_hours": 0.13
+    }
+  },
+  "doi": "10.25663/bl.app.15",
+  "deprecated_by": "60707f8bc7f80a0cb895d6ca"
+}

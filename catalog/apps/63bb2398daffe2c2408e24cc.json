@@ -1,0 +1,140 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate Eccentricity Parcellations from pRF - Diffusion Space",
+  "version": "eccentricity-parcellation-v1.3",
+  "summary": "Generates a volumetric parcellation in DWI space by binning a pRF eccentricity surface map into user-defined ranges and projecting the bins into the cortical ribbon, using FreeSurfer, Connectome Workbench and FSL.",
+  "description": "Converts the pRF eccentricity surface to GIFTI, binarizes it into the bins given by min_degree/max_degree (space-separated lists of equal length), maps each bin into the volume with mri_surf2vol on the cortical ribbon resliced to the DWI, and combines left and right hemispheres into one parcellation with one label per bin. Use it to analyse white matter or tracts by visual field eccentricity. It needs a FreeSurfer output, a prf dataset with lh/rh.eccentricity surfaces and a DWI for the reference grid.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dwi",
+    "parcellation",
+    "freesurfer",
+    "connectome-workbench",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63bb2398daffe2c2408e24cc",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "eccentricity-parcellation-v1.3"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output providing the pial surfaces, ribbon and <inputparc>+aseg volume used to map surface bins into the volume.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pRF dataset providing lh/rh.eccentricity surface maps.",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "varea",
+        "prfVerticesDir",
+        "prfSurfacesDir"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image used as the reference grid for the output parcellation.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "eccentricity"
+      ],
+      "description": "Volumetric parcellation in DWI space with one label per eccentricity bin (both hemispheres combined), with key.txt and label.json."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "FreeSurfer parcellation whose +aseg volume is resliced to the DWI with mri_label2vol and used as the template grid.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas"
+        }
+      ]
+    },
+    {
+      "id": "min_degree",
+      "type": "string",
+      "description": "minimum eccentricity values for each bin\n\nex. 0 3 7",
+      "default": ""
+    },
+    {
+      "id": "max_degree",
+      "type": "string",
+      "description": "maximum eccentricity values for each bin\n\nex. 3 7 90",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2-freesurfer-update",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 30
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.713",
+  "software": [
+    {
+      "name": "FreeSurfer"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2",
+      "url": "https://www.humanconnectome.org/software/connectome-workbench"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

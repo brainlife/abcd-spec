@@ -1,0 +1,79 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-forward",
+  "version": "master",
+  "summary": "Builds an MNE-Python HTML report showing the FreeSurfer BEM surfaces and an MEG forward solution.",
+  "description": "Code on the repository's main branch adds the subject's MRI and BEM surfaces (from the FreeSurfer directory) and the forward solution to an mne.Report and saves report.html. The registered branch 'master' no longer exists in the repository, so the App cannot be staged as registered. The transform input is declared as an ICA datatype but is read as a head-MRI transform and then not used.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "mne-python",
+    "source-localization",
+    "visualization",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "627a60e9d0697cf1eacb34d7",
+    "github": "zahransa/app-forward",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "transform",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Head-to-MRI transform file; read by the code but not used.",
+      "config_keys": [
+        "transform"
+      ]
+    },
+    {
+      "id": "forward",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MNE forward solution (-fwd.fif) to show in the report.",
+      "config_keys": [
+        "forward"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory with BEM surfaces.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "report.html with the MRI/BEM figures and the forward solution."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.627",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2",
+      "url": "https://mne.tools/"
+    }
+  ]
+}

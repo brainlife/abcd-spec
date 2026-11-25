@@ -1,0 +1,247 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Trekker ROI Tracking (dtiinit)",
+  "version": "master-app-v1.1",
+  "summary": "This app uses [Trekker](https://dmritrekker.github.io) to track between multiple ROIs.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "mri",
+    "tracking",
+    "tractography",
+    "vision"
+  ],
+  "registry": {
+    "id": "5ecca39d1f4464e2bb9edc0a",
+    "github": "brainlife/app-trekker-roi-tracking",
+    "branch": "master-app-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dtiinit"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "5-tissue type mask (needed for csd fitting)",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "whole-brain mask",
+      "config_keys": [
+        "brainmask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "roi_trekker"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "roi_trekker"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "min length of streamlines",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "max length of streamlines",
+      "default": 200
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "lmax",
+      "default": 8
+    },
+    {
+      "id": "roiPair",
+      "type": "string",
+      "description": "This field is here for whether or not you want to track both hemispheres or one hemisphere at a time. If just one hemisphere is desired, enter the exact ROI number or name from the rois datatype for the roi of choice (example: '008109'). If both are desired, enter both separated by a space (example: '008109 008209'). Please see ROI datatype for exact name of each.",
+      "default": ""
+    },
+    {
+      "id": "exclusion",
+      "type": "string",
+      "description": "this field is the exact ROI name or number from the ROI datatype for the V1. Example: 'exclusion_L'. If bother hemispheres are being tracked, enter the name separated by a space for each exclusion 'exclusion_R'. Please see ROI datatype for exact name of each.\n\nThese exclusion can be any grouping of ROIs that you DO NOT want streamlines to cross. For example, opposite hemisphere white matter, cerebellar white matter, hippocampus are good exclusions for the OR. \n\nIf you do not want to use exclusion ROIs, leave blank",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "count",
+      "type": "number",
+      "description": "total number of streamlines",
+      "default": 500
+    },
+    {
+      "id": "curvatures",
+      "type": "string",
+      "description": "minimum radius of curvature. If left as 'default', trekker will automatically determine best curvature. Otherwise, enter value of radius of curvature (i.e 0.5)",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "stepsize",
+      "type": "string",
+      "description": "step size. If left as 'default', trekker will automatically determine best step size. Otherwise, enter value of step size (i.e 0.5)",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "single_lmax",
+      "type": "boolean",
+      "description": "if want to run on only one lmax, set to true. to ensemble, set to false",
+      "default": true
+    },
+    {
+      "id": "minfodamp",
+      "type": "string",
+      "description": "minimum FOD amplitude. If left as 'default', trekker will automatically determine best FOD amplitude. Otherwise, enter value of FOD amplitude (i.e 0.5)",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "maxsampling",
+      "type": "string",
+      "description": "max sampling per seed. If left as 'default', trekker will automatically determine best number of max sampling per seed. Otherwise, enter value here (100000)",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "maxtrials",
+      "type": "string",
+      "description": "max trials. If left as 'default', trekker will automatically determine best number of max trials. Otherwise, enter value here (100000)",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "probecount",
+      "type": "string",
+      "description": "unknown",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "probelength",
+      "type": "string",
+      "description": "unknown",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "proberadius",
+      "type": "string",
+      "description": "unknown",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "probequality",
+      "type": "string",
+      "description": "unknown",
+      "default": "default",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "bestAtInit",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "reslice",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 30,
+      "walltime_hours": 8
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.358",
+  "deprecated_by": "5ecc95311f446482f59ed395"
+}

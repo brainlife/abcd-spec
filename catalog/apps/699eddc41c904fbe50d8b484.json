@@ -1,0 +1,117 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-resample-raw-v2",
+  "version": "working_ver",
+  "summary": "Resamples raw MEG/EEG data to a new sampling frequency with MNE-Python and outputs the resampled raw file, before/after PSD plots and an HTML report.",
+  "description": "Loads a raw .fif file, calls raw.resample with the target sampling frequency and the padding/window options, and saves the result with a PSD comparison and a report. Use it to downsample high-rate EEG/MEG recordings (for example BioSemi data from 2048 Hz to 250 Hz) before further processing.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "699eddc41c904fbe50d8b484",
+    "github": "obVdo/app-resample-raw-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw MEG/EEG recording (MNE .fif).",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "Resampled raw data (raw.fif)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sfreq",
+      "type": "number",
+      "description": "New sample rate to use.",
+      "default": "",
+      "required": true,
+      "placeholder": "sfreq"
+    },
+    {
+      "id": "npad",
+      "type": "string",
+      "description": "Padding before FFT resampling",
+      "default": "auto",
+      "required": false,
+      "advanced": true,
+      "placeholder": "auto"
+    },
+    {
+      "id": "window",
+      "type": "string",
+      "description": "Resampling window type",
+      "default": "boxcar",
+      "required": false,
+      "advanced": true,
+      "placeholder": "boxcar"
+    },
+    {
+      "id": "pad",
+      "type": "string",
+      "description": "Signal padding method",
+      "default": "reflect_limited",
+      "required": false,
+      "advanced": true,
+      "placeholder": "reflect_limited"
+    },
+    {
+      "id": "events",
+      "type": "string",
+      "description": "Event array to resample alongside data",
+      "default": "None",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "stim_picks",
+      "type": "string",
+      "description": "Event array to resample alongside data",
+      "default": "None",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.896",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit IVIM",
+  "version": "1.1.1",
+  "summary": "Fits the intravoxel incoherent motion (IVIM) model to DWI with DIPY dipy_fit_ivim 1.1.1 and outputs maps of predicted S0, perfusion fraction, pseudo-diffusion D* and diffusion D.",
+  "description": "Runs DIPY's dipy_fit_ivim workflow on the DWI with its bvals, bvecs and brain mask. IVIM needs multiple low b-values (below a few hundred s/mm^2) to separate perfusion from diffusion; it is not meaningful for single-shell high-b data. Note that this version of main passes the b0_threshold value to --split_b_D and --split_b_S0, so those two parameters are not used.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "diffusion-mri",
+    "dipy",
+    "dwi"
+  ],
+  "registry": {
+    "id": "5ea7b4d2f1745d1c26f80269",
+    "github": "dipy/bl_apps_dipy_fit_ivim",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "DWI",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Should include several low b-values for the IVIM bi-exponential fit."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask in DWI space restricting the fit.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dwi"
+      ],
+      "description": "- S0_predicted.nii.gz: Name of the S0 signal estimated to be saved\n- perfusion_fraction.nii.gz: Name of the estimated volume fractions to be saved\n- D_star.nii.gz: Name of the estimated pseudo-diffusion parameter to be saved\n- D.nii.gz: Name of the estimated diffusion parameter to be saved"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "split_b_D",
+      "type": "number",
+      "description": "Value to split the bvals to estimate D for the two-stage process of fitting",
+      "default": 400
+    },
+    {
+      "id": "split_b_S0",
+      "type": "number",
+      "description": "Value to split the bvals to estimate S0 for the two-stage process of fitting.",
+      "default": 200
+    },
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold value for the b0 bval.",
+      "default": 0
+    },
+    {
+      "id": "command",
+      "type": "string",
+      "description": "DIPY workflow to run; only dipy_fit_ivim is accepted.",
+      "default": "dipy_fit_ivim",
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.322",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E et al. Dipy, a library for the analysis of diffusion MRI data. Frontiers in Neuroinformatics 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "invalid command: <command>",
+      "fix": "Set command to dipy_fit_ivim."
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply transformations to mask",
+  "version": "main",
+  "summary": "Applies an existing ANTs or FSL transform (affine plus optional nonlinear warp) to a binary mask with ANTs antsApplyTransforms, resampling it onto a chosen reference image.",
+  "description": "Wraps antsApplyTransforms to move a mask into another space using a precomputed transform (warp, inverse warp and affine). The reference grid is the first optional fixed input provided, in the order T1w, T2w, parcellation, mask, DWI, FA; at least one must be given. FLIRT/FNIRT transforms can be converted to ITK format first (fsl_transform). Use NearestNeighbor interpolation to keep the mask binary. It does not estimate a registration.",
+  "kind": "native",
+  "topics": [
+    "ants",
+    "brainlife-app",
+    "fsl",
+    "registration"
+  ],
+  "registry": {
+    "id": "699649c10d5bc1a5dc0c4099",
+    "github": "gamorosino/app-apply-ants-transform",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Precomputed transform: nonlinear warp, inverse warp and affine matrix (ANTs format, or FSL FLIRT/FNIRT when fsl_transform is set).",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ],
+      "requirements": "The warp matching the chosen direction must be present unless affine_only is set."
+    },
+    {
+      "id": "moving_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Mask (NIfTI) to be transformed.",
+      "config_keys": [
+        "input_mask"
+      ]
+    },
+    {
+      "id": "fixed_T1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T1w image used as the reference grid (first choice).",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "fixed_t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2w image used as the reference grid if no T1w reference is given.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fixed_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional parcellation used as the reference grid if no T1w/T2w reference is given.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "fixed_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional mask used as the reference grid if no earlier reference is given.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "fixed_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DWI used as the reference grid if no earlier reference is given.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "fixed_tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional tensor maps; the FA map is used as the reference grid if no earlier reference is given.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformed",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "The mask resampled into the reference space (NIfTI, same file name as the input)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "Apply inverse transformations",
+      "default": false
+    },
+    {
+      "id": "affine_only",
+      "type": "boolean",
+      "description": "Apply only affine transformation",
+      "default": false
+    },
+    {
+      "id": "fsl_transform",
+      "type": "boolean",
+      "description": "If true, converts affine and warp to from FSL to ANTs-compatible format",
+      "default": false
+    },
+    {
+      "id": "interpolation",
+      "type": "enum",
+      "description": "Interpolation method (Linear, NearestNeighbor, etc.)",
+      "default": "NearestNeighbor",
+      "options": [
+        {
+          "value": "Linear",
+          "label": "Linear"
+        },
+        {
+          "value": "NearestNeighbor",
+          "label": "NearestNeighbor"
+        },
+        {
+          "value": "BSpline",
+          "label": "BSpline",
+          "description": "BSpline[<order=3>]"
+        },
+        {
+          "value": "MultiLabel",
+          "label": "MultiLabel",
+          "description": "MultiLabel[<sigma=imageSpacing>,<alpha=4.0>]"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.893",
+  "software": [
+    {
+      "name": "ANTs",
+      "url": "http://stnava.github.io/ANTs/"
+    },
+    {
+      "name": "Convert3D (c3d_affine_tool)"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid anatomical reference found in config.json",
+      "cause": "None of the optional fixed (reference) inputs was provided.",
+      "fix": "Provide at least one reference image."
+    },
+    {
+      "message": "Error: affine_only is false but appropriate warp is missing",
+      "cause": "The transform lacks the warp (or inverse warp when inverse is set).",
+      "fix": "Provide a transform with the needed warp or set affine_only."
+    }
+  ]
+}

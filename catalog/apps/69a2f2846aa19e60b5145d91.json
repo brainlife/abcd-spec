@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "recon-all-for-meeeg",
+  "version": "working_ver",
+  "summary": "Runs FreeSurfer 7.1.1 recon-all on a T1-weighted image to produce cortical surfaces and segmentation for MEG/EEG coregistration and BEM creation.",
+  "description": "Runs the full FreeSurfer recon-all pipeline (-all, parallel, 8 OpenMP threads) on the T1w image and outputs the subject directory. It is meant as the anatomy step of MEG/EEG pipelines, feeding coregistration and BEM Apps. No options are exposed (no hires, T2 or expert settings); expect many hours of compute and a FREESURFER_LICENSE or FS_LICENSE on the resource. The repository has no README.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "surface-analysis",
+    "freesurfer",
+    "meg",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69a2f2846aa19e60b5145d91",
+    "github": "obVdo/app-freesurfer-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical MRI for FreeSurfer recon-all surface reconstruction",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "description": "FreeSurfer recon-all output containing cortical surfaces and segmentation. Used as input for coregistration (app-coreg) and BEM model creation (app-bem)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.898",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE or FS_LICENSE in resource environment",
+      "fix": "Set FREESURFER_LICENSE (license text) or FS_LICENSE (path to license file) on the compute resource."
+    }
+  ]
+}

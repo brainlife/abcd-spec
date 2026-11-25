@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Brain Atlas Mapping",
+  "version": "main",
+  "summary": "Maps a retinotopic or cortical atlas (Benson14, Wang15, Glasser16 or Rosenke18) onto a FreeSurfer subject with neuropythy and outputs a volumetric parcellation, atlas maps and surface data.",
+  "description": "Runs python -m neuropythy atlas on the FreeSurfer subject, converts the resulting volumes to NIfTI with FreeSurfer mri_convert and attaches a label.json for the chosen atlas. Use it to get visual-area or multimodal cortical labels in subject space without functional data. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "parcellation"
+  ],
+  "registry": {
+    "id": "69e801a668c5c4b1c53aac9c",
+    "github": "gamorosino/app-map-atlas",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "reference",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T1w reference image.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Atlas labels as a volumetric parcellation with label.json."
+    },
+    {
+      "id": "volumes",
+      "datatype": "neuro/maps",
+      "datatype_tags": [],
+      "description": "Atlas maps (e.g. eccentricity, polar angle for Benson14) as volumes."
+    },
+    {
+      "id": "surfaces",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "Atlas data on the subject's surface vertices."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "enum",
+      "description": "Atlas to map: benson14, wang15, glasser16 or rosenke18.",
+      "default": "benson14",
+      "options": [
+        {
+          "value": "wang15",
+          "label": "wang15"
+        },
+        {
+          "value": "glasser16",
+          "label": "glasser16"
+        },
+        {
+          "value": "rosenke18",
+          "label": "rosenke18"
+        },
+        {
+          "value": "benson14",
+          "label": "benson14"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 2,
+      "memory_gb": 20,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.922",
+  "software": [
+    {
+      "name": "neuropythy",
+      "version": "0.12.16",
+      "url": "https://github.com/noahbenson/neuropythy"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ]
+}

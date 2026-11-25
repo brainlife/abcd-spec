@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
+  "version": "benson-prf-endpoints-v1.2-anatomical",
+  "summary": "This app will compute the average diffusion metrics, and anatomical measures from Freesurfer including thickness, surface area, and volume, within the visual areas returned by the prf - Benson14 app. Will return a parc-stats datatype for each eccentricity-binned visual area parcellation.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6469220dd391caf6ef2435de",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "benson-prf-endpoints-v1.2-anatomical"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "prf_surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "benson14_visual_areas"
+      ],
+      "description": "Csv files for each summary statistic and parcellation"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "benson14_visual_areas"
+      ],
+      "description": "Derivatives generated during run for debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "minDegree",
+      "type": "string",
+      "description": "string of minimum eccentricity degrees for binning.\n\nFor example, if you wanted to compute stats between eccentricities 0-5 and 7-90, this field would be '0 7'",
+      "default": ""
+    },
+    {
+      "id": "maxDegree",
+      "type": "string",
+      "description": "string of maximum eccentricity degrees for binning.\n\nFor example, if you wanted to compute stats between eccentricities 0-5 and 7-90, this field would be '5 90'",
+      "default": ""
+    },
+    {
+      "id": "prf_measure",
+      "type": "enum",
+      "description": "unknown",
+      "default": "polarAngle",
+      "options": [
+        {
+          "value": "polarAngle",
+          "label": "polarAngle",
+          "description": "polarAngle"
+        },
+        {
+          "value": "eccentricity",
+          "label": "eccentricity",
+          "description": "eccentricity"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "memory_gb": 30,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.777",
+  "deprecated_by": "64f8e257e4d2e9108d91e7f5"
+}

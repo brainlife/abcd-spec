@@ -1,0 +1,116 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Combine classified white matter tracts",
+  "version": "v1.0",
+  "summary": "Merges selected tracts of a white matter classification into new combined tracts with MRtrix3 and outputs the updated tractogram and classification.",
+  "description": "Extracts each classified tract from the tractogram with connectome2tck, concatenates the tracts listed on each line of combineIndices with tckedit, and builds a new classification (named by mergeNames) and merged tractogram. Use it to combine, for example, left and right or sub-segments of a tract into one bundle.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "63ba1a04daffe2c2408d0422",
+    "github": "brainlife/app-combine-tracts",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (classification.mat) of the tractogram.",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram (.tck) indexed by the classification.",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "Tractogram containing the merged tracts.",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "New classification with one tract per line of combineIndices.",
+      "datatype_tags_pass": "wmc"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "merged",
+        "raw_derivatives"
+      ],
+      "description": "Per-tract intermediate .tck files and assignment lists.",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "combineIndices",
+      "type": "string",
+      "description": "These are the index numbers found within the classification.mat file for the tracts you want to combine. \n\nFor example, if you want to combine the first two tracts from a classification structure, this field would be set as '1 2'.\n\nYou can also have multiple sets of tracts combined into individual tracts by separating values by a new line",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "mergeNames",
+      "type": "string",
+      "description": "Names of the newly merged tracts you would like to set. Need to have the same number of names as the number of sets of tracts in combineIndices.",
+      "default": "",
+      "multiline": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pyafq:1.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.711",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "combination failed. see logs and derivatives",
+      "cause": "The new classification was not produced.",
+      "fix": "Check that combineIndices refer to tract indices present in the classification."
+    }
+  ]
+}

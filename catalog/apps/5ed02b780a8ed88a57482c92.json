@@ -1,0 +1,178 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Analysis Profiles",
+  "version": "1.13",
+  "summary": "Computes tract profiles of tensor (FA, MD, RD, AD), DKI, NODDI, myelin or quantitative MRI measures along segmented white matter tracts with Vistasoft, producing profile plots and a tractmeasures CSV.",
+  "description": "Samples diffusion tensor (AD, FA, MD, RD), and optionally DKI, NODDI (NDI, ISOVF, ODI), myelin-map or qMRI (T1, R1, M0, PD, MTV, VIP, SIR, WF) measures along each tract of a white matter classification (wmc) at numnodes evenly spaced nodes, weighting streamlines by their distance from the tract core (Vistasoft dtiComputeDiffusionPropertiesAlongFG) or, when fiberbased is true, without weighting (Compute_FA_AlongFG). Produces PNG/EPS profile plots per tract and measure and a tractmeasures CSV with means and standard deviations. Use it after tract segmentation; it needs the wmc and the whole-brain tck it was derived from. At least one of tensor, NODDI or myelin inputs must be provided.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "dwi",
+    "diffusion-modeling",
+    "statistics",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ed02b780a8ed88a57482c92",
+    "github": "brainlife/app-tractanalysisprofiles",
+    "branch": "1.13"
+  },
+  "inputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tensor datatype files",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "afq",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the wmc classification datatype",
+      "config_keys": [
+        "afq"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the NODDI datatype files (optional)",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "myelin",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map sampled along each tract.",
+      "config_keys": [
+        "myelin"
+      ]
+    },
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tractogram corresponding to the wmc structure",
+      "config_keys": [
+        "tck"
+      ],
+      "requirements": "Must be the whole-brain tractogram used to generate the wmc classification."
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional quantitative MRI maps (T1, R1, M0, PD, MTV, VIP, SIR, WF) sampled along each tract.",
+      "config_keys": [
+        "T1",
+        "T1_json",
+        "R1",
+        "R1_json",
+        "M0",
+        "M0_json",
+        "PD",
+        "MTV",
+        "VIP",
+        "SIR",
+        "WF"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "tract_profiles"
+      ],
+      "description": "Directory of tract profile images for each tract and measure"
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "description": "CSV containing all tracts and measures"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiberbased",
+      "type": "boolean",
+      "description": "to create profiles using a non-weighted, fiber-based method: \"true\"",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "numnodes",
+      "type": "number",
+      "description": "Number of nodes for tract profiles",
+      "default": 200
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 32,
+      "walltime_hours": 11
+    }
+  },
+  "doi": "10.25663/brainlife.app.361",
+  "software": [
+    {
+      "name": "MATLAB Compiler Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "Vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1371/journal.pone.0049790",
+      "text": "Yeatman JD, Dougherty RF, Myall NJ, Wandell BA, Feldman HM (2012) Tract Profiles of White Matter Properties: Automating Fiber-Tract Quantification. PLoS ONE 7(11): e49790."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "not all output generated",
+      "cause": "The number of profile images differs from the number expected (numfiles.txt).",
+      "fix": "Check the log for tracts with too few streamlines or missing measure files."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

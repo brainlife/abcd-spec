@@ -1,0 +1,85 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractography quality check",
+  "version": "master",
+  "summary": "Compute many statistics from your input tractogram and any (optionally input) associated classification structure.  These statistics can be used to facilitate quality assurance on your tractography and segmentation, or as part of subject/group level quantative analysis for a research project. See the output section of README.MD for more details.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5c350f24836af601cc858601",
+    "github": "brainlife/app-tractographyQualityCheck",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "wbfg",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole brain tractography.  A tractome which covers the entire white matter.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "fe",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "A LiFE structure corresponding to the whole brain tractography entered as a track/tck.",
+      "config_keys": [
+        "fe"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "A white matter classification structure which corresponds to the input whole brain tractography entered as a track/tck.",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "image",
+      "datatype": "generic/image/svg",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "classification"
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tract_measures",
+        "tractography_quantification"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "classification"
+    },
+    {
+      "id": "resultsSummary",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "classification"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.139",
+  "deprecated_by": "5cc9c6b44b5e4502275edb4b"
+}

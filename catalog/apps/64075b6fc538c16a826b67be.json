@@ -1,0 +1,109 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mark bad data",
+  "version": "v1.0",
+  "summary": "Marks bad channels and bad time segments in raw MEG/EEG data with MNE-Python, from a channel list, a BIDS channels.tsv and annotation lines, and outputs the updated raw .fif with a PSD plot.",
+  "description": "Adds channels to raw.info['bads'] from the bads parameter and from rows of a channels.tsv whose status is 'bad', and adds mne.Annotations for segments given as 'onset, duration, description[, channels]' lines. Use it to record manual quality-control decisions so downstream Apps exclude those channels and segments. reset_bads clears existing bad channels first.",
+  "kind": "native",
+  "topics": [
+    "meeg",
+    "meg",
+    "eeg",
+    "mne-python",
+    "quality-control",
+    "preprocessing",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64075b6fc538c16a826b67be",
+    "github": "BrainlifeMEEG/mark-bad-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Continuous MEG/EEG data in MNE raw .fif format.",
+      "config_keys": [
+        "raw"
+      ]
+    },
+    {
+      "id": "channels",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "channels.tsv file (at least 2 columns: name and status). Channels with status \"bad\" will be rejected.",
+      "config_keys": [
+        "channels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "bads_marked"
+      ],
+      "description": "Raw data with added annotation with marked channel x time segments."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Comma-separated list of channels.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "annotations",
+      "type": "string",
+      "description": "Bad data segments described by their start, duration, description, and optionally the channels they apply to (all channels if omitted).",
+      "default": "",
+      "required": false,
+      "multiline": true,
+      "placeholder": "start, duration, description[, channels] (possibly on several lines)"
+    },
+    {
+      "id": "reset_bads",
+      "type": "boolean",
+      "description": "Reset bad channels before adding new ones specified here.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.743",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Maximilien Chaumon"
+  ]
+}

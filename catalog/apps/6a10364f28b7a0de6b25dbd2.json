@@ -1,0 +1,124 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract Source Time Series",
+  "version": "v1.0",
+  "summary": "Extracts mean source time courses for selected labels of a FreeSurfer atlas from an MEG/EEG source estimate with MNE-Python, and outputs a timeseries table, surface GIfTI time courses and a report.",
+  "description": "Reads the left and right hemisphere STC files, loads the requested atlas labels with mne.read_labels_from_annot, averages the source amplitude within each label at every time point, paints the label time courses back onto the surface vertices, and renders plots into an HTML report. Use it to get ROI time series from source-localised MEG/EEG. Needs the subject's FreeSurfer directory with the atlas annotation and a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "source-localization",
+    "freesurfer",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a10364f28b7a0de6b25dbd2",
+    "github": "BrainlifeMEEG/label-timecourse",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "stc",
+      "datatype": "neuro/meeg/stc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Source estimate (left and right hemisphere .stc files).",
+      "config_keys": [
+        "stc-rh",
+        "stc-lh"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "FreeSurfer subject directory providing the atlas annotation labels.",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [],
+      "description": "Label time courses (timeseries.tsv.gz with timeseries.json).",
+      "datatype_tags_pass": "stc"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report with time course plots and brain renders of the labels.",
+      "datatype_tags_pass": "stc"
+    },
+    {
+      "id": "out_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "Vertex-wise surface time courses (left.gii, right.gii)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "string",
+      "description": "aparc , aparc.a2009s etc",
+      "default": "aparc",
+      "placeholder": "aparc"
+    },
+    {
+      "id": "labels",
+      "type": "string",
+      "description": "comma separated label names to extract",
+      "default": ""
+    },
+    {
+      "id": "hemi",
+      "type": "string",
+      "description": "lh, rh, both",
+      "default": "both"
+    },
+    {
+      "id": "subject",
+      "type": "string",
+      "description": "Freesurfer subject name",
+      "default": "output"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.932",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
+}

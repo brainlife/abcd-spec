@@ -1,0 +1,243 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRIPrep - Surface Output - ICA-AROMA",
+  "version": "ic-aroma",
+  "summary": "Preprocesses BOLD fMRI with fMRIPrep 21.0.1 and outputs surface time series (GIFTI and CIFTI) on fsaverage or fsnative surfaces, confound regressors, brain masks and an HTML report.",
+  "description": "Fork of the brainlife fMRIPrep surface App that runs fMRIPrep 21.0.1 with a FreeSurfer input and maps the surface-space BOLD outputs (left/right GIFTI, 91k CIFTI dtseries and, for fsnative, the surface vertices) to brainlife datatypes. Needs a T1w, a raw BOLD and the FreeSurfer output of the same T1w. Although the App lists an ICA-AROMA output, this configuration has no aroma parameter, so ICA-AROMA is never enabled and that output stays empty.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "surface-analysis",
+    "fmriprep",
+    "bids",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63516c2bfa262bbde2b7dfb6",
+    "github": "vnbcs/app-fmriprep",
+    "branch": "ic-aroma"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Must be the same T1w used to generate the FreeSurfer input."
+    },
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "fmri data to preprocess",
+      "config_keys": [
+        "fmri",
+        "sbref",
+        "sbref_json",
+        "events",
+        "events_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!v5"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "freesurfer output used to aid preprocessing",
+      "config_keys": [
+        "fsin"
+      ]
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2-weighted image of the same subject, converted into the BIDS input given to fMRIPrep.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "2phasemag fieldmap is not yet supported by fmriprep (https://github.com/poldracklab/sdcflows/issues/15) - testing 1.5.2 should should support it.",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude1",
+        "magnitude2",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "regress",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "description": "fMRIPrep confounds time series (regressors.tsv and its JSON sidecar)."
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "preprocessed t1 (same alignment as the original t1, but level adjusted - editme)"
+    },
+    {
+      "id": "anat_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "anat",
+        "brain"
+      ],
+      "description": "Brain mask of the preprocessed T1w in the original T1w space."
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "fmriprep"
+      ],
+      "description": "fmriprep HTML report and figures"
+    },
+    {
+      "id": "cifti",
+      "datatype": "neuro/cifti",
+      "datatype_tags": [
+        "dtseries"
+      ],
+      "description": "surface timeseries data in cifti"
+    },
+    {
+      "id": "surface-data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [
+        "func"
+      ],
+      "description": "Preprocessed BOLD time series on the left and right hemisphere surfaces (GIFTI func.gii) in the selected surface space."
+    },
+    {
+      "id": "surface-vertices",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "surface vertices. only meaningful for fsnative."
+    },
+    {
+      "id": "aroma",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "ica-aroma",
+        "aroma"
+      ],
+      "description": "AROMA ICA regressors"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "space",
+      "type": "enum",
+      "description": "Surface output space for the BOLD time series: fsaverage5, fsaverage6 or the subject's native FreeSurfer surface (fsnative).",
+      "default": "fsaverage5",
+      "options": [
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "FreeSurfer average meshes (density)"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "FreeSurfer average meshes (density)"
+        },
+        {
+          "value": "fsnative",
+          "label": "fsnative",
+          "description": "individual subject surface"
+        }
+      ]
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through fmriprep anyway.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/fmriprep:21.0.1",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 28,
+      "walltime_hours": 9
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.686",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "fMRIPrep",
+      "version": "21.0.1",
+      "url": "https://fmriprep.org"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-018-0235-4",
+      "text": "Esteban O. et al. fMRIPrep: a robust preprocessing pipeline for functional MRI. Nature Methods 16, 111-116 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "app needs minimally a T1w and fmri. exiting",
+      "fix": "Provide both a T1w and an fMRI input."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "The FreeSurfer license is not available on the compute resource.",
+      "fix": "Set FREESURFER_LICENSE in the environment of the resource running the App."
+    }
+  ],
+  "maintainers": [
+    "Josh Faskowitz",
+    "Soichi Hayashi"
+  ]
+}

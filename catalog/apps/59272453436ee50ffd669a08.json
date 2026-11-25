@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Round b-values / Flip b-vecs for dtiInit",
+  "version": "1.1",
+  "summary": "(soon to be deprecated) This service round the b-values to the nearest 100. It will also flip the b-vecs around one or more chosen axes (please use Test Gradient Flip app to find out which one needs to be flipped). Some apps requires b-values to be round for their algorithms to work properly.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-preprocessing"
+  ],
+  "registry": {
+    "id": "59272453436ee50ffd669a08",
+    "github": "brainlife/app-datanormalize",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "normalized"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "xflip",
+      "type": "boolean",
+      "description": "X-Flip (often required by Siemens/GE)",
+      "default": false
+    },
+    {
+      "id": "yflip",
+      "type": "boolean",
+      "description": "Y-Flip",
+      "default": false
+    },
+    {
+      "id": "zflip",
+      "type": "boolean",
+      "description": "Z-Flip (often required by Philips)",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a"
+  },
+  "doi": "10.25663/bl.app.4",
+  "deprecated_by": "592db717b3cd7c00211dc230"
+}

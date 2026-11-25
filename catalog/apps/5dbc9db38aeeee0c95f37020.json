@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bin cortical volume and thickness by eccentricity",
+  "version": "v1.0.0",
+  "summary": "Bins FreeSurfer cortical thickness and volume by pRF eccentricity (0-1 to 0-5 degrees and periphery) and outputs a .mat summary and plots.",
+  "description": "Converts the FreeSurfer pial surface, thickness, volume and the pRF eccentricity map to GIFTI, then groups vertices into eccentricity bins (0-1, 0-2, 0-3, 0-4, 0-5 degrees and beyond 5 degrees) and reports the vertices, maximum, mean and standard deviation of thickness and volume per bin, with PNG graphs. Use it to relate visual-cortex morphometry to retinotopic eccentricity. The pRF data must be on the same subject's FreeSurfer surfaces.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "fmri",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5dbc9db38aeeee0c95f37020",
+    "github": "brainlife/app-thickness-volume-eccentricity",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from Freesurfer",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the directory containing the surface-mapped prf files from the prf datatype",
+      "config_keys": [
+        "prf"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "volThickEcc"
+      ],
+      "description": "This contains the data and figures outputted from the app"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.243",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "citations": [
+    {
+      "text": "FreeSurfer methods citation: https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferMethodsCitation"
+    }
+  ]
+}

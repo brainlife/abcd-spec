@@ -1,0 +1,220 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Detect bad channels using Maxwell Filtering",
+  "version": "v1.0",
+  "summary": "Detects noisy and flat MEG channels with MNE-Python find_bad_channels_maxwell (Signal Space Separation without applying the filter) and outputs a BIDS channels.tsv marking them bad plus an HTML report.",
+  "description": "Runs mne.preprocessing.find_bad_channels_maxwell on a FIF recording, optionally using the site fine-calibration and cross-talk files, head position and destination files, and carries over channels already marked bad in an input channels.tsv. Use it before Maxwell filtering (MaxFilter/SSS) so that artefacts in bad channels do not spread. Elekta/MEGIN (Neuromag) MEG data are expected; param_return_scores must stay true for the report.",
+  "kind": "native",
+  "topics": [
+    "bids",
+    "brainlife-app",
+    "meg",
+    "mne-python",
+    "preprocessing",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "605e0a9616c60638446315ee",
+    "github": "BrainlifeMEEG/bad-channels",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif01",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MEG data in fif format in which we want to find bad channels.",
+      "config_keys": [
+        "fif",
+        "calibration",
+        "crosstalk",
+        "channels",
+        "headshape"
+      ]
+    },
+    {
+      "id": "opt01",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional head positions stored in a headshape.pos file and destination file in fif format, containing the mean transformation matrix. The headshape.pos file is obtained with app-head-pos and the destination.fif file is obtained with app-mean-transformation-matrix. This headshape.pos will override the headshape.pos linked to the neuro/meg/fif datatype.",
+      "config_keys": [
+        "headshape_override",
+        "destination_override"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir_bad_channels",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [
+        "bads_ch"
+      ],
+      "description": "channels.tsv file (in a BIDS compliant structure) in which bad channels detected by the App are marked as bad.",
+      "datatype_tags_pass": "fif01"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "bads_ch"
+      ],
+      "description": "HTML report with plots of the signals in time and frequency domains.",
+      "datatype_tags_pass": "fif01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param_origin",
+      "type": "string",
+      "description": "Origin of internal and external multipolar moment space in meters. Can be \"auto\" or three numbers separated by a comma (example: 0, 0, 0).",
+      "default": "auto",
+      "advanced": true
+    },
+    {
+      "id": "param_duration",
+      "type": "number",
+      "description": "Duration of the segments into which to slice the data for processing, in seconds. It can be a float.",
+      "default": 5
+    },
+    {
+      "id": "param_min_count",
+      "type": "number",
+      "description": "Minimum number of times a channel must show up as bad in a chunk. This value must be an integer.",
+      "default": 5
+    },
+    {
+      "id": "param_limit",
+      "type": "number",
+      "description": "Detection limit for noisy segments. This value can be a float.",
+      "default": 7
+    },
+    {
+      "id": "param_h_freq",
+      "type": "number",
+      "description": "Optional the cutoff frequency (in Hz) of the low-pass filter that will be applied before processing the data. This value can be a float.",
+      "default": 40,
+      "required": false
+    },
+    {
+      "id": "param_return_scores",
+      "type": "boolean",
+      "description": "If True, return a dictionary with scoring information for each evaluated segment of the data. Default in MNE is False but here it must be True.",
+      "default": true,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "param_int_order",
+      "type": "number",
+      "description": "Order of internal component of spherical expansion. This value is an integer.",
+      "default": 8,
+      "advanced": true
+    },
+    {
+      "id": "param_ext_order",
+      "type": "number",
+      "description": "order of external component of spherical expansion. This value is an integer.",
+      "default": 3,
+      "advanced": true
+    },
+    {
+      "id": "param_coord_frame",
+      "type": "enum",
+      "description": "The coordinate frame that the origin is specified in, either 'meg' or 'head'.",
+      "default": "head",
+      "options": [
+        {
+          "value": "meg"
+        },
+        {
+          "value": "head"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_regularize",
+      "type": "enum",
+      "description": "The destination location for the head, either in or None.",
+      "default": "in",
+      "options": [
+        {
+          "value": "in"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_ignore_ref",
+      "type": "boolean",
+      "description": "If True, do not include reference channels in compensation.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "param_mag_scale",
+      "type": "string",
+      "description": "The magenetometer scale-factor used to bring the magnetometers to approximately the same order of magnitude as the gradiometers, as they have different units (T vs T/m). This value can be a float or \"auto\".",
+      "default": "100",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "param_bad_condition",
+      "type": "enum",
+      "description": "How to deal with ill-conditioned SSS matrices, either 'error', 'warning', 'info' , 'ignore'.",
+      "default": "error",
+      "options": [
+        {
+          "value": "error"
+        },
+        {
+          "value": "warning"
+        },
+        {
+          "value": "info"
+        },
+        {
+          "value": "ignore"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_skip_by_annotation",
+      "type": "string",
+      "description": "Any annotation segment that begins with the given string will not be included in filtering, and segments on either side of the given excluded annotated segment will be filtered separately. Can be an empty list [].",
+      "default": "[edge, bad acq skip]",
+      "advanced": true
+    },
+    {
+      "id": "param_extended_proj",
+      "type": "string",
+      "description": "The empty-room projection vectors used to extend the external SSS basis (i.e., use eSSS).",
+      "default": "[]",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.494",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    },
+    {
+      "name": "MNE-BIDS"
+    }
+  ]
+}

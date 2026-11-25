@@ -1,0 +1,98 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment tracts into multiple bundles using QuickBundles",
+  "version": "main",
+  "summary": "Splits each tract of a white matter classification (wmc) into a chosen number of sub-bundles with DIPY QuickBundles and outputs a new wmc classification.",
+  "description": "For each tract in the input classification, runs QuickBundles on its streamlines and adjusts the distance threshold until the requested number of clusters is reached, then writes a new wmc in which every tract is replaced by its numbered sub-bundles. Use it to study within-tract organisation; the tractogram must be the one the classification indexes into.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "tract-segmentation",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f77e8cd268f7638af29a925",
+    "github": "brainlife/app-extract-bundles-quickbundles",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Source dwi for tractogram. Only used in loading",
+      "config_keys": [
+        "dwi"
+      ]
+    },
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram the classification indexes into.",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (wmc) whose tracts are split into sub-bundles.",
+      "config_keys": [
+        "classification"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "quickbundles"
+      ],
+      "description": "New white matter classification with each input tract split into number_bundles QuickBundles sub-bundles.",
+      "datatype_tags_pass": "classification"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "number_bundles",
+      "type": "string",
+      "description": "Number of sub-bundles to split each tract into.",
+      "default": "3"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pyafq:dev",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.438",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "wmc/classification.mat was not produced.",
+      "fix": "Check the log of initialSegmentation.py."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

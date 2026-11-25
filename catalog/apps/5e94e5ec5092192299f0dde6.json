@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "combineROI",
+  "version": "master",
+  "summary": "Combines two ROI datasets into one by copying all ROI NIfTI files from both inputs into a single ROI folder, renaming duplicates.",
+  "description": "This app will combine two ROI datatype datasets into one ROI datatype dataset. If, for example, there are 3 rois in the first ROI dataset and 2 rois in the second ROI dataset, the output ROI data set will contain 5 rois.\n\nNOTE: This app can be used to extract one roi from an ROI dataset. If you enter the same roi in the roi1 and roi2 fields, the resulting ROI will simply be that roi.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e94e5ec5092192299f0dde6",
+    "github": "svincibo/app-combineROI",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "roi1",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "First ROI dataset (folder of roi NIfTI files).",
+      "config_keys": [
+        "rois1"
+      ],
+      "requirements": "Must be in the same space as roi2; the App does not check alignment."
+    },
+    {
+      "id": "roi2",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Second ROI dataset; files whose names already exist in roi1 are copied with a -2 suffix.",
+      "config_keys": [
+        "rois2"
+      ],
+      "requirements": "Must be in the same space as roi1."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "ROI dataset whose rois folder contains every ROI of both inputs."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.313",
+  "license": "MIT",
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Sophia Vinci-Booher"
+  ]
+}

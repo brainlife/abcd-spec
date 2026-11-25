@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-mpat-tractography",
+  "version": "main",
+  "summary": "Reconstructs AFQ white matter bundles from DWI and a T1w with MPAT (Markov probabilistic absorbing tractography), computing bundles as expectations over infinitely many streamlines, and outputs per-bundle tractometry metrics and maps.",
+  "description": "Runs the mpat command (absorbing Markov chain formulation of probabilistic tractography) on the DWI with its bvals and bvecs and the T1w, optionally limited to a list of AFQ bundles, and returns per-bundle density, AFD, length, volume and cross-sectional area with per-bundle maps. Use it to obtain bundle-level tractometry without generating streamlines. Only the first metrics table produced by MPAT is copied to the datatype's csv.csv; the full MPAT output folder is included alongside.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6b00e13188e26e6de7e2d38d",
+    "github": "gamorosino/app-mpat-tractography",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image of the same subject.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "mpat"
+      ],
+      "description": "Per-bundle tractometry metrics (density, AFD, length, volume, cross-sectional area) and per-bundle maps produced by MPAT."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_proc",
+      "type": "number",
+      "description": "Number of parallel processors to use",
+      "default": 4
+    },
+    {
+      "id": "max_mem",
+      "type": "number",
+      "description": "Maximum memory in GB",
+      "default": 16
+    },
+    {
+      "id": "bundles",
+      "type": "string",
+      "description": "Comma-separated list of AFQ bundle names to run (empty = all bundles)",
+      "default": "",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/mpat-tractography:1.0",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "MPAT",
+      "url": "https://github.com/rokemlab/MPAT"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced in tractmeasures/",
+      "fix": "Check the log for the mpat error."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

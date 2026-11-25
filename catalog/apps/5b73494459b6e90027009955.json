@@ -1,0 +1,50 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Neuro Aggregator",
+  "version": "master",
+  "summary": "Aggregates density and count connectivity matrices from several networkneuro outputs into mean and standard-deviation matrices, shown as heatmaps.",
+  "description": "Reads density.csv and count.csv from each input, computes the element-wise mean and standard deviation with numpy, writes density/count mean and std CSV files, and adds plotly heatmaps to the job's product. It registers no output datatype; the CSVs stay in the job's working directory.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "dwi",
+    "connectomics",
+    "network-analysis",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b73494459b6e90027009955",
+    "github": "brainlife/app-networkneuro-agg",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "inputs",
+      "datatype": "neuro/networkneuro",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Several networkneuro outputs; each must contain density.csv and count.csv.",
+      "config_keys": [
+        "outputs"
+      ],
+      "requirements": "All matrices must have the same size (same parcellation)."
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/bl.app.89",
+  "category": "network-analysis",
+  "software": [
+    {
+      "name": "numpy"
+    }
+  ]
+}

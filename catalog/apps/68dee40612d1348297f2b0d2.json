@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "N4 Bias Field Correction (T2w)",
+  "version": "main",
+  "summary": "Corrects intensity inhomogeneity (bias field) in a T2-weighted image with ANTs N4BiasFieldCorrection, optionally restricted to a brain mask.",
+  "description": "Runs N4BiasFieldCorrection -d 3 on the T2w image, passing the mask with -x, and writes the bias-corrected image. Use it before segmentation or registration when the image shows smooth intensity non-uniformity. The mask must be aligned with the T2w image.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "68dee40612d1348297f2b0d2",
+    "github": "gamorosino/app-N4BiasFieldCorrection",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2-weighted anatomical image (NIfTI).",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Binary brain mask passed to N4 with -x.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be aligned with the T2w image."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "bias_corrected",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "bias_corrected"
+      ],
+      "description": "N4 bias-corrected T2-weighted image (t2.nii.gz)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2,
+      "memory_gb": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.876",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0",
+      "url": "https://github.com/ANTsX/ANTs"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Avants BB, Tustison NJ, Song G, et al. A reproducible evaluation of ANTs similarity metric performance in brain image registration. NeuroImage 54(3):2033-2044 (2011)."
+    },
+    {
+      "text": "Tustison NJ, Avants BB, Cook PA, et al. N4ITK: Improved N3 bias correction. IEEE Trans Med Imaging 29(6):1310-1320 (2010)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Streamline Cleaning",
+  "version": "v0.1",
+  "summary": "Removes spurious streamlines from a tractogram with length, loop (angle and QuickBundles) and scilpy outlier filtering, plus optional Purifibre refinement, and outputs a cleaned .tck.",
+  "description": "Runs filter_spurious_streamlines.sh in a scilpy/MRtrix3 container: optional Purifibre first pass, length filtering, loop filtering, scilpy outlier rejection and optional Purifibre final pass. If a step fails the pipeline continues from the last valid track. Use it to clean a single bundle or tractogram before tractometry; for a set of tracts use the Multiple Tracts version.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "quality-control",
+    "tractography"
+  ],
+  "registry": {
+    "id": "69ca07bd34e13335187bffbc",
+    "github": "gamorosino/app-streamline-cleaning",
+    "branch": "v0.1"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram or single bundle to clean (.tck).",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "reference",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reference anatomical image passed to the scilpy steps.",
+      "config_keys": [
+        "reference"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Cleaned tractogram (track.tck)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "Minimum streamline length; shorter streamlines are removed (0 if empty).",
+      "minimum": 0,
+      "required": false,
+      "units": "mm"
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "Maximum streamline length; longer streamlines are removed.",
+      "minimum": 0,
+      "required": false,
+      "units": "mm"
+    },
+    {
+      "id": "angle",
+      "type": "number",
+      "description": "Maximum turning angle used for loop rejection.",
+      "default": 360,
+      "required": false,
+      "units": "degrees"
+    },
+    {
+      "id": "loop_qb_thr",
+      "type": "number",
+      "description": "QuickBundles distance threshold for loop filtering.",
+      "default": 8,
+      "required": false,
+      "units": "mm"
+    },
+    {
+      "id": "no_qb_loops",
+      "type": "boolean",
+      "description": "Disable QuickBundles-based loop detection.",
+      "default": false
+    },
+    {
+      "id": "alpha",
+      "type": "number",
+      "description": "scilpy outlier rejection alpha (scilpy default 0.6; README recommends 0.3-0.4).",
+      "required": false
+    },
+    {
+      "id": "no_outlier_rejection",
+      "type": "boolean",
+      "description": "Skip the scilpy outlier rejection step.",
+      "default": true
+    },
+    {
+      "id": "purifibre",
+      "type": "number",
+      "description": "Percentage of streamlines Purifibre removes in a final pass (empty to skip).",
+      "default": 5,
+      "required": false,
+      "units": "percent"
+    },
+    {
+      "id": "nthreads",
+      "type": "number",
+      "description": "Number of threads for loop detection.",
+      "default": 1,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:latest",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.912",
+  "software": [
+    {
+      "name": "scilpy"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "Purifibre",
+      "version": "0.1"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Renauld E, et al. Tractography analysis with the scilpy toolbox. Aperture Neuro (2026)."
+    },
+    {
+      "text": "Aydogan DB. Fiber coupling (FICO) measure using anisotropic smoothing of track orientation density images for tractogram filtering. ISMRM 2022."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "[ERROR] Input track not found",
+      "fix": "Check that the track input contains a .tck file."
+    }
+  ]
+}

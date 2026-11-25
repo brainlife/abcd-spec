@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI Debias",
+  "version": "v1.1",
+  "summary": "Corrects B1 bias field in a DWI with MRtrix3 dwibiascorrect using ANTs N4 or FSL FAST, and outputs the debiased DWI.",
+  "description": "Converts the DWI to MRtrix format, uses the given brain mask or computes one with dwi2mask, runs dwibiascorrect with the chosen algorithm and writes the debiased DWI with its bvals and bvecs. Use it as a preprocessing step when intensity inhomogeneity affects the DWI. Needs a DWI with bvals and bvecs; a brain mask is optional.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "ants",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "611301a3a5a04c0a6df90472",
+    "github": "brainlife/app-dwi-debias",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DWI brain mask; computed with dwi2mask if not given.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "debiased"
+      ],
+      "description": "The debiased DWI"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "enum",
+      "description": "The debiasing algorithm to use",
+      "default": "ants",
+      "options": [
+        {
+          "value": "fsl",
+          "label": "fsl",
+          "description": "fsl's debiasing algorithm"
+        },
+        {
+          "value": "ants",
+          "label": "ants",
+          "description": "ant's debiasing algorithm"
+        }
+      ]
+    },
+    {
+      "id": "antsb",
+      "type": "string",
+      "description": "ANTs N4 -b option (B-spline fitting) passed to dwibiascorrect as -ants.b.",
+      "default": "[150,3]",
+      "advanced": true
+    },
+    {
+      "id": "antsc",
+      "type": "string",
+      "description": "ANTs N4 -c option (convergence) passed as -ants.c.",
+      "default": "[200x200,1e-6]",
+      "advanced": true
+    },
+    {
+      "id": "antss",
+      "type": "string",
+      "description": "ANTs N4 -s option (shrink factor) passed as -ants.s.",
+      "default": "2",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.557",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Tustison N. et al. N4ITK: Improved N3 Bias Correction. IEEE Trans Med Imaging 29, 1310-1320 (2010)."
+    },
+    {
+      "text": "Zhang Y., Brady M., Smith S. Segmentation of brain MR images through a hidden Markov random field model and the expectation-maximization algorithm. IEEE Trans Med Imaging 20, 45-57 (2001)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "The debiased DWI was not written.",
+      "fix": "Check the dwibiascorrect error in the log."
+    }
+  ]
+}

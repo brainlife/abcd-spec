@@ -1,0 +1,77 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp tractogram to MNI space using precomputed transformation",
+  "version": "mrtrix3-3.0.3-v1.0",
+  "summary": "Warps a tractogram into MNI space with MRtrix3 tcktransform using a precomputed inverse nonlinear warp from a transform dataset.",
+  "description": "Converts the inverse displacement warp of the transform input into an MRtrix3 deformation field (warpconvert) and applies it to every streamline with tcktransform. Use it to bring subject tractograms into template space for group visualisation or atlas-based analysis; the transform must map between the tractogram's space and MNI.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "registration",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63d2d63b40f494735c431d00",
+    "github": "brainlife/app-warp-tractogram",
+    "branch": "mrtrix3-3.0.3-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Nonlinear transform to MNI space; its inverse warp (inv_warp) is used to move streamlines.",
+      "config_keys": [
+        "inv_warp"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram in subject space to be warped.",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "mni_space"
+      ],
+      "description": "Tractogram in MNI space."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.721",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "track/track.tck was not produced.",
+      "fix": "Check that the transform input contains an inverse warp matching the tractogram space."
+    }
+  ]
+}

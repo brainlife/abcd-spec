@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit NODDI model using AMICO (dtiinit)",
+  "version": "dtiinit-v1.0",
+  "summary": "This app will fit the Neurite Orientation Dispersion and Density Imaging (NODDI; Zhang et al, 2012) model to multi-shell, normalized DWI data using the Accelerated Microstructure Imaging via Convex Optimization (AMICO; Daducci et al, 2015) toolbox.",
+  "description": "This app will fit the Neurite Orientation Dispersion and Density Imaging (NODDI; Zhang et al, 2012) model to multi-shell, normalized DWI data using the Accelerated Microstructure Imaging via Convex Optimization (AMICO; Daducci et al, 2015) toolbox. Requires normalized, multi-shell DWI data (including bvals and bvecs), and the single shell dwi file that has been aligned to the subject's T1 (i.e. dtiinit output) as input. The app will align the multi-shell data to the single-shell data in order to assure that NODDI outputs are in the same space as the tensor outputs for later analyses. Will output the five NODDI output files: FIT_ICVF_NEW, FIT_OD_NEW, FIT_ISOVF_NEW, FIT_dir, and config.pickle.",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5ec2c32b41ba11f78bf40526",
+    "github": "brainlife/app-noddi-amico",
+    "branch": "dtiinit-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from DTIINIT",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "description": "The NODDI (deprecated) datafiles"
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "noddi",
+        "brain",
+        "dwi"
+      ],
+      "description": "The brainmask of the DWI image"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dPar",
+      "type": "number",
+      "description": "The parallel diffusivity value for the NODDI model fit",
+      "default": 0.0017
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.343",
+  "deprecated_by": "5bc7ac1244f3980027a7aafd"
+}

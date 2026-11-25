@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Intersect Tracts with ROI - deprecated",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60f206cfddc2dfbfa56726d1",
+    "github": "brainlife/app-intersect-tract-roi",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the track/tck datatype",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the classification.mat structure from the wmc datatype",
+      "config_keys": [
+        "wmc"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the rois datatype",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "The classification structure including a classification.mat structure that contains the streamline indices in the whole-brain tractogram.",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roi_name",
+      "type": "string",
+      "description": "name of the roi",
+      "default": ""
+    },
+    {
+      "id": "intersect_type",
+      "type": "enum",
+      "description": "Type of logic for keeping or removing streamlines",
+      "default": "",
+      "options": [
+        {
+          "value": "and",
+          "label": "and",
+          "description": "Keep those that intersect with ROI"
+        },
+        {
+          "value": "not",
+          "label": "not",
+          "description": "Remove those that intersect with ROI"
+        }
+      ]
+    },
+    {
+      "id": "minimum_distance",
+      "type": "number",
+      "description": "Minimum distance",
+      "default": 0.87
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.545",
+  "deprecated_by": "5e54514f5b9d90668672d5fc"
+}

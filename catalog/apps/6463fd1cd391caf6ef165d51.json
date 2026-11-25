@@ -1,0 +1,85 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment tissue types using FSL Fast",
+  "version": "master",
+  "summary": "Segments a brain-masked T1-weighted image into CSF, gray matter and white matter with FSL FAST, producing hard segmentations and partial-volume maps.",
+  "description": "Applies the brain mask to the T1 with fslmaths and runs FSL fast (-g -N -p), writing the labelled segmentation as mask.nii.gz plus per-tissue binary, probability and partial-volume images. Use it for tissue masks or partial-volume estimates.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6463fd1cd391caf6ef165d51",
+    "github": "brainlife/app-fsl-fast",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image.",
+      "config_keys": [
+        "anat"
+      ],
+      "requirements": "Must be on the same voxel grid as the brain mask."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "anat",
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask of the T1, used to skull-strip it before FAST.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "fsl_fast",
+        "tissue_types"
+      ],
+      "description": "Tissue segmentation (mask.nii.gz) plus CSF/GM/WM-seg, -probseg and -pveseg images."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.771",
+  "category": "segmentation",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "6.0.4-patched2"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "FAST did not produce a segmentation.",
+      "fix": "Check that the T1 and mask are aligned and the mask is not empty."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

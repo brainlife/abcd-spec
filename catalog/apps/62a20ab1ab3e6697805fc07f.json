@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Average ERP (MNE)",
+  "version": "main",
+  "summary": "Averages MNE epochs of selected conditions into an evoked response (ERP) with MNE-Python and outputs the evoked file, a joint ERP plot and an HTML report.",
+  "description": "Reads an MNE epochs file, selects the epochs of the listed stimulus names, averages them into an Evoked object named by condition, and plots a joint ERP figure with topomaps at the given peaks. Use it to compute ERPs after epoching. Note: average_all is compared with the string 'True' and that branch does not set the evoked variable, so averaging all epochs may fail; list the stimulus names instead.",
+  "kind": "native",
+  "topics": [
+    "eeg",
+    "meg",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62a20ab1ab3e6697805fc07f",
+    "github": "BrainlifeMEEG/app-average-erp",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MNE epochs file (-epo.fif) with event names for the conditions.",
+      "config_keys": [
+        "fname"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "description": "One instance of Evoked based on the condition specified"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "Graph of the evoked potential"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "MNE.Report of the Evoked object."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "average_all",
+      "type": "boolean",
+      "description": "Do you want all of your epoch types/stimuli/conditions to be averaged together?\nIf not, enter the names of the epoch types/stimuli/conditions in the string below.",
+      "default": false
+    },
+    {
+      "id": "stimulus_names",
+      "type": "string",
+      "description": "Enter here a list of your stimulus/condition names to be merged into one, if you want them to be merged and averaged together.",
+      "default": "",
+      "required": false,
+      "placeholder": "LEA_D_2,REA_D_2"
+    },
+    {
+      "id": "condition",
+      "type": "string",
+      "description": "What to name your ERP as a condition of averaging (e.g. \"all\", \"Visual\", \"N170\", \"Parietal\", etc). Just enter the name with no quotation marks.",
+      "default": "",
+      "placeholder": "Ext-Dir"
+    },
+    {
+      "id": "peaks",
+      "type": "string",
+      "description": "Add a list (comma-separated) of time values at which you would like to display topomaps on a joint ERP plot.",
+      "default": "None",
+      "required": true,
+      "placeholder": "0.170,0.300"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.644",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    }
+  ]
+}

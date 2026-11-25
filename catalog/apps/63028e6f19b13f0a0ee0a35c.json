@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute Network Backbone",
+  "version": "v1.0",
+  "summary": "Extracts the backbone of a weighted structural or functional connectivity network with the disparity filter (Serrano et al. 2009) using networkx and igraph, keeping only statistically significant edges.",
+  "description": "Loads the first network from a JGF network file, computes a disparity-filter significance score (alpha) for every weighted edge and keeps edges whose alpha is below the alpha parameter, saving the backbone as output/network.json.gz. Use it to sparsify dense connectivity matrices before network analysis; edges at nodes with a single connection never pass the cut in the undirected case.",
+  "kind": "native",
+  "topics": [
+    "connectomics",
+    "network-analysis",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63028e6f19b13f0a0ee0a35c",
+    "github": "brainlife/app-network-backbone",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Weighted network in JGF format (network.json.gz); only the first network in the file is used.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "backbone"
+      ],
+      "description": "Backbone network (network.json.gz) containing only the edges that pass the disparity-filter threshold.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "alpha",
+      "type": "number",
+      "description": "Disparity-filter significance threshold: an edge is kept when its alpha score is below this value (smaller keeps fewer edges).",
+      "default": 0.05
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/python-networks",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.665",
+  "software": [
+    {
+      "name": "networkx"
+    },
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Serrano MA, Boguna M, Vespignani A. Extracting the multiscale backbone of complex weighted networks. PNAS 106(16):6483-6488 (2009)."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Anatomy Segmentation with LiFE",
+  "version": "1.4",
+  "summary": "Classifies streamlines into known anatomical tracts.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "59bff3427fb404002d8ce7d4",
+    "github": "brainlife/app-wmaSeg",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "life",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wbfg"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "wmaSeg"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tracts",
+      "type": "string",
+      "description": "Only output specified set of tracts. List names of tracts that you'd like to output (space delimited). e.g. pArc TPC MdLF-SPL MdLF-Ang VOF",
+      "default": "",
+      "required": false,
+      "placeholder": "(all tracts)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.2",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 31,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.40",
+  "deprecated_by": "5cc73ef44ed9df00317f6288"
+}

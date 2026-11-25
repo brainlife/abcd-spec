@@ -1,0 +1,125 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Voxeleron OCT data Processing",
+  "version": "master",
+  "summary": "Computes the mean and standard deviation of Voxeleron retinal OCT layer thickness data per degree of visual angle (rings or other shapes), within or across layers, and outputs CSV tables.",
+  "description": "A compiled MATLAB App (OCT_scripts) that reads the left and right eye raw OCT data and centroids, sums the layers listed in layerIndexSequences into named layer amalgams, optionally thresholds and Gaussian-smooths the maps, and averages them per degree of visual angle out to visFieldDiam. Use it to summarise Voxeleron/MAIA OCT data by eccentricity. layerIndexSequences and analysesNames must have the same number of entries.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "statistics",
+    "vision"
+  ],
+  "registry": {
+    "id": "5ec4646f41ba118064f44d41",
+    "github": "DanNBullock/app-voxeleronOCT",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "input OCT",
+      "datatype": "optometry/oct",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Voxeleron OCT data object for one subject: raw data and centroid files for the left (os) and right (od) eye.",
+      "config_keys": [
+        "os_raw",
+        "os_centroid",
+        "od_raw",
+        "od_centroid"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "finalOutput",
+      "datatype": "raw",
+      "datatype_tags": [
+        "raw"
+      ],
+      "description": "Two CSV files showing the mean and standard deviation for each degree of the visual field, across the analyses requested."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "layerIndexSequences",
+      "type": "string",
+      "description": "Indicates which layers are to be summed in order to generate the layer amalgams that will be processed later.",
+      "default": "1:7,1:4,5,6"
+    },
+    {
+      "id": "analysesNames",
+      "type": "string",
+      "description": "Indicates the abbreviation for the layer amalgam, will label the output analyses.  Must be of equal length as the layerIndexSequences input.",
+      "default": "TT, NL, ONL, PROS"
+    },
+    {
+      "id": "visFieldDiam",
+      "type": "number",
+      "description": "Indicates the total *diameter* of the visual field measured by the experimenter. Assumed to be consistent across subjects. The user/experimenter should know this about their data.",
+      "default": 20
+    },
+    {
+      "id": "theshFloor",
+      "type": "number",
+      "description": "Specifies the desired threshold to be applied. Applied prior to computation of means. Values below this are set to NaN and are not featured in computation of mean. If no threshold is desired, enter a value of 0.",
+      "default": 0
+    },
+    {
+      "id": "gaussKernel",
+      "type": "number",
+      "description": "Specifies the desired smoothing kernel to be applied. Applied prior to computation of means). Pixel values are thus the result of a gaussian smoothing process. If no threshold is desired, enter a value of 1.  MUST BE AN ODD NUMBER",
+      "default": 1
+    },
+    {
+      "id": "meanShape",
+      "type": "enum",
+      "description": "Specifies the desired method for computing the mean. \"rings\" will generate averages for concentric, degree-specific rings (like a bullseye), while \"full\" will compute the mean for the entire visual field (to the specified current, iterated degree).",
+      "default": "rings",
+      "options": [
+        {
+          "value": "rings",
+          "label": "rings",
+          "description": " \"rings\" will generate averages for concentric, degree-specific rings (like a bullseye)"
+        },
+        {
+          "value": "full",
+          "label": "full",
+          "description": "\"full\" will compute the mean for the entire visual field (for each, iterated degree)."
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.346",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    },
+    {
+      "name": "OCT_scripts",
+      "url": "https://github.com/DanNBullock/OCT_scripts"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "layerIndexSequences and analysesNames are of different lengths",
+      "fix": "Give the same number of comma-separated entries in layerIndexSequences and analysesNames."
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Analysis Profiles (NODDI) - Deprecated",
+  "version": "1.6",
+  "summary": "Create plots of diffusion metrics (i.e.",
+  "description": "Create plots of diffusion metrics (i.e. FA, MD, RD, AD) for each of the segmented tracts from AFQ, known as Tract Profiles. Obtains streamline positions from segmented tracts and plots the metrics of interest along \"nodes\" of the tract, allowing for comparison of individual subject tracts. Requires the dt6 output from dtiinit and a white matter classification output from AFQ or WMA",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5ec2f40841ba111ec4f421f7",
+    "github": "brainlife/app-tractanalysisprofiles",
+    "branch": "1.6"
+  },
+  "inputs": [
+    {
+      "id": "afq",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "afq"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "icvf",
+        "isovf",
+        "od"
+      ]
+    },
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tck"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "tract_profiles"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiberbased",
+      "type": "boolean",
+      "description": "to create profiles using a non-weighted, fiber-based method: \"true\"",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "numnodes",
+      "type": "number",
+      "description": "unknown",
+      "default": 200
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.345",
+  "deprecated_by": "5ed02bb20a8ed87a11482d81"
+}

@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compile tract profiles to summary structure",
+  "version": "v1.1",
+  "summary": "Compiles the per-tract profile csv files of one subject's tractprofile output into a single long-format csv (subject, tract, node, mean of each measure) with pandas, for group analysis and machine learning.",
+  "description": "Reads every *_profiles.csv in the tractprofile directory, keeps the *_mean columns, and writes output_FiberStats.csv with one row per tract and node and one column per diffusion measure, labelled with the subject ID from the input metadata. Use it to turn tract profiles into a tidy table; the README mentions tracts.csv but the code writes output_FiberStats.csv.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5eed6986d39ceb4bd5a0efde",
+    "github": "brainlife/app-compile-tract-profiles",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the tract profile .csv files",
+      "config_keys": [
+        "profiles"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "description": "The output is a combined version of the inputted .csvs file into a single .csv file analyses",
+      "datatype_tags_pass": "profiles"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29
+    }
+  },
+  "doi": "10.25663/brainlife.app.384",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "output_FiberStats.csv was not written.",
+      "fix": "Check that the profiles directory contains *_profiles.csv files with *_mean columns."
+    }
+  ]
+}

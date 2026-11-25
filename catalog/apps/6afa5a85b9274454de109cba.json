@@ -1,0 +1,72 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "15-11-2026-test-brain-extraction",
+  "version": "main",
+  "summary": "Brain extraction (skull-stripping) with FSL BET",
+  "description": "Wraps FSL bet with a fractional intensity threshold and optional robust centre estimation (-R) and bias field/neck clean-up (-B). This repository appears to be a test App: it has no main script or container, only run_bet.sh and brain_extract.py, which need FSL installed on the host.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "6afa5a85b9274454de109cba",
+    "github": "gamorosino/15-11-2026-test-brain-extraction",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input T1-weighted NIfTI volume to skull-strip.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Brain-extracted (skull-stripped) T1w volume produced by FSL BET."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0\u20131). Lower values give a larger brain estimate.",
+      "default": 0.5,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use BET's robust brain centre estimation (-R).",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field and neck clean-up (-B).",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

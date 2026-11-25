@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summed cortexmap data for group analysis",
+  "version": "sum-template-generation-v1.1",
+  "summary": "Sums cortexmap surface measures across subjects on a common standard mesh with Connectome Workbench, averaging the surfaces and building a thresholded group parcellation, for group analysis.",
+  "description": "Same procedure as the average App, except func metrics are summed rather than averaged across subjects (useful e.g. for counting overlapping endpoint maps); surfaces and shape files are still averaged and labels merged into a thresholded, dilated group parcellation. Every input must contain every func file of the first input, and all inputs must be on the same standard mesh.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64646748d391caf6ef186b2e",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "sum-template-generation-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "inputs",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "cortexmaps of several subjects resampled to the same standard mesh (e.g. with the resample App); the first input defines which files are processed.",
+      "config_keys": [
+        "inputs"
+      ],
+      "requirements": "At least two cortexmaps with identical vertex counts and file names; the code always reads the first two inputs. Every func file of the first input must exist in all other inputs."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "summed"
+      ],
+      "description": "Group cortexmap with summed func metrics, averaged surfaces and a group parcellation (*.group.label.gii)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Probability threshold applied to the merged subject labels: a vertex keeps a parcel label in the group parcellation only where the fraction of subjects with that label exceeds this value.",
+      "default": 0.5,
+      "advanced": true
+    },
+    {
+      "id": "dilate",
+      "type": "number",
+      "description": "Distance used by wb_command -metric-dilate (nearest) to fill vertices left unlabeled in the group parcellation after thresholding.",
+      "default": 10,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.774",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+ "freesurfer": {
+  "doi": "10.1016/j.neuroimage.2012.01.021",
+  "text": "Fischl. FreeSurfer. *NeuroImage* 62:774-781 (2012)."
+ },
+ "fsl": {
+  "doi": "10.1016/j.neuroimage.2011.09.015",
+  "text": "Jenkinson et al. FSL. *NeuroImage* 62:782-790 (2012)."
+ },
+ "mrtrix": {
+  "doi": "10.1016/j.neuroimage.2019.116137",
+  "text": "Tournier et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. *NeuroImage* 202:116137 (2019)."
+ },
+ "dipy": {
+  "doi": "10.3389/fninf.2014.00008",
+  "text": "Garyfallidis et al. Dipy, a library for the analysis of diffusion MRI data. *Frontiers in Neuroinformatics* 8 (2014)."
+ },
+ "ants": {
+  "doi": "10.1016/j.neuroimage.2010.09.025",
+  "text": "Avants et al. A reproducible evaluation of ANTs similarity metric performance in brain image registration. *NeuroImage* 54:2033-2044 (2011)."
+ },
+ "afni": {
+  "doi": "10.1006/cbmr.1996.0014",
+  "text": "Cox. AFNI: Software for Analysis and Visualization of Functional Magnetic Resonance Neuroimages. *Computers and Biomedical Research* 29:162-173 (1996)."
+ },
+ "mne": {
+  "doi": "10.3389/fnins.2013.00267",
+  "text": "Gramfort et al. MEG and EEG data analysis with MNE-Python. *Frontiers in Neuroscience* 7 (2013)."
+ },
+ "nilearn": {
+  "doi": "10.3389/fninf.2014.00014",
+  "text": "Abraham et al. Machine learning for neuroimaging with scikit-learn. *Frontiers in Neuroinformatics* 8 (2014)."
+ },
+ "connectome workbench": {
+  "doi": "10.3389/fninf.2011.00004",
+  "text": "Marcus et al. Informatics and Data Mining Tools and Strategies for the Human Connectome Project. *Frontiers in Neuroinformatics* 5 (2011)."
+ },
+ "fmriprep": {
+  "doi": "10.1038/s41592-018-0235-4",
+  "text": "Esteban et al. fMRIPrep: a robust preprocessing pipeline for functional MRI. *Nature Methods* 16:111-116 (2018)."
+ },
+ "qsiprep": {
+  "doi": "10.1038/s41592-021-01185-5",
+  "text": "Cieslak et al. QSIPrep: an integrative platform for preprocessing and reconstructing diffusion MRI data. *Nature Methods* 18:775-778 (2021)."
+ },
+ "mriqc": {
+  "doi": "10.1371/journal.pone.0184661",
+  "text": "Esteban et al. MRIQC: Advancing the automatic prediction of image quality in MRI from unseen sites. *PLOS ONE* 12:e0184661 (2017)."
+ },
+ "tractseg": {
+  "doi": "10.1016/j.neuroimage.2018.07.070",
+  "text": "Wasserthal et al. TractSeg - Fast and accurate white matter tract segmentation. *NeuroImage* 183:239-253 (2018)."
+ },
+ "amico": {
+  "doi": "10.1016/j.neuroimage.2014.10.026",
+  "text": "Daducci et al. Accelerated Microstructure Imaging via Convex Optimization (AMICO) from diffusion MRI data. *NeuroImage* 105:32-44 (2015)."
+ },
+ "noddi": {
+  "doi": "10.1016/j.neuroimage.2012.03.072",
+  "text": "Zhang et al. NODDI: Practical in vivo neurite orientation dispersion and density imaging of the human brain. *NeuroImage* 61:1000-1016 (2012)."
+ },
+ "trekker": {
+  "doi": "10.1109/TMI.2020.3034038",
+  "text": "Aydogan and Shi. Parallel Transport Tractography. *IEEE Transactions on Medical Imaging* 40:635-647 (2021)."
+ },
+ "life": {
+  "doi": "10.1038/nmeth.3098",
+  "text": "Pestilli et al. Evaluation and statistical inference for human connectomes. *Nature Methods* 11:1058-1063 (2014)."
+ },
+ "synthstrip": {
+  "doi": "10.1016/j.neuroimage.2022.119474",
+  "text": "Hoopes et al. SynthStrip: skull-stripping for any brain image. *NeuroImage* 260:119474 (2022)."
+ },
+ "contrack": {
+  "doi": "10.1167/8.9.15",
+  "text": "Sherbondy et al. ConTrack: Finding the most likely pathways between brain regions using diffusion tractography. *Journal of Vision* 8:15-15 (2008)."
+ },
+ "wma_tools": {
+  "doi": "10.1007/s00429-019-01907-8",
+  "text": "Bullock et al. Associative white matter connecting the dorsal and ventral posterior human cortex. *Brain Structure and Function* 224:2631-2660 (2019)."
+ },
+ "pyafq": {
+  "doi": "10.52294/e6198273-b8e3-4b63-babb-6e6b0da10669",
+  "text": "Kruper et al. Evaluating the Reliability of Human Brain White Matter Tractometry. *Aperture Neuro* 2021 (2021)."
+ }
+}

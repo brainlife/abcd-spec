@@ -1,0 +1,85 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-tcks2tractmasks",
+  "version": "v1.2",
+  "summary": "Converts each .tck tract of a collection into a binary NIfTI tract mask on the grid of a reference FA image, using TractSeg's streamline-to-mask script with DIPY.",
+  "description": "For every .tck file the streamlines are upsampled, mapped to a density image on the FA voxel grid, binarised and cleaned of small blobs, and saved as a mask named after the tract. Use it to obtain tract masks for overlap, ROI or fractal-dimension analyses. The FA must share the affine of the DWI the tracts were made from.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "conversion",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "67dc4fa6da629ed3b1e083d4",
+    "github": "Junebeomstics/app-tcks2tractmasks",
+    "branch": "v1.2"
+  },
+  "inputs": [
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of tract streamline files (.tck).",
+      "config_keys": [
+        "tcks",
+        "tcks_json"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tensor maps; the FA image is used as the reference grid for the masks.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "description": "One binary NIfTI mask per tract, named after the .tck file."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.852",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    },
+    {
+      "name": "TractSeg",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    }
+  ]
+}

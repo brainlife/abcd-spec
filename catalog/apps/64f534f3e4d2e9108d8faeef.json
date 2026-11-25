@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fix RAS/LPI labeling",
+  "version": "fix-ras-lpi-label",
+  "summary": "Fixes inconsistent RAS/LPI endpoint labels of left and right MDLFang, MDLFspl, Uncinate and Aslant ROIs by comparing ROI centroids along each tract's main axis and swapping file names when needed.",
+  "description": "For each listed tract, loads the left/right RAS and LPI endpoint ROIs, checks that left and right are in consistent coordinates, and swaps the RAS and LPI file names whenever the RAS ROI is not on the expected side along the tract's main orientation (z for MDLF and Aslant, y for Uncinate). Use it to make endpoint labels consistent across subjects before tract profile or endpoint analyses. It needs an ROIs dataset containing left/right RAS and LPI ROIs for all four tracts.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64f534f3e4d2e9108d8faeef",
+    "github": "sunaguo/reorient-streamlines-ras-lpi",
+    "branch": "fix-ras-lpi-label"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ROIs directory with left and right RAS and LPI endpoint ROIs per tract.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "Must contain left/right *RAS* and *LPI* NIfTI ROIs for MDLFang, MDLFspl, Uncinate and Aslant."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "rois_relabeled",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "relabel"
+      ],
+      "description": "Same ROIs with the RAS/LPI labels corrected where they were swapped.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/pyafq:dev",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.795",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something failed. checked logs",
+      "cause": "The relabeled ROI directory was not produced, e.g. because an ROI file is missing.",
+      "fix": "Check that all eight ROIs per tract exist in the input."
+    }
+  ]
+}

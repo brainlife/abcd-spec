@@ -1,0 +1,79 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract selected b-values from DWI",
+  "version": "v1.0",
+  "summary": "Extracts the DWI volumes of a chosen b-value shell, with matching bvals and bvecs, using MRtrix3 dwiextract.",
+  "description": "Runs dwiextract -shell on the DWI to keep only the volumes of the target b-value (default 0, the b0 volumes). Use it to get b0 or single-shell images from multi-shell DWI. Warning: separate.sh reads the config key bval while the parameter is target_bval, and main checks dwi/dwi.nii.gz while the script writes nodif/, so the App fails as committed; the README describes the older b0/non-b0 split App.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "677861ac60f3a0c86ee31072",
+    "github": "Junebeomstics/app-mrtrix3-split-b0s",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "nodif",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "The target DWI volumes"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "target_bval",
+      "type": "string",
+      "description": "b-value of the shell to extract (0 for b0 volumes); currently not read by separate.sh, which reads the key bval.",
+      "default": "0"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.841",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier J-D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "fix": "separate.sh writes to nodif/ but main checks dwi/dwi.nii.gz, and the parameter key differs (target_bval vs bval); both must be fixed in the code."
+    }
+  ]
+}

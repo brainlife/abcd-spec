@@ -1,0 +1,153 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make Forward Solution",
+  "version": "v1.0",
+  "summary": "Computes an MEG/EEG forward solution (lead field) with MNE-Python make_forward_solution from the subject's source space, coregistration transform and BEM, or from the fsaverage template when none are given.",
+  "description": "Combines channel information from raw, epoched or evoked data with a source space, a head-to-MRI transform and a BEM solution to compute the lead-field matrix (fwd.fif), plus a sensor-head alignment figure and an HTML report. Supply source space, trans and BEM all together for a native-anatomy forward model, or none of them to use the fsaverage oct6 template (no coregistration, so source locations can be off by several centimetres). Mixed combinations that pair a template with native anatomy are refused. Use it before computing an inverse solution.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "source-localization",
+    "mne-python",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "69b11c0f6bb1f71b25b601e7",
+    "github": "BrainlifeMEEG/forward",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Epoched data, used for channel information and projectors.",
+      "config_keys": [
+        "epo"
+      ],
+      "requirements": "At least one of raw, epochs or evoked is required; the most processed one is used (evoked > epochs > raw)."
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Evoked (averaged) data, used for channel information and projectors.",
+      "config_keys": [
+        "evoked"
+      ]
+    },
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Continuous data, used for channel information and projectors.",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "src",
+      "datatype": "raw",
+      "datatype_tags": [
+        "source_space"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Pre-computed source space (src.fif), e.g. from app-source-space-v2.",
+      "config_keys": [
+        "output"
+      ],
+      "requirements": "Give together with trans and bem, or leave all three empty (an fsaverage source space alone is also accepted)."
+    },
+    {
+      "id": "trans",
+      "datatype": "neuro/meeg/mne/trans",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Head-to-MRI coregistration transform, e.g. from app-coreg-v2.",
+      "config_keys": [
+        "trans"
+      ],
+      "requirements": "Must be given together with the BEM."
+    },
+    {
+      "id": "bem",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "BEM solution (bem-sol.fif), e.g. from app-bem-v2.",
+      "config_keys": [
+        "fif",
+        "channels",
+        "headshape",
+        "coordsystem",
+        "calibration",
+        "crosstalk",
+        "destination",
+        "events",
+        "events_json"
+      ],
+      "requirements": "Must be given together with trans and describe the same subject as the source space."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [
+        "fwd"
+      ],
+      "description": "Forward solution (fwd.fif)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mindist",
+      "type": "number",
+      "description": "Minimum distance of sources from inner skull surface (in mm).",
+      "default": 5
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 2
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.904",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
+}

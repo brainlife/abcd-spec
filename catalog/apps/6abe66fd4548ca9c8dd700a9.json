@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-bet-brain-extraction",
+  "version": "main",
+  "summary": "Skull-strips a T1-weighted image with FSL bet, with a configurable fractional intensity threshold and optional robust centre estimation or bias-field and neck cleanup.",
+  "description": "Wraps FSL bet (container brainlife/fsl:5.0.11) on a T1w volume; frac sets the fractional intensity threshold, robust adds -R and bias_neck_cleanup adds -B. Use it for quick T1w brain extraction. Warning: on this branch main calls brain_extract.py without arguments (the config adapter run_bet.sh is never called) and then checks an out_dir folder the script does not write, so the App fails as committed.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "segmentation",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6abe66fd4548ca9c8dd700a9",
+    "github": "gamorosino/app-bet-brain-extraction",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image (NIfTI).",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Skull-stripped T1w volume produced by FSL's bet."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0-1, default 0.5)",
+      "default": 0.5,
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use BET's robust brain-center estimation (-R)",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field + neck cleanup (-B)",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.981",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "main runs brain_extract.py with no arguments; it must call run_bet.sh (which reads config.json) and write to the output folder main checks."
+    }
+  ]
+}

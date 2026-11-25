@@ -1,0 +1,61 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app- covariance",
+  "version": "master",
+  "summary": "Computes a noise covariance matrix from the first 60 seconds of a raw MEG FIF recording with MNE-Python compute_raw_covariance and saves it with an HTML report.",
+  "description": "Reads the raw FIF file, crops it to 60 s, computes the covariance with mne.compute_raw_covariance and writes cov.fif and an MNE report. Use it for a noise covariance for source estimation, ideally on empty-room or baseline data. The registered branch master does not exist on GitHub; this description is based on the main branch.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "meg",
+    "mne-python",
+    "source-localization"
+  ],
+  "registry": {
+    "id": "627a5fc1d0697cf1eacb310b",
+    "github": "zahransa/app-covariance",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw MEG recording (FIF).",
+      "config_keys": [
+        "fif"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [],
+      "description": "Noise covariance matrix (cov.fif)."
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report showing the covariance."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.625",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2",
+      "url": "https://mne.tools"
+    }
+  ]
+}

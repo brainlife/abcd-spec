@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply mask to extract brain data - T2",
+  "version": "apply-mask-v1.0",
+  "summary": "Applies an existing brain mask to a T2-weighted image with FSL fslmaths -mas and outputs the brain-extracted T2w datatype.",
+  "description": "Multiplies the T2-weighted image by a provided binary brain mask (fslmaths -mas) instead of estimating a new one. Use it when a brain mask already exists, for example from another skull-stripping App, and you want the same mask applied to this image. The mask must be in the same space and grid as the image. Other files of the input datatype are copied to the output unchanged.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6421c7a073d2685502d756d8",
+    "github": "brainlife/app-FSLBET",
+    "branch": "apply-mask-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2-weighted image to mask.",
+      "config_keys": [
+        "input"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Binary brain mask applied to the image.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be in the same space and voxel grid as the input image."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The input T2w datatype with its image multiplied by the brain mask.",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "enum",
+      "description": "Name used for the intermediate masked file (<type>.nii.gz); preset to match the input datatype.",
+      "default": "t2",
+      "options": [
+        {
+          "value": "t1",
+          "label": "t1",
+          "description": "t1"
+        },
+        {
+          "value": "t2",
+          "label": "t2",
+          "description": "t2"
+        },
+        {
+          "value": "dwi",
+          "label": "dwi",
+          "description": "dwi"
+        },
+        {
+          "value": "flair",
+          "label": "flair",
+          "description": "flair"
+        },
+        {
+          "value": "bold",
+          "label": "bold",
+          "description": "bold"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.752",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.1",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ]
+}

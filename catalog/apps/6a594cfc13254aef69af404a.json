@@ -1,0 +1,105 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Average ERPs",
+  "version": "v1.0",
+  "summary": "Brainlife.io app: average MEG/EEG epochs into one or more condition ERPs (Evoked)",
+  "description": "Uses Epochs.average() either on all epochs or on named groups of conditions (';'-separated) to produce one or more Evoked objects, saved together in ave.fif, with a joint plot per group and an HTML report. Use it after epoching to get ERPs/ERFs per condition.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python"
+  ],
+  "registry": {
+    "id": "6a594cfc13254aef69af404a",
+    "github": "BrainlifeMEEG/average-erp",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data (MNE -epo.fif).",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "description": "One or more Evoked objects (ave.fif)."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Joint ERP plots per condition group."
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report with evoked traces and joint plots."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "average_all",
+      "type": "boolean",
+      "description": "Do you want all of your epoch types/stimuli/conditions to be averaged together? If not, enter the names of the epoch types/stimuli/conditions in the string below.",
+      "default": false
+    },
+    {
+      "id": "stimulus_names",
+      "type": "string",
+      "description": "Stimulus/condition names to average. To produce SEVERAL Evokeds in one run, separate independent groups with \";\"; within a group, conditions are still pooled together with \",\" (e.g. \"face/famous,face/unfamiliar;scrambled/famous,scrambled/unfamiliar\" produces two Evokeds). A value with no \";\" is a single group -- one Evoked, same as before.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "condition",
+      "type": "string",
+      "description": "Name(s) for each group in stimulus_names, matching 1:1 and \";\"-separated the same way (e.g. \"face;scrambled\" for the example above). Used as each output Evoked's label. Just enter the name(s) with no quotation marks.",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "peaks",
+      "type": "string",
+      "description": "Add a list (comma-separated) of time values at which you would like to display topomaps on a joint ERP plot.",
+      "default": "None",
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.949",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL DTIFIT - OLD",
+  "version": "1.0",
+  "summary": "This app will fit the diffusion tensor model (DTI) to a diffusion MRI image using FSL's dtifit command.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri"
+  ],
+  "registry": {
+    "id": "5c1d67383e9c170177733d3f",
+    "github": "brainlife/app-fslDTIFIT",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "fsl"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.137",
+  "deprecated_by": "5e7f90e9dd840e81aae91906"
+}

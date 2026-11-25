@@ -1,0 +1,109 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute Anatomical Statistics",
+  "version": "updated-surface-dtype-anatomical-v1.2",
+  "summary": "Computes FreeSurfer anatomical statistics (thickness, surface area, volume, curvature) with mris_anatomical_stats for each parcel of the FreeSurfer aparc and an optional surface parcellation, and outputs merged CSVs.",
+  "description": "Runs FreeSurfer mris_anatomical_stats per hemisphere on the subject's aparc annotation and, if provided, on a surface parcellation converted onto the FreeSurfer white surface; the per-parcel tables are merged into one CSV (also saved as cortex.csv). Use it to obtain parcel-wise cortical morphometry for group analyses. Needs the FreeSurfer subject directory; a surface parcellation also needs its left and right white surfaces.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "surface-analysis",
+    "parcellation",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64a32d3a3a63cf17374f6e75",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "updated-surface-dtype-anatomical-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "parc_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional surface parcellation (left and right .annot files with a label table) to summarise in addition to the FreeSurfer aparc.",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "label"
+      ]
+    },
+    {
+      "id": "parc_surf_vertices",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional left and right white surface meshes on which the surface parcellation is defined; required with parc_surface.",
+      "config_keys": [
+        "right_surf",
+        "left_surf"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory; supplies surfaces and aparc annotations.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "mri_segstats"
+      ],
+      "description": "Per-parcel anatomical statistics CSVs and a merged CSV (merged.csv, copied to cortex.csv)."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mri_segstats_derivatives"
+      ],
+      "description": "Intermediate statistics files kept for debugging."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.2.0",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.789",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.2.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "merged.csv was not produced.",
+      "fix": "Check the job log and raw derivatives."
+    }
+  ]
+}

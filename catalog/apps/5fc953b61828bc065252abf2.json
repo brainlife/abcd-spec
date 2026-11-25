@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate Parcellation (Volume) from ROIs",
+  "version": "parcellation-generation-v1.0",
+  "summary": "Combines a directory of binary NIfTI ROIs into a single volumetric parcellation (one label per ROI) with key.txt and label.json, using AFNI 3dTcat and 3dTstat.",
+  "description": "Utility that stacks every ROI in the input rois directory and assigns each voxel the index of the ROI it belongs to (argmax), producing a parcellation/volume dataset and a label file naming each ROI. Use it to turn ROIs from other Apps into a parcellation for network or tract analysis. All ROIs must share the same voxel grid; where ROIs overlap a voxel gets a single label.",
+  "kind": "native",
+  "topics": [
+    "parcellation",
+    "conversion",
+    "afni",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fc953b61828bc065252abf2",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "parcellation-generation-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of binary NIfTI ROIs (*.nii.gz) on the same voxel grid.",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Volumetric parcellation (parc.nii.gz) with one integer label per input ROI, plus key.txt and label.json naming each label.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/afni:16.3.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 32,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.453",
+  "software": [
+    {
+      "name": "AFNI",
+      "version": "16.3.0",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

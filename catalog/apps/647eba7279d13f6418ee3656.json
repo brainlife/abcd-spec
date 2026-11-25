@@ -1,0 +1,110 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract anatomical statistics inside data mapped to cortical surface",
+  "version": "anatomical-stats-v1.2",
+  "summary": "Computes FreeSurfer anatomical statistics (vertex count, surface area, gray matter volume, thickness, curvature) inside thresholded maps on the cortical surface from a cortexmap, and outputs a CSV.",
+  "description": "Thresholds each map in the cortexmap func directory (values above threshold) into a surface label with Connectome Workbench, converts the labels to FreeSurfer annotations and runs mris_anatomical_stats and mri_segstats on curvature for each one; results are merged into parc-stats/cortex-mapped-anatomical-stats.csv. Use it to get the morphometry of cortex covered by any surface-mapped data. Needs a cortexmap and the FreeSurfer subject directory of the same subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "647eba7279d13f6418ee3656",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "anatomical-stats-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Cortexmap whose func/ directory holds the per-hemisphere surface maps (.func.gii) to threshold, and whose surf/ directory holds the white surfaces.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject, used for anatomical and curvature statistics.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "anatomical_stats"
+      ],
+      "description": "cortex-mapped-anatomical-stats.csv with one row per thresholded map: vertex count, surface area, gray matter volume, thickness, curvature indices and curvature summary.",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "anatomical_stats"
+      ],
+      "description": "Intermediate thresholded maps, label files and per-label statistics text files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Value above which a vertex of a map is included in that map's label.",
+      "default": 0
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0-freesurfer-update",
+    "resources": {
+      "memory_gb": 30,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.782",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "The output CSV was not produced.",
+      "fix": "Check the job log and raw derivatives."
+    }
+  ]
+}

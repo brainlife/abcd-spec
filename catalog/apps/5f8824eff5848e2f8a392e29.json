@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fractal Dimension (FD) of bundle masks",
+  "version": "brainlife-app",
+  "summary": "Computes the box-counting fractal dimension of each bundle mask in a tract-mask collection and outputs the values as a CSV table.",
+  "description": "For every NIfTI mask in the collection, counts the boxes needed to cover the mask at box sizes from 1 up to box_size_max and fits the log-log slope to get the fractal dimension, a measure of the irregularity of the bundle shape. Use it to compare the shape complexity of white matter bundles across subjects or methods.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f8824eff5848e2f8a392e29",
+    "github": "FBK-NILab/fractal_dimension",
+    "branch": "brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of bundle masks of which to compute the Fractal Dimension",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "FD"
+      ],
+      "description": "csv file with the Fractal Dimension of each bundle mask of the collection"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "box_size_max",
+      "type": "number",
+      "description": "Maximum size of the box used by the box-counting method",
+      "default": 7.5,
+      "minimum": 1,
+      "maximum": 100
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.442",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2020.117402",
+      "text": "Berto G, et al. Classifyber, a robust streamline-based linear classifier for white matter bundle segmentation. NeuroImage (2020)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Computation failed.",
+      "fix": "Check that the input contains NIfTI bundle masks."
+    }
+  ]
+}

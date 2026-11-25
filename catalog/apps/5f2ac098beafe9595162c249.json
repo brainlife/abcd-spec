@@ -1,0 +1,162 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural Connectome MRTrix3 (SCMRT) - No labels or weights",
+  "version": "nosift2_v1.2_centers_netneuro",
+  "summary": "Builds structural connectivity matrices (count, density, length and mean diffusion measures) from a tractogram and volumetric parcellation with MRtrix3 tck2connectome, without SIFT2 weighting, and outputs conmat and networkneuro datatypes.",
+  "description": "Assigns streamlines to parcel pairs with tck2connectome and builds symmetric count, density (inverse node volume), length and density-of-length matrices, plus mean-microstructure matrices when tensor, NODDI or spherical-mean maps are given. It also builds a networkneuro datatype with parcel surfaces for visualisation. Streamlines are not weighted; use the SIFT2 variant to correct streamline density biases.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "mrtrix3"
+  ],
+  "registry": {
+    "id": "5f2ac098beafe9595162c249",
+    "github": "brainlife/app-sift2-connectome-generation",
+    "branch": "nosift2_v1.2_centers_netneuro"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck).",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation with label.json; each label becomes a network node.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DTI/DKI maps (FA, MD, RD, AD and kurtosis maps if present); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional NODDI maps (NDI, ODI, ISOVF); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "sm",
+      "datatype": "neuro/spherical-mean",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional spherical-mean map; used to build a mean-microstructure matrix.",
+      "config_keys": [
+        "sphmean"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "All connectivity matrices as CSV files (count, density, length, density-of-length and per-measure mean matrices)."
+    },
+    {
+      "id": "count_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "count"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts between node pairs."
+    },
+    {
+      "id": "length_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "length"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of mean streamline length between node pairs."
+    },
+    {
+      "id": "density_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts scaled by inverse node volume."
+    },
+    {
+      "id": "denlen_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "denlen"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of length-scaled counts normalised by inverse node volume."
+    },
+    {
+      "id": "netneuro",
+      "datatype": "neuro/networkneuro",
+      "datatype_tags": [],
+      "description": "networkneuro datatype for brainlife visualisation: matrices, per-edge streamline lists and parcel surfaces."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 6.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.395",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "VTK (pythonvtk)",
+      "version": "1.1"
+    }
+  ]
+}

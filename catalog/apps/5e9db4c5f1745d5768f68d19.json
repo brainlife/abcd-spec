@@ -1,0 +1,124 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Whole Brain Tractography",
+  "version": "1.4",
+  "summary": "Runs mrtrix3 ACT (Anatomically Constrained Tractography) using either single- or multi-shell diffusion-weighted MRI data.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "tracking",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5e9db4c5f1745d5768f68d19",
+    "github": "brainlife/app-mrtrix3-act",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted MRI data preprocessed using MRTrix 3.",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1w MRI data. Preferably AC-PC aligned. We suggest using the T1w processed with the FreeSurfer App",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "sd_prob"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "The minimum length a streamline must have",
+      "default": 25,
+      "minimum": 25,
+      "maximum": 100
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "The maximum length a streamline can have",
+      "default": 220,
+      "minimum": 200,
+      "maximum": 275
+    },
+    {
+      "id": "imaxs",
+      "type": "number",
+      "description": "The lmax that will be fit for modeling the data. If the requested number is not possible with the number of directions present in the data, the highest lmax possible will be used instead.",
+      "default": "",
+      "minimum": 2,
+      "maximum": 8,
+      "required": false
+    },
+    {
+      "id": "curvs",
+      "type": "number",
+      "description": "The maximum curvature angle a streamline can take during tracking",
+      "default": 35,
+      "minimum": 0,
+      "maximum": 90
+    },
+    {
+      "id": "num_fibers",
+      "type": "number",
+      "description": "The number of streamlines to track.",
+      "default": 1500000,
+      "minimum": 1,
+      "maximum": 5000000
+    },
+    {
+      "id": "do_prb2",
+      "type": "boolean",
+      "description": "Perform MRTrix3 probabilistic tracking.",
+      "default": true,
+      "readonly": true
+    },
+    {
+      "id": "tensor_fit",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3"
+  },
+  "doi": "10.25663/brainlife.app.318",
+  "deprecated_by": "5e9dced9f1745d6994f692c0"
+}

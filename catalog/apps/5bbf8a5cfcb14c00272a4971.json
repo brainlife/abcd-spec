@@ -1,0 +1,100 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI preproc and nonlinear registration to T1",
+  "version": "v0",
+  "summary": "Preprocesses DWI with MRtrix3 dwipreproc (FSL eddy) and nonlinearly registers it to a T1-weighted image with ANTs, using CSF masks of the mean b0 and T1, rotating the b-vectors with the affine part.",
+  "description": "App for running mrtrix3 dwipreproc and then performing nonlinear registration of dwi to T1 (by running ANTs affine+nonlinear registration of CSF masks of mean b0 and T1). Bvectors are rotated with the affine transform. App is recommended for bringing dwi to T1 space if no phase encoding contrast between b=0 images was collected (so mrtrix3 dwipreproc cannot perform inhomogeneity field estimation).",
+  "kind": "native",
+  "topics": [
+    "pipeline",
+    "dwi",
+    "preprocessing",
+    "registration",
+    "mrtrix3",
+    "ants",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5bbf8a5cfcb14c00272a4971",
+    "github": "brainlife/app-dwi2t1-nonlinear",
+    "branch": "v0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image of the same subject; bias-corrected and skull-stripped with fsl_anat and segmented with FSL FAST to get the CSF mask used as registration target.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw DWI with bvecs and bvals to preprocess and bring into T1 space.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Metadata must include the BIDS fields TotalReadoutTime and PhaseEncodingDirection, required by dwipreproc -rpe_header."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "odwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "t1_aligned",
+        "preprocessed"
+      ],
+      "description": "Preprocessed DWI resampled into T1 space with ANTs affine+SyN warps, with the bvals and affine-rotated bvecs.",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "warp"
+      ],
+      "description": "ANTs transforms from b0 to T1: affine_ANTs.mat, warp_ANTs.nii.gz and warp-inverse_ANTs.nii.gz."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "katealpert/dwi2t1-nonlinear:v0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 24,
+      "memory_gb": 24
+    }
+  },
+  "doi": "10.25663/brainlife.app.111",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "TotalReadoutTime and PhaseEncodingDirection BIDS fields reqd to run mrtrix3 dwipreproc",
+      "cause": "The DWI metadata lacks the fields needed by dwipreproc.",
+      "fix": "Add TotalReadoutTime and PhaseEncodingDirection to the DWI dataset metadata."
+    }
+  ]
+}

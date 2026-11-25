@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice ROIs to match input anatomy",
+  "version": "v1.0",
+  "summary": "Reslices a set of ROI volumes onto the voxel grid of a T1-weighted image with FreeSurfer mri_vol2vol (header registration, nearest-neighbour interpolation).",
+  "description": "Each ROI NIfTI in the input ROIs directory is resampled to the voxel size and spacing of the T1w image using mri_vol2vol --regheader with nearest-neighbour interpolation. Use it when ROIs were generated on a different voxel grid but are already in the same space as the T1w image; it does not register images, so ROIs in another space must be transformed first.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "registration"
+  ],
+  "registry": {
+    "id": "60a590f422b42ad40d6fb317",
+    "github": "bacaron/app-reslice-roi-t1",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image whose voxel grid is the reslicing target.",
+      "config_keys": [
+        "anat"
+      ],
+      "requirements": "Must already be aligned (same world space) with the ROIs; only the header geometry is used."
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of ROI NIfTI volumes to reslice.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "resliced",
+        "anat"
+      ],
+      "description": "ROI volumes resliced to the T1w voxel grid, one file per input ROI.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 3
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.522",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9:179-194 (1999)."
+    }
+  ]
+}

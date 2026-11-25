@@ -1,0 +1,185 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Setup and fit ICA",
+  "version": "v1.0",
+  "summary": "Fits an ICA decomposition to raw MEG/EEG data with MNE-Python, with optional pre-filtering, and outputs the ICA solution, component plots and an HTML QC report with EOG/ECG scores.",
+  "description": "Fits mne.preprocessing.ICA (fastica, picard or infomax) on the raw data, high/low-pass filtering a copy first when l_freq and h_freq are set, and plots component topographies and properties. When eog_ch/ecg_ch are given, the report shows which components correlate with EOG/ECG artifacts, but no component is removed. Use it before an ICA-apply App to remove ocular or cardiac artifacts.",
+  "kind": "native",
+  "topics": [
+    "eeg",
+    "meg",
+    "mne-python",
+    "preprocessing",
+    "denoising",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63344389db978c79919cbb82",
+    "github": "BrainlifeMEEG/ICA-fit",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Continuous MEG/EEG data in MNE raw .fif format.",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [
+        "ica"
+      ],
+      "description": "Fitted ICA decomposition (ica.fif)."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "Topographic plot of the first ICA components and property plots of selected components (PNG)."
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML QC report with the ICA decomposition, component properties and EOG/ECG scores."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_components",
+      "type": "number",
+      "description": "Number of principal components (from the pre-whitening PCA step) that are passed to the ICA algorithm during fitting.",
+      "required": false
+    },
+    {
+      "id": "l_freq",
+      "type": "number",
+      "description": "Low frequency cut-off for (recommended) high-pass filtering before ICA. default is None (no high-pass filtering), but it is advisable to high-pass filter the data for best ICA decomposition.\nNotice: the filtered data is not saved. You have to use the filtering app if you want to use filtered data subsequently.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "h_freq",
+      "type": "number",
+      "description": "High frequency cut-off for low-pass filtering before ICA. default is None (no low-pass filtering).\nNotice: the filtered data is not saved. You have to use the filtering app if you want to use filtered data subsequently.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "method",
+      "type": "string",
+      "description": "The ICA method to use in the fit method. Use the fit_params argument to set additional parameters. Specifically, if you want Extended Infomax, set method='infomax' and fit_params=dict(extended=True) (this also works for method='picard'). Defaults to 'fastica'.",
+      "default": "fastica",
+      "required": true
+    },
+    {
+      "id": "noise_cov",
+      "type": "string",
+      "description": "Noise covariance used for pre-whitening. If None (default), channels are scaled to unit variance (\u201cz-standardized\u201d) as a group by channel type prior to the whitening by PCA.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "random_state",
+      "type": "number",
+      "description": "A seed for the NumPy random number generator (RNG). If None (default), the seed will be obtained from the operating system (see RandomState for details), meaning it will most likely produce different output every time this function or method is run. To achieve reproducible results, pass a value here to explicitly initialize the RNG with a defined state.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "max_iter",
+      "type": "string",
+      "description": "Maximum number of iterations during fit. If 'auto', it will set maximum iterations to 1000 for 'fastica' and to 500 for 'infomax' or 'picard'. The actual number of iterations it took ICA.fit() to complete will be stored in the n_iter_ attribute.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "allow_ref_meg",
+      "type": "boolean",
+      "description": "Allow ICA on MEG reference channels. Defaults to False.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "eog_ch",
+      "type": "string",
+      "description": "EOG channel to be used to detect EOG events, create epochs and overlay with the same epochs after rejecting ICA components highly correlated with the channel.\nIf no channel is provided, MNE will try to guess, and issue an error if no EOG channel is found.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ecg_ch",
+      "type": "string",
+      "description": "ECG channel to be used to detect ECG events, create epochs and overlay with the same epochs after rejecting ICA components highly correlated with the channel.\nIf no channel is provided, MNE will try to guess, and issue an error if no ECG channel is found.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "picks_to_plot",
+      "type": "string",
+      "description": "Indices of the independent components (ICs) to visualize. If an integer, represents the index of the IC to pick. Multiple ICs can be selected using a list of int or a slice. The indices are 0-indexed, so picks=1 will pick the second IC: ICA001. None will pick the first 5 components.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "fit_params",
+      "type": "string",
+      "description": "Additional parameters passed to the ICA estimator as specified by method. Allowed entries are determined by the various algorithm implementations: see FastICA, picard(), infomax().",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "decim",
+      "type": "number",
+      "description": "Decimation factor applied only during ICA fitting (ica.fit(raw, decim=N) -- every Nth sample is used to fit, full-resolution data is unaffected everywhere else). Speeds up fitting substantially with little accuracy cost, since ICA components are spatial patterns, not fine temporal detail. If None (default), no decimation.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "Channels the ICA is fit on: 'meg', 'mag', 'grad' or 'eeg'. If empty (default), every data channel (MEG + EEG) not marked bad is used. Restricting the fit to one channel type keeps channels of the other types, which may contain unmarked bad channels, from taking components.",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "placeholder": "meg"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 32
+    }
+  },
+  "doi": "10.25663/brainlife.app.675",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ]
+}

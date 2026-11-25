@@ -1,0 +1,208 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Optic Radiation Tracking and Retinotopic Segmentation",
+  "version": "main",
+  "summary": "Optic Radiation Tracking and Retinotopic Segmentation \u2014 a reproducible pipeline for tractography and eccentricity-based segmentation of the human optic radiation using population receptive field (pRF) mapping.",
+  "description": "Tracks the optic radiation (seed-based from LGN to V1, whole-brain ACT, or from a precomputed tractogram) with MRtrix3 or DIPY, isolates LGN-V1 fibres with tckedit and classifies them into eccentricity bands from pRF maps. LGN and V1 ROIs, 5TT and CSD are computed automatically when not provided (thalamic nuclei via FreeSurfer 7.1.0). Use it for retinotopic segmentation of the optic radiation; needs DWI, T1w, FreeSurfer and pRF eccentricity/visual-area maps.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fmri",
+    "freesurfer",
+    "mrtrix3",
+    "tract-segmentation",
+    "tractography"
+  ],
+  "registry": {
+    "id": "6ad144840e072a00d8aed712",
+    "github": "gamorosino/app-optic-radiation-track",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI data (dwi.nii.gz + bvec + bval)",
+      "config_keys": [
+        "dwi",
+        "bvec",
+        "bval"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output directory",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pRF maps (eccentricity + varea as NIfTI)",
+      "config_keys": [
+        "eccentricity",
+        "varea"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "LGN and V1 ROIs \u2014 auto-extracted from thalamic nuclei / varea if absent",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "5tt",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "5-tissue-type image \u2014 computed from T1 via 5ttgen fsl if absent",
+      "config_keys": [
+        "fivett"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Pre-computed CSD FOD images (lmax2\u201314) and response function \u2014 skips dwi2response + dwi2fod if provided",
+      "config_keys": [
+        "response",
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Whole-brain tractogram (track.tck)"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification (classification.mat + tracts/*.json)"
+    },
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "description": "Per-eccentricity per-hemisphere optic radiation tracts (tcks/ + tcks.json)"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "algorithm",
+      "type": "string",
+      "description": "Tracking algorithm (MRtrix3 or DIPY)",
+      "default": "iFOD2"
+    },
+    {
+      "id": "pft_back_dist",
+      "type": "number",
+      "description": "PFT back-tracking distance in mm (dipy_pft only)",
+      "default": 2
+    },
+    {
+      "id": "pft_front_dist",
+      "type": "number",
+      "description": "PFT front-tracking distance in mm (dipy_pft only)",
+      "default": 1
+    },
+    {
+      "id": "pft_particles",
+      "type": "integer",
+      "description": "Number of particles per streamline (dipy_pft only)",
+      "default": 15
+    },
+    {
+      "id": "pft_max_cross",
+      "type": "integer",
+      "description": "Max number of crossings per voxel (dipy_pft only)",
+      "default": 1
+    },
+    {
+      "id": "n_streamlines",
+      "type": "integer",
+      "description": "Target number of streamlines",
+      "default": 5000
+    },
+    {
+      "id": "sift2",
+      "type": "boolean",
+      "description": "Apply SIFT2 weights (MRtrix only)",
+      "default": false
+    },
+    {
+      "id": "clean_streamlines",
+      "type": "boolean",
+      "description": "Apply anatomical fiber cleaning",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.0",
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.989",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods (2024)."
+    }
+  ]
+}

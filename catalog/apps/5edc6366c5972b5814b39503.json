@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract DWI volumes of choice - Deprecated",
+  "version": "v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5edc6366c5972b5814b39503",
+    "github": "brainlife/app-split-dwi-volumes",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "start_volume",
+      "type": "number",
+      "description": "start volume you would like to extract",
+      "default": 1
+    },
+    {
+      "id": "end_volume",
+      "type": "number",
+      "description": "end volume you would like to extract",
+      "default": 50
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/amico:2.1b",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 60,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.371",
+  "deprecated_by": "6144aa977a38b05b4ba047f6"
+}

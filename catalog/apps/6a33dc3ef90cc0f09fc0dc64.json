@@ -1,0 +1,37 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI test",
+  "version": "test",
+  "summary": "Brainlife app",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a33dc3ef90cc0f09fc0dc64",
+    "github": "balbasty/app-dwi-test",
+    "branch": "test"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.935"
+}

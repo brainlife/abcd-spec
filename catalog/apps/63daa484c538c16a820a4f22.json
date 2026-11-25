@@ -1,0 +1,118 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate brain extracted image with SynthStrip (T1w)",
+  "version": "7.3.2",
+  "summary": "Skull-strips a T1-weighted image with FreeSurfer 7.3.2 SynthStrip (mri_synthstrip) and outputs the brain-extracted image and a binary brain mask.",
+  "description": "Runs mri_synthstrip, a deep-learning brain extraction tool that works across contrasts and resolutions, on the T1-weighted image. Use it when you need a brain-extracted T1-weighted image or brain mask before registration or segmentation. Needs only the T1-weighted image; the mask is in the input image space.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "segmentation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63daa484c538c16a820a4f22",
+    "github": "brainlife/app-synthstrip",
+    "branch": "7.3.2"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image (NIfTI) to skull-strip.",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "Brain-extracted T1-weighted image.",
+      "datatype_tags_pass": "input"
+    },
+    {
+      "id": "output_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat"
+      ],
+      "description": "Binary brain mask (mask.nii.gz) in the input image space.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "border",
+      "type": "number",
+      "description": "mask border threshold in mm",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "input_type",
+      "type": "enum",
+      "description": "Name used for the output image file; fixed for this App.",
+      "default": "t1",
+      "options": [
+        {
+          "value": "t1",
+          "label": "t1",
+          "description": "t1"
+        },
+        {
+          "value": "t2",
+          "label": "t2",
+          "description": "t2"
+        },
+        {
+          "value": "flair",
+          "label": "flair",
+          "description": "flair"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.722",
+  "software": [
+    {
+      "name": "FreeSurfer SynthStrip (mri_synthstrip)",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/docs/synthstrip/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs",
+      "cause": "The brain-extracted image or mask was not produced.",
+      "fix": "Check the job log for the mri_synthstrip error."
+    }
+  ]
+}

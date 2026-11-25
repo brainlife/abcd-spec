@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Merge Tractography (tcks) together with MRTrix3",
+  "version": "gttwo-tck",
+  "summary": "Merges multiple tractograms into one .tck file with MRtrix3 tckedit.",
+  "description": "Concatenates the streamlines of all input .tck tractograms (multi input) into track/track.tck using MRtrix3 tckedit. Use it to combine tractograms generated separately (for example with different algorithms or parameters) for the same subject. All tractograms should be in the same space.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62213ffe5d8ab5d5f02166c3",
+    "github": "bacaron/app-mergeTCK",
+    "branch": "gttwo-tck"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms (.tck) to merge; several datasets can be selected.",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "Single .tck tractogram containing the streamlines of all inputs."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.608",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "tckedit did not produce track/track.tck.",
+      "fix": "Check that the inputs are valid .tck files."
+    }
+  ],
+  "maintainers": [
+    "Sophia Vinci-Booher",
+    "Brad Caron"
+  ]
+}

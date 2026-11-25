@@ -1,0 +1,120 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EPI T1 Registration",
+  "version": "v1.0",
+  "summary": "Registers DWI to a T1-weighted image with FSL epi_reg and flirt using the mean b0, optionally reslices it with DIPY, rotates the bvecs and outputs the aligned DWI and affine.",
+  "description": "Averages the b0 volumes, skull-strips them with bet, registers them to the T1 (optionally skull-stripped with bet first) using epi_reg, applies the transform to the whole DWI with flirt, optionally reslices to an isotropic resolution and rotates the bvecs. Use it to bring DWI into T1/ACPC space before tractography. The README also mentions tensor fitting and a dt6.mat, which this branch's code does not produce.",
+  "kind": "native",
+  "topics": [
+    "diffusion-preprocessing",
+    "dwi",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e6a8ebd8740673152a3d18f",
+    "github": "brainlife/app-epi-t1-registration",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "t1_aligned"
+      ],
+      "description": "The T1-aligned DWI",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "affine",
+        "dwi-to-t1"
+      ],
+      "description": "Affine transform from DWI to T1 space (affine.txt, FSL flirt matrix).",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "resolution",
+      "type": "string",
+      "description": "The isotropic resolution to reslice the data. If you want to leave the DWI in the native DWI space, leave this empty",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "maskt1",
+      "type": "boolean",
+      "description": "If true, skull-strip the T1 with FSL bet before registration.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.286",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "DIPY",
+      "version": "0.14.2"
+    },
+    {
+      "name": "vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Jenkinson M, Smith SM. A global optimisation method for robust affine registration of brain images. Medical Image Analysis 5(2):143-156 (2001)."
+    },
+    {
+      "text": "Jenkinson M, Bannister PR, Brady JM, Smith SM. Improved optimisation for the robust and accurate linear registration and motion correction of brain images. NeuroImage 17(2):825-841 (2002)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "fix": "Check the log for epi_reg or flirt errors; the aligned dwi.nii.gz was not produced."
+    }
+  ]
+}

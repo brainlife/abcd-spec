@@ -1,0 +1,197 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses",
+  "version": "endpoints-v1.1",
+  "summary": "Maps volumetric tract endpoint ROIs onto FreeSurfer-derived cortical surfaces in native and MNI space with FreeSurfer mri_vol2surf and Connectome Workbench, with optional volume and surface smoothing, as a cortexmap.",
+  "description": "Builds GIFTI surfaces from FreeSurfer (native and, with the warp, MNI), projects each ROI onto the surface with mri_vol2surf (projfrac-max from projfrac_min to 1), optionally smoothing the ROI volume beforehand and the surface map afterwards (wb_command -metric-smoothing). If an existing cortexmap is given, the ROIs are added to it. ROIs must be in the same space as the FreeSurfer anatomy. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64307e9c73d2685502f2e152",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "endpoints-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric ROIs (e.g. tract endpoint ROIs) as NIfTI files; each ROI is mapped onto the cortical surface.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "ROIs must be aligned with the FreeSurfer anatomy."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from Freesurfer",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "These files are needed to generate surfaces in template space (usually MNI). If you need to generate these files, please look at brainlife app FSL Anat. A version of this app not requiring this input is being generated",
+      "config_keys": [
+        "warp",
+        "inverse_warp"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If cortexmap datatype has already been generated, update the datatype with the endpoint ROIs",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "endpoints"
+      ],
+      "description": "The cortexmap output, containing the surfaces and mapped data",
+      "datatype_tags_pass": "rois"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives"
+      ],
+      "description": "A directory containing all of the derivatives generated. Useful for QA and debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas "
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "volume_smooth_kernel",
+      "type": "string",
+      "description": "If you want to smooth the volumes before mapping to surface, input smoothing kernel (fwhm) here. If not, leave blank",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "surface_smooth_kernel",
+      "type": "string",
+      "description": "If you want to smooth the surface ROIs after mapping to surface, input smoothing kernel here. If not, leave blank",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "fix_zeros",
+      "type": "boolean",
+      "description": "if you want to treat zeros as not being data, set as true",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "surface_fwhm",
+      "type": "boolean",
+      "description": "If you want to treat \"surface_smooth_kernel\" as a fwhm instead of sigma, set to true",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "surface_smooth_method",
+      "type": "enum",
+      "description": "method for smoothing",
+      "default": "GEO_GAUSS_AREA",
+      "options": [
+        {
+          "value": "GEO_GAUSS_AREA",
+          "label": "GEO_GAUSS_AREA",
+          "description": "GEO_GAUSS_AREA"
+        },
+        {
+          "value": "GEO_GAUSS_EQUAL",
+          "label": "GEO_GAUSS_EQUAL",
+          "description": "GEO_GAUSS_EQUAL"
+        },
+        {
+          "value": "GEO_GAUSS",
+          "label": "GEO_GAUSS",
+          "description": "GEO_GAUSS"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "projfrac_min",
+      "type": "string",
+      "description": "if endpoints aren't being mapped, try making this value negative (-1)",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 10.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.759",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ]
+}

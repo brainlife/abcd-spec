@@ -1,0 +1,47 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "brainlife-hello",
+  "version": "v1.0.0",
+  "summary": "Tutorial hello-world App that writes the NIfTI header of a T1-weighted image to a text file with nibabel.",
+  "description": "Tutorial App: main reads the t1 path and main.py dumps the image header to output.txt. It is not an analysis App. Note: main reads config.json.sample instead of config.json, so it ignores the input given on brainlife.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6912e3bdbbce85384baf9e2e",
+    "github": "infernoWolf99/brainlife-hello",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "sub-001",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image whose header is printed.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.882",
+  "software": [
+    {
+      "name": "nibabel"
+    }
+  ]
+}

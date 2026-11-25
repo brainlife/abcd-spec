@@ -1,0 +1,130 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit CSD",
+  "version": "1.1.1",
+  "summary": "Fit Constrained spherical deconvolution (CSD) model to diffusion data (dipy_fit_csd)",
+  "description": "Wraps the DIPY 1.1.1 dipy_fit_csd workflow: estimates a single-fibre response function from high-FA voxels in a central ROI, fits constrained spherical deconvolution within the mask, and extracts peaks and spherical-harmonic coefficients (peaks and metrics, --extract_pam_values). Use it to obtain fibre orientations for tractography. Requires a DWI with bvals/bvecs and a brain mask in the same space.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-reconstruction",
+    "dipy",
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b1efd2973279e0028adfc18",
+    "github": "dipy/bl_apps_dipy_fit_csd",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with its bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask restricting the CSD fit.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be in the same space as the DWI."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/peaks_and_metrics",
+      "datatype_tags": [
+        "csd_model_fit"
+      ],
+      "description": "CSD peaks and metrics from dipy_fit_csd: peaks, peak values and indices, SH coefficients, GFA and the PAM5 file."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions",
+      "default": 50,
+      "placeholder": "0"
+    },
+    {
+      "id": "bvecs_tol",
+      "type": "number",
+      "description": "Bvecs should be unit vectors. (default:0.01)",
+      "default": 0.01,
+      "placeholder": "0.01"
+    },
+    {
+      "id": "roi_radius",
+      "type": "number",
+      "description": "Radius of cubic ROI in voxels (default 10)",
+      "default": 10,
+      "placeholder": "10"
+    },
+    {
+      "id": "fa_thr",
+      "type": "number",
+      "description": "FA threshold for calculating the response function (default 0.7)",
+      "default": 0.7,
+      "placeholder": "0.7"
+    },
+    {
+      "id": "sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order (default 6) used in the CSA fit.",
+      "default": 6,
+      "placeholder": "6"
+    },
+    {
+      "id": "odf_to_sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order used for peak_from_model to compress\nthe ODF to spherical harmonics coefficients (default 8)",
+      "default": 8,
+      "placeholder": "8"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/bl.app.62",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
+}

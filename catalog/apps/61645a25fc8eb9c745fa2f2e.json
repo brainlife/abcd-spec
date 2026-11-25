@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DBB_DiceScore",
+  "version": "1.2.2",
+  "summary": "Computes the Dice similarity coefficient (DSC) between two segmentations (parcellations)",
+  "description": "Compares a computed segmentation with a ground-truth segmentation label by label and writes the Dice similarity coefficient of each label, sorted by label value, to a text file. Use it to evaluate tissue segmentation methods, for example on the DBB Distorted Brain Benchmark. Both volumes must be on the same voxel grid and use the same label values.",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "quality-control",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61645a25fc8eb9c745fa2f2e",
+    "github": "FBK-NILab/bl_app_dbb_DiceScore",
+    "branch": "1.2.2"
+  },
+  "inputs": [
+    {
+      "id": "computed",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Segmentation (parcellation volume) produced by the method under evaluation.",
+      "config_keys": [
+        "computed"
+      ],
+      "requirements": "Same voxel grid and label values as the ground truth."
+    },
+    {
+      "id": "groud_truth",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reference (ground-truth) segmentation volume.",
+      "config_keys": [
+        "groud_truth"
+      ],
+      "requirements": "Same voxel grid and label values as the computed segmentation."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dice_score",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dice_score"
+      ],
+      "description": "dice_score.txt with the Dice score of each label, space-separated and sorted by label value."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "gamorosino/bl_app_dbb_disseg",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.579",
+  "software": [
+    {
+      "name": "nibabel",
+      "version": "2.5.1"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2022.119486",
+      "text": "Amorosino G, Peruzzo D, Redaelli D, Olivetti E, Arrigoni F, Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
+}

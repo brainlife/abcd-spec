@@ -1,0 +1,95 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Eddy-correct",
+  "version": "eddy-correct-v1.0",
+  "summary": "Corrects eddy-current distortion and motion in a DWI with FSL eddy_correct (affine registration to a reference volume) and rotates the bvecs.",
+  "description": "Runs FSL eddy_correct against the chosen reference volume and rotates the bvecs with fdt_rotate_bvecs using the resulting .ecclog. Use it for data already corrected with topup or data that cannot be corrected with topup; FSL eddy (OpenMP/CUDA Apps) is the more complete alternative.",
+  "kind": "native",
+  "topics": [
+    "preprocessing",
+    "dwi",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60ef1c3dddc2df157165f72b",
+    "github": "brainlife/app-FSLTopupEddy",
+    "branch": "eddy-correct-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvecs and bvals.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "DWI after eddy_correct, with rotated bvecs and the original bvals.",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "ecclog"
+      ],
+      "description": "The eddy_correct transformation log (dwi_ec.ecclog)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "refvol",
+      "type": "string",
+      "description": "Index of the volume used as the registration reference for eddy_correct (zero-based; default 0 = first volume).",
+      "default": "0"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.542",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Smith SM, Jenkinson M, Woolrich MW, et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-219 (2004)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives and logs",
+      "cause": "output/dwi.nii.gz was not produced by eddy_correct.",
+      "fix": "Check the eddy_correct log output."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

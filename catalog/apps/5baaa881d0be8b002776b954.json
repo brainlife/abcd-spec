@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MRtrix2 Tracking (dwi)",
+  "version": "1.5",
+  "summary": "Tracks whole-brain streamlines from single-shell DWI with MRtrix 0.2.12 using DT_STREAM, SD_STREAM and SD_PROB, outputting three .tck tractograms and a reconstruction.",
+  "description": "Fits a tensor and a constrained spherical deconvolution model (lmax auto-calculated from the bvals if not given), builds a white-matter mask from FreeSurfer aparc+aseg registered to the b0 with FSL flirt, and runs streamtrack with three algorithms seeded and masked in white matter. Use it to obtain whole-brain tractograms for comparison of tracking methods or as input to tract segmentation. Needs a FreeSurfer run of the same subject. The code loads MRtrix, FreeSurfer and FSL as HPC modules, so it is tied to that environment.",
+  "kind": "native",
+  "topics": [
+    "tracking",
+    "dwi",
+    "tractography",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5baaa881d0be8b002776b954",
+    "github": "brainlife/app-tracking",
+    "branch": "1.5"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "single_shell"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Single-shell diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Single shell (datatype tag single_shell)."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output of the same subject; aparc+aseg is used to build the white-matter mask.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Should be roughly aligned to the DWI; the white-matter mask is brought into DWI space with FSL flirt."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dt_stream",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "dt_stream"
+      ],
+      "description": "Whole-brain tractogram from tensor-based deterministic tracking (DT_STREAM)."
+    },
+    {
+      "id": "sd_stream",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "sd_stream"
+      ],
+      "description": "Whole-brain tractogram from CSD-based deterministic tracking (SD_STREAM)."
+    },
+    {
+      "id": "sd_prob",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "sd_prob"
+      ],
+      "description": "Whole-brain tractogram from CSD-based probabilistic tracking (SD_PROB)."
+    },
+    {
+      "id": "recon",
+      "datatype": "neuro/recon",
+      "datatype_tags": [],
+      "description": "Model outputs: CSD coefficients, FA, tensor, white-matter mask and brain mask."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "Maximum spherical harmonic order for the CSD fit; leave empty to calculate it from the bvals.",
+      "required": false,
+      "placeholder": "Auto calculate the max lmax from number of bvecs"
+    },
+    {
+      "id": "fibers",
+      "type": "number",
+      "description": "set the desired number of tracks. streamtrack will continue to generate tracks until this number of tracks have been selected and written to the output file.",
+      "default": 500000
+    },
+    {
+      "id": "fibers_max",
+      "type": "number",
+      "description": "set the maximum number of tracks to generate. streamtrack will not generate more tracks than this number, even if the desired number of tracks hasn't yet been reached (default is 100 x fibers). Specifying zero for this option removes any limit - the algorithm will keep generating tracks until the number required has been reached",
+      "default": 1000000
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.14.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.105",
+  "software": [
+    {
+      "name": "MRtrix",
+      "version": "0.2.12"
+    },
+    {
+      "name": "FreeSurfer"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "DIPY",
+      "version": "0.14.1"
+    }
+  ]
+}

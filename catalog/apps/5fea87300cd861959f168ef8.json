@@ -1,0 +1,106 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Parcellation Statistics - Volume",
+  "version": "parc-stats-volume-v1.0",
+  "summary": "Computes volume and cortical thickness of every ROI in a volumetric parcellation using FreeSurfer surfaces and mri_segstats, and outputs a parc-stats CSV.",
+  "description": "Projects FreeSurfer cortical thickness into the volume (mri_surf2vol), resamples the parcellation to the FreeSurfer ribbon and summarises thickness and volume per parcel with mri_segstats, plus ROI statistics computed with vistasoft/wma_tools. Use it when only a volumetric parcellation is available; the README notes values differ slightly from surface-based statistics, so prefer the surface App when an annotation exists. The parcellation must be aligned with the FreeSurfer subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fea87300cd861959f168ef8",
+    "github": "brainlife/app-freesurfer-stats",
+    "branch": "parc-stats-volume-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation with its label key.",
+      "config_keys": [
+        "parcellation",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be aligned with the FreeSurfer subject; it is resampled to ribbon.mgz by header (nearest neighbour)."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Output directory of FreeSurfer recon-all for the subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "volume"
+      ],
+      "description": "parc_nodes.csv and rois.csv with volume and cortical thickness per parcel.",
+      "datatype_tags_pass": "parcellation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29,
+      "walltime_hours": 2.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.463",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "freesurfer-stats",
+      "url": "https://github.com/fphammerle/freesurfer-stats"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "wma_tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9, 179-194 (1999)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computation failed. check derivatives and error log",
+      "fix": "Check that the parcellation and FreeSurfer directory are valid and aligned."
+    },
+    {
+      "message": "output missing",
+      "fix": "Check the log; parc_nodes.csv or rois.csv was not produced."
+    }
+  ]
+}

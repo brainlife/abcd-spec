@@ -1,0 +1,191 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI-to-Anatomical MRI Registration",
+  "version": "v0.3",
+  "summary": "Registers DWI to an anatomical reference (T1w, T2w or FA) with ANTs, using the b0 volume and translation, rigid, affine or SyN stages, applies the transform to the full DWI with MRtrix3 and produces QC figures.",
+  "description": "Extracts the first b=0 (or lowest-b) volume, registers it to the chosen anatomical image with antsRegistration up to the selected transformation stage and pyramid depth, then applies the affine and warp to the 4-D DWI (with b-vector handling) and writes before/after QC figures. Provide one fixed image: T1w, T2w or a tensor dataset (FA is used). Optionally checks white-matter overlap on FA before and after registration (qc_wm).",
+  "kind": "native",
+  "topics": [
+    "ants",
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "quality-control",
+    "registration"
+  ],
+  "registry": {
+    "id": "68111293da629ed3b167b0fe",
+    "github": "gamorosino/app-registration-dwi2anat",
+    "branch": "v0.3"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "4-D diffusion-weighted image with bvals and bvecs (moving image).",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "t1_fixed",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1-weighted image used as the fixed reference.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2_fixed",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T2-weighted image used as the fixed reference if no T1w is given.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "tensor_fixed",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Tensor dataset whose FA map is used as the fixed reference if no anatomical image is given.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformations",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "description": "ANTs affine matrix and warp fields mapping the DWI to the anatomical reference."
+    },
+    {
+      "id": "transformed",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "DWI resampled into the anatomical reference space, with bvals and bvecs."
+    },
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "qc_images"
+      ],
+      "description": "Before/after registration QC figures (orthogonal views and slices)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "settings",
+      "type": "enum",
+      "description": "The `settings` parameter controls the depth of the multiresolution (pyramidal) registration strategy used by ANTs. Higher settings correspond to more levels in the registration pyramid, starting from coarse alignment and progressively refining toward finer spatial correspondence.",
+      "default": "4",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "id": "transformation",
+      "type": "enum",
+      "description": "Highest registration stage to run: translation, rigid, affine or nonlinear (SyN); each stage includes the previous ones.",
+      "default": "rigid",
+      "options": [
+        {
+          "value": "translation",
+          "label": "1",
+          "description": "Translation"
+        },
+        {
+          "value": "rigid",
+          "label": "2",
+          "description": "Rigid Transformation"
+        },
+        {
+          "value": "affine",
+          "label": "3",
+          "description": "Affine Transformation"
+        },
+        {
+          "value": "nonlinear",
+          "label": "4",
+          "description": "Diffeomorphic Symmetric (SyN) Transformation"
+        }
+      ]
+    },
+    {
+      "id": "qc_wm",
+      "type": "boolean",
+      "description": "Fits a diffusion tensor model on both the pre- and post-registration DWI, thresholds FA \u2265 0.35 to produce a white matter mask, and overlays it in blue on all QC images so you can verify that the WM geometry aligns with the reference anatomy after registration.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.857",
+  "software": [
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Invalid transformation type",
+      "fix": "Set transformation to translation, rigid, affine or nonlinear."
+    }
+  ]
+}

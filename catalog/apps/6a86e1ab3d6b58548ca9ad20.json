@@ -1,0 +1,128 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Autoreject",
+  "version": "v1.0",
+  "summary": "Cleans epoched MEG/EEG data with autoreject, learning per-channel rejection thresholds by cross-validation to interpolate bad channels and drop bad epochs, and outputs the cleaned epochs and QC figures.",
+  "description": "Fits autoreject with candidate n_interpolate and consensus values (cross-validated, Bayesian optimization or random search) and applies it, interpolating repairable channels within epochs and dropping epochs with too many bad channels. Use it after epoching as an automated alternative to fixed peak-to-peak rejection. It needs epochs with sensor positions; runs can take hours on large datasets.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "preprocessing",
+    "quality-control",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a86e1ab3d6b58548ca9ad20",
+    "github": "BrainlifeMEEG/autoreject",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched MEG/EEG data in MNE epochs .fif format.",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "autoreject"
+      ],
+      "description": "Cleaned epochs after autoreject (bad epochs dropped, bad channels interpolated)",
+      "datatype_tags_pass": "epo"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_interpolate",
+      "type": "string",
+      "description": "Candidate values (comma-separated) for number of channels to interpolate per epoch, tried during cross-validation",
+      "default": "1,4,32"
+    },
+    {
+      "id": "consensus",
+      "type": "string",
+      "description": "Candidate consensus fractions (comma-separated). Empty = 11 evenly spaced values 0\u20131",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "placeholder": "0,0.1,...,1.0"
+    },
+    {
+      "id": "cv",
+      "type": "number",
+      "description": "Number of cross-validation folds",
+      "default": 10
+    },
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "Channel type to run on (e.g. eeg, meg). Empty = infer from data",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "placeholder": "eeg"
+    },
+    {
+      "id": "thresh_method",
+      "type": "string",
+      "description": "Threshold search strategy: bayesian_optimization or random_search",
+      "default": "bayesian_optimization",
+      "advanced": true
+    },
+    {
+      "id": "random_state",
+      "type": "number",
+      "description": "Random seed for reproducibility",
+      "default": 42,
+      "advanced": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "Parallel jobs for cross-validated search; should match allocated CPUs (currently 8)",
+      "default": 8,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.954",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    },
+    {
+      "name": "autoreject",
+      "url": "https://autoreject.github.io/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ]
+}

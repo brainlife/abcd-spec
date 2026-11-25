@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove Gibbs Ringing from your DWI data",
+  "version": "1.1.1",
+  "summary": "Removes Gibbs ringing artefacts from DWI with DIPY's local subvoxel-shift method (dipy_gibbs_ringing) and outputs the corrected DWI.",
+  "description": "Runs dipy_gibbs_ringing (DIPY 1.1.1) on the DWI along the slice axis given by slice_axis; bvals and bvecs are copied unchanged. Use it early in DWI preprocessing, before denoising-sensitive model fitting. Set slice_axis to the axis of the acquired slices.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy",
+    "dwi",
+    "preprocessing",
+    "denoising",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ea7c768f1745db773f8041d",
+    "github": "dipy/bl_apps_dipy_gibbs_ringing",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "Gibbs-unringed DWI (dwi.nii.gz) with the original bvals and bvecs.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "slice_axis",
+      "type": "number",
+      "description": "Data axis corresponding to the number of acquired slices. Default is set to the third axis(2). Could be (0, 1, or 2).",
+      "default": 2
+    },
+    {
+      "id": "n_points",
+      "type": "number",
+      "description": "Number of neighbour points to access local TV",
+      "default": 3
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.327",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

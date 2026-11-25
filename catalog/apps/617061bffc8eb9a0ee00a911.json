@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of all DWI volumes and create gif",
+  "version": "montage-v1.0",
+  "summary": "Generates a slice PNG of every volume of a DWI with FSL slicer and combines them into an animated GIF with ImageMagick, for quick volume-by-volume QA.",
+  "description": "Splits the DWI into single volumes with fslsplit, renders mid-axial, sagittal and coronal slices of each with FSL slicer, and assembles the PNGs into raw/out.gif with ImageMagick convert. Use it to spot corrupted volumes, signal dropout or motion across the series.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "dwi",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "617061bffc8eb9a0ee00a911",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "montage-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image (NIfTI); bvecs and bvals are passed along but not used.",
+      "config_keys": [
+        "input",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "dwi",
+        "gif"
+      ],
+      "description": "Directory with one PNG per DWI volume (vol0000.png, ...), out.gif animating them, and out.png (the first volume).",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.588",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    },
+    {
+      "name": "ImageMagick"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something failed. check logs and derivatives",
+      "cause": "out.gif was not created.",
+      "fix": "Check the job log for errors from fslsplit, slicer or convert."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

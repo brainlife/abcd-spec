@@ -1,0 +1,61 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bias Field Correction (dwi)",
+  "version": "dwi",
+  "summary": "This application will correct for bias field issues in T1 images using ANTs N4BiasFieldCorrection algorithm",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing"
+  ],
+  "registry": {
+    "id": "5ae9c55df446980028b15eba",
+    "github": "kitchell/app-biasfieldcorrection",
+    "branch": "dwi"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "biasfieldcorrected"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "biasfield",
+      "datatype": "raw",
+      "datatype_tags": [
+        "biasfield"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/bl.app.7",
+  "deprecated_by": "5d9e9b8a2b4f67c7b8e670b1"
+}

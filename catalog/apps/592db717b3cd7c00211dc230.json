@@ -1,0 +1,108 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Split Shells",
+  "version": "1.2",
+  "summary": "Extracts a single b-value shell and the b0 volumes from multi-shell DWI, rounding b-values to a chosen step, using MATLAB and vistasoft.",
+  "description": "Rounds b-values to the nearest bvals_round, treats b-values at or below b0_max as b0, and keeps the volumes, bvecs and bvals whose rounded b-value equals the chosen shell or 0. Use it before methods that need single-shell data (such as some tensor or CSD fits).",
+  "kind": "native",
+  "topics": [
+    "diffusion-preprocessing",
+    "dwi",
+    "preprocessing",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "592db717b3cd7c00211dc230",
+    "github": "brainlife/app-splitshells",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!single_shell"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Multi-shell dwi data.",
+      "config_keys": [
+        "bvals",
+        "bvecs",
+        "dwi"
+      ],
+      "requirements": "Must contain volumes at the requested shell b-value after rounding."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "single_shell"
+      ],
+      "description": "DWI with only the chosen shell and the b0 volumes, with matching bvecs and rounded bvals.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bvals_round",
+      "type": "number",
+      "description": "bvals will be rounded up to nearest bvals with this value. For example, 100 means 2401-2499 will be rounded to 2500.",
+      "default": 100,
+      "minimum": 0
+    },
+    {
+      "id": "shell",
+      "type": "integer",
+      "description": "bval corresponding to the shell you want to extract.",
+      "default": 1000
+    },
+    {
+      "id": "b0_max",
+      "type": "number",
+      "description": "Any bvals equal or less than this value will be considered b0.",
+      "default": 200,
+      "minimum": 0
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 29,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/bl.app.17",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "dwi.nii.gz was not written, for example because no volumes matched the shell.",
+      "fix": "Check the shell value against the rounded bvals of the input."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell",
+    "Soichi Hayashi"
+  ]
+}

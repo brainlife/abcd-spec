@@ -1,0 +1,112 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BossDB TIFF Export",
+  "version": "apex-hackathon-2026",
+  "summary": "Exports a rectangular cutout from a public BossDB precomputed channel as one 3D TIFF or a set of 2D TIFF slices, using CloudVolume.",
+  "description": "Resolves a bossdb://collection/experiment/channel reference through the public BossDB API to its S3 precomputed location and downloads the requested voxel range with CloudVolume. Use it to get BossDB image or segmentation data as TIFF files for local analysis. Only public channels stored as precomputed CloudVolume data are supported; coordinates are voxel indices in the selected mip, start inclusive and stop exclusive, and must fit inside that mip's bounds.",
+  "kind": "native",
+  "topics": [
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6aa8266284691735460ab5f9",
+    "github": "jhuapl-boss/bossdb-brainlife-apps",
+    "branch": "apex-hackathon-2026"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/bossdb",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "BossDB channel reference of the form bossdb://collection/experiment/channel.",
+      "config_keys": [
+        "channel"
+      ],
+      "requirements": "The channel must be public and stored as precomputed CloudVolume data."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "outputs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tiff"
+      ],
+      "description": "Either volume.tif (one 3D TIFF in ZYX order) or slice_zNNNNNN.tif files, plus an export.json sidecar with source, mip, voxel size, bounds, shape and dtype."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "x_start",
+      "type": "number",
+      "description": "Inclusive start x coordinate, in voxels of the selected mip.",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "y_start",
+      "type": "number",
+      "description": "Inclusive start y coordinate, in voxels of the selected mip.",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "z_start",
+      "type": "number",
+      "description": "Inclusive start z coordinate, in voxels of the selected mip.",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "x_stop",
+      "type": "number",
+      "description": "Exclusive stop x coordinate, in voxels of the selected mip; must be greater than x_start."
+    },
+    {
+      "id": "y_stop",
+      "type": "number",
+      "description": "Exclusive stop y coordinate, in voxels of the selected mip; must be greater than y_start."
+    },
+    {
+      "id": "z_stop",
+      "type": "number",
+      "description": "Exclusive stop z coordinate, in voxels of the selected mip; must be greater than z_start."
+    },
+    {
+      "id": "resolution",
+      "type": "number",
+      "description": "Zero-based precomputed mip level to read (0 is full resolution).",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "export_as_volume",
+      "type": "boolean",
+      "description": "Write one 3D TIFF (true) or one 2D TIFF per z slice (false).",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "ghcr.io/jhuapl-boss/bossdb-brainlife-apps:sha-d966b5f0e223e58b1bcbe85eab4a4a4656bd8699"
+  },
+  "doi": "10.25663/brainlife.app.967",
+  "software": [
+    {
+      "name": "CloudVolume",
+      "url": "https://github.com/seung-lab/cloud-volume"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "BossDB channel was not found or is not public",
+      "fix": "Use a public BossDB channel URI."
+    },
+    {
+      "message": "BossDB channel is not stored as a precomputed CloudVolume",
+      "fix": "Only channels whose storage_type is cloudvol are supported."
+    }
+  ]
+}
