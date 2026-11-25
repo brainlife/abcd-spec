@@ -151,6 +151,8 @@ def run():
     planned.sort(key=lambda p: (not p["own"], p["repo"].lower()))
     n = 0
     for p in planned:
+        if p["own"] and "--external-only" in sys.argv:
+            continue
         if p["repo"] in done or (only and p["repo"] not in only) or n >= limit:
             continue
         try:
