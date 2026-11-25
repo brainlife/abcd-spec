@@ -4,75 +4,81 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no derivative suffix for ReHo maps.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "60f69321b991113f21b4fdf6",
-    "desc": "TODO",
+    "desc": "Experimental: voxel-wise Regional Homogeneity (ReHo) map of BOLD fMRI as a single z-scored NIfTI volume.",
     "name": "neuro/reho",
     "original": {
       "desc": "(experimental) Regional homogeneity (ReHo) analyses result.",
       "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400."
     },
-    "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400."
+    "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.reho.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "z-scored ReHo NIfTI volume.",
       "filename": "map.nii.gz",
       "id": "map",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Participant-level functional map"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 4 when used to predict traits or states of a person"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Resting-state local synchrony analysis."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Comparison across studies with different smoothing or neighbourhood settings."
     ],
     "outputs_of": [
       {
         "app_id": "6130060d584a7684793c3e5f",
         "name": "Regional Homogeneity (ReHo)",
-        "purpose": "TODO"
+        "purpose": "computes a voxelwise Regional Homogeneity"
       }
     ]
   }

@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "Bibliometric tables; not neuroimaging.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5d7055105cee3829d5314c19",
-    "desc": "TODO",
+    "desc": "CSV tables from a bibliometric study of Open Science and Reproducibility papers (Microsoft Academic Graph). Not neuroimaging data.",
     "name": "openscience/reprolit",
     "original": {
       "desc": "This is the data type for the paper: Open science and communal culture promote women's participation, diversity and discovery. You can visit this link for more information: https://github.com/contactaditya/BrainlifeCadreCollaboration/blob/master/Notes.txt",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Reproducing the open-science collaboration analyses of that paper.\n\n**Not for:** Neuroimaging Apps; no App uses it.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/openscience.reprolit.json"
   },
   "files": [
     {
@@ -43,46 +55,42 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 1,
+    "human_neurodata": "no",
     "identifying_risks": [
-      "TODO"
+      "Author IDs could link to named researchers."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 1: bibliometric data, not neurodata.",
     "sharing_cautions": [
-      "TODO"
+      "Check author-level fields against the source licence before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Not applicable; no neurodata."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Reproducing the open-science collaboration analyses of that paper."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Neuroimaging Apps; no App uses it."
     ],
     "outputs_of": []
   }

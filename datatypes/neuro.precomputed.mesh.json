@@ -4,11 +4,23 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Neuroglancer precomputed meshes have no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "68dc1b1df9e4ee316ef70d5f",
-    "desc": "TODO",
+    "desc": "Neuroglancer precomputed (multi-resolution) surface meshes of segmented objects such as neurons, organelles or vessels.",
     "name": "neuro/precomputed/mesh",
     "original": {
       "desc": "The multi-resolution object surface meshes are segmentations  of brain neurons, organelles, cells, and vasculature",
@@ -18,61 +30,57 @@
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Precomputed mesh directory (fragments and manifests).",
       "dirname": "data/",
       "id": "mesh",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Rarely identifying; donor codes may appear in layer metadata."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 2: human status depends on the specimen; participant-level tissue images carry no direct identifiers (Tier 2), non-human data is Tier 1.",
     "sharing_cautions": [
-      "TODO"
+      "Confirm species and donor consent terms before sharing human tissue images."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when the specimen is non-human (e.g. mouse) or synthetic.",
+      "Tier 2 for human tissue linked to a donor or specimen code."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/68dc071ff9e4ee316ef68ee0.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "3D viewing of segmentations in Neuroglancer."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Volumetric analysis; meshes hold surfaces only."
     ],
     "outputs_of": [
       {
         "app_id": "68dc071ff9e4ee316ef68ee0",
         "name": "Precomputed Multi-resolution Mesh Generation",
-        "purpose": "TODO"
+        "purpose": "meshes from a precomputed segmentation"
       }
     ]
   }

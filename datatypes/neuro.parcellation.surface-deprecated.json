@@ -4,63 +4,112 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "atlas",
+          "segmentation",
+          "scale",
+          "hemisphere",
+          "density",
+          "space",
+          "description"
+        ],
+        "extensions": [
+          ".label.gii",
+          ".dlabel.nii",
+          ".tsv",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "hemi-L_dseg.label.gii",
+            "file_id": "lh_annot"
+          },
+          {
+            "bids_part": "hemi-R_dseg.label.gii",
+            "file_id": "rh_annot"
+          },
+          {
+            "bids_part": "dseg.tsv",
+            "file_id": "label",
+            "sidecar": "file"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "Annotations map to surface dseg; bundled surface geometry has no BIDS 1.11.2 suffix.",
+        "suffix": "dseg",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5c478b7bf9109beac4520be6",
-    "desc": "TODO",
+    "desc": "Deprecated: left/right GIFTI surface annotations with inflated, pial and white surfaces and label.json; replaced by surface/data and surface/vertices.",
     "name": "neuro/parcellation/surface-deprecated",
     "original": {
       "desc": "(this datatype has been deprecated by  surface/data and surface/vertices) Contains lh.parc.annot.gii and rh.parc.annot.gii for surface parcellation / annotation. key.txt contains the labels. This datatype also contains various surface files (inflated, pial, and white) for reference purpose. For more advanced analysis, you will probably want to provide your own surface file.",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Converting legacy data to neuro/surface/data and neuro/surface/vertices.\n\n**Not for:** New Apps; this datatype is deprecated.\n\n**BIDS:** anat/dseg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.parcellation.surface-deprecated.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Left hemisphere parcellation annotation (GIFTI).",
       "filename": "lh.parc.annot.gii",
       "id": "lh_annot",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Right hemisphere parcellation annotation (GIFTI).",
       "filename": "rh.parc.annot.gii",
       "id": "rh_annot",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Left inflated surface (GIFTI).",
       "filename": "lh.parc.inflated.gii",
       "id": "lh_inflated_surf",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Right inflated surface (GIFTI).",
       "filename": "rh.parc.inflated.gii",
       "id": "rh_inflated_surf",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Left pial surface (GIFTI).",
       "filename": "lh.parc.pial.gii",
       "id": "lh_pial_surf",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Right pial surface (GIFTI).",
       "filename": "rh.parc.pial.gii",
       "id": "rh_pial_surf",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Left white surface (GIFTI).",
       "filename": "lh.parc.white.gii",
       "id": "lh_white_surf",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Right white surface (GIFTI).",
       "filename": "rh.parc.white.gii",
       "id": "rh_white_surf",
       "required": true
@@ -79,48 +128,31 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Individual cortical surfaces are participant-level"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
-    "tier_conditions": [
-      "TODO"
-    ]
+    "tier_conditions": []
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "files[3].desc",
-      "files[4].desc",
-      "files[5].desc",
-      "files[6].desc",
-      "files[7].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -128,25 +160,25 @@
       {
         "app_id": "6169c901fc8eb97d1efe09fe",
         "name": "Temporary converter of parcellation/surface-deprecated datatypes to surface datatypes",
-        "purpose": "TODO"
+        "purpose": "converts the deprecated parcellation/surface datatype into the current surface/vertices and surface/data"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Converting legacy data to neuro/surface/data and neuro/surface/vertices."
     ],
     "not_suitable_for": [
-      "TODO"
+      "New Apps; this datatype is deprecated."
     ],
     "outputs_of": [
       {
         "app_id": "5dbe0820fdefb1e42b771dda",
         "name": "Bayesian Analysis of Retinotopic Maps",
-        "purpose": "TODO"
+        "purpose": "refines measured pRF maps"
       },
       {
         "app_id": "6115c829a5a04c2a80f9e7f7",
         "name": "pRFs / Benson14-Retinotopy",
-        "purpose": "TODO"
+        "purpose": "predicts retinotopic maps"
       }
     ]
   }

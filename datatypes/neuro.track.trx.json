@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no tractography suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "61b1867f7577fd30683bcaf5",
-    "desc": "TODO",
+    "desc": "Tractogram in the community TRX format: a directory of memory-mapped arrays with header, per-streamline and per-point data and groups.",
     "name": "neuro/track/trx",
     "original": {
       "desc": "TRX: A community-oriented tractography file format",
       "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
     },
-    "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
+    "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trx.json"
   },
   "files": [
     {
@@ -25,38 +37,35 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
     "sharing_cautions": [
-      "TODO"
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -64,14 +73,15 @@
       {
         "app_id": "6aa8586984691735460e523e",
         "name": "trak2zarr-vectors",
-        "purpose": "TODO"
+        "purpose": "convert a tractogram to Zarr Vectors"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Sharing tractograms with per-streamline/point data and bundle groups in one object.",
+      "Conversion to a Zarr Vectors store."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Apps that only read .tck or .trk; convert first."
     ],
     "outputs_of": []
   }

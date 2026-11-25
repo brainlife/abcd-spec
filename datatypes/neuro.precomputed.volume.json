@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "Neuroglancer precomputed format has no BIDS counterpart; closest is micr in OME-Zarr.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "68dc181cf9e4ee316ef6eea9",
-    "desc": "TODO",
+    "desc": "Neuroglancer precomputed image or segmentation volume (info JSON plus chunked data), single- or multi-resolution.",
     "name": "neuro/precomputed/volume",
     "original": {
       "desc": "This is a Neuroglancer precomputed Volume",
       "readme": "The *precomputed* data source format is based on static collections of files served directly over HTTP; it therefore can be used without any special serving infrastructure. In particular, it can be used with data hosted by a cloud storage provider like Google Cloud Storage or Amazon S3. Note that it is necessary, however, to either host the Neuroglancer client from the same server or enable CORS access to the data.\n\nSeveral types of data are supported:\nSingle-resolution or multi-resolution image/segmentation volume\nSingle-resolution or multi-resolution object surface meshes (keyed by uint64 object ids)\nObject skeleton representations (keyed by uint64 object ids)\nCollection of point/line/bounding box/ellipsoid annotations\nSegment property maps\nPrecomputed data sources are specified using the following data source URL syntax:\n\nprecomputed://FILE_URL, where FILE_URL is a URL to the directory containing a precomputed format info metadata file using any supported file protocol.\n\nHere is more information about the Precomputed File Format: https://github.com/google/neuroglancer/tree/master/src/datasource/precomputed"
     },
-    "readme": "The *precomputed* data source format is based on static collections of files served directly over HTTP; it therefore can be used without any special serving infrastructure. In particular, it can be used with data hosted by a cloud storage provider like Google Cloud Storage or Amazon S3. Note that it is necessary, however, to either host the Neuroglancer client from the same server or enable CORS access to the data.\n\nSeveral types of data are supported:\nSingle-resolution or multi-resolution image/segmentation volume\nSingle-resolution or multi-resolution object surface meshes (keyed by uint64 object ids)\nObject skeleton representations (keyed by uint64 object ids)\nCollection of point/line/bounding box/ellipsoid annotations\nSegment property maps\nPrecomputed data sources are specified using the following data source URL syntax:\n\nprecomputed://FILE_URL, where FILE_URL is a URL to the directory containing a precomputed format info metadata file using any supported file protocol.\n\nHere is more information about the Precomputed File Format: https://github.com/google/neuroglancer/tree/master/src/datasource/precomputed"
+    "readme": "The *precomputed* data source format is based on static collections of files served directly over HTTP; it therefore can be used without any special serving infrastructure. In particular, it can be used with data hosted by a cloud storage provider like Google Cloud Storage or Amazon S3. Note that it is necessary, however, to either host the Neuroglancer client from the same server or enable CORS access to the data.\n\nSeveral types of data are supported:\nSingle-resolution or multi-resolution image/segmentation volume\nSingle-resolution or multi-resolution object surface meshes (keyed by uint64 object ids)\nObject skeleton representations (keyed by uint64 object ids)\nCollection of point/line/bounding box/ellipsoid annotations\nSegment property maps\nPrecomputed data sources are specified using the following data source URL syntax:\n\nprecomputed://FILE_URL, where FILE_URL is a URL to the directory containing a precomputed format info metadata file using any supported file protocol.\n\nHere is more information about the Precomputed File Format: https://github.com/google/neuroglancer/tree/master/src/datasource/precomputed\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.precomputed.volume.json"
   },
   "files": [
     {
@@ -25,39 +37,36 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Donor codes may appear in the info metadata."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 2: human status depends on the specimen; participant-level tissue images carry no direct identifiers (Tier 2), non-human data is Tier 1.",
     "sharing_cautions": [
-      "TODO"
+      "Confirm species and donor consent terms before sharing human tissue images."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when the specimen is non-human (e.g. mouse) or synthetic.",
+      "Tier 2 for human tissue linked to a donor or specimen code."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/68dc071ff9e4ee316ef68ee0.json",
+      "catalog/apps/6aa9705a16d2ef0408f5981a.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -65,20 +74,20 @@
       {
         "app_id": "68dc071ff9e4ee316ef68ee0",
         "name": "Precomputed Multi-resolution Mesh Generation",
-        "purpose": "TODO"
+        "purpose": "segmentation to mesh"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Neuroglancer viewing and mesh generation from segmentations."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Tools expecting NIfTI or OME-Zarr without conversion."
     ],
     "outputs_of": [
       {
         "app_id": "6aa9705a16d2ef0408f5981a",
         "name": "BossDB Nuclei Segmentation",
-        "purpose": "TODO"
+        "purpose": "nuclei segmentation"
       }
     ]
   }

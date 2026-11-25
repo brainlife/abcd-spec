@@ -338,7 +338,7 @@ def main(argv=None):
         records = dtrecord.load_all(root)
         listing = generate(records)
         _save_all(records, root)
-        (ROOT / "schema" / "datatypes.json").write_text(json.dumps(listing, indent=1) + "\n")
+        (ROOT / "schema" / "datatypes.json").write_text(json.dumps(listing, indent=1))
         print(f"{len(listing)} datatypes listed, {len(records)} records")
     elif a.cmd == "undo":
         kept = dtsync.undo(a.log, Http())

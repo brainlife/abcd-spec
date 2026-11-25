@@ -4,21 +4,33 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "BIDS stim is a continuous .tsv.gz recording; aperture images belong in stimuli/.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5afc7c555858d874a40c6dda",
-    "desc": "TODO",
+    "desc": "Stimulus aperture movie (NIfTI, pixels x pixels x time, values 0-1) shown during a retinotopy BOLD run.",
     "name": "neuro/stimulus",
     "original": {
       "desc": "stimulus movie",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Stimulus input to pRF model fitting (AFNI, analyzePRF, mrTools).\n\n**Not for:** Runs whose number of frames differs from the BOLD volumes.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** Input to 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.stimulus.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Stimulus aperture sequence, one frame per BOLD volume.",
       "ext": ".gz",
       "filename": "stim.nii.gz",
       "id": "stim",
@@ -26,43 +38,26 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
-    "identifying_risks": [
-      "TODO"
+    "default_tier": 1,
+    "human_neurodata": "no",
+    "identifying_risks": [],
+    "information_kinds": [
+      "none"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
-    "sharing_cautions": [
-      "TODO"
-    ],
-    "tier_conditions": [
-      "TODO"
-    ]
+    "rationale": "Tool 1 step 1: stimulus material, not participant neurodata.",
+    "sharing_cautions": [],
+    "tier_conditions": []
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -70,34 +65,34 @@
       {
         "app_id": "619daaba09959fabbdc0517f",
         "name": "AFNI pRF",
-        "purpose": "TODO"
+        "purpose": "fits a population receptive field model to BOLD fMRI"
       },
       {
         "app_id": "5cae3ef776cdaa0030b9232b",
         "name": "AnalyzepRF on volume",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "5afc9831322997002773ed1c",
         "name": "pRFLife mrTools",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field models to BOLD time series and a stimulus image"
       },
       {
         "app_id": "5e9613ce6365e976b7471d50",
         "name": "pRFLife with mrTools",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "6172e5864fd85c20b7533e94",
         "name": "PRFmodel",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field models to task fMRI"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Stimulus input to pRF model fitting (AFNI, analyzePRF, mrTools)."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Runs whose number of frames differs from the BOLD volumes."
     ],
     "outputs_of": []
   }

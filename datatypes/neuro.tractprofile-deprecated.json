@@ -4,63 +4,68 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS 1.11.2 suffix for tract profiles.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5965467cb09297d8d81bdbcd",
-    "desc": "TODO",
+    "desc": "Deprecated directory of per-tract CSV profiles (mean and SD of FA, MD, RD, AD and other measures per node); replaced by neuro/tractmeasures.",
     "name": "neuro/tractprofile-deprecated",
     "original": {
       "desc": "A directory containing a bunch of csv files containing tractprofile measures. This datatype has been deprecated by neuro/tractmeasures<profile> datatype.",
       "readme": "The first row of each csv should contain the measurement headers which are..\n\nad_mean\nad_sd\nad_inverse_mean\nad_inverse_sd\nfa_mean\nfa_sd\nfa_inverse_mean\nfa_inverse_sd\nmd_mean\nmd_sd\nmd_inverse_mean\nmd_inverse_sd\nrd_mean\nrd_sd\nrd_inverse_mean\nrd_inverse_sd\nga_mean\nga_sd\nga_inverse_mean\nga_inverse_sd\nmk_mean\nmk_sd\nmk_inverse_mean\nmk_inverse_sd\nak_mean\nak_sd\nak_inverse_mean\nak_inverse_sd\nrk_mean\nrk_sd\nrk_inverse_mean\nrk_inverse_sd\nndi_mean\nndi_sd\nndi_inverse_mean\nndi_inverse_sd\nisovf_mean\nisovf_sd\nisovf_inverse_mean\nisovf_inverse_sd\nodi_mean\nodi_sd\nodi_inverse_mean\nodi_inverse_sd\nx_coords\ny_coords\nz_coords\n\n"
     },
-    "readme": "The first row of each csv should contain the measurement headers which are..\n\nad_mean\nad_sd\nad_inverse_mean\nad_inverse_sd\nfa_mean\nfa_sd\nfa_inverse_mean\nfa_inverse_sd\nmd_mean\nmd_sd\nmd_inverse_mean\nmd_inverse_sd\nrd_mean\nrd_sd\nrd_inverse_mean\nrd_inverse_sd\nga_mean\nga_sd\nga_inverse_mean\nga_inverse_sd\nmk_mean\nmk_sd\nmk_inverse_mean\nmk_inverse_sd\nak_mean\nak_sd\nak_inverse_mean\nak_inverse_sd\nrk_mean\nrk_sd\nrk_inverse_mean\nrk_inverse_sd\nndi_mean\nndi_sd\nndi_inverse_mean\nndi_inverse_sd\nisovf_mean\nisovf_sd\nisovf_inverse_mean\nisovf_inverse_sd\nodi_mean\nodi_sd\nodi_inverse_mean\nodi_inverse_sd\nx_coords\ny_coords\nz_coords\n\n"
+    "readme": "The first row of each csv should contain the measurement headers which are..\n\nad_mean\nad_sd\nad_inverse_mean\nad_inverse_sd\nfa_mean\nfa_sd\nfa_inverse_mean\nfa_inverse_sd\nmd_mean\nmd_sd\nmd_inverse_mean\nmd_inverse_sd\nrd_mean\nrd_sd\nrd_inverse_mean\nrd_inverse_sd\nga_mean\nga_sd\nga_inverse_mean\nga_inverse_sd\nmk_mean\nmk_sd\nmk_inverse_mean\nmk_inverse_sd\nak_mean\nak_sd\nak_inverse_mean\nak_inverse_sd\nrk_mean\nrk_sd\nrk_inverse_mean\nrk_inverse_sd\nndi_mean\nndi_sd\nndi_inverse_mean\nndi_inverse_sd\nisovf_mean\nisovf_sd\nisovf_inverse_mean\nisovf_inverse_sd\nodi_mean\nodi_sd\nodi_inverse_mean\nodi_inverse_sd\nx_coords\ny_coords\nz_coords\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tractprofile-deprecated.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Directory with one CSV of node-wise measures per tract.",
       "dirname": "profiles",
       "id": "profiles",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rows keyed by subject and session codes",
+      "Values from rare conditions in small samples can single people out"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived measures without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Use coded subject IDs and drop dates",
+      "Release group summaries when per-participant rows are not needed"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 once reduced to group statistics with no participant rows",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -68,30 +73,30 @@
       {
         "app_id": "5eed6986d39ceb4bd5a0efde",
         "name": "Compile tract profiles to summary structure",
-        "purpose": "TODO"
+        "purpose": "compile deprecated tract profiles into one CSV"
       },
       {
         "app_id": "5b74603859b6e90027009974",
         "name": "Tract Profile Aggregator",
-        "purpose": "TODO"
+        "purpose": "group tract profile plots (deprecated datatype)"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Conversion to neuro/tractmeasures and legacy group plots."
     ],
     "not_suitable_for": [
-      "TODO"
+      "New analyses; use neuro/tractmeasures."
     ],
     "outputs_of": [
       {
         "app_id": "60a6ce3d22b42a2f7f701fa7",
         "name": "Convert tractmeasures datatype to tractprofile datatype",
-        "purpose": "TODO"
+        "purpose": "convert tractmeasures to deprecated tractprofile"
       },
       {
         "app_id": "6023450fab40ca71564cb1e6",
         "name": "Tract Analysis Profiles - Dipy",
-        "purpose": "TODO"
+        "purpose": "DIPY tract profiles of diffusion measures"
       }
     ]
   }

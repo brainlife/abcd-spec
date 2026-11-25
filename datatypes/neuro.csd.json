@@ -4,140 +4,110 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no suffix for FOD or spherical-harmonic model maps.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5c536bf0f9109beac46adb45",
-    "desc": "TODO",
+    "desc": "Constrained spherical deconvolution fit: fibre orientation distributions as spherical-harmonic NIfTI images per lmax, plus the response function.",
     "name": "neuro/csd",
     "original": {
       "desc": "CSD responses containing multiple lmaxN.nii.gz",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Fibre tracking (MRtrix, Trekker, PFT, SET) and SIFT/SIFT2/COMMIT filtering. Peak extraction and FOD visualisation.\n\n**Not for:** Assuming a given lmax is present; files are optional and depend on the fit. Mixing MRtrix 0.2 and MRtrix3 FODs (tags differ) without checking conventions.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 24 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.csd.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Single-fibre response function (text).",
       "filename": "response.txt",
       "id": "response",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 2.",
       "filename": "lmax2.nii.gz",
       "id": "lmax2",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 4.",
       "filename": "lmax4.nii.gz",
       "id": "lmax4",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 6.",
       "filename": "lmax6.nii.gz",
       "id": "lmax6",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 8.",
       "filename": "lmax8.nii.gz",
       "id": "lmax8",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 10.",
       "filename": "lmax10.nii.gz",
       "id": "lmax10",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 12.",
       "filename": "lmax12.nii.gz",
       "id": "lmax12",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "FOD spherical-harmonic coefficients at lmax 14.",
       "filename": "lmax14.nii.gz",
       "id": "lmax14",
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "NIfTI headers or metadata may carry subject codes or dates",
+      "Rare lesions or anomalies can be recognisable in small samples"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed diffusion MRI without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with coded subject IDs under a data use agreement",
+      "Check headers and metadata for identifiers before release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 only as a group-averaged template",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "files[3].desc",
-      "files[4].desc",
-      "files[5].desc",
-      "files[6].desc",
-      "files[7].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[10].purpose",
-      "usage.inputs_of[11].purpose",
-      "usage.inputs_of[12].purpose",
-      "usage.inputs_of[13].purpose",
-      "usage.inputs_of[14].purpose",
-      "usage.inputs_of[15].purpose",
-      "usage.inputs_of[16].purpose",
-      "usage.inputs_of[17].purpose",
-      "usage.inputs_of[18].purpose",
-      "usage.inputs_of[19].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[20].purpose",
-      "usage.inputs_of[21].purpose",
-      "usage.inputs_of[22].purpose",
-      "usage.inputs_of[23].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.inputs_of[9].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -145,170 +115,172 @@
       {
         "app_id": "5e88b8bf952fef39d57abcf2",
         "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 ACT tractography from precomputed CSD"
       },
       {
         "app_id": "63910aef6881d56fbfc2f75e",
         "name": "Anatomically Constrained Tractography using precomputed 5tt & CSD - No DWI & T1w input",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 ACT tractography from precomputed CSD and 5TT mask"
       },
       {
         "app_id": "626eacabcbc76827b7188b93",
         "name": "Compute Peaks from Spherical Harmonic (SH) data",
-        "purpose": "TODO"
+        "purpose": "fibre peaks from CSD spherical harmonics"
       },
       {
         "app_id": "626c8036f3858674a2a803fd",
         "name": "Compute streamline weights using COMMIT",
-        "purpose": "TODO"
+        "purpose": "COMMIT streamline weights from tractogram and DWI"
       },
       {
         "app_id": "62681cd2f3858674a29f554e",
         "name": "Compute streamline weights using SIFT2",
-        "purpose": "TODO"
+        "purpose": "SIFT2 streamline weights from tractogram and FODs"
       },
       {
         "app_id": "62682dc8f3858674a29f9c3f",
         "name": "Filter Streamlines using SIFT",
-        "purpose": "TODO"
+        "purpose": "SIFT filtering of a tractogram"
       },
       {
         "app_id": "67d0b9371b629b467fa47511",
         "name": "FOD (CSD) Registration",
-        "purpose": "TODO"
+        "purpose": "register CSD FODs via FA"
       },
       {
         "app_id": "5e9d30c6f1745d6b05f681b7",
         "name": "Generate image of ODF",
-        "purpose": "TODO"
+        "purpose": "images of CSD ODFs (QC)"
       },
       {
         "app_id": "5eb5d968dca08712b9a766fd",
         "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 iFOD2 ROI-to-ROI tracking"
       },
       {
         "app_id": "6ad144840e072a00d8aed712",
         "name": "Optic Radiation Tracking and Retinotopic Segmentation",
-        "purpose": "TODO"
+        "purpose": "optic radiation tracking and retinotopic segmentation"
       },
       {
         "app_id": "6ac56c3bc004e522d21a9946",
         "name": "Particle Filtering Tractography (PFT)",
-        "purpose": "TODO"
+        "purpose": "DIPY particle filtering tractography"
       },
       {
         "app_id": "5e922401300b4e122081c882",
         "name": "Plot response function",
-        "purpose": "TODO"
+        "purpose": "image of the CSD response function (QC)"
       },
       {
         "app_id": "5e516420cb80941d63f51b0e",
         "name": "ROI to ROI Tracking - MRTrix 0.2.12",
-        "purpose": "TODO"
+        "purpose": "MRtrix 0.2 ROI-to-ROI tracking"
       },
       {
         "app_id": "6165b253fc8eb97e54faca55",
         "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
-        "purpose": "TODO"
+        "purpose": "SIFT2-weighted structural connectomes (SCMRT)"
       },
       {
         "app_id": "6a7616602ee82cf68a5a49c0",
         "name": "Surface-Enhanced Tractography (SET)",
-        "purpose": "TODO"
+        "purpose": "surface-enhanced tractography (SET)"
       },
       {
         "app_id": "5ec584961f44640f6b9e2658",
         "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
-        "purpose": "TODO"
+        "purpose": "optic radiation tracking with MRtrix3 iFOD2"
       },
       {
         "app_id": "5d65964c39867291e349624a",
         "name": "Track the Human Optic RAdiation (THORA) - Trekker",
-        "purpose": "TODO"
+        "purpose": "optic radiation tracking with Trekker"
       },
       {
         "app_id": "5f51279442c17258f764c7ee",
         "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
-        "purpose": "TODO"
+        "purpose": "optic tract tracking with MRtrix3"
       },
       {
         "app_id": "5ecc12711f4464fbe69ec07f",
         "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
-        "purpose": "TODO"
+        "purpose": "optic tract tracking with MRtrix3 iFOD2"
       },
       {
         "app_id": "5ecca2f11f446435999ed9f9",
         "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
-        "purpose": "TODO"
+        "purpose": "optic tract tracking with Trekker"
       },
       {
         "app_id": "5f5a8c510c8f95df586610fd",
         "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
-        "purpose": "TODO"
+        "purpose": "visual white matter tracking with Trekker by eccentricity"
       },
       {
         "app_id": "5ecc9bfe1f446412299ed644",
         "name": "Trekker",
-        "purpose": "TODO"
+        "purpose": "Trekker whole-brain tractography"
       },
       {
         "app_id": "5ecc95311f446482f59ed395",
         "name": "Trekker ROI Tracking (DWI)",
-        "purpose": "TODO"
+        "purpose": "Trekker ROI-to-ROI tracking"
       },
       {
         "app_id": "5f52e1c542c172f98a6532e4",
         "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
-        "purpose": "TODO"
+        "purpose": "Trekker ROI tracking by eccentricity"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Fibre tracking (MRtrix, Trekker, PFT, SET) and SIFT/SIFT2/COMMIT filtering.",
+      "Peak extraction and FOD visualisation."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Assuming a given lmax is present; files are optional and depend on the fit.",
+      "Mixing MRtrix 0.2 and MRtrix3 FODs (tags differ) without checking conventions."
     ],
     "outputs_of": [
       {
         "app_id": "5db224e98aeeee0f87f25c1f",
         "name": "Fit Constrained Deconvolution Model for Tracking",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 CSD fit for tracking"
       },
       {
         "app_id": "67d0b9371b629b467fa47511",
         "name": "FOD (CSD) Registration",
-        "purpose": "TODO"
+        "purpose": "register CSD FODs via FA"
       },
       {
         "app_id": "5de1664e936ca31ee1c610f5",
         "name": "Mrtrix2 CSD",
-        "purpose": "TODO"
+        "purpose": "MRtrix 0.2 CSD fit from DWI"
       },
       {
         "app_id": "5ec2c8f541ba11eecbf40ba5",
         "name": "Mrtrix2 CSD (dtiinit)",
-        "purpose": "TODO"
+        "purpose": "MRtrix 0.2 CSD fit from dtiInit"
       },
       {
         "app_id": "5e9dced9f1745d6994f692c0",
         "name": "mrtrix3 - WMC Anatomically Constrained Tractography (ACT)",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 ACT iFOD2 whole-brain tractography"
       },
       {
         "app_id": "5aac2437f0b5260027e24ae1",
         "name": "RACE-Track | MRTrix3 Anatomical Informed Tractography",
-        "purpose": "TODO"
+        "purpose": "MRtrix3 ACT ensemble tractography (RACE-Track)"
       },
       {
         "app_id": "5e516420cb80941d63f51b0e",
         "name": "ROI to ROI Tracking - MRTrix 0.2.12",
-        "purpose": "TODO"
+        "purpose": "MRtrix 0.2 ROI-to-ROI tracking"
       },
       {
         "app_id": "6a7616602ee82cf68a5a49c0",
         "name": "Surface-Enhanced Tractography (SET)",
-        "purpose": "TODO"
+        "purpose": "surface-enhanced tractography (SET)"
       }
     ]
   }

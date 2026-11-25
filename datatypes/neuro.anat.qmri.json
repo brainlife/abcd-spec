@@ -4,27 +4,273 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "T1map.nii.gz",
+            "file_id": "T1map"
+          },
+          {
+            "bids_part": "T1map.json",
+            "file_id": "T1map_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "One object bundles several qMRI maps; each maps to its own BIDS suffix.",
+        "suffix": "T1map",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "R1map.nii.gz",
+            "file_id": "R1map"
+          },
+          {
+            "bids_part": "R1map.json",
+            "file_id": "R1map_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "",
+        "suffix": "R1map",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "M0map.nii.gz",
+            "file_id": "M0map"
+          },
+          {
+            "bids_part": "M0map.json",
+            "file_id": "M0map_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "",
+        "suffix": "M0map",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "PDmap.nii.gz",
+            "file_id": "PD"
+          },
+          {
+            "bids_part": "PDmap.json",
+            "file_id": "PD_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "",
+        "suffix": "PDmap",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "MTVmap.nii.gz",
+            "file_id": "MTV"
+          },
+          {
+            "bids_part": "MTVmap.json",
+            "file_id": "MTV_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "VIP, SIR and WF have no BIDS suffix.",
+        "suffix": "MTVmap",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "R2starmap.nii.gz",
+            "file_id": "R2star"
+          },
+          {
+            "bids_part": "R2starmap.json",
+            "file_id": "R2star_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "",
+        "suffix": "R2starmap",
+        "tags": []
+      },
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "T2starmap.nii.gz",
+            "file_id": "T2star"
+          },
+          {
+            "bids_part": "T2starmap.json",
+            "file_id": "T2star_json",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "",
+        "suffix": "T2starmap",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "608ac8b089df43e33c758fa1",
-    "desc": "TODO",
+    "desc": "Quantitative MRI maps (NIfTI) such as T1, R1, M0, PD, MTV, T2* and R2*, each optional, with JSON sidecars for some.",
     "name": "neuro/anat/qmri",
     "original": {
       "desc": "Quantitative MRI derivatives",
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain)."
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain)."
+    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain).\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.qmri.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "T1 relaxation time map.",
       "filename": "T1.nii.gz",
       "id": "T1map",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar of the T1 map.",
       "filename": "T1.json",
       "id": "T1map_json",
       "required": false
@@ -36,7 +282,7 @@
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar of the R1 map.",
       "filename": "R1.json",
       "id": "R1map_json",
       "required": false
@@ -48,7 +294,7 @@
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar of the M0 map.",
       "filename": "M0.json",
       "id": "M0map_json",
       "required": false
@@ -94,55 +340,64 @@
       "filename": "T2star.nii.gz",
       "id": "T2star",
       "required": false
+    },
+    {
+      "desc": "JSON sidecar of the proton density map.",
+      "filename": "PD.json",
+      "id": "PD_json",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the MTV map.",
+      "filename": "MTV.json",
+      "id": "MTV_json",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the R2* map.",
+      "filename": "R2star.json",
+      "id": "R2star_json",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "JSON sidecar of the T2* map.",
+      "filename": "T2star.json",
+      "id": "T2star_json",
+      "proposed": true,
+      "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Whole-head maps can show recognisable facial anatomy"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5 (unknown, provisional): unmasked whole-head maps may show identifying anatomy.",
     "sharing_cautions": [
-      "TODO"
+      "Deface before sharing outside a controlled project"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once brain-masked or defaced"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[3].desc",
-      "files[5].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -150,65 +405,67 @@
       {
         "app_id": "61099a0db991115733beac81",
         "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
-        "purpose": "TODO"
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
       },
       {
         "app_id": "610993adb991116691be9916",
         "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
-        "purpose": "TODO"
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
       },
       {
         "app_id": "5ef66ba5c67a0dd33d29d98a",
         "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
-        "purpose": "TODO"
+        "purpose": "computes mean diffusion measures and volume"
       },
       {
         "app_id": "6115dd26a5a04cb2b8f9f32f",
         "name": "Cortex Tissue Mapping (Native & Template Space) - qMRI",
-        "purpose": "TODO"
+        "purpose": "maps quantitative MRI maps onto a FreeSurfer-derived cortical midthickness surface"
       },
       {
         "app_id": "6115dd7aa5a04cc30cf9f3fe",
         "name": "Cortex Tissue Mapping (Native Space) - qMRI",
-        "purpose": "TODO"
+        "purpose": "maps quantitative MRI maps onto a FreeSurfer-derived cortical midthickness surface"
       },
       {
         "app_id": "6412059573d2685502bce9de",
         "name": "Extract summary measures within tissue types",
-        "purpose": "TODO"
+        "purpose": "computes the mean and standard deviation of diffusion, quantitative MRI and myelin maps"
       },
       {
         "app_id": "644170e4d391caf6efc7e038",
         "name": "Structural Connectome MRTrix3 (SCMRT)",
-        "purpose": "TODO"
+        "purpose": "builds structural connectivity matrices from a tractogram and volumetric parcellation"
       },
       {
         "app_id": "5ed02b780a8ed88a57482c92",
         "name": "Tract Analysis Profiles",
-        "purpose": "TODO"
+        "purpose": "computes tract profiles of tensor, DKI, NODDI, myelin or quantitative MRI measures"
       },
       {
         "app_id": "6023450fab40ca71564cb1e6",
         "name": "Tract Analysis Profiles - Dipy",
-        "purpose": "TODO"
+        "purpose": "computes tract profiles of tensor, NODDI, myelin or quantitative MRI measures"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Sampling tissue properties along tracts, within parcels or tissue types, and on the cortical surface.",
+      "Mean-measure structural connectivity matrices."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Assuming every map is present; all files are optional.",
+      "Combining maps across subjects without checking units and space."
     ],
     "outputs_of": [
       {
         "app_id": "608b188b89df43179075b628",
         "name": "Compute T1 and R1 maps from MP2RAGE",
-        "purpose": "TODO"
+        "purpose": "estimates quantitative T1 and R1 maps from a denoised Siemens MP2RAGE acquisition"
       },
       {
         "app_id": "67210bc9851d5f6d753ec63e",
         "name": "ROMEO Phase Unwrapping",
-        "purpose": "TODO"
+        "purpose": "performs phase offset removal, phase unwrapping, phase quality mapping, robust masking"
       }
     ]
   }

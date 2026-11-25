@@ -4,21 +4,33 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no forward-model or inverse-operator suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "6283e916d0697cf1eadea5a3",
-    "desc": "TODO",
+    "desc": "MNE forward solution (fwd.fif, lead field) and optional inverse operator (inv.fif) for MEG/EEG source modelling.",
     "name": "neuro/meeg/mne/forward-inverse",
     "original": {
       "desc": "to be edited",
       "readme": "to be edited"
     },
-    "readme": "to be edited"
+    "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.forward-inverse.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "MNE forward solution (lead field) for one subject's sensors and source space.",
       "filename": "fwd.fif",
       "id": "forward",
       "required": true
@@ -31,45 +43,33 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "The source space follows the subject's cortical surface from MRI."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derivative of MRI anatomy and sensor geometry.",
     "sharing_cautions": [
-      "TODO"
+      "Share with the same controls as the subject's MRI derivatives."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if the embedded measurement info keeps subject_info or dates."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -77,45 +77,46 @@
       {
         "app_id": "627a60e9d0697cf1eacb34d7",
         "name": "app-forward",
-        "purpose": "TODO"
+        "purpose": "HTML report of BEM surfaces and forward solution"
       },
       {
         "app_id": "66d58968774d6f044db9c7f1",
         "name": "Inverse operator",
-        "purpose": "TODO"
+        "purpose": "dSPM inverse and source estimate from forward, covariance and epochs"
       },
       {
         "app_id": "69b135756bb1f71b25b65574",
         "name": "Make Inverse Operator",
-        "purpose": "TODO"
+        "purpose": "minimum-norm inverse operator from forward, covariance and epochs info"
       },
       {
         "app_id": "69b1489a6bb1f71b25b69642",
         "name": "Source Estimate",
-        "purpose": "TODO"
+        "purpose": "applies an inverse operator to evoked data, giving source estimates"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Building inverse operators and source estimates."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Other subjects or sensor layouts than the ones it was computed for.",
+      "Telling forward from inverse without checking the fwd/inv tags."
     ],
     "outputs_of": [
       {
         "app_id": "66aa17e7774d6f044d97f1e9",
         "name": "Compute forward model MEEG",
-        "purpose": "TODO"
+        "purpose": "MEG forward solution from raw data, head-MRI transform and FreeSurfer BEM"
       },
       {
         "app_id": "69b11c0f6bb1f71b25b601e7",
         "name": "Make Forward Solution",
-        "purpose": "TODO"
+        "purpose": "MEG/EEG forward solution from source space, transform and BEM"
       },
       {
         "app_id": "69b135756bb1f71b25b65574",
         "name": "Make Inverse Operator",
-        "purpose": "TODO"
+        "purpose": "minimum-norm inverse operator from forward, covariance and epochs info"
       }
     ]
   }

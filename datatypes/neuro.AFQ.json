@@ -4,68 +4,78 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS counterpart for an AFQ MATLAB structure.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5ace14a0d071a1753fada7a4",
-    "desc": "TODO",
+    "desc": "Output structure of MATLAB AFQ_run (afq.mat): AFQ tract segmentation and along-tract profiles. No current Apps produce or use it.",
     "name": "neuro/AFQ",
     "original": {
       "desc": "AFQ_run output",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Archival AFQ results for MATLAB AFQ analysis.\n\n**Not for:** Current brainlife pipelines; use wmc and tractmeasures instead. Owner review: confirm whether this datatype is still needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.AFQ.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "MATLAB afq structure saved by AFQ_run.",
       "filename": "afq.mat",
       "id": "afq",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rows keyed by subject and session codes",
+      "Values from rare conditions in small samples can single people out"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived measures without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Use coded subject IDs and drop dates",
+      "Release group summaries when per-participant rows are not needed"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 once reduced to group statistics with no participant rows",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Archival AFQ results for MATLAB AFQ analysis."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Current brainlife pipelines; use wmc and tractmeasures instead.",
+      "Owner review: confirm whether this datatype is still needed."
     ],
     "outputs_of": []
   }

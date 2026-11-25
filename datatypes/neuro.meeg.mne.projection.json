@@ -4,64 +4,65 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no SSP projector suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "6283e7e9d0697cf1eade9bda",
-    "desc": "TODO",
+    "desc": "Signal-space projection (SSP) vectors in MNE FIF (proj.fif) for ECG, EOG or empty-room noise.",
     "name": "neuro/meeg/mne/projection",
     "original": {
       "desc": "to be edited",
       "readme": "to be edited"
     },
-    "readme": "to be edited"
+    "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.projection.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "MNE projector FIF with SSP vectors.",
       "filename": "proj.fif",
       "id": "projection",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Little participant information; the FIF may embed measurement info."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derivative when computed from ECG/EOG; empty-room projectors are not human data.",
     "sharing_cautions": [
-      "TODO"
+      "Check the FIF for subject_info before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when computed from empty-room data only."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -69,35 +70,35 @@
       {
         "app_id": "63341bd2db978c79919bff74",
         "name": "Apply SSP projectors",
-        "purpose": "TODO"
+        "purpose": "applies SSP projectors to raw data"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Projecting out ECG, EOG or environmental noise from raw MEG/EEG."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Recordings from another system or sensor layout."
     ],
     "outputs_of": [
       {
         "app_id": "63340c27db978c79919b9684",
         "name": "Compute EOG artifact SSP projectors",
-        "purpose": "TODO"
+        "purpose": "EOG SSP projectors from raw data"
       },
       {
         "app_id": "63340316db978c79919b4c98",
         "name": "Compute ECG artifact SSP projectors",
-        "purpose": "TODO"
+        "purpose": "ECG SSP projectors from raw data"
       },
       {
         "app_id": "668ba30cf61fb6c31d7970b2",
         "name": "Compute ECG artifact SSP projectors - epoched data",
-        "purpose": "TODO"
+        "purpose": "ECG SSP projectors from epochs"
       },
       {
         "app_id": "62a3246aab3e66978060531f",
         "name": "Emptyroom projs",
-        "purpose": "TODO"
+        "purpose": "SSP projectors from empty-room MEG"
       }
     ]
   }

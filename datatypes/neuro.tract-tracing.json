@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS micr covers microscopy but has no tract-tracing suffix; no direct counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "681238fcda629ed3b169d916",
-    "desc": "TODO",
+    "desc": "[In development] Tract-tracing (tracer injection) imaging for one volume and slice, as a Zarr store (local or URL) or TIFF.",
     "name": "neuro/tract-tracing",
     "original": {
       "desc": "[In Development] Tract-tracing data, for one volume and slice.",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Comparing invasive tract-tracing with diffusion tractography.\n\n**Not for:** Owner review: the datatype is in development and no Apps use it yet.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tract-tracing.json"
   },
   "files": [
     {
@@ -24,54 +36,48 @@
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "TIFF image of the tract-tracing slice.",
       "filename": "tif",
       "id": "tif",
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 1,
+    "human_neurodata": "no",
     "identifying_risks": [
-      "TODO"
+      "None for animal data; check embedded metadata for lab or animal IDs"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 1: tract-tracing is invasive animal research, not human neurodata.",
     "sharing_cautions": [
-      "TODO"
+      "Follow animal-research data sharing agreements"
     ],
     "tier_conditions": [
-      "TODO"
+      "Reassess (tier 2 or higher) if it ever holds human post-mortem tissue"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[1].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Comparing invasive tract-tracing with diffusion tractography."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Owner review: the datatype is in development and no Apps use it yet."
     ],
     "outputs_of": []
   }

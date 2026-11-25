@@ -4,11 +4,23 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no standard for per-parcel statistics tables.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5edd3b77c5972b8c47b3a2c3",
-    "desc": "TODO",
+    "desc": "Directory of CSV tables of per-parcel statistics (volume, thickness, surface area, mean diffusion) for one subject or a compiled group table.",
     "name": "neuro/parc-stats",
     "original": {
       "desc": "Parcellation Stats",
@@ -18,67 +30,42 @@
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Directory of CSV tables, one row per parcel (or per subject and parcel).",
       "dirname": "parc-stats",
       "id": "parc-stats",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rare conditions or small samples can make participant-level values identifying"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Remove subject and session columns beyond participant codes before public release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when averaged across enough participants that no individual can be singled out",
+      "Tier 4 when used to predict traits or profile individuals"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[10].purpose",
-      "usage.outputs_of[11].purpose",
-      "usage.outputs_of[12].purpose",
-      "usage.outputs_of[13].purpose",
-      "usage.outputs_of[14].purpose",
-      "usage.outputs_of[15].purpose",
-      "usage.outputs_of[16].purpose",
-      "usage.outputs_of[17].purpose",
-      "usage.outputs_of[18].purpose",
-      "usage.outputs_of[19].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[20].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose",
-      "usage.outputs_of[8].purpose",
-      "usage.outputs_of[9].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -86,120 +73,120 @@
       {
         "app_id": "65fcb6a4e6256cac94a7fa5e",
         "name": "Compile parc-stats csvs across project into one dataframe",
-        "purpose": "TODO"
+        "purpose": "concatenates a chosen parc-stats CSV from many subjects into one group table"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Group statistics and machine learning on regional anatomy or diffusion measures."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Mixing tables from different parcellations; set the parcellations metadata key."
     ],
     "outputs_of": [
       {
         "app_id": "65fcb6a4e6256cac94a7fa5e",
         "name": "Compile parc-stats csvs across project into one dataframe",
-        "purpose": "TODO"
+        "purpose": "concatenates a chosen parc-stats CSV from many subjects into one group table"
       },
       {
         "app_id": "64a32d3a3a63cf17374f6e75",
         "name": "Compute Anatomical Statistics",
-        "purpose": "TODO"
+        "purpose": "computes FreeSurfer anatomical statistics"
       },
       {
         "app_id": "623bbbaa5d8ab5d5f04af6f4",
         "name": "Compute dice similarity coefficient between parcels in parcellations",
-        "purpose": "TODO"
+        "purpose": "computes the Dice similarity coefficient of each parcel between a parcellation and a reference parcellation"
       },
       {
         "app_id": "61099a0db991115733beac81",
         "name": "Compute summary statistics of diffusion measures from Freesurfer Parcellation (volume)",
-        "purpose": "TODO"
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
       },
       {
         "app_id": "610993adb991116691be9916",
         "name": "Compute summary statistics of diffusion measures from Parcellation (volume)",
-        "purpose": "TODO"
+        "purpose": "computes volume, cortical thickness and mean diffusion measures"
       },
       {
         "app_id": "5ef66ba5c67a0dd33d29d98a",
         "name": "Compute summary statistics of diffusion measures from subcortical segmentation",
-        "purpose": "TODO"
+        "purpose": "computes mean diffusion measures"
       },
       {
         "app_id": "603b030878e65d363cd1b3d0",
         "name": "Compute summary statistics of diffusion measures mapped to cortical surface",
-        "purpose": "TODO"
+        "purpose": "computes per-ROI summary statistics"
       },
       {
         "app_id": "62c20d12f3194eded6fb203c",
         "name": "Compute summary statistics of diffusion measures mapped to cortical surface - Freesurfer computations",
-        "purpose": "TODO"
+        "purpose": "computes per-ROI statistics of cortex-mapped diffusion measures"
       },
       {
         "app_id": "62abfcd7ab3e66978063bf43",
         "name": "Compute summary statistics of diffusion measures mapped to visual regions binned by eccentricity - Benson14",
-        "purpose": "TODO"
+        "purpose": "computes mean diffusion measures and FreeSurfer anatomical measures"
       },
       {
         "app_id": "64f8e257e4d2e9108d91e7f5",
         "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
-        "purpose": "TODO"
+        "purpose": "computes FreeSurfer anatomical statistics"
       },
       {
         "app_id": "647eba7279d13f6418ee3656",
         "name": "Extract anatomical statistics inside data mapped to cortical surface",
-        "purpose": "TODO"
+        "purpose": "computes FreeSurfer anatomical statistics"
       },
       {
         "app_id": "64670c6ad391caf6ef1f24bb",
         "name": "Extract anatomical statistics inside tract endpoints mapped to cortical surface",
-        "purpose": "TODO"
+        "purpose": "computes FreeSurfer anatomical statistics"
       },
       {
         "app_id": "60a8125122b42a158170e126",
         "name": "Extract diffusion metrics inside ROIs",
-        "purpose": "TODO"
+        "purpose": "extracts summary statistics"
       },
       {
         "app_id": "6412059573d2685502bce9de",
         "name": "Extract summary measures within tissue types",
-        "purpose": "TODO"
+        "purpose": "computes the mean and standard deviation of diffusion"
       },
       {
         "app_id": "5f76303c268f76393329775a",
         "name": "Extract summary statistics of diffusion measures mapped to cortical surface inside tract endpoints",
-        "purpose": "TODO"
+        "purpose": "computes summary statistics"
       },
       {
         "app_id": "622bd8be5d8ab5d5f034854a",
         "name": "Freesurfer Longitudinal Statistics",
-        "purpose": "TODO"
+        "purpose": "computes longitudinal cortical change"
       },
       {
         "app_id": "5e31bea8b81ce26c2f9c9a88",
         "name": "Freesurfer Statistics",
-        "purpose": "TODO"
+        "purpose": "converts FreeSurfer recon-all stats for a chosen cortical parcellation into tidy CSV tables of per-parcel"
       },
       {
         "app_id": "603b047b78e65dec6fd1b5dc",
         "name": "Parcellation Statistics - Surface",
-        "purpose": "TODO"
+        "purpose": "computes per-parcel cortical surface statistics"
       },
       {
         "app_id": "5fea87300cd861959f168ef8",
         "name": "Parcellation Statistics - Volume",
-        "purpose": "TODO"
+        "purpose": "computes volume and cortical thickness of every ROI in a volumetric parcellation"
       },
       {
         "app_id": "629a6d3c7f60950a54cc7a6e",
         "name": "Postprocess parcellation: island removal & inflation",
-        "purpose": "TODO"
+        "purpose": "remove islands (unconnected components) from and/or inflate a given volumetric parcellation"
       },
       {
         "app_id": "61395cfa584a767f674249ec",
         "name": "Seed-based Correlation",
-        "purpose": "TODO"
+        "purpose": "computes a seed-based functional connectivity map from BOLD fMRI"
       }
     ]
   }

@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Closest BIDS file is events.tsv, but this is an MNE FIF annotation, not a BIDS file.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "65ce3b74eab7bb5c3c96e3ae",
-    "desc": "TODO",
+    "desc": "MNE-Python annotations (onset, duration, description) saved as annotation.fif, e.g. bad segments or events.",
     "name": "neuro/meeg/mne/raw/annotation",
     "original": {
       "desc": "MNE annotation structures",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Carrying bad-segment or event annotations to add to MNE raw data.\n\n**Not for:** Processing on brainlife.io: no App reads or writes this datatype.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.raw.annotation.json"
   },
   "files": [
     {
@@ -25,46 +37,40 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Free-text descriptions and orig_time (recording start)."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "behaviour"
+    ],
+    "rationale": "Tool 1 step 6: participant-level event metadata linkable through a participant code.",
     "sharing_cautions": [
-      "TODO"
+      "Review description text and orig_time before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if descriptions contain names or exact dates."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Carrying bad-segment or event annotations to add to MNE raw data."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Processing on brainlife.io: no App reads or writes this datatype."
     ],
     "outputs_of": []
   }

@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no noise covariance suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5afb21465858d874a4b393a1",
-    "desc": "TODO",
+    "desc": "MEG/EEG noise covariance matrix in MNE format (cov.fif), from empty-room data or pre-stimulus baselines.",
     "name": "neuro/meeg/mne/covariance",
     "original": {
       "desc": "To be edited by Saeed",
       "readme": "To be edited by Saeed"
     },
-    "readme": "To be edited by Saeed"
+    "readme": "To be edited by Saeed\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.covariance.json"
   },
   "files": [
     {
@@ -25,44 +37,32 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "The FIF can carry measurement info with subject_info and dates."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level M/EEG derivative; empty-room covariances are not human data (step 1).",
     "sharing_cautions": [
-      "TODO"
+      "Anonymise the measurement info before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when computed from empty-room data only."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -70,45 +70,45 @@
       {
         "app_id": "66aa17e7774d6f044d97f1e9",
         "name": "Compute forward model MEEG",
-        "purpose": "TODO"
+        "purpose": "reads a head-MRI transform stored under this datatype (tag trans)"
       },
       {
         "app_id": "66d58968774d6f044db9c7f1",
         "name": "Inverse operator",
-        "purpose": "TODO"
+        "purpose": "dSPM inverse and source estimate from forward, covariance and epochs"
       },
       {
         "app_id": "69b135756bb1f71b25b65574",
         "name": "Make Inverse Operator",
-        "purpose": "TODO"
+        "purpose": "minimum-norm inverse operator from forward, covariance and epochs info"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Noise covariance for whitening and inverse operators."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Head-MRI transforms, which some Apps store here under the tag trans; use neuro/meeg/mne/trans."
     ],
     "outputs_of": [
       {
         "app_id": "627a5fc1d0697cf1eacb310b",
         "name": "app- covariance",
-        "purpose": "TODO"
+        "purpose": "noise covariance from the first 60 s of raw MEG FIF"
       },
       {
         "app_id": "698f0a5e88100c81ffc8a41d",
         "name": "Compute Noise Covariance",
-        "purpose": "TODO"
+        "purpose": "noise covariance from empty-room raw, epoch baselines or evoked data"
       },
       {
         "app_id": "66a0d6faf61fb6c31d8bb223",
         "name": "Coregistration MRI with MEG",
-        "purpose": "TODO"
+        "purpose": "writes trans.fif under this datatype (tag trans), not a covariance"
       },
       {
         "app_id": "66bb2db3774d6f044da6e9ca",
         "name": "Noise Covariance Matrix for MEEG",
-        "purpose": "TODO"
+        "purpose": "noise covariance from MEG epoch baselines"
       }
     ]
   }

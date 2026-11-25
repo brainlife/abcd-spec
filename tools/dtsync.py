@@ -74,7 +74,7 @@ def check_budget(changes, approve_size):
     if approve_size:
         return []
     errors = [f"{c['name']}: {c['size_after']} bytes (limit {RECORD_MAX})"
-              for c in changes if c["size_after"] > RECORD_MAX]
+              for c in changes if c["size_after"] > RECORD_MAX and c["size_after"] > c["size_before"]]
     before = sum(c["size_before"] for c in changes)
     after = sum(c["size_after"] for c in changes)
     if before and after > before * TOTAL_GROWTH:

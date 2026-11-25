@@ -4,21 +4,85 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "meg",
+        "entities": [
+          "processing",
+          "split",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          "/",
+          ".ds/",
+          ".json",
+          ".fif",
+          ".sqd",
+          ".con",
+          ".raw",
+          ".ave",
+          ".mrk",
+          ".kdf",
+          ".mhd",
+          ".trg",
+          ".chn",
+          ".dat"
+        ],
+        "files": [
+          {
+            "bids_part": "meg",
+            "file_id": "meg"
+          },
+          {
+            "bids_part": "headshape.pos",
+            "file_id": "headshape"
+          },
+          {
+            "bids_part": "meg.json",
+            "file_id": "meg_json",
+            "sidecar": "missing"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "missing"
+          },
+          {
+            "bids_part": "coordsystem.json",
+            "file_id": "coordsystem",
+            "sidecar": "missing"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "missing"
+          }
+        ],
+        "level": "raw",
+        "match": "partial",
+        "notes": "Lacks *_meg.json and coordsystem.json (REQUIRED) and channels/events (proposed); scans.tsv is session-level.",
+        "suffix": "meg",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "61a4e7d709959fabbdcef50c",
-    "desc": "TODO",
+    "desc": "Raw MEG from a 4D Neuroimaging/BTi system: a run folder of extension-less files (config, hs_file, data).",
     "name": "neuro/meg/BTi4D",
     "original": {
       "desc": "Each experimental run on a 4D neuroimaging/BTi system results in a folder containing multiple files without extensions.",
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging"
+    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.BTi4D.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Digitised head-shape points (.pos).",
       "filename": "headshape.pos",
       "id": "headshape",
       "required": false
@@ -30,55 +94,79 @@
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "BIDS scans.tsv listing acquisition times of runs.",
       "filename": "scans.tsv",
       "id": "scans",
+      "required": false
+    },
+    {
+      "desc": "BIDS MEG sidecar: recording parameters.",
+      "filename": "meg.json",
+      "id": "meg_json",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "Channel names, types, units and status.",
+      "filename": "channels.tsv",
+      "id": "channels",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "Coordinate system and fiducials for sensor positions.",
+      "filename": "coordsystem.json",
+      "id": "coordsystem",
+      "proposed": true,
+      "required": false
+    },
+    {
+      "desc": "Event onsets, durations and types.",
+      "filename": "events.tsv",
+      "id": "events",
+      "proposed": true,
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "BTi config and hs_file can hold participant name and acquisition date; scans.tsv holds acquisition times.",
+      "Recording dates and free-text fields in sidecars or events."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "physiology",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: raw EEG/MEG headers can hold participant identity and acquisition dates; the more protective tier holds until they are scrubbed.",
     "sharing_cautions": [
-      "TODO"
+      "Anonymise headers (e.g. mne-bids anonymize) before sharing outside a controlled project."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once the BTi header and sidecars are anonymised (no names, birth dates, recording dates)."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "snapshots/bids-schema-1.11.2.json (meg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[2].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Archiving raw BTi/4D MEG runs for later conversion."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Processing on brainlife.io: no App reads this datatype yet."
     ],
     "outputs_of": []
   }

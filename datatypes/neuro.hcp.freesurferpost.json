@@ -4,61 +4,67 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Pipeline output folder; no BIDS derivative layout.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5e767ddcde643b260e2a8a52",
-    "desc": "TODO",
+    "desc": "HCP Pipelines PostFreeSurfer output folder (MNINonLinear: native and fs_LR surfaces, warps, volumes).",
     "name": "neuro/hcp/freesurferpost",
     "original": {
       "desc": "Contains content similar to /N/dcwan/projects/hcp/517239/MNINonLinear",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Cortical surface mapping in fs_LR space (e.g. Fukutomi et al. cortex tissue mapping).\n\n**Not for:** Apps needing MSMAll spheres or fsaverage_LR32k when the folder lacks them.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.freesurferpost.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Directory with MNINonLinear (and T1w) HCP outputs.",
       "dirname": "output",
       "id": "output",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Includes whole-head T1w/T2w images with recognisable faces",
+      "Logs may hold paths, dates and IDs"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: recognisable identifying anatomy.",
     "sharing_cautions": [
-      "TODO"
+      "Deface before sharing outside a controlled project"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once whole-head anatomical images are defaced or removed"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -66,20 +72,20 @@
       {
         "app_id": "5f6cc1836bbee392069a19a6",
         "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
-        "purpose": "TODO"
+        "purpose": "maps DTI and NODDI measures onto HCP native and fs_LR cortical surfaces"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Cortical surface mapping in fs_LR space (e.g. Fukutomi et al. cortex tissue mapping)."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Apps needing MSMAll spheres or fsaverage_LR32k when the folder lacks them."
     ],
     "outputs_of": [
       {
         "app_id": "5ffee3dfaacf9e53e7a67093",
         "name": "HCP Pipelines - Structural preprocessing",
-        "purpose": "TODO"
+        "purpose": "runs the HCP Pipelines 4.1.3 structural preprocessing on T1- and T2-weighted images"
       }
     ]
   }

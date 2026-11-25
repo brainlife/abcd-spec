@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "Test datatype.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "6ac57cd6c004e522d21b16e1",
-    "desc": "TODO",
+    "desc": "Test datatype; not for real data. Marked for deletion.",
     "name": "neuro/test",
     "original": {
       "desc": "test dataset (do not use, will be deleted) abc def",
       "readme": "### hello world\n\n`code`"
     },
-    "readme": "### hello world\n\n`code`"
+    "readme": "### hello world\n\n`code`\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.test.json"
   },
   "files": [
     {
@@ -24,54 +36,49 @@
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Test NIfTI file.",
       "filename": "test.nii.gz",
       "id": "test1",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 1,
+    "human_neurodata": "no",
     "identifying_risks": [
-      "TODO"
+      "None expected; check that no real participant data was uploaded under it."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 1: test datatype, not neurodata.",
     "sharing_cautions": [
-      "TODO"
+      "Do not use for real data."
     ],
     "tier_conditions": [
-      "TODO"
+      "Not applicable; test datatype with no real data expected."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[1].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Testing datatype features only."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Any real data."
     ],
     "outputs_of": []
   }

@@ -24,10 +24,45 @@
           ".fdt",
           ".bdf"
         ],
-        "files": [],
+        "files": [
+          {
+            "bids_part": "eeg.bdf",
+            "file_id": "bdf"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "electrodes.tsv",
+            "file_id": "electrodes",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "coordsystem.json",
+            "file_id": "coordsystem",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "eeg.json",
+            "file_id": "eeg_json",
+            "sidecar": "missing"
+          }
+        ],
         "level": "raw",
-        "match": "TODO",
-        "notes": "",
+        "match": "partial",
+        "notes": "Lacks the REQUIRED *_eeg.json sidecar (proposed as an optional file); other sidecars are carried.",
         "suffix": "eeg",
         "tags": []
       }
@@ -35,90 +70,90 @@
   },
   "brainlife": {
     "_id": "60007567aacf9e1615a691dd",
-    "desc": "TODO",
+    "desc": "Raw EEG in BioSemi BDF format (24-bit), with optional BIDS channels, electrodes, coordsystem and events sidecars.",
     "name": "neuro/eeg/bdf",
     "original": {
       "desc": "EEG / Biosemi data forma",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Raw EEG input for conversion to MNE raw and further M/EEG preprocessing.\n\n**Not for:** Analysis that needs the BIDS *_eeg.json parameters, which this datatype does not carry.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.bdf.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "BioSemi BDF recording, including the status (trigger) channel.",
       "filename": "eeg.bdf",
       "id": "bdf",
       "required": true
     },
     {
-      "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv. Please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv",
+      "desc": "Channel names, types, units and status.",
       "filename": "channels.tsv",
       "id": "channels",
       "required": false
     },
     {
-      "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+      "desc": "Electrode names and positions.",
       "filename": "electrodes.tsv",
       "id": "electrodes",
       "required": false
     },
     {
-      "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+      "desc": "Coordinate system and fiducials for sensor positions.",
       "filename": "coordsystem.json",
       "id": "coordsystem",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Event onsets, durations and types.",
       "filename": "events.tsv",
       "id": "events",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Descriptions of the events.tsv columns.",
       "filename": "events.json",
       "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "BIDS EEG sidecar: recording parameters.",
+      "filename": "eeg.json",
+      "id": "eeg_json",
+      "proposed": true,
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "BDF header has patient and recording identification fields (name, birth date, date).",
+      "Recording dates and free-text fields in sidecars or events."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "physiology",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: raw EEG/MEG headers can hold participant identity and acquisition dates; the more protective tier holds until they are scrubbed.",
     "sharing_cautions": [
-      "TODO"
+      "Anonymise headers (e.g. mne-bids anonymize) before sharing outside a controlled project."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once the BDF header and sidecars are anonymised (no names, birth dates, recording dates)."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (eeg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[0].desc",
-      "files[4].desc",
-      "files[5].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -126,19 +161,19 @@
       {
         "app_id": "628b67eed0697cf1eaeb5031",
         "name": "BDF to mne/raw",
-        "purpose": "TODO"
+        "purpose": "converts BioSemi BDF EEG to MNE raw FIF"
       },
       {
         "app_id": "699ec5fa1c904fbe50d8776e",
         "name": "bdf2mne-v2",
-        "purpose": "TODO"
+        "purpose": "converts BDF EEG to MNE raw with event detection and QC plots"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Raw EEG input for conversion to MNE raw and further M/EEG preprocessing."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Analysis that needs the BIDS *_eeg.json parameters, which this datatype does not carry."
     ],
     "outputs_of": []
   }

@@ -4,61 +4,68 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no tractography suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5f6a9c7ecfa365847cc9dc75",
-    "desc": "TODO",
+    "desc": "Directory of several DSI Studio TinyTrack (.tt.gz) files, typically one per tract from automatic tract segmentation.",
     "name": "neuro/dsistudio/tinytrack-s",
     "original": {
       "desc": "multi-file version of track/tinytrack. It contains multiple *.tt.gz inside a single directory",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Per-tract conversion to .trk and DSI Studio analyses.\n\n**Not for:** Apps that need a single tractogram.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dsistudio.tinytrack-s.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Directory of .tt.gz tract files.",
       "dirname": "tts",
       "id": "tts",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
     "sharing_cautions": [
-      "TODO"
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -66,20 +73,20 @@
       {
         "app_id": "5f6a7bd0cfa3655296c9d143",
         "name": "dsi-studio-tt2trk",
-        "purpose": "TODO"
+        "purpose": "convert DSI Studio TinyTrack to .trk"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Per-tract conversion to .trk and DSI Studio analyses."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Apps that need a single tractogram."
     ],
     "outputs_of": [
       {
         "app_id": "5f6a01dfcfa365587cc9995f",
         "name": "dsi-studio-atk",
-        "purpose": "TODO"
+        "purpose": "DSI Studio automatic tract tracking and segmentation"
       }
     ]
   }

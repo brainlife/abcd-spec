@@ -4,75 +4,81 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no derivative suffix for statistical cluster tables (BEP041 stats outputs pending).",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "65a9a59b4ce5ac2907f02994",
-    "desc": "TODO",
+    "desc": "Directory of cluster tables (CSV) from thresholded first-level fMRI GLM contrast maps.",
     "name": "neuro/contrast-stats",
     "original": {
       "desc": "fMRI and other related contrast statistics",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Reporting peak and cluster statistics of single-subject task activation.\n\n**Not for:** Group-level inference; tables are per run and per subject.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.contrast-stats.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Directory of CSV cluster tables, one per thresholded contrast map.",
       "dirname": "contrast-stats",
       "id": "contrast-stats",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Task activation can reveal cognitive responses of an individual"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Keep the task and events context with the data; share with participant codes only"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 4 when combined into cognitive or behavioural profiles of a person"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Reporting peak and cluster statistics of single-subject task activation."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Group-level inference; tables are per run and per subject."
     ],
     "outputs_of": [
       {
         "app_id": "65a9a68c4ce5ac2907f02c52",
         "name": "First Level GLM Analysis",
-        "purpose": "TODO"
+        "purpose": "fits a first-level GLM to a single-session task fMRI run and its events"
       }
     ]
   }

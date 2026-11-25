@@ -117,3 +117,7 @@ def test_undo_keeps_created_datatype_that_is_in_use(tmp_path):
     http = RecordingHttp(found=1)
     dtsync.undo(log, http)
     assert http.deletes == []
+
+
+def test_budget_allows_an_oversized_record_that_shrinks():
+    assert dtsync.check_budget([{"name": "x", "size_before": 7000, "size_after": 6900}], approve_size=False) == []

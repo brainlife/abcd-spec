@@ -4,61 +4,69 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "raw",
+        "match": "none",
+        "notes": "BIDS micr does not accept NIfTI; convert to OME-TIFF/OME-Zarr (e.g. micr/SPIM).",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "6aa9af7fdeee1367b4399845",
-    "desc": "TODO",
+    "desc": "3D microscopy intensity volume (e.g. light-sheet) as compressed NIfTI: one specimen, stain or channel, and volume or crop.",
     "name": "neuro/microscopy/nifti",
     "original": {
       "desc": "Three-dimensional microscopy image intensities stored in compressed NIfTI format. Represents a single specimen, stain/channel, and image volume or crop, including light-sheet microscopy data.",
       "readme": "# Microscopy image volume (NIfTI)\n\nA three-dimensional microscopy intensity image stored as a compressed\nNIfTI volume. Each dataset represents one specimen, stain/channel,\nand image volume or crop.\n\n## Required file\n\n- `image.nii.gz` — microscopy intensity volume.\n- File slot ID: `image`.\n\nPreserve the original voxel values, spatial dimensions, voxel spacing,\nunits, and coordinate transform when importing.\n\n## Metadata\n\nRetain the following when available:\n\n- Subject or specimen identifier.\n- Imaging modality.\n- Stain or channel.\n- Tissue region and crop identifier.\n- Processing status, such as raw or preprocessed.\n- Original filename, source dataset, version, and asset identifier.\n\nRecord unknown spatial calibration as unknown; do not assume that\nunit voxel spacing represents a verified physical measurement.\n\n## Visualization\n\nDisplay image intensities using grayscale with adjustable contrast.\nA matching segmentation may be overlaid after confirming that its\ndimensions and coordinate transform agree with the image."
     },
-    "readme": "# Microscopy image volume (NIfTI)\n\nA three-dimensional microscopy intensity image stored as a compressed\nNIfTI volume. Each dataset represents one specimen, stain/channel,\nand image volume or crop.\n\n## Required file\n\n- `image.nii.gz` — microscopy intensity volume.\n- File slot ID: `image`.\n\nPreserve the original voxel values, spatial dimensions, voxel spacing,\nunits, and coordinate transform when importing.\n\n## Metadata\n\nRetain the following when available:\n\n- Subject or specimen identifier.\n- Imaging modality.\n- Stain or channel.\n- Tissue region and crop identifier.\n- Processing status, such as raw or preprocessed.\n- Original filename, source dataset, version, and asset identifier.\n\nRecord unknown spatial calibration as unknown; do not assume that\nunit voxel spacing represents a verified physical measurement.\n\n## Visualization\n\nDisplay image intensities using grayscale with adjustable contrast.\nA matching segmentation may be overlaid after confirming that its\ndimensions and coordinate transform agree with the image."
+    "readme": "# Microscopy image volume (NIfTI)\n\nA three-dimensional microscopy intensity image stored as a compressed\nNIfTI volume. Each dataset represents one specimen, stain/channel,\nand image volume or crop.\n\n## Required file\n\n- `image.nii.gz` — microscopy intensity volume.\n- File slot ID: `image`.\n\nPreserve the original voxel values, spatial dimensions, voxel spacing,\nunits, and coordinate transform when importing.\n\n## Metadata\n\nRetain the following when available:\n\n- Subject or specimen identifier.\n- Imaging modality.\n- Stain or channel.\n- Tissue region and crop identifier.\n- Processing status, such as raw or preprocessed.\n- Original filename, source dataset, version, and asset identifier.\n\nRecord unknown spatial calibration as unknown; do not assume that\nunit voxel spacing represents a verified physical measurement.\n\n## Visualization\n\nDisplay image intensities using grayscale with adjustable contrast.\nA matching segmentation may be overlaid after confirming that its\ndimensions and coordinate transform agree with the image.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.microscopy.nifti.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Microscopy intensity volume (NIfTI).",
       "filename": "image.nii.gz",
       "id": "image",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Specimen IDs or filenames in metadata may link to a donor."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 2: human status depends on the specimen; participant-level tissue images carry no direct identifiers (Tier 2), non-human data is Tier 1.",
     "sharing_cautions": [
-      "TODO"
+      "Confirm species and donor consent terms before sharing human tissue images."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 when the specimen is non-human (e.g. mouse) or synthetic.",
+      "Tier 2 for human tissue linked to a donor or specimen code."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/6aaab5abd53b7ad2023f031e.json",
+      "catalog/apps/6aaad3f2f2db0d99df4cae83.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -66,19 +74,19 @@
       {
         "app_id": "6aaab5abd53b7ad2023f031e",
         "name": "axonsynth-inference",
-        "purpose": "TODO"
+        "purpose": "axon segmentation"
       },
       {
         "app_id": "6aaad3f2f2db0d99df4cae83",
         "name": "impact-reg",
-        "purpose": "TODO"
+        "purpose": "fixed or moving volume for registration"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Axon segmentation and volume registration of microscopy data."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Assuming unit voxel spacing is a verified physical size."
     ],
     "outputs_of": []
   }

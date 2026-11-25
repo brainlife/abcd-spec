@@ -4,11 +4,23 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS 1.11.2 suffix for tract profiles or tract statistics tables.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "599f305ad1f46fec1759f363",
-    "desc": "TODO",
+    "desc": "CSV of per-tract measures: along-tract profiles (structureID, nodeID, FA, MD...) or tract macrostructure (streamline count, volume, length).",
     "name": "neuro/tractmeasures",
     "original": {
       "desc": "A csv file listing various measures and statistics of classified tracts",
@@ -25,67 +37,35 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rows keyed by subject and session codes",
+      "Values from rare conditions in small samples can single people out"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level derived measures without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Use coded subject IDs and drop dates",
+      "Release group summaries when per-participant rows are not needed"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 once reduced to group statistics with no participant rows",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[10].purpose",
-      "usage.outputs_of[11].purpose",
-      "usage.outputs_of[12].purpose",
-      "usage.outputs_of[13].purpose",
-      "usage.outputs_of[14].purpose",
-      "usage.outputs_of[15].purpose",
-      "usage.outputs_of[16].purpose",
-      "usage.outputs_of[17].purpose",
-      "usage.outputs_of[18].purpose",
-      "usage.outputs_of[19].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[20].purpose",
-      "usage.outputs_of[21].purpose",
-      "usage.outputs_of[22].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose",
-      "usage.outputs_of[8].purpose",
-      "usage.outputs_of[9].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -93,160 +73,162 @@
       {
         "app_id": "64d62738e4d2e9108d7ab094",
         "name": "Clairvoy",
-        "purpose": "TODO"
+        "purpose": "post-concussion risk prediction from FA tract profiles"
       },
       {
         "app_id": "5f31b6d18a0b7ab423cc7683",
         "name": "Compile tract macro-structural and profile data",
-        "purpose": "TODO"
+        "purpose": "merge tract macrostructure and profile tables"
       },
       {
         "app_id": "63471bcbfa262bbde2ac4a73",
         "name": "Compile tractmeasures csvs across project into one dataframe",
-        "purpose": "TODO"
+        "purpose": "concatenate tractmeasures across a project"
       },
       {
         "app_id": "63753b80ce8953d657d54fb2",
         "name": "Compute average measures per tract",
-        "purpose": "TODO"
+        "purpose": "average along-tract measures per tract"
       },
       {
         "app_id": "60a6ce3d22b42a2f7f701fa7",
         "name": "Convert tractmeasures datatype to tractprofile datatype",
-        "purpose": "TODO"
+        "purpose": "convert tractmeasures to deprecated tractprofile"
       },
       {
         "app_id": "634ec768fa262bbde2b3cb62",
         "name": "Remove nodes from tract profiles",
-        "purpose": "TODO"
+        "purpose": "trim end nodes from tract profiles"
       },
       {
         "app_id": "5cb0c93f454d3c00353fa0d3",
         "name": "ROC curve (deprecated)",
-        "purpose": "TODO"
+        "purpose": "ROC curves for multi-LAP/multi-NN (deprecated)"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Tract-profile and macrostructure analyses, including compiling a project-wide table.",
+      "Comparing tracts across subjects after node trimming or averaging."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Mixing profile and macro tables without checking columns (datatype tags tell them apart).",
+      "Comparing profiles made with different tract definitions or node counts."
     ],
     "outputs_of": [
       {
         "app_id": "6b00e13188e26e6de7e2d38d",
         "name": "app-mpat-tractography",
-        "purpose": "TODO"
+        "purpose": "MPAT bundle reconstruction and tract measures"
       },
       {
         "app_id": "5f31b6d18a0b7ab423cc7683",
         "name": "Compile tract macro-structural and profile data",
-        "purpose": "TODO"
+        "purpose": "merge tract macrostructure and profile tables"
       },
       {
         "app_id": "5eed6986d39ceb4bd5a0efde",
         "name": "Compile tract profiles to summary structure",
-        "purpose": "TODO"
+        "purpose": "compile deprecated tract profiles into one CSV"
       },
       {
         "app_id": "63471bcbfa262bbde2ac4a73",
         "name": "Compile tractmeasures csvs across project into one dataframe",
-        "purpose": "TODO"
+        "purpose": "concatenate tractmeasures across a project"
       },
       {
         "app_id": "63753b80ce8953d657d54fb2",
         "name": "Compute average measures per tract",
-        "purpose": "TODO"
+        "purpose": "average along-tract measures per tract"
       },
       {
         "app_id": "5f794bde268f765c3929bda2",
         "name": "Compute macro-structural statistics of tracts using Dipy",
-        "purpose": "TODO"
+        "purpose": "DIPY macrostructure statistics per tract"
       },
       {
         "app_id": "5d2882b742ed0707bd305676",
         "name": "DSC evaluation (mask - mask)",
-        "purpose": "TODO"
+        "purpose": "Dice overlap between two sets of tract masks"
       },
       {
         "app_id": "5ad79504363fd5002759a6b5",
         "name": "DSC evaluation (wmc - wmc)",
-        "purpose": "TODO"
+        "purpose": "Dice overlap between two WMCs of one tractogram"
       },
       {
         "app_id": "63e559e7c538c16a8222163e",
         "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
-        "purpose": "TODO"
+        "purpose": "Dice overlap between WMCs of separate tractograms"
       },
       {
         "app_id": "5f8824eff5848e2f8a392e29",
         "name": "Fractal Dimension (FD) of bundle masks",
-        "purpose": "TODO"
+        "purpose": "fractal dimension of bundle masks"
       },
       {
         "app_id": "69cb8d9c34e133351885ac23",
         "name": "Gyral Bias Analysis",
-        "purpose": "TODO"
+        "purpose": "gyral bias metrics from streamlines and curvature"
       },
       {
         "app_id": "634ec768fa262bbde2b3cb62",
         "name": "Remove nodes from tract profiles",
-        "purpose": "TODO"
+        "purpose": "trim end nodes from tract profiles"
       },
       {
         "app_id": "648d4de5b10869ed4e9ada5b",
         "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
-        "purpose": "TODO"
+        "purpose": "visual white matter connectomics by polar angle and eccentricity"
       },
       {
         "app_id": "5ed02b780a8ed88a57482c92",
         "name": "Tract Analysis Profiles",
-        "purpose": "TODO"
+        "purpose": "Vistasoft tract profiles of diffusion measures"
       },
       {
         "app_id": "5ed02bb20a8ed87a11482d81",
         "name": "Tract Analysis Profiles (NODDI)",
-        "purpose": "TODO"
+        "purpose": "Vistasoft tract profiles of NODDI measures"
       },
       {
         "app_id": "6023450fab40ca71564cb1e6",
         "name": "Tract Analysis Profiles - Dipy",
-        "purpose": "TODO"
+        "purpose": "DIPY tract profiles of diffusion measures"
       },
       {
         "app_id": "60a6a8f922b42a89506ff897",
         "name": "Tract Analysis Profiles - Myelin mapping",
-        "purpose": "TODO"
+        "purpose": "Vistasoft tract profiles of a myelin map"
       },
       {
         "app_id": "69ca22f834e13335187c6ae7",
         "name": "Tract Profile Computation",
-        "purpose": "TODO"
+        "purpose": "DIPY along-tract profiles of tensor measures"
       },
       {
         "app_id": "67858b5e81d348aa56483324",
         "name": "Tract Shape Analysis",
-        "purpose": "TODO"
+        "purpose": "tract shape measures per tract"
       },
       {
         "app_id": "5cc9c6b44b5e4502275edb4b",
         "name": "Tractography quality check",
-        "purpose": "TODO"
+        "purpose": "tractogram and tract QC statistics"
       },
       {
         "app_id": "638b5d866881d56fbfacc8f0",
         "name": "Tractometry over tensor",
-        "purpose": "TODO"
+        "purpose": "TractSeg tractometry of tensor measures"
       },
       {
         "app_id": "5cc3ccf94ed9df00317f6203",
         "name": "TractSeg",
-        "purpose": "TODO"
+        "purpose": "TractSeg bundle segmentation from DWI"
       },
       {
         "app_id": "634dc433fa262bbde2b3003a",
         "name": "TractSeg from peaks",
-        "purpose": "TODO"
+        "purpose": "TractSeg bundle segmentation from peaks"
       }
     ]
   }

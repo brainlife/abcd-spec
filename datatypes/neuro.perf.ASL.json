@@ -4,27 +4,149 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "perf",
+        "entities": [
+          "echo",
+          "direction",
+          "part",
+          "reconstruction",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "asl.nii.gz",
+            "file_id": "asl"
+          },
+          {
+            "bids_part": "asl.json",
+            "file_id": "_meta_",
+            "sidecar": "meta"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "asl",
+        "tags": []
+      },
+      {
+        "datatype": "perf",
+        "entities": [
+          "direction",
+          "reconstruction",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".tsv"
+        ],
+        "files": [
+          {
+            "bids_part": "aslcontext.tsv",
+            "file_id": "context"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "aslcontext",
+        "tags": []
+      },
+      {
+        "datatype": "perf",
+        "entities": [
+          "echo",
+          "direction",
+          "part",
+          "reconstruction",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "m0scan.nii.gz",
+            "file_id": "m0scan"
+          },
+          {
+            "bids_part": "m0scan.json",
+            "file_id": "m0scan_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "m0scan",
+        "tags": []
+      },
+      {
+        "datatype": "perf",
+        "entities": [
+          "reconstruction",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".jpg",
+          ".png",
+          ".tif"
+        ],
+        "files": [
+          {
+            "bids_part": "asllabeling.jpg",
+            "file_id": "asllabeling"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "asllabeling",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "60d497eecdfdb58f46ffdc45",
-    "desc": "TODO",
+    "desc": "Arterial spin labeling perfusion MRI (NIfTI) with aslcontext volume labels, optional M0 calibration scan and labeling screenshot.",
     "name": "neuro/perf/ASL",
     "original": {
       "desc": "Arterial Spin Labeling (ASL) for perfusion measurements\n",
       "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n"
     },
-    "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n"
+    "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.perf.ASL.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "ASL time series (label, control, M0 or derived volumes).",
       "filename": "asl.nii.gz",
       "id": "asl",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "aslcontext.tsv: volume type of each ASL volume.",
       "filename": "aslcontext.tsv",
       "id": "context",
       "required": false
@@ -49,48 +171,45 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "JSON metadata may hold acquisition dates, institution or device serials",
+      "Scanner screenshots (asllabeling.jpg) can show names or dates"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "physiology",
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level neurodata linkable through a code; no recognisable face at typical resolution.",
     "sharing_cautions": [
-      "TODO"
+      "Check that the labeling screenshot is anonymized"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if metadata keeps acquisition dates or device serials",
+      "Tier 3 if the labeling screenshot shows patient names or dates"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Cerebral blood flow quantification and BIDS export of ASL data."
     ],
     "not_suitable_for": [
-      "TODO"
+      "CBF quantification without aslcontext or labeling parameters in metadata.",
+      "No registered App reads this datatype yet."
     ],
     "outputs_of": []
   }

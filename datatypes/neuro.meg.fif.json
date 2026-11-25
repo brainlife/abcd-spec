@@ -32,10 +32,44 @@
           ".chn",
           ".dat"
         ],
-        "files": [],
+        "files": [
+          {
+            "bids_part": "meg.fif",
+            "file_id": "fif"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "coordsystem.json",
+            "file_id": "coordsystem",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "headshape.pos",
+            "file_id": "headshape"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "meg.json",
+            "file_id": "meg_json",
+            "sidecar": "missing"
+          }
+        ],
         "level": "raw",
-        "match": "TODO",
-        "notes": "",
+        "match": "partial",
+        "notes": "Lacks the REQUIRED *_meg.json (proposed); calibration_meg.dat and crosstalk_meg.fif are session-level acq-calibration/acq-crosstalk files in BIDS and are not mapped per run.",
         "suffix": "meg",
         "tags": []
       }
@@ -43,121 +77,108 @@
   },
   "brainlife": {
     "_id": "6000737faacf9ee51fa691cb",
-    "desc": "TODO",
+    "desc": "Raw MEG in FIFF format from Neuromag/Elekta/MEGIN (or BabyMEG) systems, with optional BIDS sidecars and Maxwell-filter calibration files.",
     "name": "neuro/meg/fif",
     "original": {
       "desc": "Magnetoencephalography (MEG) / FIFF - Neuromag/Elekta/MEGIN data and Tristan Technologies BabyMEG data ",
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as “Neuromag” systems.\n"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as “Neuromag” systems.\n"
+    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as “Neuromag” systems.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "MEG recording in FIFF (.fif) format.",
       "filename": "meg.fif",
       "id": "fif",
       "required": true
     },
     {
-      "desc": "\nAlthough this information can often be extracted from the EEG recording, listing it in a simple .tsv document makes it easy to browse or search. The required columns are channel name, type and units in this specific order. Channel names should furthermore appear in the table in the same order they do in the EEG data file. Any number of additional columns may be provided to provide additional information about the channels. Note that electrode positions should not be added to this file, but to *_electrodes.tsv.",
+      "desc": "Channel names, types, units and status.",
       "filename": "channels.tsv",
       "id": "channels",
       "required": false
     },
     {
-      "desc": "The OPTIONAL digitized positions of the head points. Head shape and electrode description",
+      "desc": "Digitised head-shape points (.pos).",
       "filename": "headshape.pos",
       "id": "headshape",
       "required": false
     },
     {
-      "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+      "desc": "Coordinate system and fiducials for sensor positions.",
       "filename": "coordsystem.json",
       "id": "coordsystem",
       "required": false
     },
     {
-      "desc": "calibration coefficients. File can have 1D or 3D gradiometer imbalance correction. This file is machine/site-specific.\n",
+      "desc": "Site fine-calibration file for Maxwell filtering.",
       "filename": "calibration_meg.dat",
       "id": "calibration",
       "required": false
     },
     {
-      "desc": "cross-talk correction information.",
+      "desc": "Site cross-talk file for Maxwell filtering.",
       "filename": "crosstalk_meg.fif",
       "id": "crosstalk",
       "required": false
     },
     {
-      "desc": "(tentative .. might disappear!) This file is only present if the data is preprocessed with maxwell_filter (FIF file containing a MEG device<->head transformation, or a 3-element array giving the coordinates to translate to (with no rotations). For example, destination=(0, 0, 0.04) would translate the bases as --trans default would in MaxFilter™ (i.e., to the default head location).",
+      "desc": "Destination head position for Maxwell filtering.",
       "filename": "destination.fif",
       "id": "destination",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Event onsets, durations and types.",
       "filename": "events.tsv",
       "id": "events",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Descriptions of the events.tsv columns.",
       "filename": "events.json",
       "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "BIDS MEG sidecar: recording parameters.",
+      "filename": "meg.json",
+      "id": "meg_json",
+      "proposed": true,
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "FIF measurement info can hold subject name and birth date, measurement date and digitised head shape.",
+      "Recording dates and free-text fields in sidecars or events."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "physiology",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5: raw EEG/MEG headers can hold participant identity and acquisition dates; the more protective tier holds until they are scrubbed.",
     "sharing_cautions": [
-      "TODO"
+      "Anonymise headers (e.g. mne-bids anonymize) before sharing outside a controlled project."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once the FIF header and sidecars are anonymised (no names, birth dates, recording dates)."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (meg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[0].desc",
-      "files[7].desc",
-      "files[8].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.inputs_of[9].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -165,85 +186,87 @@
       {
         "app_id": "627a5fc1d0697cf1eacb310b",
         "name": "app- covariance",
-        "purpose": "TODO"
+        "purpose": "noise covariance from the first 60 s of raw MEG FIF"
       },
       {
         "app_id": "602bc6a33a001123014c442a",
         "name": "Apply Maxwell filtering",
-        "purpose": "TODO"
+        "purpose": "Maxwell filtering (SSS/tSSS) of Neuromag/MEGIN MEG"
       },
       {
         "app_id": "60700d80c7f80a2c9095701f",
         "name": "Compute headshape.pos file from cHPI recorded during MEG acquisition",
-        "purpose": "TODO"
+        "purpose": "head positions (.pos) from cHPI"
       },
       {
         "app_id": "6065cee9d040085be2b0a9b7",
         "name": "Compute mean head position across MEG runs",
-        "purpose": "TODO"
+        "purpose": "mean head position (destination.fif) across runs"
       },
       {
         "app_id": "605e0a9616c60638446315ee",
         "name": "Detect bad channels using Maxwell Filtering",
-        "purpose": "TODO"
+        "purpose": "detects noisy and flat MEG channels, writing channels.tsv"
       },
       {
         "app_id": "62a3246aab3e66978060531f",
         "name": "Emptyroom projs",
-        "purpose": "TODO"
+        "purpose": "SSP projectors from empty-room MEG"
       },
       {
         "app_id": "6a8d9b56ad4d4a4b5327f838",
         "name": "FIF to MNE Raw",
-        "purpose": "TODO"
+        "purpose": "reads FIF into MNE raw, fixing channel types and names"
       },
       {
         "app_id": "628b5c89d0697cf1eaeaffad",
         "name": "FIF to mne/raw",
-        "purpose": "TODO"
+        "purpose": "converts MEG FIF to MNE raw"
       },
       {
         "app_id": "69b11c0f6bb1f71b25b601e7",
         "name": "Make Forward Solution",
-        "purpose": "TODO"
+        "purpose": "reads a BEM solution passed as neuro/meg/fif"
       },
       {
         "app_id": "6a16ce9b39b7923b4723bc14",
         "name": "Matlab docker test",
-        "purpose": "TODO"
+        "purpose": "test App: Brainstorm MEG preprocessing report"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Raw MEG input for Maxwell filtering, bad-channel detection and conversion to MNE raw.",
+      "Maxwell-filtered or split MEG outputs (check datatype tags)."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Telling raw from processed data without tags (maxwell, ssp-applied, split).",
+      "BEM solutions, which some Apps store here under the tag bem."
     ],
     "outputs_of": [
       {
         "app_id": "602bc6a33a001123014c442a",
         "name": "Apply Maxwell filtering",
-        "purpose": "TODO"
+        "purpose": "Maxwell filtering (SSS/tSSS) of Neuromag/MEGIN MEG"
       },
       {
         "app_id": "63341bd2db978c79919bff74",
         "name": "Apply SSP projectors",
-        "purpose": "TODO"
+        "purpose": "writes SSP-cleaned raw data as neuro/meg/fif"
       },
       {
         "app_id": "69a975972b471cb9af9a2b53",
         "name": "Make BEM model",
-        "purpose": "TODO"
+        "purpose": "writes a BEM solution under this datatype (tag bem)"
       },
       {
         "app_id": "60b139f022b42a6dc5771dd2",
         "name": "Split MEG file",
-        "purpose": "TODO"
+        "purpose": "writes two time-window segments as neuro/meg/fif"
       },
       {
         "app_id": "60d08cb5cdfdb50acdff5893",
         "name": "Split MEG file [ctf]",
-        "purpose": "TODO"
+        "purpose": "writes CTF segments converted to FIF"
       }
     ]
   }

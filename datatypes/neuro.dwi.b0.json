@@ -4,78 +4,77 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Subset of BIDS dwi volumes; BIDS has no suffix for extracted b0 images.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5ddf1381936ca39318c5f045",
-    "desc": "TODO",
+    "desc": "b0 (non-diffusion-weighted) volumes extracted from a DWI, stored in DWI layout; registered as an analysis datatype.",
     "name": "neuro/dwi/b0",
     "original": {
       "desc": "b0 files extracted from dwi",
       "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook."
     },
-    "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook."
+    "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.b0.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "b0 volume(s), or their mean, from the DWI (NIfTI).",
       "filename": "dwi.nii.gz",
       "id": "dwi",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Gradient directions of the extracted volumes.",
       "filename": "dwi.bvecs",
       "id": "bvecs",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "b-values of the extracted volumes (zero or near zero).",
       "filename": "dwi.bvals",
       "id": "bvals",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "JSON metadata may hold acquisition dates, institution or device serials"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level neurodata linkable through a code; no recognisable face at typical resolution.",
     "sharing_cautions": [
-      "TODO"
+      "Strip acquisition dates and device identifiers from metadata before sharing"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if metadata keeps acquisition dates or device serials"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -83,35 +82,36 @@
       {
         "app_id": "67cf5f311b629b467fa0f8f8",
         "name": "Apply transformations to T1w",
-        "purpose": "TODO"
+        "purpose": "applies an existing ANTs or FSL transform to a T1-weighted image"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Reference image for DWI-to-T1w registration and brain masking.",
+      "Access to b0 images in group analysis or Jupyter notebooks."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Diffusion model fitting; it holds no diffusion-weighted volumes."
     ],
     "outputs_of": [
       {
         "app_id": "6aa981bc16d2ef0408f7a0bf",
         "name": "anatomix-t1w-dwi-registration",
-        "purpose": "TODO"
+        "purpose": "registers a DWI series to a T1-weighted image by aligning its mean b0"
       },
       {
         "app_id": "68227aa40c9315be1979f2ed",
         "name": "dwi2b0",
-        "purpose": "TODO"
+        "purpose": "extracts the b0 volumes from a DWI series"
       },
       {
         "app_id": "61d5e77d33cb3deb49834d4a",
         "name": "extract_b0_masks",
-        "purpose": "TODO"
+        "purpose": "extracts each b0 volume from a DWI series and computes brain masks for it"
       },
       {
         "app_id": "6a7164f389d3cd2a98ca10c7",
         "name": "test-app-dwi2b0",
-        "purpose": "TODO"
+        "purpose": "test copy of dwi2b0: extracts the b0 volumes from a DWI"
       }
     ]
   }

@@ -4,11 +4,23 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Follows the proposed BIDS derivatives timeseries (bids-specification PR 519), not in BIDS 1.11.2.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "604a4553ebfe4559de3af944",
-    "desc": "TODO",
+    "desc": "Table of time series (time points by named columns, e.g. regions) as gzipped TSV with a JSON column description.",
     "name": "generic/timeseries",
     "original": {
       "desc": "A time series is a chronologically ordered series of numeric values. Time series will generally be stored as tables, with a row of column headers indicating the name of the series. ",
@@ -18,7 +30,7 @@
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Gzipped TSV, one row per time point, one column per series.",
       "filename": "timeseries.tsv.gz",
       "id": "tsv",
       "required": true
@@ -31,45 +43,39 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Participant-level signals; long fMRI series can support connectome fingerprinting."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Keep subject codes pseudonymous; drop StartTime dates before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 for group-average or synthetic series."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "catalog/apps/629e58a57f60950a54d386d2.json",
+      "catalog/apps/6048fde5ebfe45fb1b3acdda.json",
+      "catalog/apps/6117984ca5a04c6800fa6973.json",
+      "catalog/apps/60b961b10ad40d58e1ca7fe7.json",
+      "catalog/apps/6a10364f28b7a0de6b25dbd2.json",
+      "catalog/apps/5ed05fe8e3f4538080268585.json",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -77,45 +83,45 @@
       {
         "app_id": "629e58a57f60950a54d386d2",
         "name": "Clustering edge time series",
-        "purpose": "TODO"
+        "purpose": "edge time series clustering"
       },
       {
         "app_id": "6048fde5ebfe45fb1b3acdda",
         "name": "Edge time series",
-        "purpose": "TODO"
+        "purpose": "edge time series computation"
       },
       {
         "app_id": "6117984ca5a04c6800fa6973",
         "name": "HOI_toolbox",
-        "purpose": "TODO"
+        "purpose": "higher-order interaction measures"
       },
       {
         "app_id": "60b961b10ad40d58e1ca7fe7",
         "name": "Time series to network",
-        "purpose": "TODO"
+        "purpose": "connectivity matrix estimation"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Regional fMRI or MEG/EEG source time courses feeding connectivity and edge time series."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Data without SamplingFrequency in metadata; timing is then undefined."
     ],
     "outputs_of": [
       {
         "app_id": "6048fde5ebfe45fb1b3acdda",
         "name": "Edge time series",
-        "purpose": "TODO"
+        "purpose": "edge time series"
       },
       {
         "app_id": "6a10364f28b7a0de6b25dbd2",
         "name": "Extract Source Time Series",
-        "purpose": "TODO"
+        "purpose": "MEG/EEG source label time courses"
       },
       {
         "app_id": "5ed05fe8e3f4538080268585",
         "name": "fMRI Timeseries Extraction",
-        "purpose": "TODO"
+        "purpose": "parcel time series from fMRIPrep BOLD"
       }
     ]
   }

@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no derivative suffix for pRF or retinotopic maps.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5d9d18d8e30ae43bb0612715",
-    "desc": "TODO",
+    "desc": "Population receptive field maps as NIfTI (polar angle, eccentricity, size, optional r2 and visual areas) with VTK surfaces for viewing.",
     "name": "neuro/prf",
     "original": {
       "desc": "Nifti files containing various pRF measures",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Retinotopic mapping, visual-area ROIs and eccentricity-binned analyses.\n\n**Not for:** Comparing measured and atlas-predicted maps without noting the source (tags).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 26 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.prf.json"
   },
   "files": [
     {
@@ -61,71 +73,34 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Participant-level maps; low direct identification risk"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
     "tier_conditions": [
-      "TODO"
+      "Re-assess when combined with behavioural or clinical vision data"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[10].purpose",
-      "usage.inputs_of[11].purpose",
-      "usage.inputs_of[12].purpose",
-      "usage.inputs_of[13].purpose",
-      "usage.inputs_of[14].purpose",
-      "usage.inputs_of[15].purpose",
-      "usage.inputs_of[16].purpose",
-      "usage.inputs_of[17].purpose",
-      "usage.inputs_of[18].purpose",
-      "usage.inputs_of[19].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[20].purpose",
-      "usage.inputs_of[21].purpose",
-      "usage.inputs_of[22].purpose",
-      "usage.inputs_of[23].purpose",
-      "usage.inputs_of[24].purpose",
-      "usage.inputs_of[25].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.inputs_of[9].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -133,180 +108,180 @@
       {
         "app_id": "5dbe0820fdefb1e42b771dda",
         "name": "Bayesian Analysis of Retinotopic Maps",
-        "purpose": "TODO"
+        "purpose": "refines measured pRF maps"
       },
       {
         "app_id": "5dbc9db38aeeee0c95f37020",
         "name": "Bin cortical volume and thickness by eccentricity",
-        "purpose": "TODO"
+        "purpose": "bins FreeSurfer cortical thickness and volume"
       },
       {
         "app_id": "62abfcd7ab3e66978063bf43",
         "name": "Compute summary statistics of diffusion measures mapped to visual regions binned by eccentricity - Benson14",
-        "purpose": "TODO"
+        "purpose": "computes mean diffusion measures and FreeSurfer anatomical measures"
       },
       {
         "app_id": "64f8e257e4d2e9108d91e7f5",
         "name": "Compute summary statistics of visual regions binned by pRF - Benson14 - Anatomical Stats",
-        "purpose": "TODO"
+        "purpose": "computes FreeSurfer anatomical statistics"
       },
       {
         "app_id": "6a977430d90f157078dd6c7b",
         "name": "DWI SNR (HM vs VM)",
-        "purpose": "TODO"
+        "purpose": "computes DWI b0 signal-to-noise ratio in horizontal- and vertical-meridian visual cortex ROIs built"
       },
       {
         "app_id": "63bb2398daffe2c2408e24cc",
         "name": "Generate Eccentricity Parcellations from pRF - Diffusion Space",
-        "purpose": "TODO"
+        "purpose": "generates a volumetric parcellation in DWI"
       },
       {
         "app_id": "643ef709d391caf6efc27c7d",
         "name": "Generate Polar Angle Parcellations from pRF - Diffusion Space",
-        "purpose": "TODO"
+        "purpose": "generates a volumetric parcellation in DWI"
       },
       {
         "app_id": "5f86894be6432df0c492cd28",
         "name": "Generate ROIs for Visual White Matter Analysis in Freesurfer Space (Benson pRF)",
-        "purpose": "TODO"
+        "purpose": "generates ROIs for visual white matter analysis in FreeSurfer"
       },
       {
         "app_id": "5ec69cdd1f4464c1e69e3a21",
         "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Benson pRF)",
-        "purpose": "TODO"
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space: V1 and other visual areas"
       },
       {
         "app_id": "60f83f2db991118b34b56b02",
         "name": "Generate ROIs in Anatomical Space",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in anatomical"
       },
       {
         "app_id": "6192cd0d983d5bb13f951b61",
         "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
       },
       {
         "app_id": "6192d0a4983d5bb13f958870",
         "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
       },
       {
         "app_id": "60f5a0bab99111586bb464ae",
         "name": "Generate ROIs in FMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in fMRI space from FreeSurfer labels"
       },
       {
         "app_id": "5f52cc4b42c17250a7651b63",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Diffusion Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "62757902cbc76827b7240da9",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - fMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "5f873282e6432d41a892e131",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Freesurfer Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "69cb8d9c34e133351885ac23",
         "name": "Gyral Bias Analysis",
-        "purpose": "TODO"
+        "purpose": "computes parcel-wise gyral bias metrics"
       },
       {
         "app_id": "69cb643c34e133351883ce84",
         "name": "Map Retinotopic Connections",
-        "purpose": "TODO"
+        "purpose": "extracts the streamlines connecting two visual areas"
       },
       {
         "app_id": "6ad144840e072a00d8aed712",
         "name": "Optic Radiation Tracking and Retinotopic Segmentation",
-        "purpose": "TODO"
+        "purpose": "optic Radiation Tracking and Retinotopic Segmentation"
       },
       {
         "app_id": "69ca2f0934e13335187cfbbd",
         "name": "Retinotopic Connectivity Matrix Computation",
-        "purpose": "TODO"
+        "purpose": "computes retinotopic structural connectivity matrices between visual areas and eccentricity/polar-angle bins"
       },
       {
         "app_id": "648d4de5b10869ed4e9ada5b",
         "name": "Structural network connectomics of visual white matter by polar angle and eccentricity - Single Endpoints",
-        "purpose": "TODO"
+        "purpose": "builds polar-angle-by-eccentricity visual cortex parcels from pRF maps and segments the tractogram"
       },
       {
         "app_id": "5ddb7138936ca3c660c58a46",
         "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks the optic radiation between LGN and V1 ROIs"
       },
       {
         "app_id": "5ddce502936ca3bec8c5b4b7",
         "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks the optic radiation from LGN to V1"
       },
       {
         "app_id": "62a7b499ab3e66978061e46c",
         "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
-        "purpose": "TODO"
+        "purpose": "tracks visual white matter between user-chosen pairs of ROIs"
       },
       {
         "app_id": "69cc4e4934e13335188d9217",
         "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
-        "purpose": "TODO"
+        "purpose": "extracts the left and right vertical occipital fasciculus"
       },
       {
         "app_id": "64842d58b10869ed4e8bbd16",
         "name": "Visual areas structural connections by eccentricity and polar angle",
-        "purpose": "TODO"
+        "purpose": "builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Retinotopic mapping, visual-area ROIs and eccentricity-binned analyses."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Comparing measured and atlas-predicted maps without noting the source (tags)."
     ],
     "outputs_of": [
       {
         "app_id": "619daaba09959fabbdc0517f",
         "name": "AFNI pRF",
-        "purpose": "TODO"
+        "purpose": "fits a population receptive field"
       },
       {
         "app_id": "5cae3ef776cdaa0030b9232b",
         "name": "AnalyzepRF on volume",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "5dbe0820fdefb1e42b771dda",
         "name": "Bayesian Analysis of Retinotopic Maps",
-        "purpose": "TODO"
+        "purpose": "refines measured pRF maps"
       },
       {
         "app_id": "6ac02d2c931afedae84f7da2",
         "name": "DeepRetinotopy",
-        "purpose": "TODO"
+        "purpose": "deepRetinotopy brainlife.io app: predict retinotopic maps from cortical anatomy"
       },
       {
         "app_id": "5afc9831322997002773ed1c",
         "name": "pRFLife mrTools",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field"
       },
       {
         "app_id": "5e9613ce6365e976b7471d50",
         "name": "pRFLife with mrTools",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "6172e5864fd85c20b7533e94",
         "name": "PRFmodel",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field"
       },
       {
         "app_id": "6115c829a5a04c2a80f9e7f7",
         "name": "pRFs / Benson14-Retinotopy",
-        "purpose": "TODO"
+        "purpose": "predicts retinotopic maps"
       }
     ]
   }

@@ -4,27 +4,39 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no derivative suffix for connectivity gradients.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "6174c1ba4fd85c74b153fddd",
-    "desc": "TODO",
+    "desc": "Experimental: functional connectivity gradient maps on left/right surfaces (GIFTI, one array per component).",
     "name": "neuro/surface/gradient",
     "original": {
       "desc": "(experimental) surface gradient data. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Studying the principal gradients of cortical functional organisation.\n\n**Not for:** Comparing subjects without aligning gradients (sign and order can flip).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.gradient.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Left hemisphere gradient components (GIFTI).",
       "filename": "left.gii",
       "id": "left",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Right hemisphere gradient components (GIFTI).",
       "filename": "right.gii",
       "id": "right",
       "required": true
@@ -37,55 +49,48 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Individual gradients derive from functional connectivity and may fingerprint"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 4 when used or released as gradient fingerprints or to predict traits or behaviour"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Studying the principal gradients of cortical functional organisation."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Comparing subjects without aligning gradients (sign and order can flip)."
     ],
     "outputs_of": [
       {
         "app_id": "6143a6a57a38b00ad39f50e9",
         "name": "Connectivity Gradients",
-        "purpose": "TODO"
+        "purpose": "computes functional connectivity gradients from left and right surface fMRI time series"
       }
     ]
   }

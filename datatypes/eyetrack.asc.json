@@ -4,67 +4,76 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS eye tracking is *_recording-eye1_physio.tsv.gz plus physio.json; ASC must be converted (e.g. eye2bids).",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5db8b3a18aeeee1cbbf30a20",
-    "desc": "TODO",
+    "desc": "Eye-tracking recording in EyeLink ASCII (.asc) text, converted from EyeLink .edf: gaze position, pupil size and events.",
     "name": "eyetrack/asc",
     "original": {
       "desc": "The eye-tracking data files naturally contain gaze position (x/y coordinates) and pupil size data. ",
       "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#"
     },
-    "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#"
+    "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/eyetrack.asc.json"
   },
   "files": [
     {
-      "desc": "converted from .edf",
+      "desc": "EyeLink ASC text with samples (gaze x/y, pupil) and messages, converted from .edf.",
       "filename": "eyetrack.asc",
       "id": "eyetrack",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "ASC header lists recording date/time and the original .edf file name."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "behaviour",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level behavioural-physiological recording; step 5 if headers identify.",
     "sharing_cautions": [
-      "TODO"
+      "Strip header DATE and file-name lines before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if the ASC header keeps the original file name or exact recording date that identify the participant."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "braindatagovernance/data/tiers.yml",
+      "snapshots/bids-schema-1.11.2.json (physio rules)"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Archiving eye-tracking sessions alongside imaging data."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Processing on brainlife.io: no App reads this datatype yet.",
+      "BIDS export as-is: BIDS needs *_physio.tsv.gz and *_physio.json."
     ],
     "outputs_of": []
   }

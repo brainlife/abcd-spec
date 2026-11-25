@@ -4,75 +4,83 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Tool working directory; the subfield labels map to BIDS dseg via neuro/parcellation/volume.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5e4c47041eafffca2efa3545",
-    "desc": "TODO",
+    "desc": "Raw ASHS working directory from hippocampal subfield segmentation of co-registered T1w and T2w images (ITK-SNAP format).",
     "name": "neuro/ashs",
     "original": {
       "desc": "Output from ASHS (Automated Segmentation of Hippocampal Subfields) in ITKSNAP format",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Inspecting or re-using the full ASHS hippocampal subfield output.\n\n**Not for:** Direct use as a parcellation; use the neuro/parcellation/volume output of the same App. Sharing without checking for copies of the input whole-head images in the working directory.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ashs.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "ASHS output directory with left/right subfield segmentations and snaplabels.txt.",
       "dirname": "ashs",
       "id": "ashs",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 3,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "A working directory may hold the input images, which can show the face"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy",
+      "identity"
+    ],
+    "rationale": "Tool 1 step 5 applied under uncertainty: the raw working directory may contain identifying input anatomy.",
     "sharing_cautions": [
-      "TODO"
+      "Check the directory for input images before sharing"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 2 once any copies of input whole-head T1w/T2w images are removed or defaced"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Inspecting or re-using the full ASHS hippocampal subfield output."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Direct use as a parcellation; use the neuro/parcellation/volume output of the same App.",
+      "Sharing without checking for copies of the input whole-head images in the working directory."
     ],
     "outputs_of": [
       {
         "app_id": "5deece232d1c254a76929834",
         "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
-        "purpose": "TODO"
+        "purpose": "segments hippocampal subfields from co-registered T1-weighted and T2-weighted images"
       }
     ]
   }

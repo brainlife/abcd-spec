@@ -32,98 +32,179 @@
             "file_id": "bold"
           },
           {
-            "bids_part": "events.tsv",
-            "file_id": "events"
-          },
-          {
-            "bids_part": "events.json",
-            "file_id": "events_json"
-          },
-          {
-            "bids_part": "sbref.nii.gz",
-            "file_id": "sbref"
-          },
-          {
-            "bids_part": "sbref.json",
-            "file_id": "sbref_json"
-          },
-          {
-            "bids_part": "physio.tsv.gz",
-            "file_id": "physio"
-          },
-          {
-            "bids_part": "physio.json",
-            "file_id": "physio_json"
-          },
-          {
             "bids_part": "bold.json",
             "file_id": "_meta_",
             "sidecar": "meta"
           }
         ],
         "level": "raw",
-        "match": "TODO",
-        "notes": "",
+        "match": "equivalent",
+        "notes": "Preprocessed objects map to desc-preproc_bold derivatives in a space-<label>.",
         "suffix": "bold",
+        "tags": []
+      },
+      {
+        "datatype": "func",
+        "entities": [
+          "ceagent",
+          "reconstruction",
+          "direction",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".tsv",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "events",
+        "tags": []
+      },
+      {
+        "datatype": "func",
+        "entities": [
+          "echo",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "direction",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "sbref.nii.gz",
+            "file_id": "sbref"
+          },
+          {
+            "bids_part": "sbref.json",
+            "file_id": "sbref_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "sbref",
+        "tags": []
+      },
+      {
+        "datatype": "func",
+        "entities": [
+          "ceagent",
+          "reconstruction",
+          "direction",
+          "recording",
+          "task",
+          "acquisition",
+          "run",
+          "subject",
+          "session"
+        ],
+        "extensions": [
+          ".tsv.gz",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "physio.tsv.gz",
+            "file_id": "physio"
+          },
+          {
+            "bids_part": "physio.json",
+            "file_id": "physio_json",
+            "sidecar": "file"
+          }
+        ],
+        "level": "raw",
+        "match": "equivalent",
+        "notes": "",
+        "suffix": "physio",
         "tags": []
       }
     ]
   },
   "brainlife": {
     "_id": "59b685a08e5d38b0b331ddc5",
-    "desc": "TODO",
+    "desc": "BOLD fMRI run (4D NIfTI), task or rest, optionally with events, single-band reference and physiological recordings.",
     "name": "neuro/func/task",
     "original": {
       "desc": "fMRI Task",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Preprocessing with fMRIPrep or C-PAC, QC with MRIQC, and denoising. Task GLMs, pRF mapping and functional connectivity once preprocessed.\n\n**Not for:** GLMs or connectivity on runs without the preprocessed tag. Task analyses when events are missing; use neuro/func/events.\n\n**BIDS:** func/bold (equivalent), func/events (equivalent), func/sbref (equivalent), func/physio (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 37 Apps, output of 15 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.task.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "4D BOLD time series (NIfTI, gzip).",
       "ext": ".gz",
       "filename": "bold.nii.gz",
       "id": "bold",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Task events table (onset, duration, trial type).",
       "ext": ".tsv",
       "filename": "events.tsv",
       "id": "events",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar describing the events columns.",
       "ext": ".json",
       "filename": "events.json",
       "id": "events_json",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Single-band reference image.",
       "ext": ".gz",
       "filename": "sbref.nii.gz",
       "id": "sbref",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar of the single-band reference.",
       "ext": ".json",
       "filename": "sbref.json",
       "id": "sbref_json",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Physiological recordings (cardiac, respiratory), gzipped TSV.",
       "ext": ".gz",
       "filename": "physio.tsv.gz",
       "id": "physio",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "JSON sidecar of the physiological recordings.",
       "ext": ".json",
       "filename": "physio.json",
       "id": "physio_json",
@@ -131,97 +212,35 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "JSON metadata may hold acquisition dates, institution or device serials",
+      "Physiological recordings and task responses are participant-level signals"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "physiology",
+      "behaviour"
+    ],
+    "rationale": "Tool 1 step 6: participant-level neurodata linkable through a code; no recognisable face at typical resolution.",
     "sharing_cautions": [
-      "TODO"
+      "Strip acquisition dates and device identifiers from metadata before sharing"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if metadata keeps acquisition dates or device serials"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "files[3].desc",
-      "files[4].desc",
-      "files[5].desc",
-      "files[6].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[10].purpose",
-      "usage.inputs_of[11].purpose",
-      "usage.inputs_of[12].purpose",
-      "usage.inputs_of[13].purpose",
-      "usage.inputs_of[14].purpose",
-      "usage.inputs_of[15].purpose",
-      "usage.inputs_of[16].purpose",
-      "usage.inputs_of[17].purpose",
-      "usage.inputs_of[18].purpose",
-      "usage.inputs_of[19].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[20].purpose",
-      "usage.inputs_of[21].purpose",
-      "usage.inputs_of[22].purpose",
-      "usage.inputs_of[23].purpose",
-      "usage.inputs_of[24].purpose",
-      "usage.inputs_of[25].purpose",
-      "usage.inputs_of[26].purpose",
-      "usage.inputs_of[27].purpose",
-      "usage.inputs_of[28].purpose",
-      "usage.inputs_of[29].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[30].purpose",
-      "usage.inputs_of[31].purpose",
-      "usage.inputs_of[32].purpose",
-      "usage.inputs_of[33].purpose",
-      "usage.inputs_of[34].purpose",
-      "usage.inputs_of[35].purpose",
-      "usage.inputs_of[36].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.inputs_of[9].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[10].purpose",
-      "usage.outputs_of[11].purpose",
-      "usage.outputs_of[12].purpose",
-      "usage.outputs_of[13].purpose",
-      "usage.outputs_of[14].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose",
-      "usage.outputs_of[8].purpose",
-      "usage.outputs_of[9].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -229,270 +248,272 @@
       {
         "app_id": "619daaba09959fabbdc0517f",
         "name": "AFNI pRF",
-        "purpose": "TODO"
+        "purpose": "fits a population receptive field model to BOLD fMRI"
       },
       {
         "app_id": "5cae3ef776cdaa0030b9232b",
         "name": "AnalyzepRF on volume",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "6421c7ce73d2685502d764c0",
         "name": "Apply mask to extract brain data - BOLD",
-        "purpose": "TODO"
+        "purpose": "applies an existing brain mask to a 4D BOLD fMRI series"
       },
       {
         "app_id": "612fd650584a769e283c22d5",
         "name": "Apply warp to BOLD data",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to BOLD fMRI data"
       },
       {
         "app_id": "5f3593e84615e04651bf9364",
         "name": "C-PAC",
-        "purpose": "TODO"
+        "purpose": "runs the C-PAC BIDS App on a T1w image and task fMRI"
       },
       {
         "app_id": "5b2975d616fe38002748e79a",
         "name": "clever",
-        "purpose": "TODO"
+        "purpose": "flags outlying timepoints in an fMRI run"
       },
       {
         "app_id": "65bc1334745ef7acd7ae9d20",
         "name": "Concatenating NifTi and Eventfiles",
-        "purpose": "TODO"
+        "purpose": "concatenates single-session fMRI runs and their events files"
       },
       {
         "app_id": "6571c4d8b094062da673adf8",
         "name": "Extract event-related timeseries",
-        "purpose": "TODO"
+        "purpose": "extracts the BOLD volumes that overlap selected event types"
       },
       {
         "app_id": "65a9a68c4ce5ac2907f02c52",
         "name": "First Level GLM Analysis",
-        "purpose": "TODO"
+        "purpose": "fits a first-level GLM to a single-session task fMRI run and its events"
       },
       {
         "app_id": "698d8d41318fe6e4e1e8a3e9",
         "name": "fitlins",
-        "purpose": "TODO"
+        "purpose": "fits BIDS Stats Model GLMs with FitLins"
       },
       {
         "app_id": "5ed05fe8e3f4538080268585",
         "name": "fMRI Timeseries Extraction",
-        "purpose": "TODO"
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
       },
       {
         "app_id": "5c720cf63e2f2c0030a23486",
         "name": "fMRI to Connectivity Matrices",
-        "purpose": "TODO"
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
       },
       {
         "app_id": "5dfceebd32bff0640ce27bbd",
         "name": "fMRIPrep - Surface Output",
-        "purpose": "TODO"
+        "purpose": "preprocesses fMRI with fMRIPrep 20.2.1"
       },
       {
         "app_id": "63516c2bfa262bbde2b7dfb6",
         "name": "fMRIPrep - Surface Output - ICA-AROMA",
-        "purpose": "TODO"
+        "purpose": "preprocesses BOLD fMRI"
       },
       {
         "app_id": "5c61c69f14027a01b14adcb3",
         "name": "fMRIPrep - Volume Output",
-        "purpose": "TODO"
+        "purpose": "preprocesses task or resting fMRI"
       },
       {
         "app_id": "63458604fa262bbde2a93af2",
         "name": "fMRIPrep - Volume Output - ICA-AROMA",
-        "purpose": "TODO"
+        "purpose": "preprocesses BOLD fMRI"
       },
       {
         "app_id": "5cc079c54ed9df00317f61a8",
         "name": "FSL Brain Extraction (BET) on fMRI",
-        "purpose": "TODO"
+        "purpose": "removes non-brain tissue from a 4D BOLD fMRI series"
       },
       {
         "app_id": "607084bcc7f80a838695d8f4",
         "name": "FSL Reorient - Task",
-        "purpose": "TODO"
+        "purpose": "reorients a task fMRI series to the standard orientation"
       },
       {
         "app_id": "63dab271c538c16a820a860f",
         "name": "Generate brain extracted image with SynthStrip (FMRI)",
-        "purpose": "TODO"
+        "purpose": "brain-extracts an fMRI time series"
       },
       {
         "app_id": "5e88c717952fef602e7abf87",
         "name": "Generate images of fMRI",
-        "purpose": "TODO"
+        "purpose": "generates a PNG of mid-axial, sagittal and coronal slices of a fMRI image"
       },
       {
         "app_id": "604b9bbf38fe120d9bef80f2",
         "name": "Generate images of fMRI overlaid on T1",
-        "purpose": "TODO"
+        "purpose": "generates a PNG of the first fMRI volume, brain-extracted"
       },
       {
         "app_id": "60f5a0bab99111586bb464ae",
         "name": "Generate ROIs in FMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in fMRI space from FreeSurfer labels"
       },
       {
         "app_id": "62757902cbc76827b7240da9",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - fMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF map"
       },
       {
         "app_id": "5f6d182b6bbee393d99a6b2c",
         "name": "GLMdenoise",
-        "purpose": "TODO"
+        "purpose": "denoises task fMRI runs"
       },
       {
         "app_id": "6a984afbd90f157078e3390e",
         "name": "hyssong-fmripreprocessing",
-        "purpose": "TODO"
+        "purpose": "denoises an fMRIPrep-preprocessed BOLD run"
       },
       {
         "app_id": "6ac019e1931afedae84ecd8e",
         "name": "NORDIC denoising (Python)",
-        "purpose": "TODO"
+        "purpose": "denoises BOLD fMRI from magnitude and phase data"
       },
       {
         "app_id": "61d7351c33cb3deb4984e8d5",
         "name": "Participant Report",
-        "purpose": "TODO"
+        "purpose": "generates a participant-friendly HTML report"
       },
       {
         "app_id": "5afc9831322997002773ed1c",
         "name": "pRFLife mrTools",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field models to BOLD time series and a stimulus image"
       },
       {
         "app_id": "5e9613ce6365e976b7471d50",
         "name": "pRFLife with mrTools",
-        "purpose": "TODO"
+        "purpose": "estimates voxel-wise population receptive fields"
       },
       {
         "app_id": "6172e5864fd85c20b7533e94",
         "name": "PRFmodel",
-        "purpose": "TODO"
+        "purpose": "fits population receptive field models to task fMRI"
       },
       {
         "app_id": "6041f75166d5ce1daf6efb55",
         "name": "PyNets",
-        "purpose": "TODO"
+        "purpose": "estimates ensembles of structural and/or functional connectomes and their graph measures"
       },
       {
         "app_id": "6130060d584a7684793c3e5f",
         "name": "Regional Homogeneity (ReHo)",
-        "purpose": "TODO"
+        "purpose": "computes a voxelwise Regional Homogeneity map from BOLD fMRI"
       },
       {
         "app_id": "6065aa66d040080706b09da2",
         "name": "Remove first volumes of fMRI",
-        "purpose": "TODO"
+        "purpose": "removes the first N volumes of a 4D fMRI image"
       },
       {
         "app_id": "5cf9582f94cb4c02b711c797",
         "name": "rsHRF",
-        "purpose": "TODO"
+        "purpose": "estimates the voxel-wise resting-state hemodynamic response function and deconvolves BOLD fMRI"
       },
       {
         "app_id": "6363f827fa262bbde2d99ce0",
         "name": "Run MRIQC on Functional Data - FMRI",
-        "purpose": "TODO"
+        "purpose": "runs MRIQC 22.0.6 on a functional image"
       },
       {
         "app_id": "61395cfa584a767f674249ec",
         "name": "Seed-based Correlation",
-        "purpose": "TODO"
+        "purpose": "computes a seed-based functional connectivity map from BOLD fMRI"
       },
       {
         "app_id": "6845b40b187eaf3617cb1183",
         "name": "TDA Computing",
-        "purpose": "TODO"
+        "purpose": "purpose not documented in its manifest"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Preprocessing with fMRIPrep or C-PAC, QC with MRIQC, and denoising.",
+      "Task GLMs, pRF mapping and functional connectivity once preprocessed."
     ],
     "not_suitable_for": [
-      "TODO"
+      "GLMs or connectivity on runs without the preprocessed tag.",
+      "Task analyses when events are missing; use neuro/func/events."
     ],
     "outputs_of": [
       {
         "app_id": "6421c7ce73d2685502d764c0",
         "name": "Apply mask to extract brain data - BOLD",
-        "purpose": "TODO"
+        "purpose": "applies an existing brain mask to a 4D BOLD fMRI series"
       },
       {
         "app_id": "612fd650584a769e283c22d5",
         "name": "Apply warp to BOLD data",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to BOLD fMRI data"
       },
       {
         "app_id": "65bc1334745ef7acd7ae9d20",
         "name": "Concatenating NifTi and Eventfiles",
-        "purpose": "TODO"
+        "purpose": "concatenates single-session fMRI runs and their events files"
       },
       {
         "app_id": "6571c4d8b094062da673adf8",
         "name": "Extract event-related timeseries",
-        "purpose": "TODO"
+        "purpose": "extracts the BOLD volumes that overlap selected event types"
       },
       {
         "app_id": "5ed05fe8e3f4538080268585",
         "name": "fMRI Timeseries Extraction",
-        "purpose": "TODO"
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
       },
       {
         "app_id": "5c720cf63e2f2c0030a23486",
         "name": "fMRI to Connectivity Matrices",
-        "purpose": "TODO"
+        "purpose": "nuisance-regresses fMRIPrep BOLD data"
       },
       {
         "app_id": "5c61c69f14027a01b14adcb3",
         "name": "fMRIPrep - Volume Output",
-        "purpose": "TODO"
+        "purpose": "preprocesses task or resting fMRI"
       },
       {
         "app_id": "63458604fa262bbde2a93af2",
         "name": "fMRIPrep - Volume Output - ICA-AROMA",
-        "purpose": "TODO"
+        "purpose": "preprocesses BOLD fMRI"
       },
       {
         "app_id": "5cc079c54ed9df00317f61a8",
         "name": "FSL Brain Extraction (BET) on fMRI",
-        "purpose": "TODO"
+        "purpose": "removes non-brain tissue from a 4D BOLD fMRI series"
       },
       {
         "app_id": "607084bcc7f80a838695d8f4",
         "name": "FSL Reorient - Task",
-        "purpose": "TODO"
+        "purpose": "reorients a task fMRI series to the standard orientation"
       },
       {
         "app_id": "63dab271c538c16a820a860f",
         "name": "Generate brain extracted image with SynthStrip (FMRI)",
-        "purpose": "TODO"
+        "purpose": "brain-extracts an fMRI time series"
       },
       {
         "app_id": "5f6d182b6bbee393d99a6b2c",
         "name": "GLMdenoise",
-        "purpose": "TODO"
+        "purpose": "denoises task fMRI runs"
       },
       {
         "app_id": "6a984afbd90f157078e3390e",
         "name": "hyssong-fmripreprocessing",
-        "purpose": "TODO"
+        "purpose": "denoises an fMRIPrep-preprocessed BOLD run"
       },
       {
         "app_id": "6ac019e1931afedae84ecd8e",
         "name": "NORDIC denoising (Python)",
-        "purpose": "TODO"
+        "purpose": "denoises BOLD fMRI from magnitude and phase data"
       },
       {
         "app_id": "6065aa66d040080706b09da2",
         "name": "Remove first volumes of fMRI",
-        "purpose": "TODO"
+        "purpose": "removes the first N volumes of a 4D fMRI image"
       }
     ]
   }

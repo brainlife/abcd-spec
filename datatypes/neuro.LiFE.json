@@ -21,8 +21,8 @@
           }
         ],
         "level": "derivative",
-        "match": "TODO",
-        "notes": "from the existing bids.maps on brainlife.io",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no LiFE model suffix; the export map uses a non-BIDS suffix.",
         "suffix": "life",
         "tags": []
       }
@@ -30,7 +30,7 @@
   },
   "brainlife": {
     "_id": "58d15eaee13a50849b258844",
-    "desc": "TODO",
+    "desc": "LiFE (Linear Fascicle Evaluation) result: MATLAB fe structure with fitted fascicle weights and model error, plus a JSON summary and tracts for viewing.",
     "name": "neuro/LiFE",
     "original": {
       "desc": "LiFE Output (fe structure)",
@@ -47,57 +47,48 @@
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "JSON summary of LiFE results (weights and error) for viewing.",
       "filename": "life_results.json",
       "id": "life_results",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Subsampled non-zero-weight streamlines as JSON for viewing.",
       "dirname": "tracts",
       "id": "tracts",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Individual white matter geometry can support re-linkage as a structural fingerprint",
+      "Headers and metadata may carry subject codes or acquisition dates"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed neurodata without direct identifiers. Tier 4 conditions apply if used as a connectome fingerprint.",
     "sharing_cautions": [
-      "TODO"
+      "Share with coded subject IDs under a data use agreement",
+      "Strip free-text tags and dates from metadata before release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 only once aggregated across participants (e.g. a population atlas)",
+      "Tier 4 if used to build connectome fingerprints or predictive features"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[1].desc",
-      "files[2].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -105,30 +96,31 @@
       {
         "app_id": "5cf8252694cb4c02b711c739",
         "name": "AFQ Tract Classification with LiFE",
-        "purpose": "TODO"
+        "purpose": "AFQ tract classification of a LiFE-evaluated tractogram"
       },
       {
         "app_id": "58e6d875b1157a7f0f82c453",
         "name": "Network Neuro",
-        "purpose": "TODO"
+        "purpose": "connectivity matrices from a LiFE-evaluated tractogram"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Removing zero-weight streamlines before tract classification or connectome building.",
+      "Evaluating how well a tractogram predicts the diffusion signal."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Apps that need a plain .tck tractogram; streamlines are embedded in the MATLAB structure."
     ],
     "outputs_of": [
       {
         "app_id": "5baa44b1d0be8b002776b8f7",
         "name": "LiFE (dwi)",
-        "purpose": "TODO"
+        "purpose": "LiFE evaluation of a tractogram from DWI"
       },
       {
         "app_id": "58d15dece13a50849b258842",
         "name": "LiFE with dtiInit",
-        "purpose": "TODO"
+        "purpose": "LiFE evaluation of a tractogram with dtiInit"
       }
     ]
   }

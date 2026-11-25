@@ -21,10 +21,20 @@
           ".tsv",
           ".json"
         ],
-        "files": [],
+        "files": [
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          }
+        ],
         "level": "raw",
-        "match": "TODO",
-        "notes": "",
+        "match": "partial",
+        "notes": "events.csv has no BIDS counterpart.",
         "suffix": "events",
         "tags": []
       }
@@ -32,13 +42,13 @@
   },
   "brainlife": {
     "_id": "643d6076d391caf6efbc2cee",
-    "desc": "TODO",
+    "desc": "Task events table for an fMRI run (BIDS events.tsv, optional JSON and CSV), for events not uploaded with the BOLD.",
     "name": "neuro/func/events",
     "original": {
       "desc": "Datatype containing the events.tsv file for a fmri task-based experiment (in case user did not upload with func datatype)",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Concatenating runs and their events into one timeline. Task GLM design when paired with a BOLD run.\n\n**Not for:** Pairing with a BOLD run from a different session or run.\n\n**BIDS:** func/events (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.events.json"
   },
   "files": [
     {
@@ -54,48 +64,39 @@
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Events as CSV (non-BIDS), e.g. concatenated across runs.",
       "filename": "events.csv",
       "id": "events_csv",
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Free-text columns or response data may reveal personal information"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "behaviour"
+    ],
+    "rationale": "Tool 1 step 6: participant-level behavioural records linkable through a code.",
     "sharing_cautions": [
-      "TODO"
+      "Review free-text columns before sharing"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 4 if response columns build a cognitive or behavioural profile"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 1, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (manifests of the Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[2].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -103,20 +104,21 @@
       {
         "app_id": "65bc1334745ef7acd7ae9d20",
         "name": "Concatenating NifTi and Eventfiles",
-        "purpose": "TODO"
+        "purpose": "concatenates single-session fMRI runs and their events files"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Concatenating runs and their events into one timeline.",
+      "Task GLM design when paired with a BOLD run."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Pairing with a BOLD run from a different session or run."
     ],
     "outputs_of": [
       {
         "app_id": "65bc1334745ef7acd7ae9d20",
         "name": "Concatenating NifTi and Eventfiles",
-        "purpose": "TODO"
+        "purpose": "concatenates single-session fMRI runs and their events files"
       }
     ]
   }

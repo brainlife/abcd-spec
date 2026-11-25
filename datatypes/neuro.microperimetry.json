@@ -4,17 +4,29 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no visual-field or microperimetry suffix.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "604976b3ebfe45c4633ae3d2",
-    "desc": "TODO",
+    "desc": "Microperimetry (fundus-controlled perimetry, e.g. MAIA) retinal sensitivity per test point as a TSV: ID, x_deg, y_deg, Threshold.",
     "name": "neuro/microperimetry",
     "original": {
       "desc": "Microperimetry or fundus-controlled perimetry provides an evaluation of visual function by testing the visual field with incorporated eye-tracking. [https://pubmed.ncbi.nlm.nih.gov/33022378/]. This app is optimised for use on binocular integrated data produced by  https://ocular.shinyapps.io/MAIA_binocular_field_app/",
       "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
     },
-    "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
+    "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.microperimetry.json"
   },
   "files": [
     {
@@ -25,38 +37,33 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "depends",
     "identifying_risks": [
-      "TODO"
+      "Rare retinal conditions in small samples."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "health_status"
+    ],
+    "rationale": "Tool 1 step 6: participant-level clinical vision data; step 8 for rare conditions.",
     "sharing_cautions": [
-      "TODO"
+      "Remove exam dates and device patient IDs before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if linked to names or exam dates in the export."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -64,14 +71,14 @@
       {
         "app_id": "605b9143edebf0f4fdd2a7cc",
         "name": "MAIA microperimetry analysis",
-        "purpose": "TODO"
+        "purpose": "eccentricity-ring averages of MAIA retinal sensitivity"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Ring-wise retinal sensitivity summaries with the MAIA analysis App."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Space-delimited exports without conversion to TSV."
     ],
     "outputs_of": []
   }

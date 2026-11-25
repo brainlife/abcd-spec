@@ -4,68 +4,75 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Trained models have no BIDS counterpart.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5ced86fe44947d8aeaa53d71",
-    "desc": "TODO",
+    "desc": "Pickled Classifyber model: a dict with an optional scaler and a classifier per tract, for streamline classification. No App uses it.",
     "name": "model/classifyber",
     "original": {
       "desc": "a pickle object containing a dictionary of scaler[optional] and clf for each tracts",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Reusing a trained Classifyber tract classifier.\n\n**Not for:** Loading from untrusted sources; pickle can run arbitrary code.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 5 (model-associated) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/model.classifyber.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Python pickle with scaler and classifier per tract.",
       "filename": "model.pickle",
       "id": "model",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 5,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Trained model may retain information about its training subjects."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 7: model weights trained on human neurodata are model-associated (Tier 5).",
     "sharing_cautions": [
-      "TODO"
+      "Record training data and consent terms before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 5 while the model is trained on human tractography."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 5, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "files",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Reusing a trained Classifyber tract classifier."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Loading from untrusted sources; pickle can run arbitrary code."
     ],
     "outputs_of": []
   }

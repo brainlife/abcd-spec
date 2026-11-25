@@ -1,10 +1,14 @@
-"""Render the compact readme written to a datatype on brainlife.io (at most 2048 bytes).
+"""Render the short readme written to a datatype on brainlife.io.
 
-The full record stays in the catalog; the readme summarises it and links there. A hand-written
-readme already on brainlife.io comes first; when it is too long to add to, it is kept unchanged.
+Datatype records are sent with every data object, so the readme stays small: what to use it for,
+how it maps to BIDS, its default sharing tier, how many Apps use it, and a link to the full
+catalog record (files, App list, governance rationale). A hand-written readme already on
+brainlife.io is kept and only gets the sharing line and the link; when that would push it past
+2048 bytes it is kept unchanged.
 """
 from dtrecord import README_MAX_BYTES
 
+SUMMARY_MAX_BYTES = 700
 TIERS = {
     1: "aggregated, non-revealing",
     2: "pseudonymised participant-level",
@@ -14,42 +18,40 @@ TIERS = {
 }
 
 
-def _apps(title, apps, cap):
-    if not apps:
-        return []
-    names = [a["name"] for a in apps[:cap]]
-    more = f", and {len(apps) - cap} more" if len(apps) > cap else ""
-    return [f"**{title}:** {', '.join(names)}{more}."]
+def _sharing(record):
+    tier = record["governance"]["default_tier"]
+    return f"**Sharing:** Tier {tier} ({TIERS[tier]}) by default." if tier else ""
 
 
-def _generated(record, url, app_cap, file_descs):
-    bl, gov = record["brainlife"], record["governance"]
-    out = [bl["desc"]] if bl["desc"] else []
-    files = [f"- `{f.get('filename') or f.get('dirname')}`" + (f": {f['desc']}" if file_descs and f["desc"] else "")
-             + ("" if f["required"] else " (optional)") for f in record["files"]]
-    if files:
-        out.append("**Files**\n" + "\n".join(files))
-    for title, key in (("Use for", "intended_use"), ("Not for", "not_suitable_for")):
-        if record["usage"][key]:
-            out.append(f"**{title}:** {' '.join(record['usage'][key])}")
-    out += _apps("Input to", record["usage"]["inputs_of"], app_cap)
-    out += _apps("Output of", record["usage"]["outputs_of"], app_cap)
-    bids = [f"- {c['datatype']}/{c['suffix']} — {c['match']}" for c in record["bids"]["correspondences"]]
-    if bids:
-        out.append("**BIDS**\n" + "\n".join(bids))
-    if gov["default_tier"]:
-        cautions = " ".join(gov["sharing_cautions"][:2])
-        out.append(f"**Sharing:** Tier {gov['default_tier']} ({TIERS[gov['default_tier']]}) by default. {cautions}".rstrip())
-    out.append(f"Full record: {url}")
-    return "\n\n".join(out)
+def _clip(text, limit):
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def _apps(record):
+    n_in, n_out = len(record["usage"]["inputs_of"]), len(record["usage"]["outputs_of"])
+    parts = [f"Input to {n_in} App{'s' * (n_in != 1)}"] if n_in else []
+    parts += [f"output of {n_out} App{'s' * (n_out != 1)}"] if n_out else []
+    return ("**Apps:** " + ", ".join(parts) + ".") if parts else ""
+
+
+def _summary(record, url, clip):
+    usage = record["usage"]
+    lines = [f"**{title}:** {_clip(' '.join(usage[key]), clip)}"
+             for title, key in (("Use for", "intended_use"), ("Not for", "not_suitable_for")) if usage[key]]
+    bids = [f"{c['datatype']}/{c['suffix']} ({c['match']})" for c in record["bids"]["correspondences"]
+            if c["match"] != "none"]
+    lines.append("**BIDS:** " + (_clip(", ".join(bids), clip) if bids else "no BIDS counterpart."))
+    lines += [_sharing(record), _apps(record), f"Full record: {url}"]
+    return "\n\n".join(x for x in lines if x)
 
 
 def render(record, catalog_url):
-    original = record["brainlife"]["original"]["readme"].strip()
-    for app_cap, file_descs in ((8, True), (3, True), (3, False)):
-        md = _generated(record, catalog_url, app_cap, file_descs)
-        if original:
-            md = original + "\n\n" + md
-        if len(md.encode()) <= README_MAX_BYTES:
+    original = record["brainlife"]["original"]["readme"]
+    if original.strip():
+        md = "\n\n".join(x for x in (original.rstrip(), _sharing(record), f"Full record: {catalog_url}") if x)
+        return md if len(md.encode()) <= README_MAX_BYTES else original
+    for clip in (300, 160, 80):
+        md = _summary(record, catalog_url, clip)
+        if len(md.encode()) <= SUMMARY_MAX_BYTES:
             return md
-    return record["brainlife"]["original"]["readme"] if original else md
+    return md

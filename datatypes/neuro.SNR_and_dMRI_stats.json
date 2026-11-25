@@ -4,62 +4,65 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "Unclear contents; no BIDS counterpart identified.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "61151f8ca5a04c1ad3f9a2d1",
-    "desc": "TODO",
+    "desc": "Unclear: placeholder datatype (some.csv, desc 'Edit me') used for DWI SNR tables in visual-meridian ROIs and for warped NIfTI maps.",
     "name": "neuro/SNR_and_dMRI_stats",
     "original": {
       "desc": "Edit me",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** DWI SNR in horizontal and vertical meridian ROIs.\n\n**Not for:** Owner review: contents differ by App; consider neuro/snr-stats or a proper map datatype.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.SNR_and_dMRI_stats.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Placeholder file name; Apps write CSV tables or NIfTI directories.",
       "filename": "some.csv",
       "id": "tbd",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rows or file names may carry subject and session codes"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 4: participant-level data-quality measures without direct identifiers; they reveal little about the person.",
     "sharing_cautions": [
-      "TODO"
+      "Use coded subject IDs and drop dates"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 once reduced to group statistics with no participant rows"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -67,25 +70,25 @@
       {
         "app_id": "61158b45a5a04c9673f9d510",
         "name": "Warp density-probability from subject space to MNI space - copy",
-        "purpose": "TODO"
+        "purpose": "warp subject-space maps to MNI"
       }
     ],
     "intended_use": [
-      "TODO"
+      "DWI SNR in horizontal and vertical meridian ROIs."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Owner review: contents differ by App; consider neuro/snr-stats or a proper map datatype."
     ],
     "outputs_of": [
       {
         "app_id": "6a977430d90f157078dd6c7b",
         "name": "DWI SNR (HM vs VM)",
-        "purpose": "TODO"
+        "purpose": "DWI SNR in visual-meridian cortical ROIs"
       },
       {
         "app_id": "61158b45a5a04c9673f9d510",
         "name": "Warp density-probability from subject space to MNI space - copy",
-        "purpose": "TODO"
+        "purpose": "warp subject-space maps to MNI"
       }
     ]
   }

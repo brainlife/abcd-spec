@@ -24,10 +24,53 @@
           ".fdt",
           ".bdf"
         ],
-        "files": [],
+        "files": [
+          {
+            "bids_part": "eeg.eeg",
+            "file_id": "eeg"
+          },
+          {
+            "bids_part": "eeg.vhdr",
+            "file_id": "vhdr"
+          },
+          {
+            "bids_part": "eeg.vmrk",
+            "file_id": "vmrk"
+          },
+          {
+            "bids_part": "channels.tsv",
+            "file_id": "channels",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "electrodes.tsv",
+            "file_id": "electrodes",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "coordsystem.json",
+            "file_id": "coordsystem",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.tsv",
+            "file_id": "events",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "events.json",
+            "file_id": "events_json",
+            "sidecar": "file"
+          },
+          {
+            "bids_part": "eeg.json",
+            "file_id": "eeg_json",
+            "sidecar": "missing"
+          }
+        ],
         "level": "raw",
-        "match": "TODO",
-        "notes": "",
+        "match": "partial",
+        "notes": "Lacks the REQUIRED *_eeg.json sidecar (proposed as an optional file); other sidecars are carried. Renaming .vhdr/.vmrk/.eeg breaks the internal file references unless rewritten.",
         "suffix": "eeg",
         "tags": []
       }
@@ -35,103 +78,100 @@
   },
   "brainlife": {
     "_id": "6000753eaacf9e6591a691d9",
-    "desc": "TODO",
+    "desc": "Raw EEG in BrainVision Core format (.vhdr header, .vmrk markers, .eeg binary), with optional BIDS sidecars.",
     "name": "neuro/eeg/brainvision",
     "original": {
       "desc": "EEG / BrainVision Core Data Format (.vhdr, .vmrk, .eeg)",
       "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
+    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.brainvision.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "BrainVision binary data.",
       "filename": "eeg.eeg",
       "id": "eeg",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "BrainVision header naming the data and marker files.",
       "filename": "eeg.vhdr",
       "id": "vhdr",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "BrainVision markers (triggers).",
       "filename": "eeg.vmrk",
       "id": "vmrk",
       "required": true
     },
     {
-      "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+      "desc": "Channel names, types, units and status.",
       "filename": "channels.tsv",
       "id": "channels",
       "required": false
     },
     {
-      "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+      "desc": "Electrode names and positions.",
       "filename": "electrodes.tsv",
       "id": "electrodes",
       "required": false
     },
     {
-      "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+      "desc": "Coordinate system and fiducials for sensor positions.",
       "filename": "coordsystem.json",
       "id": "coordsystem",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Event onsets, durations and types.",
       "filename": "events.tsv",
       "id": "events",
       "required": false
     },
     {
-      "desc": "TODO",
+      "desc": "Descriptions of the events.tsv columns.",
       "filename": "events.json",
       "id": "events_json",
+      "required": false
+    },
+    {
+      "desc": "BIDS EEG sidecar: recording parameters.",
+      "filename": "eeg.json",
+      "id": "eeg_json",
+      "proposed": true,
       "required": false
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Recording dates and free-text fields in the header, markers or events."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "function",
+      "physiology"
+    ],
+    "rationale": "Tool 1 step 6: participant-level EEG without standard identity fields, linkable through a participant code.",
     "sharing_cautions": [
-      "TODO"
+      "Check header and event text for names and dates before sharing."
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 3 if the BrainVision header, events or sidecars name the participant or give exact dates."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json (eeg, events, channels rules)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "files[6].desc",
-      "files[7].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -139,14 +179,14 @@
       {
         "app_id": "628b6938d0697cf1eaeb6077",
         "name": "BRAINVISION to mne/raw",
-        "purpose": "TODO"
+        "purpose": "converts BrainVision EEG to MNE raw FIF"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Raw EEG input for conversion to MNE raw and further preprocessing."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Tools that read the .eeg file alone; the .vhdr header is the entry point."
     ],
     "outputs_of": []
   }

@@ -4,60 +4,68 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS 1.11.2 has no suffix for BedpostX model samples.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "622138875d8ab5d5f0212b05",
-    "desc": "TODO",
+    "desc": "FSL BedpostX output directory: ball-and-stick fibre orientation and volume-fraction samples per voxel for probabilistic tractography.",
     "name": "neuro/FSLBedpostX",
     "original": {
       "desc": "This datatype is specific to FSL's Bedpost. It contains the entire folder with the results of Bedpost ",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Input to FSL probtrackx2 probabilistic tractography.\n\n**Not for:** MRtrix or DIPY tracking Apps; they need FODs or peaks.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.FSLBedpostX.json"
   },
   "files": [
     {
-      "desc": "This is a the top-folder generated as output of BedpostX",
+      "desc": "BedpostX output folder (merged samples, mean maps, mask).",
       "dirname": "bedpostx",
       "id": "bedpostx",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "NIfTI headers or metadata may carry subject codes or dates",
+      "Rare lesions or anomalies can be recognisable in small samples"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 4: participant-level processed diffusion MRI without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with coded subject IDs under a data use agreement",
+      "Check headers and metadata for identifiers before release"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 only as a group-averaged template",
+      "Tier 4 if used as features for predicting cognitive or clinical states"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -65,20 +73,20 @@
       {
         "app_id": "683643f5187eaf3617aeae36",
         "name": "FSL Probabilistic Tractography Algorithm",
-        "purpose": "TODO"
+        "purpose": "FSL probtrackx2 tractography from BedpostX"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Input to FSL probtrackx2 probabilistic tractography."
     ],
     "not_suitable_for": [
-      "TODO"
+      "MRtrix or DIPY tracking Apps; they need FODs or peaks."
     ],
     "outputs_of": [
       {
         "app_id": "615b769ffc8eb96633f613aa",
         "name": "bedpostx",
-        "purpose": "TODO"
+        "purpose": "FSL BedpostX ball-and-stick fit from DWI"
       }
     ]
   }

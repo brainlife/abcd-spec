@@ -4,17 +4,54 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "anat",
+        "entities": [
+          "task",
+          "echo",
+          "part",
+          "ceagent",
+          "reconstruction",
+          "chunk",
+          "acquisition",
+          "run",
+          "subject",
+          "session",
+          "label",
+          "resolution",
+          "space",
+          "description"
+        ],
+        "extensions": [
+          ".nii.gz",
+          ".nii",
+          ".ome.zarr/",
+          ".json"
+        ],
+        "files": [
+          {
+            "bids_part": "label-<name>_mask.nii.gz",
+            "file_id": "rois"
+          }
+        ],
+        "level": "derivative",
+        "match": "partial",
+        "notes": "One BIDS mask per ROI with label-; label.json has no BIDS equivalent.",
+        "suffix": "mask",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "5be9ea0315a8683a39a1ebd9",
-    "desc": "TODO",
+    "desc": "Directory of binary NIfTI ROI masks (0/1), one region per file, with optional label.json naming each ROI.",
     "name": "neuro/rois",
     "original": {
       "desc": "Regions of interests in multiple nifti files. Each nifti files should be a binary masks (values should be either 0 or 1)",
       "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```"
     },
-    "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```"
+    "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.rois.json"
   },
   "files": [
     {
@@ -31,118 +68,33 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Low; individual region shapes are participant-level"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 for template-space atlas ROIs with no participant data"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.inputs_of[10].purpose",
-      "usage.inputs_of[11].purpose",
-      "usage.inputs_of[12].purpose",
-      "usage.inputs_of[13].purpose",
-      "usage.inputs_of[14].purpose",
-      "usage.inputs_of[15].purpose",
-      "usage.inputs_of[16].purpose",
-      "usage.inputs_of[17].purpose",
-      "usage.inputs_of[18].purpose",
-      "usage.inputs_of[19].purpose",
-      "usage.inputs_of[1].purpose",
-      "usage.inputs_of[20].purpose",
-      "usage.inputs_of[21].purpose",
-      "usage.inputs_of[22].purpose",
-      "usage.inputs_of[23].purpose",
-      "usage.inputs_of[24].purpose",
-      "usage.inputs_of[25].purpose",
-      "usage.inputs_of[26].purpose",
-      "usage.inputs_of[27].purpose",
-      "usage.inputs_of[28].purpose",
-      "usage.inputs_of[29].purpose",
-      "usage.inputs_of[2].purpose",
-      "usage.inputs_of[30].purpose",
-      "usage.inputs_of[31].purpose",
-      "usage.inputs_of[32].purpose",
-      "usage.inputs_of[33].purpose",
-      "usage.inputs_of[34].purpose",
-      "usage.inputs_of[35].purpose",
-      "usage.inputs_of[36].purpose",
-      "usage.inputs_of[37].purpose",
-      "usage.inputs_of[38].purpose",
-      "usage.inputs_of[39].purpose",
-      "usage.inputs_of[3].purpose",
-      "usage.inputs_of[40].purpose",
-      "usage.inputs_of[41].purpose",
-      "usage.inputs_of[42].purpose",
-      "usage.inputs_of[43].purpose",
-      "usage.inputs_of[44].purpose",
-      "usage.inputs_of[45].purpose",
-      "usage.inputs_of[46].purpose",
-      "usage.inputs_of[4].purpose",
-      "usage.inputs_of[5].purpose",
-      "usage.inputs_of[6].purpose",
-      "usage.inputs_of[7].purpose",
-      "usage.inputs_of[8].purpose",
-      "usage.inputs_of[9].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[10].purpose",
-      "usage.outputs_of[11].purpose",
-      "usage.outputs_of[12].purpose",
-      "usage.outputs_of[13].purpose",
-      "usage.outputs_of[14].purpose",
-      "usage.outputs_of[15].purpose",
-      "usage.outputs_of[16].purpose",
-      "usage.outputs_of[17].purpose",
-      "usage.outputs_of[18].purpose",
-      "usage.outputs_of[19].purpose",
-      "usage.outputs_of[1].purpose",
-      "usage.outputs_of[20].purpose",
-      "usage.outputs_of[21].purpose",
-      "usage.outputs_of[22].purpose",
-      "usage.outputs_of[23].purpose",
-      "usage.outputs_of[24].purpose",
-      "usage.outputs_of[25].purpose",
-      "usage.outputs_of[26].purpose",
-      "usage.outputs_of[27].purpose",
-      "usage.outputs_of[28].purpose",
-      "usage.outputs_of[29].purpose",
-      "usage.outputs_of[2].purpose",
-      "usage.outputs_of[30].purpose",
-      "usage.outputs_of[31].purpose",
-      "usage.outputs_of[32].purpose",
-      "usage.outputs_of[33].purpose",
-      "usage.outputs_of[3].purpose",
-      "usage.outputs_of[4].purpose",
-      "usage.outputs_of[5].purpose",
-      "usage.outputs_of[6].purpose",
-      "usage.outputs_of[7].purpose",
-      "usage.outputs_of[8].purpose",
-      "usage.outputs_of[9].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -150,415 +102,416 @@
       {
         "app_id": "63cc4d5fef2a7449dccbae87",
         "name": "Apply warp to or from standard space to ROIs (T2w) - Scanner T2 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between a scanner-space"
       },
       {
         "app_id": "63cc4c7bef2a7449dccba44b",
         "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T1-weighted image"
       },
       {
         "app_id": "65d52d7feab7bb5c3c9f3041",
         "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T1-weighted image"
       },
       {
         "app_id": "63cc4c5eef2a7449dccb9a9c",
         "name": "Apply warp to or from standard space to ROIs (T1w) - Scanner T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between a scanner-space"
       },
       {
         "app_id": "63cc4d91ef2a7449dccbb6dd",
         "name": "Apply warp to or from standard space to ROIs (T2w) - ACPC T2 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T2-weighted image"
       },
       {
         "app_id": "62a7bf96ab3e66978061f0af",
         "name": "Bundle segmented tracks by eccentricity",
-        "purpose": "TODO"
+        "purpose": "splits already-segmented white matter tracts"
       },
       {
         "app_id": "5d940c37f6484af52e6a8799",
         "name": "Bundle segmented tracks by eccentricity - Deprecated",
-        "purpose": "TODO"
+        "purpose": "deprecated; splits segmented tracts into sub-bundles by pRF eccentricity ROIs"
       },
       {
         "app_id": "6340875ffa262bbde2a153f7",
         "name": "combine-scans-rois",
-        "purpose": "TODO"
+        "purpose": "copies a set of ROIs together"
       },
       {
         "app_id": "5e94e5ec5092192299f0dde6",
         "name": "combineROI",
-        "purpose": "TODO"
+        "purpose": "combines two ROI datasets into one"
       },
       {
         "app_id": "6331b1fe2aea314314dbd0f2",
         "name": "Compute and Apply warp from subject-to-standard space to ROIs (T1w)",
-        "purpose": "TODO"
+        "purpose": "registers a T1-weighted image to a standard template"
       },
       {
         "app_id": "60a8125122b42a158170e126",
         "name": "Extract diffusion metrics inside ROIs",
-        "purpose": "TODO"
+        "purpose": "extracts summary statistics"
       },
       {
         "app_id": "5f76303c268f76393329775a",
         "name": "Extract summary statistics of diffusion measures mapped to cortical surface inside tract endpoints",
-        "purpose": "TODO"
+        "purpose": "computes summary statistics"
       },
       {
         "app_id": "64f534f3e4d2e9108d8faeef",
         "name": "fix RAS/LPI labeling",
-        "purpose": "TODO"
+        "purpose": "fixes inconsistent RAS/LPI endpoint labels of left and right MDLFang, MDLFspl, Uncinate and Aslant ROIs"
       },
       {
         "app_id": "633f3e1ffa262bbde29ea5aa",
         "name": "FSLmaths-app",
-        "purpose": "TODO"
+        "purpose": "combines one ROI from each of two ROI sets"
       },
       {
         "app_id": "5f5a7b200c8f95f36765fee9",
         "name": "Generate Eccentricity Parcellations from Visual ROIs",
-        "purpose": "TODO"
+        "purpose": "combines eccentricity-binned visual ROIs for one eccentricity range"
       },
       {
         "app_id": "6109ecd3b991116939bee534",
         "name": "Generate images of tract endpoints on cortical surface",
-        "purpose": "TODO"
+        "purpose": "projects tract endpoint density ROIs onto the FreeSurfer white surface and renders JPEG images"
       },
       {
         "app_id": "5fc953b61828bc065252abf2",
         "name": "Generate Parcellation (Volume) from ROIs",
-        "purpose": "TODO"
+        "purpose": "combines a directory of binary NIfTI ROIs into a single volumetric parcellation"
       },
       {
         "app_id": "60fecf3eb9911170e6b89722",
         "name": "Generate surface visualizations of ROIs for WMC Datatype Viewer",
-        "purpose": "TODO"
+        "purpose": "converts each ROI volume into a VTK surface mesh and adds it to a white matter classification so the ROIs"
       },
       {
         "app_id": "63fba472c538c16a824ff4ef",
         "name": "Map  ROIs to cortical surface",
-        "purpose": "TODO"
+        "purpose": "maps volumetric ROIs such as tract endpoints onto FreeSurfer-derived cortical surfaces in native and MNI"
       },
       {
         "app_id": "64307e9c73d2685502f2e152",
         "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses",
-        "purpose": "TODO"
+        "purpose": "maps volumetric tract endpoint ROIs onto FreeSurfer-derived cortical surfaces in native and MNI"
       },
       {
         "app_id": "64420964d391caf6efc9b767",
         "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses - fsaverage",
-        "purpose": "TODO"
+        "purpose": "maps template-space (warped) tract endpoint ROIs onto an fsaverage cortical"
       },
       {
         "app_id": "63b7476fdaffe2c240863ad0",
         "name": "Merge multiple ROIs together using AFNI",
-        "purpose": "TODO"
+        "purpose": "merges selected ROIs from an rois dataset into new combined ROIs"
       },
       {
         "app_id": "5e94f84e509219bc56f0e1ea",
         "name": "mergeROI",
-        "purpose": "TODO"
+        "purpose": "merges two named ROIs, or all ROIs, of an ROI collection into a single binary ROI"
       },
       {
         "app_id": "5eb5d968dca08712b9a766fd",
         "name": "Mrtrix3 iFOD2 ROI Tracking (dwi)",
-        "purpose": "TODO"
+        "purpose": "tracks streamlines between pairs of ROIs from DWI and CSD fiber orientation distributions"
       },
       {
         "app_id": "6ad144840e072a00d8aed712",
         "name": "Optic Radiation Tracking and Retinotopic Segmentation",
-        "purpose": "TODO"
+        "purpose": "optic Radiation Tracking and Retinotopic Segmentation"
       },
       {
         "app_id": "6041f75166d5ce1daf6efb55",
         "name": "PyNets",
-        "purpose": "TODO"
+        "purpose": "estimates ensembles of structural"
       },
       {
         "app_id": "60a590f422b42ad40d6fb317",
         "name": "Reslice ROIs to match input anatomy",
-        "purpose": "TODO"
+        "purpose": "reslices a set of ROI volumes onto the voxel grid of a T1-weighted image"
       },
       {
         "app_id": "60e4c42e4cb7040aec068b83",
         "name": "Reslice ROIs to match input anatomy (with affine)",
-        "purpose": "TODO"
+        "purpose": "moves a set of ROI volumes onto a T1-weighted image's voxel grid"
       },
       {
         "app_id": "633336fcdb978c799193d995",
         "name": "Reslice ROIs to match input DWI",
-        "purpose": "TODO"
+        "purpose": "reslices a collection of ROIs onto the voxel grid of a DWI image"
       },
       {
         "app_id": "5e516420cb80941d63f51b0e",
         "name": "ROI to ROI Tracking - MRTrix 0.2.12",
-        "purpose": "TODO"
+        "purpose": "tracks streamlines between pairs of ROIs"
       },
       {
         "app_id": "5e54514f5b9d90668672d5fc",
         "name": "Segment Tracts with ROIs",
-        "purpose": "TODO"
+        "purpose": "segments tracts from a white matter classification"
       },
       {
         "app_id": "610cad1fe1a90d476797cffe",
         "name": "Segment Wholebrain Tractogram with ROIs",
-        "purpose": "TODO"
+        "purpose": "segments a whole-brain tractogram"
       },
       {
         "app_id": "628a4e34d0697cf1eae9b915",
         "name": "Segment with ROIs",
-        "purpose": "TODO"
+        "purpose": "segments one or more tracts from a tractogram"
       },
       {
         "app_id": "5ec584961f44640f6b9e2658",
         "name": "Track the Human Optic RAdiation (THORA) - mrtrix3 iFOD2 (dwi)",
-        "purpose": "TODO"
+        "purpose": "tracks the human optic radiation from LGN ROIs to V1"
       },
       {
         "app_id": "5d65964c39867291e349624a",
         "name": "Track the Human Optic RAdiation (THORA) - Trekker",
-        "purpose": "TODO"
+        "purpose": "tracks the human optic radiation from the LGN to V1"
       },
       {
         "app_id": "5ddb7138936ca3c660c58a46",
         "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks the optic radiation between LGN and V1 ROIs"
       },
       {
         "app_id": "5ddce502936ca3bec8c5b4b7",
         "name": "Track The Human Optic RAdiation (THORA): Contrack - Tracking Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks the optic radiation from LGN to V1"
       },
       {
         "app_id": "5f51279442c17258f764c7ee",
         "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 (dwi)",
-        "purpose": "TODO"
+        "purpose": "tracks the human optic tract between LGN ROIs and the optic chiasm"
       },
       {
         "app_id": "5ecc12711f4464fbe69ec07f",
         "name": "Track the Human Optic TRAct (THOTRA) - mrtrix3 iFOD2 (dwi)",
-        "purpose": "TODO"
+        "purpose": "tracks the human optic tract between LGN ROIs and the optic chiasm"
       },
       {
         "app_id": "5ecca2f11f446435999ed9f9",
         "name": "Track the Human Optic TRAct (THOTRA) - Trekker",
-        "purpose": "TODO"
+        "purpose": "tracks the human optic tract from the optic chiasm to the LGN"
       },
       {
         "app_id": "62a7b499ab3e66978061e46c",
         "name": "Track Visual White Matter Tracks by Visual Field Eccentricty: Contrack",
-        "purpose": "TODO"
+        "purpose": "tracks visual white matter between user-chosen pairs of ROIs"
       },
       {
         "app_id": "5f5a8c510c8f95df586610fd",
         "name": "Tracking the Visual White Matter (TVWM) (Trekker) - Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks visual white matter"
       },
       {
         "app_id": "5ecc95311f446482f59ed395",
         "name": "Trekker ROI Tracking (DWI)",
-        "purpose": "TODO"
+        "purpose": "tracks streamlines between user-specified pairs of ROIs"
       },
       {
         "app_id": "5f52e1c542c172f98a6532e4",
         "name": "Trekker ROI Tracking (DWI) based on Eccentricity",
-        "purpose": "TODO"
+        "purpose": "tracks streamlines between pairs of eccentricity-binned ROIs"
       },
       {
         "app_id": "63ed0c21c538c16a822e6b8f",
         "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
-        "purpose": "TODO"
+        "purpose": "resamples template-surface labels to a subject's FreeSurfer surfaces and maps them into ribbon-constrained"
       },
       {
         "app_id": "5c7319a5badd19003102e8d8",
         "name": "Warp ROIs from subject space to MNI space",
-        "purpose": "TODO"
+        "purpose": "warps a set of subject-space ROIs to MNI"
       },
       {
         "app_id": "5cc9ce364b5e4502275edb5e",
         "name": "WMA Tract Segmentation with ROIs",
-        "purpose": "TODO"
+        "purpose": "segments a tractogram into tracts"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Seeding or constraining tractography and extracting regional measures."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Non-binary maps; use neuro/maps.",
+      "Use in another space without resampling."
     ],
     "outputs_of": [
       {
         "app_id": "63cc4d5fef2a7449dccbae87",
         "name": "Apply warp to or from standard space to ROIs (T2w) - Scanner T2 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between a scanner-space"
       },
       {
         "app_id": "64bd5b923a63cf17376f2fb7",
         "name": "Warp reference Ventral Putamen ROI(s) to Subject Space",
-        "purpose": "TODO"
+        "purpose": "warps left and right ventral putamen ROIs from MNI152 space into a subject's T1-weighted"
       },
       {
         "app_id": "63cc4c7bef2a7449dccba44b",
         "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T1-weighted image"
       },
       {
         "app_id": "65d52d7feab7bb5c3c9f3041",
         "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T1-weighted image"
       },
       {
         "app_id": "63cc4c5eef2a7449dccb9a9c",
         "name": "Apply warp to or from standard space to ROIs (T1w) - Scanner T1 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between a scanner-space"
       },
       {
         "app_id": "63cc4d91ef2a7449dccbb6dd",
         "name": "Apply warp to or from standard space to ROIs (T2w) - ACPC T2 space",
-        "purpose": "TODO"
+        "purpose": "applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T2-weighted image"
       },
       {
         "app_id": "5c72e7e3badd19003102e8d3",
         "name": "Attention ROI warp",
-        "purpose": "TODO"
+        "purpose": "registers a T1-weighted brain image to MNI152"
       },
       {
         "app_id": "5e94e5ec5092192299f0dde6",
         "name": "combineROI",
-        "purpose": "TODO"
+        "purpose": "combines two ROI datasets into one"
       },
       {
         "app_id": "6331b1fe2aea314314dbd0f2",
         "name": "Compute and Apply warp from subject-to-standard space to ROIs (T1w)",
-        "purpose": "TODO"
+        "purpose": "registers a T1-weighted image to a standard template"
       },
       {
         "app_id": "6388d65d6881d56fbfa446ed",
         "name": "Convert tractmasks to rois",
-        "purpose": "TODO"
+        "purpose": "converts a tractmasks datatype into a rois datatype"
       },
       {
         "app_id": "6286a9ced0697cf1eae44a76",
         "name": "Create MNI coordinate-based ROIS and warp to subject space",
-        "purpose": "TODO"
+        "purpose": "creates spherical and planar ROIs from MNI coordinates and warps them to a subject's T1"
       },
       {
         "app_id": "64f534f3e4d2e9108d8faeef",
         "name": "fix RAS/LPI labeling",
-        "purpose": "TODO"
+        "purpose": "fixes inconsistent RAS/LPI endpoint labels of left and right MDLFang, MDLFspl, Uncinate and Aslant ROIs"
       },
       {
         "app_id": "633f3e1ffa262bbde29ea5aa",
         "name": "FSLmaths-app",
-        "purpose": "TODO"
+        "purpose": "combines one ROI from each of two ROI sets"
       },
       {
         "app_id": "5f86894be6432df0c492cd28",
         "name": "Generate ROIs for Visual White Matter Analysis in Freesurfer Space (Benson pRF)",
-        "purpose": "TODO"
+        "purpose": "generates ROIs for visual white matter analysis in FreeSurfer"
       },
       {
         "app_id": "5ec69cdd1f4464c1e69e3a21",
         "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Benson pRF)",
-        "purpose": "TODO"
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space: V1 and other visual areas"
       },
       {
         "app_id": "5f5277bf42c17215e36504d8",
         "name": "Generate ROIs for Visual White Matter Tracking in dMRI Space (Glasser Parcellation)",
-        "purpose": "TODO"
+        "purpose": "generates ROIs for visual white matter and optic radiation tracking in DWI space from a subject-space Glasser"
       },
       {
         "app_id": "5c364d71836af601cc85864d",
         "name": "Generate ROIs from an atlas",
-        "purpose": "TODO"
+        "purpose": "extracts single or merged ROIs as NIfTI files from a volumetric parcellation"
       },
       {
         "app_id": "60f83f2db991118b34b56b02",
         "name": "Generate ROIs in Anatomical Space",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in anatomical"
       },
       {
         "app_id": "6192cd0d983d5bb13f951b61",
         "name": "Generate ROIs in DMRI Space with FA Skeleton mask",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
       },
       {
         "app_id": "6192d0a4983d5bb13f958870",
         "name": "Generate ROIs in DMRI Space with WM Skeleton mask",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in DWI space from FreeSurfer labels, an optional volume parcellation and pRF visual areas"
       },
       {
         "app_id": "60f5a0bab99111586bb464ae",
         "name": "Generate ROIs in FMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates ROIs in fMRI space from FreeSurfer labels"
       },
       {
         "app_id": "5cc9ea944b5e4502275edb99",
         "name": "Generate tract endpoint maps",
-        "purpose": "TODO"
+        "purpose": "generates streamline endpoint density maps for every tract in a white matter classification"
       },
       {
         "app_id": "5f52cc4b42c17250a7651b63",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Diffusion Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "62757902cbc76827b7240da9",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - fMRI Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "5f873282e6432d41a892e131",
         "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Freesurfer Space",
-        "purpose": "TODO"
+        "purpose": "generates eccentricity-binned visual-area ROIs from a pRF"
       },
       {
         "app_id": "63b7476fdaffe2c240863ad0",
         "name": "Merge multiple ROIs together using AFNI",
-        "purpose": "TODO"
+        "purpose": "merges selected ROIs from an rois dataset into new combined ROIs"
       },
       {
         "app_id": "5e94f84e509219bc56f0e1ea",
         "name": "mergeROI",
-        "purpose": "TODO"
+        "purpose": "merges two named ROIs, or all ROIs, of an ROI collection into a single binary ROI"
       },
       {
         "app_id": "60a590f422b42ad40d6fb317",
         "name": "Reslice ROIs to match input anatomy",
-        "purpose": "TODO"
+        "purpose": "reslices a set of ROI volumes onto the voxel grid of a T1-weighted image"
       },
       {
         "app_id": "60e4c42e4cb7040aec068b83",
         "name": "Reslice ROIs to match input anatomy (with affine)",
-        "purpose": "TODO"
+        "purpose": "moves a set of ROI volumes onto a T1-weighted image's voxel grid"
       },
       {
         "app_id": "633336fcdb978c799193d995",
         "name": "Reslice ROIs to match input DWI",
-        "purpose": "TODO"
+        "purpose": "reslices a collection of ROIs onto the voxel grid of a DWI image"
       },
       {
         "app_id": "63ed0c21c538c16a822e6b8f",
         "name": "Warp and resample surface label ROIs to volume (Freesurfer space)",
-        "purpose": "TODO"
+        "purpose": "resamples template-surface labels to a subject's FreeSurfer surfaces and maps them into ribbon-constrained"
       },
       {
         "app_id": "63dd70b3c538c16a82114734",
         "name": "Warp ROIs for Visual White Matter From MNI to T1 space",
-        "purpose": "TODO"
+        "purpose": "registers a T1-weighted image to the MNI152 2 mm template"
       },
       {
         "app_id": "5c7319a5badd19003102e8d8",
         "name": "Warp ROIs from subject space to MNI space",
-        "purpose": "TODO"
+        "purpose": "warps a set of subject-space ROIs to MNI"
       },
       {
         "app_id": "66b5180b774d6f044d9fad3f",
         "name": "XformPauliVTA",
-        "purpose": "TODO"
+        "purpose": "transforms the Pauli atlas ventral tegmental area"
       }
     ]
   }

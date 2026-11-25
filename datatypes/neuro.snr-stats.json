@@ -4,81 +4,85 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "No BIDS counterpart for SNR tables.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "60ca4f058b8b7238324295d3",
-    "desc": "TODO",
+    "desc": "Experimental CSV of DWI signal-to-noise statistics, e.g. corpus callosum SNR per b0 and gradient direction, or tissue- and shell-specific SNR.",
     "name": "neuro/snr-stats",
     "original": {
       "desc": "(exeprimental) SNR in CSV",
       "readme": "EDIT ME"
     },
-    "readme": "EDIT ME"
+    "readme": "EDIT ME\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.snr-stats.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "CSV of SNR statistics.",
       "filename": "snr.csv",
       "id": "snr",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Rows or file names may carry subject and session codes"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "none"
+    ],
+    "rationale": "Tool 1 step 4: participant-level data-quality measures without direct identifiers; they reveal little about the person.",
     "sharing_cautions": [
-      "TODO"
+      "Use coded subject IDs and drop dates"
     ],
     "tier_conditions": [
-      "TODO"
+      "Tier 1 once reduced to group statistics with no participant rows"
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 3, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "catalog/apps/<app_id>.json (Apps in usage)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "DWI data-quality checks and comparing acquisitions."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Mixing tables from different Apps without checking columns."
     ],
     "outputs_of": [
       {
         "app_id": "5bca308550fdf50028c6342c",
         "name": "Compute SNR on Corpus Callosum",
-        "purpose": "TODO"
+        "purpose": "DWI SNR in the corpus callosum"
       },
       {
         "app_id": "629fb60a7f60950a54d5e63b",
         "name": "Tissue-specific SNR (and other tissue-specific metrics)",
-        "purpose": "TODO"
+        "purpose": "tissue- and shell-specific SNR statistics"
       }
     ]
   }

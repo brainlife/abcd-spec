@@ -4,61 +4,65 @@
       "bids_version": "1.11.2",
       "schema_version": "2.0.0"
     },
-    "correspondences": []
+    "correspondences": [
+      {
+        "datatype": "",
+        "entities": [],
+        "extensions": [],
+        "files": [],
+        "level": "derivative",
+        "match": "none",
+        "notes": "BIDS has no head-MRI transform suffix; coordsystem.json records fiducials instead.",
+        "suffix": "",
+        "tags": []
+      }
+    ]
   },
   "brainlife": {
     "_id": "66e58020774d6f044dcf5afc",
-    "desc": "TODO",
+    "desc": "Head-to-MRI coordinate transform in MNE FIF (trans.fif) from MEG/EEG-MRI coregistration.",
     "name": "neuro/meeg/mne/trans",
     "original": {
       "desc": "To be edited",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Forward modelling: aligns sensor and MRI coordinates for one subject and session.\n\n**Not for:** Other subjects or sessions with a different head position.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.trans.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "MNE transform FIF (4x4 head-to-MRI matrix).",
       "filename": "trans.fif",
       "id": "trans",
       "required": true
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Low: a single matrix, linkable only through the participant code."
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level derivative without identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with the subject's MEG and MRI derivatives under the same controls."
     ],
     "tier_conditions": [
-      "TODO"
+      "Stays tier 2; no condition moves it."
     ]
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 2, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original",
+      "catalog/apps/<app_id>.json (all Apps in usage)",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "brainlife.desc",
-      "files[0].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.inputs_of[0].purpose",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
@@ -66,20 +70,20 @@
       {
         "app_id": "69b11c0f6bb1f71b25b601e7",
         "name": "Make Forward Solution",
-        "purpose": "TODO"
+        "purpose": "MEG/EEG forward solution from source space, transform and BEM"
       }
     ],
     "intended_use": [
-      "TODO"
+      "Forward modelling: aligns sensor and MRI coordinates for one subject and session."
     ],
     "not_suitable_for": [
-      "TODO"
+      "Other subjects or sessions with a different head position."
     ],
     "outputs_of": [
       {
         "app_id": "6a982566d90f157078e200c3",
         "name": "Automated  coregistration",
-        "purpose": "TODO"
+        "purpose": "head-MRI coregistration from digitisation points, giving trans.fif"
       }
     ]
   }

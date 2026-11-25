@@ -44,9 +44,9 @@
             "file_id": "wm"
           }
         ],
-        "level": "raw",
-        "match": "TODO",
-        "notes": "from the existing bids.maps on brainlife.io",
+        "level": "derivative",
+        "match": "partial",
+        "notes": "Only fa maps to BIDS FA; tensor, CSD, response and masks have no BIDS 1.11.2 suffix.",
         "suffix": "FA",
         "tags": []
       }
@@ -54,52 +54,52 @@
   },
   "brainlife": {
     "_id": "5a04b08b2c214c9ba8033391",
-    "desc": "TODO",
+    "desc": "Legacy MRtrix 0.2 diffusion reconstruction: response, FA, tensor, CSD, white matter and brain masks (NIfTI).",
     "name": "neuro/recon",
     "original": {
       "desc": "Diffusion Signal Voxel Reconstruction Model",
       "readme": ""
     },
-    "readme": ""
+    "readme": "**Use for:** Inputs and intermediates of legacy MRtrix 0.2 tracking Apps.\n\n**Not for:** MRtrix3 Apps; CSD and response formats differ between versions.\n\n**BIDS:** dwi/FA (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.recon.json"
   },
   "files": [
     {
-      "desc": "TODO",
+      "desc": "Single-fibre response function (text).",
       "ext": ".txt",
       "filename": "response.txt",
       "id": "response",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Fractional anisotropy map (NIfTI).",
       "ext": ".nii.gz",
       "filename": "fa.nii.gz",
       "id": "fa",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Diffusion tensor image (NIfTI).",
       "ext": ".nii.gz",
       "filename": "dt.nii.gz",
       "id": "dt",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "White matter mask (NIfTI).",
       "ext": ".nii.gz",
       "filename": "whitematter.nii.gz",
       "id": "wm",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "Brain mask (NIfTI).",
       "ext": ".nii.gz",
       "filename": "brainmask.nii.gz",
       "id": "brainmask",
       "required": true
     },
     {
-      "desc": "TODO",
+      "desc": "CSD fibre orientation distribution image (NIfTI).",
       "ext": ".nii.gz",
       "filename": "csd.nii.gz",
       "id": "csd",
@@ -107,66 +107,51 @@
     }
   ],
   "governance": {
-    "default_tier": 0,
-    "human_neurodata": "TODO",
+    "default_tier": 2,
+    "human_neurodata": "yes",
     "identifying_risks": [
-      "TODO"
+      "Participant-level diffusion derivatives"
     ],
-    "information_kinds": [],
-    "rationale": "TODO",
+    "information_kinds": [
+      "anatomy"
+    ],
+    "rationale": "Tool 1 step 6: participant-level processed neurodata without direct identifiers.",
     "sharing_cautions": [
-      "TODO"
+      "Share with participant codes only"
     ],
-    "tier_conditions": [
-      "TODO"
-    ]
+    "tier_conditions": []
   },
   "provenance": {
-    "drafted_by": "tools/bldt.py draft",
+    "drafted_by": "Claude agent, batch 4, 2026-11-25",
     "sources": [
       "https://brainlife.io/api/warehouse/datatype",
-      "catalog/index.json"
+      "catalog/index.json",
+      "brainlife.original and files",
+      "catalog/apps/<app_id>.json (manifests of inputs_of/outputs_of Apps)",
+      "snapshots/bids-schema-1.11.2.json",
+      "braindatagovernance/data/tiers.yml"
     ],
-    "todo": [
-      "bids.correspondences[0].match",
-      "brainlife.desc",
-      "files[0].desc",
-      "files[1].desc",
-      "files[2].desc",
-      "files[3].desc",
-      "files[4].desc",
-      "files[5].desc",
-      "governance.default_tier",
-      "governance.human_neurodata",
-      "governance.identifying_risks",
-      "governance.rationale",
-      "governance.sharing_cautions",
-      "governance.tier_conditions",
-      "usage.intended_use",
-      "usage.not_suitable_for",
-      "usage.outputs_of[0].purpose",
-      "usage.outputs_of[1].purpose"
-    ]
+    "todo": []
   },
   "spec": "brainlife-datatype-record/1.0",
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "TODO"
+      "Inputs and intermediates of legacy MRtrix 0.2 tracking Apps."
     ],
     "not_suitable_for": [
-      "TODO"
+      "MRtrix3 Apps; CSD and response formats differ between versions."
     ],
     "outputs_of": [
       {
         "app_id": "5baaa881d0be8b002776b954",
         "name": "MRtrix2 Tracking (dwi)",
-        "purpose": "TODO"
+        "purpose": "tracks whole-brain streamlines from single-shell DWI"
       },
       {
         "app_id": "58cdf136e13a50849b258836",
         "name": "MRtrix2 Tracking with dtiInit",
-        "purpose": "TODO"
+        "purpose": "tracks whole-brain streamlines from a dtiInit output"
       }
     ]
   }
