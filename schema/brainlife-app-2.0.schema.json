@@ -10,6 +10,7 @@
     "text": {"type": "string", "minLength": 1},
     "structural": {"type": "string", "minLength": 1, "not": {"const": "unknown"}},
     "datatype_tags": {"type": "array", "items": {"type": "string"}},
+    "datatype_version": {"type": "string", "minLength": 1, "description": "Versions of the datatype this App accepts or produces, as a range such as '>=1.0 <2.0'. brainlife.io datatypes carry a semantic version (MAJOR.MINOR.PATCH, starting at 1.0.0). Recorded only: brainlife.io does not enforce it yet."},
     "input": {
       "type": "object",
       "required": ["id", "datatype", "optional", "multi", "description", "config_keys"],
@@ -18,6 +19,7 @@
         "id": {"$ref": "#/$defs/structural"},
         "datatype": {"$ref": "#/$defs/structural", "description": "brainlife datatype name, e.g. neuro/anat/t1w"},
         "datatype_tags": {"$ref": "#/$defs/datatype_tags"},
+        "datatype_version": {"$ref": "#/$defs/datatype_version"},
         "optional": {"type": "boolean"},
         "multi": {"type": "boolean"},
         "advanced": {"type": "boolean"},
@@ -34,6 +36,7 @@
         "id": {"$ref": "#/$defs/structural"},
         "datatype": {"$ref": "#/$defs/structural"},
         "datatype_tags": {"$ref": "#/$defs/datatype_tags"},
+        "datatype_version": {"$ref": "#/$defs/datatype_version"},
         "datatype_tags_pass": {"type": ["string", "null"], "description": "input id whose datatype tags are copied to this output"},
         "description": {"$ref": "#/$defs/text"}
       }
