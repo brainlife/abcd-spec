@@ -30,7 +30,7 @@
       },
       "readme": "### hello world\n\n`code`"
     },
-    "readme": "### hello world\n\n`code`\n\n**Use for:** Testing datatype features only.\n\n**Not for:** Any real data.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.test.json"
+    "readme": "**Use for:** Testing datatype features only.\n\n**Not for:** Any real data.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.test.json"
   },
   "files": [
     {

@@ -94,7 +94,7 @@
       },
       "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Use for:** Raw EEG input for conversion to MNE raw and further preprocessing.\n\n**Not for:** Tools that read the .eeg file alone; the .vhdr header is the entry point.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.brainvision.json"
+    "readme": "**Use for:** Raw EEG input for conversion to MNE raw and further preprocessing.\n\n**Not for:** Tools that read the .eeg file alone; the .vhdr header is the entry point.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.brainvision.json"
   },
   "files": [
     {

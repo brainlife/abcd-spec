@@ -64,7 +64,7 @@
       },
       "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n"
     },
-    "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Use for:** Passing bad channels, head positions and events between MEG Apps without rewriting the FIF.\n\n**Not for:** Standalone data: it only makes sense next to the recording it describes. BIDS export of events.tsv when it holds index lists instead of events.\n\n**BIDS:** meg/channels (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 9 Apps, output of 9 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif-override.json"
+    "readme": "**Use for:** Passing bad channels, head positions and events between MEG Apps without rewriting the FIF.\n\n**Not for:** Standalone data: it only makes sense next to the recording it describes. BIDS export of events.tsv when it holds index lists instead of events.\n\n**BIDS:** meg/channels (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 9 Apps, output of 9 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif-override.json"
   },
   "files": [
     {

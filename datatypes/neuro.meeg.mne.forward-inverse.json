@@ -30,7 +30,7 @@
       },
       "readme": "to be edited"
     },
-    "readme": "to be edited\n\n**Use for:** Building inverse operators and source estimates.\n\n**Not for:** Other subjects or sensor layouts than the ones it was computed for. Telling forward from inverse without checking the fwd/inv tags.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 4 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.forward-inverse.json"
+    "readme": "**Use for:** Building inverse operators and source estimates.\n\n**Not for:** Other subjects or sensor layouts than the ones it was computed for. Telling forward from inverse without checking the fwd/inv tags.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 4 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.forward-inverse.json"
   },
   "files": [
     {

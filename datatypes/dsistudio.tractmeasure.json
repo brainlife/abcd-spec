@@ -29,7 +29,7 @@
       },
       "readme": "```\nFileName\tImage dimension\tResolution\tDWI count\tMax b-value\tNeighboring DWI correlation\t# Bad Slices\ndwi\t96 96 63 \t2.2917 2.2917 2.3 \t50\t1001.005981\t0.900497\t0\n\n```"
     },
-    "readme": "```\nFileName\tImage dimension\tResolution\tDWI count\tMax b-value\tNeighboring DWI correlation\t# Bad Slices\ndwi\t96 96 63 \t2.2917 2.2917 2.3 \t50\t1001.005981\t0.900497\t0\n\n```\n\n**Use for:** DWI quality control and compiling QC across subjects.\n\n**Not for:** Tract analyses; despite the name it holds DWI QC, not tract measures.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/dsistudio.tractmeasure.json"
+    "readme": "**Use for:** DWI quality control and compiling QC across subjects.\n\n**Not for:** Tract analyses; despite the name it holds DWI QC, not tract measures.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/dsistudio.tractmeasure.json"
   },
   "files": [
     {

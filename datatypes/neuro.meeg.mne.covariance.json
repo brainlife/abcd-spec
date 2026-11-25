@@ -29,7 +29,7 @@
       },
       "readme": "To be edited by Saeed"
     },
-    "readme": "To be edited by Saeed\n\n**Use for:** Noise covariance for whitening and inverse operators.\n\n**Not for:** Head-MRI transforms, which some Apps store here under the tag trans; use neuro/meeg/mne/trans.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.covariance.json"
+    "readme": "**Use for:** Noise covariance for whitening and inverse operators.\n\n**Not for:** Head-MRI transforms, which some Apps store here under the tag trans; use neuro/meeg/mne/trans.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.covariance.json"
   },
   "files": [
     {

@@ -143,7 +143,7 @@
       },
       "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n"
     },
-    "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n**Use for:** Cerebral blood flow quantification and BIDS export of ASL data.\n\n**Not for:** CBF quantification without aslcontext or labeling parameters in metadata. No registered App reads this datatype yet.\n\n**BIDS:** perf/asl (equivalent), perf/aslcontext (equivalent), perf/m0scan (equivalent), perf/asllabeling (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.perf.ASL.json"
+    "readme": "**Use for:** Cerebral blood flow quantification and BIDS export of ASL data.\n\n**Not for:** CBF quantification without aslcontext or labeling parameters in metadata. No registered App reads this datatype yet.\n\n**BIDS:** perf/asl (equivalent), perf/aslcontext (equivalent), perf/m0scan (equivalent), perf/asllabeling (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.perf.ASL.json"
   },
   "files": [
     {

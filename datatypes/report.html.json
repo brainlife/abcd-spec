@@ -30,7 +30,7 @@
       },
       "readme": "This datatype is used to store output from nbconvert for jupyter notebook and must be stored in secondary storage. Therefore, it is configured to use secondary output"
     },
-    "readme": "This datatype is used to store output from nbconvert for jupyter notebook and must be stored in secondary storage. Therefore, it is configured to use secondary output\n\n**Use for:** Viewing QC and processing reports from App runs.\n\n**Not for:** Input to downstream Apps.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 46 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/report.html.json"
+    "readme": "**Use for:** Viewing QC and processing reports from App runs.\n\n**Not for:** Input to downstream Apps.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 46 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/report.html.json"
   },
   "files": [
     {

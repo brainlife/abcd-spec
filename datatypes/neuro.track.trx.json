@@ -29,7 +29,7 @@
       },
       "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
     },
-    "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md\n\n**Use for:** Sharing tractograms with per-streamline/point data and bundle groups in one object. Conversion to a Zarr Vectors store.\n\n**Not for:** Apps that only read .tck or .trk; convert first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trx.json"
+    "readme": "**Use for:** Sharing tractograms with per-streamline/point data and bundle groups in one object. Conversion to a Zarr Vectors store.\n\n**Not for:** Apps that only read .tck or .trk; convert first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trx.json"
   },
   "files": [
     {

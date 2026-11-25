@@ -29,7 +29,7 @@
       },
       "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`"
     },
-    "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`\n\n**Use for:** Input for averaging, artifact rejection, ICA, covariance, decoding and PSD.\n\n**Not for:** Continuous-data Apps; use neuro/meeg/mne/raw.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 30 Apps, output of 14 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.epochs.json"
+    "readme": "**Use for:** Input for averaging, artifact rejection, ICA, covariance, decoding and PSD.\n\n**Not for:** Continuous-data Apps; use neuro/meeg/mne/raw.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 30 Apps, output of 14 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.epochs.json"
   },
   "files": [
     {

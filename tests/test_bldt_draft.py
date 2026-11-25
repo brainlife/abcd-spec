@@ -134,6 +134,17 @@ def test_refresh_does_not_take_our_own_generated_readme_as_original():
     assert out["neuro/dwi"]["brainlife"]["original"]["readme"] == ""
 
 
+def test_refresh_keeps_the_original_readme_once_brainlife_shows_the_summary():
+    import dtreadme
+    kept = copy.deepcopy(DWI)
+    kept["brainlife"]["original"]["readme"] = "Hand-written notes."
+    snap = copy.deepcopy(SNAP)
+    live = next(d for d in snap["datatypes"] if d["name"] == "neuro/dwi")
+    live["readme"] = dtreadme.render(kept, "u")
+    out = bldt.draft(snap, MINI, APP_INDEX, ROWS, {"neuro/dwi": kept})
+    assert out["neuro/dwi"]["brainlife"]["original"]["readme"] == "Hand-written notes."
+
+
 def test_draft_records_original_file_descs():
     out = _draft()
     live = next(d for d in SNAP["datatypes"] if d["name"] == "neuro/dwi")

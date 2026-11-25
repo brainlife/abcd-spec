@@ -128,7 +128,7 @@
       },
       "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it.. "
     },
-    "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it..\n\n**Use for:** UNI denoising and T1/R1 mapping (needs sidecars with sequence parameters). ACPC or T1w alignment of all MP2RAGE volumes together.\n\n**Not for:** T1/R1 mapping when sidecars lack MagneticFieldStrength, RepetitionTime or inversion times. Public sharing before defacing.\n\n**BIDS:** anat/MP2RAGE (partial), anat/UNIT1 (equivalent)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 5 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.mp2rage.json"
+    "readme": "**Use for:** UNI denoising and T1/R1 mapping (needs sidecars with sequence parameters). ACPC or T1w alignment of all MP2RAGE volumes together.\n\n**Not for:** T1/R1 mapping when sidecars lack MagneticFieldStrength, RepetitionTime or inversion times. Public sharing before defacing.\n\n**BIDS:** anat/MP2RAGE (partial), anat/UNIT1 (equivalent)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 5 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.mp2rage.json"
   },
   "files": [
     {

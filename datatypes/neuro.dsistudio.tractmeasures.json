@@ -29,7 +29,7 @@
       },
       "readme": "Edit me"
     },
-    "readme": "Edit me\n\n**Use for:** Group tables of DSI Studio tract measures.\n\n**Not for:** Apps expecting neuro/tractmeasures CSV columns.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dsistudio.tractmeasures.json"
+    "readme": "**Use for:** Group tables of DSI Studio tract measures.\n\n**Not for:** Apps expecting neuro/tractmeasures CSV columns.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dsistudio.tractmeasures.json"
   },
   "files": [
     {

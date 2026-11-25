@@ -52,8 +52,9 @@ def _edited_since_draft(record, now):
     edited = []
     if (now.get("desc") or "") != original["desc"]:
         edited.append("desc")
-    if dtreadme.strip_generated(now.get("readme") or "") != dtreadme.strip_generated(original["readme"]):
-        edited.append("readme")
+    live_readme = dtreadme.strip_generated(now.get("readme") or "")
+    if live_readme and live_readme != dtreadme.strip_generated(original["readme"]):
+        edited.append("readme")  # an empty result means brainlife.io shows our own summary
     if "file_descs" in original:
         live_descs = {f["id"]: f.get("desc") or "" for f in now.get("files", [])}
         if any(original["file_descs"].get(i, d) != d for i, d in live_descs.items()):

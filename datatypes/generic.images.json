@@ -30,7 +30,7 @@
       },
       "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype."
     },
-    "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype.\n\n**Use for:** Visual QC of App results, e.g. registration, tracts or tract profiles.\n\n**Not for:** Input to analysis Apps; prefer report/html for rich reports.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 31 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.images.json"
+    "readme": "**Use for:** Visual QC of App results, e.g. registration, tracts or tract profiles.\n\n**Not for:** Input to analysis Apps; prefer report/html for rich reports.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 31 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.images.json"
   },
   "files": [
     {

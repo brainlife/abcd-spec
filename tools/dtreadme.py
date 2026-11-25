@@ -2,12 +2,9 @@
 
 Datatype records are sent with every data object, so the readme stays small: what to use it for,
 how it maps to BIDS, its default sharing tier, how many Apps use it, and a link to the full
-catalog record (files, App list, governance rationale). A hand-written readme already on
-brainlife.io is kept and the summary is added below it; when that would pass 2048 bytes it gets
-only the sharing line and the link, and past that it is kept unchanged.
+catalog record (files, App list, governance rationale). It replaces any earlier readme on
+brainlife.io; that text is kept in the catalog record as brainlife.original.readme.
 """
-from dtrecord import README_MAX_BYTES
-
 SUMMARY_MAX_BYTES = 700
 TIERS = {
     1: "aggregated, non-revealing",
@@ -59,14 +56,7 @@ def strip_generated(text):
 
 
 def render(record, catalog_url):
-    original = strip_generated(record["brainlife"]["original"]["readme"])
-    if original.strip():
-        for clip in (300, 160, 80):
-            md = original.rstrip() + "\n\n" + _summary(record, catalog_url, clip)
-            if len(md.encode()) <= README_MAX_BYTES:
-                return md
-        md = "\n\n".join(x for x in (original.rstrip(), _sharing(record), f"Full record: {catalog_url}") if x)
-        return md if len(md.encode()) <= README_MAX_BYTES else original
+    """The summary only; any earlier readme stays in the catalog record (brainlife.original.readme)."""
     for clip in (300, 160, 80):
         md = _summary(record, catalog_url, clip)
         if len(md.encode()) <= SUMMARY_MAX_BYTES:

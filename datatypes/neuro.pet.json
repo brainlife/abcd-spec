@@ -86,7 +86,7 @@
       },
       "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html)."
     },
-    "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html).\n\n**Use for:** Defacing PET (with its T1w) before sharing. Kinetic modelling with blood input data.\n\n**Not for:** Public sharing before defacing and sidecar review.\n\n**BIDS:** pet/pet (equivalent), pet/blood (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.pet.json"
+    "readme": "**Use for:** Defacing PET (with its T1w) before sharing. Kinetic modelling with blood input data.\n\n**Not for:** Public sharing before defacing and sidecar review.\n\n**BIDS:** pet/pet (equivalent), pet/blood (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.pet.json"
   },
   "files": [
     {

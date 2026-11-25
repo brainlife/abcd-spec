@@ -84,7 +84,7 @@
       },
       "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Use for:** Raw EEG input for conversion to MNE raw and further preprocessing.\n\n**Not for:** Sharing without scrubbing the EDF patient and recording header fields.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.edf.json"
+    "readme": "**Use for:** Raw EEG input for conversion to MNE raw and further preprocessing.\n\n**Not for:** Sharing without scrubbing the EDF patient and recording header fields.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.edf.json"
   },
   "files": [
     {

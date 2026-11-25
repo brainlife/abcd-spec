@@ -102,7 +102,7 @@
       },
       "readme": "Used brainlife/validator-neuro-dwi for validator"
     },
-    "readme": "Used brainlife/validator-neuro-dwi for validator\n\n**Use for:** Preprocessing (denoising, top-up/eddy), model fitting (DTI, CSD, NODDI) and tractography. Registration to T1w and quality control of diffusion data.\n\n**Not for:** Model fitting or tracking on raw data; check the preprocessed tag. Single-shell-only Apps on multi-shell data (single_shell tag).\n\n**BIDS:** dwi/dwi (equivalent), dwi/sbref (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 142 Apps, output of 46 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.json"
+    "readme": "**Use for:** Preprocessing (denoising, top-up/eddy), model fitting (DTI, CSD, NODDI) and tractography. Registration to T1w and quality control of diffusion data.\n\n**Not for:** Model fitting or tracking on raw data; check the preprocessed tag. Single-shell-only Apps on multi-shell data (single_shell tag).\n\n**BIDS:** dwi/dwi (equivalent), dwi/sbref (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 142 Apps, output of 46 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.json"
   },
   "files": [
     {

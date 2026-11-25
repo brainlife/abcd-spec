@@ -30,7 +30,7 @@
       },
       "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```"
     },
-    "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```\n\n**Use for:** Geometry for surface-based data, statistics and visualisation.\n\n**Not for:** Pairing with surface data from a different mesh or space.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.vertices.json"
+    "readme": "**Use for:** Geometry for surface-based data, statistics and visualisation.\n\n**Not for:** Pairing with surface data from a different mesh or space.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.vertices.json"
   },
   "files": [
     {

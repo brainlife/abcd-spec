@@ -172,3 +172,12 @@ def test_undo_keeps_created_datatype_that_is_in_use(tmp_path):
 
 def test_budget_allows_an_oversized_record_that_shrinks():
     assert dtsync.check_budget([{"name": "x", "size_before": 7000, "size_after": 6900}], approve_size=False) == []
+
+
+def test_our_pushed_summary_is_not_an_edit():
+    import dtreadme
+    r = _rec_drafted_against(LIVE)
+    r["brainlife"]["original"]["readme"] = "Hand-written notes."
+    now = dict(LIVE, readme=dtreadme.render(r, "u"))
+    ch = dtsync.plan({"neuro/dwi": r}, {"neuro/dwi": now}, {"neuro/dwi": now}, "u")
+    assert all("readme" not in c["skipped"] for c in ch)

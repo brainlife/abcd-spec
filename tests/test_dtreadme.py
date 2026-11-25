@@ -32,26 +32,17 @@ def test_render_leaves_file_and_app_lists_to_the_catalog():
     assert "dwi.nii.gz" not in md and "dMRI preprocessing" not in md
 
 
-def test_existing_readme_is_kept_and_enhanced_with_the_summary():
+def test_existing_readme_is_replaced_by_the_summary():
     r = copy.deepcopy(DWI)
     r["brainlife"]["original"]["readme"] = "Hand-written notes."
-    md = dtreadme.render(r, URL)
-    assert md.startswith("Hand-written notes.\n\n**Use for:**")
-    assert "dwi/dwi (equivalent)" in md and "Tier 2" in md
-    assert md.rstrip().endswith("datatypes/neuro.dwi.json")
+    assert dtreadme.render(r, URL) == dtreadme.render(DWI, URL)
 
 
-def test_existing_readme_near_the_limit_gets_only_sharing_and_link():
+def test_long_existing_readme_is_replaced_too():
     r = copy.deepcopy(DWI)
-    r["brainlife"]["original"]["readme"] = "x" * 1800
+    r["brainlife"]["original"]["readme"] = "é" * 3000
     md = dtreadme.render(r, URL)
-    assert len(md.encode()) <= 2048 and "Tier 2" in md and "Use for" not in md
-
-
-def test_long_original_readme_is_kept_byte_for_byte():
-    r = copy.deepcopy(DWI)
-    r["brainlife"]["original"]["readme"] = "é" * 1500
-    assert dtreadme.render(r, "u") == "é" * 1500
+    assert "é" not in md and len(md.encode()) <= dtreadme.SUMMARY_MAX_BYTES
 
 
 def test_long_use_lists_are_cut_to_fit():
@@ -61,16 +52,6 @@ def test_long_use_lists_are_cut_to_fit():
 
 
 def test_generated_text_is_not_mistaken_for_a_hand_written_readme():
-    pushed = dtreadme.render(DWI, URL)
-    assert dtreadme.strip_generated(pushed) == ""
-    r = copy.deepcopy(DWI)
-    r["brainlife"]["original"]["readme"] = "Hand-written notes."
-    assert dtreadme.strip_generated(dtreadme.render(r, URL)) == "Hand-written notes."
-
-
-def test_render_is_stable_across_push_cycles():
-    r = copy.deepcopy(DWI)
-    r["brainlife"]["original"]["readme"] = "Hand-written notes."
-    once = dtreadme.render(r, URL)
-    r["brainlife"]["original"]["readme"] = once
-    assert dtreadme.render(r, URL) == once
+    assert dtreadme.strip_generated(dtreadme.render(DWI, URL)) == ""
+    old = "Hand-written notes.\n\n**Sharing:** Tier 2 (x) by default.\n\nFull record: " + URL
+    assert dtreadme.strip_generated(old) == "Hand-written notes."

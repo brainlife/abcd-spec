@@ -29,7 +29,7 @@
       },
       "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```"
     },
-    "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```\n\n**Use for:** Weighting streamline counts in structural connectome construction.\n\n**Not for:** Use with any tractogram other than the one the weights were fitted to.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.streamline-weights.json"
+    "readme": "**Use for:** Weighting streamline counts in structural connectome construction.\n\n**Not for:** Use with any tractogram other than the one the weights were fitted to.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.streamline-weights.json"
   },
   "files": [
     {

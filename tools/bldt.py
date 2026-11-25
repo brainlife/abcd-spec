@@ -116,9 +116,13 @@ def _new_record(live, app_index, index, rows):
     }
 
 
-def _original(live):
-    """The live text a record is drafted against, minus anything bldt wrote there earlier."""
-    return {"desc": live.get("desc") or "", "readme": dtreadme.strip_generated(live.get("readme") or ""),
+def _original(live, previous=None):
+    """The live text a record is drafted against, minus anything bldt wrote there earlier. Once
+    brainlife.io shows only our summary, the readme it replaced is kept from the previous record."""
+    readme = dtreadme.strip_generated(live.get("readme") or "")
+    if not readme and previous:
+        readme = previous.get("readme", "")
+    return {"desc": live.get("desc") or "", "readme": readme,
             "file_descs": {f["id"]: f.get("desc") or "" for f in live.get("files", [])}}
 
 
@@ -126,7 +130,7 @@ def _refresh(old, live, app_index):
     r = copy.deepcopy(old)
     bl = r["brainlife"]
     bl["_id"], bl["name"] = live["_id"], live["name"]
-    bl["original"] = _original(live)
+    bl["original"] = _original(live, old["brainlife"]["original"])
     old_files = {f["id"]: f for f in old["files"]}
     files = []
     for f in live.get("files", []):

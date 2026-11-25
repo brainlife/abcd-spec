@@ -30,7 +30,7 @@
       },
       "readme": "tcks.json sample\n\n```\n[\n    {\n        \"name\": \"forcepsMinor\",\n        \"color\": [0.8147236864,0.2550951155,0.004634224134],\n        \"filename\": \"forcepsMinor.json\"\n    },\n    {\n        \"name\": \"forcepsMajor\",\n        \"color\": [0.9057919371,0.5059570517,0.7749104647],\n        \"filename\": \"forcepsMajor.json\"\n    },\n]\n```"
     },
-    "readme": "tcks.json sample\n\n```\n[\n    {\n        \"name\": \"forcepsMinor\",\n        \"color\": [0.8147236864,0.2550951155,0.004634224134],\n        \"filename\": \"forcepsMinor.json\"\n    },\n    {\n        \"name\": \"forcepsMajor\",\n        \"color\": [0.9057919371,0.5059570517,0.7749104647],\n        \"filename\": \"forcepsMajor.json\"\n    },\n]\n```\n\n**Use for:** Per-tract processing such as tract masks, cleaning, warping and shape measures. Merging into one tractogram plus a WMC classification.\n\n**Not for:** Apps that need a single whole-brain tractogram with a WMC; convert first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 13 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tcks.json"
+    "readme": "**Use for:** Per-tract processing such as tract masks, cleaning, warping and shape measures. Merging into one tractogram plus a WMC classification.\n\n**Not for:** Apps that need a single whole-brain tractogram with a WMC; convert first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 13 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tcks.json"
   },
   "files": [
     {
