@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "Convert_Tiff_to_Zarr3",
   "version": "brainlife_tiff_to_zarr",
-  "summary": "This is a repository for all hpc processing files related to the axonal connectomics segmentation/skeletonization pipeline.",
-  "description": "unknown",
+  "summary": "Submits a Nextflow job on a SLURM cluster to deskew a TIFF light-sheet image and write it as a Zarr v3 volume, as part of the Allen Institute axonal connectomics pipeline.",
+  "description": "Reads the method and output directory from config.json and calls submit_job.py, which writes a Nextflow run script for the deskew_tiff step of the axonal connectomics segmentation/skeletonisation pipeline and submits it with sbatch. It is designed for the Allen Institute HPC environment (sbatch, Nextflow, local Java) and returns as soon as the job is submitted, so the Zarr output is written to deskew_out_dir by the cluster job rather than to the App's working directory.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "conversion",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "68dc466bf9e4ee316ef80dfc",
     "github": "AllenInstitute/ac_hpc",
@@ -18,7 +21,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Single TIFF image stack to deskew. main reads the config key 'single_file', while this input provides 'tif'.",
       "config_keys": [
         "tif"
       ]
@@ -29,21 +32,21 @@
       "id": "deskew_out_dir",
       "datatype": "zarr v3",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Intended deskewed Zarr v3 volume; it is written by the submitted cluster job to deskew_out_dir, not to the App working directory."
     }
   ],
   "parameters": [
     {
       "id": "method",
       "type": "string",
-      "description": "unknown",
+      "description": "Pipeline step passed to submit_job.py (deskew_tiff for TIFF to deskewed Zarr).",
       "default": "deskew_tiff",
       "readonly": true
     },
     {
       "id": "deskew_out_dir",
       "type": "string",
-      "description": "unknown",
+      "description": "Directory where the deskewed Zarr output is written by the cluster job (required by the deskew_tiff step).",
       "default": ""
     }
   ],
@@ -54,5 +57,13 @@
       "walltime_hours": 0.08
     }
   },
-  "doi": "10.25663/brainlife.app.872"
+  "doi": "10.25663/brainlife.app.872",
+  "software": [
+    {
+      "name": "Nextflow"
+    },
+    {
+      "name": "argschema"
+    }
+  ]
 }

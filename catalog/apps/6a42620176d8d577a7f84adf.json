@@ -2,10 +2,18 @@
   "spec": "brainlife-app/2.0",
   "name": "MNE-BIDS-Pipeline [3]: MEEG Source analysis",
   "version": "main",
-  "summary": "This Brainlife App runs the source-level analysis of MNE-BIDS-pipeline on the derivatives produced by the previous preprocessing App (MNE-BIDS-Pipeline [2]: Sensor Analysis). It estimates cortical sources of M/EEG activity for EEG and MEG data.\nThe application avatar is adapted from the MNE-Python hexagonal logo, licensed under CC BY 4.0.",
-  "description": "unknown",
+  "summary": "Runs the source-level steps of MNE-BIDS-Pipeline on sensor-level M/EEG BIDS derivatives: head model (FreeSurfer recon-all or the fsaverage template), BEM, source space, forward and inverse solutions (dSPM, MNE, sLORETA or eLORETA) and HTML reports.",
+  "description": "Third App of the MNE-BIDS-Pipeline series: takes the BIDS derivatives produced by the Sensor Analysis App, writes an MNE-BIDS-Pipeline configuration from the App parameters and runs the freesurfer and source steps. With a T1w and no template MRI it runs FreeSurfer recon-all (needs a FreeSurfer license, which can be pasted in fs_license); otherwise it uses a template MRI such as fsaverage. Source estimation is skipped for resting-state recordings without evoked data. Use it after the Sensor Analysis App to estimate cortical sources of evoked M/EEG responses.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "source-localization",
+    "mne-python",
+    "freesurfer",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a42620176d8d577a7f84adf",
     "github": "carlota-juarez/MEEG-MNE-BIDS-Source-analysis",
@@ -46,7 +54,7 @@
         "mne",
         "source"
       ],
-      "description": "unknown",
+      "description": "Copy of the input BIDS derivatives plus the source-level outputs (BEM, source space, forward, inverse and source estimates).",
       "datatype_tags_pass": "bids_dir1"
     },
     {
@@ -56,7 +64,7 @@
         "mne",
         "source"
       ],
-      "description": "unknown",
+      "description": "MNE-BIDS-Pipeline HTML reports of the source-level analysis.",
       "datatype_tags_pass": "bids_dir1"
     }
   ],
@@ -375,5 +383,34 @@
       "FS_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.942"
+  "doi": "10.25663/brainlife.app.942",
+  "software": [
+    {
+      "name": "MNE-BIDS-Pipeline",
+      "url": "https://mne.tools/mne-bids-pipeline/"
+    },
+    {
+      "name": "MNE-Python"
+    },
+    {
+      "name": "MNE-BIDS"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "A T1w MRI is required to run recon-all. Provide it via the 't1' parameter or set 'use_template_mri' to 'fsaverage' to skip recon-all.",
+      "fix": "Connect a T1w input or set use_template_mri to fsaverage."
+    },
+    {
+      "message": "No FreeSurfer license available. Provide one in 'fs_license'",
+      "fix": "Paste the FreeSurfer license in fs_license or use a template MRI."
+    }
+  ],
+  "maintainers": [
+    "Carlota Ju\u00e1rez Alonso",
+    "Guiomar Niso Gal\u00e1n"
+  ]
 }

@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "BossDB Nuclei Segmentation",
   "version": "apex-hackathon-2026-segmentation",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Segments cell nuclei in a public BossDB image cutout with a pretrained MONAI 3D U-Net run through PyTorch Connectomics, writing a binary Neuroglancer precomputed segmentation.",
+  "description": "Reads a voxel cutout from a public BossDB precomputed channel, min-max normalizes it, runs the baked-in 3D U-Net with eight-way flip test-time augmentation, and thresholds the sigmoid probabilities into a binary nucleus mask (0 background, 1 nucleus). Use it for semantic nucleus detection in EM volumes; it does not assign separate IDs to individual nuclei. The model was trained at 64 x 64 x 40 nm, so select the BossDB mip with that voxel size; intended for one NVIDIA GPU (CPU fallback is slow).",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "segmentation",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aa9705a16d2ef0408f5981a",
     "github": "jhuapl-boss/bossdb-brainlife-apps",
@@ -18,10 +22,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "BossDB image channel reference of the form bossdb://collection/experiment/channel.",
       "config_keys": [
         "channel"
-      ]
+      ],
+      "requirements": "Public channel stored as precomputed CloudVolume data; best results at 64 x 64 x 40 nm voxel size."
     }
   ],
   "outputs": [
@@ -31,50 +36,50 @@
       "datatype_tags": [
         "segmentation"
       ],
-      "description": "unknown"
+      "description": "Neuroglancer precomputed uint32 segmentation (0 background, 1 nucleus) aligned to the requested start coordinate, plus inference.json with run metadata."
     }
   ],
   "parameters": [
     {
       "id": "x_start",
       "type": "number",
-      "description": "unknown",
+      "description": "Inclusive start x coordinate, in voxels of the selected mip.",
       "default": 0,
       "minimum": 0
     },
     {
       "id": "y_start",
       "type": "number",
-      "description": "unknown",
+      "description": "Inclusive start y coordinate, in voxels of the selected mip.",
       "default": 0,
       "minimum": 0
     },
     {
       "id": "z_start",
       "type": "number",
-      "description": "unknown",
+      "description": "Inclusive start z coordinate, in voxels of the selected mip.",
       "default": 0,
       "minimum": 0
     },
     {
       "id": "x_stop",
       "type": "number",
-      "description": "unknown"
+      "description": "Exclusive stop x coordinate, in voxels of the selected mip."
     },
     {
       "id": "y_stop",
       "type": "number",
-      "description": "unknown"
+      "description": "Exclusive stop y coordinate, in voxels of the selected mip."
     },
     {
       "id": "z_stop",
       "type": "number",
-      "description": "unknown"
+      "description": "Exclusive stop z coordinate, in voxels of the selected mip."
     },
     {
       "id": "resolution",
       "type": "number",
-      "description": "unknown",
+      "description": "Zero-based source mip level; if the bounds do not fit it, the app may switch to the single compatible mip at the model's training resolution.",
       "default": 0,
       "minimum": 0
     },
@@ -93,14 +98,41 @@
     {
       "id": "threshold",
       "type": "number",
-      "description": "unknown",
+      "description": "Inclusive probability threshold (0-1) above which a voxel is labelled nucleus.",
       "default": 0.5,
       "minimum": 0,
       "maximum": 1
     }
   ],
   "runtime": {
-    "container": "unknown"
+    "container": "ghcr.io/jhuapl-boss/bossdb-brainlife-apps:sha-573aea6555edfda35d9a70548f42eec35c99721c",
+    "resources": {
+      "gpu": true
+    }
   },
-  "doi": "10.25663/brainlife.app.970"
+  "doi": "10.25663/brainlife.app.970",
+  "software": [
+    {
+      "name": "PyTorch Connectomics",
+      "version": "0d6ae57d5bb011f6b82b13c96fac9bb830ef7aac",
+      "url": "https://github.com/PytorchConnectomics/pytorch_connectomics"
+    },
+    {
+      "name": "MONAI"
+    },
+    {
+      "name": "CloudVolume",
+      "url": "https://github.com/seung-lab/cloud-volume"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "BossDB channel was not found or is not public",
+      "fix": "Use a public BossDB channel URI."
+    },
+    {
+      "message": "threshold must be a number from 0 through 1",
+      "fix": "Set threshold between 0 and 1."
+    }
+  ]
 }

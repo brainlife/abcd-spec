@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Fractal Dimension (FD) of bundle masks",
   "version": "brainlife-app",
-  "summary": "Investigation on the fractal dimension of segmented white matter bundles.",
-  "description": "unknown",
+  "summary": "Computes the box-counting fractal dimension of each bundle mask in a tract-mask collection and outputs the values as a CSV table.",
+  "description": "For every NIfTI mask in the collection, counts the boxes needed to cover the mask at box sizes from 1 up to box_size_max and fits the log-log slope to get the fractal dimension, a measure of the irregularity of the bundle shape. Use it to compare the shape complexity of white matter bundles across subjects or methods.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "statistics",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5f8824eff5848e2f8a392e29",
     "github": "FBK-NILab/fractal_dimension",
@@ -51,5 +56,25 @@
       "walltime_hours": 0.08
     }
   },
-  "doi": "10.25663/brainlife.app.442"
+  "doi": "10.25663/brainlife.app.442",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2020.117402",
+      "text": "Berto G, et al. Classifyber, a robust streamline-based linear classifier for white matter bundle segmentation. NeuroImage (2020)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Computation failed.",
+      "fix": "Check that the input contains NIfTI bundle masks."
+    }
+  ]
 }

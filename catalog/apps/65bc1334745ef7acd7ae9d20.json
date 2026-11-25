@@ -3,9 +3,14 @@
   "name": "Concatenating NifTi and Eventfiles",
   "version": "1.0",
   "summary": "Concatenating single-session, single-subject Nifti files into multiple-session, single-subject Nifti files for first-level GLM Analysis",
-  "description": "unknown",
+  "description": "Concatenates several preprocessed single-run task fMRI images of one subject into one 4D image with nilearn concat_imgs, and joins their events files by shifting each run's onsets after the last event of the previous run. Use it to prepare multi-run data for a first-level GLM. The code reads an 'auto_resample' config key that is not a registered parameter, and writes concatenated_img.nii.gz and concatenated_events.csv rather than the standard bold.nii.gz and events.tsv names.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "nilearn",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "65bc1334745ef7acd7ae9d20",
     "github": "aldensyi/concat_session_app",
@@ -20,10 +25,11 @@
       ],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Preprocessed task fMRI runs of one subject, in the order they should be concatenated.",
       "config_keys": [
         "bold_singles"
-      ]
+      ],
+      "requirements": "Runs must share the same voxel grid unless resampling is enabled."
     },
     {
       "id": "events_singles",
@@ -31,7 +37,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Events files (TSV with onset and duration) matching each fMRI run, in the same order.",
       "config_keys": [
         "events_singles",
         "events_json",
@@ -54,12 +60,20 @@
       "datatype_tags": [
         "concatenated"
       ],
-      "description": "unknown"
+      "description": "Combined events table with onsets shifted to the concatenated timeline (concatenated_events.csv)."
     }
   ],
   "parameters": [],
   "runtime": {
     "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0"
   },
-  "doi": "10.25663/brainlife.app.810"
+  "doi": "10.25663/brainlife.app.810",
+  "software": [
+    {
+      "name": "nilearn"
+    },
+    {
+      "name": "pandas"
+    }
+  ]
 }

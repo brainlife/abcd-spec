@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "EGI to mne/raw",
   "version": "v1.0",
-  "summary": "Converts EEG egi data to MNE Raw (fif)",
-  "description": "unknown",
+  "summary": "Converts an EGI EEG .raw file to MNE-Python raw FIF format with mne.io.read_raw_egi, setting EOG/ECG/MISC channel types, bad channels and trigger events, with a QC report and PSD plot.",
+  "description": "Reads the EGI recording, combines the listed stimulus channels into annotations or a synthetic STI 014 trigger channel, labels EOG/ECG/MISC channels, marks listed and (optionally) flat channels as bad, and writes raw.fif with an HTML report and a power spectral density figure. Use it as the import step for EGI (Geodesic) EEG data before MNE-based processing.",
   "kind": "native",
   "topics": [
-    "eeg"
+    "brainlife-app",
+    "conversion",
+    "eeg",
+    "mne-python"
   ],
   "registry": {
     "id": "64075386c538c16a826b5818",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "EGI (Geodesic) EEG recording in .raw format.",
       "config_keys": [
         "egi"
       ]
@@ -98,5 +101,11 @@
       "memory_gb": 4
     }
   },
-  "doi": "10.25663/brainlife.app.742"
+  "doi": "10.25663/brainlife.app.742",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ]
 }

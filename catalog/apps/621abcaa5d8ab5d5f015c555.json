@@ -3,9 +3,16 @@
   "name": "Freesurfer 7.1.1 - Multiple T1w Inputs",
   "version": "7.1.1-multiple-t1-reference",
   "summary": "Freesurfer segments the t1w anatomical data into functionally different parts of the brain. Segmentation/parcellation can then be fed to many other subsequent analysis. This is a copy of https://doi.org/10.25663/brainlife.app.462, but updated to allow for multiple T1w inputs",
-  "description": "unknown",
+  "description": "Runs FreeSurfer 7.1.1 recon-all with a reference T1w plus one or more additional T1w images of the same subject (all passed as -i inputs, averaged by recon-all), optionally with a T2w to refine the pial surface. It also converts the aparc+aseg, aparc.a2009s+aseg and aparc.DKTatlas+aseg volumes to NIfTI and can run hippocampal subfield and thalamic nuclei segmentation. Use it when several T1w scans of a subject should be combined; expect many hours of compute. The 'expert?' parameter is not read by the code, which looks for the key 'expert'.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "surface-analysis",
+    "freesurfer",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "621abcaa5d8ab5d5f015c555",
     "github": "bacaron/app-freesurfer",
@@ -108,7 +115,7 @@
     {
       "id": "expert?",
       "type": "string",
-      "description": "You can specify extra command line options for various freesurfer commands executed by recon-all. Please leave it blank unless necessary. https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all#ExpertOptionsFile",
+      "description": "Intended to pass an expert options file to recon-all; the code reads the config key 'expert', so this setting is not applied.",
       "default": "",
       "required": false,
       "advanced": true
@@ -144,5 +151,26 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.605"
+  "doi": "10.25663/brainlife.app.605",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "fsqc (qatools)"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    }
+  ],
+  "maintainers": [
+    "Franco Pestilli",
+    "Lindsey Kitchell",
+    "Brad Caron"
+  ]
 }

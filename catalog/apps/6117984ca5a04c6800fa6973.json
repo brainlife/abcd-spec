@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "HOI_toolbox",
   "version": "v1.0",
-  "summary": "Higher-order interactions toolbox",
-  "description": "unknown",
+  "summary": "Computes higher-order interaction measures (O-information or dynamic O-information) over n-plets of time series with bootstrap significance, and outputs the top redundant and synergistic combinations.",
+  "description": "Python toolbox from GSoC 2021 implementing O-information and dO-information with Gaussian-copula (gcmi) or linear covariance estimators, sweeping n-plet sizes up to maxsize. Use it on multivariate time series (tested with fewer than 20 variables). The main script builds and runs a Docker image, which brainlife compute resources generally do not allow, so the App may not run as registered.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "network-analysis",
+    "statistics"
+  ],
   "registry": {
     "id": "6117984ca5a04c6800fa6973",
     "github": "PranavMahajan25/HOI_toolbox",

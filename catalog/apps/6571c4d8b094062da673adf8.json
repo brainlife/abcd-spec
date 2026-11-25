@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Extract event-related timeseries",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Extracts the BOLD volumes that overlap selected event types from a preprocessed task fMRI run, using the events table and an HRF-convolved regressor from nilearn.",
+  "description": "Selects the BOLD volumes that fall within the chosen event types: event onsets and durations from the BIDS events.tsv (trial_type, onset, duration, weight columns) are convolved with nilearn's SPM HRF regressor and frames with a positive regressor are kept. Use it to isolate event-related volumes before further analysis. Note: main reads the config keys bold and bold_events, while the registered input sends data and bold_events, so the App may fail to find the BOLD image.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "nilearn",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6571c4d8b094062da673adf8",
     "github": "anibalsolon/blapp-extract-event-signal",
@@ -20,7 +24,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Preprocessed task BOLD image with its BIDS events.tsv (needs trial_type, onset, duration and weight columns).",
       "config_keys": [
         "data",
         "bold_events",
@@ -37,7 +41,7 @@
       "id": "output",
       "datatype": "neuro/func/task",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "BOLD image containing only the selected volumes (bold.nii.gz) and the filtered events table (events.tsv)."
     }
   ],
   "parameters": [
@@ -49,10 +53,21 @@
     }
   ],
   "runtime": {
-    "container": "unknown",
+    "container": "anibalsolon/blapp-extract-event-signal",
     "resources": {
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.803"
+  "doi": "10.25663/brainlife.app.803",
+  "software": [
+    {
+      "name": "nilearn"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "pandas"
+    }
+  ]
 }

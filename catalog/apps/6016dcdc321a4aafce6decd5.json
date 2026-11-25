@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Multi-Atlas Transfer Tool",
   "version": "0.0.10",
-  "summary": "brainlife.io version of multi atlas transfer tools (maTT).",
-  "description": "brainlife.io version of multi atlas transfer tools (maTT). \n\nSpecifically, this is an implementation of maTT2, which uses the gcs files trained on the mindboggle-101 data.  Outputs include: parc.nii.gz (for each atlas indicated) & remapped LUT text file (for each atlas indicated). Please consult the output parcellation key for the names of the nodes produced. These outputs are in the space of the T1w that was submitted to FreeSurfer's recon-all processes. In other words, the parc.nii.gz is re-sliced based on the file `rawavg.mgz` in the FreeSurfer directory. \n\nNOTE: This tool fits atlas to subject space using FreeSurfer's warp, which is based on structural information. However, for many of these atlases, this is a different fitting method than originally proposed. Please consider this when choosing an atlas and/or interpreting your results. Check out the maTT github repo (https://github.com/faskowit/multiAtlasTT) for more info and documentation.",
+  "summary": "Maps a chosen cortical atlas (Schaefer, Gordon, Yeo, HCP-MMP, AAL and others) onto a subject's FreeSurfer surfaces with maTT2 GCS classifiers and outputs volumetric and surface parcellations.",
+  "description": "Implements maTT2 from the multi-atlas transfer tools: atlas GCS files trained on Mindboggle-101 are applied with FreeSurfer to the subject's recon-all output, then the labels are remapped to consecutive integers and written as a volume in the subject T1w space, as GIfTI surface labels and as a brain mask. Use it to get an atlas parcellation (with 14 FreeSurfer subcortical regions) for connectivity or ROI analyses. Needs a completed FreeSurfer recon-all directory and a FreeSurfer license.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "freesurfer",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6016dcdc321a4aafce6decd5",
     "github": "bacaron/app-multiAtlasTT",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Completed FreeSurfer recon-all subject directory.",
       "config_keys": [
         "fsin"
       ]
@@ -31,19 +36,19 @@
       "datatype_tags": [
         "SupraTentorial"
       ],
-      "description": "unknown"
+      "description": "Volumetric parcellation (parc.nii.gz) in subject space with key.txt and label.json."
     },
     {
       "id": "parc-surf-verts",
       "datatype": "neuro/surface/vertices",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Left and right white, pial and inflated surfaces (GIfTI)."
     },
     {
       "id": "parc-surf-data",
       "datatype": "neuro/surface/data",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Atlas labels on the left and right surfaces (GIfTI) with key and label files."
     },
     {
       "id": "mask",
@@ -52,14 +57,14 @@
         "brain",
         "anat"
       ],
-      "description": "unknown"
+      "description": "Brain mask derived from the FreeSurfer aparc+aseg."
     }
   ],
   "parameters": [
     {
       "id": "atlas",
       "type": "enum",
-      "description": "unknown",
+      "description": "Atlas to map onto the subject's cortex.",
       "default": "",
       "options": [
         {
@@ -137,5 +142,22 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.470"
+  "doi": "10.25663/brainlife.app.470",
+  "software": [
+    {
+      "name": "FreeSurfer"
+    },
+    {
+      "name": "multiAtlasTT",
+      "url": "https://github.com/faskowit/multiAtlasTT"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Fischl B, et al. Automatically parcellating the human cerebral cortex. Cereb Cortex 14:11-22 (2004)."
+    }
+  ]
 }

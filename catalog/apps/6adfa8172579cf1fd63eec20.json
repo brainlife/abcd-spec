@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "BRAIN EXTRACTION APP TEST 10/26/26",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Test App that skull-strips a T1-weighted image with FSL BET.",
+  "description": "Test registration of a scaffolded App: a wrapper fills a command template from config.json and runs brain_extract.py, which calls FSL bet with the chosen fractional intensity threshold and optional robust centre (-R) and bias/neck cleanup (-B). As written, the template passes --robust and --bias-neck-cleanup with a value although the script defines them as flags, and the output path comes from a 'brain' config key, so runs are expected to fail; use a production BET App instead.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6adfa8172579cf1fd63eec20",
     "github": "gamorosino/app-brain-extraction-test",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to skull-strip.",
       "config_keys": [
         "t1",
         "brain"
@@ -30,7 +35,7 @@
       "id": "brain",
       "datatype": "neuro/anat/t1w",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Brain-extracted (skull-stripped) T1-weighted image from FSL BET."
     }
   ],
   "parameters": [
@@ -60,5 +65,14 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.991"
+  "doi": "10.25663/brainlife.app.991",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "FSL (bet)"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

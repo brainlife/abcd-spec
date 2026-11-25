@@ -2,12 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "DWI Info",
   "version": "1.1.1",
-  "summary": "Provides useful information about different files used in medical imaging.",
-  "description": "unknown",
+  "summary": "Reports basic information about a DWI dataset (image header, b-values/shells and b-vector checks) with DIPY dipy_info 1.1.1, as text files.",
+  "description": "Runs dipy_info three times: on the DWI image, on the bvecs (checking unit norm within bvecs_tol) and on the bvals (counting b0 volumes below b0_threshold and grouping shells within bshell_thr). Use it as a quick sanity check of DWI data before processing; it does not modify the data.",
   "kind": "native",
   "topics": [
+    "brainlife-app",
     "diffusion-mri",
-    "dipy"
+    "dipy",
+    "dwi",
+    "quality-control"
   ],
   "registry": {
     "id": "5b1efecd73279e0028adfc1f",
@@ -21,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Diffusion-weighted image with its bvals and bvecs.",
       "config_keys": [
         "bvals",
         "dwi",
@@ -36,7 +39,7 @@
       "datatype_tags": [
         "info_output"
       ],
-      "description": "unknown"
+      "description": "Text reports dwi_info.txt, bvecs_info.txt and bvals_info.txt."
     }
   ],
   "parameters": [
@@ -49,7 +52,7 @@
     {
       "id": "b0_threshold",
       "type": "number",
-      "description": "unknown",
+      "description": "b-value at or below which a volume is treated as b0 when summarising the bvals.",
       "default": 50
     },
     {
@@ -65,5 +68,18 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/bl.app.63"
+  "doi": "10.25663/bl.app.63",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E et al. Dipy, a library for the analysis of diffusion MRI data. Frontiers in Neuroinformatics 8:8 (2014)."
+    }
+  ]
 }

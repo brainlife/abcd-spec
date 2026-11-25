@@ -2,11 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "ANTs tensor registration based on FA",
   "version": "1.2",
-  "summary": "FA-based non linear ANTs registration of the tensor to the FMRIB58_FA_1mm.nii.gz template or the IITmean_FA template.",
-  "description": "unknown",
+  "summary": "Registers DTI scalar maps (FA, MD, RD, AD) to the FMRIB58 or IIT FA template with an ANTs SyN warp computed on FA, and outputs the aligned maps and the warp.",
+  "description": "Computes a nonlinear ANTs SyN registration (cross-correlation metric) of the subject FA map to the chosen FA template (FMRIB58_FA_1mm or IITmean_FA, both bundled in the repo), then applies the same warp and affine to FA, MD, RD and AD with WarpImageMultiTransform. Use it to bring tensor scalar maps into MNI template space for group comparisons. The input tensor must contain fa, md, rd and ad.",
   "kind": "native",
   "topics": [
-    "alignment"
+    "alignment",
+    "dwi",
+    "registration",
+    "ants",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5adbe476da9f040027366d14",
@@ -72,5 +76,27 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.118"
+  "doi": "10.25663/brainlife.app.118",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.media.2007.06.004",
+      "text": "Avants BB, Epstein CL, Grossman M, Gee JC. Symmetric diffeomorphic image registration with cross-correlation. Med Image Anal 12(1):26-41 (2008)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ANTs transformation failed",
+      "fix": "Check that fa, md, rd and ad are present in the input tensor and the FA map is reasonable."
+    }
+  ]
 }

@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "AC Segmentation",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Segments axons in volumetric light-microscopy OME-Zarr data with the Allen Institute ac_segmentation RSUNet model and outputs a labelled OME-Zarr volume.",
+  "description": "Runs the Allen Institute's segment_array.py with its bundled pretrained RSUNet checkpoint inside the gamorosino/ac-segmentation container, on CPU, using the first resolution level of the input OME-Zarr and an optional mask. Use it for automated axon segmentation of light-sheet or similar microscopy volumes.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "segmentation",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aa83e4384691735460bde17",
     "github": "gamorosino/app-ac-segmentation",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Volumetric light-microscopy image (OME-Zarr); resolution level 0 is segmented.",
       "config_keys": [
         "input_path"
       ]
@@ -29,7 +33,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional OME-Zarr mask restricting the segmentation.",
       "config_keys": [
         "mask_path"
       ],
@@ -69,5 +73,11 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.968"
+  "doi": "10.25663/brainlife.app.968",
+  "software": [
+    {
+      "name": "ac_segmentation",
+      "url": "https://github.com/AllenInstitute/ac_segmentation"
+    }
+  ]
 }

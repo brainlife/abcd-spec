@@ -2,11 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "Plot 3D Surfaces ",
   "version": "master",
-  "summary": "This app needs to be updated so that it can run via singularity. Currently this app can not run on any resource.",
-  "description": "unknown",
+  "summary": "Renders 3D surface meshes (.vtk), such as tract surfaces, as PNG images from six camera views with VTK; currently cannot run on any brainlife resource.",
+  "description": "Visualisation utility: loads every .vtk surface in the input directory, colours known tract surfaces (or uses the input's color.json), and renders top, bottom, front, back and left/right sagittal views under a virtual display, writing PNGs and images.json. As the registry notes, main activates a local 'dipyenv' conda environment instead of a container, so the App must be updated to run via Singularity before it can be used.",
   "kind": "native",
   "topics": [
-    "quality-check"
+    "quality-check",
+    "visualization",
+    "brainlife-app"
   ],
   "registry": {
     "id": "596cdb1a88ae6f0021531d6a",
@@ -20,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Directory of 3D surface meshes in .vtk format, optionally with a color.json giving a colour per surface name.",
       "config_keys": [
         "surfaces"
       ]
@@ -33,7 +35,7 @@
       "datatype_tags": [
         "3Dsurfaces"
       ],
-      "description": "unknown",
+      "description": "PNG renderings of the surfaces from six views, with an images.json index.",
       "datatype_tags_pass": "surfaces"
     }
   ],
@@ -48,8 +50,35 @@
   "runtime": {
     "container": "unknown",
     "resources": {
-      "cpus": 8
+      "cpus": 8,
+      "walltime_hours": 0.33
     }
   },
-  "doi": "10.25663/brainlife.app.131"
+  "doi": "10.25663/brainlife.app.131",
+  "software": [
+    {
+      "name": "VTK"
+    },
+    {
+      "name": "xvfbwrapper"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "images missing",
+      "fix": "Fewer PNGs were written than surfaces found; check the .vtk files and the rendering environment."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
 }

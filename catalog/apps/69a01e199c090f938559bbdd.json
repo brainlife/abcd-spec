@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "app-detect-bad-channels-eeg-v2",
   "version": "working_ver",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Detects bad EEG channels in epoched data from baseline variance (MAD z-score, dead and flat channels) with MNE-Python and marks them in info['bads'] without interpolation.",
+  "description": "Designed to run before ICA: variance is computed in the pre-stimulus window to avoid flagging channels with strong evoked responses. Channels are flagged if their MAD z-score exceeds z_thresh, their variance is under 1/100 of the median, or they are flat in over half of the epochs; extra channels can be added by name. Epochs are saved unchanged except for the bads list; interpolate after ICA.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "mne-python",
+    "preprocessing",
+    "quality-control"
+  ],
   "registry": {
     "id": "69a01e199c090f938559bbdd",
     "github": "obVdo/app-detect-bad-channels-eeg-v2",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched EEG data (MNE -epo.fif).",
       "config_keys": [
         "epo"
       ]
@@ -29,7 +35,7 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/epochs",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "The same epochs with detected bad channels listed in info['bads']."
     }
   ],
   "parameters": [
@@ -42,7 +48,7 @@
     {
       "id": "extra_bads",
       "type": "string",
-      "description": "unknown",
+      "description": "Comma-separated channel names to mark bad in addition to those detected.",
       "default": "",
       "required": false,
       "placeholder": "Comma-separated channel names to force-mark bad (e.g. E1,E2)"
@@ -56,5 +62,12 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.897"
+  "doi": "10.25663/brainlife.app.897",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2",
+      "url": "https://mne.tools"
+    }
+  ]
 }

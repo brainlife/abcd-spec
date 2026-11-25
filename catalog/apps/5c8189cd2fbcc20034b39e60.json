@@ -2,11 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Peaks extraction with MRtrix",
   "version": "1.1",
-  "summary": "App to extract the peaks of a spherical harmonic function at each voxel  using the MRtrix command sh2peaks.",
-  "description": "unknown",
+  "summary": "Computes fibre orientation distributions from DWI with MRtrix3 constrained spherical deconvolution (CSD, multi-shell or 5TT) and extracts the peaks with sh2peaks, using TractSeg's code.",
+  "description": "Uses TractSeg's MRtrix wrapper to estimate the response function and FODs with the selected CSD type, then extracts the FOD peaks at each voxel with sh2peaks; the peaks image is the input expected by TractSeg. A brain mask is computed from the T1w with FSL bet when none is given. The T1w must be skull-stripped and aligned with the DWI; multi-shell DWI is needed for the msmt options.",
   "kind": "native",
   "topics": [
-    "diffusion-reconstruction"
+    "diffusion-reconstruction",
+    "dwi",
+    "diffusion-modeling",
+    "mrtrix3",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5c8189cd2fbcc20034b39e60",
@@ -87,5 +91,31 @@
       "walltime_hours": 10
     }
   },
-  "doi": "10.25663/brainlife.app.172"
+  "doi": "10.25663/brainlife.app.172",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "TractSeg",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1002/ima.22005",
+      "text": "Tournier J-D, Calamante F, Connelly A. MRtrix: Diffusion tractography in crossing fiber regions. Int J Imaging Syst Technol 22:53-66 (2012)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
 }

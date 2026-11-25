@@ -2,14 +2,18 @@
   "spec": "brainlife-app/2.0",
   "name": "Denoising using LPCA",
   "version": "1.1.1",
-  "summary": "Brainlife wrapper app for dipy_denoise_lpca workflows.",
-  "description": "unknown",
+  "summary": "Denoises a DWI series with the DIPY 1.1.1 local PCA (dipy_denoise_lpca) workflow and outputs the denoised DWI with its bvals and bvecs.",
+  "description": "Wraps the DIPY 1.1.1 command-line workflow dipy_denoise_lpca, which removes noise by thresholding local principal components using the gradient table. Use it as an optional early DWI preprocessing step before model fitting. It needs a DWI with bvals/bvecs; the gradient files are copied unchanged to the output.",
   "kind": "native",
   "topics": [
     "diffusion-denoising",
     "diffusion-mri",
     "diffusion-preprocessing",
-    "dipy"
+    "dipy",
+    "dwi",
+    "denoising",
+    "preprocessing",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5ea7bf49f1745d5b2ff80319",
@@ -23,7 +27,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Diffusion-weighted image (NIfTI) with its bvals and bvecs files.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -38,7 +42,7 @@
       "datatype_tags": [
         "denoised"
       ],
-      "description": "unknown",
+      "description": "Denoised DWI (dwi.nii.gz) with the original bvals and bvecs.",
       "datatype_tags_pass": "dwi"
     }
   ],
@@ -74,5 +78,26 @@
       "cpus": 12
     }
   },
-  "doi": "10.25663/brainlife.app.454"
+  "doi": "10.25663/brainlife.app.454",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
 }

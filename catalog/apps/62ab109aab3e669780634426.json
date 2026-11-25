@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-decoding-full-epochs",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Decodes conditions from MEG gradiometer epochs with a logistic-regression classifier in MNE-Python and plots the 5-fold cross-validated ROC AUC scores.",
+  "description": "Selects the 'auditory' epochs and gradiometer channels, then runs a Scaler-Vectorizer-LogisticRegression pipeline with mne.decoding.cross_val_multiscore (5 splits, ROC AUC) to classify the event codes, and saves a box plot of the scores. The condition name is hard-coded, so it only works for epochs with an 'auditory' condition (as in the MNE sample dataset); it looks like a demonstration App.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "machine-learning",
+    "meg",
+    "mne-python"
+  ],
   "registry": {
     "id": "62ab109aab3e669780634426",
     "github": "zahransa/app-decoding-full-epochs",
@@ -18,10 +23,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG data (MNE epochs).",
       "config_keys": [
         "epo"
-      ]
+      ],
+      "requirements": "Must contain an 'auditory' event condition and gradiometer channels."
     }
   ],
   "outputs": [
@@ -29,7 +35,7 @@
       "id": "out_dir",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Box plot (PNG) of cross-validation ROC AUC scores."
     }
   ],
   "parameters": [],
@@ -39,5 +45,14 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.650"
+  "doi": "10.25663/brainlife.app.650",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    },
+    {
+      "name": "scikit-learn"
+    }
+  ]
 }

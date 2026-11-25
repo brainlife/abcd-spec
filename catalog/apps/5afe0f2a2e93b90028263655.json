@@ -2,11 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Compute Volume of Binary Nifti images",
   "version": "v1.0",
-  "summary": "computes the volume of binary nifti images",
-  "description": "unknown",
+  "summary": "Computes the volume of each binary tract mask and its proportion of FreeSurfer estimated total intracranial volume (eTIV), saved as JSON.",
+  "description": "Reads eTIV from the FreeSurfer stats/aseg.stats file, counts non-zero voxels in every *Vol.nii.gz mask in the input directory, multiplies by voxel volume and writes volumes.json (mm^3) and volumes_icvproportion.json (volume/eTIV). Use it to quantify tract volumes normalised for head size.",
   "kind": "native",
   "topics": [
-    "analysis"
+    "analysis",
+    "anatomy",
+    "brainlife-app",
+    "nibabel",
+    "statistics",
+    "tractography"
   ],
   "registry": {
     "id": "5afe0f2a2e93b90028263655",
@@ -20,10 +25,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory used for eTIV.",
       "config_keys": [
         "fsurfer"
-      ]
+      ],
+      "requirements": "Must contain stats/aseg.stats."
     },
     {
       "id": "vols",
@@ -31,10 +37,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Directory of binary tract masks.",
       "config_keys": [
         "maskdir"
-      ]
+      ],
+      "requirements": "Only files ending in Vol.nii.gz are measured."
     }
   ],
   "outputs": [
@@ -44,7 +51,7 @@
       "datatype_tags": [
         "volume"
       ],
-      "description": "unknown"
+      "description": "volumes.json (volume per mask in mm^3) and volumes_icvproportion.json (volume divided by eTIV, plus eTIV)."
     }
   ],
   "parameters": [],
@@ -55,5 +62,13 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/bl.app.32"
+  "doi": "10.25663/bl.app.32",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "NumPy"
+    }
+  ]
 }

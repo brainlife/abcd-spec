@@ -3,9 +3,14 @@
   "name": "brain-extract-14-11-26",
   "version": "main",
   "summary": "Brain extraction (skull-stripping) using FSL BET",
-  "description": "unknown",
+  "description": "Runs FSL bet on the T1w image with the chosen fractional intensity threshold and optional robust centre estimation (-R) and bias field/neck cleanup (-B), via run_bet.sh and brain_extract.py. The repository has no main file, so brainlife.io cannot start the App as registered, and no container is specified.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6afa5518b9274454de107c0e",
     "github": "gamorosino/brain-extract-14-11-26",
@@ -57,5 +62,10 @@
   "runtime": {
     "container": "unknown"
   },
-  "doi": "10.25663/brainlife.app.1000"
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "FSL (bet)"
+    }
+  ]
 }

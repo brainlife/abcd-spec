@@ -3,9 +3,16 @@
   "name": " Compute EOG artifact SSP projectors",
   "version": "v1.0",
   "summary": "Compute SSP (signal-space projection) vectors for EOG artifacts.",
-  "description": "unknown",
+  "description": "Detects EOG (blink and eye-movement) events in continuous MEG/EEG data and computes SSP projectors for them with mne.preprocessing.compute_proj_eog, then saves the projectors, topomap and EOG-evoked figures and an HTML report. Use it to build EOG projectors to apply in later preprocessing. As noted in the README, main.py reads a qrs_threshold key that is not a registered parameter and passes it to compute_proj_eog, which has no such argument, so runs are expected to fail until this is fixed.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "denoising",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "63340c27db978c79919b9684",
     "github": "BrainlifeMEEG/SSP-projectors-EOG",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format, with an EOG channel or a channel named by ch_name.",
       "config_keys": [
         "mne"
       ]
@@ -37,7 +44,7 @@
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Topomap of the EOG projectors (eog_projectors.png) and EOG-evoked joint plots (eog_*.png)."
     }
   ],
   "parameters": [
@@ -68,13 +75,13 @@
     {
       "id": "tmin",
       "type": "number",
-      "description": "unknown",
+      "description": "Start of the epoch around each detected EOG event, in seconds.",
       "default": -0.2
     },
     {
       "id": "tmax",
       "type": "number",
-      "description": "unknown",
+      "description": "End of the epoch around each detected EOG event, in seconds.",
       "default": 0.2
     },
     {
@@ -157,14 +164,14 @@
     {
       "id": "copy",
       "type": "boolean",
-      "description": "If False, filtering raw data is done in place. Defaults to True.",
+      "description": "Not read: the code always passes copy=True.",
       "default": true,
       "advanced": true
     },
     {
       "id": "return_drop_log",
       "type": "boolean",
-      "description": "If True, return the drop log.",
+      "description": "Not read: the code always passes return_drop_log=False.",
       "default": true,
       "advanced": true
     },
@@ -188,8 +195,31 @@
   "runtime": {
     "container": "brainlifemeeg/mne:1.12.1",
     "resources": {
-      "cpus": 1
+      "cpus": 1,
+      "walltime_hours": 0.17
     }
   },
-  "doi": "10.25663/brainlife.app.673"
+  "doi": "10.25663/brainlife.app.673",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Saeed Zahran",
+    "Maximilien Chaumon"
+  ]
 }

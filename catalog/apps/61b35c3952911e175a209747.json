@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Average channels",
   "version": "main",
-  "summary": "Average channels",
-  "description": "unknown",
+  "summary": "Averages the power spectral density over a user-given list of MEG/EEG channels from a PSD table and outputs the averaged spectrum and a plot.",
+  "description": "Reads the channel-by-frequency PSD TSV, selects the channels in channel_list, averages them into one new channel and plots the mean PSD with its standard deviation band. Use it to summarise the spectrum of a region (for example occipital gradiometers) after computing a PSD. Channel names must match the PSD table exactly.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "61b35c3952911e175a209747",
     "github": "guiomar/app-average-channels",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Power spectral density table (TSV, channels by frequencies).",
       "config_keys": [
         "psd"
       ]
@@ -31,7 +36,7 @@
       "datatype_tags": [
         "avg"
       ],
-      "description": "unknown",
+      "description": "PSD table containing the averaged channel.",
       "datatype_tags_pass": "psd01"
     },
     {
@@ -40,7 +45,7 @@
       "datatype_tags": [
         "avg"
       ],
-      "description": "unknown",
+      "description": "Plot of the averaged PSD with its standard deviation (avg_channels.png).",
       "datatype_tags_pass": "psd01"
     }
   ],
@@ -56,7 +61,7 @@
     {
       "id": "new_name",
       "type": "string",
-      "description": "unknown",
+      "description": "Name given to the new averaged channel.",
       "default": "avg_occipital"
     }
   ],
@@ -66,5 +71,15 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.599"
+  "doi": "10.25663/brainlife.app.599",
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

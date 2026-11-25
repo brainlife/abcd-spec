@@ -185,3 +185,8 @@ def test_container_ignores_commented_lines(record):
 def test_container_expands_simple_variables(record):
     main = 'VERSION=22.0.6\nsingularity exec docker://nipreps/mriqc:${VERSION} ./run\n'
     assert blapp.generate(record, main_text=main)["runtime"]["container"] == "nipreps/mriqc:22.0.6"
+
+
+def test_container_expands_variables_with_defaults(record):
+    main = 'singularity exec docker://brainlife/fsl:${FSL_VERSION:-6.0.4} ./run\n'
+    assert blapp.generate(record, main_text=main)["runtime"]["container"] == "brainlife/fsl:6.0.4"

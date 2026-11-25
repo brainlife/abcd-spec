@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "mergeTCK",
   "version": "master",
-  "summary": "Merge multiple TCK files into one TCK file.",
-  "description": "unknown",
+  "summary": "Merges several MRtrix .tck tractograms into a single .tck tractogram with a compiled MATLAB script.",
+  "description": "Reads every TCK file given as input, concatenates their streamlines, updates the streamline counts and writes one merged track.tck. Use it to combine tractograms produced separately (for example per tract or per tracking run) for one subject. All inputs should be in the same space; use merge2TCKs when a Pipeline can pass only two single tractograms.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "tractography",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5d5c2a214cfacf00366c0fd0",
     "github": "svincibo/app-mergeTCK",
@@ -18,10 +21,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "TCK files to merge.",
+      "description": "Two or more MRtrix .tck tractograms of the same subject to merge.",
       "config_keys": [
         "tcks"
-      ]
+      ],
+      "requirements": "Tractograms should be in the same space."
     }
   ],
   "outputs": [
@@ -29,7 +33,7 @@
       "id": "output",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "Merged TCK.",
+      "description": "A single track.tck containing all streamlines from the input tractograms.",
       "datatype_tags_pass": "track"
     }
   ],
@@ -37,8 +41,32 @@
   "runtime": {
     "container": "brainlife/mcr:r2019a",
     "resources": {
-      "cpus": 1
+      "cpus": 1,
+      "walltime_hours": 0.33,
+      "memory_gb": 30
     }
   },
-  "doi": "10.25663/brainlife.app.219"
+  "doi": "10.25663/brainlife.app.219",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mergeTCK didn't produce track.tck",
+      "fix": "Check that the input .tck files are readable MRtrix tractograms."
+    }
+  ]
 }

@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "AnalyzepRF on volume",
   "version": "master",
-  "summary": "An app to do a population receptive field analysis on HCP 7T retinotopy fMRI data",
-  "description": "unknown",
+  "summary": "Estimates voxel-wise population receptive fields (polar angle, eccentricity, size, R2) from retinotopy fMRI and its stimulus with Kendrick Kay's analyzePRF toolbox.",
+  "description": "Fits the analyzePRF compressive spatial summation model to each voxel of the fMRI time series given the stimulus aperture. Voxels are restricted to the provided mask or, if none, to the FreeSurfer cortical ribbon in the selected lobes (occipital by default). fMRI can optionally be slice-time and motion corrected and globally regressed. Designed for HCP 7T retinotopy data; the stimulus must match the fMRI timing.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "freesurfer"
+  ],
   "registry": {
     "id": "5cae3ef776cdaa0030b9232b",
     "github": "davhunt/app-analyzePRF",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Retinotopy task fMRI time series (bold).",
       "config_keys": [
         "fmri"
       ]
@@ -29,10 +33,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Stimulus aperture as a pixelsX x pixelsY x time NIfTI with values in [0,1].",
       "config_keys": [
         "stim"
-      ]
+      ],
+      "requirements": "Must match the temporal dimension (TR) of the fMRI."
     },
     {
       "id": "freesurfer",
@@ -51,7 +56,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional mask in fMRI space restricting the voxels analysed (for example V1).",
       "config_keys": [
         "mask"
       ]
@@ -62,7 +67,7 @@
       "id": "prf",
       "datatype": "neuro/prf",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "pRF maps (polar angle, eccentricity, receptive field size, R2, exponent, gain, mean volume) as NIfTI, plus surface VTKs."
     }
   ],
   "parameters": [
@@ -173,5 +178,43 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.177"
+  "doi": "10.25663/brainlife.app.177",
+  "software": [
+    {
+      "name": "analyzePRF",
+      "url": "https://github.com/kendrickkay/analyzePRF"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1152/jn.00105.2013",
+      "text": "Kay KN, Winawer J, Mezer A, Wandell BA. Compressive spatial summation in human visual cortex. J Neurophysiol 110(2):481-494 (2013)."
+    },
+    {
+      "doi": "10.1523/JNEUROSCI.1724-17.2017",
+      "text": "Zhou J, Benson NC, Kay KN, Winawer J. Compressive temporal summation in human visual cortex. J Neurosci 38(3):691-709 (2018)."
+    },
+    {
+      "text": "Benson NC, et al. The Human Connectome Project 7 Tesla retinotopy dataset: Description and population receptive field analysis. J Vis 18(13):23 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    },
+    {
+      "message": "output missing",
+      "cause": "prf/r2.nii.gz was not produced by the pRF fit.",
+      "fix": "Check the fMRI, stimulus and mask inputs and the MATLAB log."
+    }
+  ]
 }

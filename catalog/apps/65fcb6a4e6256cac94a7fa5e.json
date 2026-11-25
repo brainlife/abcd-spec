@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "Compile parc-stats csvs across project into one dataframe",
   "version": "parc-stats-v1.0",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Concatenates a chosen parc-stats CSV from many subjects into one group table with pandas, adding subject, session and tag columns, for group analysis.",
+  "description": "For every selected parc-stats dataset, reads <csv_name>.csv, adds subjectID, sessionID, tags and datatype_tags columns from the dataset metadata when missing, and stacks all rows into parc_stats.csv. Use it to gather per-subject parcellation statistics across a project before group statistics.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "statistics",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "65fcb6a4e6256cac94a7fa5e",
     "github": "bacaron/app-concatenate-tractmeasures",
@@ -18,10 +21,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Parcellation statistics datasets (multi), one per subject or session.",
       "config_keys": [
         "parc-stats"
-      ]
+      ],
+      "requirements": "Each must contain a CSV named <csv_name>.csv."
     }
   ],
   "outputs": [
@@ -31,14 +35,14 @@
       "datatype_tags": [
         "group_analysis"
       ],
-      "description": "unknown"
+      "description": "Group table parc_stats.csv combining the rows of all inputs with subject, session and tag columns."
     }
   ],
   "parameters": [
     {
       "id": "csv_name",
       "type": "string",
-      "description": "unknown",
+      "description": "Base name (without .csv) of the CSV file to read from each parc-stats input.",
       "default": ""
     }
   ],
@@ -50,5 +54,13 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.821"
+  "doi": "10.25663/brainlife.app.821",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
 }

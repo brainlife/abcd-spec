@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "mergeDWI",
   "version": "master",
-  "summary": "Concatenates one or more diffusion images.",
-  "description": "unknown",
+  "summary": "Concatenates two or more DWI series (with bvals/bvecs) into a single DWI with MRtrix3 3.0_RC3 mrcat.",
+  "description": "Converts each input DWI to MRtrix format with its gradient table, concatenates them along the volume axis with mrcat and exports one NIfTI with merged bvals and bvecs. Use it when shells or runs were acquired in separate scans, ideally before preprocessing. It does no DWI-to-DWI alignment and no intensity normalization, so the inputs must share the same grid.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5e419e50301ffc2c9833fe09",
     "github": "svincibo/app-mergeDWI",
@@ -18,12 +23,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Two or more DWI datasets (multi) with bvals and bvecs.",
       "config_keys": [
         "dwis",
         "bvecs",
         "bvals"
-      ]
+      ],
+      "requirements": "All series must have the same voxel grid; no alignment or intensity normalization is applied."
     }
   ],
   "outputs": [
@@ -33,7 +39,7 @@
       "datatype_tags": [
         "merged"
       ],
-      "description": "unknown"
+      "description": "Merged DWI (dwi.nii.gz) with concatenated bvals and bvecs and a JSON header export."
     }
   ],
   "parameters": [],
@@ -43,5 +49,24 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.275"
+  "doi": "10.25663/brainlife.app.275",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    },
+    {
+      "text": "Tournier J-D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage (2019)."
+    }
+  ],
+  "maintainers": [
+    "Sophia Vinci-Booher"
+  ]
 }

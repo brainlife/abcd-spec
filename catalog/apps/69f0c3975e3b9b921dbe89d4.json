@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "FSL Top-up & Eddy Correct & QC  (CUDA/GPU)",
   "version": "topup-eddy_correct-qc-v0.1-cuda11",
-  "summary": "This application preprocesses diffusion-weighted MRI (DWI) data using FSL\u2019s TOPUP and EDDY to correct for susceptibility-induced distortions, eddy current\u2013related artifacts, and subject motion. It supports both reverse phase-encoded acquisitions and AP/PA field maps, and produces corrected diffusion data, brain masks, and quality-control reports.",
-  "description": "unknown",
+  "summary": "Corrects DWI for susceptibility distortions, eddy currents and motion with FSL topup and eddy (GPU eddy_cuda), using a reverse phase-encoded DWI or AP/PA field maps, and outputs the corrected DWI, a brain mask, eddy QC and motion regressors.",
+  "description": "Estimates the susceptibility field with FSL topup from b0 volumes of opposite phase-encoding (from the reverse-encoded DWI or from AP/PA EPI field maps), then corrects motion, eddy currents and distortions with eddy (eddy_cuda on GPU by default) and runs eddy_quad QC. Outputs the corrected DWI with rotated b-vectors, a brain mask, eddy QC and motion regressors. Phase-encoding direction and readout time (param) must be set correctly. Optional features: outlier replacement (repol), slice-to-volume correction (mporder with slspec), merging both phase-encodings (mergefull), reslicing the reverse DWI (needs a FreeSurfer license) and b-value shell harmonisation.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "preprocessing",
+    "quality-control"
+  ],
   "registry": {
     "id": "69f0c3975e3b9b921dbe89d4",
     "github": "gamorosino/app-FSLTopupEddy-CUDA",
@@ -45,7 +51,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional field map; the AP/PA EPI images (epi1/epi2 with JSON sidecars) are used for topup instead of the reverse-encoded DWI.",
       "config_keys": [
         "phasediff",
         "phasediff_json",
@@ -65,7 +71,8 @@
         "epi1_json",
         "epi2",
         "epi2_json"
-      ]
+      ],
+      "requirements": "epi1_json and epi2_json must contain PhaseEncodingDirection and TotalReadoutTime."
     }
   ],
   "outputs": [
@@ -271,7 +278,7 @@
     {
       "id": "mergefull",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, the reverse phase-encoded DWI (rdif) is merged with the main DWI as input to eddy, not only used for topup.",
       "default": false
     },
     {
@@ -301,19 +308,19 @@
     {
       "id": "eddy_niter",
       "type": "number",
-      "description": "unknown",
+      "description": "Intended number of eddy iterations; not read by topup_eddy.sh in this version.",
       "default": 8
     },
     {
       "id": "mporder",
       "type": "number",
-      "description": "unknown",
+      "description": "Order of the slice-to-volume motion model passed to eddy --mporder; 0 disables it. Values above 0 need slspec.",
       "default": 0
     },
     {
       "id": "slspec",
       "type": "string",
-      "description": "unknown",
+      "description": "Slice acquisition order for slice-to-volume correction, given as whitespace-separated slice indices that are reshaped into rows of three and passed to eddy --slspec.",
       "default": "",
       "required": false,
       "multiline": true
@@ -321,26 +328,26 @@
     {
       "id": "repol",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, eddy detects and replaces outlier slices (--repol).",
       "default": false
     },
     {
       "id": "harmonize_shells",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, b-values are snapped to the nearest value in shell_targets before processing.",
       "default": false
     },
     {
       "id": "shell_targets",
       "type": "string",
-      "description": "unknown",
+      "description": "Comma-separated target b-values used when harmonize_shells is true.",
       "default": "",
       "required": false
     },
     {
       "id": "shell_tolerance",
       "type": "number",
-      "description": "unknown",
+      "description": "Maximum allowed distance between a b-value and its target shell when harmonising; larger differences cause an error.",
       "default": 120,
       "required": false
     }
@@ -355,5 +362,41 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.926"
+  "doi": "10.25663/brainlife.app.926",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.7.22",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Andersson JLR, Skare S, Ashburner J. How to correct susceptibility distortions in spin-echo echo-planar images: application to diffusion tensor imaging. NeuroImage 20(2):870-888 (2003)."
+    },
+    {
+      "text": "Andersson JLR, Sotiropoulos SN. An integrated approach to correction for off-resonance effects and subject movement in diffusion MR imaging. NeuroImage 125:1063-1078 (2016)."
+    },
+    {
+      "text": "Smith SM et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-219 (2004)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: mporder > 0 but slspec is missing",
+      "fix": "Provide slspec or set mporder to 0."
+    },
+    {
+      "message": "ERROR: harmonize_shells=true but shell_targets is empty",
+      "fix": "Provide shell_targets."
+    },
+    {
+      "message": "ERROR: param must be numeric TotalReadoutTime in seconds",
+      "fix": "Set param to the total readout time in seconds."
+    }
+  ]
 }

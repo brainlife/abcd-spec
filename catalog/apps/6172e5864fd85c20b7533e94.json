@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "PRFmodel",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Fits population receptive field (pRF) models to task fMRI with AFNI 3dNLfim (Conv_PRF model) using a stimulus aperture dataset, producing pRF parameter maps and polar magnitude and phase maps.",
+  "description": "Demeans the BOLD series within an automask, builds an SPM canonical HRF reference with 3dDeconvolve, and fits AFNI's convolved pRF model voxel-wise with 3dNLfim (simplex search, 10000 random starts), then derives polar magnitude and phase from the x/y parameters. Use it for retinotopic mapping when a stimulus aperture movie matching the BOLD timing is available. The stimulus_diameter parameter is not read by main, and the README is empty.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "afni",
+    "brainlife-app",
+    "fmri"
+  ],
   "registry": {
     "id": "6172e5864fd85c20b7533e94",
     "github": "anibalsolon/PRFmodel-app",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Task BOLD fMRI time series (with optional events).",
       "config_keys": [
         "bold",
         "events",
@@ -31,10 +35,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Stimulus aperture dataset used as the pRF stimulus (AFNI_MODEL_PRF_STIM_DSET).",
       "config_keys": [
         "stim"
-      ]
+      ],
+      "requirements": "Must have the same number of time points as the BOLD series."
     }
   ],
   "outputs": [
@@ -42,7 +47,7 @@
       "id": "prf",
       "datatype": "neuro/prf",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "pRF fit outputs: parameter bucket, fitted time series, and polar magnitude and phase maps."
     }
   ],
   "parameters": [
@@ -59,5 +64,11 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.589"
+  "doi": "10.25663/brainlife.app.589",
+  "software": [
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ]
 }

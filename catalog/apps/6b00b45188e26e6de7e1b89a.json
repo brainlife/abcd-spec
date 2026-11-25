@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "RecoBundles X",
   "version": "v0.1.0",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Recognizes white matter bundles in a whole-brain .trk tractogram with scilpy BundleSeg (RecoBundlesX) against a population atlas downloaded from Zenodo, and outputs a WMC classification and per-bundle .tck files.",
+  "description": "Downloads the selected RecobundlesX/BundleSeg atlas from Zenodo, filters streamlines by length (minL-maxL), registers the atlas T1 to the subject T1 with an ANTs affine (antsRegistrationSyNQuick), and runs scil_tractogram_segment_with_bundleseg with multi-parameter voting. Use it for atlas-based bundle extraction from whole-brain tractograms. It needs internet access; the WMC index covers only recognized streamlines, not the full input tractogram.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6b00b45188e26e6de7e1b89a",
     "github": "gamorosino/app-recobundles-x",
@@ -103,7 +108,20 @@
     }
   ],
   "runtime": {
-    "container": "unknown"
+    "container": "scilus/scilus:2.3.0"
   },
-  "doi": "10.25663/brainlife.app.1000"
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "scilpy",
+      "version": "2.3.0",
+      "url": "https://github.com/scilus/scilpy"
+    },
+    {
+      "name": "ANTs"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

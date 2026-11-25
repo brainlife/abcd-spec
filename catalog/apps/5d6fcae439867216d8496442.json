@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Classifyber",
   "version": "1.0",
-  "summary": "Code of Classifyber, a robust streamline-based linear classifier for white matter bundle segmentation.",
-  "description": "unknown",
+  "summary": "Segments white matter bundles in a target tractogram with Classifyber, a streamline-based linear classifier trained on example segmentations from other subjects.",
+  "description": "Runs both the training and test phases of Classifyber: for each requested bundle it learns a binary linear classifier from example subjects' segmented bundles (combining streamline geometry, connectivity and atlas features in MNI space) and applies it to the target subject's tractogram. Use it for automatic bundle segmentation when segmented examples are available; for the test phase only, use brainlife.app.265. The moving tractograms, segmentations and T1s must be given in the same subject order, and the code checks that subject IDs match.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "machine-learning",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5d6fcae439867216d8496442",
     "github": "FBK-NILab/app-classifyber",
@@ -80,7 +86,7 @@
       "datatype_tags": [
         "classifyber"
       ],
-      "description": "unknown",
+      "description": "White matter classification (classification.mat plus per-tract JSON files) of the selected bundles in the target tractogram.",
       "datatype_tags_pass": "2"
     }
   ],
@@ -101,5 +107,27 @@
       "walltime_hours": 12
     }
   },
-  "doi": "10.25663/brainlife.app.228"
+  "doi": "10.25663/brainlife.app.228",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "0.16.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2020.117402",
+      "text": "Berto G, Bullock D, Astolfi P, et al. Classifyber, a robust streamline-based linear classifier for white matter bundle segmentation. NeuroImage (2020)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Inputs subject id incorrectly inserted. Check them again.",
+      "fix": "Give the target tractogram and T1 of the same subject, and the example segmentations, tractograms and T1s in the same subject order."
+    }
+  ]
 }

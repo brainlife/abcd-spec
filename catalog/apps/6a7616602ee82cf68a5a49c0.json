@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Surface-Enhanced Tractography (SET)",
   "version": "main",
-  "summary": "SET \u2014 Surface-Enhanced Tractography App. Adaptation of the original SET method\u2019s reference implementation (St-Onge Etienne et al., 2018).",
-  "description": "unknown",
+  "summary": "Generates a whole-brain tractogram with Surface-Enhanced Tractography (SET), seeding probabilistic tracking from FreeSurfer white matter surfaces, after registering the T1w to DWI with ANTs and computing FODFs with scilpy.",
+  "description": "Registers the T1w to DWI space with ANTs (SyN, or affine only with linear_transformation), computes an order-8 FODF with scilpy unless one is supplied, and runs the SET engine (freesurfer_a2009s_proper profile only) for several random-seed chains, then concatenates them into one tractogram. Use it for surface-informed whole-brain tractography with better cortical terminations. Needs preprocessed DWI, FA, an ACPC-aligned T1w, a FreeSurfer directory and a 5TT mask (vol2 used as WM include, vol3 as CSF exclude).",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "ants",
+    "mrtrix3",
+    "freesurfer",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a7616602ee82cf68a5a49c0",
     "github": "gamorosino/app-surface-enhanced-tractography",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Preprocessed DWI with bvecs and bvals.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -31,7 +38,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory whose white matter surfaces seed tracking.",
       "config_keys": [
         "freesurfer"
       ]
@@ -42,7 +49,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tensor dataset; only the FA map is used.",
       "config_keys": [
         "fa"
       ]
@@ -53,7 +60,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ACPC-aligned T1-weighted image registered to DWI space.",
       "config_keys": [
         "t1"
       ]
@@ -66,10 +73,11 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "4D five-tissue-type mask.",
       "config_keys": [
         "mask_5tt"
-      ]
+      ],
+      "requirements": "Brainlife 5tt ordering: volume 2 is white matter (include), volume 3 is CSF (exclude)."
     },
     {
       "id": "fodf",
@@ -77,7 +85,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional precomputed FODF (SH order 8, descoteaux07 basis); skips FODF computation.",
       "config_keys": [
         "fodf_lmax8",
         "fodf_response"
@@ -90,13 +98,14 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional precomputed T1-to-DWI ANTs transform; skips registration.",
       "config_keys": [
         "t1_warp",
         "t1_inv_warp",
         "t1_affine"
       ],
-      "advanced": true
+      "advanced": true,
+      "requirements": "Warp, inverse warp and affine must all be given together."
     }
   ],
   "outputs": [
@@ -155,7 +164,7 @@
     {
       "id": "linear_transformation",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Register T1 to DWI with an affine transform only (no SyN) and pass --transf-linear to SET.",
       "default": false
     },
     {
@@ -167,12 +176,40 @@
     }
   ],
   "runtime": {
-    "container": "gamorosino/ensemble_tracking:latest}",
+    "container": "gamorosino/ensemble_tracking:latest",
     "resources": {
       "cpus": 8,
       "memory_gb": 16,
       "walltime_hours": 15
     }
   },
-  "doi": "10.25663/brainlife.app.951"
+  "doi": "10.25663/brainlife.app.951",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "SET (set_1v1)",
+      "url": "https://github.com/StongeEtienne/set-nf"
+    },
+    {
+      "name": "scilpy (scilus)",
+      "version": "1.6.0"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2017.12.036",
+      "text": "St-Onge E, Daducci A, Girard G, Descoteaux M. Surface-enhanced tractography (SET). NeuroImage 169:524-539 (2018)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino",
+    "Sydney Fulton"
+  ]
 }

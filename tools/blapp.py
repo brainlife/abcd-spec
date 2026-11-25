@@ -92,10 +92,15 @@ def _summary(record):
 
 
 def _expand(text, code):
-    """Expand $VAR and ${VAR} from simple VAR=value assignments in the script; leave the
-    container unknown if a variable cannot be resolved."""
+    """Expand $VAR, ${VAR} and ${VAR:-default} from simple VAR=value assignments in the
+    script; leave the container unknown if a variable cannot be resolved."""
     assigned = dict(re.findall(r"^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=['\"]?([^\s'\"$]+)['\"]?\s*$", code, re.M))
-    expanded = re.sub(r"\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?", lambda m: assigned.get(m.group(1), m.group(0)), text)
+
+    def value(m):
+        name, default = m.group(1) or m.group(3), m.group(2)
+        return assigned.get(name, default if default is not None else m.group(0))
+
+    expanded = re.sub(r"\$\{([A-Za-z_][A-Za-z0-9_]*)(?::?-([^}]*))?\}|\$([A-Za-z_][A-Za-z0-9_]*)", value, text)
     return UNKNOWN if "$" in expanded else expanded
 
 

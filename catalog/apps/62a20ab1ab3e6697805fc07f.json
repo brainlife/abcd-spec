@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Average ERP (MNE)",
   "version": "main",
-  "summary": "Create an Evoked object out of Epochs",
-  "description": "unknown",
+  "summary": "Averages MNE epochs of selected conditions into an evoked response (ERP) with MNE-Python and outputs the evoked file, a joint ERP plot and an HTML report.",
+  "description": "Reads an MNE epochs file, selects the epochs of the listed stimulus names, averages them into an Evoked object named by condition, and plots a joint ERP figure with topomaps at the given peaks. Use it to compute ERPs after epoching. Note: average_all is compared with the string 'True' and that branch does not set the evoked variable, so averaging all epochs may fail; list the stimulus names instead.",
   "kind": "native",
   "topics": [
-    "eeg"
+    "eeg",
+    "meg",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "62a20ab1ab3e6697805fc07f",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "MNE epochs file (-epo.fif) with event names for the conditions.",
       "config_keys": [
         "fname"
       ]
@@ -83,5 +86,17 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.644"
+  "doi": "10.25663/brainlife.app.644",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    }
+  ]
 }

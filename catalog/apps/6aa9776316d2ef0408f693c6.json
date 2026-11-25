@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "BossDB Contactome",
   "version": "cloudome",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Computes a contactome (contact-area graph between touching segmented objects) from a BossDB precomputed segmentation with Cloudome, writing a SQLite database.",
+  "description": "Resolves a BossDB segmentation channel to its precomputed CloudVolume location, splits it into cuboid tasks, runs Cloudome workers locally and sums per-cuboid contacts into contactome.db (table contactome_edges: graph_id, location, pre, post, weight in square nanometres). Use it to build a contact graph between neighbouring objects in an EM segmentation. The input must be a segmentation where objects touch; the output directory and databases must not already exist.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "connectomics",
+    "network-analysis",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aa9776316d2ef0408f693c6",
     "github": "jhuapl-boss/bossdb-brainlife-apps",
@@ -18,10 +22,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "BossDB segmentation channel reference of the form bossdb://collection/experiment/channel.",
       "config_keys": [
         "channel"
-      ]
+      ],
+      "requirements": "Public channel stored as precomputed CloudVolume data, containing a segmentation whose objects touch."
     }
   ],
   "outputs": [
@@ -31,7 +36,7 @@
       "datatype_tags": [
         "db"
       ],
-      "description": "unknown"
+      "description": "SQLite database contactome.db (table contactome_edges with graph_id, location, pre, post, weight in square nanometres) and a contactome.log."
     }
   ],
   "parameters": [
@@ -87,13 +92,32 @@
     {
       "id": "workers",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of local Cloudome worker processes that drain the task queue.",
       "default": 1,
       "minimum": 1
     }
   ],
   "runtime": {
-    "container": "ghcr.io/jhuapl-boss/bossdb-brainlife-apps:cloudome}"
+    "container": "ghcr.io/jhuapl-boss/bossdb-brainlife-apps:cloudome"
   },
-  "doi": "10.25663/brainlife.app.971"
+  "doi": "10.25663/brainlife.app.971",
+  "software": [
+    {
+      "name": "Cloudome",
+      "version": "6854220de261ce6ddf945068d7a1a2af7eb2e635",
+      "url": "https://github.com/aplbrain/cloudome"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.64898/2026.05.08.723866",
+      "text": "Matelsky et al. 2026."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "refusing to overwrite existing databases",
+      "fix": "Use a new, empty output directory."
+    }
+  ]
 }

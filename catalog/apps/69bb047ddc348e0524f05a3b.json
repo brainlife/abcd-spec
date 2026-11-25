@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "T1-w Template Construction",
   "version": "main",
-  "summary": "This application builds a group-wise anatomical template from a set of MRI volumes using ANTs.",
-  "description": "unknown",
+  "summary": "Builds a group-wise anatomical template from a set of T1-weighted images with ANTs iterative nonlinear (SyN) template construction.",
+  "description": "Uses ANTs iterative template construction: images are aligned (rigid/affine), registered nonlinearly to the current template, averaged into a new template, and the process repeats for the requested number of iterations. Outputs the population-average template. Use it to create a study-specific template from several subjects' images; all inputs should be the same contrast.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "registration"
+  ],
   "registry": {
     "id": "69bb047ddc348e0524f05a3b",
     "github": "gamorosino/app-mri-template-construction",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Set of T1-weighted images (one per subject) to build the template from.",
       "config_keys": [
         "images"
       ]
@@ -31,20 +36,20 @@
       "datatype_tags": [
         "template"
       ],
-      "description": "unknown"
+      "description": "Population-average T1-weighted template."
     }
   ],
   "parameters": [
     {
       "id": "iterations",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of template-update iterations.",
       "default": 2
     },
     {
       "id": "metric",
       "type": "enum",
-      "description": "unknown",
+      "description": "Similarity metric used for registration to the template (for example CC, cross-correlation).",
       "default": "CC",
       "options": [
         {
@@ -72,7 +77,7 @@
     {
       "id": "transform",
       "type": "enum",
-      "description": "unknown",
+      "description": "Transformation model used for registration to the template (for example SyN).",
       "default": "SyN",
       "options": [
         {
@@ -100,5 +105,26 @@
       "walltime_hours": 1.98
     }
   },
-  "doi": "10.25663/brainlife.app.908"
+  "doi": "10.25663/brainlife.app.908",
+  "software": [
+    {
+      "name": "ANTs",
+      "url": "http://stnava.github.io/ANTs/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A reproducible evaluation of ANTs similarity metric performance in brain image registration. NeuroImage 54(3):2033-2044 (2011)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21:809-813 (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "[ERROR] No images found in config.json!",
+      "fix": "Provide at least one input image."
+    }
+  ]
 }

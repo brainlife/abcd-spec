@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": " Warp reference Ventral Putamen ROI(s) to Subject Space",
   "version": "vPut-ROIs",
-  "summary": "A generic template app for warping a provided ROI (situated in a reference space) to a given subject space.",
-  "description": "unknown",
+  "summary": "Warps left and right ventral putamen ROIs from MNI152 space into a subject's T1-weighted space using an ANTs rigid, affine and SyN registration and its inverse.",
+  "description": "Registers the subject brain to the MNI152 1 mm template with antsRegistration (rigid, affine, SyN, using the subject brain mask), then applies the inverse warp and affine with antsApplyTransforms to the bundled ventral putamen masks so they land on the subject T1 grid. Use the resulting ROIs for subject-level segmentation or tracking. The README states this branch is not meant to be run directly on brainlife.io but as part of a specific workflow.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "registration"
+  ],
   "registry": {
     "id": "64bd5b923a63cf17376f2fb7",
     "github": "DanNBullock/app-warp_refROI_to_subjSpace",
@@ -18,10 +23,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Subject T1-weighted image; the ROIs are resampled onto its grid.",
       "config_keys": [
         "t1"
-      ]
+      ],
+      "requirements": "Should be skull-stripped (registration uses the MNI152 brain template)."
     },
     {
       "id": "brainMask",
@@ -53,5 +59,18 @@
       "walltime_hours": 18
     }
   },
-  "doi": "10.25663/brainlife.app.792"
+  "doi": "10.25663/brainlife.app.792",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0",
+      "url": "http://stnava.github.io/ANTs/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ]
 }

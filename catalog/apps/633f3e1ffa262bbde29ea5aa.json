@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "FSLmaths-app",
   "version": "master",
-  "summary": "This app masks a region of interest by a lesion mask.",
-  "description": "unknown",
+  "summary": "Combines one ROI from each of two ROI sets with FSL fslmaths (add, subtract, multiply, divide or mask), for example to remove a lesion from a region of interest.",
+  "description": "Copies the named ROI from each input ROI directory and runs fslmaths <roi_1> -<function> <roi_2>, writing the result as a new ROI; with sub the result is clipped to 0-1 so it stays binary. Use it to mask an ROI by a lesion or to merge or intersect ROIs. Both ROIs must be on the same voxel grid; with sub the order of inputs matters.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "fsl",
+    "segmentation",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "633f3e1ffa262bbde29ea5aa",
     "github": "hanna-willis/app-roi-fslmaths",
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ROI directory containing the second ROI (roi_2), e.g. a lesion mask, applied to the first.",
       "config_keys": [
         "rois_2_loc"
       ]
@@ -40,20 +45,20 @@
       "id": "output",
       "datatype": "neuro/rois",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "ROI directory with copies of both input ROIs and the result <output_roi_name>.nii.gz."
     }
   ],
   "parameters": [
     {
       "id": "roi_1",
       "type": "string",
-      "description": "unknown",
+      "description": "File name (without .nii.gz) of the ROI to take from the first ROI input.",
       "default": ""
     },
     {
       "id": "function",
       "type": "enum",
-      "description": "unknown",
+      "description": "fslmaths operation applied as roi_1 -<function> roi_2: add, sub (subtract, then clipped to 0-1), mul, div or mas (mask).",
       "default": "sub",
       "options": [
         {
@@ -76,13 +81,13 @@
     {
       "id": "roi_2",
       "type": "string",
-      "description": "unknown",
+      "description": "File name (without .nii.gz) of the ROI to take from the second ROI input.",
       "default": ""
     },
     {
       "id": "output_roi_name",
       "type": "string",
-      "description": "unknown",
+      "description": "File name (without .nii.gz) for the resulting ROI.",
       "default": ""
     }
   ],
@@ -93,5 +98,16 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.680"
+  "doi": "10.25663/brainlife.app.680",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Hanna Willis",
+    "Brad Caron"
+  ]
 }

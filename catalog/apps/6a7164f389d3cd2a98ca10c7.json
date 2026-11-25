@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "test-app-dwi2b0",
   "version": "v0.2",
-  "summary": "Reproducible  pipeline to extract DWI b\u2080 volumes and, optionally, construct an unbiased b\u2080 template.",
-  "description": "unknown",
+  "summary": "Test registration of dwi2b0: extracts the b0 volumes from a DWI series with MRtrix3 and outputs their mean or, optionally, an ANTs rigid b0 template.",
+  "description": "Test copy of the dwi2b0 App registered on the same branch (v0.2). Runs MRtrix3 dwiextract -shell 0 to pull out the non-diffusion-weighted volumes, then averages them with mrmath or, when template is set, builds a rigid-only ANTs template. Prefer the main dwi2b0 App for production use; the input DWI needs at least one b=0 volume.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a7164f389d3cd2a98ca10c7",
     "github": "gamorosino/app-dwi2b0",
@@ -18,14 +24,15 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "4D diffusion-weighted image with its bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvecs",
         "bvals",
         "sbref",
         "sbref_json"
-      ]
+      ],
+      "requirements": "Must contain at least one b=0 volume."
     }
   ],
   "outputs": [
@@ -56,8 +63,24 @@
     "container": "brainlife/mrtrix3:3.0.3",
     "resources": {
       "cpus": 1,
-      "walltime_hours": 2
+      "walltime_hours": 2,
+      "memory_gb": 8
     }
   },
-  "doi": "10.25663/brainlife.app.950"
+  "doi": "10.25663/brainlife.app.950",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "ANTs",
+      "version": "2.3.1",
+      "url": "https://github.com/ANTsX/ANTs"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

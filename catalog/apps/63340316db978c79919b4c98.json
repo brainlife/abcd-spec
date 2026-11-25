@@ -3,9 +3,16 @@
   "name": "Compute ECG artifact SSP projectors",
   "version": "v1.0",
   "summary": "Compute SSP (signal-space projection) vectors for ECG artifacts.",
-  "description": "unknown",
+  "description": "Runs mne.preprocessing.compute_proj_ecg on continuous MEG/EEG: detects heartbeats from an ECG channel (or a substitute channel given by ch_name), epochs around them and computes SSP vectors per sensor type. Also saves projector topomaps, ECG-evoked plots and an HTML report. Apply the projectors to remove cardiac artifacts.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "denoising",
+    "eeg",
+    "meg",
+    "mne-python",
+    "preprocessing"
+  ],
   "registry": {
     "id": "63340316db978c79919b4c98",
     "github": "brainlifeMEEG/SSP-projectors-ECG",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG data (MNE raw).",
       "config_keys": [
         "mne"
       ]
@@ -37,7 +44,7 @@
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Topomap of the ECG projectors and ECG-evoked joint plots (PNG)."
     }
   ],
   "parameters": [
@@ -200,5 +207,11 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.672"
+  "doi": "10.25663/brainlife.app.672",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ]
 }

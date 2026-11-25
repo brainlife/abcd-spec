@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "app-bad-channel-temp",
   "version": "working_ver",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Marks bad channels in a raw MEG/EEG .fif file from the status column of a BIDS channels.tsv, using MNE-Python.",
+  "description": "Reads the raw recording and the BIDS channels.tsv from the channels input, sets info['bads'] to every channel whose status is 'bad' (and that exists in the data), and saves the raw file. Use it to carry bad-channel annotations from BIDS sidecars into MNE data before filtering, Maxwell filtering or interpolation. The repository has no README.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69b2af986bb1f71b25b95b29",
     "github": "obVdo/app-bad-channel-temp",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
       "config_keys": [
         "mne"
       ]
@@ -29,7 +36,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "BIDS sidecar files for the recording; the code uses channels.tsv (name and status columns).",
       "config_keys": [
         "channels",
         "headshape",
@@ -37,7 +44,8 @@
         "events",
         "events_json",
         "info"
-      ]
+      ],
+      "requirements": "channels.tsv must contain a status column with 'bad' for bad channels."
     }
   ],
   "outputs": [
@@ -45,7 +53,7 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/raw",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Raw data (raw.fif) with info['bads'] set from channels.tsv."
     }
   ],
   "parameters": [],
@@ -57,5 +65,24 @@
       "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.907"
+  "doi": "10.25663/brainlife.app.907",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "FATAL: channels.tsv not found",
+      "fix": "Provide a channels input that includes channels.tsv."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso",
+    "Antonio Caul\u00edn",
+    "Maximilien Chaumon",
+    "obVdo"
+  ]
 }

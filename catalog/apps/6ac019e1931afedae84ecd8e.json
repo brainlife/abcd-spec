@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "NORDIC denoising (Python)",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Denoises BOLD fMRI from magnitude and phase data with NORDIC (locally low-rank PCA) using the NORDIC-python translation, and outputs the denoised magnitude BOLD.",
+  "description": "Runs run_nordic.py from NORDIC-python, which estimates g-factor noise maps with an MPPCA pass and applies locally low-rank denoising. Use it on raw complex-valued BOLD before other preprocessing. Needs matching magnitude and phase series. NORDIC is licensed for non-profit research and educational use only.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "denoising",
+    "fmri",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6ac019e1931afedae84ecd8e",
     "github": "gamorosino/app-nordic",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Magnitude BOLD time series.",
       "config_keys": [
         "mag"
       ]
@@ -31,7 +36,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Phase BOLD time series matching the magnitude.",
       "config_keys": [
         "phase"
       ]
@@ -72,5 +77,17 @@
       "walltime_hours": 4
     }
   },
-  "doi": "10.25663/brainlife.app.982"
+  "doi": "10.25663/brainlife.app.982",
+  "software": [
+    {
+      "name": "NORDIC-python",
+      "url": "https://github.com/JimJam07/NORDIC-python"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check that the magnitude and phase inputs match and the NORDIC log for errors."
+    }
+  ]
 }

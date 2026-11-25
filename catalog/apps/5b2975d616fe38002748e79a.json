@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "clever",
   "version": "2.0",
-  "summary": "`clever` computes principal Components LEVERage (\u201cCLEVER\u201d) and other measures of outlyingness for fMRI data. It can be used for flagging timepoints which are likely to contain artifacts (\"scrubbing\") as well as general quality-control of fMRI data.",
-  "description": "unknown",
+  "summary": "Flags outlying timepoints in an fMRI run with the clever R package (PCA leverage, robust distance and DVARS) for scrubbing and quality control, and outputs an outlier plot and table.",
+  "description": "Masks the BOLD time series into a timepoints-by-voxels matrix, robustly normalises it, keeps high-variance and/or high-kurtosis principal components and measures leverage, robust distance and optionally DVARS for each timepoint, then thresholds them to flag outliers. Use it to choose volumes to scrub or to check fMRI data quality. Needs a 4D BOLD image and a brain mask in the same space. Note: main.R reads the images from undefined variables bold and mask (not input$bold / input$mask) and the parameter kurt_quantile is not in the list of names passed to clever (it expects kurt_quant), so the App may fail or ignore that parameter.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "quality-control",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5b2975d616fe38002748e79a",
     "github": "mandymejia/app-clever",
@@ -251,5 +255,21 @@
       "walltime_hours": 15
     }
   },
-  "doi": "10.25663/bl.app.71"
+  "doi": "10.25663/bl.app.71",
+  "software": [
+    {
+      "name": "clever (R package)",
+      "url": "https://github.com/mandymejia/clever"
+    },
+    {
+      "name": "R",
+      "version": "4.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2017.12.098",
+      "text": "Afyouni S, Nichols TE. Insight and inference for DVARS. NeuroImage (2018)."
+    }
+  ]
 }

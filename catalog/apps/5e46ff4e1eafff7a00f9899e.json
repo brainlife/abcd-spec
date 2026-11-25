@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "DenseUnet-based Automatic Rapid Tool for brain Segmentation (DARTS)",
   "version": "master",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Segments a T1-weighted image into 102 brain regions, similar to FreeSurfer aparc+aseg, with the DARTS DenseUNet deep learning model and outputs a volumetric parcellation.",
+  "description": "Runs the DARTS (DenseUnet-based Automatic Rapid Tool for brain Segmentation) pretrained dense-unet model on CPU to label a T1w image into 102 regions with a FreeSurfer-like key. Use it when a fast aparc+aseg-like parcellation is needed without running recon-all. The model weights are loaded from a fixed path on the original HPC system, so the App only runs where that path exists.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5e46ff4e1eafff7a00f9899e",
     "github": "davhunt/app-darts",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to segment.",
       "config_keys": [
         "t1"
       ]
@@ -29,7 +35,7 @@
       "id": "parc",
       "datatype": "neuro/parcellation/volume",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Volumetric parcellation (parc.nii.gz) in the T1w space with key.txt and label.json describing the 102 regions."
     }
   ],
   "parameters": [],
@@ -44,5 +50,33 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.276"
+  "doi": "10.25663/brainlife.app.276",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "DARTS",
+      "url": "https://github.com/NYUMedML/DARTS"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kaku A., Hegde C. V., Huang J., Chung S., Wang X., Young M., Radmanesh A., Lui Y. W., Razavian N. DARTS: DenseUnet-based Automatic Rapid Tool for Brain Segmentation. arXiv:1911.05567 (2019)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set FREESURFER_LICENSE on the compute resource."
+    }
+  ],
+  "maintainers": [
+    "David Hunt"
+  ]
 }

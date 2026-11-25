@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Little Test",
   "version": "master",
-  "summary": "This is a little test of registering an app on Brainlife as part of the brain imaging course. This app takes an ACPC aligned anat/t1w data and resamples it to the desired resolution.",
-  "description": "unknown",
+  "summary": "Test App from a brain imaging course that resamples an ACPC-aligned T1-weighted image to a requested voxel resolution with DIPY reslice.",
+  "description": "Course exercise forked from the brainlife Python App template. It reslices the T1w image to the outres voxel size with dipy.align.reslice and writes t1.nii.gz. Not intended for production use.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "dipy",
+    "preprocessing"
+  ],
   "registry": {
     "id": "5fa47f87e138ec5bfa4ea73d",
     "github": "sunaguo/brainlife-app-test",
@@ -51,5 +56,14 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.446"
+  "doi": "10.25663/brainlife.app.446",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ]
 }

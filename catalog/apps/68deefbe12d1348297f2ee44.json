@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "T2w-to-T1w Registration",
   "version": "main",
-  "summary": "An automated and reproducible pipeline to perform image registration between two 3D MRI scans using ANTs. This tool ensures high-precision alignment through a multi-stage transformation process suitable for intra-subject longitudinal studies or inter-subject normalization workflows.",
-  "description": "unknown",
+  "summary": "Registers a T2-weighted image to a T1-weighted reference with ANTs using translation, rigid, affine and optional SyN stages, outputting the transforms and the registered T2w.",
+  "description": "Runs antsRegistration from the moving image to the fixed image up to the selected transformation stage, with the pyramid depth set by settings, and applies the result to the moving image. Use it to bring a subject's T2w into its T1w space (or for inter-subject normalisation). The README describes the T1w-to-T1w variant of the same code.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "registration"
+  ],
   "registry": {
     "id": "68deefbe12d1348297f2ee44",
     "github": "gamorosino/app-registration-ants",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T2-weighted image to register (moving).",
       "config_keys": [
         "t2"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image used as the fixed reference.",
       "config_keys": [
         "t1_fixed"
       ]
@@ -40,13 +45,13 @@
       "id": "transformations",
       "datatype": "neuro/transform/nifti",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "ANTs affine matrix and warp fields from the T2w to the T1w space."
     },
     {
       "id": "transformed",
       "datatype": "neuro/anat/t2w",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "T2-weighted image resampled into the T1w reference space."
     }
   ],
   "parameters": [
@@ -77,7 +82,7 @@
     {
       "id": "transformation",
       "type": "enum",
-      "description": "unknown",
+      "description": "Highest registration stage to run: translation, rigid, affine or nonlinear (SyN); each stage includes the previous ones.",
       "default": "nonlinear",
       "options": [
         {
@@ -110,5 +115,17 @@
       "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.877"
+  "doi": "10.25663/brainlife.app.877",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid input found in config.json",
+      "fix": "Provide the moving image input."
+    }
+  ]
 }

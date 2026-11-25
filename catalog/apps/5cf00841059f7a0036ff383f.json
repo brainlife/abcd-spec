@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "TractSeg training",
   "version": "brainlife-app",
-  "summary": "Automatic White Matter Bundle Segmentation",
-  "description": "unknown",
+  "summary": "Trains a TractSeg convolutional network on CSD peaks and ground-truth tract masks from multiple subjects and outputs PyTorch weights plus training-metric plots.",
+  "description": "Derived from the TractSeg App (Wasserthal et al., 2018) so you can train TractSeg on your own data. Give it CSD peaks and matching ground-truth bundle masks for several subjects; subjects are split into training and validation sets by perc_val. The resulting weights are meant for the companion TractSeg test App. Requires a GPU; use the original TractSeg App instead if the pretrained weights suit your data.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "machine-learning",
+    "tract-segmentation"
+  ],
   "registry": {
     "id": "5cf00841059f7a0036ff383f",
     "github": "FBK-NILab/TractSeg-BrainLife",
@@ -75,7 +80,7 @@
     {
       "id": "data_augmentation",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Whether TractSeg applies data augmentation during training.",
       "default": true
     }
   ],
@@ -87,5 +92,27 @@
       "gpu": true
     }
   },
-  "doi": "10.25663/brainlife.app.204"
+  "doi": "10.25663/brainlife.app.204",
+  "software": [
+    {
+      "name": "TractSeg",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    },
+    {
+      "name": "PyTorch"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183:239-253 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Weights missing.",
+      "cause": "Training finished without writing a weights .npz file.",
+      "fix": "Check the training log for errors in the TractSeg run."
+    }
+  ]
 }

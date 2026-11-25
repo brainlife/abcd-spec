@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Brain Atlas Mapping",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Maps a retinotopic or cortical atlas (Benson14, Wang15, Glasser16 or Rosenke18) onto a FreeSurfer subject with neuropythy and outputs a volumetric parcellation, atlas maps and surface data.",
+  "description": "Runs python -m neuropythy atlas on the FreeSurfer subject, converts the resulting volumes to NIfTI with FreeSurfer mri_convert and attaches a label.json for the chosen atlas. Use it to get visual-area or multimodal cortical labels in subject space without functional data. Requires a FreeSurfer license.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "parcellation"
+  ],
   "registry": {
     "id": "69e801a668c5c4b1c53aac9c",
     "github": "gamorosino/app-map-atlas",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory.",
       "config_keys": [
         "freesurfer"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional T1w reference image.",
       "config_keys": [
         "t1"
       ]
@@ -40,26 +45,26 @@
       "id": "parcellation",
       "datatype": "neuro/parcellation/volume",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Atlas labels as a volumetric parcellation with label.json."
     },
     {
       "id": "volumes",
       "datatype": "neuro/maps",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Atlas maps (e.g. eccentricity, polar angle for Benson14) as volumes."
     },
     {
       "id": "surfaces",
       "datatype": "neuro/surface/vertices",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Atlas data on the subject's surface vertices."
     }
   ],
   "parameters": [
     {
       "id": "atlas",
       "type": "enum",
-      "description": "unknown",
+      "description": "Atlas to map: benson14, wang15, glasser16 or rosenke18.",
       "default": "benson14",
       "options": [
         {
@@ -92,5 +97,15 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.922"
+  "doi": "10.25663/brainlife.app.922",
+  "software": [
+    {
+      "name": "neuropythy",
+      "version": "0.12.16",
+      "url": "https://github.com/noahbenson/neuropythy"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ]
 }

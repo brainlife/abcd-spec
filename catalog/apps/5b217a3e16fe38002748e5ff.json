@@ -2,12 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Fit MAPMRI",
   "version": "1.1.1",
-  "summary": "Fit MAPMRI model (with optional Laplacian regularization). Generates rtop, lapnorm, msd, qiv, rtap, rtpp, non-gaussian (ng), parallel ng, perpendicular ng.  Either the laplacian or positivity or both must be set to True. (dipy_fit_mapmri)",
-  "description": "unknown",
+  "summary": "Fits the MAPMRI diffusion model to DWI with DIPY 1.1.1 dipy_fit_mapmri (Laplacian and/or positivity regularisation) and outputs RTOP, RTAP, RTPP, MSD, QIV, Laplacian norm and non-Gaussianity maps.",
+  "description": "Wraps the DIPY dipy_fit_mapmri workflow (Mean Apparent Propagator MRI) on a DWI with its bvals and bvecs, inside the brainlife/dipy:1.1.1 container. Use it to compute propagator-based microstructure scalars from multi-shell DWI. At least one of laplacian or positivity must be enabled; small_delta and big_delta (diffusion timing) are passed to the workflow to build the gradient table.",
   "kind": "native",
   "topics": [
     "diffusion-mri",
-    "dipy"
+    "dipy",
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5b217a3e16fe38002748e5ff",
@@ -36,14 +39,14 @@
       "datatype_tags": [
         "dipy_fit_mapmri"
       ],
-      "description": "unknown"
+      "description": "Output folder of dipy_fit_mapmri with the scalar maps (rtop, lapnorm, msd, qiv, rtap, rtpp, ng, parallel ng, perpendicular ng)."
     }
   ],
   "parameters": [
     {
       "id": "command",
       "type": "string",
-      "description": "unknown",
+      "description": "DIPY workflow to run; only dipy_fit_mapmri is accepted.",
       "default": "dipy_fit_mapmri",
       "readonly": true
     },
@@ -107,5 +110,31 @@
       "cpus": 6
     }
   },
-  "doi": "10.25663/bl.app.67"
+  "doi": "10.25663/bl.app.67",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Garyfallidis E. et al. Dipy, a library for the analysis of diffusion MRI data. Frontiers in Neuroinformatics 8, 8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "invalid command",
+      "fix": "Set command to dipy_fit_mapmri."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
 }

@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
   "version": "multiple-tck-1.1",
-  "summary": "Compute the degree of overlap between two bundle masks using the Dice Similarity Coefficient (DSC) score.",
-  "description": "unknown",
+  "summary": "Measures the overlap between estimated and ground-truth white matter bundles, given as WMC classifications of two separate tractograms, with the Dice similarity coefficient, Jaccard index and sensitivity.",
+  "description": "Converts both tractograms to .trk using the T1, extracts the bundles listed in tractID_list from each WMC classification, voxelizes them and computes DSC, weighted DSC, Jaccard, sensitivity, TP, FP and FN per bundle. Use it to evaluate a bundle segmentation against a reference segmentation of the same subject made on a different tractogram. All inputs must belong to the same subject.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "statistics",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "63e559e7c538c16a8222163e",
     "github": "bacaron/app-compute-dsc",
@@ -64,7 +70,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "T1 image",
+      "description": "ACPC-aligned T1 of the subject, used as reference to convert the tractograms from .tck to .trk.",
       "config_keys": [
         "t1"
       ]
@@ -94,5 +100,38 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.729"
+  "doi": "10.25663/brainlife.app.729",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "0.16.0"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dice LR. Measures of the amount of ecologic association between species. Ecology 26(3):297-302 (1945)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: estimated segmentation and ground truth segmentation are the same. DSC will be 1.",
+      "cause": "The same WMC was selected for both seg_est and seg_true.",
+      "fix": "Select different estimated and ground-truth segmentations."
+    },
+    {
+      "message": "Inputs subject IDs incorrectly inserted. Check them again.",
+      "cause": "Inputs come from different subjects.",
+      "fix": "Use inputs from one subject."
+    }
+  ],
+  "maintainers": [
+    "Giulia Bert\u00f2"
+  ]
 }

@@ -2,11 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "HD-BET",
   "version": "main",
-  "summary": "HD-BET is an automated brain extraction method for MRI using neural networks.",
-  "description": "unknown",
+  "summary": "Extracts the brain from a T1-weighted image with the HD-BET neural network, outputting the skull-stripped T1w and a binary brain mask.",
+  "description": "Runs the hd-bet command from MIC-DKFZ/HD-BET on the T1w image, using an NVIDIA GPU when one is available and the CPU otherwise. Fast mode uses one model; accurate mode uses five models with a majority vote, and test-time augmentation adds mirrored inputs. Use it as a deep-learning alternative to FSL BET for skull stripping. The repository README gives no further documentation.",
   "kind": "native",
   "topics": [
-    "brainlifeio"
+    "brainlifeio",
+    "anatomy",
+    "preprocessing",
+    "segmentation",
+    "machine-learning",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5f592ced0c8f9597ac65ae41",
@@ -20,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted MRI volume to skull-strip.",
       "config_keys": [
         "t1"
       ]
@@ -33,7 +38,7 @@
       "datatype_tags": [
         "brain_extracted"
       ],
-      "description": "unknown",
+      "description": "Brain-extracted (skull-stripped) T1-weighted image.",
       "datatype_tags_pass": "t1"
     },
     {
@@ -42,7 +47,7 @@
       "datatype_tags": [
         "brain_mask"
       ],
-      "description": "unknown"
+      "description": "Binary brain mask predicted by HD-BET."
     }
   ],
   "parameters": [
@@ -76,8 +81,15 @@
   "runtime": {
     "container": "anibalsolon/hd-bet:v0.0.1",
     "resources": {
-      "cpus": 16
+      "cpus": 16,
+      "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.416"
+  "doi": "10.25663/brainlife.app.416",
+  "software": [
+    {
+      "name": "HD-BET",
+      "url": "https://github.com/MIC-DKFZ/HD-BET"
+    }
+  ]
 }

@@ -2,13 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "RecoBundles",
   "version": "1.1.1",
-  "summary": "RecoBundles  - Automatic extraction of brain pathways",
-  "description": "unknown",
+  "summary": "Extracts white matter bundles from a whole-brain .trk tractogram with DIPY RecoBundles using the HCP842 bundle atlas, and outputs a WMC classification plus recognised bundles and labels.",
+  "description": "Registers the tractogram to the HCP842 atlas with streamline-based linear registration (SLR) and recognises each atlas model bundle with RecoBundles, optionally refining the result. Use it for automatic bundle segmentation of a whole-brain tractogram in subject space. The atlas is downloaded at run time by DIPY.",
   "kind": "native",
   "topics": [
+    "brainlife-app",
     "diffusion-mri",
     "dipy",
-    "segmentation"
+    "dwi",
+    "segmentation",
+    "tract-segmentation"
   ],
   "registry": {
     "id": "5bbfbbc71f00c80027644894",
@@ -22,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain tractogram (.trk).",
       "config_keys": [
         "streamline_files"
       ]
@@ -33,7 +36,7 @@
       "id": "wmc",
       "datatype": "neuro/wmc",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "White matter classification of the input streamlines into the recognised bundles, with per-tract JSON for visualisation."
     },
     {
       "id": "output",
@@ -42,7 +45,7 @@
         "wm_tracts",
         "tracts_labels"
       ],
-      "description": "unknown"
+      "description": "Recognised bundle streamlines and their labels."
     }
   ],
   "parameters": [
@@ -61,7 +64,7 @@
     {
       "id": "no_slr",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Disable streamline-based linear registration of the tractogram to the atlas.",
       "default": false
     },
     {
@@ -123,7 +126,7 @@
     {
       "id": "slr_metric",
       "type": "enum",
-      "description": "unknown",
+      "description": "Metric used for the SLR registration.",
       "default": "symmetric",
       "options": [
         {
@@ -143,7 +146,7 @@
     {
       "id": "slr_transform",
       "type": "enum",
-      "description": "unknown",
+      "description": "Transform type for SLR (translation, rigid, similarity or scaling).",
       "default": "similarity",
       "options": [
         {
@@ -167,7 +170,7 @@
     {
       "id": "slr_matrix",
       "type": "enum",
-      "description": "unknown",
+      "description": "Size of the streamline subset used for SLR (nano 100 to huge 1200 streamlines).",
       "default": "small",
       "options": [
         {
@@ -227,5 +230,22 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.113"
+  "doi": "10.25663/brainlife.app.113",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ]
 }

@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "XformPauliVTA",
   "version": "master",
-  "summary": "Transforms Pauli Atlas VTA ROI from MNI space into subject space.",
-  "description": "unknown",
+  "summary": "Transforms the Pauli atlas ventral tegmental area (VTA) probability map from MNI space into subject space with ANTs, then optionally thresholds, binarises and splits it into left and right ROIs.",
+  "description": "Optionally brain-extracts the ACPC-aligned T1 with FSL bet, computes an ANTs affine and warp between the subject and the bundled MNI152 1 mm template, applies the inverse to the Pauli VTA probabilistic map, thresholds it at maskThreshold, binarises it with FSL and splits it by hemisphere with AFNI. Use the resulting VTA ROIs as seeds for tractography.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "afni",
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "fsl",
+    "registration"
+  ],
   "registry": {
     "id": "66b5180b774d6f044d9fad3f",
     "github": "ethan-ellis-uark/app-XformPauliVTA",
@@ -79,5 +86,19 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.828"
+  "doi": "10.25663/brainlife.app.828",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "AFNI",
+      "version": "16.3.0"
+    }
+  ]
 }

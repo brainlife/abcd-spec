@@ -3,10 +3,14 @@
   "name": "Network Measurements",
   "version": "0.2",
   "summary": "App to calculate several basic statistics for networks and their respective null model distributions.",
-  "description": "unknown",
+  "description": "Computes node measurements (degree, strength, clustering, coreness, betweenness and others) and network measurements (averages, rich-club coefficient, assortativity, diameter, betweenness centralization) with igraph, and the same statistics for any null models carried in the input. Community-based measures (modularity, participation coefficient, module degree z-score) are computed only if Network Communities was run first. Most measurements do not support negative weights.",
   "kind": "native",
   "topics": [
-    "network"
+    "network",
+    "network-analysis",
+    "connectomics",
+    "statistics",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5ea70853f1745db7d9f7b0dc",
@@ -52,8 +56,28 @@
   "runtime": {
     "container": "filsilva/cxnetwork:0.2.0",
     "resources": {
-      "cpus": 1
+      "cpus": 1,
+      "memory_gb": 6,
+      "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.321"
+  "doi": "10.25663/brainlife.app.321",
+  "software": [
+    {
+      "name": "python-igraph"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/nn.4502",
+      "text": "Bassett DS, Sporns O. Network neuroscience. Nat Neurosci 20(3):353 (2017)."
+    },
+    {
+      "doi": "10.1080/00018730601170527",
+      "text": "Costa LdF, Rodrigues FA, Travieso G, Villas Boas PR. Characterization of complex networks: A survey of measurements. Adv Phys 56(1):167-242 (2007)."
+    }
+  ],
+  "maintainers": [
+    "Filipi N. Silva"
+  ]
 }

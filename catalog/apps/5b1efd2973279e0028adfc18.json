@@ -3,12 +3,15 @@
   "name": "Fit CSD",
   "version": "1.1.1",
   "summary": "Fit Constrained spherical deconvolution (CSD) model to diffusion data (dipy_fit_csd)",
-  "description": "unknown",
+  "description": "Wraps the DIPY 1.1.1 dipy_fit_csd workflow: estimates a single-fibre response function from high-FA voxels in a central ROI, fits constrained spherical deconvolution within the mask, and extracts peaks and spherical-harmonic coefficients (peaks and metrics, --extract_pam_values). Use it to obtain fibre orientations for tractography. Requires a DWI with bvals/bvecs and a brain mask in the same space.",
   "kind": "native",
   "topics": [
     "diffusion-mri",
     "diffusion-reconstruction",
-    "dipy"
+    "dipy",
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5b1efd2973279e0028adfc18",
@@ -22,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Diffusion-weighted image with its bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvals",
@@ -37,10 +40,11 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Brain mask restricting the CSD fit.",
       "config_keys": [
         "mask"
-      ]
+      ],
+      "requirements": "Must be in the same space as the DWI."
     }
   ],
   "outputs": [
@@ -50,7 +54,7 @@
       "datatype_tags": [
         "csd_model_fit"
       ],
-      "description": "unknown"
+      "description": "CSD peaks and metrics from dipy_fit_csd: peaks, peak values and indices, SH coefficients, GFA and the PAM5 file."
     }
   ],
   "parameters": [
@@ -100,8 +104,27 @@
   "runtime": {
     "container": "brainlife/dipy:1.1.1",
     "resources": {
-      "cpus": 8
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 10
     }
   },
-  "doi": "10.25663/bl.app.62"
+  "doi": "10.25663/bl.app.62",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
 }

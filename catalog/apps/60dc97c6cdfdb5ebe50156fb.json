@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "EEG Data Quality",
   "version": "dataqual-pipeline",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Test App that runs an EEGLAB data-quality pipeline (clean_rawdata, Picard ICA and ICLabel) under Octave on a BIDS EEG dataset and reports rejected channels, data and brain components.",
+  "description": "Experimental App from a test repository. main reads the dataset location from a committed config-dataqual.json rather than from the brainlife config.json, imports a BIDS EEG dataset with EEGLAB, removes bad channels and bursts with clean_rawdata, runs Picard ICA and ICLabel, and computes the percentage of channels and data rejected and of brain components. Because it ignores the brainlife input and does not write the registered output, it is not expected to work as registered.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "eeg",
+    "quality-control",
+    "preprocessing",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "60dc97c6cdfdb5ebe50156fb",
     "github": "dungscout96/app-test-brainlife",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "The pipeline will run on the dataset provided and output quality measures",
+      "description": "EEG dataset in EEGLAB .set/.fdt format with BIDS channel, electrode and event sidecars.",
       "config_keys": [
         "fdt",
         "set",
@@ -27,7 +32,8 @@
         "coordsystem",
         "events",
         "events_json"
-      ]
+      ],
+      "requirements": "Continuous (non-epoched) data; epoched data are not processed."
     }
   ],
   "outputs": [
@@ -46,5 +52,19 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.538"
+  "doi": "10.25663/brainlife.app.538",
+  "software": [
+    {
+      "name": "EEGLAB"
+    },
+    {
+      "name": "GNU Octave"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Cannot process data epochs",
+      "fix": "Provide continuous, non-epoched EEG data."
+    }
+  ]
 }

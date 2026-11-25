@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Register DWI to T1 with FSL",
   "version": "main",
-  "summary": "Example code on how to run an FSL command in brainlife",
-  "description": "unknown",
+  "summary": "Example App that aligns a preprocessed DWI to a T1-weighted image with FSL flirt and outputs the resampled DWI.",
+  "description": "Runs flirt with the T1w as reference on the DWI image and writes the result as the output DWI. The README describes it as example code for running an FSL command on brainlife. Caveats from the code: the cost parameter is read but not passed to flirt, bvecs are not rotated, and bvals/bvecs are copied from dwi.bvals/dwi.bvecs in the working directory rather than from the input, so the App is not suitable for real analyses as committed.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "68dd8eb312d1348297f052c5",
     "github": "VKarlaftis/cmc_brainlife_registration",
@@ -47,14 +52,14 @@
         "preprocessed",
         "t1_aligned"
       ],
-      "description": "unknown"
+      "description": "DWI resampled to the T1w space by flirt (dwi.nii.gz) with bvals and bvecs."
     }
   ],
   "parameters": [
     {
       "id": "cost",
       "type": "string",
-      "description": "unknown",
+      "description": "Intended flirt cost function; read from config.json but not passed to flirt.",
       "default": "leastsq",
       "required": true
     }
@@ -66,5 +71,11 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.873"
+  "doi": "10.25663/brainlife.app.873",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ]
 }

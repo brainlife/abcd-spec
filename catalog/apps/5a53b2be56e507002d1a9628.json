@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Laplace Beltrami Spectrum: Eigenvalues Only",
   "version": "singularity",
-  "summary": "Application to calculate the Laplace Beltrami Spectrum using matlab",
-  "description": "unknown",
+  "summary": "Computes the Laplace-Beltrami spectrum (eigenvalues) of each VTK surface mesh in a 3D surfaces dataset with compiled MATLAB code and writes them to spectrum.json.",
+  "description": "For every .vtk mesh in the input surfaces directory, normalizes the mesh by surface area, builds the cotangent Laplacian and barycentric mass matrix, and solves for the spectrum_size smallest eigenvalues. Use it to obtain shape descriptors of brain structures or tract surfaces for shape analysis. Meshes with too few vertices for the requested number of eigenvalues are skipped. This branch does not save eigenvectors; use the 'Eigenvalues and Eigenvectors' App for those.",
   "kind": "native",
   "topics": [
-    "analysis"
+    "analysis",
+    "anatomy",
+    "surface-analysis",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5a53b2be56e507002d1a9628",
@@ -20,10 +23,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Directory of triangle surface meshes in VTK format, one per structure.",
       "config_keys": [
         "surfaces"
-      ]
+      ],
+      "requirements": "Only *.vtk files are read; each mesh needs more vertices than spectrum_size."
     }
   ],
   "outputs": [
@@ -31,7 +35,7 @@
       "id": "0",
       "datatype": "neuro/laplace_beltrami_spectrum",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "spectrum.json with the Laplace-Beltrami eigenvalues for each surface, keyed by surface name.",
       "datatype_tags_pass": "surfaces"
     }
   ],
@@ -46,7 +50,7 @@
     {
       "id": "spectrum_size",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of Laplace-Beltrami eigenvalues to compute per surface (k passed to eigs).",
       "default": 50
     }
   ],
@@ -58,5 +62,25 @@
       "walltime_hours": 8
     }
   },
-  "doi": "10.25663/bl.app.97"
+  "doi": "10.25663/bl.app.97",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "JSONlab"
+    },
+    {
+      "name": "geom3d"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
 }

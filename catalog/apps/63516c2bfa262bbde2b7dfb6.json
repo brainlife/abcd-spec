@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "fMRIPrep - Surface Output - ICA-AROMA",
   "version": "ic-aroma",
-  "summary": "fMRIPrep is a functional magnetic resonance imaging (fMRI) data preprocessing pipeline that is designed to provide an easily accessible, state-of-the-art interface that is robust to variations in scan acquisition protocols and that requires minimal user input, while providing easily interpretable and comprehensive error and output reporting.",
-  "description": "unknown",
+  "summary": "Preprocesses BOLD fMRI with fMRIPrep 21.0.1 and outputs surface time series (GIFTI and CIFTI) on fsaverage or fsnative surfaces, confound regressors, brain masks and an HTML report.",
+  "description": "Fork of the brainlife fMRIPrep surface App that runs fMRIPrep 21.0.1 with a FreeSurfer input and maps the surface-space BOLD outputs (left/right GIFTI, 91k CIFTI dtseries and, for fsnative, the surface vertices) to brainlife datatypes. Needs a T1w, a raw BOLD and the FreeSurfer output of the same T1w. Although the App lists an ICA-AROMA output, this configuration has no aroma parameter, so ICA-AROMA is never enabled and that output stays empty.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "surface-analysis",
+    "fmriprep",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "63516c2bfa262bbde2b7dfb6",
     "github": "vnbcs/app-fmriprep",
@@ -21,7 +28,8 @@
       "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
       "config_keys": [
         "t1"
-      ]
+      ],
+      "requirements": "Must be the same T1w used to generate the FreeSurfer input."
     },
     {
       "id": "fmri",
@@ -61,7 +69,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional T2-weighted image of the same subject, converted into the BIDS input given to fMRIPrep.",
       "config_keys": [
         "t2"
       ]
@@ -97,7 +105,7 @@
       "id": "regress",
       "datatype": "neuro/regressors",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "fMRIPrep confounds time series (regressors.tsv and its JSON sidecar)."
     },
     {
       "id": "anat",
@@ -114,7 +122,7 @@
         "anat",
         "brain"
       ],
-      "description": "unknown"
+      "description": "Brain mask of the preprocessed T1w in the original T1w space."
     },
     {
       "id": "output_report",
@@ -138,7 +146,7 @@
       "datatype_tags": [
         "func"
       ],
-      "description": "unknown"
+      "description": "Preprocessed BOLD time series on the left and right hemisphere surfaces (GIFTI func.gii) in the selected surface space."
     },
     {
       "id": "surface-vertices",
@@ -160,7 +168,7 @@
     {
       "id": "space",
       "type": "enum",
-      "description": "unknown",
+      "description": "Surface output space for the BOLD time series: fsaverage5, fsaverage6 or the subject's native FreeSurfer surface (fsnative).",
       "default": "fsaverage5",
       "options": [
         {
@@ -198,5 +206,38 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.686"
+  "doi": "10.25663/brainlife.app.686",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "fMRIPrep",
+      "version": "21.0.1",
+      "url": "https://fmriprep.org"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-018-0235-4",
+      "text": "Esteban O. et al. fMRIPrep: a robust preprocessing pipeline for functional MRI. Nature Methods 16, 111-116 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "app needs minimally a T1w and fmri. exiting",
+      "fix": "Provide both a T1w and an fMRI input."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "The FreeSurfer license is not available on the compute resource.",
+      "fix": "Set FREESURFER_LICENSE in the environment of the resource running the App."
+    }
+  ],
+  "maintainers": [
+    "Josh Faskowitz",
+    "Soichi Hayashi"
+  ]
 }

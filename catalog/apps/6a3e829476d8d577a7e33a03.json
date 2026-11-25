@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Crop raw data",
   "version": "v1.0",
-  "summary": "Crop raw data between two time points.",
-  "description": "unknown",
+  "summary": "Crops continuous MEG/EEG data (MNE raw FIF) to a time window between tmin and tmax seconds with MNE-Python raw.crop.",
+  "description": "Loads the raw recording and keeps only the interval [tmin, tmax] (from the start or to the end when either is empty), saving raw.fif. Use it to drop unwanted parts of a recording, such as the period before the task starts, before further processing.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6a3e829476d8d577a7e33a03",
     "github": "BrainlifeMEEG/crop-raw",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording (MNE raw FIF).",
       "config_keys": [
         "mne"
       ]
@@ -54,5 +60,12 @@
       "memory_gb": 20
     }
   },
-  "doi": "10.25663/brainlife.app.940"
+  "doi": "10.25663/brainlife.app.940",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ]
 }

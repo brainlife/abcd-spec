@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Apply  Transformations to Tractography Data",
   "version": "main",
-  "summary": "Apply spatial transformations (ANTs or FSL-derived) to a tractogram",
-  "description": "unknown",
+  "summary": "Applies an ANTs affine and nonlinear warp to a .tck tractogram with scilpy, moving streamlines from the registration's moving space into the reference space.",
+  "description": "Wraps applyTransformations2tract.sh, which composes the affine and the selected warp and applies them to every streamline with scilpy inside the gamorosino/tract_align container. Use it to bring a tractogram into another subject or template space after a T1w, T2w or FA registration. It needs at least one moving-space image and one reference-space image. Note: the code reads forward_operation, reverse_operation and verbose from config.json, but not invert or fsl_transform, so those two parameters currently have no effect.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "tractography",
+    "registration",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69aaf3006bb1f71b25ac8e59",
     "github": "gamorosino/app-tract-transform",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram (.tck) in the moving space of the registration.",
       "config_keys": [
         "input_tract"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Registration transform: ANTs affine plus forward warp and inverse warp.",
       "config_keys": [
         "warp",
         "inverse-warp",
@@ -42,7 +47,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space T1w image (the space the tractogram is in); first choice for the moving image.",
       "config_keys": [
         "t1"
       ]
@@ -53,7 +58,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space T2w image; used as moving image if no T1w is given.",
       "config_keys": [
         "t2"
       ]
@@ -64,7 +69,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space tensor maps; FA is used as moving image if no T1w or T2w is given.",
       "config_keys": [
         "fa",
         "md",
@@ -88,7 +93,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference (target) space T1w image; first choice for the reference image.",
       "config_keys": [
         "t1_fixed"
       ]
@@ -99,7 +104,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference-space T2w image; used if no fixed T1w is given.",
       "config_keys": [
         "t2_fixed"
       ]
@@ -110,7 +115,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference-space tensor maps; FA is used as reference if no fixed T1w or T2w is given.",
       "config_keys": [
         "fa_fixed",
         "md_fixed",
@@ -128,7 +133,7 @@
       "id": "transformed",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "The tractogram with transformed streamline coordinates, in the reference space."
     }
   ],
   "parameters": [
@@ -153,7 +158,7 @@
     {
       "id": "verbose",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Print verbose output from the transformation script in the log.",
       "default": false
     }
   ],
@@ -164,5 +169,40 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.902"
+  "doi": "10.25663/brainlife.app.902",
+  "software": [
+    {
+      "name": "scilpy"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "DIPY"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1109/ISBI53787.2023.10230615",
+      "text": "Amorosino G, Olivetti E, Jovicich J, Avesani P. How Does White Matter Registration Affect Tractography Alignment? IEEE ISBI (2023)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. Brainlife.io: a decentralized platform for reproducible neuroscience. Nature Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid moving image found in config.json",
+      "fix": "Provide one of t1w, t2w or tensor (moving space)."
+    },
+    {
+      "message": "Error: No valid fixed/reference image found in config.json",
+      "fix": "Provide one of t1w_fixed, t2w_fixed or tensor_fixed (reference space)."
+    },
+    {
+      "message": "Error: forward_operation and reverse_operation cannot both be true.",
+      "fix": "Enable only one of the two."
+    }
+  ]
 }

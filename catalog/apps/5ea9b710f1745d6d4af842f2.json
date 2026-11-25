@@ -2,12 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Streamlines Linear Registration (slr)",
   "version": "1.1.1",
-  "summary": "Brainlife wrapper app for dipy_slr workflows.",
-  "description": "unknown",
+  "summary": "Registers a moving .trk tractogram to a static one with DIPY Streamline-based Linear Registration (dipy_slr) and outputs the moved tractogram.",
+  "description": "Wraps the DIPY 1.1.1 dipy_slr workflow: filters streamlines by length, clusters them with QuickBundles, removes small clusters and finds the affine, rigid or similarity transform that aligns the moving bundle set to the static one. Use it to align tractograms across subjects or to an atlas tractogram. Both inputs must be TrackVis .trk files.",
   "kind": "native",
   "topics": [
     "diffusion-mri",
-    "dipy"
+    "dipy",
+    "dwi",
+    "registration",
+    "tractography",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5ea9b710f1745d6d4af842f2",
@@ -21,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference (static) tractogram in .trk format.",
       "config_keys": [
         "static_track"
       ]
@@ -32,7 +36,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram in .trk format to be moved onto the static one.",
       "config_keys": [
         "moving_track"
       ]
@@ -43,7 +47,7 @@
       "id": "output",
       "datatype": "neuro/track/trk",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "The moving tractogram after linear registration (track.trk)."
     }
   ],
   "parameters": [
@@ -94,15 +98,34 @@
     {
       "id": "progressive",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Use progressive registration (dipy_slr --progressive), fitting translation, rigid, similarity and affine stages in turn.",
       "default": true
     }
   ],
   "runtime": {
     "container": "brainlife/dipy:1.1.1",
     "resources": {
-      "cpus": 8
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 10
     }
   },
-  "doi": "10.25663/brainlife.app.332"
+  "doi": "10.25663/brainlife.app.332",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, Brett M, Amirbekian B, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ],
+  "maintainers": [
+    "Serge Koudoro",
+    "Javier Ricardo Guaje Guerra"
+  ]
 }

@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "DWI-to-Anatomical MRI Registration",
   "version": "v0.3",
-  "summary": "A reproducible and automated pipeline to align diffusion-weighted imaging (DWI) data to anatomical MRI references (e.g., T1-weighted) using configurable transformation stages.",
-  "description": "unknown",
+  "summary": "Registers DWI to an anatomical reference (T1w, T2w or FA) with ANTs, using the b0 volume and translation, rigid, affine or SyN stages, applies the transform to the full DWI with MRtrix3 and produces QC figures.",
+  "description": "Extracts the first b=0 (or lowest-b) volume, registers it to the chosen anatomical image with antsRegistration up to the selected transformation stage and pyramid depth, then applies the affine and warp to the 4-D DWI (with b-vector handling) and writes before/after QC figures. Provide one fixed image: T1w, T2w or a tensor dataset (FA is used). Optionally checks white-matter overlap on FA before and after registration (qc_wm).",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "ants",
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "quality-control",
+    "registration"
+  ],
   "registry": {
     "id": "68111293da629ed3b167b0fe",
     "github": "gamorosino/app-registration-dwi2anat",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "4-D diffusion-weighted image with bvals and bvecs (moving image).",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -33,7 +40,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image used as the fixed reference.",
       "config_keys": [
         "t1"
       ]
@@ -44,7 +51,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "T2-weighted image used as the fixed reference if no T1w is given.",
       "config_keys": [
         "t2"
       ]
@@ -55,7 +62,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Tensor dataset whose FA map is used as the fixed reference if no anatomical image is given.",
       "config_keys": [
         "fa",
         "md",
@@ -79,13 +86,13 @@
       "id": "transformations",
       "datatype": "neuro/transform/nifti",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "ANTs affine matrix and warp fields mapping the DWI to the anatomical reference."
     },
     {
       "id": "transformed",
       "datatype": "neuro/dwi",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "DWI resampled into the anatomical reference space, with bvals and bvecs."
     },
     {
       "id": "figures",
@@ -93,7 +100,7 @@
       "datatype_tags": [
         "qc_images"
       ],
-      "description": "unknown"
+      "description": "Before/after registration QC figures (orthogonal views and slices)."
     }
   ],
   "parameters": [
@@ -124,7 +131,7 @@
     {
       "id": "transformation",
       "type": "enum",
-      "description": "unknown",
+      "description": "Highest registration stage to run: translation, rigid, affine or nonlinear (SyN); each stage includes the previous ones.",
       "default": "rigid",
       "options": [
         {
@@ -163,5 +170,22 @@
       "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.857"
+  "doi": "10.25663/brainlife.app.857",
+  "software": [
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Invalid transformation type",
+      "fix": "Set transformation to translation, rigid, affine or nonlinear."
+    }
+  ]
 }

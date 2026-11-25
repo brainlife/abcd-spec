@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "DSC evaluation (wmc - wmc)",
   "version": "1.0",
-  "summary": "Compute the degree of overlap between two bundle masks using the Dice Similarity Coefficient (DSC) score.",
-  "description": "unknown",
+  "summary": "Computes Dice similarity, weighted Dice, Jaccard, sensitivity and TP/FP/FN between estimated and ground-truth bundles given as white matter classifications (WMC) of a tractogram, using DIPY and nibabel.",
+  "description": "Converts the tractogram to .trk, extracts the selected bundles (tractID_list) from the estimated and ground-truth WMC structures and computes voxel-wise overlap scores for each pair of corresponding bundles. Use it to evaluate a bundle segmentation against a reference segmentation of the same subject. Both WMCs must refer to the same tractogram and subject; the App stops if the subject IDs differ or if the two segmentations are the same object.",
   "kind": "native",
   "topics": [
-    "postprocessing"
+    "postprocessing",
+    "dwi",
+    "tract-segmentation",
+    "statistics",
+    "dipy",
+    "nibabel",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5ad79504363fd5002759a6b5",
@@ -23,7 +29,8 @@
       "description": "Tractogram associated with the white matter classification (WMC) structure",
       "config_keys": [
         "tractogram"
-      ]
+      ],
+      "requirements": "Must be the tractogram both WMC structures index into, of the same subject."
     },
     {
       "id": "1",
@@ -34,7 +41,8 @@
       "description": "Estimated bundles in form of white matter classification (WMC) structure",
       "config_keys": [
         "seg_est"
-      ]
+      ],
+      "requirements": "Same subject as the tractogram."
     },
     {
       "id": "2",
@@ -45,7 +53,8 @@
       "description": "Ground truth bundles in form of white matter classification (WMC) structure",
       "config_keys": [
         "seg_true"
-      ]
+      ],
+      "requirements": "Same subject as the tractogram."
     },
     {
       "id": "3",
@@ -85,5 +94,41 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/bl.app.57"
+  "doi": "10.25663/bl.app.57",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "0.16.0"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dice, L. R. Measures of the amount of ecologic association between species. Ecology 26(3):297-302 (1945)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: estimated segmentation and ground truth segmentation are the same. DSC will be 1.",
+      "fix": "Select a different ground truth WMC from the estimated one."
+    },
+    {
+      "message": "Inputs subject IDs incorrectly inserted. Check them again.",
+      "fix": "Use inputs that all belong to the same subject."
+    },
+    {
+      "message": "wmc to trk conversion failed",
+      "fix": "Check that the WMC refers to the given tractogram and that tractID_list indices exist."
+    }
+  ],
+  "maintainers": [
+    "Giulia Bert\u00f2"
+  ]
 }

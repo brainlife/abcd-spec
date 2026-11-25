@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "DANDI NWB Inspector",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Checks a public NWB file on the DANDI Archive against NWB best practices with NWB Inspector, streaming it without a full download, and outputs text and JSON reports.",
+  "description": "Parses the dandiset ID, version and asset ID from a DANDI asset API URL, resolves its S3 location with the DANDI API, streams the file with remfile and runs nwbinspector on it. Use it to validate NWB files before or after publishing on DANDI. It takes no input dataset, only the asset_url parameter, and needs internet access.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "quality-control",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69cd1ed734e13335189255c9",
     "github": "catalystneuro/dandi-nwb-inspector-brainlife-app",
@@ -19,19 +22,41 @@
       "datatype_tags": [
         "text"
       ],
-      "description": "unknown"
+      "description": "NWB Inspector results as report.txt (human-readable, grouped by importance) and report.json."
     }
   ],
   "parameters": [
     {
       "id": "asset_url",
       "type": "string",
-      "description": "The DANDI asset url",
+      "description": "Full DANDI asset API URL, e.g. https://api.dandiarchive.org/api/dandisets/<id>/versions/<version>/assets/<asset_id>/.",
       "default": ""
     }
   ],
   "runtime": {
     "container": "ghcr.io/catalystneuro/dandi-nwb-inspector-brainlife-app:latest"
   },
-  "doi": "10.25663/brainlife.app.918"
+  "doi": "10.25663/brainlife.app.918",
+  "software": [
+    {
+      "name": "NWB Inspector",
+      "url": "https://github.com/NeurodataWithoutBorders/nwbinspector"
+    },
+    {
+      "name": "DANDI client"
+    },
+    {
+      "name": "pynwb"
+    },
+    {
+      "name": "remfile"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Could not parse DANDI asset URL",
+      "cause": "asset_url does not have the dandisets/<id>/versions/<version>/assets/<asset_id> form.",
+      "fix": "Use the full DANDI asset API URL."
+    }
+  ]
 }

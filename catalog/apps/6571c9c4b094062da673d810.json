@@ -5,7 +5,10 @@
   "summary": "unknown",
   "description": "unknown",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6571c9c4b094062da673d810",
     "github": "anibalsolon/blapp-extract-event-signal",
@@ -43,7 +46,7 @@
     }
   ],
   "runtime": {
-    "container": "unknown",
+    "container": "anibalsolon/blapp-extract-event-signal",
     "resources": {
       "cpus": 16
     }

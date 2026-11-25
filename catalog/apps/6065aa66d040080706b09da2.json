@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Remove first volumes of fMRI",
   "version": "1.0",
-  "summary": "Simple Brainlife app which removes the first volumes of fMRI images",
-  "description": "unknown",
+  "summary": "Removes the first N volumes of a 4D fMRI image with nilearn and outputs the trimmed BOLD series.",
+  "description": "Loads the BOLD image with nilearn and drops the first n_vols volumes, a common step to discard non-steady-state volumes before fMRI preprocessing. It needs a 4D task fMRI image; only the BOLD file is used and other files of the input are not carried over.",
   "kind": "native",
   "topics": [
-    "preprocessing"
+    "preprocessing",
+    "fmri",
+    "nilearn",
+    "brainlife-app"
   ],
   "registry": {
     "id": "6065aa66d040080706b09da2",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "4D BOLD fMRI image (.nii.gz).",
       "config_keys": [
         "bold"
       ]
@@ -33,14 +36,14 @@
       "datatype_tags": [
         "first_volumes_removed"
       ],
-      "description": "unknown"
+      "description": "BOLD image (bold.nii.gz) with the first n_vols volumes removed."
     }
   ],
   "parameters": [
     {
       "id": "n_vols",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of initial volumes to remove from the start of the BOLD series.",
       "placeholder": "Number of volumes to be removed"
     }
   ],
@@ -50,5 +53,19 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.495"
+  "doi": "10.25663/brainlife.app.495",
+  "software": [
+    {
+      "name": "nilearn"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Amin Saberi"
+  ]
 }

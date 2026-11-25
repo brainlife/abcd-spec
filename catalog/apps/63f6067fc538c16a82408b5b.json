@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Show events in file",
   "version": "v1.0",
-  "summary": "Show events in file. (plot events log)",
-  "description": "unknown",
+  "summary": "Detects events in the stim channel of continuous MEG/EEG data with mne.find_events and writes them to a BIDS events.tsv with a plot and an MNE report.",
+  "description": "Loads a raw .fif file, runs mne.find_events with the configured options (stim channel, onset/offset, minimum duration, mask and so on), saves the events as a BIDS-compliant events.tsv, and adds an events plot to an MNE HTML report and the product thumbnail. Use it to inspect triggers before epoching. Note: the report is written to out_report/report.html while the registered output is out_dir_report.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "bids",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "63f6067fc538c16a82408b5b",
     "github": "BrainlifeMEEG/app-eventslog",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
       "config_keys": [
         "mne"
       ]
@@ -29,7 +35,7 @@
       "id": "out_dir_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "MNE HTML report with a plot of the detected events."
     },
     {
       "id": "out_dir",
@@ -37,7 +43,7 @@
       "datatype_tags": [
         "events"
       ],
-      "description": "unknown"
+      "description": "BIDS events.tsv with the detected events."
     }
   ],
   "parameters": [
@@ -115,5 +121,20 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.735"
+  "doi": "10.25663/brainlife.app.735",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    },
+    {
+      "name": "MNE-BIDS"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

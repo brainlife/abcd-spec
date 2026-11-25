@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Network Matrices",
   "version": "master",
-  "summary": "create connectivity graphs from streamline tractography.",
-  "description": "unknown",
+  "summary": "Builds structural network adjacency matrices (streamline count, density, length and optional tensor-based edge weights and tract profiles) from a tractogram and a volumetric parcellation with the FiNE MATLAB tool.",
+  "description": "Dilates the parcellation labels into white matter within the brain mask, assigns streamlines to node pairs and writes adjacency matrices of streamline count, density, length and length-corrected density, plus network statistics. Optionally adds mean/std FA, MD, AD or RD per edge, tract profiles along edges, and edge curvature and torsion. Use it to build connectomes for network analysis; tract profiles need more memory and runtime. Tractogram, parcellation, mask and tensor maps must be in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "connectomics",
+    "network-analysis",
+    "vistasoft",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5bcdefeadc47f70026e8c6ac",
     "github": "bcmcpher/app-networkmatrices",
@@ -68,7 +74,7 @@
       "datatype_tags": [
         "networkmatrices"
       ],
-      "description": "unknown",
+      "description": "Directory of CSV adjacency matrices (count, density, length, denlen, optional *_mean/*_std), optional tract profiles (*_tp.csv, curv.csv, tors.csv), node centres, network stats.json and MATLAB .mat objects of edges, ROIs and matrices.",
       "datatype_tags_pass": "2"
     }
   ],
@@ -135,5 +141,33 @@
   "runtime": {
     "container": "brainlife/mcr:neurodebian1604-r2017a"
   },
-  "doi": "10.25663/brainlife.app.121"
+  "doi": "10.25663/brainlife.app.121",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "FiNE"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "fix": "The network build did not produce pconn.mat; check the inputs and, for tract profiles, the memory available."
+    }
+  ],
+  "maintainers": [
+    "Brent McPherson"
+  ]
 }

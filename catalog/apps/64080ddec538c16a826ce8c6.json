@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Set EEG reference",
   "version": "v1.0",
-  "summary": "App for rereferencing EEG recordings",
-  "description": "unknown",
+  "summary": "Re-references epoched EEG data to the average reference, the REST infinity reference or chosen channels with MNE-Python set_eeg_reference.",
+  "description": "Reads MNE epochs, calls epochs.set_eeg_reference with the chosen reference and saves the re-referenced epochs. Use it during EEG preprocessing when the recording reference is not the one wanted for analysis. REST needs channel positions (a montage) to compute the forward model.",
   "kind": "native",
   "topics": [
-    "eeg"
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "64080ddec538c16a826ce8c6",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched EEG data (MNE -epo.fif).",
       "config_keys": [
         "epochs"
       ]
@@ -35,7 +38,7 @@
         "reref",
         "preproc"
       ],
-      "description": "unknown",
+      "description": "Re-referenced epochs (meg-epo.fif).",
       "datatype_tags_pass": "epoch"
     }
   ],
@@ -43,7 +46,7 @@
     {
       "id": "ref_ch",
       "type": "enum",
-      "description": "unknown",
+      "description": "Reference scheme: average of all EEG channels, REST (infinity reference) or a list of channel names.",
       "default": "average",
       "options": [
         {
@@ -72,5 +75,23 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.745"
+  "doi": "10.25663/brainlife.app.745",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Invalid ref_ch value",
+      "fix": "Set ref_ch to 'average', 'REST' or a list of channel names."
+    }
+  ]
 }

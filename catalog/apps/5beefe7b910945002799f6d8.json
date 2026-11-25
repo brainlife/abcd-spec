@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Generate Equivolumetric Surfaces",
   "version": "master",
-  "summary": "Computes n equally spaced offset surfaces between the white and pial surfaces with equal ratios between areas of successive surfaces, which samples the same layers in gyri and sulci.",
-  "description": "unknown",
+  "summary": "Generates n equivolumetric intracortical surfaces between the FreeSurfer white and pial surfaces of each hemisphere, using vertex-area ratios, for laminar sampling.",
+  "description": "Smooths the white and pial vertex-area maps with FreeSurfer mris_fwhm, then builds n_surfs surfaces from white to pial whose depth follows the equivolumetric model of Waehnert et al. (2014), so the same cortical layers are sampled in gyri and sulci. Use it for laminar or depth-dependent analyses of cortical data. It needs a FreeSurfer subject directory with white and pial surfaces and area files.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "surface-analysis",
+    "freesurfer",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5beefe7b910945002799f6d8",
     "github": "davhunt/surface_tools",
@@ -18,10 +23,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory (recon-all output).",
       "config_keys": [
         "output"
-      ]
+      ],
+      "requirements": "Must contain surf/?h.white, ?h.pial, ?h.area and ?h.area.pial for both hemispheres."
     }
   ],
   "outputs": [
@@ -31,7 +37,7 @@
       "datatype_tags": [
         "vol_surface"
       ],
-      "description": "unknown"
+      "description": "FreeSurfer-format surfaces for each hemisphere at evenly spaced equivolumetric depths from white (0) to pial (1), named equi_<hemi>_{N}<depth>.pial."
     }
   ],
   "parameters": [
@@ -45,7 +51,7 @@
     {
       "id": "n_surfs",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of surfaces to generate, including the white and pial boundaries (e.g. 5 gives depths 0, 0.25, 0.5, 0.75, 1).",
       "default": 5
     }
   ],
@@ -58,5 +64,39 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.126"
+  "doi": "10.25663/brainlife.app.126",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "surface_tools (Wagstyl)",
+      "url": "https://github.com/kwagstyl/surface_tools"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2013.03.078",
+      "text": "Waehnert MD, et al. Anatomically motivated modeling of cortical laminae. NeuroImage (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "The FreeSurfer license is not available to the job.",
+      "fix": "Set FREESURFER_LICENSE in the execution environment."
+    }
+  ],
+  "maintainers": [
+    "Konrad Wagstyl",
+    "David Hunt"
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "FSL Probabilistic Tractography Algorithm",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Runs FSL probtrackx2 (GPU) surface-seeded probabilistic tractography from BedpostX samples, with avoid, target and termination masks, for one hemisphere.",
+  "description": "Wraps probtrackx2_gpu with fixed settings (50000 samples, 3200 steps, 0.3125 mm step, loop check, modified Euler, caret mesh space) and outputs streamline density and seed-to-target counts. Seeds come from a GIFTI surface for the chosen hemisphere, with the FA map as seed reference. Used for surface-based tractography of prefrontal pathways (Bedini et al., 2026). Needs BedpostX output and all masks in diffusion space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "tractography"
+  ],
   "registry": {
     "id": "683643f5187eaf3617aeae36",
     "github": "mbedini/app-fsl-probtrackx",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FSL BedpostX output (merged samples).",
       "config_keys": [
         "bedpostx"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Brain mask in diffusion space.",
       "config_keys": [
         "brain_mask"
       ]
@@ -40,7 +45,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Seed surfaces (GIFTI) for the left and right hemispheres.",
       "config_keys": [
         "seed_surface_left",
         "seed_surface_right"
@@ -52,7 +57,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tensor maps; FA is used as the seed reference image.",
       "config_keys": [
         "fa",
         "md",
@@ -76,7 +81,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Exclusion (avoid) mask.",
       "config_keys": [
         "mask_avoid"
       ]
@@ -87,7 +92,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Target masks list for seed-to-target counts.",
       "config_keys": [
         "left",
         "right"
@@ -99,7 +104,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Termination surfaces (e.g. pial) for each hemisphere.",
       "config_keys": [
         "mask_termination_left",
         "mask_terminationright"
@@ -113,14 +118,14 @@
       "datatype_tags": [
         "probtrackx"
       ],
-      "description": "unknown"
+      "description": "probtrackx2 output directory (fdt_paths, waytotal and seed-to-target counts)."
     }
   ],
   "parameters": [
     {
       "id": "hemisphere",
       "type": "enum",
-      "description": "unknown",
+      "description": "Hemisphere to track (selects the left or right seed and termination files).",
       "default": "",
       "options": [
         {
@@ -141,5 +146,25 @@
       "walltime_hours": 3.5
     }
   },
-  "doi": "10.25663/brainlife.app.863"
+  "doi": "10.25663/brainlife.app.863",
+  "software": [
+    {
+      "name": "FSL probtrackx2_gpu",
+      "version": "6.0.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.cortex.2026.03.016",
+      "text": "Bedini M, Olivetti E, Avesani P, Baldauf D. Surface-based Tractography uncovers 'What' and 'Where' Pathways in Prefrontal Cortex. Cortex (2026)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2006.09.018",
+      "text": "Behrens TEJ, Berg HJ, Jbabdi S, Rushworth MFS, Woolrich MW. Probabilistic diffusion tractography with multiple fibre orientations: What can we gain? NeuroImage 34(1):144-155 (2007)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods (2024)."
+    }
+  ]
 }

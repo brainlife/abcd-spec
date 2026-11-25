@@ -2,10 +2,18 @@
   "spec": "brainlife-app/2.0",
   "name": "hyssong-fmripreprocessing",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Denoises an fMRIPrep-preprocessed BOLD run with AFNI and FSL: brain masking, intensity normalization, nuisance regression (24 motion, WM, CSF, global signal, high-pass) with frame censoring, and spatial smoothing.",
+  "description": "Port of Hayoung Song's post-fMRIPrep notebook: masks the BOLD with the fMRIPrep brain mask (3dcalc), scales intensities (fslmaths -inm 10000), builds high-pass and confound regressors (1dBport, 3dDeconvolve), regresses them out while censoring frames flagged by fMRIPrep motion-outlier columns (3dTproject), and smooths with 3dmerge. Use it to prepare task or rest BOLD for functional-connectivity analyses. Inputs must come from the same fMRIPrep run; tr must be set, and fd_thres is only used to report the percentage of high-motion frames.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "denoising",
+    "afni",
+    "fsl",
+    "fmriprep",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a984afbd90f157078e3390e",
     "github": "gamorosino/app-hyssong-fmripreprocessing",
@@ -94,5 +102,26 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.958"
+  "doi": "10.25663/brainlife.app.958",
+  "software": [
+    {
+      "name": "AFNI"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "fMRIPrep container",
+      "version": "20.2.3"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check that the BOLD, mask and confounds come from the same fMRIPrep run and that tr is set."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

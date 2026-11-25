@@ -2,14 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Seed-based Correlation",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Computes a seed-based functional connectivity map from BOLD fMRI with AFNI: correlates the mean time series of a spherical seed with every voxel in a mask and outputs the Fisher z-transformed correlation image.",
+  "description": "Builds a sphere of the given radius around the seed coordinates (3dUndump), optionally smooths the BOLD to a target FWHM within the mask (3dBlurToFWHM), extracts the seed's mean time series (3dROIstats), correlates it with every voxel in the mask (3dTcorr1D, Pearson) and applies atanh. Use it for seed-based resting-state or task connectivity maps. The seed coordinates are in the coordinate space of the mask and BOLD images, so they must match the space of the data (for example MNI coordinates for MNI-space BOLD).",
   "kind": "native",
   "topics": [
     "afni",
     "brainlife",
     "fmri",
-    "network"
+    "network",
+    "connectomics",
+    "brainlife-app"
   ],
   "registry": {
     "id": "61395cfa584a767f674249ec",
@@ -37,7 +39,8 @@
       "description": "Mask of the functional image to be correlated with the seed.",
       "config_keys": [
         "mask"
-      ]
+      ],
+      "requirements": "Same grid as the BOLD; also defines the master grid for the seed sphere."
     }
   ],
   "outputs": [
@@ -45,7 +48,7 @@
       "id": "corr",
       "datatype": "neuro/parc-stats",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Fisher z-transformed Pearson correlation map (corr.nii.gz) between the seed time series and each voxel in the mask.",
       "datatype_tags_pass": "bold"
     }
   ],
@@ -81,5 +84,11 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.571"
+  "doi": "10.25663/brainlife.app.571",
+  "software": [
+    {
+      "name": "AFNI",
+      "url": "https://afni.nimh.nih.gov/"
+    }
+  ]
 }

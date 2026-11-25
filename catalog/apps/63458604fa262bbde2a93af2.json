@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "fMRIPrep - Volume Output - ICA-AROMA",
   "version": "ic-aroma",
-  "summary": "fMRIPrep modified to save ICA-AROMA output, as well as csv recording ICA-AROMA components removed. See \"fMRIPrep - Volume Output\" for more details on fMRIPrep.",
-  "description": "unknown",
+  "summary": "Preprocesses BOLD fMRI with fMRIPrep 21.0.1 (optionally with ICA-AROMA) and outputs the ICA-AROMA denoised volume, brain masks, confound regressors, the AROMA noise components, transforms and an HTML report.",
+  "description": "Fork of the brainlife fMRIPrep volume App that runs fMRIPrep 21.0.1 with a FreeSurfer input, SyN-based distortion correction and BBR, then maps the outputs to brainlife datatypes. Unlike the standard App, the bold_img output is the ICA-AROMA non-aggressively denoised, smoothed BOLD (desc-smoothAROMAnonaggr) and the list of AROMA noise components is saved, so the aroma parameter must be enabled for the BOLD output to exist. Needs a T1w, a raw BOLD and the FreeSurfer output of the same T1w; takes several hours with 16 cores.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "denoising",
+    "fmriprep",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "63458604fa262bbde2a93af2",
     "github": "vnbcs/app-fmriprep",
@@ -21,7 +28,8 @@
       "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
       "config_keys": [
         "t1"
-      ]
+      ],
+      "requirements": "Must be the same T1w used to generate the FreeSurfer input."
     },
     {
       "id": "fmri",
@@ -61,7 +69,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional T2-weighted image of the same subject, converted into the BIDS input given to fMRIPrep.",
       "config_keys": [
         "t2"
       ]
@@ -99,7 +107,7 @@
       "datatype_tags": [
         "preprocessed"
       ],
-      "description": "unknown",
+      "description": "ICA-AROMA non-aggressively denoised and smoothed BOLD time series (desc-smoothAROMAnonaggr) in the selected output space.",
       "datatype_tags_pass": "fmri"
     },
     {
@@ -116,7 +124,7 @@
       "id": "regress",
       "datatype": "neuro/regressors",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "fMRIPrep confounds time series (regressors.tsv and its JSON sidecar)."
     },
     {
       "id": "anat",
@@ -133,7 +141,7 @@
         "anat",
         "brain"
       ],
-      "description": "unknown"
+      "description": "Brain mask of the preprocessed T1w in the original T1w space."
     },
     {
       "id": "output_report",
@@ -147,7 +155,7 @@
       "id": "transform",
       "datatype": "neuro/transform/h5",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "ANTs composite transforms (.h5) between T1w and the template space, both directions, plus the affine to the template."
     },
     {
       "id": "parcellation",
@@ -155,7 +163,7 @@
       "datatype_tags": [
         "freesurfer"
       ],
-      "description": "unknown"
+      "description": "FreeSurfer aparc+aseg segmentation resampled by fMRIPrep to the T1w space, with a label.json."
     },
     {
       "id": "aroma",
@@ -192,7 +200,7 @@
     {
       "id": "resolution",
       "type": "enum",
-      "description": "unknown",
+      "description": "Output resolution of the volumetric BOLD: the original BOLD resolution or the template res-2 (2 mm isotropic) grid.",
       "default": "original",
       "options": [
         {
@@ -230,5 +238,40 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.682"
+  "doi": "10.25663/brainlife.app.682",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "fMRIPrep",
+      "version": "21.0.1",
+      "url": "https://fmriprep.org"
+    },
+    {
+      "name": "ICA-AROMA"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-018-0235-4",
+      "text": "Esteban O. et al. fMRIPrep: a robust preprocessing pipeline for functional MRI. Nature Methods 16, 111-116 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "app needs minimally a T1w and fmri. exiting",
+      "fix": "Provide both a T1w and an fMRI input."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "The FreeSurfer license is not available on the compute resource.",
+      "fix": "Set FREESURFER_LICENSE in the environment of the resource running the App."
+    }
+  ],
+  "maintainers": [
+    "Josh Faskowitz",
+    "Soichi Hayashi"
+  ]
 }

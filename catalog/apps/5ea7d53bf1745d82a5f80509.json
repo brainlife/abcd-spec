@@ -2,12 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Tracking using Particle Filtering (PFT)",
   "version": "1.1.1",
-  "summary": "Brainlife wrapper app for dipy_track_pft workflows.",
-  "description": "unknown",
+  "summary": "Tracks streamlines with DIPY particle filtering tractography (dipy_track_pft, 1.1.1) from peaks with white matter, gray matter and CSF maps, and outputs a .trk tractogram.",
+  "description": "Runs dipy_track_pft, which uses anatomically constrained particle filtering to recover streamlines that stop in invalid tissue. Use it when you have ODF peaks (for example from CSA or CSD fitting) and tissue masks in diffusion space. Seeds are placed in the seed mask at seed_density per voxel dimension.",
   "kind": "native",
   "topics": [
+    "brainlife-app",
     "diffusion-mri",
     "dipy",
+    "dwi",
     "tracking",
     "tractography"
   ],
@@ -23,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ODF peaks and metrics (DIPY .pam5) used for direction getting.",
       "config_keys": [
         "peaks"
       ]
@@ -37,7 +39,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "White matter map in diffusion space (include map).",
       "config_keys": [
         "wm"
       ]
@@ -51,7 +53,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Gray matter map in diffusion space.",
       "config_keys": [
         "gm"
       ]
@@ -65,7 +67,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "CSF map in diffusion space (exclude map).",
       "config_keys": [
         "csf"
       ]
@@ -78,7 +80,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Seed mask in diffusion space.",
       "config_keys": [
         "seeds"
       ]
@@ -89,7 +91,7 @@
       "id": "output",
       "datatype": "neuro/track/trk",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Tractogram (track.trk)."
     }
   ],
   "parameters": [
@@ -142,5 +144,22 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.328"
+  "doi": "10.25663/brainlife.app.328",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ]
 }

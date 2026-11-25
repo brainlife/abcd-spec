@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Fiber Bundle Skeleton Computation",
   "version": "main",
-  "summary": "This app computes a streamline bundle skeleton (also referred to as backbone or centreline) from a tractography bundle.",
-  "description": "unknown",
+  "summary": "Computes the skeleton (backbone or centreline) of a white matter bundle from a .tck file with a DIPY-based tool and outputs it as a .tck.",
+  "description": "Runs bundle_skeleton.py: selects the core streamlines of the bundle, resamples them to N_points and averages them into one representative backbone, or optionally returns the streamline closest to it. Use it to get a single centreline for tract profiling or visualisation. Needs a single bundle and a reference T1w image in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "tractography"
+  ],
   "registry": {
     "id": "69cc201034e13335188b87f1",
     "github": "gamorosino/app-bundle-skeleton",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Single white matter bundle (.tck).",
       "config_keys": [
         "tck"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference T1-weighted image in the same space as the bundle.",
       "config_keys": [
         "t1"
       ]
@@ -40,34 +45,34 @@
       "id": "track",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Bundle skeleton (or representative streamline) as track.tck."
     }
   ],
   "parameters": [
     {
       "id": "perc",
       "type": "number",
-      "description": "unknown",
+      "description": "Core streamline percentile used to select the bundle core (0 disables).",
       "default": 0.75,
       "required": false
     },
     {
       "id": "length_thr",
       "type": "number",
-      "description": "unknown",
+      "description": "Keep streamlines longer than length_thr times the maximum length.",
       "default": 0.75,
       "required": false
     },
     {
       "id": "smooth_density",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Enable density smoothing in core selection.",
       "default": false
     },
     {
       "id": "N_points",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of points used to resample each streamline.",
       "default": 100,
       "minimum": 3,
       "required": false
@@ -75,13 +80,13 @@
     {
       "id": "keep_endpoints",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Use endpoint_mode for endpoints and preserve them through smoothing.",
       "default": false
     },
     {
       "id": "average_type",
       "type": "enum",
-      "description": "unknown",
+      "description": "Aggregation method for interior points (mean or median).",
       "default": "mean",
       "options": [
         {
@@ -100,7 +105,7 @@
     {
       "id": "endpoint_mode",
       "type": "enum",
-      "description": "unknown",
+      "description": "Endpoint aggregation method when keep_endpoints is enabled.",
       "default": "median",
       "options": [
         {
@@ -124,18 +129,36 @@
     {
       "id": "representative",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Output the streamline closest to the backbone instead of the backbone.",
       "default": false
     },
     {
       "id": "spline_smooth",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Apply spline smoothing to the backbone.",
       "default": false
     }
   ],
   "runtime": {
     "container": "gamorosino/tract_align:latest"
   },
-  "doi": "10.25663/brainlife.app.915"
+  "doi": "10.25663/brainlife.app.915",
+  "software": [
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1109/ISBI53787.2023.10230615",
+      "text": "Amorosino G, Olivetti E, Jovicich J, Avesani P. How Does White Matter Registration Affect Tractography Alignment? IEEE ISBI (2023)."
+    },
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ]
 }

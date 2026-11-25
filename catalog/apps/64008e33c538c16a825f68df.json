@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Plot all projectors",
   "version": "master",
-  "summary": "Plot projectors vectors in MEG/EEG data file.",
-  "description": "unknown",
+  "summary": "Plots the topographies of all SSP projectors stored in an MNE raw MEG/EEG file with MNE-Python raw.plot_projs_topomap.",
+  "description": "Visualisation utility that calls raw.plot_projs_topomap with the plotting options exposed as parameters. The App declares no outputs and the script does not save the figure, so it produces no stored result as registered.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "visualization"
+  ],
   "registry": {
     "id": "64008e33c538c16a825f68df",
     "github": "dnacombo/app-plot_proj_topomaps-raw",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "MEG/EEG data (MNE raw) containing SSP projectors.",
       "config_keys": [
         "mne"
       ]
@@ -139,5 +145,12 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.740"
+  "doi": "10.25663/brainlife.app.740",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1",
+      "url": "https://mne.tools"
+    }
+  ]
 }

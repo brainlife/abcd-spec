@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "trak2zarr-vectors",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Converts a tractogram (.trk, .tck or .trx) into a Zarr Vectors store with zarr-vectors-tools (zvtools convert), optionally storing lengths, endpoints and a multiresolution pyramid.",
+  "description": "Format conversion utility: picks the first provided input and calls zvtools convert with --num-chunks for .trk or --chunk-shape for .tck/.trx. Use it to make tractograms readable by Zarr Vectors viewers and cloud tools. Provide exactly one of the three inputs.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "tractography"
+  ],
   "registry": {
     "id": "6aa8586984691735460e523e",
     "github": "gamorosino/app-trak2zarr-vectors",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram in .trk format (provide only one input).",
       "config_keys": [
         "trk"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram in .tck format (provide only one input).",
       "config_keys": [
         "tck"
       ]
@@ -40,7 +45,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram in .trx format (provide only one input).",
       "config_keys": [
         "trx"
       ]
@@ -132,5 +137,21 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.969"
+  "doi": "10.25663/brainlife.app.969",
+  "software": [
+    {
+      "name": "zarr-vectors-tools",
+      "url": "https://github.com/AllenInstitute/zarr-vectors-tools"
+    },
+    {
+      "name": "zarr-vectors-py",
+      "url": "https://github.com/Andrew-Keenlyside/zarr-vectors-py"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check that one tractogram input is provided and the conversion log for errors."
+    }
+  ]
 }

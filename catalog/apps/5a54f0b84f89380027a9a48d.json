@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Plot Eigenfunctions",
   "version": "1.0",
-  "summary": "App to plot the eigenfunctions of the Laplace Beltrami Spectrum.",
-  "description": "unknown",
+  "summary": "Plots a chosen Laplace-Beltrami eigenfunction on each white matter tract surface mesh (VTK) with MATLAB and outputs a folder of images.",
+  "description": "Visualisation utility for shape analysis of tract surfaces. It loads eigenvectors.mat from a previous Laplace-Beltrami spectrum App and, for each .vtk surface whose name matches an entry, renders the selected eigenfunction on the mesh. Needs the eigenvectors computed from the same set of surfaces.",
   "kind": "native",
   "topics": [
-    "analysis"
+    "analysis",
+    "brainlife-app",
+    "dwi",
+    "visualization"
   ],
   "registry": {
     "id": "5a54f0b84f89380027a9a48d",
@@ -22,7 +25,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Folder holding eigenvectors.mat from a Laplace-Beltrami eigenvector App.",
       "config_keys": []
     },
     {
@@ -31,8 +34,9 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
-      "config_keys": []
+      "description": "Tract surface meshes (.vtk), one per tract.",
+      "config_keys": [],
+      "requirements": "Surface file names must match the field names in eigenvectors.mat."
     }
   ],
   "outputs": [
@@ -40,14 +44,14 @@
       "id": "0",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Images of the eigenfunction plotted on each surface, with images.json."
     }
   ],
   "parameters": [
     {
       "id": "eigenvector_number",
       "type": "number",
-      "description": "unknown",
+      "description": "Index of the eigenvector (eigenfunction) to plot.",
       "default": "",
       "placeholder": "choose an eigenvector number "
     }
@@ -59,5 +63,24 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/bl.app.55"
+  "doi": "10.25663/bl.app.55",
+  "software": [
+    {
+      "name": "MATLAB"
+    },
+    {
+      "name": "JSONlab"
+    },
+    {
+      "name": "geom3d"
+    },
+    {
+      "name": "export_fig"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. PhD thesis, Indiana University (2020)."
+    }
+  ]
 }

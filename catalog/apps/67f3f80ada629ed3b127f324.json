@@ -3,9 +3,15 @@
   "name": "Add flat channel",
   "version": "v1.0",
   "summary": "Add a flat channel to a mne/raw file.\nThis helps add a missing channel before concatenation.",
-  "description": "unknown",
+  "description": "Creates a zero-valued channel with the given name and type at the recording's sampling rate, appends it to the raw MEG/EEG data with raw.add_channels, and saves the result with an HTML report listing the channels. Use it to add a missing stimulus or placeholder channel so that recordings can be concatenated or share the same channel layout. The new channel contains no signal.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "67f3f80ada629ed3b127f324",
     "github": "BrainlifeMEEG/add-flat-chan",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
       "config_keys": [
         "raw"
       ]
@@ -29,7 +35,7 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/raw",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Raw data (raw.fif) with the added flat channel.",
       "datatype_tags_pass": "raw0"
     }
   ],
@@ -53,8 +59,21 @@
     "container": "brainlifemeeg/mne:1.12.1",
     "resources": {
       "cpus": 1,
-      "memory_gb": 10
+      "memory_gb": 10,
+      "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.856"
+  "doi": "10.25663/brainlife.app.856",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "maintainers": [
+    "Kami Salibayeva",
+    "Maximilien Chaumon"
+  ]
 }

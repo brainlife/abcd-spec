@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "recon-all-for-meeeg",
   "version": "working_ver",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Runs FreeSurfer 7.1.1 recon-all on a T1-weighted image to produce cortical surfaces and segmentation for MEG/EEG coregistration and BEM creation.",
+  "description": "Runs the full FreeSurfer recon-all pipeline (-all, parallel, 8 OpenMP threads) on the T1w image and outputs the subject directory. It is meant as the anatomy step of MEG/EEG pipelines, feeding coregistration and BEM Apps. No options are exposed (no hires, T2 or expert settings); expect many hours of compute and a FREESURFER_LICENSE or FS_LICENSE on the resource. The repository has no README.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "surface-analysis",
+    "freesurfer",
+    "meg",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69a2f2846aa19e60b5145d91",
     "github": "obVdo/app-freesurfer-v2",
@@ -45,5 +52,18 @@
       "FS_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.898"
+  "doi": "10.25663/brainlife.app.898",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE or FS_LICENSE in resource environment",
+      "fix": "Set FREESURFER_LICENSE (license text) or FS_LICENSE (path to license file) on the compute resource."
+    }
+  ]
 }

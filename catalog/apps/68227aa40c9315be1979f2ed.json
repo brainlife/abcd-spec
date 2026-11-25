@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "dwi2b0",
   "version": "v0.2",
-  "summary": "Reproducible  pipeline to extract DWI b\u2080 volumes and, optionally, construct an unbiased b\u2080 template.",
-  "description": "unknown",
+  "summary": "Extracts the b0 volumes from a DWI series with MRtrix3 dwiextract and outputs their voxel-wise mean or, optionally, an ANTs rigid b0 template.",
+  "description": "Runs MRtrix3 dwiextract -shell 0 to pull out all non-diffusion-weighted volumes with their gradient files, then either averages them with mrmath or, when template is set, builds a rigid-only template with ANTs antsMultivariateTemplateConstruction2.sh. Use it to get a clean b0 reference image for registration or masking. The input DWI needs bvals/bvecs that mark at least one b=0 volume.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "68227aa40c9315be1979f2ed",
     "github": "gamorosino/app-dwi2b0",
@@ -18,14 +24,15 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "4D diffusion-weighted image with its bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvecs",
         "bvals",
         "sbref",
         "sbref_json"
-      ]
+      ],
+      "requirements": "Must contain at least one b=0 volume."
     }
   ],
   "outputs": [
@@ -56,8 +63,32 @@
     "container": "brainlife/mrtrix3:3.0.3",
     "resources": {
       "cpus": 1,
-      "walltime_hours": 2
+      "walltime_hours": 2,
+      "memory_gb": 8
     }
   },
-  "doi": "10.25663/brainlife.app.860"
+  "doi": "10.25663/brainlife.app.860",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "ANTs",
+      "version": "2.3.1",
+      "url": "https://github.com/ANTsX/ANTs"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A reproducible evaluation of ANTs similarity metric performance in brain image registration. NeuroImage 54(3):2033-2044 (2011)."
+    },
+    {
+      "text": "Tournier JD et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage (2019)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

@@ -2,13 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Segmentation with Median Otsu ",
   "version": "1.1.1",
-  "summary": "Brain segmentation with the median_otsu method using DIPY.",
-  "description": "unknown",
+  "summary": "Computes a brain mask from DWI with the DIPY median_otsu method and outputs the masked DWI and the mask.",
+  "description": "Runs dipy_median_otsu (DIPY 1.1.1) on a DWI: the selected volumes (vol_idx, default the first) are median-filtered and Otsu-thresholded to obtain a brain mask, which is then applied to the whole DWI. Use it for quick brain masking of diffusion data before model fitting or tractography. bvals and bvecs are copied unchanged to the output.",
   "kind": "native",
   "topics": [
     "diffusion-mri",
     "diffusion-preprocessing",
-    "dipy"
+    "dipy",
+    "dwi",
+    "preprocessing",
+    "segmentation",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5a5100c306b9e8003f1ee684",
@@ -22,7 +26,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI image with bvals and bvecs.",
       "config_keys": [
         "bvecs",
         "bvals",
@@ -37,7 +41,7 @@
       "datatype_tags": [
         "masked"
       ],
-      "description": "unknown",
+      "description": "Masked DWI (dwi.nii.gz) with the original bvals and bvecs.",
       "datatype_tags_pass": "dwi"
     },
     {
@@ -47,7 +51,7 @@
         "brain",
         "dwi"
       ],
-      "description": "unknown"
+      "description": "Binary brain mask computed from the DWI (mask.nii.gz)."
     }
   ],
   "parameters": [
@@ -88,5 +92,22 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/bl.app.70"
+  "doi": "10.25663/bl.app.70",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
 }

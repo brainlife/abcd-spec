@@ -3,9 +3,15 @@
   "name": "GEDAI EEG denoising (raw)",
   "version": "v1.0",
   "summary": "Unsupervised EEG denoising of continuous data by leadfield filtering (GEDAI; Ros et al. 2025). Non-commercial licence -- see the app README.",
-  "description": "unknown",
+  "description": "Runs GEDAI (gedai 0.4.2, installed at run time) on the EEG channels of a continuous MNE raw file: segment covariances are contrasted with a template leadfield covariance and non-brain components are removed with a threshold chosen automatically by SENSAI, in broadband, multiband or adaptive mode. Non-EEG channels pass through unchanged; the removed signal is saved separately and an HTML QC report is produced. EEG channels need standard 10-05 names or digitised positions, and the output is average-referenced. GEDAI is licensed for non-commercial use only.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "denoising",
+    "eeg",
+    "mne-python",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6a99d91dd90f157078ecfd29",
     "github": "BrainlifeMEEG/gedai",
@@ -232,5 +238,22 @@
       "walltime_hours": 4
     }
   },
-  "doi": "10.25663/brainlife.app.959"
+  "doi": "10.25663/brainlife.app.959",
+  "software": [
+    {
+      "name": "GEDAI",
+      "version": "0.4.2",
+      "url": "https://github.com/neurotuning/gedai"
+    },
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1101/2025.10.04.680449",
+      "text": "Ros T, Ferat V, Huang Y, Colangelo C, Kia SM, Wolfers T, Vulliemoz S, Michela A. Return of the GEDAI: Unsupervised EEG Denoising based on Leadfield Filtering. bioRxiv (2025)."
+    }
+  ]
 }

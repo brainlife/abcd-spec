@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "app-set-datatype_tag-brain-dwi",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Utility that copies a mask image unchanged so the output carries the brain and dwi datatype tags.",
+  "description": "Copies the input files unchanged to the output (no image processing is done, the main script only copies files with jq and cp). Use it to relabel a dataset with the datatype tag shown on the output when the processing it reflects was done elsewhere. Do not use it to actually process data.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69efdf8d5e3b9b921dbbee2a",
     "github": "gamorosino/foo",
@@ -18,7 +21,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Mask image (NIfTI).",
       "config_keys": [
         "mask"
       ]
@@ -32,7 +35,7 @@
         "brain",
         "dwi"
       ],
-      "description": "unknown"
+      "description": "The same mask, copied unchanged and tagged brain and dwi."
     }
   ],
   "parameters": [],

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Filter WMC Datatype",
   "version": "master",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Removes from each tract of a white matter classification (WMC) the streamlines rejected by tractogram filtering such as SIFT or COMMIT, using a binary streamline label file.",
+  "description": "Multiplies the WMC streamline assignments by a binary keep/remove label per streamline of the original tractogram, so tracts keep only the streamlines that survived filtering, and regenerates the per-tract JSON files for visualisation. Use it after running a tractogram filtering algorithm on a tractogram that was already segmented. The labels must index the same tractogram used to build the WMC.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "626c5a55f3858674a2a7d7c3",
     "github": "bacaron/app-filter-wmc",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "White matter classification (classification.mat, tract JSONs and surfaces) built on the tractogram.",
       "config_keys": [
         "classification",
         "tracts",
@@ -33,7 +38,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Binary label per streamline of the tractogram (index.csv): 1 keeps it, 0 removes it.",
       "config_keys": [
         "index"
       ]
@@ -57,7 +62,7 @@
       "datatype_tags": [
         "filtered"
       ],
-      "description": "unknown",
+      "description": "Filtered white matter classification with updated per-tract visualisation files.",
       "datatype_tags_pass": "wmc"
     }
   ],
@@ -70,5 +75,24 @@
       "walltime_hours": 3
     }
   },
-  "doi": "10.25663/brainlife.app.621"
+  "doi": "10.25663/brainlife.app.621",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.3389/fninf.2014.00008",
+      "text": "Garyfallidis E, et al. DIPY, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014)."
+    }
+  ]
 }

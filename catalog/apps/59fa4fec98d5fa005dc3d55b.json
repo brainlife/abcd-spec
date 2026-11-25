@@ -2,11 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Decimate and/or Convert 3D surfaces",
   "version": "v2.0",
-  "summary": "This application will reduce the number of vertices and faces on 3D surfaces by the percent reduction chosen. It can also be used to convert between filetypes.",
-  "description": "unknown",
+  "summary": "Reduces the vertex and face count of 3D surface meshes with VTK decimation and optionally converts them between vtk, ply, stl and glTF formats.",
+  "description": "Reads every surface of the chosen input format in the input directory, decimates it with vtkDecimatePro (topology preserved) by the requested fraction, cleans it and writes it in the chosen output format (glb output is produced via STL). A color.json is copied through. Use it to make large meshes lighter for visualisation or to convert mesh formats.",
   "kind": "native",
   "topics": [
-    "postprocessing"
+    "brainlife-app",
+    "conversion",
+    "postprocessing",
+    "surface-analysis",
+    "visualization"
   ],
   "registry": {
     "id": "59fa4fec98d5fa005dc3d55b",
@@ -20,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Directory of 3D surface meshes (vtk, ply or stl).",
       "config_keys": [
         "surfdir"
       ]
@@ -33,7 +37,7 @@
       "datatype_tags": [
         "reduced"
       ],
-      "description": "unknown"
+      "description": "Decimated (and optionally converted) surface meshes, one per input surface."
     }
   ],
   "parameters": [
@@ -105,5 +109,16 @@
       "walltime_hours": 0.42
     }
   },
-  "doi": "10.25663/brainlife.app.148"
+  "doi": "10.25663/brainlife.app.148",
+  "software": [
+    {
+      "name": "VTK",
+      "url": "https://vtk.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ]
 }

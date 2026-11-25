@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-brain-extraction-multiagent-test-23-11-26",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Test App that skull-strips a T1-weighted image with FSL bet (configurable fractional intensity threshold, optional -R and -B).",
+  "description": "run_bet.sh calls bet through brain_extract.py with frac, robust and bias_neck_cleanup from config.json. Warning: run_bet.sh writes to t1_brain/ but main checks out_dir/, so the run always ends with 'no output produced'; the repository name marks it as a test.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6b0601b888e26e6de7fabdf6",
     "github": "gamorosino/app-brain-extraction-multiagent-test-23-11-26",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image (NIfTI).",
       "config_keys": [
         "t1"
       ]
@@ -59,5 +64,16 @@
       "memory_gb": 4,
       "walltime_hours": 1
     }
-  }
+  },
+  "software": [
+    {
+      "name": "FSL"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "main checks out_dir while the script writes t1_brain; the code must be fixed."
+    }
+  ]
 }

@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Convert tcks to tck and WMC",
   "version": "master",
-  "summary": "Simple converter for the multi-tck format, tcks, which combines these into a single tck file and produces an associated WMC file.",
-  "description": "unknown",
+  "summary": "Merges a folder of per-tract .tck files (tcks datatype) into a single .tck tractogram and a matching white matter classification (WMC) structure.",
+  "description": "Collects every .tck file in the input, concatenates the streamlines with wma_pyTools and writes track.tck plus classification.mat, whose names come from the file names and whose index assigns each streamline to its source tract. Use it to convert segmentation outputs into the tck + WMC pair expected by many brainlife tract Apps. The README is an unfilled template.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "dipy",
+    "tract-segmentation",
+    "tractography"
+  ],
   "registry": {
     "id": "629a7dd17f60950a54ccc68f",
     "github": "DanNBullock/app-tcks_to_tck_and_WMC",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Directory of per-tract .tck files (tcks datatype).",
       "config_keys": [
         "tcks",
         "tcks_json"
@@ -30,13 +36,13 @@
       "id": "tck",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Single tractogram (track.tck) with the streamlines of all input tracts."
     },
     {
       "id": "wmc",
       "datatype": "neuro/wmc",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "White matter classification (classification.mat) naming each tract and indexing its streamlines in track.tck."
     }
   ],
   "parameters": [],
@@ -46,5 +52,17 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.641"
+  "doi": "10.25663/brainlife.app.641",
+  "software": [
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "nibabel"
+    }
+  ]
 }

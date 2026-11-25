@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Tissue-specific SNR (and other tissue-specific metrics)",
   "version": "master",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Computes tissue- and b-shell-specific SNR and diffusion metric statistics from a DWI and T1w, using MRtrix3 tensor and 5-tissue-type segmentation and DIPY/wma_pyTools.",
+  "description": "Fits a diffusion (and kurtosis) tensor with MRtrix3 inside an FSL bet mask, derives FA, MD, AD, RD and shape maps, builds a five-tissue-type segmentation from the T1w with 5ttgen fsl, resamples it to the DWI grid and reports SNR and other metrics per tissue (cortical GM, subcortical GM, WM, CSF) and per b-shell. Use it as a DWI quality-control step. The T1w and DWI must be aligned; the README is an unfilled template.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "quality-control",
+    "mrtrix3",
+    "fsl",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "629fb60a7f60950a54d5e63b",
     "github": "DanNBullock/app-SNR_Report",
@@ -18,10 +25,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image used to build the 5-tissue-type segmentation.",
       "config_keys": [
         "anat"
-      ]
+      ],
+      "requirements": "Aligned with the DWI."
     },
     {
       "id": "dwi",
@@ -29,7 +37,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Preprocessed DWI with bvecs and bvals; multi-shell data give per-shell statistics.",
       "config_keys": [
         "diff",
         "bvec",
@@ -54,5 +62,28 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.643"
+  "doi": "10.25663/brainlife.app.643",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock",
+    "Sarah Heilbronner"
+  ]
 }

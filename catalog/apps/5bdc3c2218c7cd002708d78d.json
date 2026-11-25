@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Resample tck",
   "version": "1.0",
-  "summary": "Code to resample a tck file with a give step size or number of points.",
-  "description": "unknown",
+  "summary": "Resamples the streamlines of a .tck tractogram to a new step size (mm) or a fixed number of points per streamline with DIPY.",
+  "description": "Loads the tractogram with nibabel and resamples each streamline with dipy set_number_of_points, either to floor(length/step) points for a given step size or to a fixed number of points, and saves a new .tck. Use it to harmonise streamline sampling before segmentation or comparison methods that expect a given step size or point count.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "tractography"
+  ],
   "registry": {
     "id": "5bdc3c2218c7cd002708d78d",
     "github": "giulia-berto/app-resample-tck",
@@ -65,5 +70,31 @@
       "walltime_hours": 0.17
     }
   },
-  "doi": "10.25663/brainlife.app.124"
+  "doi": "10.25663/brainlife.app.124",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1002/ima.22005",
+      "text": "Tournier J-D, Calamante F, Connelly A. MRtrix: Diffusion tractography in crossing fiber regions. Int J Imaging Syst Technol 22:53-66 (2012)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Resampling failed.",
+      "cause": "No output tractogram was written.",
+      "fix": "Check that type and new_param are set and the input is a valid .tck file."
+    }
+  ]
 }

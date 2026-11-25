@@ -2,11 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Binary Tract Masks",
   "version": "v3.00",
-  "summary": "app to generate binary masks of the segmented fiber tracts",
-  "description": "unknown",
+  "summary": "Generates one binary NIfTI volume mask per segmented white matter tract from a tract classification and tractogram, using a compiled MATLAB script with vistasoft.",
+  "description": "Rebuilds each tract from the white matter classification and whole-brain tractogram, maps its streamline nodes into the T1 image grid at a chosen voxel size, counts streamline visits per voxel and binarizes the result either by Gaussian smoothing and a 20th-percentile cut or by a fixed streamline-count threshold. Use it to obtain tract volume masks for ROI-based or shape analyses. The T1 must be ACPC-aligned and in the same space as the tractogram.",
   "kind": "native",
   "topics": [
-    "postprocessing"
+    "postprocessing",
+    "dwi",
+    "tract-segmentation",
+    "vistasoft",
+    "brainlife-app"
   ],
   "registry": {
     "id": "592dc03eb3cd7c00211dc239",
@@ -22,10 +26,11 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ACPC-aligned T1-weighted image used as the reference grid for the masks.",
       "config_keys": [
         "T1"
-      ]
+      ],
+      "requirements": "Must be in the same space as the tractogram."
     },
     {
       "id": "wmc",
@@ -33,7 +38,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "White matter classification (classification.mat) assigning streamlines of the tractogram to named tracts.",
       "config_keys": [
         "classification",
         "tracts"
@@ -45,7 +50,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain .tck tractogram that the classification indexes.",
       "config_keys": [
         "track"
       ]
@@ -56,26 +61,26 @@
       "id": "output",
       "datatype": "neuro/tractmasks",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "A masks directory with one binary <tract>_Vol.nii.gz mask per non-empty tract and a color.json of tract colours."
     }
   ],
   "parameters": [
     {
       "id": "threshold",
       "type": "number",
-      "description": "unknown",
+      "description": "Streamline-count threshold per voxel used to binarize the mask when smooth is false.",
       "default": 2
     },
     {
       "id": "smooth",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, smooth the streamline-count volume with a 3x3x3 Gaussian and keep voxels above the 20th percentile of non-zero values instead of using threshold.",
       "default": true
     },
     {
       "id": "voxelResize",
       "type": "number",
-      "description": "unknown",
+      "description": "Isotropic voxel size of the output masks (the T1 grid is resampled to this size).",
       "default": 0.7
     }
   ],
@@ -86,5 +91,33 @@
       "walltime_hours": 0.58
     }
   },
-  "doi": "10.25663/brainlife.app.142"
+  "doi": "10.25663/brainlife.app.142",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "wma_tools"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Kitchell L. Shape Analysis of Human White Matter Tracts: An Examination of Normal Morphological Variability and the Association Between Morphology, Brain Size, and Behavior. Indiana University (2020)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output files missing",
+      "fix": "Some tract masks were not written; check that the classification matches the tractogram and that tracts are non-empty."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell",
+    "Daniel Bullock"
+  ]
 }

@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "anat-fslswap-app",
   "version": "master",
-  "summary": "This is a template for a python-based brainlife.io/app",
-  "description": "unknown",
+  "summary": "Reorients or flips a T1-weighted image by swapping or negating its axes with FSL fslswapdim (default -x y z, a left-right flip).",
+  "description": "Runs FSL 5.0.11 fslswapdim on the input T1w with the given axis specification and returns the reoriented image. Use it to fix images whose left-right (or other) axis is flipped, typically on unprocessed NIfTI files before further processing. fslswapdim changes the voxel order and the header together, so check the result visually. The same code also handles DWI (with bvecs) and BOLD inputs, but this App registers only a T1w input.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "conversion",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "632c9b506985655cc5892a9a",
     "github": "hanna-willis/app-fslswap",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to reorient.",
       "config_keys": [
         "t1"
       ]
@@ -31,7 +37,7 @@
       "datatype_tags": [
         "flipped"
       ],
-      "description": "unknown",
+      "description": "Reoriented T1-weighted image (t1.nii.gz).",
       "datatype_tags_pass": "anat"
     }
   ],
@@ -50,5 +56,16 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.668"
+  "doi": "10.25663/brainlife.app.668",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ],
+  "maintainers": [
+    "Hanna Willis",
+    "Rebecca Truby",
+    "Giulia Bert\u00f2"
+  ]
 }

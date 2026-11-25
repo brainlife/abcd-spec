@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "fMRI to Connectivity Matrices",
   "version": "0.1.5",
-  "summary": "fmriprep outputs to connectivity matrices",
-  "description": "unknown",
+  "summary": "Nuisance-regresses fMRIPrep BOLD data with its confounds and builds a parcel-by-parcel correlation connectivity matrix from a volumetric parcellation using nilearn.",
+  "description": "Runs nilearn-based nuisance regression (default strategy 36P with band-pass filtering) on a preprocessed BOLD image using the fMRIPrep confounds file, then extracts mean time series per parcel and computes a Pearson correlation matrix. Use it after fMRIPrep to go from preprocessed BOLD to a connectivity matrix. The BOLD image, brain mask and parcellation must be in the same space (subject T1w space); the TR is read from the BOLD metadata. The parcellation key is expected in the multi-atlas transfer tool format, with the last 14 labels being FreeSurfer subcortical regions.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "connectomics",
+    "denoising",
+    "nilearn",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5c720cf63e2f2c0030a23486",
     "github": "faskowit/app-fmri-2-mat",
@@ -58,7 +64,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "fMRIPrep confounds table (TSV) for the BOLD run, used for nuisance regression.",
       "config_keys": [
         "confounds"
       ]
@@ -71,14 +77,14 @@
       "datatype_tags": [
         "regress"
       ],
-      "description": "unknown",
+      "description": "Nuisance-regressed BOLD image (bold.nii.gz).",
       "datatype_tags_pass": "fmri"
     },
     {
       "id": "cm",
       "datatype": "neuro/conmat",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Correlation connectivity matrix between parcels (cm/csv/correlation.csv) with region labels (label.json).",
       "datatype_tags_pass": "fmri"
     }
   ],
@@ -90,5 +96,39 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.167"
+  "doi": "10.25663/brainlife.app.167",
+  "software": [
+    {
+      "name": "nilearn",
+      "version": "0.6.2"
+    },
+    {
+      "name": "nibabel",
+      "version": "3.1.0"
+    },
+    {
+      "name": "pandas",
+      "version": "0.25.3"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: need an fmri, parc, and confounds file",
+      "fix": "Provide the fmri, parc and confounds inputs."
+    },
+    {
+      "message": "ERROR: space can only be 'data' or 'labels'",
+      "fix": "Set inspace to data (or labels)."
+    },
+    {
+      "message": "output csv file not created! error",
+      "fix": "Check that the parcellation is aligned to the BOLD image and that the regression step succeeded."
+    }
+  ]
 }

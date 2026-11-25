@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Bayesian Analysis of Retinotopic Maps",
   "version": "master",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Refines measured pRF maps with an anatomical retinotopy prior (Benson & Winawer 2018) using neuropythy, producing smoothed polar angle, eccentricity and size maps and visual-area labels.",
+  "description": "Projects measured pRF surface maps onto the FreeSurfer surfaces and runs neuropythy register_retinotopy to fit a Bayesian retinotopic model that combines the measurements with an anatomical prior. Use it after a pRF mapping App to reduce noise and label visual areas V1-V3 and beyond. Needs the FreeSurfer subject and pRF output with surface maps.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "freesurfer",
+    "parcellation"
+  ],
   "registry": {
     "id": "5dbe0820fdefb1e42b771dda",
     "github": "davhunt/app-bayesian-retinotopy",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory of the same subject.",
       "config_keys": [
         "output"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Measured pRF maps (r2, polar angle, eccentricity, rfWidth) including surface maps.",
       "config_keys": [
         "r2",
         "polarAngle",
@@ -45,19 +50,19 @@
       "id": "prf",
       "datatype": "neuro/prf",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Inferred pRF maps (polar angle, eccentricity, rfWidth, visual area) in volume and on the surface (curv and GIFTI)."
     },
     {
       "id": "varea",
       "datatype": "neuro/parcellation/volume",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Volumetric parcellation into visual areas (key in key.txt)."
     },
     {
       "id": "varea_surf",
       "datatype": "neuro/parcellation/surface-deprecated",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Surface parcellation into visual areas."
     }
   ],
   "parameters": [],
@@ -72,5 +77,45 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.245"
+  "doi": "10.25663/brainlife.app.245",
+  "software": [
+    {
+      "name": "neuropythy",
+      "version": "1.5.1",
+      "url": "https://github.com/noahbenson/neuropythy"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    },
+    {
+      "name": "DIPY",
+      "version": "0.16.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.7554/eLife.40224",
+      "text": "Benson NC, Winawer J. Bayesian analysis of retinotopic maps. eLife 7:e40224 (2018)."
+    },
+    {
+      "doi": "10.1016/j.cub.2012.09.014",
+      "text": "Benson NC, et al. The retinotopic organization of striate cortex is well predicted by surface topology. Curr Biol 22(21):2081-2085 (2012)."
+    },
+    {
+      "doi": "10.1371/journal.pcbi.1003538",
+      "text": "Benson NC, et al. Correction of distortion in flattened representations of the cortical surface allows prediction of V1-V3 functional organization from anatomy. PLoS Comput Biol 10(3):e1003538 (2014)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    },
+    {
+      "message": "output missing",
+      "cause": "lh.polarAngle.gii was not produced.",
+      "fix": "Check that the pRF input has surface maps for the same FreeSurfer subject."
+    }
+  ]
 }

@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Brain Extraction (FSL BET)",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FSL BET, with optional robust centre estimation (-R) or bias-field and neck cleanup (-B), and outputs the brain-extracted T1w.",
+  "description": "Runs FSL BET (via brain_extract.py inside brainlife/fsl:6.0.4-patched2) on a T1w volume. Lower frac gives a larger brain mask; use robust for unusual head shapes and bias_neck_cleanup for images with strong bias or a lot of neck. Use it when you need a brain-only T1w for registration or segmentation.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing",
+    "segmentation"
+  ],
   "registry": {
     "id": "6b00ed4e88e26e6de7e301a1",
     "github": "gamorosino/app-brain-extraction",
@@ -62,5 +68,17 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.1000"
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "FSL BET",
+      "version": "6.0.4"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced in t1_brain/",
+      "fix": "Check the BET log; the T1w input may be missing or unreadable."
+    }
+  ]
 }

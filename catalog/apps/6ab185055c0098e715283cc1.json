@@ -2,10 +2,12 @@
   "spec": "brainlife-app/2.0",
   "name": "CPU Scaling Benchmark",
   "version": "main",
-  "summary": "Benchmark fixed-work CPU scaling at configurable worker counts, with runtime, CPU utilization, memory observations, speedup, and deterministic result verification.",
-  "description": "unknown",
+  "summary": "Utility that benchmarks CPU scaling of a fixed PBKDF2 SHA-256 workload across configurable worker counts and reports runtime, speedup, CPU utilisation and memory in an HTML report.",
+  "description": "Runs a fixed number of deterministic work items with Python multiprocessing at each requested worker count, repeating trials in shuffled order, and verifies results while recording wall time, CPU use and memory. Use it to check how many cores a brainlife compute resource effectively provides; it is not a neuroimaging analysis. The T1w input is a required placeholder and is never read.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6ab185055c0098e715283cc1",
     "github": "tjgrafft/app-cpu-benchmark",
@@ -83,5 +85,10 @@
   "runtime": {
     "container": "unknown"
   },
-  "doi": "10.25663/brainlife.app.977"
+  "doi": "10.25663/brainlife.app.977",
+  "software": [
+    {
+      "name": "Python 3 standard library"
+    }
+  ]
 }

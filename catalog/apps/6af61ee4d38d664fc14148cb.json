@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "app-brain-extract",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FSL 6.0.4 bet, with a configurable fractional intensity threshold and optional robust centre estimation or bias-field and neck cleanup.",
+  "description": "run_bet.sh reads config.json and calls bet through brain_extract.py: frac sets -f, robust adds -R and bias_neck_cleanup adds -B. Use it for quick T1w brain extraction before registration or segmentation.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "segmentation",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6af61ee4d38d664fc14148cb",
     "github": "gamorosino/app-brain-extract",
@@ -62,5 +68,17 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.996"
+  "doi": "10.25663/brainlife.app.996",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced in t1_brain/",
+      "fix": "Check the bet log; the input must be a valid T1w NIfTI."
+    }
+  ]
 }

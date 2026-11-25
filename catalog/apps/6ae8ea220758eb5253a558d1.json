@@ -2,10 +2,18 @@
   "spec": "brainlife-app/2.0",
   "name": "CMC invivo dMRI (NORDIC)",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Preprocesses in-vivo diffusion MRI (macaque 10.5T by default, or human) with the CMC pipeline: NORDIC or MPPCA denoising, Gibbs and N4 correction, TOPUP/EDDY, DTI fitting, standard-space registration and optional BedpostX + XTRACT tractography, with a QA report.",
+  "description": "Wraps the SPMIC-UoN CMC_invivo_dMRI_pipeline (Warrington et al.) with a Python NORDIC implementation. AP and PA runs (one or more each) are denoised with NORDIC when matching phase images are given, otherwise with MRtrix3 dwidenoise (MPPCA), then corrected with TOPUP/EDDY (GPU by default), fitted with DTI on the lower shell, registered to standard space (MMORF or FNIRT; NMT template in nhp mode) and optionally run through BedpostX and XTRACT. Requires both phase-encoding directions and the total readout time; expect long run times.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "denoising",
+    "dwi",
+    "fsl",
+    "mrtrix3",
+    "preprocessing",
+    "tractography"
+  ],
   "registry": {
     "id": "6ae8ea220758eb5253a558d1",
     "github": "gamorosino/app-CMC-invivo-dMRI-nordic",
@@ -210,5 +218,31 @@
       "walltime_hours": 24
     }
   },
-  "doi": "10.25663/brainlife.app.993"
+  "doi": "10.25663/brainlife.app.993",
+  "software": [
+    {
+      "name": "CMC_invivo_dMRI_pipeline",
+      "url": "https://github.com/SPMIC-UoN/CMC_invivo_dMRI_pipeline"
+    },
+    {
+      "name": "NORDIC-python",
+      "url": "https://github.com/JimJam07/NORDIC-python"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "MRtrix3"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Both ap_dwi and pa_dwi need at least one run.",
+      "fix": "Provide at least one AP and one PA DWI run."
+    },
+    {
+      "message": "ap_dwi/ap_bvecs/ap_bvals count mismatch",
+      "fix": "Provide matching numbers of images, bvecs and bvals for each direction."
+    }
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Compute evoked",
   "version": "v1.0",
-  "summary": "Compute evoked field/potentials from epoched data.",
-  "description": "unknown",
+  "summary": "Computes evoked responses from epoched MEG/EEG data with MNE-Python Epochs.average, optionally one per event type, and outputs an MNE evoked file, a figure and an HTML report.",
+  "description": "Loads MNE epochs and averages them with mne.Epochs.average using the chosen channel picks and combination method (mean or median), either all together or separately for each condition. Produces ave.fif, a plot of the evoked response and an HTML QC report. Use it after epoching (and artifact rejection) to obtain ERPs/ERFs for later analyses.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "62697515f3858674a2a22372",
     "github": "BrainlifeMEEG/evoked-averaged",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG/EEG data (MNE -epo.fif).",
       "config_keys": [
         "fif"
       ]
@@ -29,13 +34,13 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/evoked",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Evoked response(s) in MNE format (ave.fif), one per condition when by_event_type is true."
     },
     {
       "id": "out_dir_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML report (report.html) with the evoked response visualisations."
     }
   ],
   "parameters": [
@@ -48,7 +53,7 @@
     {
       "id": "method",
       "type": "string",
-      "description": "unknown",
+      "description": "How to combine epochs: 'mean' or 'median' (passed to Epochs.average).",
       "default": "mean",
       "required": true,
       "advanced": true
@@ -56,7 +61,7 @@
     {
       "id": "by_event_type",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, one Evoked object is computed per event type (condition); if false, all epochs are averaged together.",
       "default": true
     }
   ],
@@ -67,5 +72,26 @@
       "memory_gb": 3
     }
   },
-  "doi": "10.25663/brainlife.app.618"
+  "doi": "10.25663/brainlife.app.618",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Saeed Zahran",
+    "Maximilien Chaumon"
+  ]
 }

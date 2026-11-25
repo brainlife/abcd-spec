@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "FSL Top-up & Eddy Correct - w/fMAP",
   "version": "topup-eddy_correct-v2.0",
-  "summary": "The application performs correction of susceptibility-induced distortions, eddy current\u2013related artifacts, and subject motion by leveraging the Topup and Eddy tools from FSL.",
-  "description": "unknown",
+  "summary": "Corrects DWI for susceptibility distortions, eddy currents and motion with FSL topup and eddy, using a reverse phase-encoded DWI or an AP/PA EPI field-map pair, and outputs the corrected DWI and a brain mask.",
+  "description": "Estimates the susceptibility field with FSL topup from opposite phase-encoded b0 images (taken from the reverse-PE DWI or from AP/PA EPI field maps), then runs eddy (eddy_openmp, or eddy_cuda when requested) with that field to correct motion and eddy currents. Use it as the main preprocessing step for DWI acquired with a reverse phase-encoding scan or EPI field maps. It needs the primary DWI with bvals/bvecs plus one opposite-PE source; a brain mask is computed from the corrected mean b0. Do not use it if no opposite phase-encoded data exist.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6971100c3e635860268930c6",
     "github": "gamorosino/app-FSLTopupEddy",
@@ -18,13 +23,14 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "The path to the DWI datatype",
+      "description": "Primary DWI series (with bvals and bvecs) to correct.",
       "config_keys": [
         "diff",
         "bvec",
         "bval",
         "diff_json"
-      ]
+      ],
+      "requirements": "PhaseEncodingDirection and TotalReadoutTime must be available from the dataset metadata or the encode/param parameters."
     },
     {
       "id": "rdif",
@@ -32,12 +38,13 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "Reverse encoded dwi image needed to run top-up",
+      "description": "DWI acquired with the reverse phase-encoding direction; its b0 volumes are paired with those of diff to estimate the TOPUP field.",
       "config_keys": [
         "rdif",
         "rbvc",
         "rbvl"
-      ]
+      ],
+      "requirements": "Optional if an AP/PA EPI field-map pair is given; must have the same number of slices as diff unless reslice is true."
     },
     {
       "id": "fmap",
@@ -45,7 +52,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Field-map dataset; only an AP/PA EPI pair (epi1/epi2 with JSON sidecars) is used, as an alternative source of opposite-phase b0 images for TOPUP.",
       "config_keys": [
         "phasediff",
         "phasediff_json",
@@ -65,7 +72,8 @@
         "epi1_json",
         "epi2",
         "epi2_json"
-      ]
+      ],
+      "requirements": "epi1_json and epi2_json must contain PhaseEncodingDirection and TotalReadoutTime."
     }
   ],
   "outputs": [
@@ -95,7 +103,7 @@
         "derivatives",
         "eddy_correct"
       ],
-      "description": "unknown"
+      "description": "Intermediate topup and eddy files (field estimates, acquisition parameters, eddy outputs) kept for inspection."
     }
   ],
   "parameters": [
@@ -256,7 +264,7 @@
     {
       "id": "mergefull",
       "type": "boolean",
-      "description": "unknown",
+      "description": "If true, the reverse phase-encoded DWI is merged with the primary DWI and both are passed to eddy; otherwise only the primary DWI is corrected. Requires rdif.",
       "default": false
     },
     {
@@ -286,19 +294,19 @@
     {
       "id": "eddy_niter",
       "type": "number",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": 8
     },
     {
       "id": "mporder",
       "type": "number",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": 0
     },
     {
       "id": "slspec",
       "type": "string",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": "",
       "required": false,
       "multiline": true
@@ -306,32 +314,32 @@
     {
       "id": "repol",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": false
     },
     {
       "id": "harmonize_shells",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": false
     },
     {
       "id": "shell_targets",
       "type": "string",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": "",
       "required": false
     },
     {
       "id": "shell_tolerance",
       "type": "number",
-      "description": "unknown",
+      "description": "Not read by this branch's scripts.",
       "default": 120,
       "required": false
     }
   ],
   "runtime": {
-    "container": "brainlife/freesurfer:6.0.0",
+    "container": "brainlife/fsl:6.0.4-patched2",
     "resources": {
       "cpus": 8,
       "walltime_hours": 3
@@ -340,5 +348,56 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.887"
+  "doi": "10.25663/brainlife.app.887",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Smith SM, et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-219 (2004)."
+    },
+    {
+      "text": "Andersson JLR, Skare S, Ashburner J. How to correct susceptibility distortions in spin-echo echo-planar images: application to diffusion tensor imaging. NeuroImage 20(2):870-888 (2003)."
+    },
+    {
+      "text": "Andersson JLR, Sotiropoulos SN. An integrated approach to correction for off-resonance effects and subject movement in diffusion MR imaging. NeuroImage 125:1063-1078 (2016)."
+    },
+    {
+      "text": "Hayashi S, Caron BA, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21(5):809-813 (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: No epi1/epi2 and no rdif available (no opposite-PE pair for topup).",
+      "cause": "Neither a reverse phase-encoded DWI nor an AP/PA EPI field-map pair was provided.",
+      "fix": "Provide the rdif input or a fieldmap dataset with epi1/epi2."
+    },
+    {
+      "message": "ERROR: mergefull=true but rdif/rbvc/rbvl are not provided in config.json.",
+      "cause": "mergefull requires the reverse phase-encoded DWI.",
+      "fix": "Provide rdif or set mergefull to false."
+    },
+    {
+      "message": "ERROR: epi1_json/epi2_json missing PhaseEncodingDirection or TotalReadoutTime.",
+      "cause": "The EPI field-map sidecars lack required metadata.",
+      "fix": "Add PhaseEncodingDirection and TotalReadoutTime to the EPI JSON sidecars."
+    },
+    {
+      "message": "ERROR: param must be numeric TotalReadoutTime in seconds",
+      "cause": "The readout time could not be read from metadata and param is not a number.",
+      "fix": "Set param to the total readout time in seconds."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino",
+    "Brad Caron"
+  ]
 }

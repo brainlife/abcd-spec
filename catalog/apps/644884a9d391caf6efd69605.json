@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Add montage",
   "version": "v1.0",
-  "summary": "This app uses MNE built-in M/EEG or fNIRS montages to add them into an MNE/Raw instance",
-  "description": "unknown",
+  "summary": "Adds a standard MNE electrode or fNIRS montage (10-20, 10-05, BioSemi, EGI and others) to raw MEG/EEG data, with optional channel renaming, and outputs the data, a sensor plot and a QC report.",
+  "description": "Optionally renames channels (old-new pairs) to match the montage naming, builds the montage with mne.channels.make_standard_montage and applies it with raw.set_montage, then saves the raw file, a sensor-position plot, a PSD plot and an HTML QC report. Use it before topographic plotting or source localisation of EEG data that lack channel positions. Channel names must match the montage after renaming.",
   "kind": "native",
   "topics": [
-    "eeg"
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "644884a9d391caf6efd69605",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
       "config_keys": [
         "raw"
       ]
@@ -33,7 +36,7 @@
       "datatype_tags": [
         "with_montage"
       ],
-      "description": "unknown",
+      "description": "Raw data with channel positions from the montage (raw.fif).",
       "datatype_tags_pass": "raw"
     },
     {
@@ -54,7 +57,7 @@
     {
       "id": "montage",
       "type": "enum",
-      "description": "unknown",
+      "description": "Name of the standard MNE montage to apply.",
       "default": "",
       "options": [
         {
@@ -210,5 +213,17 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.769"
+  "doi": "10.25663/brainlife.app.769",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

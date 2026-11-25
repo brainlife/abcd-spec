@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Matlab docker test",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Test App that runs a Brainstorm MATLAB pipeline (import, resample, PSD, notch and band-pass filtering) on an MEG FIF file and exports an HTML report.",
+  "description": "Registered as a MATLAB/Brainstorm container test. main calls a Brainstorm binary under /opt without a container, so it only works inside the author's BRAINOCKER image, and the README restricts reuse of the code.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "meg",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6a16ce9b39b7923b4723bc14",
     "github": "Srajansstar/BRAINOCKER",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "MEG recording (FIF).",
       "config_keys": [
         "fif",
         "channels",
@@ -39,12 +43,21 @@
       "datatype_tags": [
         "meg-preproc"
       ],
-      "description": "unknown"
+      "description": "Brainstorm HTML report of the processing steps."
     }
   ],
   "parameters": [],
   "runtime": {
     "container": "unknown"
   },
-  "doi": "10.25663/brainlife.app.933"
+  "doi": "10.25663/brainlife.app.933",
+  "software": [
+    {
+      "name": "Brainstorm"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2023a"
+    }
+  ]
 }

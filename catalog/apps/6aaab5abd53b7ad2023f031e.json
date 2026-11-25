@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "axonsynth-inference",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Segments axons in a 3D light-sheet microscopy volume with the AxonSynth three_class_v2 MONAI 3D U-Net, after optional resampling to isotropic voxels, and outputs a binary axon mask and probability map.",
+  "description": "Optionally resamples an anisotropic LSM NIfTI to isotropic model space (default 0.8 micron, axis order 2,0,1), then runs sliding-window inference with the bundled three_class_v2 checkpoint (background, axon shell, axon interior) and collapses shell and interior into a thresholded binary foreground. Use it for automated axon segmentation of LSM data. It runs on GPU when available and falls back to CPU unless require_cuda is set.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "segmentation",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aaab5abd53b7ad2023f031e",
     "github": "gamorosino/app-axonsynth-inference",
@@ -131,5 +135,27 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.974"
+  "doi": "10.25663/brainlife.app.974",
+  "software": [
+    {
+      "name": "AxonSynth",
+      "url": "https://github.com/lincbrain/axonsynth"
+    },
+    {
+      "name": "MONAI"
+    },
+    {
+      "name": "PyTorch"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "cause": "Inference did not write the segmentation output.",
+      "fix": "Check the log for errors in the prepare or inference step (e.g. wrong axis_order or missing GPU with require_cuda)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "EDF to mne/raw",
   "version": "main",
-  "summary": "Converts EEG edf data to MNE Raw (fif)",
-  "description": "unknown",
+  "summary": "Converts an EEG recording in EDF format to MNE-Python Raw (.fif) with mne.io.read_raw_edf.",
+  "description": "Utility that reads the EDF file of an EEG dataset with MNE-Python and saves it as raw.fif so it can be used by brainlife MNE Apps. Only the EDF data file is converted; the BIDS channels, electrodes, coordinate system and events sidecars of the input are not applied.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "eeg",
+    "conversion",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "628b6b3ed0697cf1eaeb70e9",
     "github": "guiomar/app_edf2mne",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "EEG recording in EDF format with optional BIDS sidecars (channels, electrodes, coordsystem, events).",
       "config_keys": [
         "edf",
         "channels",
@@ -49,5 +54,23 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.637"
+  "doi": "10.25663/brainlife.app.637",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S., Caron B. A. et al. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. arXiv (2023)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
 }

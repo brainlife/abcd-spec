@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "CONNECTS Validation Engine",
   "version": "v0.2.0",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Evaluates a 3D segmentation against a ground-truth mask, computing voxel overlap (Dice, IoU, precision, recall), neighbour-tolerant, topology (Betti numbers, Euler characteristic) and connected-component metrics as JSON with QC figures.",
+  "description": "Accepts each mask as an OME-Zarr store, a volumetric parcellation, a NIfTI mask or (for the tested mask) a 3D TIFF stack, binarises both with foreground_labels (all non-zero voxels when empty) and computes the metrics from the lincbrain axonsynth metrics module, writing metrics/metrics.json and mid-slice comparison figures. Provide exactly one input for the tested mask and one for the ground truth; both must have the same shape. The neighbour-corrected metrics use the target and are for evaluation only.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "quality-control",
+    "segmentation",
+    "statistics"
+  ],
   "registry": {
     "id": "6aa993d6deee1367b4361c43",
     "github": "gamorosino/app-seg-eval-metrics",
@@ -141,5 +146,22 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.973"
+  "doi": "10.25663/brainlife.app.973",
+  "software": [
+    {
+      "name": "NumPy"
+    },
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "zarr"
+    },
+    {
+      "name": "tifffile"
+    }
+  ]
 }

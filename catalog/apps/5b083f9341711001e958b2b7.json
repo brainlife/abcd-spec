@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Convert Pial (Cortical) and White Matter Surfaces from Freesurfer",
   "version": "master",
-  "summary": "This application converts Freesurfer's pial and white matter surfaces to different file types. It will convert the lh/rh.pial, lh/rh.white, lh/rh.smoothwm, lh/rh.inflated files into your choice of file type (stl, vtk, gii, mgz)",
-  "description": "unknown",
+  "summary": "Converts FreeSurfer pial, white, smoothwm and inflated surfaces of both hemispheres to VTK, STL, GIFTI or MGZ meshes with mris_convert.",
+  "description": "Utility that runs FreeSurfer mris_convert on the eight lh/rh pial, white, smoothwm and inflated surfaces of a FreeSurfer subject and writes them in the chosen file format. Use it to get cortical surface meshes for visualisation or for tools that do not read FreeSurfer surface files. Needs a complete FreeSurfer output; the App fails if any of the eight surfaces is not produced.",
   "kind": "native",
   "topics": [
-    "convert"
+    "convert",
+    "anatomy",
+    "conversion",
+    "surface-analysis",
+    "visualization",
+    "freesurfer",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5b083f9341711001e958b2b7",
@@ -20,10 +26,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer recon-all subject directory.",
       "config_keys": [
         "freesurfer"
-      ]
+      ],
+      "requirements": "Must contain surf/lh|rh.pial, .white, .smoothwm and .inflated."
     }
   ],
   "outputs": [
@@ -33,14 +40,14 @@
       "datatype_tags": [
         "pial_wm_inflated"
       ],
-      "description": "unknown"
+      "description": "Folder with eight meshes: lh/rh.pial, lh/rh.white, lh/rh.smoothwm and lh/rh.inflated in the chosen format."
     }
   ],
   "parameters": [
     {
       "id": "filetype",
       "type": "enum",
-      "description": "unknown",
+      "description": "Output file format (extension) for the converted surfaces: vtk, stl, gii or mgz.",
       "default": "vtk",
       "options": [
         {
@@ -76,5 +83,32 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/bl.app.38"
+  "doi": "10.25663/bl.app.38",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "files missing",
+      "cause": "Fewer than eight converted surfaces were written.",
+      "fix": "Check that the FreeSurfer input contains all pial, white, smoothwm and inflated surfaces."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set FREESURFER_LICENSE on the compute resource."
+    }
+  ],
+  "maintainers": [
+    "Lindsey Kitchell"
+  ]
 }

@@ -3,9 +3,12 @@
   "name": "Postprocess parcellation: island removal & inflation",
   "version": "parc-statsVers",
   "summary": "Remove islands (unconnected components) from and/or inflate a given volumetric parcellation.",
-  "description": "unknown",
+  "description": "Uses wmaPyTools to remove disconnected islands from each label and/or inflate labels voxel-wise for a set number of iterations, optionally keeping the original borders, and writes CSV reports of both steps. Use it to clean a volumetric parcellation before using it for ROIs or connectomes. Needs a parcellation with its label.json.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "parcellation"
+  ],
   "registry": {
     "id": "629a6d3c7f60950a54cc7a6e",
     "github": "DanNBullock/app-de-island_parcellation",
@@ -18,7 +21,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Volumetric parcellation with key and label.json.",
       "config_keys": [
         "parc",
         "key",
@@ -86,5 +89,14 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.639"
+  "doi": "10.25663/brainlife.app.639",
+  "software": [
+    {
+      "name": "wmaPyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ]
 }

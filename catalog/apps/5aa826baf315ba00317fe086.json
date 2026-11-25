@@ -2,11 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Freesurfer Labels to 3D Surfaces",
   "version": "v1.0",
-  "summary": "This application will create a 3D surface for 87 freesurfer labels from the aparc+aseg.mgz file.",
-  "description": "unknown",
+  "summary": "Creates 3D surface meshes for the FreeSurfer aparc+aseg labels (cortical and subcortical regions) with VTK marching cubes, in vtk, ply or stl format.",
+  "description": "Converts mri/aparc+aseg.mgz to NIfTI with FreeSurfer mri_label2vol, then builds a smoothed mesh for each of a fixed list of subcortical and Desikan-Killiany cortical labels with VTK, naming and colouring them from the FreeSurfer colour lookup table. Use it to visualise a FreeSurfer segmentation in 3D. The job checks for a fixed number of output files and fails if any are missing.",
   "kind": "native",
   "topics": [
-    "postprocessing"
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "postprocessing",
+    "surface-analysis",
+    "visualization"
   ],
   "registry": {
     "id": "5aa826baf315ba00317fe086",
@@ -20,10 +25,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory.",
       "config_keys": [
         "freesurfer"
-      ]
+      ],
+      "requirements": "Must contain mri/aparc+aseg.mgz."
     }
   ],
   "outputs": [
@@ -33,7 +39,7 @@
       "datatype_tags": [
         "freesurfer"
       ],
-      "description": "unknown"
+      "description": "One surface mesh per FreeSurfer label, with colour and name information."
     }
   ],
   "parameters": [
@@ -71,5 +77,23 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/bl.app.98"
+  "doi": "10.25663/bl.app.98",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "VTK",
+      "url": "https://vtk.org/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "files missing",
+      "cause": "Not every expected label surface was produced.",
+      "fix": "Check that aparc+aseg.mgz contains the standard FreeSurfer labels."
+    }
+  ]
 }

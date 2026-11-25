@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Generate tract figures (wma_pyTools)",
   "version": "parcOverride",
-  "summary": "Generate the following kinds of figures:\n> General streamline anatomy plot (color-coded in accordance with morphological characteristics)\n> Density GIFs\n> Multi-tile density plots\n> \"Fingerprint\" plots (radial bar-plots indicating streamline termination locations)",
-  "description": "unknown",
+  "summary": "Generates figures for each tract of a white matter classification with wma_pyTools: streamline anatomy plots, density GIFs, multi-tile density plots and endpoint fingerprint plots.",
+  "description": "Loops over the tracts of a WMC, takes their streamlines from the tractogram and calls wma_pyTools visTools to make the selected figure types, using a parcellation or the FreeSurfer Destrieux parcellation to label streamline endpoints. Use it to produce quality-control and publication figures of segmented tracts. The README is an unfilled template.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "visualization",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "628ceb91d0697cf1eaed4a14",
     "github": "DanNBullock/app-wma_pyTools-TractFigs",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram (.tck) the WMC was built from.",
       "config_keys": [
         "tractogram"
       ]
@@ -29,7 +35,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "White matter classification defining the tracts to plot.",
       "config_keys": [
         "wmc",
         "tracts",
@@ -42,7 +48,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional T1w used as the anatomical background of the figures.",
       "config_keys": [
         "anat"
       ]
@@ -77,7 +83,7 @@
       "id": "output",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Folder of PNG and GIF figures for each tract.",
       "datatype_tags_pass": "wmc"
     }
   ],
@@ -123,5 +129,14 @@
       "cpus": 16
     }
   },
-  "doi": "10.25663/brainlife.app.638"
+  "doi": "10.25663/brainlife.app.638",
+  "software": [
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "DIPY"
+    }
+  ]
 }

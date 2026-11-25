@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Detect bad channels using Maxwell Filtering",
   "version": "v1.0",
-  "summary": "Detect bad channels in MEG signals.",
-  "description": "unknown",
+  "summary": "Detects noisy and flat MEG channels with MNE-Python find_bad_channels_maxwell (Signal Space Separation without applying the filter) and outputs a BIDS channels.tsv marking them bad plus an HTML report.",
+  "description": "Runs mne.preprocessing.find_bad_channels_maxwell on a FIF recording, optionally using the site fine-calibration and cross-talk files, head position and destination files, and carries over channels already marked bad in an input channels.tsv. Use it before Maxwell filtering (MaxFilter/SSS) so that artefacts in bad channels do not spread. Elekta/MEGIN (Neuromag) MEG data are expected; param_return_scores must stay true for the report.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "bids",
+    "brainlife-app",
+    "meg",
+    "mne-python",
+    "preprocessing",
+    "quality-control"
+  ],
   "registry": {
     "id": "605e0a9616c60638446315ee",
     "github": "BrainlifeMEEG/bad-channels",
@@ -200,5 +207,14 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.494"
+  "doi": "10.25663/brainlife.app.494",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    },
+    {
+      "name": "MNE-BIDS"
+    }
+  ]
 }

@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "pRFLife with mrTools",
   "version": "master",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Estimates voxel-wise population receptive fields (polar angle, eccentricity, size, R2) from retinotopy fMRI and its stimulus with the mrTools pRF model.",
+  "description": "Fits the mrTools pRF model to each voxel of the fMRI time series given the stimulus aperture. Voxels are restricted to the provided mask or, if none, to the FreeSurfer cortical ribbon in the selected lobes (occipital by default). fMRI can optionally be slice-time and motion corrected and globally regressed. The stimulus must match the fMRI timing.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "freesurfer"
+  ],
   "registry": {
     "id": "5e9613ce6365e976b7471d50",
     "github": "davhunt/app-prfv2",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Retinotopy task fMRI time series (bold).",
       "config_keys": [
         "fmri",
         "events",
@@ -35,10 +39,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Stimulus aperture as a pixelsX x pixelsY x time NIfTI with values in [0,1].",
       "config_keys": [
         "stim"
-      ]
+      ],
+      "requirements": "Must match the temporal dimension (TR) of the fMRI."
     },
     {
       "id": "freesurfer",
@@ -46,7 +51,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory, used to build the cortical mask and surfaces.",
       "config_keys": [
         "output"
       ]
@@ -57,7 +62,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional mask in fMRI space restricting the voxels analysed (for example V1).",
       "config_keys": [
         "mask"
       ]
@@ -68,7 +73,7 @@
       "id": "prf",
       "datatype": "neuro/prf",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "pRF maps (r2, polar angle, eccentricity, receptive field size) as NIfTI, plus surface VTKs."
     }
   ],
   "parameters": [
@@ -164,5 +169,35 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.315"
+  "doi": "10.25663/brainlife.app.315",
+  "software": [
+    {
+      "name": "mrTools",
+      "url": "https://github.com/justingardner/mrTools"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Gardner JL, Merriam EP, Schluppeck D, Besle J, Heeger DJ. mrTools: Analysis and visualization package for functional magnetic resonance imaging data (Version 4.7). Zenodo (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    },
+    {
+      "message": "output missing",
+      "cause": "prf/r2.nii.gz was not produced by the pRF fit.",
+      "fix": "Check the fMRI, stimulus and mask inputs and the MATLAB log."
+    }
+  ]
 }

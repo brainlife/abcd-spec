@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Segment with ROIs",
   "version": "multiSeg",
-  "summary": "Segment a tractogram to return a tract or tracts",
-  "description": "unknown",
+  "summary": "Segments one or more tracts from a tractogram by applying user-written ROI inclusion and exclusion criteria (any, all, either end, both ends) with wma_pyTools, and outputs a WMC.",
+  "description": "Each request line names an ROI from the input ROI collection, an operation (any, all, either_end, both_end) and whether streamlines must or must not meet it; the criteria are combined to select streamlines for each named tract, and the result is saved as a white matter classification. Use it for custom ROI-based bundle dissection. The ROIs must be in the same space as the tractogram. The README is an unfilled template.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "628a4e34d0697cf1eae9b915",
     "github": "DanNBullock/app-segment_with_ROIs",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain tractogram (.tck).",
       "config_keys": [
         "tractogram"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Collection of ROI NIfTI files referenced by name in segRequests.",
       "config_keys": [
         "availableROIs",
         "label"
@@ -43,7 +48,7 @@
       "datatype_tags": [
         "customSeg"
       ],
-      "description": "unknown",
+      "description": "White matter classification (classification.mat) with the requested tracts.",
       "datatype_tags_pass": "tractogram"
     }
   ],
@@ -71,5 +76,17 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.631"
+  "doi": "10.25663/brainlife.app.631",
+  "software": [
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "nilearn"
+    }
+  ]
 }

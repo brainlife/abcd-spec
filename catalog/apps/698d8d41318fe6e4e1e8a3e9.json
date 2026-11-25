@@ -3,9 +3,15 @@
   "name": "fitlins",
   "version": "main",
   "summary": "fit linear models to BIDS datasets",
-  "description": "unknown",
+  "description": "Wraps FitLins to fit a first-level (run-level) GLM to a preprocessed BOLD run: it generates a BIDS Stats Model from readable settings (condition column, HRF, contrasts, confound strategy), stages a minimal BIDS and derivatives layout with the events and fMRIPrep confounds, and runs FitLins. Use it for single-subject task fMRI activation maps without writing a Stats Model by hand. Inputs should be fMRIPrep outputs in the selected space with a matching events.tsv; group-level analysis is not supported.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "statistics",
+    "bids",
+    "nilearn",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "698d8d41318fe6e4e1e8a3e9",
     "github": "jdkent/app-fitlins",
@@ -351,11 +357,30 @@
     }
   ],
   "runtime": {
-    "container": "poldracklab/fitlins:0.11.0}",
+    "container": "poldracklab/fitlins:0.11.0",
     "resources": {
       "memory_gb": 24,
       "walltime_hours": 12
     }
   },
-  "doi": "10.25663/brainlife.app.890"
+  "doi": "10.25663/brainlife.app.890",
+  "software": [
+    {
+      "name": "FitLins",
+      "version": "0.11.0",
+      "url": "https://github.com/poldracklab/fitlins"
+    },
+    {
+      "name": "nilearn"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al. brainlife.io: A decentralized and open source cloud platform to support neuroscience research (2023). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10274934/"
+    },
+    {
+      "doi": "10.7554/eLife.71774",
+      "text": "Markiewicz CJ, et al. The OpenNeuro resource for sharing of neuroscience data. eLife (2021)."
+    }
+  ]
 }

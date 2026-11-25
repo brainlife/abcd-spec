@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "DWI SNR (HM vs VM)",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Computes DWI b0 signal-to-noise ratio in horizontal- and vertical-meridian visual cortex ROIs built from Benson14 retinotopy maps, using scilpy compute_snr.",
+  "description": "Builds HM (polar angle 75-105 deg), UVM (0-15 deg) and LVM (165-180 deg) ROIs from the prf polar angle, eccentricity and visual area maps (resampled to the DWI grid), estimates a background noise mask with median_otsu and computes the mean b0 SNR in each ROI. Use it as a confound check that HM and VM regions do not differ in DWI SNR before comparing their streamline counts. The prf maps must be in the same physical space as the DWI.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "quality-control",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a977430d90f157078dd6c7b",
     "github": "gamorosino/app-dwi-hm-vm-snr",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI image with bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvals",
@@ -31,7 +35,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Retinotopy maps (polarAngle, eccentricity, varea), for example from Benson14, aligned to the DWI.",
       "config_keys": [
         "polarAngle",
         "eccentricity",
@@ -70,5 +74,13 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.956"
+  "doi": "10.25663/brainlife.app.956",
+  "software": [
+    {
+      "name": "scilpy"
+    },
+    {
+      "name": "DIPY"
+    }
+  ]
 }

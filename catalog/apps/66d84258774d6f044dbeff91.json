@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Morph  to average brain",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Morphs MEG/EEG source estimates from an individual brain to the FreeSurfer fsaverage brain with MNE-Python compute_source_morph, and outputs the morphed STC, a plot and a report.",
+  "description": "Reads left and right hemisphere source estimates, fetches fsaverage into the subject's FreeSurfer directory, computes a source morph from the subject to fsaverage and applies it. Use it to bring individual source estimates into a common space for group analysis. Note: subject_to is not read by main.py; the target is always fsaverage.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "source-localization",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "66d84258774d6f044dbeff91",
     "github": "AntonioCauAt/app-morph2averagebrain",
@@ -20,7 +26,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Source time course of the subject (left and right hemisphere .stc files).",
       "config_keys": [
         "stc-rh",
         "stc-lh"
@@ -34,7 +40,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory of the same subject (with BEM), used as SUBJECTS_DIR.",
       "config_keys": [
         "output"
       ]
@@ -48,19 +54,19 @@
         "stc",
         "fsaverage"
       ],
-      "description": "unknown"
+      "description": "Source estimate morphed to fsaverage (left and right .stc files)."
     },
     {
       "id": "out_dir_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML report of the morphed source estimate."
     },
     {
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Plot of the morphed source estimate."
     }
   ],
   "parameters": [
@@ -78,5 +84,21 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.831"
+  "doi": "10.25663/brainlife.app.831",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.2.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

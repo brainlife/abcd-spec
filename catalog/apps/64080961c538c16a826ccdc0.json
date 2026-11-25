@@ -2,11 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Apply baseline correction",
   "version": "v1.0",
-  "summary": "Take MNE.Epochs data in, apply baseline correction from tmin to tmax.",
-  "description": "unknown",
+  "summary": "Applies baseline correction to epoched MEG/EEG data with MNE-Python Epochs.apply_baseline over a tmin-tmax window and saves the corrected epochs.",
+  "description": "For each channel and epoch, subtracts the mean signal over the baseline window [tmin, tmax] (seconds relative to the epoch time 0) using mne.Epochs.apply_baseline, and saves meg-epo.fif. Use it after epoching, before averaging or time-frequency analyses. tmin must be smaller than tmax and the window must lie within the epoch time range.",
   "kind": "native",
   "topics": [
-    "meeg"
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "64080961c538c16a826ccdc0",
@@ -20,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG/EEG data in MNE format (-epo.fif).",
       "config_keys": [
         "epochs"
       ]
@@ -35,7 +40,7 @@
         "baseline",
         "preproc"
       ],
-      "description": "unknown",
+      "description": "Baseline-corrected epochs (meg-epo.fif).",
       "datatype_tags_pass": "epoch"
     }
   ],
@@ -44,13 +49,15 @@
       "id": "tmin",
       "type": "number",
       "description": "Start time for baseline correction application",
-      "default": -0.1
+      "default": -0.1,
+      "units": "s"
     },
     {
       "id": "tmax",
       "type": "number",
       "description": "End time for baseline correction application",
-      "default": 0
+      "default": 0,
+      "units": "s"
     }
   ],
   "runtime": {
@@ -60,5 +67,31 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.744"
+  "doi": "10.25663/brainlife.app.744",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Invalid baseline window: tmin must be less than tmax",
+      "fix": "Set tmin lower than tmax."
+    }
+  ],
+  "maintainers": [
+    "Kamilya Salibayeva"
+  ]
 }

@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "BIDS Tracula (under development)",
   "version": "1.0",
-  "summary": "BIDS app for FS Tracula for BrainLife. Implements Freesurfer's TRACULA (TRActs Constrained by UnderLying Anatomy) tool.",
-  "description": "unknown",
+  "summary": "Reconstructs major white matter pathways with FreeSurfer TRACULA (bids/tracula v6.0.0-4 BIDS App) from a T1-weighted image, DWI and an optional FreeSurfer directory.",
+  "description": "Arranges the T1w and DWI inputs into a one-subject BIDS dataset and runs the bids/tracula BIDS App (FreeSurfer 6 TRACULA, all stages) on it, reusing an existing FreeSurfer subject directory when given. The App is marked as under development. It needs a FreeSurfer license and can take up to a day of compute.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "freesurfer",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5aaffb4ec931e60132a6a4a0",
     "github": "soichih/app-bids-tracula",
@@ -42,7 +49,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional FreeSurfer subject directory for the same subject; passed to TRACULA with --freesurfer_dir so recon-all is not rerun.",
       "config_keys": [
         "freesurfer"
       ]
@@ -55,7 +62,7 @@
       "datatype_tags": [
         "tracula"
       ],
-      "description": "unknown"
+      "description": "TRACULA output directory for the subject as produced by the bids/tracula App."
     }
   ],
   "parameters": [],
@@ -69,5 +76,19 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/bl.app.76"
+  "doi": "10.25663/bl.app.76",
+  "software": [
+    {
+      "name": "TRACULA (bids/tracula)",
+      "version": "v6.0.0-4",
+      "url": "https://github.com/bids-apps/tracula"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "maintainers": [
+    "Soichi Hayashi"
+  ]
 }

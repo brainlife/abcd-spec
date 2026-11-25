@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Tractogram cleaning with DIPY's quickBundles",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Removes spurious streamlines from a .tck tractogram by clustering it with DIPY QuickBundlesX and culling streamlines in small clusters, also splitting an optional white matter classification.",
+  "description": "Clusters the whole-brain tractogram with dipy.segment.bundles.qbx_and_merge and keeps only streamlines in clusters with more than streamThresh members; the rest are written to a separate culled tractogram. If a white matter classification is supplied, its labels are split to match the surviving and culled streamlines. Use it as a quick outlier-removal step after tractography. The README is an unfilled template, and qbThreshes is parsed but not passed to the clustering, which always uses thresholds 30, 20, 10, 5 mm.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "611aa462a5a04c4672fb671b",
     "github": "DanNBullock/app-filterViaQuickbundles",
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional white matter classification (classification.mat) indexing the tractogram's streamlines; its labels are carried over to the surviving and culled outputs.",
       "config_keys": [
         "classification",
         "tracts",
@@ -85,7 +90,7 @@
     {
       "id": "qbThreshes",
       "type": "string",
-      "description": "quickbundles thresholds for application of [dipy.segment.bundles.qbx_and_merge](https://dipy.org/documentation/1.1.1./reference/dipy.segment/#qbx-and-merge)",
+      "description": "Comma-separated QuickBundlesX distance thresholds; parsed by the code but not passed to qbx_and_merge, so the defaults 30,20,10,5 are always used.",
       "default": "32,16,8,3",
       "advanced": true
     }
@@ -98,5 +103,19 @@
       "walltime_hours": 4
     }
   },
-  "doi": "10.25663/brainlife.app.564"
+  "doi": "10.25663/brainlife.app.564",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.4.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock"
+  ]
 }

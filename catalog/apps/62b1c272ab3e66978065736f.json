@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "app-artifact-amplitude",
   "version": "main",
-  "summary": "Rejecting epochs, based on signal amplitude thresholds for each channel type.",
-  "description": "unknown",
+  "summary": "Rejects MEG/EEG epochs whose peak-to-peak amplitude exceeds reject thresholds or falls below flat thresholds per channel type, with MNE-Python drop_bad, and outputs the cleaned epochs and a drop-log plot.",
+  "description": "Parses reject and flat criteria given as 'type=value' pairs separated by semicolons (e.g. grad=4000e-13;mag=4e-12;eeg=150e-6) and calls epochs.drop_bad. Use it as a simple amplitude-based artifact rejection after epoching. Both criteria strings must list the same channel types in the same order, because the flat thresholds are keyed by the reject criteria's channel types.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "preprocessing",
+    "quality-control",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "62b1c272ab3e66978065736f",
     "github": "zahransa/app-artifact-amplitude",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG/EEG data in MNE epochs .fif format.",
       "config_keys": [
         "epo"
       ]
@@ -29,14 +36,14 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/epochs",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Epochs (meg-epo.fif) after dropping those that violate the amplitude criteria.",
       "datatype_tags_pass": "epo"
     },
     {
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Drop-log plot showing why epochs were rejected."
     }
   ],
   "parameters": [
@@ -61,5 +68,20 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.653"
+  "doi": "10.25663/brainlife.app.653",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Saeed Zahran"
+  ]
 }

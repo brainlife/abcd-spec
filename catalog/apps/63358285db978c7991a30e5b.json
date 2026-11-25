@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Reject ICA components",
   "version": "v1.0",
-  "summary": "Remove selected components from the signal using the MNE ICA.apply() function.\nGiven the unmixing matrix, transform the data, zero out all excluded components, and inverse-transform the data. This procedure will reconstruct M/EEG signals from which the dynamics described by the excluded components is subtracted.",
-  "description": "unknown",
+  "summary": "Removes selected ICA components from continuous MEG/EEG with MNE-Python ICA.apply(), optionally auto-detecting EOG and ECG components, and outputs the cleaned raw data with an overlay plot and report.",
+  "description": "Reads a fitted ICA object (for example from ICA-fit) and the raw data, excludes the union of components already marked in the ICA, those listed in exclude and, if enabled, those found by find_bads_eog/find_bads_ecg, then reconstructs the signal. Use it to remove ocular or cardiac artifacts after fitting ICA on the same data.",
   "kind": "native",
   "topics": [
-    "meeg"
+    "brainlife-app",
+    "denoising",
+    "eeg",
+    "meeg",
+    "meg",
+    "mne-python",
+    "preprocessing"
   ],
   "registry": {
     "id": "63358285db978c7991a30e5b",
@@ -20,7 +26,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG data (MNE raw).",
       "config_keys": [
         "mne"
       ]
@@ -31,7 +37,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Fitted ICA decomposition of the same data (e.g. from ICA-fit).",
       "config_keys": [
         "ica"
       ]
@@ -44,19 +50,19 @@
       "datatype_tags": [
         "ica_applied"
       ],
-      "description": "unknown"
+      "description": "Raw data with the excluded ICA components removed (raw.fif)."
     },
     {
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Overlay plot of the signal before and after ICA application."
     },
     {
       "id": "out_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML QC report with the ICA decomposition and excluded components."
     }
   ],
   "parameters": [
@@ -103,5 +109,11 @@
       "memory_gb": 20
     }
   },
-  "doi": "10.25663/brainlife.app.679"
+  "doi": "10.25663/brainlife.app.679",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ]
 }

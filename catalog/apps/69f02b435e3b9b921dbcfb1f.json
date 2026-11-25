@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "MRI Registration QC: Pairwise Group Comparison  (FA maps)",
   "version": "v0.3",
-  "summary": "An automated quality-check pipeline for multi-image MRI registration comparison.",
-  "description": "unknown",
+  "summary": "Compares every pair of FA maps from several tensor datasets with registration similarity metrics (NMI, NCC, MSE, SSIM, Dice, Jaccard) and produces per-pair QC figures and group-level metric matrices.",
+  "description": "Takes the FA map of each input tensor dataset, resamples the second image of each pair into the first image's grid when needed, and computes similarity and optional threshold-mask overlap metrics for all unique pairs. It writes checkerboard, edge-overlay and difference figures per pair and one pairwise matrix (PNG and CSV) per metric. Use it to check how well repeated sessions, subjects or processing outputs are aligned. At least two inputs are required; it does not perform registration itself.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "registration",
+    "quality-control",
+    "visualization",
+    "nibabel",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69f02b435e3b9b921dbcfb1f",
     "github": "gamorosino/app-mri-reg-qc-multi",
@@ -18,10 +25,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Two or more tensor datasets; only the FA map of each is used.",
       "config_keys": [
         "images"
-      ]
+      ],
+      "requirements": "At least two inputs; images should already be registered to a common space."
     }
   ],
   "outputs": [
@@ -29,7 +37,7 @@
       "id": "figures",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "PNG QC figures (per-pair views, mask overlaps and group metric matrices) with an images.json manifest."
     },
     {
       "id": "output",
@@ -37,7 +45,7 @@
       "datatype_tags": [
         "mri_reg_qc"
       ],
-      "description": "unknown"
+      "description": "Per-pair QC directories with metrics, group-level metric matrices as CSV and PNG, and input_labels.json."
     }
   ],
   "parameters": [
@@ -58,8 +66,32 @@
     "container": "gamorosino/tract_align:v1.0",
     "resources": {
       "cpus": 1,
-      "walltime_hours": 6
+      "walltime_hours": 6,
+      "memory_gb": 8
     }
   },
-  "doi": "10.25663/brainlife.app.924"
+  "doi": "10.25663/brainlife.app.924",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "NumPy"
+    },
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "matplotlib"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: at least two images are required",
+      "fix": "Select two or more tensor datasets as input."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

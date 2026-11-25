@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-tractoflow",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Runs the TractoFlow Nextflow pipeline (scilus 1.6.0 container) on a DWI and T1w image to produce preprocessed DWI, a resampled T1 and a particle-filtering (PFT) tractogram.",
+  "description": "Arranges the inputs as a single-subject TractoFlow input folder, installs Miniconda and Nextflow 21.10.6 at run time, clones the scilus/tractoflow repository and runs it with the scilus 1.6.0 Singularity image. TractoFlow performs DWI preprocessing (denoising, eddy/topup, registration, resampling), tensor and fODF fitting and PFT tracking. It needs internet access on the compute node and about four hours on 16 cores.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "tractography",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6887ea8af3900f18d5f9f81d",
     "github": "sydneyfulton/app-tractoflow",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Raw DWI (NIfTI) with bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -33,7 +38,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ACPC-aligned T1-weighted image of the same subject.",
       "config_keys": [
         "t1"
       ]
@@ -46,7 +51,7 @@
       "datatype_tags": [
         "preprocessed"
       ],
-      "description": "unknown"
+      "description": "Preprocessed, resampled DWI from TractoFlow with the bvals/bvecs of the fODF shell."
     },
     {
       "id": "Resample_T1",
@@ -54,13 +59,13 @@
       "datatype_tags": [
         "bias_corrected"
       ],
-      "description": "unknown"
+      "description": "Preprocessed, resampled T1 from TractoFlow."
     },
     {
       "id": "PFT_Tracking",
       "datatype": "neuro/track/trk",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Probabilistic particle-filtering tractogram seeded in white matter (.trk)."
     }
   ],
   "parameters": [],
@@ -71,5 +76,23 @@
       "walltime_hours": 4
     }
   },
-  "doi": "10.25663/brainlife.app.868"
+  "doi": "10.25663/brainlife.app.868",
+  "software": [
+    {
+      "name": "TractoFlow",
+      "url": "https://github.com/scilus/tractoflow"
+    },
+    {
+      "name": "Nextflow",
+      "version": "21.10.6"
+    },
+    {
+      "name": "scilus container",
+      "version": "1.6.0"
+    }
+  ],
+  "maintainers": [
+    "Sydney Fulton",
+    "Gabriele Amorosino"
+  ]
 }

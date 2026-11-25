@@ -2,11 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Network Null Model",
   "version": "0.2",
-  "summary": "Generates an esemble of networks according to null models that try to reproduce the data. Erdos reyni (random), Barab\u00e1si-Albert and Configuration model are implemented",
-  "description": "unknown",
+  "summary": "Generates an ensemble of null-model networks (Erdos-Renyi, Barabasi-Albert or configuration model) matching an input network, using igraph.",
+  "description": "Reads a network (JGF) and, for each network in it, generates count random realisations with the chosen null model; weights can be ignored, sampled or averaged from the original. Use it to build null distributions for network measures computed on connectomes.",
   "kind": "native",
   "topics": [
-    "network"
+    "network",
+    "network-analysis",
+    "connectomics",
+    "statistics",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5e4ad2fd1eafff0efcf9d011",
@@ -123,5 +127,22 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.277"
+  "doi": "10.25663/brainlife.app.277",
+  "software": [
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Barabasi A-L. Network science. Cambridge University Press (2016)."
+    }
+  ]
 }

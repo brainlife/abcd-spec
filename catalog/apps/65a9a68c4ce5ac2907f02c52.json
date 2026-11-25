@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "First Level GLM Analysis",
   "version": "1.0",
-  "summary": "From the Nilearn Module: \"Intro to GLM Analysis: a single-session, single-subject fMRI dataset\"",
-  "description": "unknown",
+  "summary": "Fits a first-level GLM to a single-session task fMRI run and its events with Nilearn FirstLevelModel, producing z, F and thresholded (uncorrected, Bonferroni, FDR, cluster) statistical maps.",
+  "description": "Adapted from Nilearn's single-subject GLM tutorial. It builds the design matrix from the events file with the chosen HRF and drift models, fits the GLM (optionally within a mask), computes per-condition contrasts and writes z maps, p-thresholded maps with uncorrected, Bonferroni and FDR control, large-cluster maps, F-test maps, cluster tables and QA images. Use it for single-subject task activation maps from a BOLD run with a BIDS events.tsv.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "fmri",
+    "nilearn",
+    "statistics"
+  ],
   "registry": {
     "id": "65a9a68c4ce5ac2907f02c52",
     "github": "aldensyi/fmri_analysis_app",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Task BOLD fMRI run with its events file.",
       "config_keys": [
         "bold",
         "events",
@@ -27,7 +32,8 @@
         "sbref_json",
         "physio",
         "physio_json"
-      ]
+      ],
+      "requirements": "events.tsv is required to build the design matrix."
     },
     {
       "id": "brain_mask_optional",
@@ -48,7 +54,7 @@
       "datatype_tags": [
         "f_test_maps"
       ],
-      "description": "unknown"
+      "description": "F-test statistical maps per condition."
     },
     {
       "id": "large_cluster_thresholded",
@@ -56,7 +62,7 @@
       "datatype_tags": [
         "large_cluster_thresholded_map"
       ],
-      "description": "unknown"
+      "description": "Thresholded maps keeping only large clusters."
     },
     {
       "id": "p_stat",
@@ -64,7 +70,7 @@
       "datatype_tags": [
         "p_stat_map"
       ],
-      "description": "unknown"
+      "description": "Maps thresholded at uncorrected p (false positive rate)."
     },
     {
       "id": "p_stat_bonferroni_corrected",
@@ -72,7 +78,7 @@
       "datatype_tags": [
         "p_stat_bonferroni_corrected_map"
       ],
-      "description": "unknown"
+      "description": "Maps thresholded with Bonferroni correction."
     },
     {
       "id": "p_stat_fdr_corrected",
@@ -80,7 +86,7 @@
       "datatype_tags": [
         "p_stat_fdr_corrected_map"
       ],
-      "description": "unknown"
+      "description": "Maps thresholded with FDR correction."
     },
     {
       "id": "z_stat",
@@ -88,7 +94,7 @@
       "datatype_tags": [
         "z_stat_map"
       ],
-      "description": "unknown"
+      "description": "Z-score maps per condition contrast."
     },
     {
       "id": "images",
@@ -104,7 +110,7 @@
       "datatype_tags": [
         "thresholded_clusters"
       ],
-      "description": "unknown"
+      "description": "Cluster tables (CSV) of thresholded maps."
     }
   ],
   "parameters": [
@@ -248,7 +254,7 @@
     {
       "id": "subject_label",
       "type": "string",
-      "description": "unknown",
+      "description": "Subject label passed to Nilearn FirstLevelModel.",
       "default": "",
       "required": false,
       "advanced": true
@@ -256,7 +262,7 @@
     {
       "id": "verbose",
       "type": "number",
-      "description": "unknown",
+      "description": "Verbosity level of Nilearn FirstLevelModel.",
       "default": 1,
       "minimum": 0,
       "required": false,
@@ -266,5 +272,11 @@
   "runtime": {
     "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0"
   },
-  "doi": "10.25663/brainlife.app.808"
+  "doi": "10.25663/brainlife.app.808",
+  "software": [
+    {
+      "name": "Nilearn",
+      "url": "https://nilearn.github.io"
+    }
+  ]
 }

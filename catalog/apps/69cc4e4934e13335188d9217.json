@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Vertical Occipital Fasciculus (VOF) Coverage Quantification",
   "version": "main",
-  "summary": "An app that extracts the Vertical Occipital Fasciculus (VOF) from a tractogram and computes its cortical coverage across retinotopic visual areas.",
-  "description": "unknown",
+  "summary": "Extracts the left and right vertical occipital fasciculus (VOF) from a tractogram with MRtrix3 waypoints derived from retinotopic visual areas and computes its cortical coverage across ventral, dorsal and lateral occipital areas.",
+  "description": "Builds hemisphere masks from the aparc parcellation and visual-area ROI masks from the Benson varea and polar angle maps, then for each hemisphere selects streamlines with tckedit through ventral and dorsal waypoints, cleans them following Takemura et al. (2016) and maps their endpoint coverage over ventral, dorsal and lateral occipital visual areas, writing coverage CSVs and track-density images. Requires the tractogram and anatomy to be in the same space as the pRF and parcellation maps.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
   "registry": {
     "id": "69cc4e4934e13335188d9217",
     "github": "gamorosino/app-vof-coverage",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain tractogram (.tck) to extract the VOF from.",
       "config_keys": [
         "tractogram"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted reference image in the same space as the tractogram.",
       "config_keys": [
         "t1"
       ]
@@ -40,7 +45,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory.",
       "config_keys": [
         "output"
       ]
@@ -51,7 +56,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "pRF / retinotopy maps; the visual areas (varea) and polar angle maps are required.",
       "config_keys": [
         "r2",
         "polarAngle",
@@ -68,7 +73,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Volumetric aparc parcellation with label.json, used to build hemisphere masks.",
       "config_keys": [
         "aparc",
         "key",
@@ -81,25 +86,25 @@
       "id": "images",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Track-density images of the VOF per hemisphere and visual-area group."
     },
     {
       "id": "vof_left",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Cleaned left-hemisphere VOF tractogram (.tck)."
     },
     {
       "id": "vof_right",
       "datatype": "neuro/track/tck",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Cleaned right-hemisphere VOF tractogram (.tck)."
     },
     {
       "id": "vof",
       "datatype": "neuro/tcks",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Left and right VOF as a tcks collection."
     }
   ],
   "parameters": [
@@ -113,5 +118,24 @@
   "runtime": {
     "container": "gamorosino/tract_align:v1.0"
   },
-  "doi": "10.25663/brainlife.app.917"
+  "doi": "10.25663/brainlife.app.917",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Takemura H et al. A major human white matter pathway between dorsal and ventral visual cortex. Cerebral Cortex (2016)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "[ERROR] Missing required config.json fields",
+      "fix": "Provide tractogram, t1, aparc (with label) and pRF varea and polarAngle inputs."
+    }
+  ]
 }

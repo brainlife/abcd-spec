@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "app-resample-raw-v2",
   "version": "working_ver",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Resamples raw MEG/EEG data to a new sampling frequency with MNE-Python and outputs the resampled raw file, before/after PSD plots and an HTML report.",
+  "description": "Loads a raw .fif file, calls raw.resample with the target sampling frequency and the padding/window options, and saves the result with a PSD comparison and a report. Use it to downsample high-rate EEG/MEG recordings (for example BioSemi data from 2048 Hz to 250 Hz) before further processing.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "699eddc41c904fbe50d8b484",
     "github": "obVdo/app-resample-raw-v2",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Raw MEG/EEG recording (MNE .fif).",
       "config_keys": [
         "mne"
       ]
@@ -29,7 +35,7 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/raw",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Resampled raw data (raw.fif)."
     }
   ],
   "parameters": [
@@ -95,5 +101,17 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.896"
+  "doi": "10.25663/brainlife.app.896",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

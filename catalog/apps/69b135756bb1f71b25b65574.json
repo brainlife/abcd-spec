@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Make Inverse Operator",
   "version": "v1.0",
-  "summary": "Brainlife.io app to compute the MNE inverse operator for MEG/EEG surface source reconstruction.",
-  "description": "unknown",
+  "summary": "Computes an MNE minimum-norm inverse operator for MEG/EEG source reconstruction from a forward solution, a noise covariance and sensor info from epochs, using MNE-Python.",
+  "description": "Combines a precomputed forward solution and a noise covariance with the channel layout and projectors of an epochs (or evoked) file in mne.minimum_norm.make_inverse_operator, and saves inv.fif with an HTML report. Use it between the forward/covariance Apps and source estimation. loose, depth and rank are passed to make_inverse_operator.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "source-localization",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69b135756bb1f71b25b65574",
     "github": "BrainlifeMEEG/inverse-operator",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Forward solution (fwd.fif).",
       "config_keys": [
         "forward",
         "inverse"
@@ -30,7 +36,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Noise covariance matrix (cov.fif).",
       "config_keys": [
         "cov"
       ]
@@ -41,7 +47,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched data used only for sensor information (channels, projectors).",
       "config_keys": [
         "epo"
       ]
@@ -52,26 +58,26 @@
       "id": "out_dir",
       "datatype": "neuro/meeg/mne/forward-inverse",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Inverse operator (inv.fif)."
     }
   ],
   "parameters": [
     {
       "id": "loose",
       "type": "string",
-      "description": "unknown",
+      "description": "Loose orientation constraint passed to make_inverse_operator ('auto' or a value from 0 to 1).",
       "default": "auto"
     },
     {
       "id": "depth",
       "type": "string",
-      "description": "unknown",
+      "description": "Depth weighting exponent passed to make_inverse_operator.",
       "default": "0.8"
     },
     {
       "id": "rank",
       "type": "string",
-      "description": "unknown",
+      "description": "Data rank passed to make_inverse_operator (None estimates it).",
       "default": "None"
     }
   ],
@@ -83,5 +89,17 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.905"
+  "doi": "10.25663/brainlife.app.905",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    }
+  ]
 }

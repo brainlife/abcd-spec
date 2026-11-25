@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "NODDI-to-Anatomical MRI Registration",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Registers a NODDI scalar map (NDI, ISOVF or ODI) to a T1w or T2w anatomical image with ANTs (translation, rigid, affine or SyN) and reslices it onto the anatomical grid, with QC figures.",
+  "description": "Runs antsRegistration with configurable stages and pyramid depth, then antsApplyTransforms to reslice the moving map onto the anatomical image; outputs the transforms, the resliced map and before/after edge-overlay QC images. Use it to bring diffusion scalar maps onto the anatomical field of view, for example so that tract profiles of an anatomically constrained tractogram do not fall outside the diffusion grid. Only one map is registered: the first available of ndi, isovf, odi; apply the transform to the other maps with app-apply-ants-transform. Not for vector fields such as NODDI dir.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "anatomy",
+    "registration",
+    "ants",
+    "quality-control",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6ab713059702e3d7392578e1",
     "github": "gamorosino/app-registration-diffmetrics2anat",
@@ -18,12 +25,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "NODDI scalar maps; the first available map (ndi, isovf, odi) is used as the moving image.",
       "config_keys": [
         "ndi",
         "isovf",
         "odi"
-      ]
+      ],
+      "requirements": "3D scalar volumes."
     },
     {
       "id": "t1_fixed",
@@ -31,7 +39,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical reference (fixed image). Used if present.",
       "config_keys": [
         "t1"
       ]
@@ -42,10 +50,11 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "T2-weighted anatomical reference, used only when no T1w is given.",
       "config_keys": [
         "t2"
-      ]
+      ],
+      "requirements": "At least one of t1_fixed or t2_fixed is required."
     }
   ],
   "outputs": [
@@ -131,5 +140,25 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.980"
+  "doi": "10.25663/brainlife.app.980",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid anatomical reference found in config.json",
+      "fix": "Provide a T1w or T2w input."
+    },
+    {
+      "message": "Error: no moving diffusion metric provided (fa/md/rd/ad/ndi/isovf/odi/moving)",
+      "fix": "Provide an input containing at least one scalar map."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "brain-extraction-13-11-26",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FSL BET (optional robust centre estimation and bias/neck cleanup); appears to be an incomplete test copy of the Brain Extraction (FSL BET) App.",
+  "description": "Contains run_bet.sh and brain_extract.py but no main script, so it cannot run on brainlife as registered; run_bet.sh also writes to t1_brain/ rather than the registered t1w_brain output. Use the Brain Extraction (FSL BET) App instead.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6af7a5963dfea83ca970ddd1",
     "github": "gamorosino/app-brain-extraction-11-13-26",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical image to skull-strip.",
       "config_keys": [
         "t1"
       ]
@@ -58,5 +63,10 @@
   "runtime": {
     "container": "unknown"
   },
-  "doi": "10.25663/brainlife.app.998"
+  "doi": "10.25663/brainlife.app.998",
+  "software": [
+    {
+      "name": "FSL BET"
+    }
+  ]
 }

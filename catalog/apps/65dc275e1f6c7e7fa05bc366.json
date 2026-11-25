@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "QSM Data Generator",
   "version": "main",
-  "summary": "Generates a ground truth susceptibility map (neuro/qsm) and simulates magnitude and phase images (neuro/magphase) to be used in QSM pipelines. The magphase images are compatible with QSM processing pipelines such as QSMxT.",
-  "description": "unknown",
+  "summary": "Simulates T2*-weighted magnitude and phase images and a ground-truth susceptibility map from a synthetic cylinder phantom with qsm-forward, for testing QSM pipelines such as QSMxT.",
+  "description": "Generates a susceptibility phantom (a large cylinder with four smaller cylinders of different susceptibility) at the chosen matrix size and voxel size, runs the qsm-forward forward model with the given TR, TE, flip angle, field strength and field direction, and exports the simulated magnitude and phase images, the ground-truth chi map, a segmentation and a mask. Use it to create test data with known ground truth for QSM methods; it takes no input data. The README is the unmodified python App template, and the code fixes the peak SNR at 100.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "qsm",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "65dc275e1f6c7e7fa05bc366",
     "github": "astewartau/qsm-forward-brainlife",
@@ -60,91 +63,91 @@
     {
       "id": "resolution-0",
       "type": "number",
-      "description": "unknown",
+      "description": "Phantom matrix size (voxels) along the first axis.",
       "default": 100,
       "minimum": 1
     },
     {
       "id": "resolution-1",
       "type": "number",
-      "description": "unknown",
+      "description": "Phantom matrix size (voxels) along the second axis.",
       "default": 100,
       "minimum": 1
     },
     {
       "id": "resolution-2",
       "type": "number",
-      "description": "unknown",
+      "description": "Phantom matrix size (voxels) along the third axis.",
       "default": 100,
       "minimum": 1
     },
     {
       "id": "TR",
       "type": "number",
-      "description": "unknown",
+      "description": "Repetition time passed to the qsm-forward simulation.",
       "default": 0.05,
       "minimum": 0
     },
     {
       "id": "TE",
       "type": "number",
-      "description": "unknown",
+      "description": "Echo time passed to the qsm-forward simulation (single echo).",
       "default": 0.004,
       "minimum": 0
     },
     {
       "id": "flip-angle",
       "type": "number",
-      "description": "unknown",
+      "description": "Flip angle passed to the qsm-forward simulation.",
       "default": 15
     },
     {
       "id": "B0",
       "type": "number",
-      "description": "unknown",
+      "description": "Main magnetic field strength passed to the simulation.",
       "default": 7,
       "minimum": 0
     },
     {
       "id": "B0-dir-0",
       "type": "number",
-      "description": "unknown",
+      "description": "First component of the B0 field direction vector.",
       "default": 0
     },
     {
       "id": "B0-dir-1",
       "type": "number",
-      "description": "unknown",
+      "description": "Second component of the B0 field direction vector.",
       "default": 0
     },
     {
       "id": "B0-dir-2",
       "type": "number",
-      "description": "unknown",
+      "description": "Third component of the B0 field direction vector.",
       "default": 1
     },
     {
       "id": "voxel-size-0",
       "type": "number",
-      "description": "unknown",
+      "description": "Voxel size along the first axis.",
       "default": 1
     },
     {
       "id": "voxel-size-1",
       "type": "number",
-      "description": "unknown",
+      "description": "Voxel size along the second axis.",
       "default": 1
     },
     {
       "id": "voxel-size-2",
       "type": "number",
-      "description": "unknown",
+      "description": "Voxel size along the third axis.",
       "default": 1
     },
     {
       "id": "peak-snr",
       "type": "number",
-      "description": "unknown",
+      "description": "Not applied: the code reads the key 'peak_snr' and then always sets the peak SNR to 100.",
       "required": false,
       "placeholder": "inf"
     }
@@ -156,5 +159,17 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.820"
+  "doi": "10.25663/brainlife.app.820",
+  "software": [
+    {
+      "name": "qsm-forward",
+      "version": "0.23"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "One magnitude file expected!",
+      "fix": "The simulation produced an unexpected number of magnitude images; check the TE parameter (a single echo is expected)."
+    }
+  ]
 }

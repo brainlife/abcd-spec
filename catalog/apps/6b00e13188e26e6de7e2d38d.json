@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-mpat-tractography",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Reconstructs AFQ white matter bundles from DWI and a T1w with MPAT (Markov probabilistic absorbing tractography), computing bundles as expectations over infinitely many streamlines, and outputs per-bundle tractometry metrics and maps.",
+  "description": "Runs the mpat command (absorbing Markov chain formulation of probabilistic tractography) on the DWI with its bvals and bvecs and the T1w, optionally limited to a list of AFQ bundles, and returns per-bundle density, AFD, length, volume and cross-sectional area with per-bundle maps. Use it to obtain bundle-level tractometry without generating streamlines. Only the first metrics table produced by MPAT is copied to the datatype's csv.csv; the full MPAT output folder is included alongside.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6b00e13188e26e6de7e2d38d",
     "github": "gamorosino/app-mpat-tractography",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI with bvals and bvecs.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -31,7 +36,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image of the same subject.",
       "config_keys": [
         "t1"
       ]
@@ -75,5 +80,20 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.1000"
+  "doi": "10.25663/brainlife.app.1000",
+  "software": [
+    {
+      "name": "MPAT",
+      "url": "https://github.com/rokemlab/MPAT"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced in tractmeasures/",
+      "fix": "Check the log for the mpat error."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

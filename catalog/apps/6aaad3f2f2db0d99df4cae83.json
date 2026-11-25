@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "impact-reg",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Registers a moving volume to a fixed volume (NIfTI or OME-Zarr, e.g. microscopy) with impact-reg-konfai using FireANTs SyN, ConvexAdam or elastix presets, on GPU or CPU, and outputs the displacement field and moved image.",
+  "description": "Wraps the impact-reg-konfai CLI (IMPACT multimodal registration): the engine selects a preset from the VBoussot/ImpactReg Hugging Face repository (FireANTs_SyN rigid+affine+SyN, ConvexAdam_Composite with MIND features, or elastix Generic_Rigid_BSpline), or preset_override names any other preset. Optional fixed and moving masks restrict the similarity metric. Use it for pairwise, possibly multimodal, registration of large volumes; give exactly one format (NIfTI or OME-Zarr) per volume. Presets are downloaded at run time, so the compute node needs internet access.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "registration",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aaad3f2f2db0d99df4cae83",
     "github": "gamorosino/app-impact-reg",
@@ -166,5 +170,33 @@
       "walltime_hours": 5
     }
   },
-  "doi": "10.25663/brainlife.app.975"
+  "doi": "10.25663/brainlife.app.975",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "impact-reg-konfai",
+      "url": "https://github.com/vboussot/ImpactLoss"
+    },
+    {
+      "name": "FireANTs"
+    },
+    {
+      "name": "ConvexAdam"
+    },
+    {
+      "name": "elastix"
+    },
+    {
+      "name": "PyTorch"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "fix": "Check the log for the impact-reg-konfai error; with require_cuda set, make sure a GPU is available."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

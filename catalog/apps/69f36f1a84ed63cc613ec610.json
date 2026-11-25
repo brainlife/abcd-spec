@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "VAME Pipeline",
   "version": "main",
-  "summary": "https://brainlife.io/app/69f36f1a84ed63cc613ec610/detail",
-  "description": "unknown",
+  "summary": "Runs the VAME (Variational Animal Motion Embedding) pipeline on NWB files with pose-estimation data to learn behavioral motifs, and outputs the VAME project with segmentations and figures.",
+  "description": "Loads pose data from each NWB file's behavior processing module, preprocesses it (confidence filtering, egocentric alignment, outlier cleaning, Savitzky-Golay smoothing), trains the VAME variational autoencoder, segments behavior into n_clusters motifs with HMM or k-means and runs community clustering. Use it for unsupervised segmentation of animal behavior from pose tracking. It needs NWB files containing ndx-pose PoseEstimation data and a GPU.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69f36f1a84ed63cc613ec610",
     "github": "catalystneuro/vame-brainlife-app",
@@ -18,10 +21,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "NWB files (multi), one per session, containing pose-estimation data.",
       "config_keys": [
         "nwb"
-      ]
+      ],
+      "requirements": "Pose data must be stored as ndx-pose PoseEstimation in the behavior processing module."
     }
   ],
   "outputs": [
@@ -31,7 +35,7 @@
       "datatype_tags": [
         "vame"
       ],
-      "description": "unknown"
+      "description": "VAME project directory (output/<project_name>/) with preprocessing results, trained model, segmentations, community clustering and figures."
     }
   ],
   "parameters": [
@@ -139,5 +143,14 @@
   "runtime": {
     "container": "ghcr.io/catalystneuro/vame-brainlife-app:latest"
   },
-  "doi": "10.25663/brainlife.app.927"
+  "doi": "10.25663/brainlife.app.927",
+  "software": [
+    {
+      "name": "VAME",
+      "url": "https://github.com/EthoML/VAME"
+    },
+    {
+      "name": "movement"
+    }
+  ]
 }

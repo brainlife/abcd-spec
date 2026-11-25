@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "app-time-frequency",
   "version": "main",
-  "summary": "unknown",
+  "summary": "Incomplete App: the repository holds only an MNE-Python Morlet-wavelet time-frequency example script and no main, inputs or outputs.",
   "description": "unknown",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "meg",
+    "mne-python"
+  ],
   "registry": {
     "id": "62c7fa47f3194eded6ff05cb",
     "github": "zahransa/app-time-frequency",

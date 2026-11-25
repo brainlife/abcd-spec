@@ -3,9 +3,13 @@
   "name": "ROC curve (deprecated)",
   "version": "1.0",
   "summary": "Plot ROC-AUC curve for multi-LAP and multi-NN. Warning: this app can be run ONLY after the app https://doi.org/10.25663/brainlife.app.174.  This App was used specifically for a Replicability Study and has been deprecated.",
-  "description": "unknown",
+  "description": "Deprecated App used for a replicability study. Collects per-subject CSV files with false/true positive rates and AUC for multi-LAP and multi-NN tract segmentation (from brainlife.app.174), interpolates and averages the ROC curves across subjects, and plots the mean ROC-AUC curves for one tract. It only works on the output of that specific App.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "statistics",
+    "visualization",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5cb0c93f454d3c00353fa0d3",
     "github": "giulia-berto/app-plot-roc-curve",
@@ -29,7 +33,7 @@
       "id": "1",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "PNG plot of the mean ROC curves and AUCs for multi-LAP and multi-NN for the tract.",
       "datatype_tags_pass": "0"
     }
   ],
@@ -41,5 +45,19 @@
       "walltime_hours": 0.17
     }
   },
-  "doi": "10.25663/brainlife.app.180"
+  "doi": "10.25663/brainlife.app.180",
+  "software": [
+    {
+      "name": "scikit-learn"
+    },
+    {
+      "name": "matplotlib"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Computation failed.",
+      "fix": "No image was produced; check that the inputs are the CSV outputs of brainlife.app.174."
+    }
+  ]
 }

@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Filter data",
   "version": "v1.0",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Band-pass, high-pass or low-pass filters raw MEG/EEG data with MNE-Python Raw.filter, optionally adding notch filters, and reports the filter response and PSD.",
+  "description": "Applies mne.io.Raw.filter (FIR or IIR) with the chosen cut-offs and, if notch frequencies are given, Raw.notch_filter to remove line noise and harmonics. Saves the filtered raw data, a filter frequency-response plot, a PSD plot and an HTML report comparing original and filtered data. Use it early in MEG/EEG preprocessing; leave l_freq or h_freq empty for a low-pass or high-pass only.",
   "kind": "native",
   "topics": [
-    "meeg"
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "denoising",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "642dc7d173d2685502ec4d5f",
@@ -20,7 +26,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Continuous MEG/EEG recording in MNE raw .fif format.",
       "config_keys": [
         "mne"
       ]
@@ -33,19 +39,19 @@
       "datatype_tags": [
         "filt-raw"
       ],
-      "description": "unknown"
+      "description": "Filtered raw data (raw.fif)."
     },
     {
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Filter frequency-response plot (filter_response.png) and PSD of the filtered data (psd.png)."
     },
     {
       "id": "out_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML report comparing original and filtered data."
     }
   ],
   "parameters": [
@@ -93,7 +99,7 @@
     {
       "id": "h_trans_bandwidth",
       "type": "string",
-      "description": "unknown",
+      "description": "Width of the transition band at the high cut-off frequency in Hz, or 'auto' to choose it from h_freq; used only for FIR filtering.",
       "default": "auto",
       "required": false,
       "advanced": true
@@ -161,5 +167,12 @@
       "memory_gb": 20
     }
   },
-  "doi": "10.25663/brainlife.app.757"
+  "doi": "10.25663/brainlife.app.757",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ]
 }

@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "DBB_preprocessing_t1w",
   "version": "1.5.3",
-  "summary": "Preprocessing app for the Distorted Brain Benchmark: ACPC alignment and Bias Field Correction",
-  "description": "unknown",
+  "summary": "Reorients a T1-weighted image to MNI152 (AC-PC) with a given or ANTs-estimated rigid transform and corrects its bias field with N4, as preprocessing for the Distorted Brain Benchmark.",
+  "description": "Applies the given reorientation matrix (or a rigid ANTs registration to the MNI152 1 mm template when none is given) to the T1w and the brain mask, then runs N4 bias field correction restricted to the mask. Use it to prepare T1w images, including paediatric and distorted brains, for tissue segmentation as in the DBB benchmark.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "60cb69e0cdfdb50220fee1c3",
     "github": "FBK-NILab/bl_app_dbb_preproc_t1w",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to preprocess.",
       "config_keys": [
         "t1"
       ]
@@ -54,7 +60,7 @@
         "acpc_aligned",
         "bias_corrected"
       ],
-      "description": "unknown"
+      "description": "T1w reoriented to the MNI152 (AC-PC) orientation and N4 bias-field corrected."
     },
     {
       "id": "mask_reoriented",
@@ -62,7 +68,7 @@
       "datatype_tags": [
         "acpc_aligned"
       ],
-      "description": "unknown"
+      "description": "Brain mask resampled with the same reorientation."
     }
   ],
   "parameters": [],
@@ -72,5 +78,17 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.535"
+  "doi": "10.25663/brainlife.app.535",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2022.119486",
+      "text": "Amorosino G, Peruzzo D, Redaelli D, Olivetti E, Arrigoni F, Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022)."
+    }
+  ]
 }

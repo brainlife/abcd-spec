@@ -3,10 +3,15 @@
   "name": "Concatenate raws",
   "version": "v1.0",
   "summary": "Concatenate multiple MNE.Raw instances into single .Raw",
-  "description": "unknown",
+  "description": "Joins several MNE raw files end to end with mne.concatenate_raws(), for example multiple runs or sessions, and writes one raw.fif with a QC report. Inputs must share the same channels and bad channels (order is normalised automatically). It reads no configuration parameters.",
   "kind": "native",
   "topics": [
-    "meeg"
+    "brainlife-app",
+    "eeg",
+    "meeg",
+    "meg",
+    "mne-python",
+    "preprocessing"
   ],
   "registry": {
     "id": "642daf2d73d2685502ebfd09",
@@ -20,10 +25,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "Continuous MNE raw files to concatenate.",
       "config_keys": [
         "raw"
-      ]
+      ],
+      "requirements": "All files must share the same set of channels and the same bad channels."
     }
   ],
   "outputs": [
@@ -33,7 +39,7 @@
       "datatype_tags": [
         "concatenated"
       ],
-      "description": "unknown",
+      "description": "Concatenated raw data (raw.fif).",
       "datatype_tags_pass": "raw"
     },
     {
@@ -51,5 +57,11 @@
       "walltime_hours": 0.42
     }
   },
-  "doi": "10.25663/brainlife.app.756"
+  "doi": "10.25663/brainlife.app.756",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ]
 }

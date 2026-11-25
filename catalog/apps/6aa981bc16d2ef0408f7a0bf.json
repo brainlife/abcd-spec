@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "anatomix-t1w-dwi-registration",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Registers a DWI series to a T1-weighted image by aligning its mean b0 with anatomix deep features and FireANTs deformable registration, outputting the registered b0 and an ANTs-convention warp.",
+  "description": "Averages the DWI volumes at or below b0_max_bval into a b0 image, registers it onto the T1w with anatomix-register.py (modality-agnostic anatomix features driving FireANTs, affine then deformable by default) and writes the resampled b0 plus the forward and optional inverse displacement fields in ITK/ANTs convention. Use the warp to bring FA/MD or other DWI-space maps into T1w space, or the inverse to bring T1w-space parcellations into DWI space. A GPU is strongly recommended; the transform must end in a deformable stage.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "anatomy",
+    "registration",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6aa981bc16d2ef0408f7a0bf",
     "github": "gamorosino/app-anatomix-t1w-dwi-reg",
@@ -18,7 +24,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical image used as the fixed image.",
       "config_keys": [
         "t1"
       ]
@@ -29,12 +35,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI series with bvals and bvecs; its mean b0 is the moving image.",
       "config_keys": [
         "dwi",
         "bvals",
         "bvecs"
-      ]
+      ],
+      "requirements": "At least one volume with b-value at or below b0_max_bval."
     }
   ],
   "outputs": [
@@ -89,8 +96,36 @@
     "container": "gamorosino/anatomix-fireants:latest",
     "resources": {
       "memory_gb": 32,
-      "walltime_hours": 4
+      "walltime_hours": 4,
+      "gpu": true
     }
   },
-  "doi": "10.25663/brainlife.app.972"
+  "doi": "10.25663/brainlife.app.972",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "anatomix",
+      "url": "https://github.com/neel-dey/anatomix"
+    },
+    {
+      "name": "FireANTs",
+      "url": "https://github.com/rohitrango/FireANTs"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no volumes with b-value <=",
+      "fix": "Raise b0_max_bval or check the bvals file."
+    },
+    {
+      "message": "expected warp not found",
+      "fix": "Make the transform parameter end in a deformable stage, e.g. affine,deformable."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

@@ -2,10 +2,18 @@
   "spec": "brainlife-app/2.0",
   "name": "MNE-BIDS-Pipeline [2]: MEEG Sensor analysis ",
   "version": "main",
-  "summary": "This Brainlife App runs the sensor-level analysis of MNE-BIDS-pipeline on the derivatives produced by the previous preprocessing App (MNE-BIDS-Pipeline [1]: Preprocessing).",
+  "summary": "Runs the sensor-level analysis steps of MNE-BIDS-Pipeline (condition contrasts, decoding, time-frequency) on MEG/EEG BIDS derivatives from the MNE-BIDS-Pipeline preprocessing App, and outputs derivatives and HTML reports.",
   "description": "This Brainlife App runs the sensor-level analysis of MNE-BIDS-pipeline on the derivatives produced by the previous preprocessing App (MNE-BIDS-Pipeline [1]: Preprocessing). It computes condition contrasts, decoding and time frequency analyses for EEG and MEG data. The application avatar is adapted from the MNE-Python hexagonal logo, licensed under CC BY 4.0.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "bids",
+    "statistics",
+    "machine-learning",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a4256eb76d8d577a7f7dc5a",
     "github": "carlota-juarez/app-mne-bids-sensor-analysis",
@@ -35,7 +43,7 @@
         "mne",
         "sensor"
       ],
-      "description": "unknown",
+      "description": "Copy of the input BIDS derivatives plus the sensor-level results (evoked contrasts, decoding scores, time-frequency power) from MNE-BIDS-Pipeline.",
       "datatype_tags_pass": "bids_dir1"
     },
     {
@@ -45,7 +53,7 @@
         "mne",
         "sensor"
       ],
-      "description": "unknown",
+      "description": "MNE-BIDS-Pipeline HTML reports summarizing the sensor-level results.",
       "datatype_tags_pass": "bids_dir1"
     }
   ],
@@ -342,5 +350,21 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.941"
+  "doi": "10.25663/brainlife.app.941",
+  "software": [
+    {
+      "name": "MNE-BIDS-Pipeline",
+      "url": "https://mne.tools/mne-bids-pipeline/"
+    },
+    {
+      "name": "MNE-Python"
+    },
+    {
+      "name": "MNE-BIDS"
+    }
+  ],
+  "maintainers": [
+    "Carlota Ju\u00e1rez Alonso",
+    "Guiomar Niso Gal\u00e1n"
+  ]
 }

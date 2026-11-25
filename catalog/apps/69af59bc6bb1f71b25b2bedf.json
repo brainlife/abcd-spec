@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Apply Transformations to Multiple Tractography Files",
   "version": "v2.0",
-  "summary": "Apply spatial transformations (ANTs or FSL-derived) to a tractogram",
-  "description": "unknown",
+  "summary": "Applies an ANTs affine and nonlinear warp to every .tck file in a tract collection with scilpy, moving streamlines from the registration's moving space into the reference space.",
+  "description": "Loops over all .tck files of a neuro/tcks collection and runs applyTransformations2tract.sh on each, composing the affine and selected warp and applying them with scilpy inside the gamorosino/tract_align container. Use it to bring a set of bundles into another subject or template space after a T1w, T2w or FA registration. It needs at least one moving-space image and one reference-space image. Note: fsl_transform is not read by main, so FSL transforms are not converted.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "tractography",
+    "registration",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69af59bc6bb1f71b25b2bedf",
     "github": "gamorosino/app-tract-transform",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Collection of tractograms (.tck files) in the moving space of the registration.",
       "config_keys": [
         "tcks",
         "tcks_json"
@@ -30,7 +35,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Registration transform: ANTs affine plus forward warp and inverse warp.",
       "config_keys": [
         "warp",
         "inverse-warp",
@@ -43,7 +48,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space T1w image (the space the tractogram is in); first choice for the moving image.",
       "config_keys": [
         "t1"
       ]
@@ -54,7 +59,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space T2w image; used as moving image if no T1w is given.",
       "config_keys": [
         "t2"
       ]
@@ -65,7 +70,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Moving-space tensor maps; FA is used as moving image if no T1w or T2w is given.",
       "config_keys": [
         "fa",
         "md",
@@ -89,7 +94,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference (target) space T1w image; first choice for the reference image.",
       "config_keys": [
         "t1_fixed"
       ]
@@ -100,7 +105,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference-space T2w image; used if no fixed T1w is given.",
       "config_keys": [
         "t2_fixed"
       ]
@@ -111,7 +116,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference-space tensor maps; FA is used as reference if no fixed T1w or T2w is given.",
       "config_keys": [
         "fa_fixed",
         "md_fixed",
@@ -129,7 +134,7 @@
       "id": "transformed",
       "datatype": "neuro/tcks",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "The collection of transformed .tck files, in the reference space."
     }
   ],
   "parameters": [
@@ -171,5 +176,40 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.903"
+  "doi": "10.25663/brainlife.app.903",
+  "software": [
+    {
+      "name": "scilpy"
+    },
+    {
+      "name": "ANTs"
+    },
+    {
+      "name": "DIPY"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1109/ISBI53787.2023.10230615",
+      "text": "Amorosino G, Olivetti E, Jovicich J, Avesani P. How Does White Matter Registration Affect Tractography Alignment? IEEE ISBI (2023)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. Brainlife.io: a decentralized platform for reproducible neuroscience. Nature Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: No valid moving image found in config.json",
+      "fix": "Provide one of t1w, t2w or tensor (moving space)."
+    },
+    {
+      "message": "Error: No valid fixed/reference image found in config.json",
+      "fix": "Provide one of t1w_fixed, t2w_fixed or tensor_fixed (reference space)."
+    },
+    {
+      "message": "Error: forward_operation and reverse_operation cannot both be true.",
+      "fix": "Enable only one of the two."
+    }
+  ]
 }

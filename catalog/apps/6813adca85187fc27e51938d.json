@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "qsiprep test suna - full config",
   "version": "0.24.0",
-  "summary": "QSIPrep configured for preprocessing HCP style data: multi-shell, opposite phase encoding directions.",
-  "description": "unknown",
+  "summary": "Preprocesses DWI with QSIPrep 0.24.0 (denoising, Gibbs unringing, eddy head-motion and TOPUP distortion correction, coregistration to the T1w) and outputs the preprocessed DWI, T1w, brain mask, tissue segmentation, confounds, image QC and an HTML report.",
+  "description": "Converts the T1w and one or more DWI runs to BIDS (optionally naming the runs from the BidsGuess metadata so opposite phase-encoding pairs are grouped) and runs QSIPrep participant-level preprocessing with the selected denoising, unringing, head-motion, B1 bias and PEPOLAR settings, then maps the outputs to brainlife datatypes in ACPC/T1w or MNI152NLin2009cAsym space. Use it for multi-shell, HCP-style data acquired with opposite phase-encoding directions; a second DWI must have the opposite phase-encoding direction of the first. Needs a FreeSurfer license on the compute resource. Registered as a test configuration (name 'qsiprep test suna - full config').",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "denoising",
+    "qsiprep",
+    "bids",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6813adca85187fc27e51938d",
     "github": "sunaguo/app-qsiprep",
@@ -20,7 +27,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image of the subject (not already processed by QSIPrep).",
       "config_keys": [
         "t1"
       ]
@@ -34,14 +41,15 @@
       ],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "One or more raw DWI runs with bvals, bvecs and optional sbref.",
       "config_keys": [
         "dwi",
         "bvecs",
         "bvals",
         "sbref",
         "sbref_json"
-      ]
+      ],
+      "requirements": "Multiple runs should be opposite phase-encoding acquisitions; with dwi_use_bidsguess the metadata should contain BidsGuess."
     }
   ],
   "outputs": [
@@ -52,7 +60,7 @@
         "qsiprep",
         "preprocessed"
       ],
-      "description": "unknown",
+      "description": "Preprocessed DWI in ACPC space with bvals and bvecs (FSL-style, or MRtrix-style when xflip is true).",
       "datatype_tags_pass": "dwi"
     },
     {
@@ -63,7 +71,7 @@
         "acpc_aligned",
         "qsiprep"
       ],
-      "description": "unknown",
+      "description": "Preprocessed T1w in the selected output space.",
       "datatype_tags_pass": "t1"
     },
     {
@@ -72,13 +80,13 @@
       "datatype_tags": [
         "qsiprep"
       ],
-      "description": "unknown"
+      "description": "QSIPrep tissue segmentation (dseg) in the selected space."
     },
     {
       "id": "output_brainmask",
       "datatype": "neuro/mask",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Brain mask of the preprocessed T1w."
     },
     {
       "id": "output_report",
@@ -86,7 +94,7 @@
       "datatype_tags": [
         "qsiprep"
       ],
-      "description": "unknown"
+      "description": "QSIPrep HTML report with figures."
     },
     {
       "id": "regressors",
@@ -94,7 +102,7 @@
       "datatype_tags": [
         "qsiprep"
       ],
-      "description": "unknown"
+      "description": "DWI confounds time series (regressors.tsv)."
     },
     {
       "id": "dwiqc",
@@ -102,7 +110,7 @@
       "datatype_tags": [
         "dwiqc"
       ],
-      "description": "unknown"
+      "description": "QSIPrep DWI image quality metrics (dwiqc.csv)."
     }
   ],
   "parameters": [
@@ -336,5 +344,36 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.859"
+  "doi": "10.25663/brainlife.app.859",
+  "software": [
+    {
+      "name": "QSIPrep",
+      "version": "0.24.0",
+      "url": "https://qsiprep.readthedocs.io"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-021-01185-5",
+      "text": "Cieslak M. et al. QSIPrep: an integrative platform for preprocessing and reconstructing diffusion MRI data. Nature Methods 18, 775-778 (2021)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Set FREESURFER_LICENSE on the compute resource."
+    }
+  ],
+  "maintainers": [
+    "Giulia Bert\u00f2",
+    "Soichi Hayashi"
+  ]
 }

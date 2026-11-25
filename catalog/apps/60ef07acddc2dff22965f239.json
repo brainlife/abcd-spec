@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "DBB_ANTsCortThickSeg",
   "version": "2.5.5",
-  "summary": "A tool that performs the antsCorticalThickness.sh script on a T1-w image using PTBP priors in order to obtain the brain tissue segmentation. The script is customized so that a previously estimated brain mask can also be input.",
-  "description": "unknown",
+  "summary": "Segments brain tissues in a T1-weighted image with a customized ANTs antsCorticalThickness.sh using Pediatric Template of Brain Perfusion (PTBP) priors and an optional brain mask, and outputs a tissue segmentation.",
+  "description": "Runs stages 1-3 of a customized antsCorticalThickness.sh (ANTs 2.2.0) with the PTBP template and six tissue priors bundled in the repo; when a brain mask is given it replaces the template-based brain extraction. Developed for the Distorted Brain Benchmark (DBB) of paediatric patients with brain malformations. It needs a T1w image; the output is the ANTs BrainSegmentation volume with a label.json.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "ants",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "60ef07acddc2dff22965f239",
     "github": "FBK-NILab/bl_app_dbb_ANTsCTSeg",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to segment.",
       "config_keys": [
         "t1"
       ]
@@ -29,10 +34,11 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "brain mask",
+      "description": "Optional brain mask used instead of the template-based brain extraction.",
       "config_keys": [
         "mask"
-      ]
+      ],
+      "requirements": "Must be in the same space as the T1."
     }
   ],
   "outputs": [
@@ -40,7 +46,7 @@
       "id": "segmentation",
       "datatype": "neuro/parcellation/volume",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Brain tissue segmentation (segmentation.nii.gz, ANTs BrainSegmentation) with label.json."
     }
   ],
   "parameters": [],
@@ -50,5 +56,21 @@
       "cpus": 10
     }
   },
-  "doi": "10.25663/brainlife.app.541"
+  "doi": "10.25663/brainlife.app.541",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0",
+      "url": "https://github.com/ANTsX/ANTs"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2022.119486",
+      "text": "Amorosino G, Peruzzo D, Redaelli D, Olivetti E, Arrigoni F, Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

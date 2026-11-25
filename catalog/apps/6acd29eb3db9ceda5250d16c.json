@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-test-multiagent-brain-extraction",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FSL BET (test App) and outputs the brain-extracted T1w.",
+  "description": "Test App that wraps FSL bet with the fractional intensity threshold (-f), robust centre estimation (-R) and bias-field/neck cleanup (-B) options. As registered it is unlikely to run: the t1 input has no config key and the wrapper expects config keys t1 and brain_extracted. Prefer an established brain-extraction App for real data.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6acd29eb3db9ceda5250d16c",
     "github": "gamorosino/app-test-multiagent-brain-extraction",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image to skull-strip.",
       "config_keys": []
     }
   ],
@@ -27,26 +32,26 @@
       "id": "brain_extracted",
       "datatype": "neuro/anat/t1w",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Brain-extracted T1-weighted image produced by BET."
     }
   ],
   "parameters": [
     {
       "id": "frac",
       "type": "number",
-      "description": "unknown",
+      "description": "BET fractional intensity threshold (0-1); smaller values give larger brain estimates.",
       "default": 0.5
     },
     {
       "id": "robust",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Use BET's robust brain centre estimation (-R).",
       "default": false
     },
     {
       "id": "bias_neck_cleanup",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Apply BET bias-field and neck cleanup (-B).",
       "default": false
     }
   ],
@@ -57,5 +62,13 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.985"
+  "doi": "10.25663/brainlife.app.985",
+  "software": [
+    {
+      "name": "FSL BET"
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

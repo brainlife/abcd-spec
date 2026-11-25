@@ -3,9 +3,15 @@
   "name": "Streamline Selection by Parcellation",
   "version": "main",
   "summary": "An automated and reproducible pipeline to extract streamlines from a tractogram based on a labeled parcellation image.",
-  "description": "unknown",
+  "description": "Splits the parcellation into one binary mask per label (nibabel) and runs MRtrix3 tckedit -include for each mask in parallel, writing one tractogram per parcel; with ends_only only streamlines that terminate in the parcel are kept. Use it to get region-wise bundles from a whole-brain tractogram. The tractogram and parcellation must be in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "mrtrix3",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6844f692187eaf3617c91e03",
     "github": "gamorosino/app-select-streamlines",
@@ -18,10 +24,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain .tck tractogram.",
       "config_keys": [
         "tractogram"
-      ]
+      ],
+      "requirements": "Same space as the parcellation."
     },
     {
       "id": "parcellation",
@@ -29,7 +36,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Labeled volumetric parcellation; each non-zero label becomes one ROI.",
       "config_keys": [
         "parc",
         "key",
@@ -42,7 +49,7 @@
       "id": "tcks",
       "datatype": "neuro/tcks",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "One .tck tractogram per parcellation label with the streamlines that intersect (or end in) that parcel."
     }
   ],
   "parameters": [
@@ -57,8 +64,28 @@
     "container": "brainlife/dipy:1.4.1",
     "resources": {
       "cpus": 1,
-      "walltime_hours": 2
+      "walltime_hours": 2,
+      "memory_gb": 8
     }
   },
-  "doi": "10.25663/brainlife.app.866"
+  "doi": "10.25663/brainlife.app.866",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier JD, Smith R, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202, 116137 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "PET Deface",
   "version": "main",
-  "summary": "Used to deface PET BIDS datasets. This is a Nipype pipeline using Freesurfer's MiDeface to co-register and deface PET imaging and T1w anatomical data. \n\nDocumentation for this project can be found at: \n\nhttps://petdeface.readthedocs.io/en/latest/",
-  "description": "unknown",
+  "summary": "Defaces a PET image and its T1-weighted anatomical image with petdeface, a Nipype pipeline that co-registers the two and applies FreeSurfer MiDeFace.",
+  "description": "Wraps the openneuropet petdeface tool, which builds a temporary BIDS dataset from the PET and T1w files, co-registers them and removes facial features from both. Use it to anonymise PET data before sharing. Requires a FreeSurfer license. The current main script expects --t1_file and --pet_file command-line arguments and does not read config.json, so the App may not run as registered.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "bids",
+    "brainlife-app",
+    "freesurfer",
+    "pet",
+    "preprocessing"
+  ],
   "registry": {
     "id": "6717eddd168d1cbcfbd09901",
     "github": "openneuropet/app-petdeface",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "PET image with its JSON sidecar (blood data optional).",
       "config_keys": [
         "pet_nii",
         "blood_tsv",
@@ -32,7 +39,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image of the same subject, used for registration and defacing.",
       "config_keys": [
         "t1"
       ]
@@ -43,13 +50,13 @@
       "id": "defaced_pet",
       "datatype": "neuro/pet",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Defaced PET image."
     },
     {
       "id": "defaced_t1",
       "datatype": "neuro/anat/t1w",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Defaced T1-weighted image."
     }
   ],
   "parameters": [
@@ -97,5 +104,25 @@
   "runtime": {
     "container": "openneuropet/petdeface:latest"
   },
-  "doi": "10.25663/brainlife.app.833"
+  "doi": "10.25663/brainlife.app.833",
+  "software": [
+    {
+      "name": "petdeface",
+      "url": "https://petdeface.readthedocs.io/en/latest/"
+    },
+    {
+      "name": "FreeSurfer MiDeFace",
+      "version": ">=7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/fswiki/MiDeFace"
+    },
+    {
+      "name": "Nipype"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "FREESURFER_LICENSE environment variable not set, exiting.",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    }
+  ]
 }

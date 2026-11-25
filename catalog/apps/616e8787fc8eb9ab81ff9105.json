@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "MNE - Autoreject",
   "version": "main",
-  "summary": "MNE Artifact Rejection based on Autoreject\nhttps://autoreject.github.io\n\n[1] Mainak Jas, Denis Engemann, Federico Raimondo, Yousra Bekhti, and Alexandre Gramfort, \"Automated rejection and repair of bad trials in MEG/EEG.\" In 6th International Workshop on Pattern Recognition in Neuroimaging (PRNI), 2016.",
-  "description": "MNE Artifact Rejection based on Autoreject\nhttps://autoreject.github.io\n\n[1] Mainak Jas, Denis Engemann, Federico Raimondo, Yousra Bekhti, and Alexandre Gramfort, \"Automated rejection and repair of bad trials in MEG/EEG.\" In 6th International Workshop on Pattern Recognition in Neuroimaging (PRNI), 2016.\n[2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and Alexandre Gramfort. 2017. \"Autoreject: Automated artifact rejection for MEG and EEG data\". NeuroImage, 159, 417-429.",
+  "summary": "Estimates MEG/EEG epoch rejection thresholds with autoreject and optionally repairs bad channels in epochs with autoreject or RANSAC (MNE-Python).",
+  "description": "Reads an MNE epochs file, optionally fits autoreject.AutoReject or autoreject.Ransac to repair or reject bad epochs, and computes a global peak-to-peak rejection dictionary with autoreject.get_rejection_threshold. Note: on this branch the code that saves the cleaned epochs and the reject-log figure is commented out, and the rejection dictionary is saved in out_dir (reject_dict.npy), so the registered outputs do not match what the code writes; the README describes a PSD App instead.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "preprocessing",
+    "quality-control",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "616e8787fc8eb9ab81ff9105",
     "github": "guiomar/app-artifact-rejection",
@@ -20,7 +27,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "MNE epochs file (-epo.fif).",
       "config_keys": [
         "epo"
       ]
@@ -74,7 +81,7 @@
     {
       "id": "method",
       "type": "enum",
-      "description": "unknown",
+      "description": "Repair method used when clean_epochs is true: autoreject (local thresholds) or ransac (bad channel detection).",
       "default": "autoreject",
       "options": [
         {
@@ -96,5 +103,27 @@
       "cpus": 8
     }
   },
-  "doi": "10.25663/brainlife.app.585"
+  "doi": "10.25663/brainlife.app.585",
+  "software": [
+    {
+      "name": "MNE-Python"
+    },
+    {
+      "name": "autoreject",
+      "url": "https://autoreject.github.io"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Jas M, Engemann D, Raimondo F, Bekhti Y, Gramfort A. Automated rejection and repair of bad trials in MEG/EEG. PRNI (2016)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7(267):1-13 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "[WIP] Create animation from trk",
   "version": "master",
-  "summary": "Generate animation of trk streamlines",
-  "description": "unknown",
+  "summary": "Work-in-progress utility that renders an animation of .trk streamlines over FreeSurfer cortical surfaces with Blender and outputs the rendered PNG frames.",
+  "description": "Converts the FreeSurfer lh/rh orig.nofix surfaces to STL with mris_convert, then renders 720 1920x1080 frames of the streamlines and surfaces with Blender 2.82. Marked work in progress; the frames are not assembled into a movie (the ffmpeg step is commented out). Needs a GPU.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "visualization"
+  ],
   "registry": {
     "id": "60a8274222b42a39e77140e5",
     "github": "soichih/app-trk2mp4",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Tractogram (.trk) to animate.",
       "config_keys": [
         "track"
       ]
@@ -29,7 +34,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer subject directory providing the cortical surfaces.",
       "config_keys": [
         "freesurfer"
       ]
@@ -42,7 +47,7 @@
       "datatype_tags": [
         "trk2mp4"
       ],
-      "description": "unknown"
+      "description": "Rendered animation frames (frame.N.png)."
     }
   ],
   "parameters": [],
@@ -52,5 +57,21 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.526"
+  "doi": "10.25663/brainlife.app.526",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    },
+    {
+      "name": "Blender",
+      "version": "2.82"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license (FREESURFER_LICENSE)."
+    }
+  ]
 }

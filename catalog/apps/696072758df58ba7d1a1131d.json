@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "LST-AI",
   "version": "brainlife",
-  "summary": "creating an LST-AI Brainlife.io app for neuroimaging",
-  "description": "unknown",
+  "summary": "Segments multiple sclerosis white matter lesions from T1-weighted and FLAIR images with LST-AI and outputs lesion masks.",
+  "description": "Thin wrapper that runs the LST-AI command (lst --t1 --flair --output) without modifying it. Use it for MS lesion segmentation when you have T1w and FLAIR of the same subject. The main script reads inputs from config.json keys that do not match the registered keys and calls lst without a container, so the App may not run as registered.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "machine-learning",
+    "segmentation"
+  ],
   "registry": {
     "id": "696072758df58ba7d1a1131d",
     "github": "lowripowell/lstaibrainlife",
@@ -57,5 +62,11 @@
   "runtime": {
     "container": "unknown"
   },
-  "doi": "10.25663/brainlife.app.886"
+  "doi": "10.25663/brainlife.app.886",
+  "software": [
+    {
+      "name": "LST-AI",
+      "url": "https://github.com/CompImg/LST-AI"
+    }
+  ]
 }

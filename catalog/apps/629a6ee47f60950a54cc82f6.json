@@ -3,9 +3,16 @@
   "name": "Structural connectivity & White Matter Classification (WMC) using DIPY",
   "version": "master",
   "summary": "Generate a structural connectivity matrix and a White Matter Classification structure for a given parcellation and tractogram.",
-  "description": "unknown",
+  "description": "Reduces the parcellation to the labels actually present, orients the streamlines and builds a region-by-region streamline count matrix with dipy.tracking.utils.connectivity_matrix. Each connected label pair also becomes a named tract in a white matter classification, so streamlines can be inspected per connection. An optional threshold removes connections with fewer streamlines (a fraction of the total when below 1, a count otherwise). The README is an unfilled template; tractogram and parcellation must be in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "connectomics",
+    "tractography",
+    "tract-segmentation",
+    "dipy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "629a6ee47f60950a54cc82f6",
     "github": "DanNBullock/app-DIPY-connectome_and_WMC_from_parc",
@@ -18,12 +25,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Volumetric parcellation with label.json naming each label; labels absent from the volume are dropped.",
       "config_keys": [
         "parc",
         "key",
         "label"
-      ]
+      ],
+      "requirements": "Same space as the tractogram."
     },
     {
       "id": "tractogram",
@@ -31,7 +39,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain .tck tractogram.",
       "config_keys": [
         "track"
       ]
@@ -42,13 +50,13 @@
       "id": "wmc",
       "datatype": "neuro/wmc",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "White matter classification (classification.mat) with one tract per connected pair of parcels."
     },
     {
       "id": "connectome",
       "datatype": "neuro/conmat",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Streamline-count connectivity matrix in brainlife conmat format (CSV with index and label files)."
     }
   ],
   "parameters": [
@@ -62,8 +70,25 @@
   "runtime": {
     "container": "brainlife/dipy:latest",
     "resources": {
-      "cpus": 16
+      "cpus": 16,
+      "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.640"
+  "doi": "10.25663/brainlife.app.640",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "wma_pyTools",
+      "url": "https://github.com/DanNBullock/wma_pyTools"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock"
+  ]
 }

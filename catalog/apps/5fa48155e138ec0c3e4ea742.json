@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Justin Reslice T1w App",
   "version": "master",
-  "summary": "This is a template for a python-based brainlife.io/app",
-  "description": "unknown",
+  "summary": "Reslices an ACPC-aligned T1-weighted image to a new voxel size with DIPY reslice.",
+  "description": "Loads the T1w image with nibabel and resamples it to the voxel size given in outres using dipy.align.reslice, writing a new t1.nii.gz. Use it to change the resolution of an anatomical image. Built from the brainlife python App template; the README is the unmodified template text and does not describe this App.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "dipy",
+    "nibabel",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5fa48155e138ec0c3e4ea742",
     "github": "jkilmarx/app-template-python",
@@ -20,7 +26,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "ACPC-aligned T1-weighted image to reslice.",
       "config_keys": [
         "t1"
       ]
@@ -33,14 +39,14 @@
       "datatype_tags": [
         "resliced"
       ],
-      "description": "unknown"
+      "description": "T1-weighted image resampled to the requested voxel size."
     }
   ],
   "parameters": [
     {
       "id": "outres",
       "type": "string",
-      "description": "unknown",
+      "description": "Output voxel size as three space-separated integers (x y z); values are converted with int(), so fractional sizes are not supported.",
       "default": "1 1 1",
       "placeholder": "1 1 1"
     }
@@ -48,8 +54,19 @@
   "runtime": {
     "container": "brainlife/dipy:1.1.1",
     "resources": {
-      "cpus": 16
+      "cpus": 16,
+      "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.447"
+  "doi": "10.25663/brainlife.app.447",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Hybrid QSM-weighted T1 Generator",
   "version": "main",
-  "summary": "Generates a hybrid contrast (HC) image that combines T1-weighted (T1w) MRI images and Quantitative Susceptibility Mapping (QSM) images. The HC image improves contrast in subcortical gray matter (SGM) structures, enhancing visibility and aiding in segmentation tasks.",
-  "description": "unknown",
+  "summary": "Generates a hybrid contrast image (HC = w1 x T1w + w2 x QSM) from a T1-weighted image and a QSM map with nibabel, improving subcortical gray matter contrast.",
+  "description": "Loads the T1w and QSM images, resamples the QSM to the T1 grid when shapes differ, and writes the weighted sum as a new T1w-type image. Use it to improve subcortical gray matter contrast before segmentation (e.g. FSL FIRST). The QSM map should be co-registered to the T1.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "qsm",
+    "nibabel",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6722807d851d5f6d75426b00",
     "github": "astewartau/hybrid-qsm-t1-brainlife",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image; defines the output grid.",
       "config_keys": [
         "t1"
       ]
@@ -29,10 +34,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Quantitative susceptibility map of the same subject.",
       "config_keys": [
         "qsm"
-      ]
+      ],
+      "requirements": "Must be aligned to the T1; it is resampled to the T1 grid if dimensions differ."
     }
   ],
   "outputs": [
@@ -66,5 +72,25 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.836"
+  "doi": "10.25663/brainlife.app.836",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "Python",
+      "version": "3.9"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. arXiv (2023)."
+    },
+    {
+      "text": "Feng X, et al. An improved FSL-FIRST pipeline for subcortical gray matter segmentation to study abnormal brain anatomy using quantitative susceptibility mapping (QSM). Magnetic Resonance Imaging (2017)."
+    }
+  ],
+  "maintainers": [
+    "Ashley Stewart"
+  ]
 }

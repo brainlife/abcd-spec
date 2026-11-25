@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Clustering edge time series",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Builds edge time series from regional fMRI time series (products of z-scored node signals) and clusters time points with k-means, outputting the cluster label of each frame.",
+  "description": "Reads a regional time-series TSV, drops all-zero columns, z-scores the data, forms edge time series as element-wise products for every region pair, and clusters the frames into nclus clusters with SciPy kmeans2. Use it for edge-centric analysis of fMRI functional connectivity states.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "fmri",
+    "connectomics",
+    "network-analysis",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "629e58a57f60950a54d386d2",
     "github": "FarnazZE/bnbl-brainlife-clustering-edge-time-series",
@@ -20,7 +25,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Regional fMRI time series as a TSV table (time points by regions).",
       "config_keys": [
         "tsv",
         "json"
@@ -32,7 +37,7 @@
       "id": "output",
       "datatype": "neuro/labels",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "CSV of the cluster label assigned to each time point, plus label.json mapping edge IDs to region pairs."
     }
   ],
   "parameters": [
@@ -50,5 +55,27 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.642"
+  "doi": "10.25663/brainlife.app.642",
+  "software": [
+    {
+      "name": "SciPy"
+    },
+    {
+      "name": "pandas"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Faskowitz J, Esfahlani FZ, Jo Y, Sporns O, Betzel RF. Edge-centric functional network representations of human cerebral cortex reveal overlapping system-level architecture. Nat Neurosci (2020)."
+    },
+    {
+      "text": "Esfahlani FZ, Jo Y, Faskowitz J, Byrge L, Kennedy DP, Sporns O, Betzel RF. High-amplitude cofluctuations in cortical activity drive functional connectivity. PNAS (2020)."
+    }
+  ],
+  "maintainers": [
+    "Farnaz Zamani Esfahlani"
+  ]
 }

@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Find frequency peak of PSD data",
   "version": "master",
-  "summary": "Detects peak frequency of PSD for each channel on a given bandwidth",
-  "description": "unknown",
+  "summary": "Finds the peak frequency of each channel's power spectral density within a chosen frequency band with MNE-Python and outputs a TSV of peaks and summary plots.",
+  "description": "Reads a PSD table (channels by frequencies), restricts it to frequencies between fmin and fmax, and finds the main spectral peak per channel with mne.preprocessing.peak_finder. Use it, for example, to estimate individual alpha peak frequency from MEG/EEG PSDs. It needs a PSD .tsv with a 'channels' column, such as produced by brainlife PSD Apps.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "eeg",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "60b895780ad40d2658ca61fb",
     "github": "guiomar/app-peak-frequency",
@@ -18,10 +23,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Power spectral density table (.tsv) with one row per channel and one column per frequency.",
       "config_keys": [
         "psd"
-      ]
+      ],
+      "requirements": "Must have a 'channels' column; frequency column names must be numeric."
     }
   ],
   "outputs": [
@@ -31,7 +37,7 @@
       "datatype_tags": [
         "peak_freq"
       ],
-      "description": "unknown",
+      "description": "psd.tsv with the peak frequency of each channel.",
       "datatype_tags_pass": "psd01"
     },
     {
@@ -40,7 +46,7 @@
       "datatype_tags": [
         "peak_freq"
       ],
-      "description": "unknown",
+      "description": "Histogram of peak frequencies across channels and per-channel PSD plots with the detected peaks.",
       "datatype_tags_pass": "psd01"
     }
   ],
@@ -65,5 +71,25 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.531"
+  "doi": "10.25663/brainlife.app.531",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev"
+    },
+    {
+      "name": "pandas"
+    },
+    {
+      "name": "seaborn"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. arXiv (2023)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
 }

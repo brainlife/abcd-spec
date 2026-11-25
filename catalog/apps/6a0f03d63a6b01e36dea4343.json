@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Connectivity Matrix Computation",
   "version": "v0.20",
-  "summary": "Computes structural connectivity matrix between areas of a brain template",
-  "description": "unknown",
+  "summary": "Computes a structural connectivity matrix between the regions of a volumetric parcellation from an MRtrix tractogram, using MRtrix3 tck2connectome or pairwise tckedit filtering.",
+  "description": "Parcellation mode of app-retinotopic-connectivity: assigns streamlines of the tractogram to the labels of the input parcellation and counts connections normalized by ROI volume, either with tck2connectome (endpoint assignment, fast) or pairwise tckedit filtering (stricter). Use it to get a region-by-region structural connectome, optionally restricted to a subset of labels. The tractogram and parcellation must be in the same space; the README mainly documents the retinotopic (pRF) mode of the same code.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "connectomics",
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6a0f03d63a6b01e36dea4343",
     "github": "gamorosino/app-retinotopic-connectivity",
@@ -18,10 +24,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Whole-brain MRtrix .tck tractogram.",
       "config_keys": [
         "track"
-      ]
+      ],
+      "requirements": "Must be in the same space as the parcellation."
     },
     {
       "id": "parc",
@@ -29,12 +36,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Volumetric parcellation with its label.json (names of voxel values), used as the connectome nodes.",
       "config_keys": [
         "parc",
         "key",
         "label"
-      ]
+      ],
+      "requirements": "Must be in the same space as the tractogram."
     }
   ],
   "outputs": [
@@ -42,13 +50,13 @@
       "id": "figures",
       "datatype": "generic/images",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "PNG figures of the connectivity matrix, listed in images.json."
     },
     {
       "id": "matrices",
       "datatype": "neuro/conmat",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Connectivity matrix as CSV (streamline density) with index.json and label.json."
     }
   ],
   "parameters": [
@@ -106,5 +114,33 @@
   "runtime": {
     "container": "gamorosino/tract_align:v1.1"
   },
-  "doi": "10.25663/brainlife.app.931"
+  "doi": "10.25663/brainlife.app.931",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Amorosino G, Caron B, Kwon J, Carrasco M, Reid RC, Lenglet C, ... Pestilli F. A retinotopic wiring principle of the human brain. bioRxiv (2026)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier JD et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage (2019)."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S et al. brainlife.io: a decentralized platform for reproducible neuroscience. Nature Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: Missing parc file",
+      "fix": "Provide a parcellation input with parc.nii.gz."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

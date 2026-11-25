@@ -2,17 +2,21 @@
   "spec": "brainlife-app/2.0",
   "name": "C-PAC",
   "version": "main",
-  "summary": "This is the official C-PAC (Configurable Pipeline for the Analysis of Connectomes) brainlife.io app. Currently this app runs either the default pipeline or one of our preconfigured pipelines.",
-  "description": "unknown",
+  "summary": "Runs the C-PAC (Configurable Pipeline for the Analysis of Connectomes) BIDS App on a T1w image and task fMRI, with the default or a preconfigured pipeline, and outputs the C-PAC derivatives.",
+  "description": "Pulls the latest C-PAC Singularity image, converts the brainlife inputs to BIDS with bl2bids and runs C-PAC at participant level. Choose a preconfigured pipeline with preconfig, otherwise the default pipeline runs. Use it for fMRI preprocessing and connectome derivatives; expect long run times (up to 48 h).",
   "kind": "native",
   "topics": [
     "analysis",
+    "anatomy",
+    "bids",
+    "brainlife-app",
     "closember",
     "connectomics",
     "fmri",
     "hacktoberfest",
     "mri",
-    "pipeline"
+    "pipeline",
+    "preprocessing"
   ],
   "registry": {
     "id": "5f3593e84615e04651bf9364",
@@ -26,7 +30,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical image.",
       "config_keys": [
         "t1"
       ]
@@ -37,7 +41,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Functional (task or rest) BOLD fMRI.",
       "config_keys": [
         "bold",
         "events",
@@ -56,7 +60,7 @@
       "datatype_tags": [
         "c-pac"
       ],
-      "description": "unknown"
+      "description": "C-PAC output directory (derivatives and logs; working directory if saveWorkingDir is set)."
     }
   ],
   "parameters": [
@@ -83,5 +87,11 @@
       "walltime_hours": 48
     }
   },
-  "doi": "10.25663/brainlife.app.399"
+  "doi": "10.25663/brainlife.app.399",
+  "software": [
+    {
+      "name": "C-PAC",
+      "url": "https://fcp-indi.github.io/docs/latest/user"
+    }
+  ]
 }

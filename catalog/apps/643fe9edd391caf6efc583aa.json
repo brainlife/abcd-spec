@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Reject ICA components",
   "version": "v1.0",
-  "summary": "Remove selected components from the signal using the MNE ICA.apply() function.\nGiven the unmixing matrix, transform the data, zero out all excluded components, and inverse-transform the data. This procedure will reconstruct M/EEG signals from which the dynamics described by the excluded components is subtracted.",
-  "description": "unknown",
+  "summary": "Removes ICA components from epoched MEG/EEG data with MNE-Python ICA.apply, using manually listed and/or automatically detected EOG and ECG components, with an overlay figure and HTML report.",
+  "description": "Reads epochs and a fitted ICA solution, builds the exclusion list from the components already marked in the ICA, the indices in exclude and, optionally, components detected by find_bads_eog and find_bads_ecg, then reconstructs the epochs without them. Use it after fitting ICA to clean ocular and cardiac artifacts. The optional rejects input is not read by the code.",
   "kind": "native",
   "topics": [
-    "meeg"
+    "meeg",
+    "meg",
+    "eeg",
+    "preprocessing",
+    "denoising",
+    "mne-python",
+    "brainlife-app"
   ],
   "registry": {
     "id": "643fe9edd391caf6efc583aa",
@@ -20,7 +26,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG/EEG data (-epo.fif).",
       "config_keys": [
         "epo"
       ]
@@ -31,7 +37,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Fitted ICA decomposition of the same data (e.g. from an ICA-fit App).",
       "config_keys": [
         "ica"
       ]
@@ -50,7 +56,8 @@
         "events",
         "events_json",
         "info"
-      ]
+      ],
+      "requirements": "Not read by the current code."
     }
   ],
   "outputs": [
@@ -66,13 +73,13 @@
       "id": "out_figs",
       "datatype": "generic/image/png",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "plot_overlay.png comparing the data before and after removing the components."
     },
     {
       "id": "out_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML QC report with the ICA decomposition and the excluded components."
     }
   ],
   "parameters": [
@@ -120,5 +127,26 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.764"
+  "doi": "10.25663/brainlife.app.764",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Saeed Zahran",
+    "Maximilien Chaumon"
+  ]
 }

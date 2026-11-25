@@ -2,11 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Split MEG file",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Splits a raw MEG recording into two FIF files covering two user-defined time windows, using MNE-Python.",
+  "description": "Reads the raw MEG file with MNE-Python and saves the segment from t1min to t1max as the first output and the segment from t2min to t2max as the second. Use it to separate, for example, two runs or conditions recorded in one file. Times are in seconds and must lie within the recording.",
   "kind": "native",
   "topics": [
-    "meg"
+    "meg",
+    "mne-python",
+    "preprocessing",
+    "brainlife-app"
   ],
   "registry": {
     "id": "60b139f022b42a6dc5771dd2",
@@ -20,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Raw MEG recording readable by mne.io.read_raw (e.g. FIF).",
       "config_keys": [
         "mne"
       ]
@@ -35,7 +38,7 @@
         "preproc",
         "part1"
       ],
-      "description": "unknown",
+      "description": "FIF file with the first time window (t1min to t1max).",
       "datatype_tags_pass": "raw01"
     },
     {
@@ -46,7 +49,7 @@
         "preproc",
         "part2"
       ],
-      "description": "unknown",
+      "description": "FIF file with the second time window (t2min to t2max).",
       "datatype_tags_pass": "raw01"
     }
   ],
@@ -54,33 +57,50 @@
     {
       "id": "t1min",
       "type": "number",
-      "description": "In seconds",
+      "description": "Start of the first segment, in seconds.",
       "default": 0
     },
     {
       "id": "t1max",
       "type": "string",
-      "description": "In seconds",
+      "description": "End of the first segment, in seconds.",
       "default": "100"
     },
     {
       "id": "t2min",
       "type": "number",
-      "description": "In seconds",
+      "description": "Start of the second segment, in seconds.",
       "default": 100
     },
     {
       "id": "t2max",
       "type": "number",
-      "description": "In seconds",
+      "description": "End of the second segment, in seconds.",
       "default": 200
     }
   ],
   "runtime": {
     "container": "brainlife/mne:0.23dev",
     "resources": {
-      "cpus": 8
+      "cpus": 8,
+      "walltime_hours": 0.17
     }
   },
-  "doi": "10.25663/brainlife.app.529"
+  "doi": "10.25663/brainlife.app.529",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "0.23dev",
+      "url": "https://mne.tools/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso"
+  ]
 }

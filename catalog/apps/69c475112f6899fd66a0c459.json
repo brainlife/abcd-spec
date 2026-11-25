@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "app-set-dwi-datatype_tag-preprocessed",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Utility that copies a DWI (with bvals and bvecs) unchanged so the output carries the preprocessed datatype tag.",
+  "description": "Copies the input files unchanged to the output (no image processing is done, the main script only copies files with jq and cp). Use it to relabel a dataset with the datatype tag shown on the output when the processing it reflects was done elsewhere. Do not use it to actually process data.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "69c475112f6899fd66a0c459",
     "github": "gamorosino/foo",
@@ -20,7 +23,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI image with bvals and bvecs; all three files must exist to be copied.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -37,7 +40,7 @@
       "datatype_tags": [
         "preprocessed"
       ],
-      "description": "unknown"
+      "description": "The same DWI, bvals and bvecs, copied unchanged and tagged preprocessed."
     }
   ],
   "parameters": [],

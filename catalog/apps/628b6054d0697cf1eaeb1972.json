@@ -3,9 +3,14 @@
   "name": "CTF to mne/raw ",
   "version": "v1.0",
   "summary": "Converts MEG CTF data to MNE Raw (fif)",
-  "description": "unknown",
+  "description": "Copies the CTF .ds folder to a temporary location, reads it with mne.io.read_raw_ctf, detects events, marks strictly flat channels and user-listed channels as bad, sets EOG/ECG/MISC channel types, and saves raw.fif with an HTML QC report and a PSD plot. Use it as the first step to bring CTF MEG recordings into MNE-based brainlife pipelines. The eeg parameter is not read by the code.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "meg",
+    "conversion",
+    "mne-python",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "628b6054d0697cf1eaeb1972",
     "github": "BrainlifeMEEG/ctf2mne",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "CTF MEG .ds recording folder with its BIDS headshape, channels, coordsystem and events sidecars.",
       "config_keys": [
         "ds",
         "headshape",
@@ -81,7 +86,7 @@
     {
       "id": "eeg",
       "type": "string",
-      "description": "EEG channels (comma separated list).",
+      "description": "Not read by the code (main.py handles eog, ecg, misc, bads and rm_flat only).",
       "default": "",
       "required": false
     }
@@ -90,8 +95,35 @@
     "container": "brainlifemeeg/mne:1.12.1",
     "resources": {
       "cpus": 8,
-      "memory_gb": 16
+      "memory_gb": 16,
+      "walltime_hours": 0.17
     }
   },
-  "doi": "10.25663/brainlife.app.634"
+  "doi": "10.25663/brainlife.app.634",
+  "license": "AGPL-3.0",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    },
+    {
+      "name": "MNE-BIDS"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024)."
+    },
+    {
+      "doi": "10.3389/fnins.2013.00267",
+      "text": "Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013)."
+    }
+  ],
+  "maintainers": [
+    "Guiomar Niso",
+    "Maximilien Chaumon",
+    "Anandapadmanabhan Unnikrishnan"
+  ]
 }

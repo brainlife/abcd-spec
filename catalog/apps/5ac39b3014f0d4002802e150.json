@@ -2,11 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "BIDS Mrtrix3 Connectome",
   "version": "master",
-  "summary": "BIDS app for Mrtrix3 Connectome DTI processing for BrainLife. Generates subject connectomes from raw image data using tools provided in the *MRtrix3* software package. http://www.mrtrix.org/. Optional preprocessing includes FSL's topup analysis for spatial correction and requires at least 2 input DTI images.",
-  "description": "unknown",
+  "summary": "Builds a subject structural connectome from DWI and a T1-weighted image with the MRtrix3_connectome BIDS App (0.2.2), with optional dwipreproc preprocessing and an AAL or FreeSurfer parcellation.",
+  "description": "Arranges the T1w and one or more DWI runs into a BIDS directory and runs the bids/mrtrix3_connectome participant-level pipeline (MRtrix3 tractography and connectome construction) with the chosen parcellation and streamline count. Use it to obtain a tractography-based connectome from raw or preprocessed DWI in one step. Running the built-in preprocessing (preprocessed unchecked) needs at least two DWI runs whose metadata include TotalReadoutTime and PhaseEncodingDirection. The whole BIDS App output directory is returned as a raw dataset.",
   "kind": "native",
   "topics": [
-    "pipeline"
+    "pipeline",
+    "dwi",
+    "tractography",
+    "connectomics",
+    "mrtrix3",
+    "bids",
+    "brainlife-app"
   ],
   "registry": {
     "id": "5ac39b3014f0d4002802e150",
@@ -20,12 +26,13 @@
       "datatype_tags": [],
       "optional": false,
       "multi": true,
-      "description": "unknown",
+      "description": "One or more DWI runs (with bvals and bvecs) of the subject; multiple runs become run-01, run-02, ... in the BIDS input.",
       "config_keys": [
         "bvals",
         "bvecs",
         "dwi"
-      ]
+      ],
+      "requirements": "For preprocessing, at least two runs with TotalReadoutTime and PhaseEncodingDirection in the metadata."
     },
     {
       "id": "t1",
@@ -33,7 +40,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical image of the same subject.",
       "config_keys": [
         "t1"
       ]
@@ -46,7 +53,7 @@
       "datatype_tags": [
         "mrtrix3_connectome"
       ],
-      "description": "unknown"
+      "description": "The MRtrix3_connectome participant output directory (connectome matrices and intermediate files) for the subject."
     }
   ],
   "parameters": [
@@ -92,5 +99,29 @@
       "walltime_hours": 24
     }
   },
-  "doi": "10.25663/bl.app.77"
+  "doi": "10.25663/bl.app.77",
+  "software": [
+    {
+      "name": "MRtrix3_connectome BIDS App",
+      "version": "0.2.2",
+      "url": "https://github.com/BIDS-Apps/MRtrix3_connectome"
+    },
+    {
+      "name": "MRtrix3",
+      "url": "http://www.mrtrix.org/"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Two DWI images are required to run mrtrix3_connectome preprocessing.",
+      "fix": "Provide at least two DWI runs, or keep preprocessed checked."
+    },
+    {
+      "message": "TotalReadoutTime and PhaseEncodingDirection BIDS fields reqd to run mrtrix3_connectome preproc.",
+      "fix": "Add TotalReadoutTime and PhaseEncodingDirection to the DWI metadata, or keep preprocessed checked."
+    }
+  ]
 }

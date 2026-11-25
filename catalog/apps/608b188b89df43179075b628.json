@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "Compute T1 and R1 maps from MP2RAGE",
   "version": "main",
-  "summary": "Computes T1map and R1map images when provided a denoised mp2rage t1 image (see app-mp2rage-denoiseUNI).",
-  "description": "unknown",
+  "summary": "Estimates quantitative T1 and R1 maps from a denoised Siemens MP2RAGE acquisition with a lookup-table method (compiled MATLAB, adapted from MP2RAGE-related-scripts).",
+  "description": "Reads the INV1, INV2 and UNI images with their JSON sidecars, builds the MP2RAGE signal lookup table from the sequence parameters and converts the UNI image into T1 and R1 (1/T1) maps; QA plots of the B1 sensitivity and value histograms are added to the product. Run app-mp2rage-denoiseUNI first. Only Siemens MP2RAGE data are supported; slicesperslab must be given when it is not in the image header.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "608b188b89df43179075b628",
     "github": "svincibo/app-mp2rage-computeT1andR1",
@@ -20,7 +23,7 @@
       ],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Denoised MP2RAGE dataset: INV1 and INV2 magnitude images, the UNI image and their JSON sidecars (sequence parameters are read from them).",
       "config_keys": [
         "mag_inv1",
         "mag_inv2",
@@ -36,7 +39,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Optional brain mask applied to the maps.",
       "config_keys": [
         "mask"
       ]
@@ -67,5 +70,34 @@
       "cpus": 1
     }
   },
-  "doi": "10.25663/brainlife.app.514"
+  "doi": "10.25663/brainlife.app.514",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2020a"
+    },
+    {
+      "name": "MP2RAGE-related-scripts",
+      "url": "https://github.com/JosePMarques/MP2RAGE-related-scripts"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1371/journal.pone.0069294",
+      "text": "Marques JP, Gruetter R. New developments and applications of the MP2RAGE sequence - focusing the contrast and high spatial resolution R1 mapping. PLoS One 8(7):e69294 (2013)."
+    },
+    {
+      "text": "Caan MWA, et al. MP2RAGEME: T1, T2*, and QSM mapping in one sequence at 7 tesla. Hum Brain Map 40(6):1786-1798 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mp2rage_computeT1andR1.m didn't produce a T1.nii.gz file",
+      "fix": "Check that the INV1, INV2 and UNI JSON sidecars contain the sequence parameters and set slicesperslab if it is missing."
+    }
+  ]
 }

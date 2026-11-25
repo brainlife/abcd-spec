@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Make BEM model",
   "version": "v1.0",
-  "summary": "Brainlife app to compute a BEM (Boundary Element Model) from a FreeSurfer recon-all output.",
-  "description": "unknown",
+  "summary": "Builds a BEM conductor model for MEG/EEG forward modelling from a FreeSurfer subject with MNE-Python, running the watershed algorithm if BEM surfaces are missing, with QC figures and a report.",
+  "description": "If inner skull, outer skull and outer skin surfaces are not in the subject's bem/ folder, runs mne watershed_bem; then calls mne.make_bem_model with 1 or 3 layers and the chosen ico subdivision and mne.make_bem_solution, saving the solution with a QC thumbnail and an interactive HTML report. Use 3 layers for EEG or combined MEG+EEG and 1 layer for MEG only. Needs a FreeSurfer license.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "freesurfer",
+    "meg",
+    "mne-python",
+    "source-localization"
+  ],
   "registry": {
     "id": "69a975972b471cb9af9a2b53",
     "github": "BrainlifeMEEG/make-bem",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer recon-all subject directory.",
       "config_keys": [
         "freesurfer"
       ]
@@ -31,13 +38,13 @@
       "datatype_tags": [
         "bem"
       ],
-      "description": "unknown"
+      "description": "BEM conductor model solution (meg.fif) for forward modelling."
     },
     {
       "id": "out_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Interactive HTML report with BEM contours over MRI slices."
     }
   ],
   "parameters": [
@@ -78,5 +85,21 @@
       "FS_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.899"
+  "doi": "10.25663/brainlife.app.899",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.4.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE or FS_LICENSE in resource environment",
+      "fix": "Configure a FreeSurfer license on the compute resource."
+    }
+  ]
 }

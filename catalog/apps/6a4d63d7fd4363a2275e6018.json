@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "Streamline Cleaning (Multiple Tracts)",
   "version": "v0.2.3",
-  "summary": "An app that removes spurious streamlines from tractography data using length, loop, and outlier filtering with optional Purifibre refinement.",
-  "description": "unknown",
+  "summary": "Removes spurious streamlines from each tract in a set of .tck files with length, loop (angle and QuickBundles) and scilpy outlier filtering, plus optional Purifibre refinement.",
+  "description": "Applies filter_spurious_streamlines.sh independently to every .tck in the input tract set: optional Purifibre first pass, length filtering, loop filtering, scilpy outlier rejection and optional Purifibre final pass. If a step fails the pipeline continues from the last valid track. Use it to clean segmented bundles before tractometry; for a single tractogram use the single-track version.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "quality-control",
+    "tractography"
+  ],
   "registry": {
     "id": "6a4d63d7fd4363a2275e6018",
     "github": "gamorosino/app-streamline-cleaning",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Set of tracts, one .tck file per bundle.",
       "config_keys": [
         "tcks",
         "tcks_json"
@@ -30,7 +35,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Reference anatomical image passed to the scilpy steps.",
       "config_keys": [
         "reference"
       ]
@@ -41,67 +46,72 @@
       "id": "clean_tracts",
       "datatype": "neuro/tcks",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "Cleaned tracts, one .tck per input file with the original names."
     }
   ],
   "parameters": [
     {
       "id": "min_length",
       "type": "number",
-      "description": "unknown",
+      "description": "Minimum streamline length; shorter streamlines are removed (0 if empty).",
       "minimum": 0,
-      "required": false
+      "required": false,
+      "units": "mm"
     },
     {
       "id": "max_length",
       "type": "number",
-      "description": "unknown",
+      "description": "Maximum streamline length; longer streamlines are removed.",
       "minimum": 0,
-      "required": false
+      "required": false,
+      "units": "mm"
     },
     {
       "id": "angle",
       "type": "number",
-      "description": "unknown",
+      "description": "Maximum turning angle used for loop rejection.",
       "default": 360,
-      "required": false
+      "required": false,
+      "units": "degrees"
     },
     {
       "id": "loop_qb_thr",
       "type": "number",
-      "description": "unknown",
+      "description": "QuickBundles distance threshold for loop filtering.",
       "default": 8,
-      "required": false
+      "required": false,
+      "units": "mm"
     },
     {
       "id": "no_qb_loops",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Disable QuickBundles-based loop detection.",
       "default": false
     },
     {
       "id": "alpha",
       "type": "number",
-      "description": "unknown",
+      "description": "scilpy outlier rejection alpha (scilpy default 0.6; README recommends 0.3-0.4).",
       "required": false
     },
     {
       "id": "no_outlier_rejection",
       "type": "boolean",
-      "description": "unknown",
+      "description": "Skip the scilpy outlier rejection step.",
       "default": true
     },
     {
       "id": "purifibre",
       "type": "number",
-      "description": "unknown",
+      "description": "Percentage of streamlines Purifibre removes in a final pass (empty to skip).",
       "default": 5,
-      "required": false
+      "required": false,
+      "units": "percent"
     },
     {
       "id": "nthreads",
       "type": "number",
-      "description": "unknown",
+      "description": "Number of threads for loop detection.",
       "default": 1,
       "advanced": true
     }
@@ -113,5 +123,38 @@
       "walltime_hours": 4
     }
   },
-  "doi": "10.25663/brainlife.app.947"
+  "doi": "10.25663/brainlife.app.947",
+  "software": [
+    {
+      "name": "scilpy"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "Purifibre",
+      "version": "0.1"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Amorosino G, Caron B, Kwon J, et al., Pestilli F. A retinotopic wiring principle of the human brain. bioRxiv (2026)."
+    },
+    {
+      "text": "Renauld E, et al. Tractography analysis with the scilpy toolbox. Aperture Neuro (2026)."
+    },
+    {
+      "text": "Aydogan DB. Fiber coupling (FICO) measure using anisotropic smoothing of track orientation density images for tractogram filtering. ISMRM 2022."
+    },
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "[ERROR] Input track not found",
+      "fix": "Check that the input contains the .tck files."
+    }
+  ]
 }

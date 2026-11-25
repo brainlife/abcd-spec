@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "SynthStrip (GPU) T1w",
   "version": "main",
-  "summary": "An automated, containerized workflow that performs robust brain extraction (a.k.a. skull-stripping) on either a T1-weighted or T2-weighted anatomical MRI using the Deep Learning FreeSurfer\u2019s tool SynthStrip (Hoopes A. et al, 2022)(Kelley W. et al, 2024).",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FreeSurfer SynthStrip (mri_synthstrip, deep learning, GPU or CPU) and outputs the brain-extracted image and a binary brain mask.",
+  "description": "Runs mri_synthstrip from the freesurfer/synthstrip 1.7 container on a single T1-weighted NIfTI. By default it runs on a GPU (the -gpu container with Singularity --nv); set use_gpu to false to run on CPU. Optionally excludes CSF from the mask (no_csf). Use it as a robust, contrast-agnostic brain extraction step before registration or segmentation.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "machine-learning",
+    "preprocessing",
+    "segmentation"
+  ],
   "registry": {
     "id": "682d2f5e0c9315be199006d4",
     "github": "gamorosino/app-synthstrip-gpu",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted anatomical image (NIfTI) to skull-strip.",
       "config_keys": [
         "t1"
       ]
@@ -53,11 +60,33 @@
     }
   ],
   "runtime": {
-    "container": "unknown",
+    "container": "freesurfer/synthstrip:1.7-gpu",
     "resources": {
       "cpus": 1,
       "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.862"
+  "doi": "10.25663/brainlife.app.862",
+  "software": [
+    {
+      "name": "SynthStrip",
+      "version": "1.7",
+      "url": "https://surfer.nmr.mgh.harvard.edu/docs/synthstrip/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hoopes A, Mora JS, Dalca AV, Fischl B, Hoffmann M. SynthStrip: skull-stripping for any brain image. NeuroImage 260:119474 (2022)."
+    },
+    {
+      "text": "Kelley W, Ngo N, Dalca AV, Fischl B, Z\u00f6llei L, Hoffmann M. Boosting skull-stripping performance for pediatric brain images. 2024 IEEE ISBI, pp. 1-5 (2024)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Datatype not supported",
+      "cause": "Neither t1 nor t2 is set in config.json.",
+      "fix": "Provide exactly one anatomical input (t1 or t2)."
+    }
+  ]
 }

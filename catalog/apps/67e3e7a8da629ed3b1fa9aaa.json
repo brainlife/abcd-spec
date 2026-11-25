@@ -2,10 +2,12 @@
   "spec": "brainlife-app/2.0",
   "name": "Suma app",
   "version": "main",
-  "summary": "PROTOTIPO APP BRAINLIFE",
-  "description": "unknown",
+  "summary": "Prototype test App (compiled MATLAB) that adds 1 to the parameter n1 and saves the sum to a .mat file; the T1w input is not used.",
+  "description": "Course or prototype App for testing brainlife MATLAB packaging. It reads n1 from config.json, computes 1 + n1 and writes out_dir/suma.mat. It does no image processing and should not be used for analysis.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app"
+  ],
   "registry": {
     "id": "67e3e7a8da629ed3b1fa9aaa",
     "github": "nicomm2002/app-suma",
@@ -18,7 +20,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted image (required by the registration but not read by the code).",
       "config_keys": [
         "t1"
       ]
@@ -31,14 +33,14 @@
       "datatype_tags": [
         "outdir"
       ],
-      "description": "unknown"
+      "description": "suma.mat containing the computed sum."
     }
   ],
   "parameters": [
     {
       "id": "n1",
       "type": "number",
-      "description": "unknown",
+      "description": "Number added to 1.",
       "default": 2
     }
   ],
@@ -49,5 +51,11 @@
       "walltime_hours": 0.25
     }
   },
-  "doi": "10.25663/brainlife.app.854"
+  "doi": "10.25663/brainlife.app.854",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ]
 }

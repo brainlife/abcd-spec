@@ -2,10 +2,14 @@
   "spec": "brainlife-app/2.0",
   "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
   "version": "two-tck",
-  "summary": "This is copy of the mergeTCK BL app (https://doi.org/10.25663/brainlife.app.219) modified to take two tractograms as input. This is a temporary workaround for the lack of functionality for multi-input datatypes in brainilfe Pipelines.",
-  "description": "unknown",
+  "summary": "Merges two tractograms into one .tck file with MRtrix3 tckedit.",
+  "description": "Concatenates the streamlines of two .tck tractograms into track/track.tck using MRtrix3 tckedit. It is a two-input copy of the mergeTCK App, made as a workaround for brainlife pipelines that cannot pass multi-input datasets. Both tractograms should be in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5e8b98eb952fef035f7b1653",
     "github": "bacaron/app-mergeTCK",
@@ -18,7 +22,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "First tractogram (.tck) to merge.",
       "config_keys": [
         "track1"
       ]
@@ -29,7 +33,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Second tractogram (.tck) to merge.",
       "config_keys": [
         "track2"
       ]
@@ -42,7 +46,7 @@
       "datatype_tags": [
         "merged"
       ],
-      "description": "unknown"
+      "description": "Single .tck tractogram containing the streamlines of both inputs."
     }
   ],
   "parameters": [],
@@ -52,5 +56,23 @@
       "cpus": 4
     }
   },
-  "doi": "10.25663/brainlife.app.305"
+  "doi": "10.25663/brainlife.app.305",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "tckedit did not produce track/track.tck.",
+      "fix": "Check that both inputs are valid .tck files."
+    }
+  ],
+  "maintainers": [
+    "Sophia Vinci-Booher",
+    "Brad Caron"
+  ]
 }

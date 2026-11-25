@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "extract_b0_masks",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Extracts each b0 volume from a DWI series and computes brain masks for it with DIPY median_otsu and FSL BET, plus a consensus mask.",
+  "description": "For every b=0 volume (bval within 50 of zero) it saves the volume, a median_otsu brain and mask, a BET mask (-f 0.2) and their product as a consensus mask, processing volumes in parallel. Use it to compare or QC b0 brain masks across a DWI run. The script writes its files next to the input DWI rather than into the output folder.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "fsl",
+    "preprocessing",
+    "quality-control"
+  ],
   "registry": {
     "id": "61d5e77d33cb3deb49834d4a",
     "github": "dPys/app-extract_b0_masks",
@@ -18,7 +25,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "DWI series with bvals; b0 volumes are identified from the bvals.",
       "config_keys": [
         "dwi",
         "bvecs",
@@ -33,7 +40,7 @@
       "id": "b0_extractions",
       "datatype": "neuro/dwi/b0",
       "datatype_tags": [],
-      "description": "unknown",
+      "description": "Extracted b0 volumes with median_otsu, BET and consensus brain masks.",
       "datatype_tags_pass": "dwi"
     }
   ],
@@ -46,5 +53,16 @@
       "walltime_hours": 0.5
     }
   },
-  "doi": "10.25663/brainlife.app.600"
+  "doi": "10.25663/brainlife.app.600",
+  "software": [
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ]
 }

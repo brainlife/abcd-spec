@@ -2,10 +2,16 @@
   "spec": "brainlife-app/2.0",
   "name": "Compute Noise Covariance",
   "version": "v1.0",
-  "summary": "This Brainlife.io app computes the noise covariance matrix for MEG/EEG data from baseline or empty-room recordings. If no options are provided or an error occurs, it generates an ad hoc diagonal noise covariance matrix to allow processing to continue.",
-  "description": "unknown",
+  "summary": "Estimates the MEG/EEG noise covariance matrix with MNE-Python from an empty-room recording or the pre-stimulus baseline of epochs (or an ad hoc diagonal covariance from evoked data), with diagnostic plots and a report.",
+  "description": "Uses the first available input in priority order: an empty-room recording (mne.compute_raw_covariance), evoked data (diagonal ad hoc covariance, only if ad_hoc_fallback is true), or epochs (mne.compute_covariance on the tmin-tmax baseline). Optionally flags and interpolates channels with outlying variance first. Writes cov.fif, diagnostic plots and an HTML report with rank and conditioning messages. Use it before building an inverse operator; prefer empty-room data or a pre-stimulus baseline over the ad hoc fallback. The ica input is not read by main.py.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "eeg",
+    "meg",
+    "mne-python",
+    "source-localization"
+  ],
   "registry": {
     "id": "698f0a5e88100c81ffc8a41d",
     "github": "BrainlifeMEEG/noise-covariance",
@@ -29,7 +35,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "Epoched MEG/EEG data; the pre-stimulus baseline (tmin to tmax) is used to estimate noise covariance.",
       "config_keys": [
         "epochs"
       ]
@@ -51,7 +57,7 @@
       "datatype_tags": [],
       "optional": true,
       "multi": false,
-      "description": "unknown",
+      "description": "ICA solution (MNE); not used by main.py in this version.",
       "config_keys": [
         "ica"
       ]
@@ -68,7 +74,7 @@
       "id": "out_report",
       "datatype": "report/html",
       "datatype_tags": [],
-      "description": "unknown"
+      "description": "HTML report with covariance matrix, noise spectra and (for epochs) whitening diagnostics."
     }
   ],
   "parameters": [
@@ -151,5 +157,12 @@
       "walltime_hours": 2
     }
   },
-  "doi": "10.25663/brainlife.app.891"
+  "doi": "10.25663/brainlife.app.891",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "version": "1.12.1",
+      "url": "https://mne.tools/"
+    }
+  ]
 }

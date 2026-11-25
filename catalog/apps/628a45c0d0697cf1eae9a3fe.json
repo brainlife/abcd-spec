@@ -2,10 +2,17 @@
   "spec": "brainlife-app/2.0",
   "name": "Track the aLIC",
   "version": "master",
-  "summary": "Track the anterior limb of the internal capsule with streamline tractography using MRTRIX3",
-  "description": "unknown",
+  "summary": "Tracks the anterior limb of the internal capsule (aLIC) with MRtrix3 ensemble tractography between FreeSurfer-derived anatomical landmarks and segments it into superior and inferior components, outputting a .tck and a WMC.",
+  "description": "Identifies the anterior limb white matter volume from FreeSurfer landmarks, runs targeted ensemble tractography (parameter sweep over curvature, lmax and tracking algorithms) with MRtrix3, and segments the result into a canonical superior and a non-canonical inferior aLIC component. Use it to study the morphology, trajectory and connectivity of the aLIC. DWI, T1w and FreeSurfer output must be preprocessed and aligned to one another; runtime grows with the number of streamlines requested.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "mrtrix3",
+    "freesurfer",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "628a45c0d0697cf1eae9a3fe",
     "github": "DanNBullock/app-track_aLIC",
@@ -18,14 +25,15 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Preprocessed DWI with bvecs and bvals.",
       "config_keys": [
         "diff",
         "bvec",
         "bval",
         "sbref",
         "sbref_json"
-      ]
+      ],
+      "requirements": "Aligned with the T1w and FreeSurfer output."
     },
     {
       "id": "freesurfer",
@@ -33,10 +41,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "FreeSurfer recon-all output of the subject, used to locate the aLIC landmarks.",
       "config_keys": [
         "freesurfer"
-      ]
+      ],
+      "requirements": "Aligned with the DWI."
     },
     {
       "id": "anat",
@@ -44,10 +53,11 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Preprocessed T1-weighted image used for 5ttgen tissue segmentation.",
       "config_keys": [
         "anat"
-      ]
+      ],
+      "requirements": "Aligned with the DWI."
     }
   ],
   "outputs": [
@@ -57,7 +67,7 @@
       "datatype_tags": [
         "aLIC"
       ],
-      "description": "unknown"
+      "description": "Tractogram (.tck) from the targeted ensemble tracking."
     },
     {
       "id": "wmc",
@@ -65,7 +75,7 @@
       "datatype_tags": [
         "aLIC"
       ],
-      "description": "unknown"
+      "description": "White matter classification with the superior and inferior aLIC components of the tractogram."
     }
   ],
   "parameters": [
@@ -174,7 +184,7 @@
     {
       "id": "imaxs",
       "type": "number",
-      "description": "unknown",
+      "description": "Maximum lmax (or list of lmax values) to fit and track; if not given, the maximum lmax supported by the data is used.",
       "default": 8,
       "placeholder": "The lmax(s) or maximum value to fit and create tractography data. If not provided, the App will find the maximum possible lmax within the data and use that."
     }
@@ -186,5 +196,28 @@
       "walltime_hours": 8
     }
   },
-  "doi": "10.25663/brainlife.app.630"
+  "doi": "10.25663/brainlife.app.630",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1371/journal.pcbi.1004692",
+      "text": "Takemura H., Caiafa C. F., Wandell B. A., Pestilli F. Ensemble tractography. PLoS Computational Biology 12(2):e1004692 (2016)."
+    },
+    {
+      "doi": "10.1523/JNEUROSCI.2335-17.2017",
+      "text": "Anterior limb of the internal capsule reference cited in the README (J Neurosci 2017)."
+    }
+  ],
+  "maintainers": [
+    "Dan Bullock",
+    "Sarah Heilbronner"
+  ]
 }

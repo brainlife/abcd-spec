@@ -2,10 +2,13 @@
   "spec": "brainlife-app/2.0",
   "name": "merge2TCKs",
   "version": "master",
-  "summary": "This is copy of the mergeTCK BL app (https://doi.org/10.25663/brainlife.app.219) modified to take two tractograms as input. This is a temporary workaround for the lack of functionality for multi-input datatypes in brainlife Pipelines.",
-  "description": "unknown",
+  "summary": "Merges two MRtrix .tck tractograms into one .tck tractogram with a compiled MATLAB script.",
+  "description": "Copy of mergeTCK that takes exactly two single tractograms (track1 and track2), concatenates their streamlines and writes one merged track.tck. It exists as a workaround for Pipelines, which could not pass multi-input datatypes. Use mergeTCK to merge more than two tractograms; both inputs should be in the same space.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "tractography",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "5e8b5ae6952fefe5407b097e",
     "github": "svincibo/app-mergeTCK",
@@ -18,7 +21,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "First MRtrix .tck tractogram to merge.",
       "config_keys": [
         "track1"
       ]
@@ -29,7 +32,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "Second MRtrix .tck tractogram to merge, in the same space as the first.",
       "config_keys": [
         "track2"
       ]
@@ -42,15 +45,39 @@
       "datatype_tags": [
         "merged"
       ],
-      "description": "unknown"
+      "description": "A single track.tck containing the streamlines of both inputs."
     }
   ],
   "parameters": [],
   "runtime": {
     "container": "brainlife/mcr:r2019a",
     "resources": {
-      "cpus": 1
+      "cpus": 1,
+      "walltime_hours": 0.33,
+      "memory_gb": 30
     }
   },
-  "doi": "10.25663/brainlife.app.304"
+  "doi": "10.25663/brainlife.app.304",
+  "software": [
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mergeTCK didn't produce track.tck",
+      "fix": "Check that both inputs are readable MRtrix tractograms."
+    }
+  ]
 }

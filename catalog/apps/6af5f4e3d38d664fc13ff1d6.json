@@ -2,10 +2,15 @@
   "spec": "brainlife-app/2.0",
   "name": "app-bet-t1w",
   "version": "main",
-  "summary": "unknown",
-  "description": "unknown",
+  "summary": "Skull-strips a T1-weighted image with FSL 6.0.4 BET and outputs the brain-extracted T1w volume.",
+  "description": "Runs FSL bet on a T1w image with a configurable fractional intensity threshold (-f) and optional robust brain centre estimation (-R) or bias field and neck cleanup (-B), inside the brainlife/fsl:6.0.4 container. Use it for brain extraction before registration or segmentation. Lower frac values give larger brain estimates; enable bias_neck_cleanup for images with a lot of neck.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
   "registry": {
     "id": "6af5f4e3d38d664fc13ff1d6",
     "github": "gamorosino/app-bet-t1w",
@@ -18,7 +23,7 @@
       "datatype_tags": [],
       "optional": false,
       "multi": false,
-      "description": "unknown",
+      "description": "T1-weighted NIfTI image to skull-strip.",
       "config_keys": [
         "t1"
       ]
@@ -59,5 +64,23 @@
       "walltime_hours": 1
     }
   },
-  "doi": "10.25663/brainlife.app.995"
+  "doi": "10.25663/brainlife.app.995",
+  "license": "MIT",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "no output produced",
+      "cause": "bet did not write t1_brain/t1.nii.gz.",
+      "fix": "Check the log for the bet error."
+    }
+  ],
+  "maintainers": [
+    "Gabriele Amorosino"
+  ]
 }

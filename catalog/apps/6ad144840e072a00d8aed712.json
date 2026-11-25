@@ -3,9 +3,17 @@
   "name": "Optic Radiation Tracking and Retinotopic Segmentation",
   "version": "main",
   "summary": "Optic Radiation Tracking and Retinotopic Segmentation \u2014 a reproducible pipeline for tractography and eccentricity-based segmentation of the human optic radiation using population receptive field (pRF) mapping.",
-  "description": "unknown",
+  "description": "Tracks the optic radiation (seed-based from LGN to V1, whole-brain ACT, or from a precomputed tractogram) with MRtrix3 or DIPY, isolates LGN-V1 fibres with tckedit and classifies them into eccentricity bands from pRF maps. LGN and V1 ROIs, 5TT and CSD are computed automatically when not provided (thalamic nuclei via FreeSurfer 7.1.0). Use it for retinotopic segmentation of the optic radiation; needs DWI, T1w, FreeSurfer and pRF eccentricity/visual-area maps.",
   "kind": "native",
-  "topics": [],
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fmri",
+    "freesurfer",
+    "mrtrix3",
+    "tract-segmentation",
+    "tractography"
+  ],
   "registry": {
     "id": "6ad144840e072a00d8aed712",
     "github": "gamorosino/app-optic-radiation-track",
@@ -178,5 +186,23 @@
       "FREESURFER_LICENSE"
     ]
   },
-  "doi": "10.25663/brainlife.app.989"
+  "doi": "10.25663/brainlife.app.989",
+  "software": [
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "DIPY"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-024-02237-2",
+      "text": "Hayashi S, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods (2024)."
+    }
+  ]
 }
