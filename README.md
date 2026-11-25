@@ -295,6 +295,13 @@ python tools/blapp.py validate brainlife.app.json --registry record.json
 python tools/blapp.py about brainlife.app.json   # the GitHub About panel it implies
 ```
 
+### README template
+
+New Apps should start their README from [`templates/README.md`](templates/README.md), the layout of the
+[FreeSurfer App](https://github.com/brainlife/app-freesurfer): badges, an "At a glance" block generated
+from the manifest (`python tools/readme.py brainlife.app.json README.md`), versions, how to run it,
+outputs, troubleshooting, citations, authors, funding and license.
+
 ### Catalog
 
 [`catalog/index.json`](catalog/index.json) lists every public brainlife App with its summary,
