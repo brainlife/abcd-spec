@@ -24,6 +24,9 @@
     "name": "neuro/meeg/mne/epochs",
     "original": {
       "desc": "Datatype to describe the mne.Epochs class",
+      "file_descs": {
+        "epo": "mne.Epochs class which contains Epochs extracted from a Raw MEEG data instance."
+      },
       "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`"
     },
     "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.epochs.json"

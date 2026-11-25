@@ -52,10 +52,33 @@ def test_live_derivatives_is_not_overwritten():
     assert out["derivatives"] == "custom"
 
 
-def test_match_none_produces_no_maps():
+def test_match_none_leaves_missing_bids_missing():
     r = copy.deepcopy(DWI)
     r["bids"]["correspondences"][0]["match"] = "none"
-    assert dtbids.project_maps(r, None)["maps"] == []
+    assert dtbids.project_maps(r, None) is None
+
+
+def test_nothing_to_add_returns_live_bids_unchanged():
+    r = copy.deepcopy(DWI)
+    r["bids"]["correspondences"][0]["match"] = "none"
+    live = {"_id": "b", "derivatives": "x", "maps": [{"_id": "m", "src": "a", "dest": "b"}]}
+    assert dtbids.project_maps(r, live) == live
+
+
+def test_partial_maps_skip_placeholders_directories_format_changes_and_duplicates():
+    r = copy.deepcopy(DWI)
+    c = r["bids"]["correspondences"][0]
+    c["match"] = "partial"
+    r["files"] += [{"id": "rois", "dirname": "rois", "desc": "d", "required": False},
+                   {"id": "src", "filename": "dwi.src.gz", "desc": "d", "required": False},
+                   {"id": "epi2", "filename": "epi2.nii.gz", "desc": "d", "required": False}]
+    c["files"] = [{"file_id": "dwi", "bids_part": "dir-<label>_epi.nii.gz"},
+                  {"file_id": "rois", "bids_part": "mask.nii.gz"},
+                  {"file_id": "src", "bids_part": "dwi.nii.gz"},
+                  {"file_id": "bvals", "bids_part": "dwi.bval"},
+                  {"file_id": "epi2", "bids_part": "dwi.bval"}]
+    maps = dtbids.project_maps(r, None)["maps"]
+    assert maps == [{"src": "dwi.bvals", "dest": "dwi.bval"}]
 
 
 def test_aimport_rows_mark_drafts():

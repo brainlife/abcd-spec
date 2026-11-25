@@ -81,6 +81,17 @@
     "name": "neuro/meg/fif",
     "original": {
       "desc": "Magnetoencephalography (MEG) / FIFF - Neuromag/Elekta/MEGIN data and Tristan Technologies BabyMEG data ",
+      "file_descs": {
+        "calibration": "calibration coefficients. File can have 1D or 3D gradiometer imbalance correction. This file is machine/site-specific.\n",
+        "channels": "\nAlthough this information can often be extracted from the EEG recording, listing it in a simple .tsv document makes it easy to browse or search. The required columns are channel name, type and units in this specific order. Channel names should furthermore appear in the table in the same order they do in the EEG data file. Any number of additional columns may be provided to provide additional information about the channels. Note that electrode positions should not be added to this file, but to *_electrodes.tsv.",
+        "coordsystem": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+        "crosstalk": "cross-talk correction information.",
+        "destination": "(tentative .. might disappear!) This file is only present if the data is preprocessed with maxwell_filter (FIF file containing a MEG device<->head transformation, or a 3-element array giving the coordinates to translate to (with no rotations). For example, destination=(0, 0, 0.04) would translate the bases as --trans default would in MaxFilter™ (i.e., to the default head location).",
+        "events": "",
+        "events_json": "",
+        "fif": "",
+        "headshape": "The OPTIONAL digitized positions of the head points. Head shape and electrode description"
+      },
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as “Neuromag” systems.\n"
     },
     "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as “Neuromag” systems.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif.json"

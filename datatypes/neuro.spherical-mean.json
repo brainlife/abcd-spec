@@ -24,6 +24,9 @@
     "name": "neuro/spherical-mean",
     "original": {
       "desc": "Spherical mean image for a certain b-value",
+      "file_descs": {
+        "sphmean": "Spherical mean image for a certain b-value"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Optional microstructure weight for structural connectome matrices.\n\n**Not for:** Combining maps from different b-values without the b-value tag.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.spherical-mean.json"

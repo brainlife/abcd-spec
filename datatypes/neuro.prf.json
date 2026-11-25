@@ -24,6 +24,15 @@
     "name": "neuro/prf",
     "original": {
       "desc": "Nifti files containing various pRF measures",
+      "file_descs": {
+        "eccentricity": "TBD",
+        "polarAngle": "TBD",
+        "prf_surfaces": "Directory containing freesurfer curv formatted files with the names of {rh/lh}.{sigma,angle,eccen,varea}. Only the benson and analyzePRF-gifti App currently generates this.",
+        "r2": "This is generated for kendric and justin's prf apps - but no noah benson's prF",
+        "rfWidth": "TBD",
+        "surfaces": "vtk surfaces for visualization purpose. It should contain 8 VTK files with combinations of {lh/rh}.{pial/white/inflated/sphere}.vtk",
+        "varea": "Optional varea parcellation. Only generated for noah benson's prF app."
+      },
       "readme": ""
     },
     "readme": "**Use for:** Retinotopic mapping, visual-area ROIs and eccentricity-binned analyses.\n\n**Not for:** Comparing measured and atlas-predicted maps without noting the source (tags).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 26 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.prf.json"

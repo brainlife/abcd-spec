@@ -45,8 +45,21 @@ def _summary(record, url, clip):
     return "\n\n".join(x for x in lines if x)
 
 
+GENERATED = ("**Use for:**", "**Not for:**", "**BIDS:**", "**Sharing:**", "**Apps:**", "Full record: ")
+
+
+def strip_generated(text):
+    """Remove what render() appended last time, so a pushed readme is not taken as hand-written."""
+    paragraphs = text.split("\n\n")
+    if not paragraphs or not paragraphs[-1].startswith("Full record: "):
+        return text
+    while paragraphs and paragraphs[-1].startswith(GENERATED):
+        paragraphs.pop()
+    return "\n\n".join(paragraphs).rstrip()
+
+
 def render(record, catalog_url):
-    original = record["brainlife"]["original"]["readme"]
+    original = strip_generated(record["brainlife"]["original"]["readme"])
     if original.strip():
         md = "\n\n".join(x for x in (original.rstrip(), _sharing(record), f"Full record: {catalog_url}") if x)
         return md if len(md.encode()) <= README_MAX_BYTES else original

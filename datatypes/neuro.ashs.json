@@ -24,6 +24,9 @@
     "name": "neuro/ashs",
     "original": {
       "desc": "Output from ASHS (Automated Segmentation of Hippocampal Subfields) in ITKSNAP format",
+      "file_descs": {
+        "ashs": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Inspecting or re-using the full ASHS hippocampal subfield output.\n\n**Not for:** Direct use as a parcellation; use the neuro/parcellation/volume output of the same App. Sharing without checking for copies of the input whole-head images in the working directory.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ashs.json"

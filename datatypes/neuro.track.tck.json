@@ -34,6 +34,9 @@
     "name": "neuro/track/tck",
     "original": {
       "desc": "MRtrix Track Data (.tck)",
+      "file_descs": {
+        "track": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Input to tract segmentation, streamline filtering (SIFT, COMMIT, LiFE) and connectome construction. Format conversion to .trk, .trx or Zarr Vectors for viewing and sharing.\n\n**Not for:** Use with images in a different space without a reference image or transform. Group statistics directly; derive tractmeasures or connectomes first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 81 Apps, output of 56 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.tck.json"

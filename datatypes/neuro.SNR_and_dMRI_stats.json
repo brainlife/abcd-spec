@@ -24,6 +24,9 @@
     "name": "neuro/SNR_and_dMRI_stats",
     "original": {
       "desc": "Edit me",
+      "file_descs": {
+        "tbd": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** DWI SNR in horizontal and vertical meridian ROIs.\n\n**Not for:** Owner review: contents differ by App; consider neuro/snr-stats or a proper map datatype.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.SNR_and_dMRI_stats.json"

@@ -43,6 +43,15 @@
     "name": "neuro/tractseg",
     "original": {
       "desc": "Tractseg output directory containing bundle_segmentations, endings_segmentations, Tractometry_peaks.csv, etc..",
+      "file_descs": {
+        "TOM": "(Collection of .nii.gz files)",
+        "TOM_trackings": "(Collection of .tck files)",
+        "Tractometry_peaks": "Columns look like \"AF_left;AF_right;ATR_left;ATR_right;CC_1;CC_2\"",
+        "bundle_segmentations": "",
+        "endings_segmentations": "",
+        "nodif_brain_mask": "",
+        "peaks": ""
+      },
       "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```"
     },
     "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tractseg.json"

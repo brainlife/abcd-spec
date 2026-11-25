@@ -24,6 +24,11 @@
     "name": "neuro/transform/h5",
     "original": {
       "desc": "A transformation file encapsulates a mathematical operation on the coordinates of those objects susceptible of being spatially transformed (i.e. images, surfaces, or points).  Similar to neuro/transform/fsl but uses .h5 (.x5)",
+      "file_descs": {
+        "affine": "The linear transformation from native space to standard space",
+        "inverse-warp": "The standard space to native space warp",
+        "warp": "The native space to standard space warp"
+      },
       "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
     },
     "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.h5.json"

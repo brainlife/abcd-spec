@@ -29,7 +29,8 @@
           "type": "object",
           "required": ["desc", "readme"],
           "additionalProperties": false,
-          "properties": {"desc": {"type": "string"}, "readme": {"type": "string"}}
+          "properties": {"desc": {"type": "string"}, "readme": {"type": "string"},
+                         "file_descs": {"type": "object", "additionalProperties": {"type": "string"}}}
         }
       }
     },

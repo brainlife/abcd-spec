@@ -78,6 +78,12 @@
     "name": "neuro/pet",
     "original": {
       "desc": "Positron Emission Tomography (PET).",
+      "file_descs": {
+        "blood_json": "JSON file describing the columns contained in a blood.tsv file.",
+        "blood_tsv": "TSV file containing manual or automatically sampled PET blood data limited to: time, plasma_radioactivity, metabolite_parent_fraction, whole_blood_radioactivity,  metabolite_parent_fraction,  hplc_recover_fractions. ",
+        "pet_json": "JSON sidecar file containing PET radiochemistry, pharmaceutical, time, reconstruction, hardware, institution, tissue, de-identification, and task data. ",
+        "pet_nii": "NifTI file containing dynamic or static PET imaging data"
+      },
       "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html)."
     },
     "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html).\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.pet.json"

@@ -55,6 +55,9 @@
     "name": "neuro/eeg/egi",
     "original": {
       "desc": "EGI EEG datatype",
+      "file_descs": {
+        "egi": "EGI data"
+      },
       "readme": "Edit me"
     },
     "readme": "Edit me\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.egi.json"

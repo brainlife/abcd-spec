@@ -24,6 +24,11 @@
     "name": "neuro/ps-oct",
     "original": {
       "desc": "[In Development] PS-OCT data, for one volume and slice.",
+      "file_descs": {
+        "ch1": "",
+        "ch2": "",
+        "retardance": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Developing PS-OCT Apps; only a test App reads it so far.\n\n**Not for:** Production analyses; the datatype is still in development.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ps-oct.json"

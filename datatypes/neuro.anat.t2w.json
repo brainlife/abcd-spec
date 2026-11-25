@@ -50,6 +50,9 @@
     "name": "neuro/anat/t2w",
     "original": {
       "desc": "T2 weighted",
+      "file_descs": {
+        "t2": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Second structural contrast for HCP structural preprocessing, T1w/T2w myelin maps and hippocampal subfields. Anatomical reference for registering diffusion maps.\n\n**Not for:** Use as a T1w substitute in Apps that need T1 contrast. Public sharing before defacing.\n\n**BIDS:** anat/T2w (equivalent)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 43 Apps, output of 14 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.t2w.json"

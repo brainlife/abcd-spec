@@ -24,6 +24,9 @@
     "name": "eyetrack/asc",
     "original": {
       "desc": "The eye-tracking data files naturally contain gaze position (x/y coordinates) and pupil size data. ",
+      "file_descs": {
+        "eyetrack": "converted from .edf"
+      },
       "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#"
     },
     "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/eyetrack.asc.json"

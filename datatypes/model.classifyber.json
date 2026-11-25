@@ -24,6 +24,9 @@
     "name": "model/classifyber",
     "original": {
       "desc": "a pickle object containing a dictionary of scaler[optional] and clf for each tracts",
+      "file_descs": {
+        "model": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Reusing a trained Classifyber tract classifier.\n\n**Not for:** Loading from untrusted sources; pickle can run arbitrary code.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 5 (model-associated) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/model.classifyber.json"

@@ -24,6 +24,9 @@
     "name": "neuro/meeg/mne/raw/annotation",
     "original": {
       "desc": "MNE annotation structures",
+      "file_descs": {
+        "annot": "Annotation.fif"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Carrying bad-segment or event annotations to add to MNE raw data.\n\n**Not for:** Processing on brainlife.io: no App reads or writes this datatype.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.raw.annotation.json"

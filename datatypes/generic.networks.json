@@ -24,6 +24,9 @@
     "name": "generic/networks",
     "original": {
       "desc": "Directory containing many network datatypes",
+      "file_descs": {
+        "networks": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Keeping related networks from one App run together.\n\n**Not for:** Apps expecting a single generic/network input.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 4 (functionally revealing derivative) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.networks.json"

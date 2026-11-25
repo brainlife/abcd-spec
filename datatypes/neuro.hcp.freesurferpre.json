@@ -24,6 +24,9 @@
     "name": "neuro/hcp/freesurferpre",
     "original": {
       "desc": "HCP PreFS Output",
+      "file_descs": {
+        "hcp_freesurferpre": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Intermediate HCP structural preprocessing results.\n\n**Not for:** No registered App uses this datatype; owner review needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.freesurferpre.json"

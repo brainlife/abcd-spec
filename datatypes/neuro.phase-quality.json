@@ -24,6 +24,9 @@
     "name": "neuro/phase-quality",
     "original": {
       "desc": "Phase quality map",
+      "file_descs": {
+        "map": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Masking or weighting unreliable voxels in phase-based processing such as QSM.\n\n**Not for:** Unclear datatype with no Apps; owner review needed before use.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.phase-quality.json"

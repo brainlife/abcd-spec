@@ -61,6 +61,18 @@
     "name": "neuro/parcellation/surface-deprecated",
     "original": {
       "desc": "(this datatype has been deprecated by  surface/data and surface/vertices) Contains lh.parc.annot.gii and rh.parc.annot.gii for surface parcellation / annotation. key.txt contains the labels. This datatype also contains various surface files (inflated, pial, and white) for reference purpose. For more advanced analysis, you will probably want to provide your own surface file.",
+      "file_descs": {
+        "key": "deprecated. please use label.json.. example 1001 -> 1 == lh.Background+FreeSurfer_Defined_Medial_Wall.label 1002 -> 2 == lh.17Networks_LH_VisCent_Striate.label 1003 -> 3 == lh.17Networks_LH_VisCent_ExStr.label 1004 -> 4 == lh.17Networks_LH_VisPeri_Striate.label",
+        "label": "json file mapping each voxel values to parcellation label / desc. [ { \"name\": \"unknown\", \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \"voxel_value\": 0 },",
+        "lh_annot": "",
+        "lh_inflated_surf": "",
+        "lh_pial_surf": "",
+        "lh_white_surf": "",
+        "rh_annot": "",
+        "rh_inflated_surf": "",
+        "rh_pial_surf": "",
+        "rh_white_surf": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Converting legacy data to neuro/surface/data and neuro/surface/vertices.\n\n**Not for:** New Apps; this datatype is deprecated.\n\n**BIDS:** anat/dseg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.parcellation.surface-deprecated.json"

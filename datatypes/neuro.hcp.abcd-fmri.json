@@ -24,6 +24,9 @@
     "name": "neuro/hcp/abcd-fmri",
     "original": {
       "desc": "Output folder containing files like in https://github.com/DCAN-Labs/abcd-hcp-pipeline?ref=https://githubhelp.com#outputs",
+      "file_descs": {
+        "output": ""
+      },
       "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```"
     },
     "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.abcd-fmri.json"

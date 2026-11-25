@@ -24,6 +24,9 @@
     "name": "jupyter/notebook",
     "original": {
       "desc": "A datatype to store jupyter notebook content",
+      "file_descs": {
+        "notebook": "Directory containing .ipynb/.py and other content"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Storing analysis notebooks alongside a project's data.\n\n**Not for:** Input to Apps; none use it.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/jupyter.notebook.json"

@@ -24,6 +24,9 @@
     "name": "neuro/track/trx",
     "original": {
       "desc": "TRX: A community-oriented tractography file format",
+      "file_descs": {
+        "track": "trx is a directory containing various sub-directories such as dpg / dpv / dps / groups / heaer.json  / etc"
+      },
       "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md"
     },
     "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trx.json"

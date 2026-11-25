@@ -54,6 +54,14 @@
     "name": "neuro/meg/fif-override",
     "original": {
       "desc": "This datatype augments the original neuro/meg/fif data with various extra information, such as bad channels stored in channels.tsv, and bad epoch (TODO which file stores this?)",
+      "file_descs": {
+        "channels": "channels.tsv containing any columns that were not present on the original channels.tsv. For example, \"status\" column could contain good/bad values to indicate that the channel should be removed from the further processing. Please see https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv for full descriptions.",
+        "destination": "",
+        "events": "",
+        "events_json": "",
+        "headshape": "",
+        "info": ""
+      },
       "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n"
     },
     "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.fif-override.json"

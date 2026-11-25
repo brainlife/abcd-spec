@@ -24,6 +24,9 @@
     "name": "neuro/AFQ",
     "original": {
       "desc": "AFQ_run output",
+      "file_descs": {
+        "afq": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Archival AFQ results for MATLAB AFQ analysis.\n\n**Not for:** Current brainlife pipelines; use wmc and tractmeasures instead. Owner review: confirm whether this datatype is still needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.AFQ.json"

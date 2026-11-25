@@ -46,6 +46,11 @@
     "name": "neuro/func/events",
     "original": {
       "desc": "Datatype containing the events.tsv file for a fmri task-based experiment (in case user did not upload with func datatype)",
+      "file_descs": {
+        "events": "events file containing timings",
+        "events_csv": "",
+        "events_json": "json sidecar for events tsv"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Concatenating runs and their events into one timeline. Task GLM design when paired with a BOLD run.\n\n**Not for:** Pairing with a BOLD run from a different session or run.\n\n**BIDS:** func/events (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.events.json"

@@ -24,6 +24,11 @@
     "name": "neuro/dwi/b0",
     "original": {
       "desc": "b0 files extracted from dwi",
+      "file_descs": {
+        "bvals": "",
+        "bvecs": "",
+        "dwi": ""
+      },
       "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook."
     },
     "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.b0.json"

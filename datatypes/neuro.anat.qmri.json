@@ -258,6 +258,21 @@
     "name": "neuro/anat/qmri",
     "original": {
       "desc": "Quantitative MRI derivatives",
+      "file_descs": {
+        "M0map": "In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+        "M0map_json": "",
+        "MTV": "macromolecular tissue volume. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+        "PD": "proton density\n",
+        "R1map": "In general, this is for output only. For App, please assume this files to not exist and compute it by intervening T1map",
+        "R1map_json": "",
+        "R2star": "Voxels represent the calculated effective transverse relaxation time T2* in seconds. T2* is shorter than T2 because it incorporates additional dephasing from magnetic field inhomogeneities.",
+        "SIR": "surface interaction rate. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+        "T1map": "",
+        "T1map_json": "",
+        "T2star": "The inverse of T2* (1/T2*) in s^-1.",
+        "VIP": "volume of interacting water proton. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+        "WF": "Water fraction. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd"
+      },
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain)."
     },
     "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain).\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.qmri.json"

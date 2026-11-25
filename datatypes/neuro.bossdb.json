@@ -24,6 +24,9 @@
     "name": "neuro/bossdb",
     "original": {
       "desc": "Remote BossDB volumetric image or segmentation channel",
+      "file_descs": {
+        "channel": "BossDB Channel"
+      },
       "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files."
     },
     "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.bossdb.json"

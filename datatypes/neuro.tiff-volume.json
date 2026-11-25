@@ -24,6 +24,9 @@
     "name": "neuro/tiff-volume",
     "original": {
       "desc": "3D volumetric microscopy image or segmentation mask stored as a single (optionally multi-page/BigTIFF) .tif/.tiff file.",
+      "file_descs": {
+        "tif": "3D TIFF stack (single multi-page file)."
+      },
       "readme": ""
     },
     "readme": "**Use for:** Segmentation masks for validation against ground truth.\n\n**Not for:** Data needing physical voxel size; plain TIFF may not record it.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tiff-volume.json"

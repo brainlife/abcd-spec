@@ -24,6 +24,9 @@
     "name": "generic/image/png",
     "original": {
       "desc": "PNG Image (deprecated by images datatype)",
+      "file_descs": {
+        "image": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Viewing a single QC or result figure from an App run.\n\n**Not for:** Input to analysis Apps; it holds a picture, not data.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 25 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.image.png.json"

@@ -24,6 +24,9 @@
     "name": "report/pdf",
     "original": {
       "desc": "Unstructured PDF file for reporting. This datatype is not meant to be used by downstream Apps.",
+      "file_descs": {
+        "pdf": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Viewing QA reports and figures from App runs.\n\n**Not for:** Input to downstream Apps.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/report.pdf.json"

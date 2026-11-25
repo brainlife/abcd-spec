@@ -24,6 +24,9 @@
     "name": "neuro/conmats",
     "original": {
       "desc": "directory of conmat datatypes",
+      "file_descs": {
+        "conmats": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Structural connectivity analysis between visual areas or eccentricity and polar-angle bins.\n\n**Not for:** Apps that expect a single neuro/conmat; the layout differs.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.conmats.json"

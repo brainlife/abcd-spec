@@ -51,3 +51,19 @@ def test_long_use_lists_are_cut_to_fit():
     r = copy.deepcopy(DWI)
     r["usage"]["intended_use"] = ["x" * 400, "y" * 400]
     assert len(dtreadme.render(r, URL).encode()) <= dtreadme.SUMMARY_MAX_BYTES
+
+
+def test_generated_text_is_not_mistaken_for_a_hand_written_readme():
+    pushed = dtreadme.render(DWI, URL)
+    assert dtreadme.strip_generated(pushed) == ""
+    r = copy.deepcopy(DWI)
+    r["brainlife"]["original"]["readme"] = "Hand-written notes."
+    assert dtreadme.strip_generated(dtreadme.render(r, URL)) == "Hand-written notes."
+
+
+def test_render_is_stable_across_push_cycles():
+    r = copy.deepcopy(DWI)
+    r["brainlife"]["original"]["readme"] = "Hand-written notes."
+    once = dtreadme.render(r, URL)
+    r["brainlife"]["original"]["readme"] = once
+    assert dtreadme.render(r, URL) == once

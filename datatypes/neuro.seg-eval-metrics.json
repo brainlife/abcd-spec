@@ -24,6 +24,9 @@
     "name": "neuro/seg-eval-metrics",
     "original": {
       "desc": "Segmentation/mask evaluation metrics (voxel, target-informed neighbor-corrected, topology, connected-component) output as JSON, produced by the seg-eval-metrics app.",
+      "file_descs": {
+        "metrics": "Evaluation metrics JSON (voxel/topology/component comparisons of a moving mask against a ground-truth mask)."
+      },
       "readme": ""
     },
     "readme": "**Use for:** Benchmarking segmentation methods, e.g. axon segmentation of microscopy.\n\n**Not for:** Comparing masks of different shapes or grids.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.seg-eval-metrics.json"

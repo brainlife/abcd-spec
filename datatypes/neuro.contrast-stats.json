@@ -24,6 +24,9 @@
     "name": "neuro/contrast-stats",
     "original": {
       "desc": "fMRI and other related contrast statistics",
+      "file_descs": {
+        "contrast-stats": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Reporting peak and cluster statistics of single-subject task activation.\n\n**Not for:** Group-level inference; tables are per run and per subject.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.contrast-stats.json"

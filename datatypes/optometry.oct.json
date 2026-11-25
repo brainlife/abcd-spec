@@ -24,6 +24,12 @@
     "name": "optometry/oct",
     "original": {
       "desc": "Raw data from compatible systems with the Orion® software (Voxeleron, LLC, Pleasanton, CA, USA), and an associated centroid indicator file",
+      "file_descs": {
+        "od_centroid": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+        "od_raw": "The raw output from a Voxeleron OCT device for the right eye.  D in the name stem is an abbreviation for dexter, indicating right.",
+        "os_centroid": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+        "os_raw": "The raw output from a Voxeleron OCT device for the left eye.  S in the name stem is an abbreviation for sinister, indicating left."
+      },
       "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md"
     },
     "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/optometry.oct.json"

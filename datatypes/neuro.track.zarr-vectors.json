@@ -24,6 +24,9 @@
     "name": "neuro/track/zarr-vectors",
     "original": {
       "desc": "Zarr Vectors store containing streamline geometry ingested from a tractogram (.trk/.tck/.trx) via zarr-vectors-tools (zvtools). See https://zarr-vectors-tools.readthedocs.io",
+      "file_descs": {
+        "store": "Zarr Vectors store directory (zv_version 0.9.0), geometry_types=['streamline']"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Cloud-friendly, chunked and multiresolution streaming of tractograms to web viewers.\n\n**Not for:** Apps expecting .tck or .trk input; it is a viewing and exchange format.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.zarr-vectors.json"

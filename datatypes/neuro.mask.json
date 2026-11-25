@@ -49,6 +49,9 @@
     "name": "neuro/mask",
     "original": {
       "desc": "Volume Mask",
+      "file_descs": {
+        "mask": ""
+      },
       "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type."
     },
     "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.mask.json"

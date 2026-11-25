@@ -24,6 +24,9 @@
     "name": "neuro/3Dsurfaces",
     "original": {
       "desc": "3D surface stored in .vtk(s)",
+      "file_descs": {
+        "surfaces": ""
+      },
       "readme": "A list of .vtk files with any names stored inside `surfaces` directory."
     },
     "readme": "A list of .vtk files with any names stored inside `surfaces` directory.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.3Dsurfaces.json"

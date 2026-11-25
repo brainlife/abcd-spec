@@ -45,6 +45,9 @@
     "name": "tif",
     "original": {
       "desc": "Microscopy data for the APEX hackathon",
+      "file_descs": {
+        "tif": "Basic tif file"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Deskewing light-sheet TIFF into Zarr v3.\n\n**Not for:** General microscopy; prefer neuro/tiff-volume or neuro/ome-zarr.\n\n**BIDS:** micr/SPIM (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/tif.json"

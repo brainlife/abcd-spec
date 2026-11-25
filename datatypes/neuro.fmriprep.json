@@ -24,6 +24,9 @@
     "name": "neuro/fmriprep",
     "original": {
       "desc": "temporary output for fmriprep directories",
+      "file_descs": {
+        "fmriprep": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Passing a full fMRIPrep output between steps of one analysis.\n\n**Not for:** Long-term storage or sharing; owner review needed to document contents.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.fmriprep.json"

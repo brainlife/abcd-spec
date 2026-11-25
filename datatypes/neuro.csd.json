@@ -24,6 +24,16 @@
     "name": "neuro/csd",
     "original": {
       "desc": "CSD responses containing multiple lmaxN.nii.gz",
+      "file_descs": {
+        "lmax10": "",
+        "lmax12": "",
+        "lmax14": "",
+        "lmax2": "",
+        "lmax4": "",
+        "lmax6": "",
+        "lmax8": "",
+        "response": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Fibre tracking (MRtrix, Trekker, PFT, SET) and SIFT/SIFT2/COMMIT filtering. Peak extraction and FOD visualisation.\n\n**Not for:** Assuming a given lmax is present; files are optional and depend on the fit. Mixing MRtrix 0.2 and MRtrix3 FODs (tags differ) without checking conventions.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 24 Apps, output of 8 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.csd.json"

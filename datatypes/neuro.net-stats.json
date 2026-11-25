@@ -24,6 +24,9 @@
     "name": "neuro/net-stats",
     "original": {
       "desc": "This datatype is intended for network-related statistics. In similar vein as parc-stats",
+      "file_descs": {
+        "net-stats": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Group analysis of network measures across subjects.\n\n**Not for:** Comparing networks built with different parcellations or thresholds.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.net-stats.json"

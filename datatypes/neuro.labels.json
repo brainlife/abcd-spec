@@ -24,6 +24,10 @@
     "name": "neuro/labels",
     "original": {
       "desc": "Experimental (Giulia)",
+      "file_descs": {
+        "index": "",
+        "names": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Filtering streamlines or converting node-pair assignments into tract classifications.\n\n**Not for:** Use with a tractogram other than the one the labels were computed on.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 5 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.labels.json"

@@ -24,6 +24,11 @@
     "name": "neuro/transform/nifti",
     "original": {
       "desc": "Linear & Non-Linear Image Warping in FSL format (warp.nii.gz / inverse-warp.nii.gz)",
+      "file_descs": {
+        "affine": "Both linear and non-linear transform should at least have affine.txt. We are currently setting this optional for older Apps that are yet to generate affine.txt. In the future, affine.txt will be the only required file.",
+        "inverse-warp": "",
+        "warp": ""
+      },
       "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
     },
     "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.nifti.json"

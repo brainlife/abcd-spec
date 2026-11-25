@@ -24,6 +24,11 @@
     "name": "neuro/surface/gradient",
     "original": {
       "desc": "(experimental) surface gradient data. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
+      "file_descs": {
+        "label": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+        "left": "",
+        "right": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Studying the principal gradients of cortical functional organisation.\n\n**Not for:** Comparing subjects without aligning gradients (sign and order can flip).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.gradient.json"

@@ -24,6 +24,9 @@
     "name": "neuro/nwb",
     "original": {
       "desc": "Neurodata without borders",
+      "file_descs": {
+        "nwb": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Input to VAME behavioural motif learning from pose estimates.\n\n**Not for:** Assuming any particular content: NWB can hold ephys, imaging or behaviour; check the file.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.nwb.json"

@@ -24,6 +24,10 @@
     "name": "neuro/tract-tracing",
     "original": {
       "desc": "[In Development] Tract-tracing data, for one volume and slice.",
+      "file_descs": {
+        "tif": "",
+        "zarr": "Directory where the Zarr-store is located locally. This is not required. You can also use a URL-pointer to where the Zarr-store is located on the cloud."
+      },
       "readme": ""
     },
     "readme": "**Use for:** Comparing invasive tract-tracing with diffusion tractography.\n\n**Not for:** Owner review: the datatype is in development and no Apps use it yet.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tract-tracing.json"

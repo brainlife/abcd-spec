@@ -24,6 +24,9 @@
     "name": "neuro/meeg/mne/projection",
     "original": {
       "desc": "to be edited",
+      "file_descs": {
+        "projection": ""
+      },
       "readme": "to be edited"
     },
     "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.projection.json"

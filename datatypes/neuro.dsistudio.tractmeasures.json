@@ -24,6 +24,9 @@
     "name": "neuro/dsistudio/tractmeasures",
     "original": {
       "desc": "Directory containing .tsv formatted tractmeasures",
+      "file_descs": {
+        "tractmeasures": ""
+      },
       "readme": "Edit me"
     },
     "readme": "Edit me\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dsistudio.tractmeasures.json"

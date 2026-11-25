@@ -24,6 +24,10 @@
     "name": "neuro/laplace_beltrami_spectrum",
     "original": {
       "desc": "Output from Laplace Beltrami Spectrum App",
+      "file_descs": {
+        "eigenvectors": "",
+        "spectrum": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Shape analysis and comparison of tract or structure surfaces.\n\n**Not for:** Comparing spectra from meshes with very different resolution or decimation.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.laplace_beltrami_spectrum.json"

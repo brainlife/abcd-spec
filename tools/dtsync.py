@@ -2,7 +2,7 @@
 
 Only desc, readme, files and bids are ever sent for an existing datatype. Existing file entries
 keep id, filename, dirname and required; existing bids maps are kept. A field edited on
-brainlife.io since the last pull is skipped and reported. Every write is logged (with the record
+brainlife.io since the record was drafted or since the last pull is skipped and reported. Every write is logged (with the record
 as it was) before it is sent, so an interrupted run can be undone.
 """
 import json
@@ -25,11 +25,13 @@ def _catalog_url(base, record):
 
 
 def desired(record, live, catalog_url):
+    """What brainlife.io should hold. Proposed (new, optional) files wait while the datatype has a
+    validator, until someone confirms the validator accepts them."""
     descs = {f["id"]: f["desc"] for f in record["files"]}
     files = [dict(f, desc=descs.get(f["id"], f.get("desc", ""))) for f in live.get("files", [])]
     live_ids = {f["id"] for f in files}
     for f in record["files"]:
-        if f.get("proposed") and f["id"] not in live_ids:
+        if f.get("proposed") and f["id"] not in live_ids and not live.get("validator"):
             files.append(dict({k: v for k, v in f.items() if k != "proposed"}, required=False))
     return {"desc": record["brainlife"]["desc"], "readme": dtreadme.render(record, catalog_url),
             "files": files, "bids": dtbids.project_maps(record, live.get("bids"))}
@@ -44,21 +46,42 @@ def _strip_ids(value):
     return value
 
 
+def _edited_since_draft(record, now):
+    """Fields someone changed on brainlife.io after the record was drafted from it."""
+    original = record["brainlife"]["original"]
+    edited = []
+    if (now.get("desc") or "") != original["desc"]:
+        edited.append("desc")
+    if dtreadme.strip_generated(now.get("readme") or "") != dtreadme.strip_generated(original["readme"]):
+        edited.append("readme")
+    if "file_descs" in original:
+        live_descs = {f["id"]: f.get("desc") or "" for f in now.get("files", [])}
+        if any(original["file_descs"].get(i, d) != d for i, d in live_descs.items()):
+            edited.append("files")
+    return edited
+
+
 def plan(records, live_now, live_at_pull, catalog_base=CATALOG_URL, admins=()):
     changes = []
     for name, record in sorted(records.items()):
         url = _catalog_url(catalog_base, record)
         if "_id" not in record["brainlife"]:
-            body = desired(record, {}, url)
-            body.update(name=name, datatype_tags=[], admins=list(admins))
+            if not admins:
+                raise ValueError(f"{name}: new datatypes need --admins")
+            if name in live_now:
+                raise ValueError(f"{name}: already on brainlife.io; record its _id instead of creating it again")
+            body = {"name": name, "desc": record["brainlife"]["desc"], "readme": dtreadme.render(record, url),
+                    "files": [{k: v for k, v in f.items() if k != "proposed"} for f in record["files"]],
+                    "bids": dtbids.project_maps(record, None), "datatype_tags": [], "admins": list(admins)}
             changes.append({"name": name, "_id": None, "method": "POST", "body": body, "skipped": [],
                             "before": None, "size_before": 0, "size_after": dtrecord.record_size(body)})
             continue
         now, then = live_now[name], live_at_pull.get(name, live_now[name])
         want = desired(record, now, url)
         body, skipped = {}, []
+        edited = _edited_since_draft(record, now)
         for k in EDITABLE:
-            if _strip_ids(now.get(k)) != _strip_ids(then.get(k)):
+            if k in edited or _strip_ids(now.get(k)) != _strip_ids(then.get(k)):
                 skipped.append(k)
             elif _strip_ids(want[k]) != _strip_ids(now.get(k)):
                 body[k] = want[k]
@@ -86,18 +109,24 @@ def _log(path, entries):
     pathlib.Path(path).write_text(json.dumps(entries, indent=1) + "\n")
 
 
-def push(changes, http, undo_path):
-    """Apply changes in order; returns {name: new _id} for created datatypes."""
+def push(changes, http, undo_path, on_created=None):
+    """Apply changes in order; returns {name: new _id} for created datatypes.
+
+    on_created(name, _id) runs right after each datatype is created, so an interrupted run never
+    leaves a created datatype looking like an unsent draft."""
     entries, created = [], {}
     for c in changes:
         if not c["body"]:
             continue
-        entry = {"name": c["name"], "_id": c["_id"], "method": c["method"], "before": c["before"]}
+        entry = {"name": c["name"], "_id": c["_id"], "method": c["method"], "fields": sorted(c["body"]),
+                 "before": c["before"]}
         entries.append(entry)
         _log(undo_path, entries)
         if c["method"] == "POST":
             entry["_id"] = created[c["name"]] = http.post("/datatype", c["body"])["_id"]
             _log(undo_path, entries)
+            if on_created:
+                on_created(c["name"], entry["_id"])
         else:
             http.put(f"/datatype/{c['_id']}", c["body"])
     return created
@@ -116,7 +145,7 @@ def undo(undo_path, http):
     kept = []
     for e in reversed(json.loads(pathlib.Path(undo_path).read_text())):
         if e["method"] == "PUT":
-            http.put(f"/datatype/{e['_id']}", {k: e["before"].get(k) for k in EDITABLE})
+            http.put(f"/datatype/{e['_id']}", {k: e["before"].get(k) for k in e.get("fields", EDITABLE)})
         elif e.get("_id"):
             if _in_use(http, e["_id"]):
                 kept.append(e["name"])

@@ -24,6 +24,10 @@
     "name": "neuro/test",
     "original": {
       "desc": "test dataset (do not use, will be deleted) abc def",
+      "file_descs": {
+        "test": "this is a test dir",
+        "test1": ""
+      },
       "readme": "### hello world\n\n`code`"
     },
     "readme": "### hello world\n\n`code`\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.test.json"

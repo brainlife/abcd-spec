@@ -24,6 +24,9 @@
     "name": "neuro/seg-eval-metric-agg",
     "original": {
       "desc": "Equal-weight per-image segmentation metrics: mean, population standard deviation, and valid-value count for raw and target-informed neighbor-corrected results.",
+      "file_descs": {
+        "aggregate": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Summarising segmentation performance of a team or batch.\n\n**Not for:** Per-image inspection; use neuro/seg-eval-metrics.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.seg-eval-metric-agg.json"

@@ -71,6 +71,14 @@
     "name": "neuro/func/multiecho",
     "original": {
       "desc": "(experimental datatype) Functional bold image using multi-echo ",
+      "file_descs": {
+        "echo1": "",
+        "echo2": "",
+        "echo3": "",
+        "echo4": "",
+        "echo5": "",
+        "echo6": ""
+      },
       "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```"
     },
     "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.multiecho.json"

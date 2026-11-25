@@ -24,6 +24,9 @@
     "name": "neuro/streamline-weights",
     "original": {
       "desc": "A text file containing a list of streamline-weights in each line. This is intended to be used with algorithms like SIFT2, LiFE, and COMMIT that filter streamlines based on different anatomical and diffusion properties.",
+      "file_descs": {
+        "weights": ""
+      },
       "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```"
     },
     "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.streamline-weights.json"

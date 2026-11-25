@@ -24,6 +24,9 @@
     "name": "neuro/myelin-map",
     "original": {
       "desc": "nifti volume containing myelin map",
+      "file_descs": {
+        "map": "The myelin map"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Cortical and tract myelin mapping and summary statistics.\n\n**Not for:** Quantitative myelin content; T1w/T2w is a relative proxy with no bias correction. Use when the T1w and T2w were not aligned.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 14 Apps, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.myelin-map.json"

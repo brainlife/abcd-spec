@@ -24,6 +24,14 @@
     "name": "behavior/eyetracking/peekbank",
     "original": {
       "desc": "TBD.. https://github.com/langcog/peekbank/blob/master/static/peekbank-schema.json",
+      "file_descs": {
+        "aoi_data": "",
+        "aoi_regions": "",
+        "datasets": "",
+        "subjects": "",
+        "trials": "",
+        "xy_data": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Unclear; no App uses it. Likely archiving Peekbank-format eye-tracking datasets.\n\n**Not for:** Use before owner review: the record says 'TBD' and no App reads it.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/behavior.eyetracking.peekbank.json"

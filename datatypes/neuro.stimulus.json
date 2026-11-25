@@ -24,6 +24,9 @@
     "name": "neuro/stimulus",
     "original": {
       "desc": "stimulus movie",
+      "file_descs": {
+        "stim": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Stimulus input to pRF model fitting (AFNI, analyzePRF, mrTools).\n\n**Not for:** Runs whose number of frames differs from the BOLD volumes.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\n**Apps:** Input to 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.stimulus.json"

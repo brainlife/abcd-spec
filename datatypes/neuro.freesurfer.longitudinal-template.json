@@ -24,6 +24,10 @@
     "name": "neuro/freesurfer/longitudinal-template",
     "original": {
       "desc": "Freesurfer longitudinal base template and mri/ files for each timepoints used to generate the template ",
+      "file_descs": {
+        "template": "",
+        "timepoints": ""
+      },
       "readme": "Run freesurfer "
     },
     "readme": "Run freesurfer\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.freesurfer.longitudinal-template.json"

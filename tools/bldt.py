@@ -102,7 +102,7 @@ def _new_record(live, app_index, index, rows):
     return {
         "spec": "brainlife-datatype-record/1.0",
         "brainlife": {"_id": live["_id"], "name": name, "desc": TODO, "readme": live.get("readme") or "",
-                      "original": {"desc": live.get("desc") or "", "readme": live.get("readme") or ""}},
+                      "original": _original(live)},
         "files": [{k: f[k] for k in ("id", "filename", "dirname", "ext") if f.get(k)}
                   | {"desc": f.get("desc") or TODO, "required": bool(f.get("required"))}
                   for f in live.get("files", [])],
@@ -116,11 +116,17 @@ def _new_record(live, app_index, index, rows):
     }
 
 
+def _original(live):
+    """The live text a record is drafted against, minus anything bldt wrote there earlier."""
+    return {"desc": live.get("desc") or "", "readme": dtreadme.strip_generated(live.get("readme") or ""),
+            "file_descs": {f["id"]: f.get("desc") or "" for f in live.get("files", [])}}
+
+
 def _refresh(old, live, app_index):
     r = copy.deepcopy(old)
     bl = r["brainlife"]
     bl["_id"], bl["name"] = live["_id"], live["name"]
-    bl["original"] = {"desc": live.get("desc") or "", "readme": live.get("readme") or ""}
+    bl["original"] = _original(live)
     old_files = {f["id"]: f for f in old["files"]}
     files = []
     for f in live.get("files", []):
@@ -169,7 +175,7 @@ def import_drafts(directory, bids_schema):
                "brainlife": {"datatype": d["name"], "tags": d.get("datatype_tags", [])}}
         record = _new_record(live, {"apps": []}, index, [row])
         del record["brainlife"]["_id"]
-        record["brainlife"]["original"] = {"desc": "", "readme": ""}
+        record["brainlife"]["original"] = {"desc": "", "readme": "", "file_descs": {}}
         record["brainlife"]["readme"] = ""
         for c in record["bids"]["correspondences"]:
             for f in c["files"]:
@@ -247,12 +253,19 @@ def _latest_snapshot():
     return {d["name"]: d for d in json.loads(snaps[-1].read_text())["datatypes"]}
 
 
+def unfinished(records):
+    """Names of records that still hold placeholders or fail validation (never trusts provenance.todo)."""
+    return sorted(n for n, r in records.items() if todo_fields(r) or dtrecord.validate(r))
+
+
 def _changes(only, drafts, admins):
     records = dtrecord.load_all(ROOT / "datatypes")
     records = {n: r for n, r in records.items() if ("_id" in r["brainlife"]) != drafts and (not only or n in only)}
-    unfinished = [n for n, r in records.items() if r["provenance"]["todo"] or dtrecord.validate(r)]
-    if unfinished:
-        sys.exit(f"Records with TODOs or errors: {', '.join(unfinished)}")
+    if only - set(records):
+        sys.exit(f"Unknown or filtered-out datatypes: {', '.join(sorted(only - set(records)))}")
+    bad = unfinished(records)
+    if bad:
+        sys.exit(f"Records with TODOs or errors: {', '.join(bad)}")
     live_now = {d["name"]: d for d in _get_json(f"{API}/datatype?limit=0")["datatypes"]}
     return dtsync.plan(records, live_now, _latest_snapshot(), admins=admins)
 
@@ -326,13 +339,14 @@ def main(argv=None):
             stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
             log = ROOT / "docs" / "backfill" / "datatypes" / f"{stamp}-undo.json"
             log.parent.mkdir(parents=True, exist_ok=True)
-            created = dtsync.push(changes, Http(), log)
-            for name, _id in created.items():
+            def registered(name, _id):
                 old = root / "drafts" / f"{dtrecord.slug(name)}.json"
                 record = dtrecord.load(old)
                 record["brainlife"]["_id"] = _id
                 dtrecord.save(root / old.name, record)
                 old.unlink()
+
+            dtsync.push(changes, Http(), log, on_created=registered)
             print(f"undo log: {log}")
     elif a.cmd == "generate":
         records = dtrecord.load_all(root)

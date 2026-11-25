@@ -37,6 +37,12 @@
     "name": "neuro/noddi-deprecated",
     "original": {
       "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+      "file_descs": {
+        "dir": "",
+        "icvf": "",
+        "isovf": "",
+        "od": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Conversion to the current neuro/noddi datatype.\n\n**Not for:** New analyses; convert to neuro/noddi first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.noddi-deprecated.json"

@@ -76,6 +76,11 @@
     "name": "neuro/meg/BTi4D",
     "original": {
       "desc": "Each experimental run on a 4D neuroimaging/BTi system results in a folder containing multiple files without extensions.",
+      "file_descs": {
+        "headshape": "",
+        "meg": "A directory containing the following files; \"config\", \"hs_file\", \"e,rfhp1.0Hz.COH\", \"c,rfDC\"",
+        "scans": ""
+      },
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging"
     },
     "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.BTi4D.json"

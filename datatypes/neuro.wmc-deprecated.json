@@ -24,6 +24,12 @@
     "name": "neuro/wmc-deprecated",
     "original": {
       "desc": "White Matter Classification and FG structure",
+      "file_descs": {
+        "fibercounts": "",
+        "output": "",
+        "surfaces": "",
+        "tracts": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Conversion to the current neuro/wmc datatype.\n\n**Not for:** New analyses; convert to neuro/wmc first.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.wmc-deprecated.json"

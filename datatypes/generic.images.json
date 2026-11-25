@@ -24,6 +24,10 @@
     "name": "generic/images",
     "original": {
       "desc": "Collection of various images with metadata",
+      "file_descs": {
+        "images": "",
+        "images_json": "It should look like\n\n{\n    \"images\": [\n        {\n            \"filename\": \"images/brainmask.svg\",\n            \"name\": \"brainmask\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/carpetplot.svg\",\n            \"name\": \"carpetplot\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/sampling_scheme.gif\",\n            \"name\": \"sampling_scheme\",\n            \"desc\": \"TODO\"\n        }\n    ]\n}"
+      },
       "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype."
     },
     "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/generic.images.json"

@@ -34,6 +34,9 @@
     "name": "neuro/track/trk",
     "original": {
       "desc": "TrackVis (.trk). Track file is one single binary file, with the first 1000 bytes as the header and the rest as the body.",
+      "file_descs": {
+        "track": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Input to DIPY tools such as RecoBundles, BUAN profiles and streamline registration. Conversion to .tck or TinyTrack for MRtrix and DSI Studio Apps.\n\n**Not for:** Apps expecting MRtrix .tck without conversion. Assuming the header space matches another image without checking its affine.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 9 Apps, output of 13 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.track.trk.json"

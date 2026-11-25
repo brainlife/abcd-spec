@@ -50,6 +50,9 @@
     "name": "neuro/anat/t2starw",
     "original": {
       "desc": "T2starw",
+      "file_descs": {
+        "t2starw": "T2starw NIfTI volume"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Phase unwrapping and B0/T2* mapping (ROMEO) towards QSM. Atlas-based segmentation of T2*-weighted magnitude images.\n\n**Not for:** Apps expecting magnitude when the object is phase; check the part-mag or part-phase tag. Multi-echo processing when echo times are missing from metadata.\n\n**BIDS:** anat/T2starw (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.t2starw.json"

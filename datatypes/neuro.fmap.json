@@ -300,6 +300,26 @@
     "name": "neuro/fmap",
     "original": {
       "desc": "fieldmaps measure the magnetic field inhomogeniety. epi images often exhibit signal dropout and spatial distortion in regions where the magnetic field is inhomogenous (often around the fontal cortex and medial temporal lobe). We can not recover the lost signal, but we can attempt to undistort images using fieldmaps",
+      "file_descs": {
+        "epi1": "for pepolar",
+        "epi1_json": "for pepolar",
+        "epi2": "for pepolar",
+        "epi2_json": "for pepolar",
+        "fieldmap": "for single",
+        "fieldmap_json": "for single",
+        "magnitude": "for single",
+        "magnitude1": "for 2phasemag, phasediff",
+        "magnitude1_json": "",
+        "magnitude2": "for 2phasemag, phasediff(optional)",
+        "magnitude2_json": "",
+        "magnitude_json": "",
+        "phase1": "for 2phasemag",
+        "phase1_json": "for 2phasemag",
+        "phase2": "for 2phasemag",
+        "phase2_json": "for 2phasemag",
+        "phasediff": "for phasediff",
+        "phasediff_json": "for phasediff"
+      },
       "readme": "This datatype follows the BIDS fieldmap specification\n\n> https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#types-of-fieldmaps\n\nAlthough all of the files in this datatypes are \"optional\", in reality, depending on which *case* the fmap uses, a different set of files are required."
     },
     "readme": "This datatype follows the BIDS fieldmap specification\n\n> https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#types-of-fieldmaps\n\nAlthough all of the files in this datatypes are \"optional\", in reality, depending on which *case* the fmap uses, a different set of files are required.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.fmap.json"

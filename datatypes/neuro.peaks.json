@@ -24,6 +24,9 @@
     "name": "neuro/peaks",
     "original": {
       "desc": "4D nifti image containing the peaks of a spherical harmonic function at each voxel (from sh2peaks)",
+      "file_descs": {
+        "peaks": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Input to TractSeg segmentation and training, and to COMMIT.\n\n**Not for:** Tracking Apps that need full FODs or a DIPY .pam5 file.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 5 Apps, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.peaks.json"

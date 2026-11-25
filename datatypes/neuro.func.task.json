@@ -156,6 +156,15 @@
     "name": "neuro/func/task",
     "original": {
       "desc": "fMRI Task",
+      "file_descs": {
+        "bold": "",
+        "events": "",
+        "events_json": "",
+        "physio": "",
+        "physio_json": "",
+        "sbref": "",
+        "sbref_json": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Preprocessing with fMRIPrep or C-PAC, QC with MRIQC, and denoising. Task GLMs, pRF mapping and functional connectivity once preprocessed.\n\n**Not for:** GLMs or connectivity on runs without the preprocessed tag. Task analyses when events are missing; use neuro/func/events.\n\n**BIDS:** func/bold (equivalent), func/events (equivalent), func/sbref (equivalent), func/physio (equivalent)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 37 Apps, output of 15 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.task.json"

@@ -24,6 +24,9 @@
     "name": "neuro/meeg/mne/covariance",
     "original": {
       "desc": "To be edited by Saeed",
+      "file_descs": {
+        "cov": "A small fif file containing the covariant matrix"
+      },
       "readme": "To be edited by Saeed"
     },
     "readme": "To be edited by Saeed\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.covariance.json"

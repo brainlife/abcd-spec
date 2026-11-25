@@ -24,6 +24,9 @@
     "name": "neuro/maps",
     "original": {
       "desc": "(experimental) similar to neuro/rois, this datatype contains any number of nifti files in a directory. Unlike neuro/rois, each nifti can contain any value (not just 0 or 1). The type of values that it contains are determined by datatype tags.",
+      "file_descs": {
+        "maps": "A directory containing *.nii.gz files. "
+      },
       "readme": ""
     },
     "readme": "**Use for:** Holding sets of continuous-valued volumes such as GLM statistical maps or atlas maps.\n\n**Not for:** Binary ROI analysis; use neuro/rois. Interpreting values without the datatype tags.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.maps.json"

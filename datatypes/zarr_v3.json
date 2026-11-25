@@ -24,6 +24,9 @@
     "name": "zarr v3",
     "original": {
       "desc": "zarr output",
+      "file_descs": {
+        "zarr-json": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Recording the Zarr v3 output of light-sheet deskewing.\n\n**Not for:** Analysis Apps; only zarr.json is registered, the chunks are written elsewhere.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/zarr_v3.json"

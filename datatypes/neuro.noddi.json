@@ -29,6 +29,12 @@
     "name": "neuro/noddi",
     "original": {
       "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+      "file_descs": {
+        "dir": "",
+        "isovf": "",
+        "ndi": "",
+        "odi": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Tract profiles, cortical mapping, connectome weights and ROI statistics of microstructure.\n\n**Not for:** Trusting NDI or ISOVF from single-shell fits; only ODI is reliable there.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 19 Apps, output of 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.noddi.json"

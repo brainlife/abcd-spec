@@ -52,6 +52,9 @@
     "name": "neuro/meeg/mne/raw",
     "original": {
       "desc": "https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw",
+      "file_descs": {
+        "mne": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Hub format for M/EEG preprocessing in MNE (filtering, ICA, SSP, epoching, PSD).\n\n**Not for:** Telling raw from preprocessed data without checking datatype tags. BIDS raw export of EEG: BIDS does not accept FIF for EEG.\n\n**BIDS:** meg/meg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 32 Apps, output of 24 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.raw.json"

@@ -24,6 +24,9 @@
     "name": "neuro/microperimetry",
     "original": {
       "desc": "Microperimetry or fundus-controlled perimetry provides an evaluation of visual function by testing the visual field with incorporated eye-tracking. [https://pubmed.ncbi.nlm.nih.gov/33022378/]. This app is optimised for use on binocular integrated data produced by  https://ocular.shinyapps.io/MAIA_binocular_field_app/",
+      "file_descs": {
+        "microperimetry": "A tab-separated values (TSV) file containing 4 columns (ID, x_deg, y_deg, and Threshold\") and sets of values. \n"
+      },
       "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```"
     },
     "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.microperimetry.json"

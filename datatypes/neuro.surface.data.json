@@ -61,6 +61,11 @@
     "name": "neuro/surface/data",
     "original": {
       "desc": "(experimental) surface data data.nii only contains measures at each vertices. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
+      "file_descs": {
+        "label": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+        "left": "",
+        "right": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Surface-based analysis of fMRI time series, measures or parcellations.\n\n**Not for:** Use without the matching surface mesh (neuro/surface/vertices) and space tag.\n\n**BIDS:** anat/dseg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 12 Apps, output of 10 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.data.json"

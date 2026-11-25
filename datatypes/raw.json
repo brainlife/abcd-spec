@@ -34,6 +34,9 @@
     "name": "raw",
     "original": {
       "desc": "Unstructured data not meant to be used as input to any other Apps. You can use this datatype for development purposes. Please register a new datatype once your App is ready to be used by other users.",
+      "file_descs": {
+        "output": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Development outputs and App-specific results not meant as a shared contract.\n\n**Not for:** Input to general Apps; content depends on the producing App and its tags. Sharing without checking what the folder holds.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 11 Apps, output of 146 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/raw.json"

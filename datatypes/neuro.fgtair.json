@@ -43,6 +43,9 @@
     "name": "neuro/fgtair",
     "original": {
       "desc": "Fast Gray Matter Acquisition T1 Inversion Recovery (FGATIR) sequence. T1 with opposite contrast",
+      "file_descs": {
+        "fgtair": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Visualising and delineating deep grey nuclei (e.g. for DBS targeting).\n\n**Not for:** Apps expecting a standard T1w contrast. Sharing outside a controlled project without defacing.\n\n**BIDS:** anat/T1w (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.fgtair.json"

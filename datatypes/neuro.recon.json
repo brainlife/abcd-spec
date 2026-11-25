@@ -58,6 +58,14 @@
     "name": "neuro/recon",
     "original": {
       "desc": "Diffusion Signal Voxel Reconstruction Model",
+      "file_descs": {
+        "brainmask": "",
+        "csd": "",
+        "dt": "",
+        "fa": "",
+        "response": "",
+        "wm": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Inputs and intermediates of legacy MRtrix 0.2 tracking Apps.\n\n**Not for:** MRtrix3 Apps; CSD and response formats differ between versions.\n\n**BIDS:** dwi/FA (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.recon.json"

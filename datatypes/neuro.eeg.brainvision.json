@@ -82,6 +82,16 @@
     "name": "neuro/eeg/brainvision",
     "original": {
       "desc": "EEG / BrainVision Core Data Format (.vhdr, .vmrk, .eeg)",
+      "file_descs": {
+        "channels": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+        "coordsystem": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+        "eeg": "",
+        "electrodes": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+        "events": "",
+        "events_json": "",
+        "vhdr": "",
+        "vmrk": ""
+      },
       "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
     },
     "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.brainvision.json"

@@ -24,6 +24,10 @@
     "name": "neuro/dp/optimal",
     "original": {
       "desc": "Optimal Fitting by DP",
+      "file_descs": {
+        "fe_optimal": "result of optimal fitting by dp",
+        "info": "fitting info"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Keeping legacy optimal-fit results; no current App reads or writes this datatype.\n\n**Not for:** New work until the owner documents what the fit is; owner review needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dp.optimal.json"

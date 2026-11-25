@@ -24,6 +24,10 @@
     "name": "neuro/surface/vertices",
     "original": {
       "desc": "Surface vertices (3D mesh) stored in <left/right>/<name>.gii. Where <name> is the name of the surface such as pial, white, inflated, etc. ",
+      "file_descs": {
+        "left": "",
+        "right": ""
+      },
       "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```"
     },
     "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.surface.vertices.json"

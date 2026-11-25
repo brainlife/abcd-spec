@@ -57,7 +57,7 @@ def test_desired_never_touches_protected_file_fields():
 def test_proposed_files_are_appended_optional():
     r = copy.deepcopy(REC)
     r["files"].append({"id": "dwi_json", "filename": "dwi.json", "desc": "Sidecar.", "required": False, "proposed": True})
-    body = dtsync.desired(r, LIVE, "u")
+    body = dtsync.desired(r, dict(LIVE, validator=None), "u")
     assert body["files"][-1] == {"id": "dwi_json", "filename": "dwi.json", "desc": "Sidecar.", "required": False}
     assert len(body["files"]) == len(LIVE["files"]) + 1
 
@@ -74,12 +74,53 @@ def test_drifted_field_is_skipped():
     assert "desc" in ch["skipped"] and "desc" not in ch["body"]
 
 
-def test_draft_becomes_post():
+def _angio_draft():
     d = copy.deepcopy(REC)
     del d["brainlife"]["_id"]
     d["brainlife"]["name"] = "neuro/anat/angio"
-    ch = dtsync.plan({"neuro/anat/angio": d}, {}, {}, "u")[0]
+    d["files"][0]["proposed"] = True
+    return d
+
+
+def test_draft_becomes_post_with_its_files_and_admins():
+    ch = dtsync.plan({"neuro/anat/angio": _angio_draft()}, {}, {}, "u", admins=("1",))[0]
     assert ch["method"] == "POST" and ch["body"]["name"] == "neuro/anat/angio"
+    assert [f["id"] for f in ch["body"]["files"]] == [f["id"] for f in REC["files"]]
+    assert all("proposed" not in f for f in ch["body"]["files"])
+    assert ch["body"]["admins"] == ["1"]
+
+
+def test_draft_post_requires_admins():
+    with pytest.raises(ValueError):
+        dtsync.plan({"neuro/anat/angio": _angio_draft()}, {}, {}, "u")
+
+
+def test_draft_post_refused_when_name_is_already_live():
+    with pytest.raises(ValueError):
+        dtsync.plan({"neuro/anat/angio": _angio_draft()}, {"neuro/anat/angio": dict(LIVE, name="neuro/anat/angio")},
+                    {}, "u", admins=("1",))
+
+
+def _rec_drafted_against(live):
+    r = copy.deepcopy(REC)
+    r["brainlife"]["original"] = {"desc": live["desc"], "readme": live.get("readme") or "",
+                                  "file_descs": {f["id"]: f.get("desc", "") for f in live["files"]}}
+    return r
+
+
+def test_edit_made_between_draft_and_pull_is_skipped():
+    now = dict(LIVE, desc="edited by an admin", readme="admin readme",
+               files=[dict(LIVE["files"][0], desc="admin file desc")] + LIVE["files"][1:])
+    ch = dtsync.plan({"neuro/dwi": _rec_drafted_against(LIVE)}, {"neuro/dwi": now}, {"neuro/dwi": now}, "u")[0]
+    assert {"desc", "readme", "files"} <= set(ch["skipped"])
+    assert not {"desc", "readme", "files"} & set(ch["body"])
+
+
+def test_proposed_files_wait_when_the_datatype_has_a_validator():
+    r = copy.deepcopy(REC)
+    r["files"].append({"id": "x_json", "filename": "x.json", "desc": "Sidecar.", "required": False, "proposed": True})
+    body = dtsync.desired(r, dict(LIVE, validator="brainlife/validator-x"), "u")
+    assert "x_json" not in [f["id"] for f in body["files"]]
 
 
 def test_budget_blocks_large_record():
@@ -102,12 +143,22 @@ def test_undo_log_written_before_each_send(tmp_path):
     assert len(json.loads((tmp_path / "undo.json").read_text())) == 2
 
 
-def test_undo_restores_before_values(tmp_path):
+def test_undo_restores_only_the_fields_push_wrote(tmp_path):
     log = tmp_path / "undo.json"
     dtsync.push([_change("a", "1" * 24)], RecordingHttp(), log)
     http = RecordingHttp()
     dtsync.undo(log, http)
-    assert http.puts[0] == (f"/datatype/{'1' * 24}", {"desc": "old", "readme": "", "files": [], "bids": None})
+    assert http.puts[0] == (f"/datatype/{'1' * 24}", {"desc": "old"})
+
+
+def test_push_reports_each_created_datatype_as_it_goes(tmp_path):
+    seen = []
+    post = dict(_change("n", None), method="POST", before=None, body={"name": "n"})
+    http = RecordingHttp(fail_on_put=1)
+    with pytest.raises(RuntimeError):
+        dtsync.push([post, _change("a", "1" * 24)], http, tmp_path / "undo.json",
+                    on_created=lambda name, _id: seen.append((name, _id)))
+    assert seen == [("n", "0" * 24)]
 
 
 def test_undo_keeps_created_datatype_that_is_in_use(tmp_path):

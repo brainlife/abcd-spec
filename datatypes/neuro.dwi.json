@@ -93,6 +93,13 @@
     "name": "neuro/dwi",
     "original": {
       "desc": "Diffusion-weighted magnetic resonance data (dMRI), saved in NIfTI-1 format.",
+      "file_descs": {
+        "bvals": "",
+        "bvecs": "",
+        "dwi": "",
+        "sbref": "Single-band reference for one or more multi-band dwi images.",
+        "sbref_json": ""
+      },
       "readme": "Used brainlife/validator-neuro-dwi for validator"
     },
     "readme": "Used brainlife/validator-neuro-dwi for validator\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.json"

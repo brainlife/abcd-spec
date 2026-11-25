@@ -134,6 +134,13 @@
     "name": "neuro/perf/ASL",
     "original": {
       "desc": "Arterial Spin Labeling (ASL) for perfusion measurements\n",
+      "file_descs": {
+        "asl": "",
+        "asllabeling": "It is recommended to specify as much labeling information as possible for quality control, such as: a description of the location of the labeling slab, the labeling slab orientation, labeling slab distance and labeling slab thickness, and the labeling efficiency. Different approaches can be utilized for labeling positioning, depending on the preference of the researcher, as well as the flexibility of the sequence to manually optimize the labeling position. Therefore, an anonymized screenshot of the planning of the labeling plane for each session, saved as *_asllabeling.jpg, can clarify exact positioning and is recommended.",
+        "context": "",
+        "m0scan": "A M0 image is a calibration or reference image, used to estimate the M0 of blood. It is usually weighted toward the M0 of tissue, and is required especially when ASL is acquired with background suppression and/or pre-saturation pulses. ",
+        "m0scan_json": "Sidecar for m0scan"
+      },
       "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n"
     },
     "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.perf.ASL.json"

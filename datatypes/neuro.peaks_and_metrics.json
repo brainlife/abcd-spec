@@ -24,6 +24,9 @@
     "name": "neuro/peaks_and_metrics",
     "original": {
       "desc": "Model fit parameters in PeaksAndMetrics(HDF5)",
+      "file_descs": {
+        "peaks": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Direction getter for DIPY local and particle filtering tractography.\n\n**Not for:** MRtrix or TractSeg Apps; they need NIfTI FODs or peaks.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 5 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.peaks_and_metrics.json"

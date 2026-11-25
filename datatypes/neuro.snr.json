@@ -24,6 +24,9 @@
     "name": "neuro/snr",
     "original": {
       "desc": "(experimental) per-voxel SNR data",
+      "file_descs": {
+        "snr": ""
+      },
       "readme": "EDIT ME"
     },
     "readme": "EDIT ME\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.snr.json"

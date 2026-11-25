@@ -35,22 +35,49 @@ def _mapped(record):
     return [c for c in record["bids"]["correspondences"] if c["match"] in MAPPED]
 
 
+def _exts(name):
+    """Extensions after the stem, with a trailing plural s dropped (dwi.bvecs and dwi.bvec agree)."""
+    return [e.rstrip("s") for e in name.split(".")[1:]]
+
+
+def _exportable(src, dest, is_dir):
+    """A map the BIDS export can use as it is: no placeholders, no directory exported as a file,
+    no change of format between the brainlife file and the BIDS name."""
+    if "<" in dest or ">" in dest:
+        return False
+    if src == "_meta_":
+        return dest.endswith(".json")
+    if is_dir:
+        return dest.endswith("/") or "." not in dest
+    return _exts(src) == _exts(dest)
+
+
 def project_maps(record, live_bids):
-    """The datatype.bids object to write: live maps untouched and first, new maps appended."""
-    live_bids = live_bids or {}
-    maps = list(live_bids.get("maps") or [])
+    """The datatype.bids object to write: live maps untouched and first, new maps appended.
+
+    Returns live_bids unchanged (None when there is none) when there is nothing to add, so
+    datatypes without a mapping keep exporting nothing."""
+    maps = list((live_bids or {}).get("maps") or [])
     sources = {m.get("src") for m in maps}
-    files = {f["id"]: f.get("filename") or f.get("dirname") for f in record["files"]}
+    dests = {m.get("dest") for m in maps}
+    files = {f["id"]: (f.get("filename") or f.get("dirname"), "dirname" in f and "filename" not in f)
+             for f in record["files"]}
     correspondences = _mapped(record)
+    added = []
     for c in correspondences:
         for f in c["files"]:
-            src = "_meta_" if f["file_id"] == "_meta_" else files.get(f["file_id"])
-            if src is None or f.get("sidecar") == "missing" or src in sources:
+            src, is_dir = ("_meta_", False) if f["file_id"] == "_meta_" else files.get(f["file_id"], (None, False))
+            dest = f["bids_part"]
+            if (src is None or f.get("sidecar") == "missing" or src in sources or dest in dests
+                    or not _exportable(src, dest, is_dir)):
                 continue
-            maps.append({"src": src, "dest": f["bids_part"]})
+            added.append({"src": src, "dest": dest})
             sources.add(src)
-    derivatives = live_bids.get("derivatives") or (correspondences[0]["datatype"] if correspondences else "")
-    return {"derivatives": derivatives, "maps": maps}
+            dests.add(dest)
+    if not added:
+        return live_bids
+    derivatives = (live_bids or {}).get("derivatives") or correspondences[0]["datatype"]
+    return dict(live_bids or {}, derivatives=derivatives, maps=maps + added)
 
 
 def aimport_rows(records):

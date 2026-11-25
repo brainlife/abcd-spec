@@ -48,6 +48,9 @@
     "name": "neuro/qsm",
     "original": {
       "desc": "Quantitative Susceptibility Map",
+      "file_descs": {
+        "qsm": ""
+      },
       "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT"
     },
     "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.qsm.json"

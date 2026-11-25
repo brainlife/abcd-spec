@@ -24,6 +24,10 @@
     "name": "neuro/meeg/stc",
     "original": {
       "desc": "Boundary Element Model",
+      "file_descs": {
+        "stc-lh": "",
+        "stc-rh": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Extracting label time courses or morphing to fsaverage for group analysis.\n\n**Not for:** Volume source estimates; only surface STC pairs are supported. Group comparison before morphing to a common brain (fsaverage tag).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 2 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.stc.json"

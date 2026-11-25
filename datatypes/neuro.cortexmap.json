@@ -52,6 +52,9 @@
     "name": "neuro/cortexmap",
     "original": {
       "desc": "Cortext Mapping",
+      "file_descs": {
+        "cortexmap": ""
+      },
       "readme": "todo"
     },
     "readme": "todo\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.cortexmap.json"

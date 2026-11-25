@@ -625,6 +625,9 @@
     "name": "neuro/ome-zarr",
     "original": {
       "desc": "OME-Zarr (OME-NGFF) multidimensional bioimaging store",
+      "file_descs": {
+        "zarr": "OME-Zarr store root"
+      },
       "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility."
     },
     "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ome-zarr.json"

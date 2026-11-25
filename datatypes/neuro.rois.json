@@ -49,6 +49,10 @@
     "name": "neuro/rois",
     "original": {
       "desc": "Regions of interests in multiple nifti files. Each nifti files should be a binary masks (values should be either 0 or 1)",
+      "file_descs": {
+        "label": "(optional) json file containing list of object that describes each roi stored in rois directory. This information will be used by brainlife UI to present a user dropdown list of existing ROIs within a data object.",
+        "rois": "A directory containing some number of .nii.gz files representing ROI s (binary mask)"
+      },
       "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```"
     },
     "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.rois.json"

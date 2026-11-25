@@ -24,6 +24,7 @@
     "name": "neuro/fake",
     "original": {
       "desc": "fake",
+      "file_descs": {},
       "readme": ""
     },
     "readme": "**Use for:** Testing datatype creation only.\n\n**Not for:** Any real data.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 1 (aggregated, non-revealing) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.fake.json"

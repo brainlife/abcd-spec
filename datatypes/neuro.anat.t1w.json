@@ -50,6 +50,9 @@
     "name": "neuro/anat/t1w",
     "original": {
       "desc": "T1-weighted magnetic resonance data (MRI), saved in NIfTI-1 format.",
+      "file_descs": {
+        "t1": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Reference anatomy for registration, brain extraction, tissue segmentation and FreeSurfer reconstruction. Anatomical constraint for tractography (5TT) and ROI or atlas warping.\n\n**Not for:** Apps expecting acpc_aligned or brain_extracted inputs when the object lacks those tags. Public sharing before defacing (check the defaced tag).\n\n**BIDS:** anat/T1w (equivalent)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 180 Apps, output of 59 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.anat.t1w.json"

@@ -24,6 +24,9 @@
     "name": "neuro/hcp/freesurferpost",
     "original": {
       "desc": "Contains content similar to /N/dcwan/projects/hcp/517239/MNINonLinear",
+      "file_descs": {
+        "output": ""
+      },
       "readme": ""
     },
     "readme": "**Use for:** Cortical surface mapping in fs_LR space (e.g. Fukutomi et al. cortex tissue mapping).\n\n**Not for:** Apps needing MSMAll spheres or fsaverage_LR32k when the folder lacks them.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 1 App, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.freesurferpost.json"

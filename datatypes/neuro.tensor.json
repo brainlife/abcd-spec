@@ -29,6 +29,22 @@
     "name": "neuro/tensor",
     "original": {
       "desc": "Diffusion Tensor Image Scalars",
+      "file_descs": {
+        "ad": "Tensor measure / Axial Diffusivity (microm^2/msec)",
+        "ak": "DKI measure / Axial kurtosis (microm^2/msec)",
+        "cl": "??",
+        "cp": "??",
+        "cs": "??",
+        "fa": "Tensor measure / Fractional anisotropy (normalized fraction of anisotropic component)",
+        "ga": "DKI measure / Geodesic Anisotropy (normalized fraction of geodesic component)",
+        "kurtosis": "??",
+        "md": "Tensor measure / Mean Diffusivity (microm^2/msec)",
+        "mk": "DKI measure / Mean kurtosis (microm^2/msec)",
+        "rd": "Tensor measure / Radial Diffusivity (microm^2/msec)",
+        "rgb": "RGB color value assigned for each voxel (colored FA)",
+        "rk": "DKI measure / Radial kurtosis (microm^2/msec)",
+        "tensors": "??"
+      },
       "readme": ""
     },
     "readme": "**Use for:** Tract profiles, connectome edge weights and ROI or parcel statistics. Registration to templates or anatomy, and FA-based masks.\n\n**Not for:** Assuming DKI maps are present; they need multi-shell data. Comparing maps from different fitting tools or spaces without checking units and registration.\n\n**BIDS:** dwi/FA (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 42 Apps, output of 15 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tensor.json"

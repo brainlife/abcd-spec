@@ -116,3 +116,25 @@ def test_draft_ignores_placeholder_aimport_rows():
     rows = ROWS + [{"bids": {"datatype": "anat", "suffix": "T2w"}, "brainlife": None, "status": "planned"}]
     out = bldt.draft(SNAP, MINI, APP_INDEX, rows, {})
     assert out["neuro/anat/t1w"]["bids"]["correspondences"][0]["suffix"] == "T1w"
+
+
+def test_unfinished_checks_placeholders_not_the_stored_list():
+    r = copy.deepcopy(DWI)
+    r["brainlife"]["desc"] = "TODO"
+    assert bldt.unfinished({"neuro/dwi": r}) == ["neuro/dwi"]
+    assert bldt.unfinished({"neuro/dwi": DWI}) == []
+
+
+def test_refresh_does_not_take_our_own_generated_readme_as_original():
+    import dtreadme
+    snap = copy.deepcopy(SNAP)
+    live = next(d for d in snap["datatypes"] if d["name"] == "neuro/dwi")
+    live["readme"] = dtreadme.render(DWI, "https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.json")
+    out = bldt.draft(snap, MINI, APP_INDEX, ROWS, {"neuro/dwi": DWI})
+    assert out["neuro/dwi"]["brainlife"]["original"]["readme"] == ""
+
+
+def test_draft_records_original_file_descs():
+    out = _draft()
+    live = next(d for d in SNAP["datatypes"] if d["name"] == "neuro/dwi")
+    assert out["neuro/dwi"]["brainlife"]["original"]["file_descs"] == {f["id"]: f.get("desc", "") for f in live["files"]}
