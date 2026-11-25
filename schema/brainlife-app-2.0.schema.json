@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/brainlife/abcd-spec/master/schema/brainlife-app-2.0.schema.json",
+  "title": "brainlife App manifest (brainlife.app.json)",
+  "description": "Describes one brainlife App version (one branch of an App repository) for agents and people. It describes the App; it does not change how the App runs (see the ABCD hooks for that).",
+  "type": "object",
+  "required": ["spec", "name", "version", "summary", "kind", "inputs", "outputs", "parameters", "runtime"],
+  "additionalProperties": false,
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "structural": {"type": "string", "minLength": 1, "not": {"const": "unknown"}},
+    "datatype_tags": {"type": "array", "items": {"type": "string"}},
+    "input": {
+      "type": "object",
+      "required": ["id", "datatype", "optional", "multi", "description", "config_keys"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"$ref": "#/$defs/structural"},
+        "datatype": {"$ref": "#/$defs/structural", "description": "brainlife datatype name, e.g. neuro/anat/t1w"},
+        "datatype_tags": {"$ref": "#/$defs/datatype_tags"},
+        "optional": {"type": "boolean"},
+        "multi": {"type": "boolean"},
+        "advanced": {"type": "boolean"},
+        "description": {"$ref": "#/$defs/text"},
+        "requirements": {"$ref": "#/$defs/text", "description": "Conditions the data must meet, e.g. 'submillimetre images need hires'"},
+        "config_keys": {"type": "array", "items": {"type": "string"}, "description": "config.json keys that receive this input's files"}
+      }
+    },
+    "output": {
+      "type": "object",
+      "required": ["id", "datatype", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"$ref": "#/$defs/structural"},
+        "datatype": {"$ref": "#/$defs/structural"},
+        "datatype_tags": {"$ref": "#/$defs/datatype_tags"},
+        "datatype_tags_pass": {"type": ["string", "null"], "description": "input id whose datatype tags are copied to this output"},
+        "description": {"$ref": "#/$defs/text"}
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": ["value"],
+      "additionalProperties": false,
+      "properties": {
+        "value": {"type": ["string", "number", "boolean"]},
+        "label": {"type": "string"},
+        "description": {"type": "string"}
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["id", "type", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"$ref": "#/$defs/structural"},
+        "type": {"enum": ["string", "integer", "number", "boolean", "enum"]},
+        "description": {"$ref": "#/$defs/text"},
+        "default": {},
+        "units": {"$ref": "#/$defs/text"},
+        "minimum": {"type": "number"},
+        "maximum": {"type": "number"},
+        "options": {"type": "array", "items": {"$ref": "#/$defs/option"}, "minItems": 1},
+        "required": {"type": "boolean"},
+        "advanced": {"type": "boolean"},
+        "readonly": {"type": "boolean"},
+        "multiline": {"type": "boolean"},
+        "placeholder": {"type": "string"}
+      },
+      "if": {"properties": {"type": {"const": "enum"}}},
+      "then": {"required": ["options"]}
+    }
+  },
+  "properties": {
+    "spec": {"const": "brainlife-app/2.0"},
+    "name": {"$ref": "#/$defs/structural"},
+    "version": {"$ref": "#/$defs/structural", "description": "the App's branch"},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 350, "description": "One line; becomes the GitHub description and the brainlife tagline"},
+    "description": {"$ref": "#/$defs/text", "description": "What the App does, when to use it, and when not to"},
+    "kind": {"enum": ["native", "bids-app"]},
+    "category": {"$ref": "#/$defs/text"},
+    "topics": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,49}$"}, "maxItems": 20, "uniqueItems": true},
+    "doi": {"type": "string", "pattern": "^10\\.[0-9]+/.+$"},
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string"},
+        "github": {"type": "string"},
+        "branch": {"type": "string"}
+      }
+    },
+    "inputs": {"type": "array", "items": {"$ref": "#/$defs/input"}},
+    "outputs": {"type": "array", "items": {"$ref": "#/$defs/output"}},
+    "parameters": {"type": "array", "items": {"$ref": "#/$defs/parameter"}},
+    "runtime": {
+      "type": "object",
+      "required": ["container"],
+      "additionalProperties": false,
+      "properties": {
+        "container": {"$ref": "#/$defs/text", "description": "image:tag, e.g. brainlife/freesurfer:7.3.2, or 'unknown'"},
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cpus": {"type": "number", "minimum": 1},
+            "memory_gb": {"type": "number", "exclusiveMinimum": 0},
+            "walltime_hours": {"type": "number", "exclusiveMinimum": 0},
+            "gpu": {"type": "boolean"}
+          }
+        },
+        "licenses_required": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "software": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name"], "additionalProperties": false,
+        "properties": {"name": {"type": "string"}, "version": {"type": "string"}, "url": {"type": "string"}}
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "properties": {"doi": {"type": "string"}, "text": {"type": "string"}}
+      }
+    },
+    "license": {"type": "string"},
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["message", "fix"], "additionalProperties": false,
+        "properties": {"message": {"type": "string"}, "cause": {"type": "string"}, "fix": {"type": "string"}}
+      }
+    },
+    "examples": {"type": "array", "items": {"type": "string"}},
+    "maintainers": {"type": "array", "items": {"type": "string"}},
+    "deprecated_by": {"type": "string"},
+    "bids": {"type": "object", "description": "Reserved for kind 'bids-app': analysis levels, BIDS inputs and derivatives mapping. Not yet specified."}
+  }
+}

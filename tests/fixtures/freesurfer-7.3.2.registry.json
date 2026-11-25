@@ -1,0 +1,218 @@
+{
+ "_id": "62fa925519b13f0a0edd5c7c",
+ "user_id": "146",
+ "projects": [],
+ "admins": [
+  "146",
+  "16",
+  "1",
+  "41"
+ ],
+ "avatar": "https://raw.githubusercontent.com/brain-life/app-freesurfer/master/docs/fscortex.png",
+ "name": "Freesurfer 7.3.2",
+ "github": "brainlife/app-freesurfer",
+ "github_branch": "7.3.2",
+ "desc_override": "",
+ "tags": [
+  "analysis",
+  "anatomy-preprocessing"
+ ],
+ "config": {
+  "t1": {
+   "type": "input",
+   "file_id": "t1",
+   "input_id": "t1"
+  },
+  "t2": {
+   "type": "input",
+   "file_id": "t2",
+   "input_id": "t2"
+  },
+  "hires": {
+   "id": "hires",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "Check this flag if your input t1 has voxel sizes less than 1mm3 (submillimeter resolution) like HCP 7T. (HCP 3T is 1.25mm). The processing will take a significantly longer time. See https://surfer.nmr.mgh.harvard.edu/fswiki/SubmillimeterRecon",
+   "default": false,
+   "_order": 2,
+   "pid": 0.4596396008978668
+  },
+  "notalcheck": {
+   "id": "notalcheck",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "If you are seeing \"ERROR: Talairach failed\", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis.",
+   "default": false,
+   "_order": 3,
+   "pid": 0.3646233496851623
+  },
+  "cw256": {
+   "id": "cw256",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "If a scan has a field-of-view (FOV) greater than 256, check this to force the FOV to 256. You often need to do this for an image with sub 1mm voxel size (like HCP 7T)",
+   "default": false,
+   "_order": 4,
+   "pid": 0.6759870359083167
+  },
+  "debug": {
+   "id": "debug",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": true,
+   "desc": "Turn on copious amount of freesurfer log",
+   "default": false,
+   "_order": 5,
+   "pid": 0.47858621508384236
+  },
+  "expert": {
+   "id": "expert",
+   "type": "string",
+   "placeholder": "",
+   "advanced": true,
+   "desc": "You can specify extra command line options for various freesurfer commands executed by recon-all. Please leave it blank unless necessary. https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all#ExpertOptionsFile",
+   "default": "",
+   "_order": 6,
+   "pid": 0.9569332336001858,
+   "optional": true,
+   "multiline": true
+  },
+  "hippocampal": {
+   "id": "hippocampal",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "Generate an automated segmentation of the hippocampal subfields based on a statistical atlas built primarily upon ultra-high resolution (~0.1 mm isotropic) ex vivo MRI data. This new method can take advantage high-resolution, dedicated images when available (typically, but not necessarily, T2 weighted), and solves a number of limitations of the in vivo atlas that was distributed with FreeSurfer 5.1-5.3, namely",
+   "default": false,
+   "_order": 7,
+   "pid": 0.13188198612998447
+  },
+  "thalamicnuclei": {
+   "id": "thalamicnuclei",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "(For freesurfer >7) Generate a parcellation of the thalamus into 25 different nuclei, using a probabilistic atlas built with histological data. The parcellation is based on structural MRI, either the main T1 scan processed through recon-all, or an additional scan of a different modality, which potentially shows better contrast between the nuclei. [http://freesurfer.net/fswiki/ThalamicNuclei]",
+   "default": false,
+   "_order": 8,
+   "pid": 0.4749838463375289
+  },
+  " localGI": {
+   "id": " localGI",
+   "type": "boolean",
+   "placeholder": "",
+   "advanced": false,
+   "desc": "local Gyrification Index (lGI) This will produce files named lh.pial_lgi and rh.pial_lgi in the subjects surf directory. These files can be loaded as overlays in tksurfer. See https://surfer.nmr.mgh.harvard.edu/fswiki/LGI",
+   "default": false,
+   "_order": 9,
+   "pid": 0.9183239192608513
+  }
+ },
+ "inputs": [
+  {
+   "id": "t1",
+   "desc": "t1 to input",
+   "datatype": "58c33bcee13a50849b25879a",
+   "datatype_tags": [],
+   "optional": false,
+   "includes": "",
+   "multi": false,
+   "advanced": false,
+   "_id": "62fa925519b13f0a0edd5c7d"
+  },
+  {
+   "id": "t2",
+   "desc": "Using T2 to improve pial surfaces",
+   "datatype": "594c0325fa1d2e5a1f0beda5",
+   "datatype_tags": [],
+   "optional": true,
+   "includes": "",
+   "multi": false,
+   "advanced": false,
+   "_id": "62fa925519b13f0a0edd5c7e"
+  }
+ ],
+ "outputs": [
+  {
+   "id": "freesurfer",
+   "desc": "",
+   "datatype": "58cb22c8e13a50849b25882e",
+   "datatype_tags": [],
+   "datatype_tags_pass": "t1",
+   "output_on_root": false,
+   "files": null,
+   "archive": true,
+   "_id": "62fa925519b13f0a0edd5c7f"
+  },
+  {
+   "id": "parc",
+   "datatype": "5c1a7489f9109beac4a88a1f",
+   "datatype_tags": [
+    "aparc"
+   ],
+   "datatype_tags_pass": null,
+   "output_on_root": false,
+   "files": null,
+   "archive": false,
+   "_id": "62fa925519b13f0a0edd5c80"
+  },
+  {
+   "id": "parc2009",
+   "datatype": "5c1a7489f9109beac4a88a1f",
+   "datatype_tags": [
+    "aparc.a2009s"
+   ],
+   "datatype_tags_pass": null,
+   "output_on_root": false,
+   "files": null,
+   "archive": false,
+   "_id": "62fa925519b13f0a0edd5c81"
+  },
+  {
+   "id": "parcDKT",
+   "datatype": "5c1a7489f9109beac4a88a1f",
+   "datatype_tags": [
+    "aparc.DKTAtlas"
+   ],
+   "datatype_tags_pass": null,
+   "output_on_root": false,
+   "files": null,
+   "archive": false,
+   "_id": "62fa925519b13f0a0edd5c82"
+  }
+ ],
+ "removed": false,
+ "contributors": [
+  {
+   "name": "Soichi Hayashi",
+   "email": null,
+   "_id": "6b051f61053004d2c67458f8"
+  },
+  {
+   "name": "Giulia Bert\u00f2",
+   "email": null,
+   "_id": "6b051f61053004d2c67458f9"
+  },
+  {
+   "name": "Franco Pestilli",
+   "email": null,
+   "_id": "6b051f61053004d2c67458fa"
+  },
+  {
+   "name": "Brad Caron",
+   "email": null,
+   "_id": "6b051f61053004d2c67458fb"
+  },
+  {
+   "name": "Lindsey Kitchell",
+   "email": "lindsey.kitchell@jhuapl.edu",
+   "_id": "6b051f61053004d2c67458fc"
+  }
+ ],
+ "create_date": "2022-08-15T18:37:09.298Z",
+ "desc": "Freesurfer segments the t1w anatomical data into functionally different parts of the brain. Segmentation/parcellation can then be fed to many other subsequent analysis. ",
+ "doi": "10.25663/brainlife.app.664"
+}

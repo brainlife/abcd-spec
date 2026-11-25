@@ -1,0 +1,2092 @@
+[
+ {
+  "repo": "brainlife/app-align-mp2rage-to-t1",
+  "description": "Aligns MP2RAGE volumes to a T1-weighted image with FSL flirt so the MP2RAGE data share the anatomical image's space.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, container brainlife/fsl:5.0.11",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-average-tractmasks",
+  "description": "Averages the tract density masks in a tractmasks dataset with FSL and outputs averaged tract masks.",
+  "add_topics": [
+   "dwi",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, datatypes, container brainlife/fsl:6.0.4-patched2 (README is title only)",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-combine-parcellation",
+  "description": "Combines two volumetric parcellations into a single volume parcellation.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, datatypes, parameter 'overlap' (README is an unfilled template)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-compile-tract-profiles",
+  "description": "Compiles the per-tract profile CSVs of a tract profile dataset into a single summary CSV of tract measures for group statistics and machine learning.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-compute-temporal-snr",
+  "description": "Computes the temporal signal-to-noise ratio (tSNR) across the volumes of a DWI image within a brain mask with FSL, following the HCP minimal preprocessing pipeline.",
+  "add_topics": [
+   "dwi",
+   "quality-control",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, datatypes, container brainlife/fsl:5.0.9",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-contrack-visual-white-matter",
+  "description": "Tracks visual white matter between two ROIs with ConTrack and segments the streamlines into bundles by visual field eccentricity from pRF mapping, outputting a .tck tractogram and a white matter classification.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app names, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-convert-noddi-datatypes",
+  "description": "Converts a deprecated NODDI dataset to the current NODDI datatype, renaming icvf to ndi and od to odi.",
+  "add_topics": [
+   "dwi",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-convert-wmc2wmc",
+  "description": "App to convert the old wmc-deprecated datatype to the new wmc datatype",
+  "add_topics": [
+   "dwi",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current description, README, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-cortex-tissue-mapping-stats",
+  "description": "Computes summary statistics of diffusion and anatomical measures mapped to the cortical surface within parcellation ROIs, tract endpoints or pRF eccentricity-binned visual areas, using Connectome Workbench and FreeSurfer, and outputs parc-stats tables.",
+  "add_topics": [
+   "anatomy",
+   "surface-analysis",
+   "statistics",
+   "connectome-workbench",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, app names, containers",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dwi-debias",
+  "description": "Performs mrtrix's dwibiascorrect on dwi data",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current description, registry desc, container brainlife/mrtrix3:3.0_RC3",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-eeglab2mne",
+  "description": "Converts EEG data in EEGLAB format to an MNE-Python Raw (.fif) file.",
+  "add_topics": [
+   "conversion",
+   "mne-python",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife override, datatypes, container brainlife/mne:0.23dev (README empty)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-extract-diffusion-metrics-tissue-types",
+  "description": "Extracts summary measures of DTI, NODDI, quantitative T1 and myelin maps within tissue-type masks (CSF, gray matter, white matter) and outputs parc-stats tables.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app names, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-freesurfer-longitudinal",
+  "description": "Runs FreeSurfer longitudinal processing in two steps: builds a base template from one subject's FreeSurfer outputs at several timepoints, then produces longitudinally processed FreeSurfer output for each timepoint.",
+  "add_topics": [
+   "anatomy",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, app names, container brainlife/freesurfer:7.1.1",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-fsl-anat",
+  "description": "Runs FSL fsl_anat on a T1w, T2w or MP2RAGE image to produce ACPC-aligned, bias-corrected and standard-space images plus nonlinear warps to the template.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife overrides, app names, output datatypes, container brainlife/fsl (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-FSLTopupEddy",
+  "description": "Corrects DWI for susceptibility distortions, eddy currents and motion with FSL topup and eddy (CUDA or OpenMP) or eddy_correct, producing a corrected DWI and a brain mask.",
+  "add_topics": [
+   "dwi",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife overrides, app names",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-hcp-pipeline",
+  "description": "Runs the HCP Pipelines structural preprocessing through the BIDS-Apps wrapper on T1w and T2w images with FreeSurfer output, producing HCP FreeSurfer post-processing outputs.",
+  "add_topics": [
+   "anatomy",
+   "freesurfer",
+   "bids",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, datatypes, container bids/hcppipelines:v4.1.3-1",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-make-epochs",
+  "description": "Deprecated: Epochs continuous MEG data in MNE Raw (.fif) format into MNE Epochs with MNE-Python mne.Epochs.",
+  "add_topics": [
+   "meg",
+   "preprocessing",
+   "mne-python",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, datatypes (only App deprecated; no replacement named)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-merge-tractmasks",
+  "description": "Merges the tract masks in a tractmasks dataset into a single mask with FSL.",
+  "add_topics": [
+   "dwi",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, datatypes, container brainlife/fsl:6.0.4-patched2 (README is title only)",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-dwi-brainmask",
+  "description": "Creates a brain mask from DWI data with MRtrix3.",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-myelin-mapping",
+  "description": "Computes a myelin map from the ratio of T1-weighted and T2-weighted images with Connectome Workbench.",
+  "add_topics": [
+   "anatomy",
+   "connectome-workbench",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, datatypes, container brainlife/connectome_workbench:1.4.2b (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-nobrainer",
+  "description": "Parcellates a T1-weighted image with the kwyk Bayesian neural network from Nobrainer, producing volume parcellations with uncertainty estimates.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "segmentation",
+   "machine-learning",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, datatypes, container neuronets/kwyk:version-0.4-gpu",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-plot-response",
+  "description": "Plots the single-fiber response function of a CSD fit projected onto a sphere as a PNG image for quality control.",
+  "add_topics": [
+   "dwi",
+   "quality-control",
+   "visualization",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-pynets",
+  "description": "Runs PyNets, a reproducible workflow built on Nilearn and DIPY, on preprocessed T1w, fMRI and DWI data to estimate ensembles of structural and functional connectomes.",
+  "add_topics": [
+   "connectomics",
+   "fmri",
+   "dwi",
+   "nilearn",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-removeTractOutliers",
+  "description": "Removes outlier streamlines from each tract in a white matter classification, by distance from the tract core or from mean streamline length, with mbaComputeFibersOutliers from the MBA toolbox.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-roiGenerator",
+  "description": "Generates ROI NIfTI files and volume parcellations in anatomical, diffusion or fMRI space from FreeSurfer, input parcellations and pRF visual areas, using AFNI to inflate and merge ROIs.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "freesurfer",
+   "afni",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife overrides, app names",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-segment-hippamyg-nuclei",
+  "description": "Segments hippocampal subfields and amygdala nuclei with FreeSurfer segmentHA_T1.sh and adds the resulting .mgz files to the input FreeSurfer output.",
+  "add_topics": [
+   "anatomy",
+   "segmentation",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README (current description wrongly names segmentThalamicNuclei.sh), datatypes, container brainlife/freesurfer:7.3.2",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-sift2-connectome-generation",
+  "description": "Generates structural connectivity matrices (count, length, density) from a whole-brain tractogram and a volume parcellation with MRtrix3, optionally SIFT2-weighted and with tensor or NODDI measures.",
+  "add_topics": [
+   "dwi",
+   "connectomics",
+   "network-analysis",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, app names, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-split-dwi-volumes",
+  "description": "Extracts user-selected volumes from a DWI image with MRtrix3.",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-synthstrip",
+  "description": "Skull-strips a T1w, T2w, FLAIR, DWI or fMRI image with FreeSurfer SynthStrip, producing a brain-extracted image and a brain mask.",
+  "add_topics": [
+   "anatomy",
+   "dwi",
+   "fmri",
+   "preprocessing",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app names, datatypes, container brainlife/freesurfer:7.3.2 (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-testgradientflip",
+  "description": "application to test if the gradients (bvecs) need to be flipped",
+  "add_topics": [
+   "dwi",
+   "quality-control",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current description, README, app name",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-tractanalysisprofiles",
+  "description": "Computes tract profiles of tensor, NODDI, myelin and quantitative MRI measures along nodes of segmented white matter tracts with Vistasoft or DIPY, outputting profile plots and a tract measures CSV.",
+  "add_topics": [
+   "dwi",
+   "vistasoft",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, app names, datatypes (current text exceeds 350 characters)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-tractprofiles-agg",
+  "description": "Aggregates tract profile outputs from the deprecated tract profile datatype.",
+  "add_topics": [
+   "dwi",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry desc, app name, datatypes (README empty, no output datatype)",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-wmaSeg",
+  "description": "Segments a whole-brain tractogram into major white matter tracts with a WMQL-like approach from wma_tools (Bullock et al. 2019), using FreeSurfer anatomy, and outputs a white matter classification.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "tractography",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-warp-bold",
+  "description": "Applies a nonlinear warp to fMRI (BOLD) data or a volume parcellation with FSL.",
+  "add_topics": [
+   "fmri",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app names, datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/VisWMROIWarp",
+  "description": "Warps a set of attention-related ROIs from MNI space to an individual's T1-weighted image space with ANTs.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "ants",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, datatypes, container brainlife/ants:2.2.0",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-align-t2-to-t1",
+  "description": "Aligns a T2-weighted image to a T1-weighted image with FSL FLIRT and outputs the T2-weighted image in T1 space.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, container brainlife/fsl:5.0.11",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-CIT168Parc",
+  "description": "Generates a subject-specific volumetric parcellation of subcortical nuclei from a T1-weighted image using the CIT168 atlas (Pauli et al. 2018).",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-combine-tracts",
+  "description": "Combines selected tracts from a WMC classification and its .tck tractogram into merged tracts, outputting an updated tractogram and classification.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, inputs/outputs, parameters (combineIndices, mergeNames); README empty",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-compile-tractmeasures",
+  "description": "Compiles per-tract measures (DSI Studio tractmeasures TSVs or other tractmeasures CSVs) into a single table with pandas to ease downstream statistical analysis.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app names, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-compute-tract-stats",
+  "description": "Computes macrostructural statistics of white matter tracts with DIPY from a tractogram, its WMC classification and DWI, and outputs tract measures.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, inputs/outputs; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-convert-eddyqc-to-regressor",
+  "description": "Converts quality-control output from FSL eddy into a regressors datatype for use as a nuisance matrix in statistical analyses.",
+  "add_topics": [
+   "dwi",
+   "quality-control",
+   "conversion",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-convert-tck-to-trk",
+  "description": "Convert a tractogram in tck format to a trk format file",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "conversion",
+   "nibabel",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current GitHub description, README (nibabel), registry",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-converttck2trk",
+  "description": "Deprecated: Converts an MRtrix 2 .tck tractogram to TrackVis .trk format in DWI space using nipype.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "current GitHub description, README, brainlife override; only App deprecated",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-create-networkneuro",
+  "description": "Converts a tractogram, volume parcellation, labels and connectivity matrices (count, density, length) into a networkneuro datatype for the brainlife.io network visualizer.",
+  "add_topics": [
+   "dwi",
+   "connectomics",
+   "visualization",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dwinormalise",
+  "description": "Normalizes DWI intensities with MRtrix3 and outputs the normalized DWI.",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app name, repo name, container brainlife/mrtrix3:3.0.2, inputs/outputs; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-endpointMapGeneration",
+  "description": "Generates streamline endpoint density maps for every tract in a WMC classification and tractogram, with optional decay smoothing and normalization, and outputs them as ROIs.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, inputs/outputs, parameters",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-extractTCKfromWMC",
+  "description": "Extracts one .tck file per tract from a whole-brain tractogram using the categories in its WMC classification, easing analysis outside brainlife.io.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-freesurfer-longitudinal-statistics",
+  "description": "Computes longitudinal cortical statistics with the FreeSurfer longitudinal pipeline from multiple recon-all timepoints and their base template, producing parcellation statistics and cortex maps.",
+  "add_topics": [
+   "anatomy",
+   "surface-analysis",
+   "statistics",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, inputs/outputs, container brainlife/freesurfer:7.1.1",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-fsl-fast",
+  "description": "Segments a T1-weighted image into tissue types with FSL FAST and outputs tissue-type masks.",
+  "add_topics": [
+   "anatomy",
+   "segmentation",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, container brainlife/fsl:6.0.4-patched2",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-generate-parc-thal-amyg-hipp",
+  "description": "Converts FreeSurfer thalamic, hippocampal and amygdala segmentations into volumetric parcellations aligned to a T1-weighted image.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app names, inputs/outputs; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-head-pos",
+  "description": "Compute time varying head positions from MEG signals when cHPI were recorded.",
+  "add_topics": [
+   "meg",
+   "mne-python",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current GitHub description, README (MNE tutorial), container brainlife/mne:0.23dev",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-make-mask-from-dtiinit",
+  "description": "Extracts the brain mask from a dtiinit output and saves it as a mask datatype.",
+  "add_topics": [
+   "dwi",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife override, app name, inputs/outputs; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-mrtrix2-csd",
+  "description": "Fits constrained spherical deconvolution with MRtrix 0.2 to DWI (or a dtiinit output) and outputs CSD fits at several spherical harmonic orders (lmax) for tractography.",
+  "add_topics": [
+   "dwi",
+   "diffusion-modeling",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app names, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-roi2roi-tracking",
+  "description": "Tracks streamlines between pairs of ROIs from DWI and CSD with MRtrix3 iFOD2, optionally anatomically constrained (ACT), with optic radiation and optic tract variants; outputs a tractogram and WMC classification.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife overrides, app names, inputs/outputs; README empty",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-network-backbone",
+  "description": "Compute the backbone network from a structural or functional connectivity network",
+  "add_topics": [
+   "connectomics",
+   "network-analysis",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current GitHub description, README, registry",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-noddi-amico",
+  "description": "Fits the NODDI model to normalized multi-shell DWI with the AMICO toolbox and outputs neurite density, orientation dispersion, isotropic volume fraction and fiber direction maps.",
+  "add_topics": [
+   "dwi",
+   "diffusion-modeling",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README (AMICO, FSL bet), registry desc, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-predict-ppcs",
+  "description": "Predicts persisting post-concussion symptoms (time to return to play) from white matter tract measures.",
+  "add_topics": [
+   "dwi",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, inputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-qt1-mrq",
+  "description": "Fits quantitative T1 (qT1) models with mrQ (Mezer et al. 2013) to SPGR and SEIR acquisitions using a T1-weighted reference image.",
+  "add_topics": [
+   "anatomy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, inputs/parameters",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-resample-surface-data",
+  "description": "Resamples cortical surface data to a chosen fsaverage space and number of vertices.",
+  "add_topics": [
+   "anatomy",
+   "surface-analysis",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, app name, parameters, container brainlife/freesurfer:7.1.1",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-ROIsfromAtlas",
+  "description": "Extracts single, multiple or combined ROIs from a volumetric parcellation or atlas by label index and outputs them as NIfTI ROIs in the atlas space.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-segment-tracts-between-multiple-regions",
+  "description": "Segments a tractogram into tracts connecting pairs of ROIs or atlas regions and outputs a WMC classification.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry desc, brainlife overrides, inputs/outputs (README describes a different App)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-slicer-fsl",
+  "description": "Creates mid-axial, sagittal and coronal PNG slices of DWI, fMRI, T1, T2, FLAIR, mask, tensor and NODDI images, with optional overlays and GIF montages, using FSL for quality control.",
+  "add_topics": [
+   "quality-control",
+   "fsl",
+   "dwi",
+   "fmri",
+   "anatomy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife overrides, app names, container brainlife/fsl:5.0.9; README empty",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-streamlineCategorySegmentation",
+  "description": "Segments a whole-brain tractogram into anatomical streamline categories (e.g. fronto-parietal, parieto-temporal) using a FreeSurfer parcellation and outputs a WMC classification, useful as a tractography quality check.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "quality-control",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife override, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-temp-parc-surface-deprecated-converter",
+  "description": "Converts the deprecated parcellation/surface-deprecated datatype into the current surface/vertices and surface/data datatypes.",
+  "add_topics": [
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-thickness-volume-eccentricity",
+  "description": "Bins FreeSurfer cortical thickness and volume by pRF eccentricity and outputs a .mat summary and PNG plots.",
+  "add_topics": [
+   "anatomy",
+   "fmri",
+   "surface-analysis",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "brainlife override, inputs, container brainlife/freesurfer:6.0.0; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-tractDensityMasks",
+  "description": "Creates a NIfTI streamline density mask for each tract in a WMC classification from a tractogram and T1-weighted image, with optional resizing, thresholding, smoothing and normalization.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, inputs/outputs, parameters",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-trekker",
+  "description": "Tracks white matter streamlines from DWI and CSD with Trekker parallel transport tractography (PTT) and outputs a .tck tractogram.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-warp-standard-label-rois",
+  "description": "Warps and resamples standard-space surface labels to a subject's FreeSurfer volume with Connectome Workbench, producing ROIs or a volumetric parcellation.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "parcellation",
+   "connectome-workbench",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "app names, inputs/outputs, container brainlife/connectome_workbench:1.5.0; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-wmctotrk",
+  "description": "Convert a white matter classification (wmc) structure to a tractogram as a single trk file",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "current GitHub description, README, registry, brainlife overrides",
+  "confidence": "high"
+ },
+ {
+  "repo": "francopestilli/app-helloworld",
+  "description": "Hello-world tutorial App for brainlife.io.",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README and registry desc (one line each); no inputs, outputs or container",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-annotation-to-parcellation",
+  "description": "Converts a surface annotation in a standard (fsaverage) space into a volumetric parcellation with FreeSurfer.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "conversion",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name, inputs/outputs, parameter fsaverage, container brainlife/freesurfer:7.3.2; README is title only",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-classifiedfibertractstats",
+  "description": "Deprecated: computes the fiber count, mean and standard deviation of length, total length and volume of each tract classified by AFQ or WMA, and outputs tract measures.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry desc, README (only App deprecated)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-commit",
+  "description": "Computes streamline weights for a whole-brain tractogram with COMMIT from DWI, CSD, a mask and peaks, and also outputs NODDI-style intra-, extra-cellular and isotropic maps.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "diffusion-modeling",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-compute-average-tractmeasure",
+  "description": "Computes average measures per tract from a tractmeasures dataset and outputs the result as tractmeasures.",
+  "add_topics": [
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name and datatypes only; README is title only",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-connectivity-assignments-to-wmc",
+  "description": "Converts streamline assignments from structural connectivity, with the tractogram, DWI and volumetric parcellation, into a white matter classification (WMC) dataset.",
+  "add_topics": [
+   "dwi",
+   "connectomics",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name and datatypes, container brainlife/pyafq:0.4.1; README is title only",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-convert-freesurfer-parcellation",
+  "description": "Converts FreeSurfer annotations into a volumetric parcellation using the FreeSurfer output and a T1-weighted image.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "conversion",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name and datatypes, container brainlife/freesurfer:7.3.2; README is title only",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-convert-tractmasks-to-rois",
+  "description": "Utility that converts a tractmasks dataset into an rois dataset.",
+  "add_topics": [
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-cortex-mapping-images",
+  "description": "Generates JPEG images (lateral and medial views) of data or tract endpoint ROIs mapped to FreeSurfer cortical surfaces with MNE-Python's PySurfer, for quick QA and paper figures.",
+  "add_topics": [
+   "anatomy",
+   "visualization",
+   "quality-control",
+   "mne-python",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-crop_reorient",
+  "description": "Reorients an image to standard orientation with FSL fslreorient2std and crops its field of view with robustfov, for T1w, T2w, FLAIR and functional task images.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and App names, brainlife overrides, container brainlife/fsl",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dwiToDtiinit",
+  "description": "Aligns single- or multi-shell DWI data to the DWI output of dtiInit with FSL FLIRT, so multi-shell models can be fit and mapped onto tracking.",
+  "add_topics": [
+   "dwi",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-extract-bundles-quickbundles",
+  "description": "Splits classified tracts into multiple sub-bundles with DIPY QuickBundles, from DWI, a tractogram and a white matter classification, and outputs a new classification.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-filter-tractograms",
+  "description": "Subsamples a tractogram by keeping the streamlines marked 1 in a binary labels assignment (e.g. from SIFT) and outputs the filtered .tck tractogram.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs, container brainlife/mrtrix3:3.0.3",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-freesurfer-osg",
+  "description": "A Pegasus workflow for running FreeSurfer on the Open Science Grid",
+  "add_topics": [
+   "anatomy",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "README, registry desc",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-fsl-flirt",
+  "description": "Linearly aligns one DWI image to another with FSL FLIRT and outputs the aligned DWI.",
+  "add_topics": [
+   "dwi",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry name and datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-hcp-acpc-alignment",
+  "description": "Aligns T1w, T2w or MP2RAGE images to the ACPC plane with a 6-DOF FSL registration to the MNI152 1mm template, adapted from the HCP preprocessing pipeline, and outputs the aligned image.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "preprocessing",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and App names, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-intersect-tract-roi",
+  "description": "Segments tracts or a whole-brain tractogram with ROIs, keeping streamlines that do or do not pass through the selected ROIs, and outputs the filtered tractogram and white matter classification.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names and inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-make-white-matter-mask-freesurfer",
+  "description": "Creates a white matter mask from the FreeSurfer subcortical segmentation and registers it to DWI (or dtiInit) space.",
+  "add_topics": [
+   "anatomy",
+   "dwi",
+   "segmentation",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names and datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-5tt",
+  "description": "Generates a five-tissue-type (5TT) segmentation of a T1-weighted image with MRtrix3 5ttgen, optionally with FreeSurfer (hsvs), and outputs it as a mask.",
+  "add_topics": [
+   "anatomy",
+   "segmentation",
+   "mrtrix3",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and App names, containers",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-split-b0s",
+  "description": "Extracts the b0 volumes, or a chosen shell, from a DWI image with MRtrix3 dwiextract and outputs them as DWI datasets.",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, registry App names",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-network-matrices-2-mat",
+  "description": "Converts a network matrix for a chosen measure (e.g. density, count) from the Network Neuro App's raw output, with its parcellation, into a conmat connectivity matrix.",
+  "add_topics": [
+   "connectomics",
+   "network-analysis",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, registry datatypes",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-participant-report",
+  "description": "Generates a participant-friendly HTML report from FreeSurfer, white matter classification, functional task and T1-weighted derivatives.",
+  "add_topics": [
+   "visualization",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README (short), registry desc, brainlife override, registry inputs",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-pyafq-segment",
+  "description": "Segments a whole-brain tractogram into the 20 major AFQ white matter tracts with pyAFQ, from DWI, tractogram and FreeSurfer inputs, and outputs a white matter classification (WMC).",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-register-rois-mni",
+  "description": "Computes or applies FSL warps to move ROIs or tract masks between subject T1w/T2w space and standard space, and outputs the warped ROIs.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App names, datatypes, container brainlife/fsl:6.0.4-patched2; README empty",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-reslice-isotropic",
+  "description": "Resamples T1w or T2w images to isotropic voxels of a chosen size with FSL FLIRT, intended for clinical scans with one high-resolution plane.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-rsHRF",
+  "description": "Estimates the hemodynamic response function from resting-state fMRI BOLD data and a brain mask and deconvolves the signal with rsHRF, using canonical, FIR or smoothed FIR models.",
+  "add_topics": [
+   "fmri",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, container bids/rshrf:1.0.8",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-sh2peaks",
+  "description": "Computes fiber orientation peaks from spherical harmonic data, such as CSD FODs, with MRtrix3 and outputs a peaks dataset.",
+  "add_topics": [
+   "dwi",
+   "diffusion-modeling",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-snr_in_cc",
+  "description": "Computes the signal-to-noise ratio in the corpus callosum of DWI data for each gradient direction and b0 with DIPY, and outputs SNR statistics with corpus callosum and noise masks.",
+  "add_topics": [
+   "dwi",
+   "quality-control",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and outputs, container brainlife/dipy:0.16.0",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-subj2reference",
+  "description": "Warps a set of ROIs, or density/probability maps, from subject T1w space to MNI space with ANTs.",
+  "add_topics": [
+   "anatomy",
+   "registration",
+   "ants",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and App names, container brainlife/ants:2.2.0.1",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-template-matlab",
+  "description": "Template for a MATLAB-based brainlife.io App; the example loads a T1-weighted NIfTI image and resamples it to a new resolution.",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-time-series-2-network",
+  "description": "Deprecated: converts an NxT time series into an NxN functional connectivity matrix (conmat) for functional brain network analysis.",
+  "add_topics": [
+   "fmri",
+   "connectomics",
+   "network-analysis",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc (only App deprecated)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-tractographyQualityCheck",
+  "description": "Computes streamline statistics (count, volume, length distribution) for a whole-brain tractogram and, optionally, its white matter classification, for tractography quality control and tract-level analysis.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "quality-control",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-trekker-roi-tracking",
+  "description": "Tracks white matter streamlines between ROIs from DWI and CSD with Trekker parallel transport tractography, including optic radiation, optic tract and visual white matter presets, and outputs a tractogram and WMC.",
+  "add_topics": [
+   "dwi",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc and App names, brainlife overrides",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-warp-tractogram",
+  "description": "Warps a .tck tractogram to MNI space with MRtrix3 using a precomputed transform.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "registration",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name, datatypes, container brainlife/mrtrix3:3.0.3; README is title only",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/bl_apps_dipy_buan_profiles",
+  "description": "Computes BUAN bundle profiles with DIPY.",
+  "add_topics": [
+   "dwi",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry name and desc, container brainlife/dipy:1.1.1; README describes dipy_mask, no inputs/outputs registered",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-apply-warp-to-peaks-bundles",
+  "description": "Applies a NIfTI warp to fiber peaks and tract masks, using a T1-weighted image as reference, and outputs the warped peaks and tract masks.",
+  "add_topics": [
+   "dwi",
+   "registration",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App name and inputs/outputs only (README empty)",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-clean-parcellation",
+  "description": "Removes user-specified labels from a volumetric parcellation with nibabel and numpy and outputs the cleaned parcellation.",
+  "add_topics": [
+   "parcellation",
+   "nibabel",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs/parameters",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-compile-macro-micro-tract-stats",
+  "description": "Combines tract macrostructural statistics and tract profile measures into a single tractmeasures CSV for downstream analysis, using pandas and numpy.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-compute-similarity-parcellations",
+  "description": "Computes the Dice similarity coefficient for each parcel between a volumetric parcellation and a reference parcellation and writes the scores to a CSV.",
+  "add_topics": [
+   "parcellation",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-contrack-optic-radiation",
+  "description": "Tracks the optic radiation between two ROIs with ConTrack (Sherbondy et al., 2009) and splits it into bundles by visual-field eccentricity from pRF mapping, producing a .tck tractogram and a white matter classification.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-convert-network-netstats",
+  "description": "Utility that extracts network statistics and connectivity matrices from a network dataset into the net-stats format.",
+  "add_topics": [
+   "connectomics",
+   "network-analysis",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App names and inputs/outputs (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-convert-tractmeasures-2-tractprofile",
+  "description": "Utility that splits a concatenated tractmeasures CSV covering all tracts into one tract profile CSV per tract.",
+  "add_topics": [
+   "dwi",
+   "conversion",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-cortex-tissue-mapping",
+  "description": "Maps volumetric measures (DTI, NODDI, myelin, qMRI) to a FreeSurfer mid-thickness cortical surface in native or template space with Connectome Workbench, following Fukutomi et al. (2018); other branches resample, smooth, average and map ROIs onto cortexmap data.",
+  "add_topics": [
+   "dwi",
+   "surface-analysis",
+   "connectome-workbench",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife overrides, App names across branches",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-cut-tractmeasures-nodes",
+  "description": "Removes a user-set number of nodes from tract profiles in a tractmeasures dataset.",
+  "add_topics": [
+   "dwi",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App name, inputs/outputs and num_nodes parameter (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-eccentricity-classification",
+  "description": "Bundles segmented tracts by pRF-derived eccentricity ROIs, for example splitting the optic radiation by eccentricity, and outputs a white matter classification; other branches segment a whole-brain tractogram by parcellation.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names and inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-extract-diffusion-metrics-rois",
+  "description": "Extracts diffusion metrics (tensor, NODDI, myelin map) within ROIs for ROI-level analysis, with optional SPM ROI inflation, and outputs per-ROI statistics.",
+  "add_topics": [
+   "dwi",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, registry inputs/outputs of v1.2",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-freesurfer-agg",
+  "description": "Do some basic group analysis on freesurfer outputs",
+  "add_topics": [
+   "anatomy",
+   "freesurfer",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "README and registry desc (both vague; no outputs registered)",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-freesurfer-stats",
+  "description": "Converts FreeSurfer recon-all statistics into tidy per-parcel CSVs with the freesurfer-stats package; other branches summarize volume, surface and diffusion measures (tensor, NODDI, myelin, qMRI) within volumetric or surface parcellations.",
+  "add_topics": [
+   "anatomy",
+   "parcellation",
+   "statistics",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife overrides, registry App names and inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-FSLBET",
+  "description": "Extracts the brain from T1w, T2w, FLAIR, DWI or fMRI images with FSL BET and outputs the skull-stripped image and a brain mask; another branch applies an existing mask.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "fsl",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, App names and inputs/outputs (container brainlife/fsl:6.0.1)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-hcp-cortex-mapping-replication",
+  "description": "Maps DTI and NODDI measures to the cortical surface from DWI, FreeSurfer and HCP PostFreeSurfer outputs, using a port of the NoddiSurfaceMapping code by Fukutomi et al. (2018), and outputs a cortexmap.",
+  "add_topics": [
+   "dwi",
+   "surface-analysis",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-maiaRings",
+  "description": "Computes degree-based ring averages of MAIA microperimetry measurements.",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "GitHub/registry desc and App name (README is unedited template)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-mean-transformation-matrix",
+  "description": "Computes the mean head-position transformation matrix across MEG runs (.fif) with MNE-Python, for realigning runs during Maxwell filtering.",
+  "add_topics": [
+   "meg",
+   "preprocessing",
+   "mne-python",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc (container brainlife/mne:0.23dev)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-act",
+  "description": "Runs mrtrix3 ACT (Anatomically Constrained Tractography) using either single- or multi-shell diffusion-weighted MRI data. ",
+  "add_topics": [
+   "dwi",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "README, registry desc",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-tensor-fit",
+  "description": "Fits the diffusion tensor model to single- or multi-shell DWI with MRtrix3 and outputs FA, MD, AD, RD, tensor and Westin shape maps, plus kurtosis for multi-shell data.",
+  "add_topics": [
+   "dwi",
+   "diffusion-modeling",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override, registry inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-networkneuro",
+  "description": "Build structural brain networks using diffusion-weighted MRI, tractography and a brain atlas for cortical and subcortical parcellation.",
+  "add_topics": [
+   "dwi",
+   "connectomics",
+   "network-analysis",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "README, registry desc, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-plot-odf",
+  "description": "Generates images of the fiber orientation distribution function (ODF) from a CSD model with DIPY.",
+  "add_topics": [
+   "dwi",
+   "visualization",
+   "quality-control",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs and brainlife tag qa",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-pydeface",
+  "description": "Defaces T1-weighted images with poldracklab/pydeface, which removes the face using FSL FLIRT and a face template mask.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc (container brainlife/pydeface:2.0)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-removeFirstB0",
+  "description": "Temporary utility that removes the first b0 volume from a DWI image, made for the Athlete Brain Study dataset.",
+  "add_topics": [
+   "dwi",
+   "preprocessing",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, brainlife override",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-roi2roitracking",
+  "description": "Performs ensemble tractography between pairs of cortical ROIs from a FreeSurfer or atlas parcellation with MRtrix 0.2.12 and outputs a .tck tractogram and white matter classification for each pair.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "freesurfer",
+   "vistasoft",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, App names and inputs/outputs",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-seg-eval-metric-agg",
+  "description": "Aggregate CONNECTS segmentation evaluation metrics with per-image means and population standard deviations.",
+  "add_topics": [
+   "segmentation",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "README, registry desc",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-sift-sift2",
+  "description": "Computes streamline weights with SIFT2, or filters a whole-brain tractogram with SIFT, in MRtrix3 using a CSD model, for use in structural connectivity analysis.",
+  "add_topics": [
+   "dwi",
+   "tractography",
+   "connectomics",
+   "mrtrix3",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names and inputs/outputs (container brainlife/mrtrix3:3.0_RC3)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-socr-mlra",
+  "description": "Runs the SOCR volume-based multiple linear regression analysis on T1-weighted images with user-specified regressors.",
+  "add_topics": [
+   "anatomy",
+   "statistics",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "GitHub/registry desc, README link, registry inputs and regressors parameter",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-synthsr",
+  "description": "Generates a synthetic 1 mm isotropic MP-RAGE T1-weighted image from clinical T1w, T2w or FLAIR scans with SynthSR in FreeSurfer 7.3.2.",
+  "add_topics": [
+   "anatomy",
+   "freesurfer",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry App names and inputs/outputs (container brainlife/freesurfer:7.3.2)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-template-python",
+  "description": "Template for a Python-based brainlife.io App; the example resamples a T1-weighted image to a user-set resolution.",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry desc, brainlife override, outres parameter",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-tmp-brain-extract",
+  "description": "Temporary utility that applies a brain mask to a T1-weighted image and outputs the masked image.",
+  "add_topics": [
+   "anatomy",
+   "preprocessing",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App name and inputs/outputs (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-tractometry-after-tractseg",
+  "description": "Computes FA, MD, RD and AD tract profiles along each TractSeg-segmented tract and outputs one tractmeasures dataset per measure.",
+  "add_topics": [
+   "dwi",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "README, registry inputs/outputs (container brainlife/tractseg:2.7)",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-visual-white-matter",
+  "description": "Segments whole-brain tractography into connections between visual areas, binned by pRF eccentricity and polar angle, and outputs tracts, connectomes and network statistics.",
+  "add_topics": [
+   "dwi",
+   "tract-segmentation",
+   "connectomics",
+   "network-analysis",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App names, inputs/outputs and parameters; README is a short list of analyses",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/app-white-matter-mask-fa",
+  "description": "Creates a white matter mask by thresholding a fractional anisotropy (FA) map.",
+  "add_topics": [
+   "dwi",
+   "segmentation",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "registry App name, inputs/outputs and thr parameter (README is title only)",
+  "confidence": "medium"
+ },
+ {
+  "repo": "brainlife/bl_apps_dipy_buan_shapes",
+  "description": "Computes bundle shape analysis with the DIPY BUAN workflow.",
+  "add_topics": [
+   "dwi",
+   "dipy",
+   "brainlife-app"
+  ],
+  "keep_current_description": false,
+  "source": "GitHub/registry desc and App name only; README describes dipy_mask instead",
+  "confidence": "low"
+ },
+ {
+  "repo": "brainlife/app-acpcART",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-AFQclean",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-align-n-average-images",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-checkOrientation",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-connectome-evaluator",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-datanormalize",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-deface",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dt6tonifti",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dtiinit",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-dwi2t1-nonlinear",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-ensembletracking",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-epi-t1-registration",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-fmriprep",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-freesurfer",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-fslDTIFIT",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-hcp-freesurfer",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-hcp-prefreesurfer",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-life",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mriqc",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-preproc",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-networkneuro-agg",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-prf",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-qsiprep",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-segment-thalamic-nuclei",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-splitshells",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-testflip",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-tracking",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-tractclassification",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-tractseg",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-trk2tck",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-vistasoft-registration",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-warp-t1",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/app-wmc_figures",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ },
+ {
+  "repo": "brainlife/ezbids",
+  "description": "",
+  "add_topics": [
+   "brainlife-app"
+  ],
+  "keep_current_description": true,
+  "source": "consistency: shared topic",
+  "confidence": "high"
+ }
+]

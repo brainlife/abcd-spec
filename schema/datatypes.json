@@ -1,0 +1,562 @@
+[
+ {
+  "id": "5d62f38749e403160c93f96a",
+  "name": "behavior/eyetracking/peekbank"
+ },
+ {
+  "id": "5f6bf981cfa36596f6ca7dd4",
+  "name": "dsistudio/tractmeasure"
+ },
+ {
+  "id": "5db8b3a18aeeee1cbbf30a20",
+  "name": "eyetrack/asc"
+ },
+ {
+  "id": "59666a40b09297d8d8271dfc",
+  "name": "generic/image/png"
+ },
+ {
+  "id": "5cb7711c44947d8aea8cb4f4",
+  "name": "generic/image/svg"
+ },
+ {
+  "id": "5967b799b09297d8d831709e",
+  "name": "generic/images"
+ },
+ {
+  "id": "5ed0352de3f453b13b267dae",
+  "name": "generic/network"
+ },
+ {
+  "id": "64758dd3d391caf6ef33ab4a",
+  "name": "generic/networks"
+ },
+ {
+  "id": "604a4553ebfe4559de3af944",
+  "name": "generic/timeseries"
+ },
+ {
+  "id": "5ed834cdda66453cde8edfb7",
+  "name": "generic/timeseries-deprecated"
+ },
+ {
+  "id": "6079f960f1481a4d788fba3e",
+  "name": "jupyter/notebook"
+ },
+ {
+  "id": "5ced86fe44947d8aeaa53d71",
+  "name": "model/classifyber"
+ },
+ {
+  "id": "5ced859744947d8aeaa4add7",
+  "name": "model/pytorch-weights"
+ },
+ {
+  "id": "59307a08436ee50ffd973278",
+  "name": "neuro/3Dsurfaces"
+ },
+ {
+  "id": "5ace14a0d071a1753fada7a4",
+  "name": "neuro/AFQ"
+ },
+ {
+  "id": "622138875d8ab5d5f0212b05",
+  "name": "neuro/FSLBedpostX"
+ },
+ {
+  "id": "58d15eaee13a50849b258844",
+  "name": "neuro/LiFE"
+ },
+ {
+  "id": "61151f8ca5a04c1ad3f9a2d1",
+  "name": "neuro/SNR_and_dMRI_stats"
+ },
+ {
+  "id": "5d9cf81c0eed545f51bf75df",
+  "name": "neuro/anat/flair"
+ },
+ {
+  "id": "60634f0de4a8347569337f97",
+  "name": "neuro/anat/mp2rage"
+ },
+ {
+  "id": "608ac8b089df43e33c758fa1",
+  "name": "neuro/anat/qmri"
+ },
+ {
+  "id": "58c33bcee13a50849b25879a",
+  "name": "neuro/anat/t1w"
+ },
+ {
+  "id": "64792b1c79d13f6418e4fb75",
+  "name": "neuro/anat/t2starw"
+ },
+ {
+  "id": "594c0325fa1d2e5a1f0beda5",
+  "name": "neuro/anat/t2w"
+ },
+ {
+  "id": "5e4c47041eafffca2efa3545",
+  "name": "neuro/ashs"
+ },
+ {
+  "id": "6aa1c3da87d45c3b2da10ea6",
+  "name": "neuro/bossdb"
+ },
+ {
+  "id": "5fa9a60cafcdcc57e2c444ad",
+  "name": "neuro/cifti"
+ },
+ {
+  "id": "5d34d9f744947d8aea0e0d2f",
+  "name": "neuro/conmat"
+ },
+ {
+  "id": "6478dee979d13f6418e34ca8",
+  "name": "neuro/conmats"
+ },
+ {
+  "id": "594c688bfa1d2e5a1f0e33f1",
+  "name": "neuro/conneval"
+ },
+ {
+  "id": "65a9a59b4ce5ac2907f02994",
+  "name": "neuro/contrast-stats"
+ },
+ {
+  "id": "5c58aa5ef9109beac4b52f61",
+  "name": "neuro/cortexmap"
+ },
+ {
+  "id": "5c536bf0f9109beac46adb45",
+  "name": "neuro/csd"
+ },
+ {
+  "id": "5afe38b15858d874a48650a6",
+  "name": "neuro/dp/optimal"
+ },
+ {
+  "id": "5f6957e2cfa3659a64c96606",
+  "name": "neuro/dsistudio/fib"
+ },
+ {
+  "id": "5f6956d9cfa365c3dcc965ec",
+  "name": "neuro/dsistudio/src"
+ },
+ {
+  "id": "5f6954c7cfa36577f4c96595",
+  "name": "neuro/dsistudio/tinytrack"
+ },
+ {
+  "id": "5f6a9c7ecfa365847cc9dc75",
+  "name": "neuro/dsistudio/tinytrack-s"
+ },
+ {
+  "id": "5f6aa135cfa3656ab4c9e245",
+  "name": "neuro/dsistudio/tractmeasures"
+ },
+ {
+  "id": "58cb234be13a50849b25882f",
+  "name": "neuro/dtiinit"
+ },
+ {
+  "id": "58c33c5fe13a50849b25879b",
+  "name": "neuro/dwi"
+ },
+ {
+  "id": "5ddf1381936ca39318c5f045",
+  "name": "neuro/dwi/b0"
+ },
+ {
+  "id": "60007567aacf9e1615a691dd",
+  "name": "neuro/eeg/bdf"
+ },
+ {
+  "id": "6000753eaacf9e6591a691d9",
+  "name": "neuro/eeg/brainvision"
+ },
+ {
+  "id": "600074f6aacf9e7acda691d7",
+  "name": "neuro/eeg/edf"
+ },
+ {
+  "id": "60007410aacf9e4edda691d4",
+  "name": "neuro/eeg/eeglab"
+ },
+ {
+  "id": "5dec20ff6c0bd9f84485779f",
+  "name": "neuro/eeg/egi"
+ },
+ {
+  "id": "6aa8337984691735460b6f28",
+  "name": "neuro/fake"
+ },
+ {
+  "id": "654dc862b094062da631217d",
+  "name": "neuro/fgtair"
+ },
+ {
+  "id": "5c390505f9109beac42b00df",
+  "name": "neuro/fmap"
+ },
+ {
+  "id": "64640a72d391caf6ef169dc7",
+  "name": "neuro/fmriprep"
+ },
+ {
+  "id": "58cb22c8e13a50849b25882e",
+  "name": "neuro/freesurfer"
+ },
+ {
+  "id": "59bbfadd6b956e1c2ae89ef3",
+  "name": "neuro/freesurfer/longitudinal-template"
+ },
+ {
+  "id": "643d6076d391caf6efbc2cee",
+  "name": "neuro/func/events"
+ },
+ {
+  "id": "5f5fa310aff27a5569361cf3",
+  "name": "neuro/func/multiecho"
+ },
+ {
+  "id": "59b685a08e5d38b0b331ddc5",
+  "name": "neuro/func/task"
+ },
+ {
+  "id": "61e8834d33cb3deb49960f3c",
+  "name": "neuro/hcp/abcd-fmri"
+ },
+ {
+  "id": "5e767ddcde643b260e2a8a52",
+  "name": "neuro/hcp/freesurferpost"
+ },
+ {
+  "id": "5b3abb88d7b3f1e24e431321",
+  "name": "neuro/hcp/freesurferpre"
+ },
+ {
+  "id": "606345ade4a8347b6f337de4",
+  "name": "neuro/labels"
+ },
+ {
+  "id": "59399b95436ee50ffdc08381",
+  "name": "neuro/laplace_beltrami_spectrum"
+ },
+ {
+  "id": "6123cffd2301763fddd57054",
+  "name": "neuro/maps"
+ },
+ {
+  "id": "5a281aee2c214c9ba83ce620",
+  "name": "neuro/mask"
+ },
+ {
+  "id": "5afb21465858d874a4b393a1",
+  "name": "neuro/meeg/mne/covariance"
+ },
+ {
+  "id": "61797fc39538685e5db952b0",
+  "name": "neuro/meeg/mne/epochs"
+ },
+ {
+  "id": "5978fd38b09297d8d8aa8746",
+  "name": "neuro/meeg/mne/evoked"
+ },
+ {
+  "id": "6283e916d0697cf1eadea5a3",
+  "name": "neuro/meeg/mne/forward-inverse"
+ },
+ {
+  "id": "6283e821d0697cf1eade9d5c",
+  "name": "neuro/meeg/mne/ica"
+ },
+ {
+  "id": "6283e7e9d0697cf1eade9bda",
+  "name": "neuro/meeg/mne/projection"
+ },
+ {
+  "id": "61893398e8be76b34cb9826e",
+  "name": "neuro/meeg/mne/raw"
+ },
+ {
+  "id": "65ce3b74eab7bb5c3c96e3ae",
+  "name": "neuro/meeg/mne/raw/annotation"
+ },
+ {
+  "id": "66e58020774d6f044dcf5afc",
+  "name": "neuro/meeg/mne/trans"
+ },
+ {
+  "id": "60c7669e7657d98fe5e128b1",
+  "name": "neuro/meeg/psd"
+ },
+ {
+  "id": "65fe0a4ee6256cac94a94de9",
+  "name": "neuro/meeg/stc"
+ },
+ {
+  "id": "61a4e7d709959fabbdcef50c",
+  "name": "neuro/meg/BTi4D"
+ },
+ {
+  "id": "6000714baacf9e22a6a691c8",
+  "name": "neuro/meg/ctf"
+ },
+ {
+  "id": "6000737faacf9ee51fa691cb",
+  "name": "neuro/meg/fif"
+ },
+ {
+  "id": "608195ce89df435fd26893c1",
+  "name": "neuro/meg/fif-override"
+ },
+ {
+  "id": "604976b3ebfe45c4633ae3d2",
+  "name": "neuro/microperimetry"
+ },
+ {
+  "id": "6aa9af7fdeee1367b4399845",
+  "name": "neuro/microscopy/nifti"
+ },
+ {
+  "id": "5fad54c27e8ecba2c3aa0c24",
+  "name": "neuro/myelin-map"
+ },
+ {
+  "id": "6478dad979d13f6418e31932",
+  "name": "neuro/net-stats"
+ },
+ {
+  "id": "58e6e21e6cd4e826de4537ee",
+  "name": "neuro/networkneuro"
+ },
+ {
+  "id": "5ed02a620a8ed8e39c482a61",
+  "name": "neuro/noddi"
+ },
+ {
+  "id": "5bd77a8615a8683a39440dab",
+  "name": "neuro/noddi-deprecated"
+ },
+ {
+  "id": "69f24b375e3b9b921dc25e49",
+  "name": "neuro/nwb"
+ },
+ {
+  "id": "6a99e5d7d90f157078ed790c",
+  "name": "neuro/ome-zarr"
+ },
+ {
+  "id": "5edd3b77c5972b8c47b3a2c3",
+  "name": "neuro/parc-stats"
+ },
+ {
+  "id": "5c478b7bf9109beac4520be6",
+  "name": "neuro/parcellation/surface-deprecated"
+ },
+ {
+  "id": "5c1a7489f9109beac4a88a1f",
+  "name": "neuro/parcellation/volume"
+ },
+ {
+  "id": "5c9276dc44947d8aea7d6454",
+  "name": "neuro/peaks"
+ },
+ {
+  "id": "59494478fa1d2e5a1ffd23b4",
+  "name": "neuro/peaks_and_metrics"
+ },
+ {
+  "id": "60d497eecdfdb58f46ffdc45",
+  "name": "neuro/perf/ASL"
+ },
+ {
+  "id": "67366373ff1a4a439d7fd7f4",
+  "name": "neuro/pet"
+ },
+ {
+  "id": "673667d6ff1a4a439d7fe2d0",
+  "name": "neuro/phase-quality"
+ },
+ {
+  "id": "68dc1b1df9e4ee316ef70d5f",
+  "name": "neuro/precomputed/mesh"
+ },
+ {
+  "id": "68dc181cf9e4ee316ef6eea9",
+  "name": "neuro/precomputed/volume"
+ },
+ {
+  "id": "5d9d18d8e30ae43bb0612715",
+  "name": "neuro/prf"
+ },
+ {
+  "id": "6668838b829dd9abdbba0338",
+  "name": "neuro/ps-oct"
+ },
+ {
+  "id": "62b03ee2ab3e66978064ed79",
+  "name": "neuro/qsm"
+ },
+ {
+  "id": "5a04b08b2c214c9ba8033391",
+  "name": "neuro/recon"
+ },
+ {
+  "id": "5c4f6a8af9109beac4b3dae0",
+  "name": "neuro/regressors"
+ },
+ {
+  "id": "60f69321b991113f21b4fdf6",
+  "name": "neuro/reho"
+ },
+ {
+  "id": "5be9ea0315a8683a39a1ebd9",
+  "name": "neuro/rois"
+ },
+ {
+  "id": "6ada73fa1e6d29036a18edcc",
+  "name": "neuro/seg-eval-metric-agg"
+ },
+ {
+  "id": "6aa992dfdeee1367b435f3b8",
+  "name": "neuro/seg-eval-metrics"
+ },
+ {
+  "id": "60ca4e7e8b8b725ea44295bc",
+  "name": "neuro/snr"
+ },
+ {
+  "id": "60ca4f058b8b7238324295d3",
+  "name": "neuro/snr-stats"
+ },
+ {
+  "id": "6376c8aece8953d657da0fb9",
+  "name": "neuro/spherical-mean"
+ },
+ {
+  "id": "5afc7c555858d874a40c6dda",
+  "name": "neuro/stimulus"
+ },
+ {
+  "id": "5dcecaffc4ae284155298383",
+  "name": "neuro/streamline-weights"
+ },
+ {
+  "id": "5f78b377268f76598c29b27a",
+  "name": "neuro/surface/data"
+ },
+ {
+  "id": "6174c1ba4fd85c74b153fddd",
+  "name": "neuro/surface/gradient"
+ },
+ {
+  "id": "5f78b255268f764bdd29b254",
+  "name": "neuro/surface/vertices"
+ },
+ {
+  "id": "5dcf0047c4ae28d7f2298f48",
+  "name": "neuro/tcks"
+ },
+ {
+  "id": "5a79df48d071a1753f1d661b",
+  "name": "neuro/tensor"
+ },
+ {
+  "id": "6ac57cd6c004e522d21b16e1",
+  "name": "neuro/test"
+ },
+ {
+  "id": "6aa8343384691735460b7609",
+  "name": "neuro/test_datatype"
+ },
+ {
+  "id": "6aa9adfadeee1367b4395c3a",
+  "name": "neuro/tiff-volume"
+ },
+ {
+  "id": "5907d922436ee50ffde9c549",
+  "name": "neuro/track/tck"
+ },
+ {
+  "id": "5b956f6cd7b3f1e24e9121ce",
+  "name": "neuro/track/trk"
+ },
+ {
+  "id": "61b1867f7577fd30683bcaf5",
+  "name": "neuro/track/trx"
+ },
+ {
+  "id": "6aa856c784691735460e3bc4",
+  "name": "neuro/track/zarr-vectors"
+ },
+ {
+  "id": "681238fcda629ed3b169d916",
+  "name": "neuro/tract-tracing"
+ },
+ {
+  "id": "592dded1436ee50ffd88f5d0",
+  "name": "neuro/tractmasks"
+ },
+ {
+  "id": "599f305ad1f46fec1759f363",
+  "name": "neuro/tractmeasures"
+ },
+ {
+  "id": "5965467cb09297d8d81bdbcd",
+  "name": "neuro/tractprofile-deprecated"
+ },
+ {
+  "id": "630d072219b13f0a0ee3cd15",
+  "name": "neuro/tractseg"
+ },
+ {
+  "id": "62618e2afdf0b815e4ba5372",
+  "name": "neuro/transform/h5"
+ },
+ {
+  "id": "5bbfb28071454db2a890fbce",
+  "name": "neuro/transform/nifti"
+ },
+ {
+  "id": "5cc1d64c44947d8aea6b2d8b",
+  "name": "neuro/wmc"
+ },
+ {
+  "id": "58f10a90436ee50ffd9063c5",
+  "name": "neuro/wmc-deprecated"
+ },
+ {
+  "id": "5d7055105cee3829d5314c19",
+  "name": "openscience/reprolit"
+ },
+ {
+  "id": "5ebe0bbbb969982124072325",
+  "name": "optometry/oct"
+ },
+ {
+  "id": "59c3eae633fc1cf9ead71679",
+  "name": "raw"
+ },
+ {
+  "id": "5e56dc330f7fa604cc3cc291",
+  "name": "report/html"
+ },
+ {
+  "id": "5ed53b69da664506f88e6df9",
+  "name": "report/pdf"
+ },
+ {
+  "id": "6ac6be2ac004e522d223b00b",
+  "name": "test2"
+ },
+ {
+  "id": "68dc0642f9e4ee316ef66c03",
+  "name": "tif"
+ },
+ {
+  "id": "68dc5b50f9e4ee316ef8abd3",
+  "name": "zarr v3"
+ }
+]
