@@ -180,13 +180,15 @@ into every data object row (`src/hooks/datasetQueries.ts`, `populate: {path: 'da
 - The rich material (App usage detail, full BIDS correspondence, governance rationale, sources)
   stays in the catalog in abcd-spec. The record on brainlife.io gets compact text and a link to
   its catalog page.
-- `desc` at most 200 characters; generated `readme` at most 2 KB (longer existing readmes are
-  kept, not grown); `files[].desc` one short sentence.
+- `desc` at most 200 characters; generated `readme` at most 700 bytes (use / not for, BIDS,
+  sharing tier, App counts, link to the catalog record); an existing hand-written readme gets only
+  the sharing line and the link, and is kept unchanged if that would pass 2 KB; `files[].desc` one
+  short sentence. (Changed during Plan 1: the 2 KB readme grew some records by 70%.)
 - Proposed structured fields are compact codes, not prose: for example
   `governance: {tier: 3, human: true, kinds: ["anatomy","identity"], conditions: ["defaced->2"]}`
   and `bids_mapping: [{dt: "anat", suffix: "T1w", match: "equivalent"}]`, a few hundred bytes.
 - `push` reports the size of every record before and after, and refuses any write that grows the
-  total by more than 25% or a record past 4 KB without explicit approval.
+  total by more than 25%, or that grows a record that ends above 4 KB, without explicit approval.
 - The brainlife-lite proposal also adds a `select` to the datatype populate in data object
   queries (exclude `readme`), which shrinks those responses regardless of this work.
 

@@ -20,7 +20,7 @@ brainlife.io.
   25% cap). The readme written to brainlife.io is at most 700 bytes (use / not for, BIDS,
   sharing tier, App counts, link); file and App lists stay in the catalog.
 - 11 records end above 4096 bytes and grow, so `push` holds them until approved
-  (`--approve-size`); 9 of them were already above 4096 bytes before any change:
+  (`--approve-size`); 8 of them were already above 4096 bytes before any change:
   generic/network, neuro/LiFE, neuro/anat/qmri, neuro/anat/t1w, neuro/dwi, neuro/fmap,
   neuro/func/task, neuro/parc-stats, neuro/precomputed/mesh, neuro/tractmeasures, neuro/wmc.
 
