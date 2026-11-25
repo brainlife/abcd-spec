@@ -190,7 +190,12 @@ into every data object row (`src/hooks/datasetQueries.ts`, `populate: {path: 'da
 - The brainlife-lite proposal also adds a `select` to the datatype populate in data object
   queries (exclude `readme`), which shrinks those responses regardless of this work.
 
-### 4b. Creating new datatypes (in scope; Franco, 2026-11-25)
+### 4b. Creating new datatypes (deferred; Franco, 2026-11-25)
+
+Not now. First a reviewed list: `docs/backfill/2026-11-25-datatype-candidates.md` lists every BIDS
+(datatype, suffix) with no brainlife datatype and every aimport draft, with a recommendation. After
+Franco reviews it, the approved ones are registered as below.
+
 
 After Franco merges a PR that contains drafts, `push` registers them with `POST /datatype`
 (warehouse admins only). New datatypes: Franco's account and the existing brainlife admin
@@ -267,7 +272,7 @@ release PR and register new datatypes), alongside the existing `skills/brainlife
 - Governance follows the Global Brain Governance toolkit.
 - Use Franco's admin account for writes to brainlife.io.
 - Keep datatype records small (section 4a).
-- Creating new datatypes on brainlife.io is in scope, after review (section 4b).
+- New datatypes: first a candidate list for review; creation only after that review (section 4b).
 - Datatypes without an icon show the brainlife logo with a small datatype badge (section 4c).
 
 ## Calls made after the builder check (Claude's, open to correction)
