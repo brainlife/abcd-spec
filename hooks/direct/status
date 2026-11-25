@@ -20,7 +20,7 @@ function check_exit()
         #echo "finished with exit code $code"
         logfile=$(ls -rt *.log | tail -1)
 	tail -10 $logfile | grep -v -e '^$' | tail -1
-        exit 2 #faild!
+        exit 2 #failed!
     fi
 }
 check_exit

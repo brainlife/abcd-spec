@@ -59,7 +59,7 @@ else
 	echo "./$main" >> _main
 fi
 echo "echo \$? > exit-code" >> _main
-chmod +x $main #in case user fogets it
+chmod +x $main #in case user forgets it
 
 echo "kill \$smonpid" >> _main
 

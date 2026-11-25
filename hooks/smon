@@ -33,7 +33,7 @@ with open(name, "w") as outfile:
     if "PBS_NUM_PPN" in os.environ:
         max_ppn = int(os.environ["PBS_NUM_PPN"])
     #from https://slurm.schedmd.com/srun.html
-    if "SLURM_CPUS_ON_NODE" in os.environ: #incase SLURM_NTASKS is not set?
+    if "SLURM_CPUS_ON_NODE" in os.environ: #in case SLURM_NTASKS is not set?
         max_ppn = int(os.environ["SLURM_CPUS_ON_NODE"])
     if "SLURM_NTASKS" in os.environ:
         max_ppn = int(os.environ["SLURM_NTASKS"])
@@ -96,7 +96,7 @@ with open(name, "w") as outfile:
     #dump info that doesn't change on the first entry
     json.dump({
         "time": time.time(), 
-        "uname": os.uname(), #os/kernerl/hostname version
+        "uname": os.uname(), #os/kernel/hostname version
         "cpu_total": os.sysconf('SC_NPROCESSORS_CONF'),
         "cpu_requested": max_ppn,
 
