@@ -32,14 +32,46 @@ def _value(v):
     return f"`{v if isinstance(v, str) else json.dumps(v)}`"
 
 
+def _datatypes(items, optional=False):
+    counts = {}
+    for i in items:
+        label = f"`{i['datatype']}`" + (" (optional)" if optional and i.get("optional") else "")
+        counts[label] = counts.get(label, 0) + 1
+    return " · ".join(label + (f" ×{n}" if n > 1 else "") for label, n in counts.items())
+
+
+def _facts(m):
+    rows = []
+    if m["inputs"]:
+        rows.append(("📥", "Inputs", _datatypes(m["inputs"], optional=True)))
+    if m["outputs"]:
+        rows.append(("📤", "Outputs", _datatypes(m["outputs"])))
+    rt = m["runtime"]
+    if rt.get("container") not in (None, UNKNOWN):
+        rows.append(("🐳", "Container", f"`{rt['container']}`"))
+    res = rt.get("resources") or {}
+    parts = [f"{res[k]} {label}" for k, label in (("cpus", "CPUs"), ("memory_gb", "GB memory"),
+                                                   ("walltime_hours", "h walltime")) if k in res]
+    if res.get("gpu"):
+        parts.append("GPU")
+    if parts:
+        rows.append(("⚙️", "Resources", " · ".join(parts)))
+    if rt.get("licenses_required"):
+        rows.append(("🔑", "Requires", ", ".join(f"`{x}`" for x in rt["licenses_required"])))
+    if m.get("doi"):
+        rows.append(("🔗", "Run it", f"[doi.org/{m['doi']}](https://doi.org/{m['doi']})"))
+    if not rows:
+        return []
+    return ["| | |", "|---|---|"] + [f"| {icon} **{name}** | {value} |" for icon, name, value in rows] + [""]
+
+
 def render(m):
-    lines = [BEGIN, "", f"**{_cell(m['summary'])}**", ""]
+    lines = [BEGIN, "", f"> **{_cell(m['summary'])}**", ""]
     if m.get("description") not in (None, UNKNOWN):
         lines += [_cell(m["description"]), ""]
-    if m.get("doi"):
-        lines += [f"Run it on brainlife.io: [https://doi.org/{m['doi']}](https://doi.org/{m['doi']})", ""]
+    lines += _facts(m)
     if m["inputs"]:
-        lines += ["| Input | Datatype | Required | Description |", "|---|---|---|---|"]
+        lines += ["#### 📥 Inputs", "", "| Input | Datatype | Required | Description |", "|---|---|---|---|"]
         for i in m["inputs"]:
             tags = f" ({', '.join(i['datatype_tags'])})" if i.get("datatype_tags") else ""
             desc = _cell(i["description"])
@@ -48,36 +80,23 @@ def render(m):
             lines.append(f"| `{i['id']}` | `{i['datatype']}`{tags} | {'no' if i['optional'] else 'yes'} | {desc.strip()} |")
         lines.append("")
     if m["outputs"]:
-        lines += ["| Output | Datatype | Description |", "|---|---|---|"]
+        lines += ["#### 📤 Outputs", "", "| Output | Datatype | Description |", "|---|---|---|"]
         for o in m["outputs"]:
             lines.append(f"| `{o['id']}` | `{o['datatype']}` | {_cell(o['description'])} |")
         lines.append("")
     if m["parameters"]:
-        lines += ["| Parameter | Type | Default | Description |", "|---|---|---|---|"]
+        lines += ["<details>", f"<summary><b>⚙️ Parameters</b> ({len(m['parameters'])})</summary>", "",
+                  "| Parameter | Type | Default | Description |", "|---|---|---|---|"]
         for p in m["parameters"]:
             desc = _cell(p["description"])
             if p.get("units"):
                 desc += f" ({_cell(p['units'])})"
             if p.get("options"):
                 desc += " Options: " + ", ".join(f"`{o['value']}`" for o in p["options"]) + "."
-            lines.append(f"| `{p['id']}` | {p['type']} | {_value(p.get('default'))} | {desc.strip()} |")
-        lines.append("")
-    rt = m["runtime"]
-    facts = []
-    if rt.get("container") not in (None, UNKNOWN):
-        facts.append(f"container `{rt['container']}`")
-    res = rt.get("resources") or {}
-    for key, label in (("cpus", "CPUs"), ("memory_gb", "GB memory"), ("walltime_hours", "h walltime")):
-        if key in res:
-            facts.append(f"{res[key]} {label}")
-    if res.get("gpu"):
-        facts.append("GPU")
-    if rt.get("licenses_required"):
-        facts.append("needs " + ", ".join(f"`{x}`" for x in rt["licenses_required"]))
-    if facts:
-        lines += ["Runtime: " + "; ".join(facts) + ".", ""]
+            lines.append(f"| `{p['id'].strip()}` | {p['type']} | {_value(p.get('default'))} | {desc.strip()} |")
+        lines += ["", "</details>", ""]
     if m.get("citations"):
-        lines.append("Please cite:")
+        lines.append("📚 **References used by this App:**")
         for c in m["citations"]:
             text = _cell(c.get("text")) or ""
             doi = f" [doi:{c['doi']}](https://doi.org/{c['doi']})" if c.get("doi") else ""

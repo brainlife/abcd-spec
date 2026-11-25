@@ -120,3 +120,16 @@ One JSON object per repo:
 Set `keep_current_description: true` when the current text is already good, and
 `confidence: "low"` when the evidence is thin; low-confidence descriptions are not applied
 without review.
+
+## READMEs for Apps we maintain
+
+Follow `readme-style.md`, with `readme-exemplar.md` (FreeSurfer) as the model. Agents write the
+README with three placeholders; `scripts/finalize_readmes.py` fills them with the generated summary
+(`tools/readme.py`), the citations (the App, the verified tool papers in `tool-citations.json` for
+software the App uses, and `brainlife-citations.md`) and `funding.md`, adds section icons, the cite
+tip and a `CITATION.cff`, then publishes each README through a PR limited to `README.md` and
+`CITATION.cff`.
+
+`scripts/` holds the batch tools used for the 2026-11-24 backfill (brainlife record re-save,
+README and licence PRs). They expect a working directory with the registry snapshot and manifests,
+read the brainlife token from `~/.config/brainlife.io/.jwt`, and write logs so runs can resume.
