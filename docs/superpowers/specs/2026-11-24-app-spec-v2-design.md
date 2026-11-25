@@ -185,12 +185,15 @@ phase; v2 only fixes the contract and documents it with one worked example.
 5. Warehouse read path and API exposure, then MCP and kb.
 6. Re-save brainlife records and clear overrides (separate approval), then external owners.
 
-## Open questions for Franco
+## Decisions taken without review (Franco asked Claude to continue alone)
 
-1. Is the manifest a description layer only in v2 (as written above), or should the warehouse also
-   build the run-time record (`inputs`, `outputs`, `config` wiring) from it?
-2. May the skill and validator read brainlife.io with read-only `GET` requests (App records,
-   datatype list), or must they work from a snapshot?
+1. **Description layer only in v2.** The warehouse does not build run-time wiring from the
+   manifest; the validator checks that the two agree. Revisit after the backfill.
+2. **Read-only `GET`s to brainlife.io are allowed** for the skill (registry snapshot, datatype
+   list). The validator itself works offline from `schema/datatypes.json`, so App repos' CI never
+   calls brainlife.io.
+3. **No writes to brainlife.io records** in this round. brainlife picks up the new GitHub text
+   when each App is next saved; clearing `desc_override` waits for approval.
 
 ## Left to the builder
 

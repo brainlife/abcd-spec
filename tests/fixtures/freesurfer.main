@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=16,vmem=29gb,walltime=18:00:00
+#PBS -N bl.freesurfer
+
+set -e
+set -x
+
+[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
+echo $FREESURFER_LICENSE > license.txt
+
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:7.3.2 ./freesurfer.sh
+
+

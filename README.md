@@ -263,6 +263,43 @@ Your application must produce any output files, or intermediary files (including
 
 ABCD specification itself does not specify how you should format your output data. The structure of the output data are up to each application and the platform that application is developed for. For example, all Brain-Life app should output datasets in a compatible format that the application is registered to output through Brain-Life. This allows the output from your app to be used as input to another app.
 
+## App manifest: `brainlife.app.json` (spec v2, draft)
+
+The hooks above say how an App runs. The manifest says what it does, so that agents and people
+can find an App, wire its inputs, set its parameters and predict what a run needs, without
+reading its scripts. It describes the App only; adding it changes nothing about how the App runs.
+
+Put `brainlife.app.json` at the root of each App branch. It must validate against
+[`schema/brainlife-app-2.0.schema.json`](schema/brainlife-app-2.0.schema.json). A complete example
+is [`examples/freesurfer-7.3.2.brainlife.app.json`](examples/freesurfer-7.3.2.brainlife.app.json).
+
+| Field | What it holds |
+|---|---|
+| `summary` | One sentence (≤ 350 characters): the GitHub description and the brainlife tagline |
+| `description` | What the App does, when to use it and when not to |
+| `inputs[]`, `outputs[]` | Datatype by name (e.g. `neuro/anat/t1w`), datatype tags, a description, and for inputs the `config.json` keys that receive the files |
+| `parameters[]` | Typed (`string`, `integer`, `number`, `boolean`, `enum`), with description, default, units, range and options |
+| `runtime` | Container image, suggested resources and required licences |
+| `software`, `citations`, `failure_modes`, `topics`, `doi` | Tools and versions, papers to cite, known errors and their fixes, search topics, the App DOI |
+
+Values that cannot be established yet may be the literal `"unknown"` in descriptive fields
+(descriptions, units); they are reported as warnings. Structural fields (ids, types, datatypes,
+defaults) must be real.
+
+Generate a draft from a brainlife registry record and check it:
+
+```bash
+pip install jsonschema
+python tools/blapp.py generate record.json --main main > brainlife.app.json
+python tools/blapp.py validate brainlife.app.json --registry record.json
+python tools/blapp.py about brainlife.app.json   # the GitHub About panel it implies
+```
+
+`schema/datatypes.json` is a snapshot of brainlife datatype names used for validation. The design
+is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowers/specs/2026-11-24-app-spec-v2-design.md);
+the skill that audits and backfills App metadata is in
+[`skills/brainlife-app-metadata`](skills/brainlife-app-metadata/SKILL.md).
+
 ## Misc.
 
 ### ABCD Badge

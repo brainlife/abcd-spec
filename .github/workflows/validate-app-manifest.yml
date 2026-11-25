@@ -1,0 +1,24 @@
+# Reusable check for App repos: validates brainlife.app.json when it is present.
+# In an App repo:  jobs: { manifest: { uses: brainlife/abcd-spec/.github/workflows/validate-app-manifest.yml@master } }
+name: validate-app-manifest
+on:
+  workflow_call:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: brainlife/abcd-spec
+          path: .abcd-spec
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install jsonschema
+      - run: |
+          if [ -f brainlife.app.json ]; then
+            python .abcd-spec/tools/blapp.py validate brainlife.app.json
+          else
+            echo "no brainlife.app.json; nothing to validate"
+          fi
