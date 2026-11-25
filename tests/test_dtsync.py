@@ -189,3 +189,28 @@ def test_our_pushed_desc_and_file_descs_are_not_edits():
                files=[dict(f, desc=next(x["desc"] for x in r["files"] if x["id"] == f["id"])) for f in LIVE["files"]])
     ch = dtsync.plan({"neuro/dwi": r}, {"neuro/dwi": now}, {"neuro/dwi": now}, "u")
     assert all(not ({"desc", "files"} & set(c["skipped"])) for c in ch)
+
+
+def test_validator_rules_list_each_datatypes_files():
+    rules = dtsync.validator_rules({"neuro/dwi": REC})
+    assert rules[REC["brainlife"]["_id"]]["name"] == "neuro/dwi"
+    assert rules[REC["brainlife"]["_id"]]["files"][0] == {"id": "dwi", "filename": "dwi.nii.gz", "required": True}
+
+
+def test_set_validator_only_where_none_is_set():
+    live = {"a": dict(LIVE, _id="a" * 24, name="a", validator=""),
+            "b": dict(LIVE, _id="b" * 24, name="b", validator="brainlife/validator-x"),
+            "c": dict(LIVE, _id="c" * 24, name="c", validator=None)}
+    changes = dtsync.plan_validator(live, "brainlife/validator-catalog", "main")
+    assert [c["name"] for c in changes] == ["a", "c"]
+    assert changes[0]["body"] == {"validator": "brainlife/validator-catalog", "validator_branch": "main"}
+    assert changes[0]["before"] == {"_id": "a" * 24, "validator": "", "validator_branch": LIVE.get("validator_branch")}
+
+
+def test_undo_of_set_validator_restores_the_empty_validator(tmp_path):
+    live = {"a": dict(LIVE, _id="a" * 24, name="a", validator="")}
+    log = tmp_path / "undo.json"
+    dtsync.push(dtsync.plan_validator(live, "brainlife/validator-catalog", "main"), RecordingHttp(), log)
+    http = RecordingHttp()
+    dtsync.undo(log, http)
+    assert http.puts[0][1] == {"validator": "", "validator_branch": LIVE.get("validator_branch")}

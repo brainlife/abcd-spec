@@ -12,6 +12,9 @@
                                        write desc, readme, files and bids, with an undo log
     bldt.py push --drafts --admins SUBS register reviewed drafts as new datatypes
     bldt.py undo LOG                   restore the records listed in an undo log
+    bldt.py validator-rules OUT        write rules.json for brainlife/validator-catalog
+    bldt.py set-validator [--only NAME] [--dry-run]
+                                       attach validator-catalog to datatypes that have no validator
 
 Drafting fills what can be derived (ids, files, Apps that use the datatype, BIDS correspondences)
 and marks judgement fields "TODO"; provenance.todo lists them. Values already reviewed in an
@@ -317,6 +320,13 @@ def main(argv=None):
         c.add_argument("--admins", default="", help="comma-separated auth subs for new datatypes")
         c.add_argument("--approve-size", action="store_true")
     sub.add_parser("generate")
+    vr = sub.add_parser("validator-rules")
+    vr.add_argument("out", help="path of rules.json in a brainlife/validator-catalog checkout")
+    sv = sub.add_parser("set-validator")
+    sv.add_argument("--only", action="append", default=[])
+    sv.add_argument("--service", default="brainlife/validator-catalog")
+    sv.add_argument("--branch", default="main")
+    sv.add_argument("--dry-run", action="store_true")
     u = sub.add_parser("undo")
     u.add_argument("log")
     a = p.parse_args(argv)
@@ -367,6 +377,27 @@ def main(argv=None):
         _save_all(records, root)
         (ROOT / "schema" / "datatypes.json").write_text(json.dumps(listing, indent=1))
         print(f"{len(listing)} datatypes listed, {len(records)} records")
+    elif a.cmd == "validator-rules":
+        rules = dtsync.validator_rules(dtrecord.load_all(root))
+        pathlib.Path(a.out).write_text(json.dumps(rules, indent=1, sort_keys=True) + "\n")
+        print(f"{len(rules)} datatypes -> {a.out}")
+    elif a.cmd == "set-validator":
+        live_now = {d["name"]: d for d in _get_json(f"{API}/datatype?limit=0")["datatypes"]}
+        if a.only:
+            unknown = set(a.only) - set(live_now)
+            if unknown:
+                sys.exit(f"Unknown datatypes: {', '.join(sorted(unknown))}")
+            live_now = {n: d for n, d in live_now.items() if n in a.only}
+        changes = dtsync.plan_validator(live_now, a.service, a.branch)
+        for c in changes:
+            print(f"PUT {c['name']}: validator {c['before']['validator']!r} -> {a.service}@{a.branch}")
+        print(f"{len(changes)} datatypes")
+        if not a.dry_run and changes:
+            stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            log = ROOT / "docs" / "backfill" / "datatypes" / f"{stamp}-validator-undo.json"
+            log.parent.mkdir(parents=True, exist_ok=True)
+            dtsync.push(changes, Http(), log)
+            print(f"undo log: {log}")
     elif a.cmd == "undo":
         kept = dtsync.undo(a.log, Http())
         if kept:

@@ -154,3 +154,19 @@ def undo(undo_path, http):
             else:
                 http.delete(f"/datatype/{e['_id']}")
     return kept
+
+
+def validator_rules(records):
+    """rules.json for brainlife/validator-catalog: each registered datatype's file list."""
+    keys = ("id", "filename", "dirname", "required")
+    return {r["brainlife"]["_id"]: {"name": name, "files": [{k: f[k] for k in keys if k in f} for f in r["files"]]}
+            for name, r in sorted(records.items()) if "_id" in r["brainlife"]}
+
+
+def plan_validator(live_now, service, branch):
+    """PUT changes that attach a validator to datatypes that have none (never replaces one)."""
+    return [{"name": name, "_id": d["_id"], "method": "PUT", "skipped": [],
+             "body": {"validator": service, "validator_branch": branch},
+             "before": {"_id": d["_id"], "validator": d.get("validator"), "validator_branch": d.get("validator_branch")},
+             "size_before": dtrecord.record_size(d), "size_after": dtrecord.record_size(d)}
+            for name, d in sorted(live_now.items()) if not d.get("validator")]
