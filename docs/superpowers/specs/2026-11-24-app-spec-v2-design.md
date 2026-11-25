@@ -103,8 +103,8 @@ deliverable; names are proposals):
 | `description` | what it does, when to use it, when not to | README, `desc` |
 | `category`, `topics` | controlled vocabulary (e.g. `preprocessing`, `tractography`) plus free topics; become GitHub topics and brainlife `tags` | registry `tags`, README |
 | `doi` | citable identifier | registry `doi` |
-| `inputs[]` | `id`, `datatype` (by name, e.g. `neuro/anat/t1w`), `datatype_tags`, `optional`, `multi`, `description`, `requirements` (e.g. "submillimetre needs `hires`") | registry `inputs`, datatypes |
-| `outputs[]` | `id`, `datatype`, `datatype_tags`, `datatype_tags_pass`, `description` | registry `outputs` |
+| `inputs[]` | `id`, `datatype` (by name, e.g. `neuro/anat/t1w`), `datatype_tags`, `datatype_version` (optional; see Datatype versions), `optional`, `multi`, `description`, `requirements` (e.g. "submillimetre needs `hires`") | registry `inputs`, datatypes |
+| `outputs[]` | `id`, `datatype`, `datatype_tags`, `datatype_version` (optional), `datatype_tags_pass`, `description` | registry `outputs` |
 | `parameters[]` | `id`, `type` ∈ `string, integer, number, boolean, enum`, `description`, `default`, `units`, `minimum`, `maximum`, `options[{value, label}]`, `required`, `advanced` | registry `config` |
 | `runtime` | `container` (image and tag; digest when known), `resources` (`cpus`, `memory_gb`, `walltime_hours`, `gpu`), `licenses_required[]` | `main`, hooks, Dockerfile |
 | `software[]` | underlying tools and versions (FreeSurfer 7.3.2, MRtrix3 …) | `main`, container |
@@ -125,6 +125,23 @@ parameter, `units`, `failure_modes`, `software`, `citations`) may hold the liter
 Structural fields (ids, types, datatypes, defaults) may not. The validator reports unknowns as
 warnings, so a manifest with unknowns can merge, and the warehouse applies its known fields. The
 review table lists every unknown so the gaps are visible.
+
+### Datatype versions
+
+Each brainlife.io datatype carries a semantic version, `MAJOR.MINOR.PATCH`. Every existing
+datatype starts at `1.0.0`, and so does each new one when it is registered. The version changes
+by these rules:
+
+- **patch** (`1.0.1`): text only, such as the description, readme or file descriptions.
+- **minor** (`1.1.0`): additions that cannot break an App, such as a new optional file.
+- **major** (`2.0.0`): a change that could break an App, such as a file renamed, removed or made
+  required.
+
+An input or output may say which versions of its datatype the App works with, in the optional
+`datatype_version` field: a range string such as `">=1.0 <2.0"` (any 1.x version). Leave it out
+when the App has no preference. The field is recorded only: brainlife.io does not check ranges
+yet, and an App runs the same whether or not it has one. Matching will be enforced only once a
+datatype has its first major change.
 
 ## BIDS Apps
 
