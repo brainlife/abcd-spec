@@ -71,15 +71,15 @@ def test_requirements_are_joined_as_a_sentence():
 
 def test_quick_facts_card():
     block = readme.render(EXAMPLE)
-    assert "| 📥 **Inputs** | `neuro/anat/t1w` · `neuro/anat/t2w` (optional) |" in block
-    assert "| 📤 **Outputs** | `neuro/freesurfer` · `neuro/parcellation/volume` ×3 |" in block
-    assert "| ⚙️ **Resources** | 16 CPUs · 29 GB memory · 18 h walltime |" in block
-    assert "| 🔑 **Requires** | `FREESURFER_LICENSE` |" in block
+    assert "| **Inputs** | `neuro/anat/t1w` · `neuro/anat/t2w` (optional) |" in block
+    assert "| **Outputs** | `neuro/freesurfer` · `neuro/parcellation/volume` ×3 |" in block
+    assert "| **Resources** | 16 CPUs · 29 GB memory · 18 h walltime |" in block
+    assert "| **Requires** | `FREESURFER_LICENSE` |" in block
 
 
 def test_parameters_are_collapsible():
     block = readme.render(EXAMPLE)
-    assert f"<summary><b>⚙️ Parameters</b> ({len(EXAMPLE['parameters'])})</summary>" in block
+    assert f"<summary><b>Parameters</b> ({len(EXAMPLE['parameters'])})</summary>" in block
     assert block.index("<details>") < block.index("| `hires` |") < block.index("</details>")
 
 

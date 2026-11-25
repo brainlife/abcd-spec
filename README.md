@@ -20,17 +20,17 @@
   <a href="https://github.com/brainlife/abcd-spec"><img src="https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg" alt="ABCD Spec v1.1"></a>
 </p>
 
-## 🧠 At a glance
+## At a glance
 
 | | |
 |---|---|
-| 🧭 **What** | A minimal contract between an application and a workflow manager: `start`, `status` and `stop` hooks, a `config.json` for inputs and a working directory for outputs |
-| 📄 **Manifest** | `brainlife.app.json` (spec v2, draft) describes an App's inputs, outputs, parameters and runtime; schema in [`schema/`](schema), validator [`tools/blapp.py`](tools/blapp.py) |
-| 🗂️ **Catalog** | [`catalog/index.json`](catalog/index.json): every public brainlife App with its datatypes and container |
-| 🧩 **Templates** | [`templates/README.md`](templates/README.md) for App READMEs; default hook scripts in [`hooks/`](hooks) |
-| ⚙️ **Runs on** | [amaretti-next](https://github.com/brainlife/amaretti-next), the brainlife.io orchestrator (reference implementation) |
+| **What** | A minimal contract between an application and a workflow manager: `start`, `status` and `stop` hooks, a `config.json` for inputs and a working directory for outputs |
+| **Manifest** | `brainlife.app.json` (spec v2, draft) describes an App's inputs, outputs, parameters and runtime; schema in [`schema/`](schema), validator [`tools/blapp.py`](tools/blapp.py) |
+| **Catalog** | [`catalog/index.json`](catalog/index.json): every public brainlife App with its datatypes and container |
+| **Templates** | [`templates/README.md`](templates/README.md) for App READMEs; default hook scripts in [`hooks/`](hooks) |
+| **Runs on** | [amaretti-next](https://github.com/brainlife/amaretti-next), the brainlife.io orchestrator (reference implementation) |
 
-## ⚡ The spec in 30 seconds
+## The spec in 30 seconds
 
 ```json
 { "abcd": { "start": "./start.sh", "stop": "./stop.sh", "status": "./status.sh" } }
@@ -45,7 +45,7 @@ python tools/blapp.py validate brainlife.app.json --registry record.json
 ```
 
 <details>
-<summary><b>📖 Background: why ABCD</b></summary>
+<summary><b>Background: why ABCD</b></summary>
 
 Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (remote/distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of methods and programming languages in order to use these application effectively. Scientists must be able to install these application in diverse environment, and prepare input data to meet each application requirements by organizing, or converting their input data types. Needless to say, this makes it difficult to reproduce other scientists's results, or to reuse applications developed by other collaborators.
 
@@ -339,7 +339,7 @@ with `python tools/catalog.py <manifest-dir> catalog`.
 `schema/datatypes.json` is a snapshot of brainlife datatype names used for validation. The design
 is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowers/specs/2026-11-24-app-spec-v2-design.md).
 
-## 🧰 Misc.
+## Misc.
 
 ### ABCD Badge
 
@@ -359,17 +359,17 @@ Examples of ABCD compliant services can be found under [brainlife Apps](https://
 
 Currently, [Amaretti](https://github.com/brainlife/amaretti-next) is the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
 
-## 👥 Authors
+## Authors
 
 Soichi Hayashi (author). Contributors: Franco Pestilli.
 
-## 📚 Citing
+## Citing
 
 If you use brainlife.io in your work, please cite:
 
 > Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 
-## 💰 Funding
+## Funding
 
 brainlife.io is developed by the Pestilli Lab at The University of Texas at Austin and is publicly funded; acknowledging that support helps keep it running.
 
@@ -390,11 +390,11 @@ brainlife.io is developed by the Pestilli Lab at The University of Texas at Aust
 
 </details>
 
-## 🤝 Contributing
+## Contributing
 
 Issues and pull requests are welcome in this repository. For help using brainlife.io, see the [documentation](https://brainlife.io/docs).
 
-## ⚖️ License
+## License
 
 [MIT](LICENSE).
 
