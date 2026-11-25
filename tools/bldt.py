@@ -116,21 +116,30 @@ def _new_record(live, app_index, index, rows):
     }
 
 
-def _original(live, previous=None):
-    """The live text a record is drafted against, minus anything bldt wrote there earlier. Once
-    brainlife.io shows only our summary, the readme it replaced is kept from the previous record."""
-    readme = dtreadme.strip_generated(live.get("readme") or "")
-    if not readme and previous:
-        readme = previous.get("readme", "")
-    return {"desc": live.get("desc") or "", "readme": readme,
-            "file_descs": {f["id"]: f.get("desc") or "" for f in live.get("files", [])}}
+def _original(live, old=None):
+    """The live text a record is drafted against, minus anything bldt wrote there earlier. Where
+    brainlife.io already shows the catalog's own text, the text it replaced is kept from the old
+    record, so the originals survive on GitHub."""
+    prev = old["brainlife"]["original"] if old else {}
+    ours_files = {f["id"]: f["desc"] for f in old["files"]} if old else {}
+    desc = live.get("desc") or ""
+    if old and desc == old["brainlife"]["desc"]:
+        desc = prev.get("desc", desc)
+    readme = dtreadme.strip_generated(live.get("readme") or "") or prev.get("readme", "")
+    file_descs = {}
+    for f in live.get("files", []):
+        d = f.get("desc") or ""
+        if f["id"] in ours_files and d == ours_files[f["id"]] and f["id"] in prev.get("file_descs", {}):
+            d = prev["file_descs"][f["id"]]
+        file_descs[f["id"]] = d
+    return {"desc": desc, "readme": readme, "file_descs": file_descs}
 
 
 def _refresh(old, live, app_index):
     r = copy.deepcopy(old)
     bl = r["brainlife"]
     bl["_id"], bl["name"] = live["_id"], live["name"]
-    bl["original"] = _original(live, old["brainlife"]["original"])
+    bl["original"] = _original(live, old)
     old_files = {f["id"]: f for f in old["files"]}
     files = []
     for f in live.get("files", []):

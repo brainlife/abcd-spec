@@ -77,8 +77,12 @@
     "original": {
       "desc": "Each experimental run on a 4D neuroimaging/BTi system results in a folder containing multiple files without extensions.",
       "file_descs": {
+        "channels": "Channel names, types, units and status.",
+        "coordsystem": "Coordinate system and fiducials for sensor positions.",
+        "events": "Event onsets, durations and types.",
         "headshape": "",
         "meg": "A directory containing the following files; \"config\", \"hs_file\", \"e,rfhp1.0Hz.COH\", \"c,rfDC\"",
+        "meg_json": "BIDS MEG sidecar: recording parameters.",
         "scans": ""
       },
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging"
@@ -108,28 +112,24 @@
       "desc": "BIDS MEG sidecar: recording parameters.",
       "filename": "meg.json",
       "id": "meg_json",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "Channel names, types, units and status.",
       "filename": "channels.tsv",
       "id": "channels",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "Coordinate system and fiducials for sensor positions.",
       "filename": "coordsystem.json",
       "id": "coordsystem",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "Event onsets, durations and types.",
       "filename": "events.tsv",
       "id": "events",
-      "proposed": true,
       "required": false
     }
   ],

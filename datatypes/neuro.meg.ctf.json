@@ -87,7 +87,8 @@
         "ds": "this directory contains various CTF items (.meg4, .res4, .acq, .hc, .hist, ,ec..)",
         "events": "",
         "events_json": "",
-        "headshape": "The OPTIONAL digitized positions of the head points. Head shape and electrode description"
+        "headshape": "The OPTIONAL digitized positions of the head points. Head shape and electrode description",
+        "meg_json": "BIDS MEG sidecar: recording parameters."
       },
       "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf"
     },
@@ -134,7 +135,6 @@
       "desc": "BIDS MEG sidecar: recording parameters.",
       "filename": "meg.json",
       "id": "meg_json",
-      "proposed": true,
       "required": false
     }
   ],

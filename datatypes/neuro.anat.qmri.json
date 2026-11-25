@@ -262,14 +262,18 @@
         "M0map": "In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
         "M0map_json": "",
         "MTV": "macromolecular tissue volume. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+        "MTV_json": "JSON sidecar of the MTV map.",
         "PD": "proton density\n",
+        "PD_json": "JSON sidecar of the proton density map.",
         "R1map": "In general, this is for output only. For App, please assume this files to not exist and compute it by intervening T1map",
         "R1map_json": "",
         "R2star": "Voxels represent the calculated effective transverse relaxation time T2* in seconds. T2* is shorter than T2 because it incorporates additional dephasing from magnetic field inhomogeneities.",
+        "R2star_json": "JSON sidecar of the R2* map.",
         "SIR": "surface interaction rate. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
         "T1map": "",
         "T1map_json": "",
         "T2star": "The inverse of T2* (1/T2*) in s^-1.",
+        "T2star_json": "JSON sidecar of the T2* map.",
         "VIP": "volume of interacting water proton. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
         "WF": "Water fraction. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd"
       },
@@ -360,28 +364,24 @@
       "desc": "JSON sidecar of the proton density map.",
       "filename": "PD.json",
       "id": "PD_json",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "JSON sidecar of the MTV map.",
       "filename": "MTV.json",
       "id": "MTV_json",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "JSON sidecar of the R2* map.",
       "filename": "R2star.json",
       "id": "R2star_json",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "JSON sidecar of the T2* map.",
       "filename": "T2star.json",
       "id": "T2star_json",
-      "proposed": true,
       "required": false
     }
   ],

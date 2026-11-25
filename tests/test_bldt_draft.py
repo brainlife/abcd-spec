@@ -149,3 +149,17 @@ def test_draft_records_original_file_descs():
     out = _draft()
     live = next(d for d in SNAP["datatypes"] if d["name"] == "neuro/dwi")
     assert out["neuro/dwi"]["brainlife"]["original"]["file_descs"] == {f["id"]: f.get("desc", "") for f in live["files"]}
+
+
+def test_refresh_keeps_original_text_once_brainlife_shows_ours():
+    kept = copy.deepcopy(DWI)
+    kept["brainlife"]["original"]["desc"] = "Old description."
+    kept["brainlife"]["original"]["file_descs"] = {"dwi": "old file text"}
+    snap = copy.deepcopy(SNAP)
+    live = next(d for d in snap["datatypes"] if d["name"] == "neuro/dwi")
+    live["desc"] = kept["brainlife"]["desc"]
+    for f in live["files"]:
+        f["desc"] = next(x["desc"] for x in kept["files"] if x["id"] == f["id"])
+    out = bldt.draft(snap, MINI, APP_INDEX, ROWS, {"neuro/dwi": kept})["neuro/dwi"]["brainlife"]["original"]
+    assert out["desc"] == "Old description."
+    assert out["file_descs"]["dwi"] == "old file text"

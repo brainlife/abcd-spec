@@ -56,7 +56,10 @@
     "original": {
       "desc": "EGI EEG datatype",
       "file_descs": {
-        "egi": "EGI data"
+        "channels": "Channel names, types, units and status.",
+        "eeg_json": "BIDS EEG sidecar: recording parameters.",
+        "egi": "EGI data",
+        "events": "Event onsets, durations and types."
       },
       "readme": "Edit me"
     },
@@ -73,21 +76,18 @@
       "desc": "BIDS EEG sidecar: recording parameters.",
       "filename": "eeg.json",
       "id": "eeg_json",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "Channel names, types, units and status.",
       "filename": "channels.tsv",
       "id": "channels",
-      "proposed": true,
       "required": false
     },
     {
       "desc": "Event onsets, durations and types.",
       "filename": "events.tsv",
       "id": "events",
-      "proposed": true,
       "required": false
     }
   ],

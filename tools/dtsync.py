@@ -50,14 +50,15 @@ def _edited_since_draft(record, now):
     """Fields someone changed on brainlife.io after the record was drafted from it."""
     original = record["brainlife"]["original"]
     edited = []
-    if (now.get("desc") or "") != original["desc"]:
+    if (now.get("desc") or "") not in (original["desc"], record["brainlife"]["desc"]):
         edited.append("desc")
     live_readme = dtreadme.strip_generated(now.get("readme") or "")
     if live_readme and live_readme != dtreadme.strip_generated(original["readme"]):
         edited.append("readme")  # an empty result means brainlife.io shows our own summary
     if "file_descs" in original:
         live_descs = {f["id"]: f.get("desc") or "" for f in now.get("files", [])}
-        if any(original["file_descs"].get(i, d) != d for i, d in live_descs.items()):
+        ours = {f["id"]: f["desc"] for f in record["files"]}
+        if any(d not in (original["file_descs"].get(i, d), ours.get(i)) for i, d in live_descs.items()):
             edited.append("files")
     return edited
 

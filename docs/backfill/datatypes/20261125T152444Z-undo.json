@@ -1,0 +1,5303 @@
+[
+ {
+  "name": "behavior/eyetracking/peekbank",
+  "_id": "5d62f38749e403160c93f96a",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5d62f38749e403160c93f96a",
+   "desc": "TBD.. https://github.com/langcog/peekbank/blob/master/static/peekbank-schema.json",
+   "readme": "",
+   "files": [
+    {
+     "id": "aoi_data",
+     "filename": "aoi_data.csv",
+     "desc": "",
+     "required": true,
+     "_id": "6ac57e5fc004e522d21b2524"
+    },
+    {
+     "id": "aoi_regions",
+     "filename": "aoi_regions.csv",
+     "desc": "",
+     "required": false,
+     "_id": "6ac57e5fc004e522d21b2525"
+    },
+    {
+     "id": "datasets",
+     "filename": "datasets.csv",
+     "desc": "",
+     "required": true,
+     "_id": "6ac57e5fc004e522d21b2526"
+    },
+    {
+     "id": "subjects",
+     "filename": "subjects.csv",
+     "desc": "",
+     "required": true,
+     "_id": "6ac57e5fc004e522d21b2527"
+    },
+    {
+     "id": "trials",
+     "filename": "trials.csv",
+     "desc": "",
+     "required": true,
+     "_id": "6ac57e5fc004e522d21b2528"
+    },
+    {
+     "id": "xy_data",
+     "filename": "xy_data.csv",
+     "desc": "",
+     "required": false,
+     "_id": "6ac57e5fc004e522d21b2529"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "dsistudio/tractmeasure",
+  "_id": "5f6bf981cfa36596f6ca7dd4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6bf981cfa36596f6ca7dd4",
+   "desc": "DSIStudio tractmeasure in .tsv format",
+   "readme": "```\nFileName\tImage dimension\tResolution\tDWI count\tMax b-value\tNeighboring DWI correlation\t# Bad Slices\ndwi\t96 96 63 \t2.2917 2.2917 2.3 \t50\t1001.005981\t0.900497\t0\n\n```",
+   "files": [
+    {
+     "_id": "5f6bf981cfa36558d0ca7dd5",
+     "id": "tractmeasure",
+     "desc": "",
+     "required": true,
+     "filename": "tractmeasure.tsv"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "eyetrack/asc",
+  "_id": "5db8b3a18aeeee1cbbf30a20",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5db8b3a18aeeee1cbbf30a20",
+   "desc": "The eye-tracking data files naturally contain gaze position (x/y coordinates) and pupil size data. ",
+   "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#",
+   "files": [
+    {
+     "_id": "5db8b3a18aeeee1b2cf30a21",
+     "id": "eyetrack",
+     "desc": "converted from .edf",
+     "required": true,
+     "filename": "eyetrack.asc"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/image/png",
+  "_id": "59666a40b09297d8d8271dfc",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59666a40b09297d8d8271dfc",
+   "desc": "PNG Image (deprecated by images datatype)",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008dc1",
+     "id": "image",
+     "filename": "image.png",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/image/svg",
+  "_id": "5cb7711c44947d8aea8cb4f4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5cb7711c44947d8aea8cb4f4",
+   "desc": "SVG Image",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e63",
+     "id": "image",
+     "filename": "image.svg",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/images",
+  "_id": "5967b799b09297d8d831709e",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5967b799b09297d8d831709e",
+   "desc": "Collection of various images with metadata",
+   "readme": "This datatype stores N number of images (with any image format supported by the modern browser)  and displays them in a table of 4 columns. images.json must enumerate all images stored inside /images subdirectory. \n\nWe recommend using HTML datatype instead of this datatype.",
+   "files": [
+    {
+     "_id": "5dcf0d0bc4ae286e7d2991de",
+     "id": "images_json",
+     "filename": "images.json",
+     "required": true,
+     "desc": "It should look like\n\n{\n    \"images\": [\n        {\n            \"filename\": \"images/brainmask.svg\",\n            \"name\": \"brainmask\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/carpetplot.svg\",\n            \"name\": \"carpetplot\",\n            \"desc\": \"TODO\"\n        },\n        {\n            \"filename\": \"images/sampling_scheme.gif\",\n            \"name\": \"sampling_scheme\",\n            \"desc\": \"TODO\"\n        }\n    ]\n}"
+    },
+    {
+     "_id": "5dcf0d0bc4ae28790b2991dd",
+     "id": "images",
+     "dirname": "images",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/network",
+  "_id": "5ed0352de3f453b13b267dae",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ed0352de3f453b13b267dae",
+   "desc": "Generic network data structure containing nodes and edges with various metadata using JGF v2 format. This datatype will replace the existing \"conmat\" datatype eventually.",
+   "readme": "This datatype uses gzipped JSON structured in \"v2 JSON graph format\" (https://github.com/jsongraph/json-graph-specification) used by companies such as BioDati, ADSWorks, etc.\n\nHere is an example JSON structure\n\n```json\n{\n  \"graph\": {\n    \"directed\": false,\n    \"type\": \"graph type\",\n    \"label\": \"graph label\",\n    \"metadata\": {\n      \"user-defined\": \"values\"\n    },\n    \"nodes\": {\n      \"0\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(0)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      },\n      \"1\": {\n        \"type\": \"node type\",\n        \"label\": \"node label(1)\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    },\n    \"edges\": [\n      {\n        \"source\": \"0\",\n        \"relation\": \"edge relationship\",\n        \"target\": \"1\",\n        \"directed\": false,\n        \"label\": \"edge label\",\n        \"metadata\": {\n          \"user-defined\": \"values\"\n        }\n      }\n    ]\n  }\n}\n\n```\n\n# Notes\n\nAlthough JGF allow for multiple graphs object by storing an array of objects under \"graph\" key, we ask that we only store one graph for this json as not all Apps are designed to handle multiple graphs. On the other hand, all Apps that uses this datatype should check to make sure that the object under \"graph\" key is no an array.\n",
+   "files": [
+    {
+     "_id": "5ed0352de3f4530680267daf",
+     "id": "network",
+     "desc": "",
+     "required": true,
+     "filename": "network.json.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/networks",
+  "_id": "64758dd3d391caf6ef33ab4a",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "64758dd3d391caf6ef33ab4a",
+   "desc": "Directory containing many network datatypes",
+   "readme": null,
+   "files": [
+    {
+     "id": "networks",
+     "dirname": "networks",
+     "desc": "",
+     "required": true,
+     "_id": "6478df4979d13f6418e353ed"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/timeseries",
+  "_id": "604a4553ebfe4559de3af944",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "604a4553ebfe4559de3af944",
+   "desc": "A time series is a chronologically ordered series of numeric values. Time series will generally be stored as tables, with a row of column headers indicating the name of the series. ",
+   "readme": "Based on https://github.com/bids-standard/bids-specification/pull/519/files\n\ntimeseries.tsv.gz will contain a table that looks like the following\n\n```\ncolname1 colname2 colname3\n12                98                 11\n11                34                 53\n54                34                 34\n```\n\n## metadata/sidecar (config.json)\n\n```\n{\n    \"SamplingFrequency\": 1.5,\n    \"StartTime\": \"2012-02-03T923:33:35Z\",\n}\n```\n\nThe metadata (sidecar) for this object contains information about a few key attributes (SamplingFrequency, and StartTime) and column definitions for each measurement\n\n## timeseries.json\n\n```\n{\n    \"colname1\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname2\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     },\n     \"colname3\": {\n        \"CumulativeVarianceExplained\": 0.0783402075,\n        \"Mask\": \"CSF\",\n        \"Method\": \"aCompCor\",\n        \"Retained\": true,\n        \"SingularValue\": 93.9257549802,\n        \"VarianceExplained\": 0.0783402075\n     }\n     ....\n}\n```\n\n`SamplingFrequency` is required for uniform time series data (in seconds). \n\nFor non-uniform time series data, there should be `onset`, and `duration` columns (units in seconds). Please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/05-task-events.html as an example.\n\n`StartTime` is optional.\n\n\n# label.json should look like this\n\n```\n[\n    {\n        \"voxel_value\": 1,\n        \"label\": \"1001\",\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\"\n    },\n    {\n        \"voxel_value\": 2,\n        \"label\": \"1002\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_1.label\"\n    },\n    {\n        \"voxel_value\": 3,\n        \"label\": \"1003\",\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr_2.label\"\n    },\n```",
+   "files": [
+    {
+     "id": "tsv",
+     "filename": "timeseries.tsv.gz",
+     "desc": "",
+     "required": true,
+     "_id": "604a4553ebfe45e8de3af945"
+    },
+    {
+     "id": "json",
+     "filename": "timeseries.json",
+     "desc": "Associated label metadata for creation of func network",
+     "required": true,
+     "_id": "6092c02c8fe49f18dc1ca25a"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "generic/timeseries-deprecated",
+  "_id": "5ed834cdda66453cde8edfb7",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ed834cdda66453cde8edfb7",
+   "desc": "Generic time-series datatype",
+   "readme": "This datatype can be used to store time-series data in .hdf5 data format. \n\nInside the `timeseries.hdf5`, it is expected to have the following 2 objects\n\n```\n/timeseries\n   --TODO describe--\n/regionids\n   --TODO describe--\n```\n\ntimeseries and regionids are stored as following.\n> https://github.com/brainlife/app-time-series-2-network/blob/master/src/makemat.py\n\n```\n                h5f.create_dataset('timeseries',\n                                   data=times,\n                                   compression=\"gzip\")\n                h5f.create_dataset('regionids',\n                                   data=np.array(regions))\n\n```",
+   "files": [
+    {
+     "_id": "5ed834f4da66454a638edfb8",
+     "id": "timeseries",
+     "desc": "",
+     "required": true,
+     "filename": "timeseries.hdf5"
+    },
+    {
+     "_id": "5edbb5bcc5972b7aadb387dc",
+     "id": "key",
+     "desc": "associated label metadata for creation of func network",
+     "required": false,
+     "filename": "key.txt"
+    },
+    {
+     "_id": "5edbb5bcc5972ba9b6b387dd",
+     "id": "label",
+     "desc": "associated label metadata for creation of func network",
+     "required": false,
+     "filename": "label.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "jupyter/notebook",
+  "_id": "6079f960f1481a4d788fba3e",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6079f960f1481a4d788fba3e",
+   "desc": "A datatype to store jupyter notebook content",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6079f960f1481a4d788fba3f",
+     "id": "notebook",
+     "desc": "Directory containing .ipynb/.py and other content",
+     "required": true,
+     "dirname": "notebook"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "model/classifyber",
+  "_id": "5ced86fe44947d8aeaa53d71",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ced86fe44947d8aeaa53d71",
+   "desc": "a pickle object containing a dictionary of scaler[optional] and clf for each tracts",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e69",
+     "id": "model",
+     "filename": "model.pickle",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "model/pytorch-weights",
+  "_id": "5ced859744947d8aeaa4add7",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ced859744947d8aeaa4add7",
+   "desc": "pytorch weights(.npz) generated by tractseg (for now)",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e67",
+     "id": "npz",
+     "filename": "weights.npz",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008e68",
+     "id": "hparam",
+     "filename": "Hyperparameters.txt",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/3Dsurfaces",
+  "_id": "59307a08436ee50ffd973278",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59307a08436ee50ffd973278",
+   "desc": "3D surface stored in .vtk(s)",
+   "readme": "A list of .vtk files with any names stored inside `surfaces` directory.",
+   "files": [
+    {
+     "_id": "5e28ab182f45e2528e090063",
+     "id": "surfaces",
+     "dirname": "surfaces",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/AFQ",
+  "_id": "5ace14a0d071a1753fada7a4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ace14a0d071a1753fada7a4",
+   "desc": "AFQ_run output",
+   "readme": null,
+   "files": [
+    {
+     "_id": "617034a7fc8eb9311f005982",
+     "id": "afq",
+     "filename": "afq.mat",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/FSLBedpostX",
+  "_id": "622138875d8ab5d5f0212b05",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "622138875d8ab5d5f0212b05",
+   "desc": "This datatype is specific to FSL's Bedpost. It contains the entire folder with the results of Bedpost ",
+   "readme": null,
+   "files": [
+    {
+     "id": "bedpostx",
+     "dirname": "bedpostx",
+     "desc": "This is a the top-folder generated as output of BedpostX",
+     "required": true,
+     "_id": "622138875d8ab5d5f0212b06"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/LiFE",
+  "_id": "58d15eaee13a50849b258844",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58d15eaee13a50849b258844",
+   "desc": "LiFE Output (fe structure)",
+   "readme": "\n## output_fe.mat structure\n\n#### fe fields\n```\n\u2022 fe.name: [text], customized name of the structure.\n\u2022 fe.type: [text], type description.\n\u2022 fe.life: [1 \u00d7 1 struct], results of the LiFE method, see fe.life fields description below.\n\u2022 fe.fg: [1 \u00d7 1 struct], input fiber group (connectome) information, see fe.fg fields description below.\n\u2022 fe.roi: [1 \u00d7 1 struct], input fiber group (connectome) information, see fe.roi fields description below.\n\u2022 fe.path: [1 \u00d7 1 struct], paths to input data (connectome, dMRI data, etc.).\n\u2022 fe.rep: [1\u00d71 struct], dMRI data for a repeated measurement if available. \n```\n\n#### fe.life fields\n```\n\u2022 fe.life.M.Phi: [Na \u00d7 Nv \u00d7 Nf sptensor], sparse array \u03a6 encoding the connectome.\n\u2022 fe.life.M.Nphi: Discretization number in azimuth, default = 360.\n\u2022 fe.life.M.Ntheta: Discretization number in elevation, default = 360.\n\u2022 fe.life.M.orient: [3 \u00d7 Na double], matrix containing in its columns the orientations for each Dictionary element.\n\u2022 fe.life.M.DictSig: [N\u03b8 \u00d7 Na double], Dictionary matrix containing in its columns the canonical diffusion kernel (demeaned) at different orienta- tions.\n\u2022 fe.life.xform.img2acpc: [4 \u00d7 4 double], Image to ACPC affine trans- form.\n\u2022 fe.life.xform.acpc2img: [4 \u00d7 4 double], ACPC to image affine trans- form.\n\u2022 fe.life.fibers: not used.\n\u2022 fe.life.diffusion_signal_img: [Nv \u00d7 N\u03b8 double], dMRI data.\n\u2022 fe.life.diffusion_S0_img: [Nv \u00d7 10 double], diffusion signal measured at b = 0 (ten times). Usually, we compute S0(v) by averaging over the ten available values.\n\u2022 fe.life.bvecs: [N\u03b8 \u00d7 3 double], each row indicates the gradient 3D di- rection.\n\u2022 fe.life.bvals: [N\u03b8 \u00d7 1 double], each row indicates the used b-value for each gradient.\n\u2022 fe.life.bvecsindices: [N\u03b8 \u00d7 1 int], indices for measurements with non- zero b-value.\n\u2022 fe.life.imagedim: [Nx , Ny , Nz , Nm ], size of the input 4D dMRI dataset where (Nx,Ny,Nz) are the the sizes in each coordinate, x, y and z, respec- tivelly; and Nm correspond to the number of measurements with b = 0 and b \u0338= 0.\n\u2022 fe.life.voxel2FNpair: not used.\n\u2022 fe.life.modelTensor: [\u03bb1 , \u03bb2 , \u03bb3 ], parameters of the Diffusion Tensor (DT) model used to generate the Dictionary of diffusion kernels.\n\u2022 fe.life.fit: this field contains the results of applying the LiFE method, see description below.\n```\n\n#### fe.life.fit fields\n```\n\u2022 fe.life.fit.randState: saved by the optimization algorithm.\n\u2022 fe.life.fit.results: saved by the optimization algorithm.\n\u2022 fe.life.fit.weights: [Nf \u00d7 1 double], fascicles weights obtained as a result of the optimization.\n\u2022 fe.life.fit.params.fitMethod: [text], name of used optimization method, default is \u201cbbnls\u201d.\n```\n\n#### fe.fg fields\n```\n\u2022 fe.fg.name: [text], name of Fiber Group (connectome).\n\u2022 fe.fg.colorRgb: [R, G, B], color specification for visualization.\n\u2022 fe.fg.thickness: [double], thickness specificattion for visualization.\n\u2022 fe.fg.visible: [binary], parameter for visualization.\n\u2022 fe.fg.seeds: Seeds used by MRTRIX software to generate the connectome.\n\u2022 fe.fg.seedRadius: MRTRIX parameter.\n\u2022 fe.fg.seedVoxelOffsets: MRTRIX parameter.\n\u2022 fe.fg.params: additional MRTRIX parameters.\n\u2022 fe.fg.fibers: {Nf \u00d71 cell}, set of fascicles (streamlines), generated with a tractography algorithm. Each cell contains the x,y,z coordinates a list of 3D points describing the trajectory of a single fascicle.\n```\n\n#### fe.roi fields\n```\n\u2022 fe.roi.name: [text], name of ROI.\n\u2022 fe.roi.color: [R, G, B], color specification for visualization.\n\u2022 fe.roi.coords: [Nv \u00d73 double], voxel coordinates, each row specifies the spatial location of a single voxel.\n\u2022 fe.roi.visible: [binary], parameter for visualization.\n\u2022 fe.roi.mesh: not used.\n\u2022 fe.roi.dirty: parameter for visualization\n\u2022 fe.roi.query_id: not used.\n```\n\n",
+   "files": [
+    {
+     "_id": "5fdb67dc57aacd5b932f2a88",
+     "id": "fe",
+     "filename": "output_fe.mat",
+     "desc": "FE structure",
+     "ext": ".mat",
+     "required": true
+    },
+    {
+     "_id": "5fdb67dc57aacd36f22f2a89",
+     "id": "life_results",
+     "filename": "life_results.json",
+     "required": true
+    },
+    {
+     "_id": "5fdb67dc57aacdac2e2f2a8a",
+     "id": "tracts",
+     "dirname": "tracts",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5fdb678157aacd23302f2a86",
+    "maps": [
+     {
+      "_id": "5fdb67dc57aacda2872f2a8b",
+      "src": "output_fe.mat",
+      "dest": "life.mat"
+     },
+     {
+      "_id": "5fdb67dc57aacdad132f2a8c",
+      "src": "_meta_",
+      "dest": "life.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/SNR_and_dMRI_stats",
+  "_id": "61151f8ca5a04c1ad3f9a2d1",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "61151f8ca5a04c1ad3f9a2d1",
+   "desc": "Edit me",
+   "readme": "",
+   "files": [
+    {
+     "id": "tbd",
+     "filename": "some.csv",
+     "desc": "",
+     "required": true,
+     "_id": "629e34907f60950a54d26869"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/anat/flair",
+  "_id": "5d9cf81c0eed545f51bf75df",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5d9cf81c0eed545f51bf75df",
+   "desc": "Fluid Attenuated Inversion Recovery (flair). The Flair sequence is similar to a T2-weighted image except that the TE and TR times are very long. By doing so, abnormalities remain bright but normal CSF fluid is attenuated and made dark. This sequence is very sensitive to pathology and makes the differentiation between CSF and an abnormality much easier.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e9611ed6365e94522471b90",
+     "id": "flair",
+     "filename": "flair.nii.gz",
+     "desc": "The flair iamge",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/anat/mp2rage",
+  "_id": "60634f0de4a8347569337f97",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60634f0de4a8347569337f97",
+   "desc": "(experimental) tentative data format for MP2RAGE in brainlife. Modeling after https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#inputs-are-file-collections",
+   "readme": "I am not sure how we should import UNI images\n\nThere is a bit of information here\n> https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html#unit1-images\n\nBut Sophis says there is no inv- for UNI images although BIDS schema requires it.. ",
+   "files": [
+    {
+     "_id": "60634f0de4a834ae1e337f98",
+     "id": "mag_inv1",
+     "desc": "",
+     "required": true,
+     "filename": "mag.inv1.nii.gz"
+    },
+    {
+     "_id": "60634f0de4a8345998337f99",
+     "id": "phase_inv1",
+     "desc": "",
+     "required": false,
+     "filename": "phase.inv1.nii.gz"
+    },
+    {
+     "_id": "606351b1e4a834e8f13384e9",
+     "id": "mag_inv2",
+     "desc": "",
+     "required": true,
+     "filename": "mag.inv2.nii.gz"
+    },
+    {
+     "_id": "606351b1e4a83485e13384ea",
+     "id": "phase_inv2",
+     "desc": "",
+     "required": false,
+     "filename": "phase.inv2.nii.gz"
+    },
+    {
+     "_id": "606351b1e4a83446df3384eb",
+     "id": "unit1",
+     "desc": "",
+     "required": false,
+     "filename": "unit1.nii.gz"
+    },
+    {
+     "_id": "606f8368c7f80abee9955927",
+     "id": "mag_inv1_json",
+     "desc": "",
+     "required": false,
+     "filename": "mag.inv1.json"
+    },
+    {
+     "_id": "606f83e0c7f80a5a10955952",
+     "id": "phase_inv1_json",
+     "desc": "",
+     "required": false,
+     "filename": "phase.inv1.json"
+    },
+    {
+     "_id": "606f83e0c7f80a64df955953",
+     "id": "mag_inv2_json",
+     "desc": "",
+     "required": false,
+     "filename": "mag.inv2.json"
+    },
+    {
+     "_id": "606f83e0c7f80a46df955954",
+     "id": "phase_inv2_json",
+     "desc": "",
+     "required": false,
+     "filename": "phase.inv2.json"
+    },
+    {
+     "_id": "606f83e0c7f80ac515955955",
+     "id": "unit1_json",
+     "desc": "(stored in bids derivatives)",
+     "required": false,
+     "filename": "unit1.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/anat/qmri",
+  "_id": "608ac8b089df43e33c758fa1",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "608ac8b089df43e33c758fa1",
+   "desc": "Quantitative MRI derivatives",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/11-qmri.html\n\nQuantitative MRI (qMRI) is a collection of methods aiming at generating parametric maps that can characterize underlying tissue properties. Unlike those of conventional MR images (for example, T1w or T2w), intensity values of quantitative maps are not represented in an arbitrary range. Instead, these maps are represented either in absolute physical units (for example, seconds for T1map), or within an application dependent range of arbitrary units (for example, myelin water fraction MWFmap in brain).",
+   "files": [
+    {
+     "id": "T1map",
+     "filename": "T1.nii.gz",
+     "desc": "",
+     "required": false,
+     "_id": "608ac8b089df4379db758fa2"
+    },
+    {
+     "id": "T1map_json",
+     "filename": "T1.json",
+     "desc": "",
+     "required": false,
+     "_id": "608ac8b089df434ddc758fa3"
+    },
+    {
+     "id": "R1map",
+     "filename": "R1.nii.gz",
+     "desc": "In general, this is for output only. For App, please assume this files to not exist and compute it by intervening T1map",
+     "required": false,
+     "_id": "608ac8b089df430503758fa4"
+    },
+    {
+     "id": "R1map_json",
+     "filename": "R1.json",
+     "desc": "",
+     "required": false,
+     "_id": "608ac8b089df430864758fa5"
+    },
+    {
+     "id": "M0map",
+     "filename": "M0.nii.gz",
+     "desc": "In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+     "required": false,
+     "_id": "608ac8b089df4329b9758fa6"
+    },
+    {
+     "id": "M0map_json",
+     "filename": "M0.json",
+     "desc": "",
+     "required": false,
+     "_id": "608ac8b089df437045758fa7"
+    },
+    {
+     "id": "PD",
+     "filename": "PD.nii.gz",
+     "desc": "proton density\n",
+     "required": false,
+     "_id": "608ac8b089df436005758fa8"
+    },
+    {
+     "id": "MTV",
+     "filename": "MTV.nii.gz",
+     "desc": "macromolecular tissue volume. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+     "required": false,
+     "_id": "608ac8b089df43a42b758fa9"
+    },
+    {
+     "id": "VIP",
+     "filename": "VIP.nii.gz",
+     "desc": "volume of interacting water proton. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+     "required": false,
+     "_id": "608ac8b089df43a34e758faa"
+    },
+    {
+     "id": "SIR",
+     "filename": "SIR.nii.gz",
+     "desc": "surface interaction rate. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+     "required": false,
+     "_id": "608ac8b089df43db90758fab"
+    },
+    {
+     "id": "WF",
+     "filename": "WF.nii.gz",
+     "desc": "Water fraction. In general, this is for output only. For App, please assume this files to not exist and compute it from T1map and pd",
+     "required": false,
+     "_id": "6115d777a5a04c2ae4f9f09f"
+    },
+    {
+     "id": "R2star",
+     "filename": "R2star.nii.gz",
+     "desc": "Voxels represent the calculated effective transverse relaxation time T2* in seconds. T2* is shorter than T2 because it incorporates additional dephasing from magnetic field inhomogeneities.",
+     "required": false,
+     "_id": "6723e9bd851d5f6d75474526"
+    },
+    {
+     "id": "T2star",
+     "filename": "T2star.nii.gz",
+     "desc": "The inverse of T2* (1/T2*) in s^-1.",
+     "required": false,
+     "_id": "6723e9bd851d5f6d75474527"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/anat/t2starw",
+  "_id": "64792b1c79d13f6418e4fb75",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "64792b1c79d13f6418e4fb75",
+   "desc": "T2starw",
+   "readme": null,
+   "files": [
+    {
+     "id": "t2starw",
+     "filename": "t2starw.nii",
+     "desc": "T2starw NIfTI volume",
+     "required": true,
+     "_id": "647feeedb10869ed4e849cd6"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/anat/t2w",
+  "_id": "594c0325fa1d2e5a1f0beda5",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "594c0325fa1d2e5a1f0beda5",
+   "desc": "T2 weighted",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e42cf44301ffc120434126c",
+     "id": "t2",
+     "filename": "t2.nii.gz",
+     "ext": ".gz",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/ashs",
+  "_id": "5e4c47041eafffca2efa3545",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5e4c47041eafffca2efa3545",
+   "desc": "Output from ASHS (Automated Segmentation of Hippocampal Subfields) in ITKSNAP format",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e4c47041eafff59e3fa3546",
+     "id": "ashs",
+     "desc": "",
+     "required": true,
+     "dirname": "ashs"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/bossdb",
+  "_id": "6aa1c3da87d45c3b2da10ea6",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa1c3da87d45c3b2da10ea6",
+   "desc": "Remote BossDB volumetric image or segmentation channel",
+   "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files.",
+   "files": [
+    {
+     "id": "channel",
+     "dirname": "channel",
+     "desc": "BossDB Channel",
+     "required": true,
+     "_id": "6aa81b348469173546098841"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/cifti",
+  "_id": "5fa9a60cafcdcc57e2c444ad",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5fa9a60cafcdcc57e2c444ad",
+   "desc": "CIFTI files are designed to handle data contained in multiple disjoint anatomical structures, such as both hemispheres of cerebral cortex (vertex-based surface data) and/or specific subcortical structures (gray matter voxels). Structures not of interest for the analysis at hand can be excluded (e.g., white matter, CSF, \u201cmedial wall\u201d), thereby making the representation more compact. The vertices and voxels used in a CIFTI file are generically referred to as 'brainordinates' and as 'grayordinates' for the specific case of 'all gray matter locations'.",
+   "readme": "A CIFTI file is a single rectangular data matrix (usually 2 dimensions, but supports 3). Each dimension is described using one of five available 'mapping types' (see datatype tags), and it is their combinations that give rise to the diversity of CIFTI file types. Each mapping contains all information needed to figure out what every index along the dimension means. A mapping of type 'brain models' (also known as 'dense') can represent both hemispheres and all subcortical structures concurrently, thus allowing one dimension to represent over a dozen structures, both surface-based and voxel-based. CIFTI supports an alternative spatial mapping (i.e., allowing display on surfaces and/or in the volume) that is based on \u2018parcels\u2019 (e.g., cortical areas, subcortical nuclei); parcels group related brainordinates into areas, resulting in much smaller data files by having fewer values to store (per parcel instead of per vertex/voxel). \n\n[https://balsa.wustl.edu/about/fileTypes]",
+   "files": [
+    {
+     "_id": "5fa9a60cafcdcc9f9ec444ae",
+     "id": "cifti",
+     "desc": "",
+     "required": true,
+     "filename": "cifti.nii"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/conmat",
+  "_id": "5d34d9f744947d8aea0e0d2f",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5d34d9f744947d8aea0e0d2f",
+   "desc": "Connectivity Matrix",
+   "readme": "\n# `index.json`\n\n`/csv` directory contains any number of .csv files. `index.json` is used to describe each .csv files. It looks like this\n\n```\n[\n    {\n        \"filename\": \"correlation.csv\",\n        \"unit\": \"xyz^3\",\n        \"name\": \"corrleation between 2 parc\",\n        \"desc\": \"edit me\"\n    }\n]\n```\n\n# `label.json`\n\nDescribes what each column/row corresponds to (in the same order of the column/row in the correlation.csv). It hould look like this.\n\n```\n[\n    {\n        \"name\": \"self-loop\",\n        \"desc\": \"index(x,x) is the diagonal\"\n    },\n    {\n        \"name\": \"lh.Background+FreeSurfer_Defined_Medial_Wall.label\",\n        \"label\": \"1001\",\n        \"voxel_value\": 1\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_Striate.label\",\n        \"label\": \"1002\",\n        \"voxel_value\": 2\n    },\n    {\n        \"name\": \"lh.17Networks_LH_VisCent_ExStr.label\",\n        \"label\": \"1003\",\n        \"voxel_value\": 3\n    },\n...\n]\n```",
+   "files": [
+    {
+     "_id": "5e546c6f5b9d905f4b72daf4",
+     "id": "index",
+     "filename": "index.json",
+     "required": true
+    },
+    {
+     "_id": "5e546c6f5b9d90472872daf5",
+     "id": "label",
+     "filename": "label.json",
+     "required": true
+    },
+    {
+     "_id": "5e546c6f5b9d90700b72daf6",
+     "id": "csv",
+     "dirname": "csv",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/conmats",
+  "_id": "6478dee979d13f6418e34ca8",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6478dee979d13f6418e34ca8",
+   "desc": "directory of conmat datatypes",
+   "readme": null,
+   "files": [
+    {
+     "id": "conmats",
+     "dirname": "conmats",
+     "desc": "",
+     "required": true,
+     "_id": "6478dee979d13f6418e34ca9"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/conneval",
+  "_id": "594c688bfa1d2e5a1f0e33f1",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "594c688bfa1d2e5a1f0e33f1",
+   "desc": "Output Connectome Evaluator",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008dbf",
+     "id": "output",
+     "filename": "out.json",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/contrast-stats",
+  "_id": "65a9a59b4ce5ac2907f02994",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "65a9a59b4ce5ac2907f02994",
+   "desc": "fMRI and other related contrast statistics",
+   "readme": null,
+   "files": [
+    {
+     "id": "contrast-stats",
+     "dirname": "contrast-stats",
+     "desc": "",
+     "required": true,
+     "_id": "65a9a59b4ce5ac2907f02995"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/cortexmap",
+  "_id": "5c58aa5ef9109beac4b52f61",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c58aa5ef9109beac4b52f61",
+   "desc": "Cortext Mapping",
+   "readme": "todo",
+   "files": [
+    {
+     "id": "cortexmap",
+     "dirname": "cortexmap",
+     "required": true,
+     "_id": "5df15c1f2d1c25f06d92b89f"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/csd",
+  "_id": "5c536bf0f9109beac46adb45",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c536bf0f9109beac46adb45",
+   "desc": "CSD responses containing multiple lmaxN.nii.gz",
+   "readme": null,
+   "files": [
+    {
+     "id": "response",
+     "filename": "response.txt",
+     "required": true,
+     "_id": "5db317568aeeee7631f2874b"
+    },
+    {
+     "id": "lmax2",
+     "filename": "lmax2.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee5b9bf2874a"
+    },
+    {
+     "id": "lmax4",
+     "filename": "lmax4.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee5cf0f28749"
+    },
+    {
+     "id": "lmax6",
+     "filename": "lmax6.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee82bff28748"
+    },
+    {
+     "id": "lmax8",
+     "filename": "lmax8.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee229bf28747"
+    },
+    {
+     "id": "lmax10",
+     "filename": "lmax10.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee2759f28746"
+    },
+    {
+     "id": "lmax12",
+     "filename": "lmax12.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee5faff28745"
+    },
+    {
+     "id": "lmax14",
+     "filename": "lmax14.nii.gz",
+     "required": false,
+     "_id": "5db317568aeeee9a4ff28744"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dp/optimal",
+  "_id": "5afe38b15858d874a48650a6",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5afe38b15858d874a48650a6",
+   "desc": "Optimal Fitting by DP",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e09",
+     "id": "fe_optimal",
+     "filename": "fe_optimal.mat",
+     "desc": "result of optimal fitting by dp",
+     "ext": ".mat",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008e0a",
+     "id": "info",
+     "filename": "info.mat",
+     "desc": "fitting info",
+     "ext": ".mat",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dsistudio/fib",
+  "_id": "5f6957e2cfa3659a64c96606",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6957e2cfa3659a64c96606",
+   "desc": "The FIB file (*.fib.gz) stores the vector field (fiber orientations) and anisotropy information (the magnitude) that can be used by DSI Studio to conduct fiber tracking. The FIB files are MATLAB matrix file stored in V4 version. The fib.gz files are the FIB files compressed by gzip. To load an FIB file into Matlab, extract the *.fib.gz file into an uncompressed .fib file. Then rename the .fib file to .mat file and load it using Matlab. ",
+   "readme": "The following is a list of matrix used in the SRC file.\n \ndimension\n    A 1-by-3 vector storing the dimension of the containing image. \n\nvoxel_size\n    A 1-by-3 vector storing the voxel size in mm.\n\nfa0, fa1, fa2,...\n\nThe fa0, fa1,... matrices are image volume recording the anisotropy values of the first fiber (fa0), second fiber (fa1) ...etc. Note that a voxel can have multiple fiber orientations. These FA matrices are originally three-dimensional matrices but stored as one-dimensional vectors. To restore the matrix back to three-dimensional, use the following command.\n\n```\nfa0 = reshape(fa0,dimension);\n```\n\nIf there is no fiber resolved in a voxel, the corresponding FA value is assigned by zero. Note that in DSI, QBI, and GQI reconstruction, the fa matrices stores the QA values (The definition of QA is documented in Yet et al., \"generalized q-sampling imaging\", IEEE TMI, 2010), not the FA value. These fa matrices will be used as the fiber termination threshold to determine the end point of the tracks.\n\nAny matrix stored with a dimension of 1-by-n will be viewed as the quantitative measurements if n matches the total image volume. You can store any mapping such as \"gfa\", \"diffusivity\", \"t1_map\" and DSI Studio can use them in track specific analysi\n\nindex0, index1, index2,...\n  \n    These index matrices store the \"directional index\" of the fiber orientation instead of the full orientation vector. For example: \n\n```\n%the 1st fiber orientation at coordinate (10,10,10) stored as dir0\nindex0 = reshape(index0,dimension);\ndir0 = odf_vertices(:,index0(10,10,10)+1);\n\n%the 2nd fiber orientation at coordinate (10,10,10) stored as dir1\nindex1 = reshape(index1,dimension);\ndir1 = odf_vertices(:,index1(10,10,10)+1);\n```\n    \n    The orientation table is stored in a matrix named odf_vertices. The index is zero based. For instance, if a voxel's index0 value is 5, the voxel's first fiber has an orientation of odf_vertices(:,5+1).\n\n    DSI Studio also supports storing the directional vector instead of directional index. The directional vectors will be stored by \"dir0\", \"dir1\" ..etc. Each has a dimension of 3xN.\n\n    dir0 is the directional vector of the most prominent fiber, and dir1 is the vector of the second most prominent fiber. These matrices have to be \"reshaped\" to restore to its original form:\n\n```\n dir0 = reshape(dir0,[3 dimension]);\n```\n\n    This will make it a 3-by-x-by-y-by-z matrix. \n\n    To determine the number of fibers in a voxel, we need to refer to fa0, fa1, fa2...etc. For example, if a voxel has two fibers, its fa0 and fa1 have nonzero values, whereas fa2, fa3,... are zero. \n\nODF information (optional)\n\nodf1, odf2, ....\n     The ODF values of each voxel can also be exported from DSI Studio. To get the ODF data, check the \"output ODF\" check box in advance option of the reconstruction window. DSI Studio will store a series of matrices named odf1, odf2,.... For each these odf matrices, the dimension is e.g. 321-by-20000. 321 is the dimension of an ODF vector (the actual value depends on the ODF order), and 20000 is the number of the ODFs stored. Note that only the ODFs from the voxels with QA > 0 or FA > 0 are stored.\n\n     For more detail about how to use the ODF matrix and visualize them, please refer to the ODF visualization document. If you are using the ODFs calculated from QSDR, you may also need to look into this document to handle the discrepancy between ODF counts and a number of voxels with qa > 0.\n\nExample: load a fib.gz file and get the information\n\n```\nfunction [fa index odf_vertices odf_faces]= read_fib(file_name)\nif ~exist('file_name')\n    file_name =  uigetfile('*.fib.gz');\nend\nif file_name == 0\n    image = [];\n    return\nend\ngunzip(file_name);\n[pathstr, name, ext] = fileparts(file_name);\nmovefile(name,strcat(name,'.mat'));\nfib = load(strcat(name,'.mat'));\n\nmax_fib = 0;\nfor i = 1:10\n    if isfield(fib,strcat('fa',int2str(i-1)))\n        max_fib = i;\n    else\n        break;\n    end\nend\n\nfa = zeros([fib.dimension max_fib]);\nindex = zeros([fib.dimension max_fib]);\n\nfor i = 1:max_fib\n    eval(strcat('fa(:,:,:,i) = reshape(fib.fa',int2str(i-1),',fib.dimension);'));\n    eval(strcat('index(:,:,:,i) = reshape(fib.index',int2str(i-1),',fib.dimension);'));\nend\n\nodf_vertices = fib.odf_vertices;\nodf_faces = fib.odf_faces;\ndelete(strcat(name,'.mat'));\nend\n```\n\nThe odf_vertices matrix stores the ODF sampling orientations table. This table stores sampling orientations that are equally-distributed (almost) on a sphere with the radius of one. You can use the table generated from DSI Studio or any table you prefer. The odf_face matrix indicates which three orientations forms a triangle on an ODF. YOU may use the one generated from DSI Studio. The exemplary table can be download at the bottom of this page.\nExamples:\nGet the fiber orientation at coordinate (x,y,z)\n\n```\n% decompress the fib.gz to fib file\n% the (x,y,z) coordinates starts from (0,0,0)\nload xxx.fib\nindex0 = reshape(index0,dimension);\nfiber_orientation = odf_vertices(:,index0(x+1,y+1,z+1)+1);\n```\n\nSave an FIB file\n\n     Similar to saving .src file, users can save the .fib file using the \"save xxx.fib -v4\" command. The generated .fib files are readily loadable in DSI Studio. Note that some matricies are required in a .fib file, including the dimension (matrix named \"dimension\"), voxel size (matrix named \"voxel_size\"), fiber directions (dir0, dir1, dir2 or index0, index1, index2), and fiber anisotropy (fa0, fa1, fa2). ODF information is in optional and can be left out.\n",
+   "files": [
+    {
+     "_id": "5f69582ecfa365d454c96607",
+     "id": "fib",
+     "desc": "",
+     "required": true,
+     "filename": "fib.gz"
+    },
+    {
+     "_id": "5f6baa42cfa3654311ca5e8a",
+     "id": "mapping",
+     "desc": "",
+     "required": false,
+     "filename": "inv.mapping.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dsistudio/src",
+  "_id": "5f6956d9cfa365c3dcc965ec",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6956d9cfa365c3dcc965ec",
+   "desc": "The SRC file (*.src, *.src.gz) stores the diffusion weighted images and b-table that can be used to do reconstruction. The SRC files are MATLAB matrix file stored in V4 version. The src.gz is the SRC file compressed by gzip. To load an SRC file in MATLAB, uncompress the file and rename it as .mat.",
+   "readme": "> http://dsi-studio.labsolver.org/Manual/export-data-to-matlab\n\nAn SRC file stores the raw image volumes in addition to image dimension, voxel size, and b-table (see how to get .src file). The SRC files are MATLAB matrix file stored in V4 version. To load an SRC file into Matlab, extract .src.gz file to create an uncompressed .src file. Then rename the .src file to .mat file and load it in Matlab. The meanings of each exported matrix are explained as follows.\n\nThe following is a list of matrix used in the SRC file.\n\ndimension\n    A 1-by-3 vector storing the dimension of the containing image.\n\nvoxel_size\n    A 1-by-3 vector storing the voxel size in mm.\n\nimage0~imageN\n    The images extracted from DICOM or NIFTI files. These matrices can be restored to a 3-dimensional image volume by the command \"reshape(image0,dimension);\"\n\nb-table\n    The b-table of the extracted images. b(1,:) stores b-value, whereas b(2:4,:) stores gradient vector.\n\nAfter loading the .src file in Matlab, the user can process the data and save it back to an SRC file using \"save('filename.src','-v4');\" Note that you have to specify '-v4' so that DSI Studio can read the .src file.",
+   "files": [
+    {
+     "_id": "5f6956d9cfa365041ec965ed",
+     "id": "src",
+     "desc": "",
+     "required": true,
+     "filename": "src.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dsistudio/tinytrack",
+  "_id": "5f6954c7cfa36577f4c96595",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6954c7cfa36577f4c96595",
+   "desc": "The TinyTrack (*.tt.gz) file is a track format used in DSI Studio to store track coordinates. The TT files are MATLAB matrix file stored in V4 version. The tt.gz files are the TT files compressed by gzip. To load a TT file into Matlab, extract the *.tt.gz file into an uncompressed .tt file. Then rename the .tt file to .mat file and load it using Matlab. ",
+   "readme": "> http://dsi-studio.labsolver.org/Manual/export-data-to-matlab\n\nThe following is a list of matrix used in TT file:\n\n## dimension\n\nA 1-by-3 vector storing the dimension of the containing image. \n\n## voxel_size\n\nA 1-by-3 vector storing the voxel size in mm.\n \n## track\n\nA int8 array storing the coordinates. The array has the following format\n\n[16-byte track header][3 x n_1 bytes of track data][16-byte track header][3 x n_2 bytes of track data]...\n\nThe 16-byte header stores 4 bytes of coordinate count, followed (x,y,z) of the first coodinate multiplied by 32 and converted to 32-bit signed integer.\n   \n```\n   struct {\n        uint32_t count;    // number of coordinates\n        int32_t x;         // first coordinate (x*32,y*32,z*32)\n        int32_t y; \n        int32_t z; \n        } h;\n ```\n\nThe track data are series of coodinates intervals (dx1,dy1,dz1)(dx2,dy2,dz2) multiplied by 32 and converted to 8-bit signed integer.\n\nFor example, the first track coordinates is (x,y,z)/32, and the second coodinates is calculated by { (x,y,z) + (dx1,dy1,dz1) }/32",
+   "files": [
+    {
+     "_id": "5f6954c7cfa365d912c96596",
+     "id": "tt",
+     "desc": "",
+     "required": true,
+     "filename": "tt.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dsistudio/tinytrack-s",
+  "_id": "5f6a9c7ecfa365847cc9dc75",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6a9c7ecfa365847cc9dc75",
+   "desc": "multi-file version of track/tinytrack. It contains multiple *.tt.gz inside a single directory",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5f6a9c7ecfa365569dc9dc76",
+     "id": "tts",
+     "desc": "",
+     "required": true,
+     "dirname": "tts"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dsistudio/tractmeasures",
+  "_id": "5f6aa135cfa3656ab4c9e245",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f6aa135cfa3656ab4c9e245",
+   "desc": "Directory containing .tsv formatted tractmeasures",
+   "readme": "Edit me",
+   "files": [
+    {
+     "_id": "5f6aa135cfa365efdcc9e246",
+     "id": "tractmeasures",
+     "desc": "",
+     "required": true,
+     "dirname": "tractmeasures"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/dtiinit",
+  "_id": "58cb234be13a50849b25882f",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58cb234be13a50849b25882f",
+   "desc": "Folder structure containing all files generated by the VISTASOFT dtiInit.m",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e9634656365e929cb472313",
+     "id": "output",
+     "dirname": ".",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5e96345b6365e9512e472311",
+    "maps": [
+     {
+      "_id": "5e9634656365e95e0d472314",
+      "src": "dwi_aligned*.nii.gz",
+      "dest": "dwi.nii.gz"
+     },
+     {
+      "_id": "5e9634656365e9caab472315",
+      "src": "dwi_aligned*.bvecs",
+      "dest": "dwi.bvecs"
+     },
+     {
+      "_id": "5e9634656365e9373f472316",
+      "src": "dwi_aligned*.bvals",
+      "dest": "dwi.bvals"
+     },
+     {
+      "_id": "5e9634656365e933e1472317",
+      "src": "_meta_",
+      "dest": "dwi.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/dwi",
+  "_id": "58c33c5fe13a50849b25879b",
+  "method": "PUT",
+  "fields": [
+   "readme"
+  ],
+  "before": {
+   "_id": "58c33c5fe13a50849b25879b",
+   "desc": "Diffusion-weighted MRI series (4D NIfTI) with FSL-style bvecs and bvals; raw or preprocessed, told apart by tags.",
+   "readme": "Used brainlife/validator-neuro-dwi for validator\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.json",
+   "files": [
+    {
+     "id": "dwi",
+     "filename": "dwi.nii.gz",
+     "desc": "4D diffusion-weighted volume series (NIfTI, gzip).",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5dd857f7936ca314d2c57810"
+    },
+    {
+     "id": "bvecs",
+     "filename": "dwi.bvecs",
+     "desc": "Gradient directions, FSL format (3 rows, one column per volume).",
+     "required": true,
+     "_id": "5dd857f7936ca314e2c5780f"
+    },
+    {
+     "id": "bvals",
+     "filename": "dwi.bvals",
+     "desc": "b-values, one per volume.",
+     "required": true,
+     "_id": "5dd857f7936ca3e6a0c5780e"
+    },
+    {
+     "id": "sbref",
+     "filename": "sbref.nii.gz",
+     "desc": "Single-band reference for one or more multi-band dwi images.",
+     "required": false,
+     "_id": "600b4b6cc9e1f5a62612b86b"
+    },
+    {
+     "id": "sbref_json",
+     "filename": "sbref.json",
+     "desc": "JSON sidecar of the single-band reference.",
+     "required": false,
+     "_id": "600b4b6cc9e1f5229312b86c"
+    }
+   ],
+   "bids": {
+    "derivatives": "dwi",
+    "maps": [
+     {
+      "src": "dwi.nii.gz",
+      "dest": "dwi.nii.gz",
+      "_id": "5dd857f7936ca3d362c57814"
+     },
+     {
+      "src": "dwi.bvecs",
+      "dest": "dwi.bvecs",
+      "_id": "5dd857f7936ca30300c57813"
+     },
+     {
+      "src": "dwi.bvals",
+      "dest": "dwi.bvals",
+      "_id": "5dd857f7936ca30e67c57812"
+     },
+     {
+      "src": "_meta_",
+      "dest": "dwi.json",
+      "_id": "5dd857f7936ca38269c57811"
+     },
+     {
+      "src": "sbref.nii.gz",
+      "dest": "sbref.nii.gz",
+      "_id": "6b06fc4288e26e6de7007801"
+     },
+     {
+      "src": "sbref.json",
+      "dest": "sbref.json",
+      "_id": "6b06fc4288e26e6de7007802"
+     }
+    ],
+    "_id": "5dd857d0936ca38046c5780c"
+   }
+  }
+ },
+ {
+  "name": "neuro/dwi/b0",
+  "_id": "5ddf1381936ca39318c5f045",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ddf1381936ca39318c5f045",
+   "desc": "b0 files extracted from dwi",
+   "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook.",
+   "files": [
+    {
+     "id": "dwi",
+     "filename": "dwi.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "61d5d2df33cb3deb49821a50"
+    },
+    {
+     "id": "bvecs",
+     "filename": "dwi.bvecs",
+     "desc": "",
+     "required": true,
+     "_id": "61d5d2df33cb3deb49821a51"
+    },
+    {
+     "id": "bvals",
+     "filename": "dwi.bvals",
+     "desc": "",
+     "required": true,
+     "_id": "61d5d2df33cb3deb49821a52"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/eeg/bdf",
+  "_id": "60007567aacf9e1615a691dd",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60007567aacf9e1615a691dd",
+   "desc": "EEG / Biosemi data forma",
+   "readme": null,
+   "files": [
+    {
+     "_id": "60007567aacf9e6a5aa691de",
+     "id": "bdf",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.bdf"
+    },
+    {
+     "_id": "6006fed9af402b72a8483f85",
+     "id": "channels",
+     "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv. Please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv",
+     "required": false,
+     "filename": "channels.tsv"
+    },
+    {
+     "_id": "600700b0af402b03fb484038",
+     "id": "electrodes",
+     "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+     "required": false,
+     "filename": "electrodes.tsv"
+    },
+    {
+     "_id": "6007042caf402b710b4841cd",
+     "id": "coordsystem",
+     "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+     "required": false,
+     "filename": "coordsystem.json"
+    },
+    {
+     "_id": "606f73a3c7f80a6a4e95572a",
+     "id": "events",
+     "desc": "",
+     "required": false,
+     "filename": "events.tsv"
+    },
+    {
+     "_id": "606f73a3c7f80a7d6795572b",
+     "id": "events_json",
+     "desc": "",
+     "required": false,
+     "filename": "events.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/eeg/brainvision",
+  "_id": "6000753eaacf9e6591a691d9",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6000753eaacf9e6591a691d9",
+   "desc": "EEG / BrainVision Core Data Format (.vhdr, .vmrk, .eeg)",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv",
+   "files": [
+    {
+     "_id": "6000753eaacf9ecbc5a691da",
+     "id": "eeg",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.eeg"
+    },
+    {
+     "_id": "6000753eaacf9e6e6ca691db",
+     "id": "vhdr",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.vhdr"
+    },
+    {
+     "_id": "6000753eaacf9e8681a691dc",
+     "id": "vmrk",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.vmrk"
+    },
+    {
+     "_id": "6006fec8af402bbd9e483f83",
+     "id": "channels",
+     "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+     "required": false,
+     "filename": "channels.tsv"
+    },
+    {
+     "_id": "60070140af402b17b548409d",
+     "id": "electrodes",
+     "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+     "required": false,
+     "filename": "electrodes.tsv"
+    },
+    {
+     "_id": "600703f3af402b82784841c0",
+     "id": "coordsystem",
+     "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+     "required": false,
+     "filename": "coordsystem.json"
+    },
+    {
+     "_id": "606f73c9c7f80a22ba955732",
+     "id": "events",
+     "desc": "",
+     "required": false,
+     "filename": "events.tsv"
+    },
+    {
+     "_id": "606f73c9c7f80aee9c955733",
+     "id": "events_json",
+     "desc": "",
+     "required": false,
+     "filename": "events.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/eeg/edf",
+  "_id": "600074f6aacf9e7acda691d7",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "600074f6aacf9e7acda691d7",
+   "desc": "Electroencephalography (EEG) / EDF - European Data format (.edf)",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv",
+   "files": [
+    {
+     "_id": "600074f6aacf9e6a93a691d8",
+     "id": "edf",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.edf"
+    },
+    {
+     "_id": "6006feb1af402b1a27483f5c",
+     "id": "channels",
+     "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+     "required": false,
+     "filename": "channels.tsv"
+    },
+    {
+     "_id": "60070108af402baab248407b",
+     "id": "electrodes",
+     "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+     "required": false,
+     "filename": "electrodes.tsv"
+    },
+    {
+     "_id": "6007040faf402b70c84841c4",
+     "id": "coordsystem",
+     "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+     "required": false,
+     "filename": "coordsystem.json"
+    },
+    {
+     "_id": "606f7365c7f80a0a5595571d",
+     "id": "events",
+     "desc": "",
+     "required": false,
+     "filename": "events.tsv"
+    },
+    {
+     "_id": "606f7365c7f80a4e9995571e",
+     "id": "events_json",
+     "desc": "",
+     "required": false,
+     "filename": "events.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/eeg/eeglab",
+  "_id": "60007410aacf9e4edda691d4",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60007410aacf9e4edda691d4",
+   "desc": "The format used by MATLAB toolbox EEGLAB (.set and .fdt)",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv",
+   "files": [
+    {
+     "_id": "60007410aacf9e4a04a691d5",
+     "id": "fdt",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.fdt"
+    },
+    {
+     "_id": "60007410aacf9e2ad9a691d6",
+     "id": "set",
+     "desc": "",
+     "required": true,
+     "filename": "eeg.set"
+    },
+    {
+     "_id": "6006fedcaf402b1289483f88",
+     "id": "channels",
+     "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. The required columns are channel name, type and units in this specific order. To avoid confusion, the channels SHOULD be listed in the order they appear in the EEG data file. Any number of additional columns may be added to provide additional information about the channels. Note that electrode positions SHOULD NOT be added to this file, but to *_electrodes.tsv.",
+     "required": false,
+     "filename": "channels.tsv"
+    },
+    {
+     "_id": "60070160af402b559e4840aa",
+     "id": "electrodes",
+     "desc": "File that gives the location of EEG electrodes. Note that coordinates are expected in cartesian coordinates according to the EEGCoordinateSystem and EEGCoordinateUnits fields in *_coordsystem.json. If an *_electrodes.tsv file is specified, a *_coordsystem.json file MUST be specified as well. The order of the required columns in the *_electrodes.tsv file MUST be as listed below.",
+     "required": false,
+     "filename": "electrodes.tsv"
+    },
+    {
+     "_id": "60070423af402b6a8a4841c9",
+     "id": "coordsystem",
+     "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+     "required": false,
+     "filename": "coordsystem.json"
+    },
+    {
+     "_id": "606f7380c7f80a8dcd955724",
+     "id": "events",
+     "desc": "",
+     "required": false,
+     "filename": "events.tsv"
+    },
+    {
+     "_id": "606f7380c7f80a78bc955725",
+     "id": "events_json",
+     "desc": "",
+     "required": false,
+     "filename": "events.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/eeg/egi",
+  "_id": "5dec20ff6c0bd9f84485779f",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5dec20ff6c0bd9f84485779f",
+   "desc": "EGI EEG datatype",
+   "readme": "Edit me",
+   "files": [
+    {
+     "id": "egi",
+     "filename": "eeg",
+     "desc": "EGI data",
+     "required": true,
+     "_id": "5dec20ff6c0bd91e1f8577a7"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/fake",
+  "_id": "6aa8337984691735460b6f28",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa8337984691735460b6f28",
+   "desc": "fake",
+   "readme": null,
+   "files": [],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/fgtair",
+  "_id": "654dc862b094062da631217d",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "654dc862b094062da631217d",
+   "desc": "Fast Gray Matter Acquisition T1 Inversion Recovery (FGATIR) sequence. T1 with opposite contrast",
+   "readme": null,
+   "files": [
+    {
+     "id": "fgtair",
+     "filename": "fgtair.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "654dc862b094062da631217e"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/fmap",
+  "_id": "5c390505f9109beac42b00df",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c390505f9109beac42b00df",
+   "desc": "fieldmaps measure the magnetic field inhomogeniety. epi images often exhibit signal dropout and spatial distortion in regions where the magnetic field is inhomogenous (often around the fontal cortex and medial temporal lobe). We can not recover the lost signal, but we can attempt to undistort images using fieldmaps",
+   "readme": "This datatype follows the BIDS fieldmap specification\n\n> https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#types-of-fieldmaps\n\nAlthough all of the files in this datatypes are \"optional\", in reality, depending on which *case* the fmap uses, a different set of files are required.",
+   "files": [
+    {
+     "_id": "5db853e28aeeeeff86f2fd2e",
+     "id": "phasediff",
+     "filename": "phasediff.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for phasediff"
+    },
+    {
+     "_id": "5db853e28aeeee57e0f2fd2d",
+     "id": "phasediff_json",
+     "filename": "phasediff.json",
+     "required": false,
+     "ext": ".json",
+     "desc": "for phasediff"
+    },
+    {
+     "_id": "5db853e28aeeeed343f2fd2c",
+     "id": "magnitude",
+     "filename": "magnitude.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for single"
+    },
+    {
+     "_id": "5f7f3d0d268f76704d2a659a",
+     "id": "magnitude_json",
+     "desc": "",
+     "ext": ".json",
+     "required": false,
+     "filename": "magnitude.json"
+    },
+    {
+     "_id": "5db853e28aeeee7044f2fd2b",
+     "id": "magnitude1",
+     "filename": "magnitude1.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for 2phasemag, phasediff"
+    },
+    {
+     "_id": "5f7f3d0d268f760b132a659b",
+     "id": "magnitude1_json",
+     "desc": "",
+     "ext": ".json",
+     "required": false,
+     "filename": "magnitude1.json"
+    },
+    {
+     "_id": "5db853e28aeeee50f4f2fd2a",
+     "id": "magnitude2",
+     "filename": "magnitude2.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for 2phasemag, phasediff(optional)"
+    },
+    {
+     "_id": "5f7f3d0d268f76b8db2a659c",
+     "id": "magnitude2_json",
+     "desc": "",
+     "ext": ".json",
+     "required": false,
+     "filename": "magnitude2.json"
+    },
+    {
+     "_id": "5db853e28aeeee0359f2fd29",
+     "id": "fieldmap",
+     "filename": "fieldmap.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for single"
+    },
+    {
+     "_id": "5db853e28aeeee80b1f2fd28",
+     "id": "fieldmap_json",
+     "filename": "fieldmap.json",
+     "ext": ".json",
+     "required": false,
+     "desc": "for single"
+    },
+    {
+     "_id": "5db853e28aeeee7087f2fd27",
+     "id": "phase1",
+     "filename": "phase1.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for 2phasemag"
+    },
+    {
+     "_id": "5db853e28aeeee62d9f2fd26",
+     "id": "phase1_json",
+     "filename": "phase1.json",
+     "ext": ".json",
+     "required": false,
+     "desc": "for 2phasemag"
+    },
+    {
+     "_id": "5db853e28aeeee5e2cf2fd25",
+     "id": "phase2",
+     "filename": "phase2.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for 2phasemag"
+    },
+    {
+     "_id": "5db853e28aeeeec617f2fd24",
+     "id": "phase2_json",
+     "filename": "phase2.json",
+     "ext": ".json",
+     "required": false,
+     "desc": "for 2phasemag"
+    },
+    {
+     "_id": "5db853e28aeeee0e47f2fd23",
+     "id": "epi1",
+     "filename": "epi1.nii.gz",
+     "ext": ".gz",
+     "required": false,
+     "desc": "for pepolar"
+    },
+    {
+     "_id": "5db853e28aeeee7c56f2fd22",
+     "id": "epi1_json",
+     "filename": "epi1.json",
+     "ext": ".json",
+     "required": false,
+     "desc": "for pepolar"
+    },
+    {
+     "_id": "5db853e28aeeee5382f2fd21",
+     "id": "epi2",
+     "filename": "epi2.nii.gz",
+     "required": false,
+     "ext": ".gz",
+     "desc": "for pepolar"
+    },
+    {
+     "_id": "5db853e28aeeee40ebf2fd20",
+     "id": "epi2_json",
+     "filename": "epi2.json",
+     "required": false,
+     "ext": ".json",
+     "desc": "for pepolar"
+    }
+   ],
+   "bids": {
+    "_id": "5db8515c8aeeee4142f2fcaf",
+    "maps": [
+     {
+      "_id": "5db853e28aeeee28bef2fd3d",
+      "src": "phasediff.nii.gz",
+      "dest": "phasediff.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeee1c07f2fd3c",
+      "src": "phasediff.json",
+      "dest": "phasediff.json"
+     },
+     {
+      "_id": "5db853e28aeeee8ac7f2fd3b",
+      "src": "magnitude1.nii.gz",
+      "dest": "magnitude1.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeee9aadf2fd3a",
+      "src": "magnitude2.nii.gz",
+      "dest": "magnitude2.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeeee86bf2fd39",
+      "src": "_meta_",
+      "dest": "fmap.json"
+     },
+     {
+      "_id": "5db853e28aeeee44cdf2fd38",
+      "src": "fieldmap.nii.gz",
+      "dest": "fieldmap.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeeec87ff2fd37",
+      "src": "fieldmap.json",
+      "dest": "fieldmap.json"
+     },
+     {
+      "_id": "5db853e28aeeee345cf2fd36",
+      "src": "phase1.nii.gz",
+      "dest": "phase1.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeee7be6f2fd35",
+      "src": "phase1.json",
+      "dest": "phase1.json"
+     },
+     {
+      "_id": "5db853e28aeeeec549f2fd34",
+      "src": "phase2.nii.gz",
+      "dest": "phase2.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeee44dbf2fd33",
+      "src": "phase2.json",
+      "dest": "phase2.json"
+     },
+     {
+      "_id": "5db853e28aeeee9ca2f2fd32",
+      "src": "ap.epi.nii.gz",
+      "dest": "dir-AP_epi.nii.gz"
+     },
+     {
+      "_id": "5db853e28aeeee124ef2fd31",
+      "src": "ap.epi.json",
+      "dest": "dir-AP_epi.json"
+     },
+     {
+      "_id": "5db853e28aeeee0189f2fd30",
+      "src": "pa.epi.nii.gz",
+      "dest": "dir-PA_epi.nii.gzz"
+     },
+     {
+      "_id": "5db853e28aeeeeef58f2fd2f",
+      "src": "pa.epi.json",
+      "dest": "dir-PA_epi.json"
+     }
+    ],
+    "derivatives": "fmap"
+   }
+  }
+ },
+ {
+  "name": "neuro/fmriprep",
+  "_id": "64640a72d391caf6ef169dc7",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "64640a72d391caf6ef169dc7",
+   "desc": "temporary output for fmriprep directories",
+   "readme": null,
+   "files": [
+    {
+     "id": "fmriprep",
+     "dirname": "fmriprep",
+     "desc": "",
+     "required": true,
+     "_id": "64640a72d391caf6ef169dc8"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/freesurfer",
+  "_id": "58cb22c8e13a50849b25882e",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58cb22c8e13a50849b25882e",
+   "desc": "Folder structure generated by FreeSurfer recon-all process.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5dfd36f732bff080d8e281ee",
+     "id": "output",
+     "dirname": "output",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/freesurfer/longitudinal-template",
+  "_id": "59bbfadd6b956e1c2ae89ef3",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59bbfadd6b956e1c2ae89ef3",
+   "desc": "Freesurfer longitudinal base template and mri/ files for each timepoints used to generate the template ",
+   "readme": "Run freesurfer ",
+   "files": [
+    {
+     "id": "template",
+     "dirname": "template",
+     "required": true,
+     "_id": "60087ec1af402baf7d488d46"
+    },
+    {
+     "id": "timepoints",
+     "dirname": "timepoints",
+     "desc": "",
+     "required": true,
+     "_id": "61eacebcc1773a8c1e3599e3"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/func/events",
+  "_id": "643d6076d391caf6efbc2cee",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "643d6076d391caf6efbc2cee",
+   "desc": "Datatype containing the events.tsv file for a fmri task-based experiment (in case user did not upload with func datatype)",
+   "readme": null,
+   "files": [
+    {
+     "id": "events",
+     "filename": "events.tsv",
+     "desc": "events file containing timings",
+     "required": true,
+     "_id": "643d6076d391caf6efbc2cef"
+    },
+    {
+     "id": "events_json",
+     "filename": "events.json",
+     "desc": "json sidecar for events tsv",
+     "required": false,
+     "_id": "643d60c5d391caf6efbc2ed0"
+    },
+    {
+     "id": "events_csv",
+     "filename": "events.csv",
+     "desc": "",
+     "required": false,
+     "_id": "6466585fd391caf6ef1d44a9"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/func/multiecho",
+  "_id": "5f5fa310aff27a5569361cf3",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f5fa310aff27a5569361cf3",
+   "desc": "(experimental datatype) Functional bold image using multi-echo ",
+   "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```",
+   "files": [
+    {
+     "_id": "5f5fa310aff27a4277361cf4",
+     "id": "echo1",
+     "desc": "",
+     "required": true,
+     "filename": "echo-1_bold.nii.gz"
+    },
+    {
+     "_id": "5f5fa310aff27a1e1e361cf5",
+     "id": "echo2",
+     "desc": "",
+     "required": true,
+     "filename": "echo-2_bold.nii.gz"
+    },
+    {
+     "_id": "5f5fa310aff27a7f9a361cf6",
+     "id": "echo3",
+     "desc": "",
+     "required": false,
+     "filename": "echo-3_bold.nii.gz"
+    },
+    {
+     "_id": "5f5fa310aff27a015f361cf7",
+     "id": "echo4",
+     "desc": "",
+     "required": false,
+     "filename": "echo-4_bold.nii.gz"
+    },
+    {
+     "_id": "5f5fa310aff27a646d361cf8",
+     "id": "echo5",
+     "desc": "",
+     "required": false,
+     "filename": "echo-5_bold.nii.gz"
+    },
+    {
+     "_id": "5f5fa310aff27a6923361cf9",
+     "id": "echo6",
+     "desc": "",
+     "required": false,
+     "filename": "echo-6_bold.nii.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/func/task",
+  "_id": "59b685a08e5d38b0b331ddc5",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59b685a08e5d38b0b331ddc5",
+   "desc": "fMRI Task",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5dbc3d2b8aeeee06daf36472",
+     "id": "bold",
+     "filename": "bold.nii.gz",
+     "ext": ".gz",
+     "required": true
+    },
+    {
+     "_id": "5dbc3d2b8aeeee2787f36471",
+     "id": "events",
+     "filename": "events.tsv",
+     "ext": ".tsv",
+     "required": false
+    },
+    {
+     "_id": "5dbc3d2b8aeeeedd1df36470",
+     "id": "events_json",
+     "filename": "events.json",
+     "ext": ".json",
+     "required": false
+    },
+    {
+     "_id": "5dbc3d2b8aeeee290ef3646f",
+     "id": "sbref",
+     "filename": "sbref.nii.gz",
+     "ext": ".gz",
+     "required": false
+    },
+    {
+     "_id": "5dbc3d2b8aeeee69a1f3646e",
+     "id": "sbref_json",
+     "filename": "sbref.json",
+     "ext": ".json",
+     "required": false
+    },
+    {
+     "_id": "5dbc3d2b8aeeee6b9cf3646d",
+     "id": "physio",
+     "filename": "physio.tsv.gz",
+     "ext": ".gz",
+     "required": false
+    },
+    {
+     "_id": "5dbc3d2b8aeeee6b74f3646c",
+     "id": "physio_json",
+     "filename": "physio.json",
+     "ext": ".json",
+     "required": false
+    }
+   ],
+   "bids": {
+    "_id": "5dbc3d1f8aeeeef269f3646a",
+    "maps": [
+     {
+      "_id": "5dbc3d2b8aeeee08b8f3647a",
+      "src": "bold.nii.gz",
+      "dest": "bold.nii.gz"
+     },
+     {
+      "_id": "5dbc3d2b8aeeeef1c9f36479",
+      "src": "events.tsv",
+      "dest": "events.tsv"
+     },
+     {
+      "_id": "5dbc3d2b8aeeee58d3f36478",
+      "src": "events.json",
+      "dest": "events.json"
+     },
+     {
+      "_id": "5dbc3d2b8aeeee1ffdf36477",
+      "src": "sbref.nii.gz",
+      "dest": "sbref.nii.gz"
+     },
+     {
+      "_id": "5dbc3d2b8aeeee1e01f36476",
+      "src": "sbref.json",
+      "dest": "sbref.json"
+     },
+     {
+      "_id": "5dbc3d2b8aeeee71d2f36475",
+      "src": "physio.tsv.gz",
+      "dest": "physio.tsv.gz"
+     },
+     {
+      "_id": "5dbc3d2b8aeeee8beaf36474",
+      "src": "physio.json",
+      "dest": "physio.json"
+     },
+     {
+      "_id": "5dbc3d2b8aeeeee48ff36473",
+      "src": "_meta_",
+      "dest": "bold.json"
+     }
+    ],
+    "derivatives": "func"
+   }
+  }
+ },
+ {
+  "name": "neuro/hcp/abcd-fmri",
+  "_id": "61e8834d33cb3deb49960f3c",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "61e8834d33cb3deb49960f3c",
+   "desc": "Output folder containing files like in https://github.com/DCAN-Labs/abcd-hcp-pipeline?ref=https://githubhelp.com#outputs",
+   "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```",
+   "files": [
+    {
+     "id": "output",
+     "dirname": "output",
+     "desc": "",
+     "required": true,
+     "_id": "61e883fd33cb3deb49960f80"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/hcp/freesurferpost",
+  "_id": "5e767ddcde643b260e2a8a52",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5e767ddcde643b260e2a8a52",
+   "desc": "Contains content similar to /N/dcwan/projects/hcp/517239/MNINonLinear",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e767ddcde643b0a352a8a53",
+     "id": "output",
+     "desc": "",
+     "required": true,
+     "dirname": "output"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/hcp/freesurferpre",
+  "_id": "5b3abb88d7b3f1e24e431321",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5b3abb88d7b3f1e24e431321",
+   "desc": "HCP PreFS Output",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e0b",
+     "id": "hcp_freesurferpre",
+     "dirname": "output",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/labels",
+  "_id": "606345ade4a8347b6f337de4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "606345ade4a8347b6f337de4",
+   "desc": "Experimental (Giulia)",
+   "readme": null,
+   "files": [
+    {
+     "id": "index",
+     "filename": "index.csv",
+     "desc": "",
+     "required": true,
+     "_id": "606345ade4a8348e99337de5"
+    },
+    {
+     "id": "names",
+     "filename": "names.csv",
+     "desc": "",
+     "required": true,
+     "_id": "606345ade4a834756c337de6"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/laplace_beltrami_spectrum",
+  "_id": "59399b95436ee50ffdc08381",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59399b95436ee50ffdc08381",
+   "desc": "Output from Laplace Beltrami Spectrum App",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6043bb8e66d5ce4e526f5d91",
+     "id": "spectrum",
+     "filename": "spectrum.json",
+     "required": true
+    },
+    {
+     "_id": "6043bb8e66d5ce5dfd6f5d92",
+     "id": "eigenvectors",
+     "filename": "eigenvectors.mat",
+     "required": false
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/maps",
+  "_id": "6123cffd2301763fddd57054",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6123cffd2301763fddd57054",
+   "desc": "(experimental) similar to neuro/rois, this datatype contains any number of nifti files in a directory. Unlike neuro/rois, each nifti can contain any value (not just 0 or 1). The type of values that it contains are determined by datatype tags.",
+   "readme": null,
+   "files": [
+    {
+     "id": "maps",
+     "filename": "maps",
+     "desc": "A directory containing *.nii.gz files. ",
+     "required": true,
+     "_id": "6123cffd2301760489d57056"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/mask",
+  "_id": "5a281aee2c214c9ba83ce620",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5a281aee2c214c9ba83ce620",
+   "desc": "Volume Mask",
+   "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type.",
+   "files": [
+    {
+     "id": "mask",
+     "filename": "mask.nii.gz",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5f2d60bdbeafe97ba562fd09"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/covariance",
+  "_id": "5afb21465858d874a4b393a1",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5afb21465858d874a4b393a1",
+   "desc": "To be edited by Saeed",
+   "readme": "To be edited by Saeed",
+   "files": [
+    {
+     "id": "cov",
+     "filename": "cov.fif",
+     "dirname": "",
+     "desc": "A small fif file containing the covariant matrix",
+     "required": true,
+     "_id": "6283d7e2d0697cf1eade7ae0"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/epochs",
+  "_id": "61797fc39538685e5db952b0",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "61797fc39538685e5db952b0",
+   "desc": "Datatype to describe the mne.Epochs class",
+   "readme": "mne.Epochs class: https://mne.tools/stable/generated/mne.Epochs.html\nwhich contains Epochs extracted from a Raw MEEG data instance.\nIt is stored in a file named: `-epo.fif` or `-epo.fif.gz`",
+   "files": [
+    {
+     "id": "epo",
+     "filename": "meg-epo.fif",
+     "desc": "mne.Epochs class which contains Epochs extracted from a Raw MEEG data instance.",
+     "required": true,
+     "_id": "617a76f8b0856ce5c6e45fd8"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/evoked",
+  "_id": "5978fd38b09297d8d8aa8746",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5978fd38b09297d8d8aa8746",
+   "desc": "To be edited by Saeed",
+   "readme": "To be edited by Saseed",
+   "files": [
+    {
+     "id": "evoked",
+     "filename": "ave.fif",
+     "required": true,
+     "_id": "6283d98dd0697cf1eade8609"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/forward-inverse",
+  "_id": "6283e916d0697cf1eadea5a3",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6283e916d0697cf1eadea5a3",
+   "desc": "to be edited",
+   "readme": "to be edited",
+   "files": [
+    {
+     "id": "forward",
+     "filename": "fwd.fif",
+     "desc": "",
+     "required": true,
+     "_id": "6283e916d0697cf1eadea5a4"
+    },
+    {
+     "id": "inverse",
+     "filename": "inv.fif",
+     "desc": "Inverse operator",
+     "required": false,
+     "_id": "6283ea76d0697cf1eadeaa79"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/ica",
+  "_id": "6283e821d0697cf1eade9d5c",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6283e821d0697cf1eade9d5c",
+   "desc": "to be edited",
+   "readme": "to be edited",
+   "files": [
+    {
+     "id": "ica",
+     "filename": "ica.fif",
+     "desc": "",
+     "required": true,
+     "_id": "6283e821d0697cf1eade9d5d"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/projection",
+  "_id": "6283e7e9d0697cf1eade9bda",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6283e7e9d0697cf1eade9bda",
+   "desc": "to be edited",
+   "readme": "to be edited",
+   "files": [
+    {
+     "id": "projection",
+     "filename": "proj.fif",
+     "desc": "",
+     "required": true,
+     "_id": "6283e7e9d0697cf1eade9bdb"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/raw",
+  "_id": "61893398e8be76b34cb9826e",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "61893398e8be76b34cb9826e",
+   "desc": "https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw",
+   "readme": "",
+   "files": [
+    {
+     "id": "mne",
+     "filename": "raw.fif",
+     "desc": "",
+     "required": true,
+     "_id": "61893398e8be76b34cb9826f"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/raw/annotation",
+  "_id": "65ce3b74eab7bb5c3c96e3ae",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "65ce3b74eab7bb5c3c96e3ae",
+   "desc": "MNE annotation structures",
+   "readme": null,
+   "files": [
+    {
+     "id": "annot",
+     "filename": "annotation.fif",
+     "desc": "Annotation.fif",
+     "required": true,
+     "_id": "65ce3b74eab7bb5c3c96e3af"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/mne/trans",
+  "_id": "66e58020774d6f044dcf5afc",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "66e58020774d6f044dcf5afc",
+   "desc": "To be edited",
+   "readme": null,
+   "files": [
+    {
+     "id": "trans",
+     "filename": "trans.fif",
+     "desc": "",
+     "required": true,
+     "_id": "66e58020774d6f044dcf5afd"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/psd",
+  "_id": "60c7669e7657d98fe5e128b1",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "60c7669e7657d98fe5e128b1",
+   "desc": "Power spectral densities of MEG/EEG signals",
+   "readme": "Dimensions: channels x freqs",
+   "files": [
+    {
+     "id": "psd",
+     "filename": "psd.tsv",
+     "desc": "Rows correspond to channels and columns to the frequencies.",
+     "required": true,
+     "_id": "60c7669e7657d92279e128b2"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meeg/stc",
+  "_id": "65fe0a4ee6256cac94a94de9",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "65fe0a4ee6256cac94a94de9",
+   "desc": "Boundary Element Model",
+   "readme": null,
+   "files": [
+    {
+     "id": "stc-rh",
+     "filename": "inv-rh.stc",
+     "dirname": "",
+     "desc": "",
+     "required": true,
+     "_id": "65fe0a4ee6256cac94a94dea"
+    },
+    {
+     "id": "stc-lh",
+     "filename": "inv-lh.stc",
+     "dirname": "",
+     "desc": "",
+     "required": true,
+     "_id": "66d847f1774d6f044dbf1640"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meg/BTi4D",
+  "_id": "61a4e7d709959fabbdcef50c",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "61a4e7d709959fabbdcef50c",
+   "desc": "Each experimental run on a 4D neuroimaging/BTi system results in a folder containing multiple files without extensions.",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging",
+   "files": [
+    {
+     "id": "headshape",
+     "filename": "headshape.pos",
+     "desc": "",
+     "required": false,
+     "_id": "61a4e7d709959fabbdcef50d"
+    },
+    {
+     "id": "meg",
+     "dirname": "meg",
+     "desc": "A directory containing the following files; \"config\", \"hs_file\", \"e,rfhp1.0Hz.COH\", \"c,rfDC\"",
+     "required": true,
+     "_id": "61a4e7d709959fabbdcef50e"
+    },
+    {
+     "id": "scans",
+     "filename": "scans.tsv",
+     "desc": "",
+     "required": false,
+     "_id": "61a4e7d709959fabbdcef50f"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meg/ctf",
+  "_id": "6000714baacf9e22a6a691c8",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6000714baacf9e22a6a691c8",
+   "desc": "Magnetoencephalography (MEG) in CTF (folder with .ds extension)",
+   "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF\u2019s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf",
+   "files": [
+    {
+     "_id": "6000714baacf9e4421a691c9",
+     "id": "ds",
+     "desc": "this directory contains various CTF items (.meg4, .res4, .acq, .hc, .hist, ,ec..)",
+     "required": true,
+     "dirname": "meg.ds"
+    },
+    {
+     "_id": "6000714baacf9e6228a691ca",
+     "id": "headshape",
+     "desc": "The OPTIONAL digitized positions of the head points. Head shape and electrode description",
+     "required": false,
+     "filename": "headshape.pos"
+    },
+    {
+     "_id": "600702d0af402b61aa48414c",
+     "id": "channels",
+     "desc": "This file is RECOMMENDED as it provides easily searchable information across BIDS datasets for for example, general curation, response to queries or batch analysis. To avoid confusion, the channels SHOULD be listed in the order they appear in the MEG data file. Missing values MUST be indicated with n/a.",
+     "required": false,
+     "filename": "channels.tsv"
+    },
+    {
+     "_id": "600702d0af402b27af48414d",
+     "id": "coordsystem",
+     "desc": " A JSON document specifying the coordinate system(s) used for the MEG, EEG, head localization coils, and anatomical landmarks.",
+     "required": false,
+     "filename": "coordsystem.json"
+    },
+    {
+     "_id": "606f730cc7f80ab7d4955717",
+     "id": "events",
+     "desc": "",
+     "required": false,
+     "filename": "events.tsv"
+    },
+    {
+     "_id": "606f730cc7f80a897b955718",
+     "id": "events_json",
+     "desc": "",
+     "required": false,
+     "filename": "events.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meg/fif",
+  "_id": "6000737faacf9ee51fa691cb",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6000737faacf9ee51fa691cb",
+   "desc": "Magnetoencephalography (MEG) / FIFF - Neuromag/Elekta/MEGIN data and Tristan Technologies BabyMEG data ",
+   "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#neuromagelektamegin\n\nThe company based in Helsinki (Finland) making these MEG systems started as Neuromag, and later was acquired by Elekta, a much larger Swedish company. Since 2018 it operates under the name Megin and now is part of Croton Healthcare (which also happens to be the parent company of York Instruments). We usually refer to these systems as \u201cNeuromag\u201d systems.\n",
+   "files": [
+    {
+     "id": "fif",
+     "filename": "meg.fif",
+     "desc": "",
+     "required": true,
+     "_id": "6000737faacf9e1198a691cc"
+    },
+    {
+     "id": "channels",
+     "filename": "channels.tsv",
+     "desc": "\nAlthough this information can often be extracted from the EEG recording, listing it in a simple .tsv document makes it easy to browse or search. The required columns are channel name, type and units in this specific order. Channel names should furthermore appear in the table in the same order they do in the EEG data file. Any number of additional columns may be provided to provide additional information about the channels. Note that electrode positions should not be added to this file, but to *_electrodes.tsv.",
+     "required": false,
+     "_id": "6000737faacf9ec18ea691cd"
+    },
+    {
+     "id": "headshape",
+     "filename": "headshape.pos",
+     "desc": "The OPTIONAL digitized positions of the head points. Head shape and electrode description",
+     "required": false,
+     "_id": "6000737faacf9e00cda691ce"
+    },
+    {
+     "id": "coordsystem",
+     "filename": "coordsystem.json",
+     "desc": "A *_coordsystem.json file is used to specify the fiducials, the location of anatomical landmarks, and the coordinate system and units in which the position of electrodes and landmarks is expressed. The *_coordsystem.json is REQUIRED if the optional *_electrodes.tsv is specified. If a corresponding anatomical MRI is available, the locations of landmarks and fiducials according to that scan should also be stored in the *_T1w.json file which goes alongside the MRI data.",
+     "required": false,
+     "_id": "6000737faacf9e9895a691cf"
+    },
+    {
+     "id": "calibration",
+     "filename": "calibration_meg.dat",
+     "desc": "calibration coefficients. File can have 1D or 3D gradiometer imbalance correction. This file is machine/site-specific.\n",
+     "required": false,
+     "_id": "602e8bfe3a0011098b4d5785"
+    },
+    {
+     "id": "crosstalk",
+     "filename": "crosstalk_meg.fif",
+     "desc": "cross-talk correction information.",
+     "required": false,
+     "_id": "602e8bfe3a00112d8c4d5786"
+    },
+    {
+     "id": "destination",
+     "filename": "destination.fif",
+     "desc": "(tentative .. might disappear!) This file is only present if the data is preprocessed with maxwell_filter (FIF file containing a MEG device<->head transformation, or a 3-element array giving the coordinates to translate to (with no rotations). For example, destination=(0, 0, 0.04) would translate the bases as --trans default would in MaxFilter\u2122 (i.e., to the default head location).",
+     "required": false,
+     "_id": "602e8bfe3a001198a14d5787"
+    },
+    {
+     "id": "events",
+     "filename": "events.tsv",
+     "desc": "",
+     "required": false,
+     "_id": "606f72dac7f80a2746955711"
+    },
+    {
+     "id": "events_json",
+     "filename": "events.json",
+     "desc": "",
+     "required": false,
+     "_id": "606f72dac7f80af4c2955712"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/meg/fif-override",
+  "_id": "608195ce89df435fd26893c1",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "608195ce89df435fd26893c1",
+   "desc": "This datatype augments the original neuro/meg/fif data with various extra information, such as bad channels stored in channels.tsv, and bad epoch (TODO which file stores this?)",
+   "readme": "channels.tsv  \n> https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n",
+   "files": [
+    {
+     "id": "channels",
+     "filename": "channels.tsv",
+     "desc": "channels.tsv containing any columns that were not present on the original channels.tsv. For example, \"status\" column could contain good/bad values to indicate that the channel should be removed from the further processing. Please see https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv for full descriptions.",
+     "required": false,
+     "_id": "608195ce89df43ce2f6893c2"
+    },
+    {
+     "id": "headshape",
+     "filename": "headshape.pos",
+     "desc": "",
+     "required": false,
+     "_id": "609a8f51408e3c2189d56537"
+    },
+    {
+     "id": "destination",
+     "filename": "destination.fif",
+     "desc": "",
+     "required": false,
+     "_id": "609a8f51408e3c77a9d56538"
+    },
+    {
+     "id": "events",
+     "filename": "events.tsv",
+     "desc": "",
+     "required": false,
+     "_id": "609a8f51408e3c5baad56539"
+    },
+    {
+     "id": "events_json",
+     "filename": "events.json",
+     "desc": "",
+     "required": false,
+     "_id": "609a8f51408e3c6652d5653a"
+    },
+    {
+     "id": "info",
+     "filename": "info.txt",
+     "desc": "",
+     "required": false,
+     "_id": "65d36ba5eab7bb5c3c9c54b8"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/microperimetry",
+  "_id": "604976b3ebfe45c4633ae3d2",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "604976b3ebfe45c4633ae3d2",
+   "desc": "Microperimetry or fundus-controlled perimetry provides an evaluation of visual function by testing the visual field with incorporated eye-tracking. [https://pubmed.ncbi.nlm.nih.gov/33022378/]. This app is optimised for use on binocular integrated data produced by  https://ocular.shinyapps.io/MAIA_binocular_field_app/",
+   "readme": "\nExample microperimetry.tsv\n\n* File will be read as \"space delimited\" in validator and then converted to a proper tsv (tab delimited) files\n\n```\n\"ID\"  \"x_deg\"   \"y_deg\"   \"Threshold\"\n69  -9.04   -0.61   28\n62  -8.95   1.39    28\n59  -7.21   -4.69   26\n```",
+   "files": [
+    {
+     "_id": "604976b3ebfe452bf13ae3d3",
+     "id": "microperimetry",
+     "desc": "A tab-separated values (TSV) file containing 4 columns (ID, x_deg, y_deg, and Threshold\") and sets of values. \n",
+     "required": true,
+     "filename": "microperimetry.tsv"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/microscopy/nifti",
+  "_id": "6aa9af7fdeee1367b4399845",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa9af7fdeee1367b4399845",
+   "desc": "Three-dimensional microscopy image intensities stored in compressed NIfTI format. Represents a single specimen, stain/channel, and image volume or crop, including light-sheet microscopy data.",
+   "readme": "# Microscopy image volume (NIfTI)\n\nA three-dimensional microscopy intensity image stored as a compressed\nNIfTI volume. Each dataset represents one specimen, stain/channel,\nand image volume or crop.\n\n## Required file\n\n- `image.nii.gz` \u2014 microscopy intensity volume.\n- File slot ID: `image`.\n\nPreserve the original voxel values, spatial dimensions, voxel spacing,\nunits, and coordinate transform when importing.\n\n## Metadata\n\nRetain the following when available:\n\n- Subject or specimen identifier.\n- Imaging modality.\n- Stain or channel.\n- Tissue region and crop identifier.\n- Processing status, such as raw or preprocessed.\n- Original filename, source dataset, version, and asset identifier.\n\nRecord unknown spatial calibration as unknown; do not assume that\nunit voxel spacing represents a verified physical measurement.\n\n## Visualization\n\nDisplay image intensities using grayscale with adjustable contrast.\nA matching segmentation may be overlaid after confirming that its\ndimensions and coordinate transform agree with the image.",
+   "files": [
+    {
+     "id": "image",
+     "filename": "image.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "6aa9af7fdeee1367b4399846"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/myelin-map",
+  "_id": "5fad54c27e8ecba2c3aa0c24",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5fad54c27e8ecba2c3aa0c24",
+   "desc": "nifti volume containing myelin map",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5faec3657e8ecb978aaa6fb6",
+     "id": "map",
+     "desc": "The myelin map",
+     "required": true,
+     "filename": "map.nii.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/net-stats",
+  "_id": "6478dad979d13f6418e31932",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6478dad979d13f6418e31932",
+   "desc": "This datatype is intended for network-related statistics. In similar vein as parc-stats",
+   "readme": null,
+   "files": [
+    {
+     "id": "net-stats",
+     "dirname": "net-stats",
+     "desc": "",
+     "required": true,
+     "_id": "6478dad979d13f6418e31933"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/networkneuro",
+  "_id": "58e6e21e6cd4e826de4537ee",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58e6e21e6cd4e826de4537ee",
+   "desc": "Various .mat files generated from Network Neuro Application",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e4b65731eafffbc39f9edb4",
+     "id": "output",
+     "dirname": "output",
+     "required": true
+    },
+    {
+     "_id": "5e4b65731eafff71c0f9edb5",
+     "id": "roipairs",
+     "dirname": "roipairs",
+     "required": true
+    },
+    {
+     "_id": "5e4b65731eafff59f9f9edb6",
+     "id": "surfaces",
+     "dirname": "surfaces",
+     "required": true
+    },
+    {
+     "_id": "5e4b65731eafff6949f9edb7",
+     "id": "labels",
+     "filename": "labels.json",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5e4b65241eaffff087f9edb2",
+    "maps": [
+     {
+      "_id": "5e4b65731eafff124ff9edb8",
+      "src": "output/aparc+aseg_labels.nii.gz",
+      "dest": "label-GM_dseg.nii.gz"
+     },
+     {
+      "_id": "5e4b65731eafff6376f9edb9",
+      "src": "output/count.csv",
+      "dest": "tag-count_connectivity.csv"
+     },
+     {
+      "_id": "5e4b65731eafffb249f9edba",
+      "src": "output/density.csv",
+      "dest": "tag-density_connectivity.csv"
+     },
+     {
+      "_id": "5e4b65731eafff899ef9edbb",
+      "src": "_meta_",
+      "dest": "connectivity.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/noddi",
+  "_id": "5ed02a620a8ed8e39c482a61",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ed02a620a8ed8e39c482a61",
+   "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5ed02a620a8ed83830482a62",
+     "id": "dir",
+     "desc": "",
+     "required": true,
+     "filename": "dir.nii.gz"
+    },
+    {
+     "_id": "5ed02a620a8ed8dbe5482a63",
+     "id": "ndi",
+     "desc": "",
+     "required": true,
+     "filename": "ndi.nii.gz"
+    },
+    {
+     "_id": "5ed02a620a8ed8f507482a64",
+     "id": "isovf",
+     "desc": "",
+     "required": true,
+     "filename": "isovf.nii.gz"
+    },
+    {
+     "_id": "5ed02a620a8ed810d0482a65",
+     "id": "odi",
+     "desc": "",
+     "required": true,
+     "filename": "odi.nii.gz"
+    }
+   ],
+   "bids": {
+    "_id": "5ed0298ace9bbc3fb7e186b2",
+    "maps": [
+     {
+      "_id": "5ed02a620a8ed818e5482a67",
+      "src": "icvf.nii.gz",
+      "dest": "ICVF.nii.gz"
+     },
+     {
+      "_id": "5ed02a620a8ed8db46482a68",
+      "src": "isovf.nii.gz",
+      "dest": "ISOVF.nii.gz"
+     },
+     {
+      "_id": "5ed02a620a8ed89c32482a69",
+      "src": "od.nii.gz",
+      "dest": "ODI.nii.gz"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/noddi-deprecated",
+  "_id": "5bd77a8615a8683a39440dab",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5bd77a8615a8683a39440dab",
+   "desc": "NODDI: Neurite Orientation Dispersion and Density Imaging. 4D image with ICVF, OD, ISOVF; where ICVF is the intracellular volume fraction (also known as NDI), OD is the orientation dispersion (the variance of the Bingham; also known as ODI) and ISOVF is the isotropic component volume fraction (also known as IVF).",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5ed02b1d0a8ed8243f482bc3",
+     "id": "dir",
+     "filename": "dir.nii.gz",
+     "required": true
+    },
+    {
+     "_id": "5ed02b1d0a8ed846ad482bc4",
+     "id": "icvf",
+     "filename": "icvf.nii.gz",
+     "required": true
+    },
+    {
+     "_id": "5ed02b1d0a8ed84e3f482bc5",
+     "id": "isovf",
+     "filename": "isovf.nii.gz",
+     "required": true
+    },
+    {
+     "_id": "5ed02b1d0a8ed8cb47482bc6",
+     "id": "od",
+     "filename": "od.nii.gz",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5ed02b130a8ed858e2482ba4",
+    "maps": [
+     {
+      "_id": "5ed02b1d0a8ed8483a482bc7",
+      "src": "icvf.nii.gz",
+      "dest": "ICVF.nii.gz"
+     },
+     {
+      "_id": "5ed02b1d0a8ed8a195482bc8",
+      "src": "isovf.nii.gz",
+      "dest": "ISOVF.nii.gz"
+     },
+     {
+      "_id": "5ed02b1d0a8ed82aaf482bc9",
+      "src": "od.nii.gz",
+      "dest": "ODI.nii.gz"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/nwb",
+  "_id": "69f24b375e3b9b921dc25e49",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "69f24b375e3b9b921dc25e49",
+   "desc": "Neurodata without borders",
+   "readme": null,
+   "files": [
+    {
+     "id": "nwb",
+     "filename": "data.nwb",
+     "desc": "",
+     "required": true,
+     "_id": "69f24b375e3b9b921dc25e4a"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/ome-zarr",
+  "_id": "6a99e5d7d90f157078ed790c",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6a99e5d7d90f157078ed790c",
+   "desc": "OME-Zarr (OME-NGFF) multidimensional bioimaging store",
+   "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility.",
+   "files": [
+    {
+     "id": "zarr",
+     "dirname": "data.ome.zarr",
+     "desc": "OME-Zarr store root",
+     "required": true,
+     "_id": "6a99e5d7d90f157078ed790d"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/parc-stats",
+  "_id": "5edd3b77c5972b8c47b3a2c3",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5edd3b77c5972b8c47b3a2c3",
+   "desc": "Parcellation Stats",
+   "readme": "Multiple .csv files stored inside parc-stats directory.\n\n\n## Metadata\n\nTo specify which atlases are used to generate the parcellation, please set `parcellations` key in the product.json.\n\n```json\n{\n    \"parcellations\": [\n        \"aparc\",\n        \"aparc.a2009s\",\n        \"aparc.DKTatlas\",\n        \"gordon333dil\",\n        \"yeo17dil\",\n        \"hcp-mmp-b\",\n        \"schaefer100-yeo17\"\n    ]\n}\n```\n\n!!! There could be multiple parcellations\n\n\nTODO  - We should decide on the standard structure for newer apps and separate out files/structures used by Dan's apps (see \"dan\" datatype tags)\n\nFiles such as \n\n```csv\ncortex.csv\nwhole_brain.csv\nsubcortical.csv\nrh.cortex.csv\nrois.csv\nlh.cortex.csv\n```\n\n## cortex.csv\n\n```\nparcID,subjectID,structureID,nodeID,number_of_vertices,surface_area_mm^2,gray_matter_volume_mm^3,average_thickness_mm,thickness_stddev_mm,integrated_rectified_mean_curvature_mm^-1,integrated_rectified_gaussian_curvature_mm^-2,folding_index,intrinsic_curvature_index\n1,9003,lh_bankssts,1,1780,1228,2926,2.346,0.39,0.121,0.025,22,1.8\n2,9003,lh_caudalanteriorcingulate,1,912,574,1603,2.758,0.439,0.11699999999999999,0.02,12,0.7\n...\n```\n\n## whole_brain.csv\n\n```\nsubjectID,Total_Brain_volume,Total_Intracranial_volume,Total_Gray_Matter_volume,Total_White_Matter_volume,Left_Hemisphere_Gray_Matter_volume,Right_Hemisphere_Gray_Matter_volume,Left_Hemisphere_White_Matter_volume,Right_Hemisphere_White_Matter_volume,Left_Hemisphere_Mean_Gray_Matter_thickness,Right_Hemisphere_Mean_Gray_Matter_thickness\n9003,1188616.0,1567924.561886,474650.381882,478554.070072,236495.549389,238154.832493,239598.493474,238955.576599,2.4264200000000002,2.40468\n```\n\n## subcorticalc.csv\n\n```\nsegID,subjectID,structureID,nodeID,number_of_voxels,gray_matter_volume_mm^3\n4,9003,Left-Lateral-Ventricle,1,18699,18989.0\n5,9003,Left-Inf-Lat-Vent,1,538,567.5\n7,9003,Left-Cerebellum-White-Matter,1,14628,15512.1\n8,9003,Left-Cerebellum-Cortex,1,56695,56583.7\n10,9003,Left-Thalamus-Proper,1,6561,6306.5\n11,9003,Left-Caudate,1,3552,3440.8\n...\n```\n\n## rh.cortex.csv\n\n```\nparcID,subjectID,structureID,nodeID,number_of_vertices,surface_area_mm^2,gray_matter_volume_mm^3,average_thickness_mm,thickness_stddev_mm,integrated_rectified_mean_curvature_mm^-1,integrated_rectified_gaussian_curvature_mm^-2,folding_index,intrinsic_curvature_index\n1,9003,rh_bankssts,1,1226,875,2002,2.318,0.426,0.111,0.022000000000000002,10,1.1\n2,9003,rh_caudalanteriorcingulate,1,1337,849,2222,2.444,0.695,0.141,0.036000000000000004,26,1.5\n3,9003,rh_caudalmiddlefrontal,1,3182,2114,5504,2.324,0.452,0.11699999999999999,0.026000000000000002,36,3.3\n4,9003,rh_cuneus,1,2787,1629,3812,2.072,0.49200000000000005,0.132,0.032,38,3.5\n5,9003,rh_entorhinal,1,574,408,2443,3.8369999999999997,0.7340000000000001,0.128,0.031,6,0.7\n...\n```\n\n## rois.csv\n\n```\nsubjectID,ROI_name,actual_vol,BrainVol_proportion,centroid_x,centroid_y,centroid_z,medialBorder,lateralBorder,anteriorBorder,posteriorBorder,superiorBorder,inferiorBorder\n9003,ROI_2,237758,0.19665739175315697,-28.221893690222803,-20.7661160211293,18.9966259265654,4.5,-67.5,61.234405517578104,-98.76559448242192,72.2344055175781,-36.765594482421896\n9003,ROI_4,18699,0.0154665524120841,-16.5521418257661,-21.568685556810898,14.330667349761699,2.5,-39.5,26.2344055175781,-81.7655944824219,29.2344055175781,-3.76559448242188\n9003,ROI_5,538,0.00044499733663304103,-37.8847583643123,-24.4644792407862,-10.618754333723,-30.5,-41.5,-9.76559448242188,-38.765594482421896,-1.7655944824218797,-20.7655944824219\n9003,ROI_7,14628,0.0120992956138813,-18.2914957615532,-51.2071449336114,-27.1413806459439,1.5,-43.5,-25.7655944824219,-79.7655944824219,-3.76559448242188,-41.765594482421896\n9003,ROI_8,56695,0.0468942825286436,-24.657209630478896,-60.7273547787443,-31.0537327662212,2.5,-53.5,-30.7655944824219,-88.76559448242192,0.234405517578125,-55.765594482421896\n9003,ROI_10,6561,0.00542681696217357,-13.042295381801601,-20.0311027890824,7.32356875488951,-0.5,-28.5,-2.76559448242188,-34.765594482421896,18.2344055175781,-3.76559448242188\n9003,ROI_11,3552,0.0029379749808932398,-16.9197635135135,5.03254740947002,11.729901013073599,-7.5,-22.5,22.2344055175781,-25.7655944824219,28.2344055175781,-2.76559448242188\n...\n```\n\n## lh.cortex.csv\n\n```\nparcID,subjectID,structureID,nodeID,number_of_vertices,surface_area_mm^2,gray_matter_volume_mm^3,average_thickness_mm,thickness_stddev_mm,integrated_rectified_mean_curvature_mm^-1,integrated_rectified_gaussian_curvature_mm^-2,folding_index,intrinsic_curvature_index\n1,9003,lh_bankssts,1,1780,1228,2926,2.346,0.39,0.121,0.025,22,1.8\n2,9003,lh_caudalanteriorcingulate,1,912,574,1603,2.758,0.439,0.11699999999999999,0.02,12,0.7\n3,9003,lh_caudalmiddlefrontal,1,4343,2589,6297,2.322,0.451,0.11800000000000001,0.035,48,6.1\n4,9003,lh_cuneus,1,2455,1449,3195,2.029,0.415,0.12,0.027000000000000003,30,2.8\n5,9003,lh_entorhinal,1,618,439,2148,3.6069999999999998,0.898,0.11900000000000001,0.027999999999999997,5,0.7\n6,9003,lh_fusiform,1,3866,2819,9737,2.877,0.657,0.141,0.033,56,5.6\n7,9003,lh_inferiorparietal,1,5654,3827,9888,2.336,0.49700000000000005,0.128,0.027999999999999997,80,6.0\n8,9003,lh_inferiortemporal,1,4354,3111,10985,2.83,0.688,0.13699999999999998,0.036000000000000004,65,6.4\n9,9003,lh_isthmuscingulate,1,1496,939,2460,2.427,0.871,0.126,0.038,20,2.1\n10,9003,lh_lateraloccipital,1,8642,5186,12962,2.2,0.49700000000000005,0.12300000000000001,0.027999999999999997,102,9.8\n11,9003,lh_lateralorbitofrontal,1,4082,2686,7184,2.539,0.649,0.152,0.046,70,7.5\n12,9003,lh_lingual,1,4713,2947,7722,2.323,0.594,0.135,0.038,65,7.0\n...\n```\n\nPlease see sample object for more detailed example",
+   "files": [
+    {
+     "id": "parc-stats",
+     "dirname": "parc-stats",
+     "desc": "",
+     "required": true,
+     "_id": "5edff2e1c5972bb7d1b410c5"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/parcellation/surface-deprecated",
+  "_id": "5c478b7bf9109beac4520be6",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c478b7bf9109beac4520be6",
+   "desc": "(this datatype has been deprecated by  surface/data and surface/vertices) Contains lh.parc.annot.gii and rh.parc.annot.gii for surface parcellation / annotation. key.txt contains the labels. This datatype also contains various surface files (inflated, pial, and white) for reference purpose. For more advanced analysis, you will probably want to provide your own surface file.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e52b1b05fb03301f5f9a8d9",
+     "id": "lh_annot",
+     "filename": "lh.parc.annot.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb033c87df9a8da",
+     "id": "rh_annot",
+     "filename": "rh.parc.annot.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb0331dd7f9a8db",
+     "id": "lh_inflated_surf",
+     "filename": "lh.parc.inflated.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb03300a8f9a8dc",
+     "id": "rh_inflated_surf",
+     "filename": "rh.parc.inflated.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb0338bfcf9a8dd",
+     "id": "lh_pial_surf",
+     "filename": "lh.parc.pial.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb0331907f9a8de",
+     "id": "rh_pial_surf",
+     "filename": "rh.parc.pial.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb0338549f9a8df",
+     "id": "lh_white_surf",
+     "filename": "lh.parc.white.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb033bb58f9a8e0",
+     "id": "rh_white_surf",
+     "filename": "rh.parc.white.gii",
+     "required": true
+    },
+    {
+     "_id": "5e52b1b05fb033003ff9a8e1",
+     "id": "key",
+     "filename": "key.txt",
+     "required": false,
+     "desc": "deprecated. please use label.json.. example 1001 -> 1 == lh.Background+FreeSurfer_Defined_Medial_Wall.label 1002 -> 2 == lh.17Networks_LH_VisCent_Striate.label 1003 -> 3 == lh.17Networks_LH_VisCent_ExStr.label 1004 -> 4 == lh.17Networks_LH_VisPeri_Striate.label"
+    },
+    {
+     "_id": "5e52b1b05fb033aef9f9a8e2",
+     "id": "label",
+     "desc": "json file mapping each voxel values to parcellation label / desc. [ { \"name\": \"unknown\", \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \"voxel_value\": 0 },",
+     "required": true,
+     "filename": "label.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/parcellation/volume",
+  "_id": "5c1a7489f9109beac4a88a1f",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c1a7489f9109beac4a88a1f",
+   "desc": "(aka \"segmentation\") parc.nii.gz containing volumetric parcellation / atlas, along with a key.txt file indicating the coorespondance between parc.nii.gz labels and human readable region names.",
+   "readme": "`label.json` should look like this\n```\n[\n    {\n        \"name\": \"unknown\",\n        \"desc\": \"voxel value 0 indicates that the voxel doesn't belong to any segmentation\",\n        \"voxel_value\": 0\n    },\n    {\n        \"name\": \"Left-Cerebral-Exterior\",\n        \"desc\": \"voxel value 1 indicates that the voxel belong to Left-Cerebral-Exterior\",\n        \"voxel_value\": 1\n    },\n...\n]\n\n```\n\n`key.txt`(deprecated by label.json) should look like this\n\n```\n0 -> 0 == Unknown\n1 -> 1 == Left-Cerebral-Exterior\n2 -> 2 == Left-Cerebral-White-Matter\n3 -> 3 == Left-Cerebral-Cortex\n4 -> 4 == Left-Lateral-Ventricle\n5 -> 5 == Left-Inf-Lat-Vent\n6 -> 6 == Left-Cerebellum-Exterior\n7 -> 7 == Left-Cerebellum-White-Matter\n8 -> 8 == Left-Cerebellum-Cortex\n9 -> 9 == Left-Thalamus\n10 -> 10 == Left-Thalamus-Proper\n11 -> 11 == Left-Caudate\n12 -> 12 == Left-Putamen\n13 -> 13 == Left-Pallidum\n14 -> 14 == 3rd-Ventricle\n15 -> 15 == 4th-Ventricle\n16 -> 16 == Brain-Stem\n17 -> 17 == Left-Hippocampus\n18 -> 18 == Left-Amygdala\n19 -> 19 == Left-Insula\n20 -> 20 == Left-Operculum\n21 -> 21 == Line-1\n22 -> 22 == Line-2\n23 -> 23 == Line-3\n24 -> 24 == CSF\n25 -> 25 == Left-Lesion\n26 -> 26 == Left-Accumbens-area\n27 -> 27 == Left-Substancia-Nigra\n28 -> 28 == Left-VentralDC\n29 -> 29 == Left-undetermined\n```",
+   "files": [
+    {
+     "_id": "5daf19cc5d1916069c2076a8",
+     "id": "parc",
+     "filename": "parc.nii.gz",
+     "required": true
+    },
+    {
+     "_id": "5daf19cc5d191639ff2076a7",
+     "id": "key",
+     "filename": "key.txt",
+     "required": false,
+     "desc": "deprecated. please use label.json"
+    },
+    {
+     "_id": "5daf19cc5d19164b2e2076a6",
+     "id": "label",
+     "desc": "json file mapping each voxel values to parcellation label / desc.",
+     "required": true,
+     "filename": "label.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/peaks",
+  "_id": "5c9276dc44947d8aea7d6454",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c9276dc44947d8aea7d6454",
+   "desc": "4D nifti image containing the peaks of a spherical harmonic function at each voxel (from sh2peaks)",
+   "readme": null,
+   "files": [
+    {
+     "id": "peaks",
+     "filename": "peaks.nii.gz",
+     "required": true,
+     "_id": "61a983e77577fd306826b771"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/peaks_and_metrics",
+  "_id": "59494478fa1d2e5a1ffd23b4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59494478fa1d2e5a1ffd23b4",
+   "desc": "Model fit parameters in PeaksAndMetrics(HDF5)",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008dbd",
+     "id": "peaks",
+     "filename": "peaks.pam5",
+     "ext": ".pam5",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/perf/ASL",
+  "_id": "60d497eecdfdb58f46ffdc45",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60d497eecdfdb58f46ffdc45",
+   "desc": "Arterial Spin Labeling (ASL) for perfusion measurements\n",
+   "readme": "## BIDS Extension Proposal 5 (BEP005)\n\nhttps://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c/edit\n\n",
+   "files": [
+    {
+     "_id": "60d498f6cdfdb53283ffdd3e",
+     "id": "asl",
+     "desc": "",
+     "required": true,
+     "filename": "asl.nii.gz"
+    },
+    {
+     "_id": "60d498f6cdfdb5c59bffdd3f",
+     "id": "context",
+     "desc": "",
+     "required": false,
+     "filename": "aslcontext.tsv"
+    },
+    {
+     "_id": "60d498f6cdfdb5f8feffdd40",
+     "id": "m0scan",
+     "desc": "A M0 image is a calibration or reference image, used to estimate the M0 of blood. It is usually weighted toward the M0 of tissue, and is required especially when ASL is acquired with background suppression and/or pre-saturation pulses. ",
+     "required": false,
+     "filename": "m0scan.nii.gz"
+    },
+    {
+     "_id": "60d498f6cdfdb573deffdd41",
+     "id": "m0scan_json",
+     "desc": "Sidecar for m0scan",
+     "required": false,
+     "filename": "m0scan.json"
+    },
+    {
+     "_id": "60d498f6cdfdb592ebffdd42",
+     "id": "asllabeling",
+     "desc": "It is recommended to specify as much labeling information as possible for quality control, such as: a description of the location of the labeling slab, the labeling slab orientation, labeling slab distance and labeling slab thickness, and the labeling efficiency. Different approaches can be utilized for labeling positioning, depending on the preference of the researcher, as well as the flexibility of the sequence to manually optimize the labeling position. Therefore, an anonymized screenshot of the planning of the labeling plane for each session, saved as *_asllabeling.jpg, can clarify exact positioning and is recommended.",
+     "required": false,
+     "filename": "asllabeling.jpg"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/pet",
+  "_id": "67366373ff1a4a439d7fd7f4",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "67366373ff1a4a439d7fd7f4",
+   "desc": "Positron Emission Tomography (PET).",
+   "readme": "This datatype is written to support PET data conforming (but not limited to) the Brain Imaging Data Structure. For more information about neuro/pet first browse [the PET BIDS spec](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/positron-emission-tomography.html).",
+   "files": [
+    {
+     "id": "pet_nii",
+     "filename": "pet.nii.gz",
+     "desc": "NifTI file containing dynamic or static PET imaging data",
+     "required": false,
+     "_id": "67366373ff1a4a439d7fd7f5"
+    },
+    {
+     "id": "blood_tsv",
+     "filename": "blood.tsv",
+     "desc": "TSV file containing manual or automatically sampled PET blood data limited to: time, plasma_radioactivity, metabolite_parent_fraction, whole_blood_radioactivity,  metabolite_parent_fraction,  hplc_recover_fractions. ",
+     "required": false,
+     "_id": "67366373ff1a4a439d7fd7f6"
+    },
+    {
+     "id": "pet_json",
+     "filename": "pet.json",
+     "desc": "JSON sidecar file containing PET radiochemistry, pharmaceutical, time, reconstruction, hardware, institution, tissue, de-identification, and task data. ",
+     "required": false,
+     "_id": "67366797ff1a4a439d7fe09d"
+    },
+    {
+     "id": "blood_json",
+     "filename": "blood.json",
+     "desc": "JSON file describing the columns contained in a blood.tsv file.",
+     "required": false,
+     "_id": "67366797ff1a4a439d7fe09e"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/phase-quality",
+  "_id": "673667d6ff1a4a439d7fe2d0",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "673667d6ff1a4a439d7fe2d0",
+   "desc": "Phase quality map",
+   "readme": null,
+   "files": [
+    {
+     "id": "map",
+     "filename": "map.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "673667d6ff1a4a439d7fe2d1"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/precomputed/mesh",
+  "_id": "68dc1b1df9e4ee316ef70d5f",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "68dc1b1df9e4ee316ef70d5f",
+   "desc": "The multi-resolution object surface meshes are segmentations  of brain neurons, organelles, cells, and vasculature",
+   "readme": "*Precomputed Multi-resolution mesh format*\n\nThe multi-resolution object surface meshes corresponding to a segmentation are represented as a directory tree containing the following data:\n\nMore information can be found here:\nhttps://github.com/google/neuroglancer/blob/master/src/datasource/precomputed/meshes.md#multi-resolution-mesh-format\n\ninfo file in JSON format specifying the metadata.\nFor each segment ID for which there is a mesh representation:\na \"manifest\" file that specifies the levels of detail and octree decomposition for the object;\na mesh fragment data file specifying an encoded mesh representation corresponding to each octree node.\nThe actual storage of the manifest and mesh fragment data depends on whether the unsharded or sharded format is used.\n\nMulti-resolution mesh info JSON file format\nThe info file is a JSON-format text file. The root value must be a JSON object with the following members:\n\n\"@type\": Must be \"neuroglancer_multilod_draco\".\n\"vertex_quantization_bits\": Specifies the number of bits needed to represent each vertex position coordinate within a mesh fragment. Must be 10 or 16.\n\"transform\": JSON array of 12 numbers specifying a 4x3 homogeneous coordinate transform from the \"stored model\" coordinate space to a \"model\" coordinate space.\n\"lod_scale_multiplier\": Factor by which the lod_scales values in each <segment-id>.index file are multiplied.\n\"sharding\": If specified, indicates that the mesh is stored using the sharded format. Must be a sharding specification. If not specified, the unsharded storage representation is used.\n\"segment_properties\": Optional. If specified, it must be a string value specifying the name of the subdirectory containing a segment properties representation. Note that Neuroglancer only uses these segment properties if this mesh source is specified as a data source directly. If it is specified indirectly via the \"mesh\" property in a multi-scale volume, then you must instead specify the properties using use the \"segment_properties\" member in the volume's info file.\nMulti-resolution mesh manifest file format\nFor each segment ID for which there is a mesh representation, there is a binary \"manifest\" file in the following format:\n\nchunk_shape: 3x float32le, specifies the x, y, and z extents of finest octree node in the \"stored model\" coordinate space.\ngrid_origin: 3x float32le, specifies the x, y, and z origin of the octree decomposition in the \"stored model\" coordinate space.\nnum_lods: uint32le, specifies the number of levels of detail.\nlod_scales: num_lods float32le, specifies the scale in \"stored model\" spatial units corresponding to each level of detail. Each scale value is multiplied by the lod_scale_multiplier value from the info JSON file.\nvertex_offsets: num_lods*3 float32le, as a C order [num_lods, 3] array specifying an offset (in the \"stored model\" coordinate space) to add to vertex positions for each level of detail.\nnum_fragments_per_lod: num_lods uint32le, specifies the number of fragments (octree nodes) for each level of detail.\nFor each lod in the range [0, num_lods):\nfragment_positions: num_fragments_per_lod[lod]*3 uint32le, C order [3, numFragments_per_lod[lod]] array specifying the x, y, and z coordinates of the octree nodes for the given lod. The node positions must be in x, y, z Z-curve order. The node corresponds to the axis-aligned bounding box within the \"stored model\" coordinate space with an origin of: grid_origin + [x, y, z] * chunk_shape * (2**lod) and a shape of chunk_shape * (2**lod).\nfragment_offsets: num_fragments_per_lod[lod] uint32le, specifies the size in bytes of the encoded mesh fragment in the mesh fragment data file corresponding to each octree node in the fragment_positions array. The starting offset of the encoded mesh data corresponding to a given octree node is equal to the sum of all prior fragment_offsets values.\nUnsharded storage of multi-resolution mesh manifest\nIf the unsharded format is used, the manifest for each segment is stored as a separate file within the same directory as the info file under the name <segment-id>.index, where <segment-id> is the base-10 string representation of the segment ID.\n\nSharded storage of multi-resolution mesh manifest\nIf the sharded format is used, the manifest for each segment is retrieved using the segment ID as the key. The shard files are stored in the same directory as the info file.",
+   "files": [
+    {
+     "id": "mesh",
+     "dirname": "data/",
+     "desc": "",
+     "required": true,
+     "_id": "68dc1b1df9e4ee316ef70d60"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/precomputed/volume",
+  "_id": "68dc181cf9e4ee316ef6eea9",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "68dc181cf9e4ee316ef6eea9",
+   "desc": "This is a Neuroglancer precomputed Volume",
+   "readme": "The *precomputed* data source format is based on static collections of files served directly over HTTP; it therefore can be used without any special serving infrastructure. In particular, it can be used with data hosted by a cloud storage provider like Google Cloud Storage or Amazon S3. Note that it is necessary, however, to either host the Neuroglancer client from the same server or enable CORS access to the data.\n\nSeveral types of data are supported:\nSingle-resolution or multi-resolution image/segmentation volume\nSingle-resolution or multi-resolution object surface meshes (keyed by uint64 object ids)\nObject skeleton representations (keyed by uint64 object ids)\nCollection of point/line/bounding box/ellipsoid annotations\nSegment property maps\nPrecomputed data sources are specified using the following data source URL syntax:\n\nprecomputed://FILE_URL, where FILE_URL is a URL to the directory containing a precomputed format info metadata file using any supported file protocol.\n\nHere is more information about the Precomputed File Format: https://github.com/google/neuroglancer/tree/master/src/datasource/precomputed",
+   "files": [
+    {
+     "id": "info",
+     "filename": "info",
+     "desc": "info file (JSON)",
+     "required": true,
+     "_id": "6aa9700b16d2ef0408f59446"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/prf",
+  "_id": "5d9d18d8e30ae43bb0612715",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5d9d18d8e30ae43bb0612715",
+   "desc": "Nifti files containing various pRF measures",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5dae51745d1916dba5205e98",
+     "id": "r2",
+     "filename": "r2.nii.gz",
+     "desc": "This is generated for kendric and justin's prf apps - but no noah benson's prF",
+     "required": false
+    },
+    {
+     "_id": "5dae51745d1916d50e205e97",
+     "id": "polarAngle",
+     "filename": "polarAngle.nii.gz",
+     "desc": "TBD",
+     "required": true
+    },
+    {
+     "_id": "5dae51745d1916a7ab205e96",
+     "id": "eccentricity",
+     "filename": "eccentricity.nii.gz",
+     "desc": "TBD",
+     "required": true
+    },
+    {
+     "_id": "5dae51745d191655f7205e95",
+     "id": "rfWidth",
+     "filename": "rfWidth.nii.gz",
+     "desc": "TBD",
+     "required": true
+    },
+    {
+     "_id": "5dae51745d19166c24205e94",
+     "id": "varea",
+     "desc": "Optional varea parcellation. Only generated for noah benson's prF app.",
+     "required": false,
+     "filename": "varea.nii.gz"
+    },
+    {
+     "_id": "5dae55705d1916f89c205f5c",
+     "id": "surfaces",
+     "desc": "vtk surfaces for visualization purpose. It should contain 8 VTK files with combinations of {lh/rh}.{pial/white/inflated/sphere}.vtk",
+     "required": true,
+     "dirname": "surfaces"
+    },
+    {
+     "_id": "5dbc9c348aeeee0847f36f6c",
+     "id": "prf_surfaces",
+     "desc": "Directory containing freesurfer curv formatted files with the names of {rh/lh}.{sigma,angle,eccen,varea}. Only the benson and analyzePRF-gifti App currently generates this.",
+     "required": false,
+     "dirname": "prf_surfaces"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/ps-oct",
+  "_id": "6668838b829dd9abdbba0338",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6668838b829dd9abdbba0338",
+   "desc": "[In Development] PS-OCT data, for one volume and slice.",
+   "readme": null,
+   "files": [
+    {
+     "id": "ch1",
+     "filename": "ch1.mat",
+     "desc": "",
+     "required": false,
+     "_id": "6674cff55c36c79a10f66498"
+    },
+    {
+     "id": "ch2",
+     "filename": "ch2.mat",
+     "desc": "",
+     "required": false,
+     "_id": "6674cff55c36c79a10f66499"
+    },
+    {
+     "id": "retardance",
+     "filename": "retartance.mat",
+     "desc": "",
+     "required": false,
+     "_id": "667eb46a5c36c79a10000348"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/qsm",
+  "_id": "62b03ee2ab3e66978064ed79",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "62b03ee2ab3e66978064ed79",
+   "desc": "Quantitative Susceptibility Map",
+   "readme": "\"Quantitative Susceptibility Mapping (QSM) is an emerging form of quantitative MRI that aims to measure the magnetic susceptibility of objects. Susceptibility maps are derived by post-processing the phase component of the complex MRI signal from a T2*-weighted acquisition such as 3D gradient-echo (3D-GRE) or 3D echo planar imaging (3D-EPI). QSM has many applications, mostly in human brain imaging of conditions such as traumatic brain injuries, neuroinflammatory and neurodegenerative diseases, ageing, tumours, with emerging applications across the human body and in animals.\" - github.com/QSMxT/QSMxT",
+   "files": [
+    {
+     "id": "qsm",
+     "filename": "qsm.nii",
+     "desc": "",
+     "required": false,
+     "_id": "62b03ee2ab3e66978064ed7a"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/recon",
+  "_id": "5a04b08b2c214c9ba8033391",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5a04b08b2c214c9ba8033391",
+   "desc": "Diffusion Signal Voxel Reconstruction Model",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008ddf",
+     "id": "response",
+     "filename": "response.txt",
+     "ext": ".txt",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008de0",
+     "id": "fa",
+     "filename": "fa.nii.gz",
+     "ext": ".nii.gz",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008de1",
+     "id": "dt",
+     "filename": "dt.nii.gz",
+     "ext": ".nii.gz",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008de2",
+     "id": "wm",
+     "filename": "whitematter.nii.gz",
+     "ext": ".nii.gz",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008de3",
+     "id": "brainmask",
+     "filename": "brainmask.nii.gz",
+     "ext": ".nii.gz",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008de4",
+     "id": "csd",
+     "filename": "csd.nii.gz",
+     "ext": ".nii.gz",
+     "required": true
+    }
+   ],
+   "bids": {
+    "derivatives": "dwi",
+    "maps": [
+     {
+      "_id": "6b06fdbc88e26e6de7008de5",
+      "src": "fa.nii.gz",
+      "dest": "FA.nii.gz"
+     },
+     {
+      "_id": "6b06fdbc88e26e6de7008de6",
+      "src": "dt.nii.gz",
+      "dest": "model-DTI_diffmodel.nii.gz"
+     },
+     {
+      "_id": "6b06fdbc88e26e6de7008de7",
+      "src": "csd.nii.gz",
+      "dest": "model-CSD_diffmodel.nii.gz"
+     },
+     {
+      "_id": "6b06fdbc88e26e6de7008de8",
+      "src": "brainmask.nii.gz",
+      "dest": "type-Brain_mask.nii.gz"
+     },
+     {
+      "_id": "6b06fdbc88e26e6de7008de9",
+      "src": "whitematter.nii.gz",
+      "dest": "type-Whitematter_mask.nii.gz"
+     }
+    ],
+    "_id": "6b06fdbc88e26e6de7008dea"
+   }
+  }
+ },
+ {
+  "name": "neuro/regressors",
+  "_id": "5c4f6a8af9109beac4b3dae0",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5c4f6a8af9109beac4b3dae0",
+   "desc": "Confounds (or nuisance regressors) are variables representing fluctuations with a potential non-neuronal origin. Such non-neuronal fluctuations may drive spurious results in fMRI data analysis, including standard activation GLM and functional It is possible to minimize confounding effects of non-neuronal signals by including them as nuisance regressors in the GLM design matrix or regressing them out from the fMRI data - a procedure known as denoising. connectivity analyses. ",
+   "readme": "It is possible to minimize confounding effects of non-neuronal signals by including them as nuisance regressors in the GLM design matrix or regressing them out from the fMRI data - a procedure known as denoising. There is currently no consensus on an optimal denoising strategy in the fMRI community. Rather, different strategies have been proposed, which achieve different compromises between how much of the non-neuronal fluctuations are effectively removed, and how much of neuronal fluctuations are damaged in the process. The fMRIPrep pipeline generates a large array of possible confounds. (from Please see https://fmriprep.org/en/stable/outputs.html#confounds for more detail)",
+   "files": [
+    {
+     "id": "regressors",
+     "filename": "regressors.tsv",
+     "required": true,
+     "_id": "5df93b8a32bff07c86e23e05"
+    },
+    {
+     "id": "json",
+     "filename": "regressors.json",
+     "desc": "JSON file containing a dictionary with key corresponding to each column in regressors.tsv and object containing information such as     \n\n\"CumulativeVarianceExplained\": 0.1424663887,\n    \"Mask\": \"CSF\",\n    \"Method\": \"aCompCor\",\n    \"Retained\": true,\n    \"SingularValue\": 146.001826739,\n    \"VarianceExplained\": 0.1424663887\n\nThis information is used to perform a component based noise correction method (CompCor)\n",
+     "required": false,
+     "_id": "5fd7cac757aacdd85c2ecf33"
+    }
+   ],
+   "bids": {
+    "derivatives": "notspecific",
+    "maps": [
+     {
+      "src": "regressors.tsv",
+      "dest": "regressors.tsv",
+      "_id": "5df93b8a32bff06312e23e07"
+     },
+     {
+      "src": "_meta_",
+      "dest": "regressors.json",
+      "_id": "5df93b8a32bff06e59e23e06"
+     }
+    ],
+    "_id": "5df93b2d32bff00e0ce23e02"
+   }
+  }
+ },
+ {
+  "name": "neuro/reho",
+  "_id": "60f69321b991113f21b4fdf6",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60f69321b991113f21b4fdf6",
+   "desc": "(experimental) Regional homogeneity (ReHo) analyses result.",
+   "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400.",
+   "files": [
+    {
+     "_id": "60f69321b99111412cb4fdf7",
+     "id": "map",
+     "desc": "",
+     "required": true,
+     "filename": "map.nii.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/rois",
+  "_id": "5be9ea0315a8683a39a1ebd9",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5be9ea0315a8683a39a1ebd9",
+   "desc": "Regions of interests in multiple nifti files. Each nifti files should be a binary masks (values should be either 0 or 1)",
+   "readme": "\nlabel.json should look like this\n\n```\n[\n    {\n        \"filename\": \"ROI1001.nii.gz\", \n        \"name\": \"XYZ1 region of the MNI305 atlas\",\n        \"id\": \"1001\",\n        \"atlas\": \"MN305\", (optional)\n        \"color\": \"#345\" (optional)\n    },\n    {\n        \"filename\": \"ROI1002.nii.gz\", \n        \"name\": \"XYZ2 region of the MNI305 atlas\",\n        \"id\": \"1002\",\n        \"atlas\": \"MN305\",\n        \"color\": \"#456\"\n    }\n    ...\n]\n```",
+   "files": [
+    {
+     "id": "rois",
+     "dirname": "rois",
+     "desc": "A directory containing some number of .nii.gz files representing ROI s (binary mask)",
+     "required": true,
+     "_id": "5e5d83ef82b37f71b98f3bcc"
+    },
+    {
+     "id": "label",
+     "filename": "label.json",
+     "desc": "(optional) json file containing list of object that describes each roi stored in rois directory. This information will be used by brainlife UI to present a user dropdown list of existing ROIs within a data object.",
+     "required": false,
+     "_id": "5fb687d87e8ecb741cab6434"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/seg-eval-metric-agg",
+  "_id": "6ada73fa1e6d29036a18edcc",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6ada73fa1e6d29036a18edcc",
+   "desc": "Equal-weight per-image segmentation metrics: mean, population standard deviation, and valid-value count for raw and target-informed neighbor-corrected results.",
+   "readme": null,
+   "files": [
+    {
+     "id": "aggregate",
+     "filename": "aggregate.json",
+     "required": true,
+     "_id": "6ada73fa1e6d29036a18edcd"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/seg-eval-metrics",
+  "_id": "6aa992dfdeee1367b435f3b8",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa992dfdeee1367b435f3b8",
+   "desc": "Segmentation/mask evaluation metrics (voxel, target-informed neighbor-corrected, topology, connected-component) output as JSON, produced by the seg-eval-metrics app.",
+   "readme": null,
+   "files": [
+    {
+     "id": "metrics",
+     "filename": "metrics.json",
+     "desc": "Evaluation metrics JSON (voxel/topology/component comparisons of a moving mask against a ground-truth mask).",
+     "required": true,
+     "_id": "6aa992dfdeee1367b435f3b9"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/snr",
+  "_id": "60ca4e7e8b8b725ea44295bc",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60ca4e7e8b8b725ea44295bc",
+   "desc": "(experimental) per-voxel SNR data",
+   "readme": "EDIT ME",
+   "files": [
+    {
+     "_id": "60ca4e7e8b8b7215ef4295bd",
+     "id": "snr",
+     "desc": "",
+     "required": true,
+     "filename": "snr.nii.gz"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/snr-stats",
+  "_id": "60ca4f058b8b7238324295d3",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "60ca4f058b8b7238324295d3",
+   "desc": "(exeprimental) SNR in CSV",
+   "readme": "EDIT ME",
+   "files": [
+    {
+     "id": "snr",
+     "filename": "snr.csv",
+     "desc": "",
+     "required": true,
+     "_id": "60ca4f058b8b72cc574295d4"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/spherical-mean",
+  "_id": "6376c8aece8953d657da0fb9",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6376c8aece8953d657da0fb9",
+   "desc": "Spherical mean image for a certain b-value",
+   "readme": null,
+   "files": [
+    {
+     "id": "sphmean",
+     "filename": "sphmean.nii.gz",
+     "desc": "Spherical mean image for a certain b-value",
+     "required": true,
+     "_id": "6376c8aece8953d657da0fba"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/stimulus",
+  "_id": "5afc7c555858d874a40c6dda",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5afc7c555858d874a40c6dda",
+   "desc": "stimulus movie",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e08",
+     "id": "stim",
+     "filename": "stim.nii.gz",
+     "ext": ".gz",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/streamline-weights",
+  "_id": "5dcecaffc4ae284155298383",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5dcecaffc4ae284155298383",
+   "desc": "A text file containing a list of streamline-weights in each line. This is intended to be used with algorithms like SIFT2, LiFE, and COMMIT that filter streamlines based on different anatomical and diffusion properties.",
+   "readme": "For example\n\nweights.txt\n```\n0.13\n0.45\n0.67\n0.89\n...\n0.99\n```",
+   "files": [
+    {
+     "id": "weights",
+     "filename": "weights.csv",
+     "dirname": "",
+     "desc": "",
+     "required": false,
+     "_id": "5dcecaffc4ae286f6a298388"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/surface/data",
+  "_id": "5f78b377268f76598c29b27a",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f78b377268f76598c29b27a",
+   "desc": "(experimental) surface data data.nii only contains measures at each vertices. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5f78b377268f765a4129b27b",
+     "id": "left",
+     "desc": "",
+     "required": true,
+     "filename": "left.gii"
+    },
+    {
+     "_id": "5fad4fd27e8ecbfc35aa0a46",
+     "id": "right",
+     "desc": "",
+     "required": true,
+     "filename": "right.gii"
+    },
+    {
+     "_id": "5fad52107e8ecb4c44aa0aeb",
+     "id": "label",
+     "desc": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+     "required": false,
+     "filename": "label.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/surface/gradient",
+  "_id": "6174c1ba4fd85c74b153fddd",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6174c1ba4fd85c74b153fddd",
+   "desc": "(experimental) surface gradient data. The 3d coordinates for each vertices (the actual 3D mesh) can be stored using neuro/surface/vertices datatype",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6174c1ba4fd85c28ff53fdde",
+     "id": "left",
+     "desc": "",
+     "required": true,
+     "filename": "left.gii"
+    },
+    {
+     "_id": "6174c1ba4fd85c742353fddf",
+     "id": "right",
+     "desc": "",
+     "required": true,
+     "filename": "right.gii"
+    },
+    {
+     "_id": "6174c1ba4fd85c6c8753fde0",
+     "id": "label",
+     "desc": "optional json file describing vertices values (in case such as parcelation). \n\n[\n { \"name\": \"unknown\", \n   \"desc\": \"voxel value 0 indicates that this voxel doesn't belong to any segmentation\", \n   \"voxel_value\": 0 \n  }\n]",
+     "required": false,
+     "filename": "label.json"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/surface/vertices",
+  "_id": "5f78b255268f764bdd29b254",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5f78b255268f764bdd29b254",
+   "desc": "Surface vertices (3D mesh) stored in <left/right>/<name>.gii. Where <name> is the name of the surface such as pial, white, inflated, etc. ",
+   "readme": "```\nleft/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\nright/\n    pial.gii\n    white.gii\n    inflated.gii\n    (etc..)\n```",
+   "files": [
+    {
+     "_id": "5f78b255268f76dc0729b255",
+     "id": "right",
+     "desc": "",
+     "required": true,
+     "dirname": "right",
+     "filename": ""
+    },
+    {
+     "_id": "5fad508f7e8ecb0704aa0a7e",
+     "id": "left",
+     "desc": "",
+     "required": true,
+     "dirname": "left"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tcks",
+  "_id": "5dcf0047c4ae28d7f2298f48",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5dcf0047c4ae28d7f2298f48",
+   "desc": "collection of tck files with json file describing each tck file",
+   "readme": "tcks.json sample\n\n```\n[\n    {\n        \"name\": \"forcepsMinor\",\n        \"color\": [0.8147236864,0.2550951155,0.004634224134],\n        \"filename\": \"forcepsMinor.json\"\n    },\n    {\n        \"name\": \"forcepsMajor\",\n        \"color\": [0.9057919371,0.5059570517,0.7749104647],\n        \"filename\": \"forcepsMajor.json\"\n    },\n]\n```",
+   "files": [
+    {
+     "id": "tcks",
+     "dirname": "tcks",
+     "desc": "",
+     "required": true,
+     "_id": "5dcf0047c4ae2883db298f4a"
+    },
+    {
+     "id": "tcks_json",
+     "filename": "tcks.json",
+     "desc": "A json file containing a list of object for each tck files stored inside the tcks directory. ",
+     "required": true,
+     "_id": "5dcf0047c4ae289e79298f49"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tensor",
+  "_id": "5a79df48d071a1753f1d661b",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5a79df48d071a1753f1d661b",
+   "desc": "Diffusion Tensor Image Scalars",
+   "readme": null,
+   "files": [
+    {
+     "id": "fa",
+     "filename": "fa.nii.gz",
+     "desc": "Tensor measure / Fractional anisotropy (normalized fraction of anisotropic component)",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5f2e1437beafe9d1b16347fc"
+    },
+    {
+     "id": "md",
+     "filename": "md.nii.gz",
+     "desc": "Tensor measure / Mean Diffusivity (microm^2/msec)",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5f2e1437beafe9162d6347fd"
+    },
+    {
+     "id": "rd",
+     "filename": "rd.nii.gz",
+     "desc": "Tensor measure / Radial Diffusivity (microm^2/msec)",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5f2e1437beafe9b8e16347fe"
+    },
+    {
+     "id": "ad",
+     "filename": "ad.nii.gz",
+     "desc": "Tensor measure / Axial Diffusivity (microm^2/msec)",
+     "ext": ".gz",
+     "required": true,
+     "_id": "5f2e1437beafe91d736347ff"
+    },
+    {
+     "id": "cl",
+     "filename": "cl.nii.gz",
+     "desc": "??",
+     "ext": ".gz",
+     "required": false,
+     "_id": "5f2e1437beafe90fba634800"
+    },
+    {
+     "id": "cp",
+     "filename": "cp.nii.gz",
+     "desc": "??",
+     "ext": ".gz",
+     "required": false,
+     "_id": "5f2e1437beafe90d49634801"
+    },
+    {
+     "id": "cs",
+     "filename": "cs.nii.gz",
+     "desc": "??",
+     "ext": ".gz",
+     "required": false,
+     "_id": "5f2e1437beafe9d579634802"
+    },
+    {
+     "id": "tensors",
+     "filename": "tensors.nii.gz",
+     "desc": "??",
+     "ext": ".gz",
+     "required": false,
+     "_id": "5f2e1437beafe91063634803"
+    },
+    {
+     "id": "kurtosis",
+     "filename": "kurtosis.nii.gz",
+     "desc": "??",
+     "ext": ".gz",
+     "required": false,
+     "_id": "5f2e1437beafe93421634804"
+    },
+    {
+     "id": "ga",
+     "filename": "ga.nii.gz",
+     "desc": "DKI measure / Geodesic Anisotropy (normalized fraction of geodesic component)",
+     "required": false,
+     "_id": "5f2e15febeafe90418634816"
+    },
+    {
+     "id": "mk",
+     "filename": "mk.nii.gz",
+     "desc": "DKI measure / Mean kurtosis (microm^2/msec)",
+     "required": false,
+     "_id": "5f2e15febeafe93291634817"
+    },
+    {
+     "id": "ak",
+     "filename": "ak.nii.gz",
+     "desc": "DKI measure / Axial kurtosis (microm^2/msec)",
+     "required": false,
+     "_id": "5f2e15febeafe91bd8634818"
+    },
+    {
+     "id": "rk",
+     "filename": "rk.nii.gz",
+     "desc": "DKI measure / Radial kurtosis (microm^2/msec)",
+     "required": false,
+     "_id": "5f2e15febeafe97701634819"
+    },
+    {
+     "id": "rgb",
+     "filename": "rgb.nii.gz",
+     "desc": "RGB color value assigned for each voxel (colored FA)",
+     "required": false,
+     "_id": "5f7356a49d2115566093f084"
+    }
+   ],
+   "bids": {
+    "derivatives": "dwi",
+    "maps": [
+     {
+      "src": "fa.nii.gz",
+      "dest": "GFA.nii.gz",
+      "_id": "5f2e1437beafe9cce0634805"
+     },
+     {
+      "src": "md.nii.gz",
+      "dest": "MD.nii.gz",
+      "_id": "5f2e1437beafe96a89634806"
+     },
+     {
+      "src": "rd.nii.gz",
+      "dest": "RD.nii.gz",
+      "_id": "5f2e1437beafe9d1dd634807"
+     },
+     {
+      "src": "ad.nii.gz",
+      "dest": "AD.nii.gz",
+      "_id": "5f2e1437beafe9c145634808"
+     }
+    ],
+    "_id": "5f2e1427beafe9f9e26347fa"
+   }
+  }
+ },
+ {
+  "name": "neuro/test",
+  "_id": "6ac57cd6c004e522d21b16e1",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "6ac57cd6c004e522d21b16e1",
+   "desc": "test dataset (do not use, will be deleted) abc def",
+   "readme": "### hello world\n\n`code`",
+   "files": [
+    {
+     "id": "test",
+     "dirname": "test_dir",
+     "desc": "this is a test dir",
+     "required": true,
+     "_id": "6ac696fac004e522d2229c76"
+    },
+    {
+     "id": "test1",
+     "filename": "test.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "6ac69b60c004e522d222c297"
+    }
+   ],
+   "bids": {
+    "derivatives": "abc",
+    "maps": [],
+    "_id": "6ac59707c004e522d21bc729"
+   }
+  }
+ },
+ {
+  "name": "neuro/test_datatype",
+  "_id": "6aa8343384691735460b7609",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa8343384691735460b7609",
+   "desc": "test datatype creation",
+   "readme": null,
+   "files": [],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tiff-volume",
+  "_id": "6aa9adfadeee1367b4395c3a",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa9adfadeee1367b4395c3a",
+   "desc": "3D volumetric microscopy image or segmentation mask stored as a single (optionally multi-page/BigTIFF) .tif/.tiff file.",
+   "readme": null,
+   "files": [
+    {
+     "id": "tif",
+     "filename": "volume.tif",
+     "desc": "3D TIFF stack (single multi-page file).",
+     "required": true,
+     "_id": "6aa9adfadeee1367b4395c3b"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/track/tck",
+  "_id": "5907d922436ee50ffde9c549",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5907d922436ee50ffde9c549",
+   "desc": "MRtrix Track Data (.tck)",
+   "readme": null,
+   "files": [
+    {
+     "id": "track",
+     "filename": "track.tck",
+     "required": true,
+     "_id": "5e4208ec301ffca3043407d6"
+    }
+   ],
+   "bids": {
+    "derivatives": "dwi",
+    "maps": [
+     {
+      "src": "track.tck",
+      "dest": "tractography.tck",
+      "_id": "5e4208ec301ffc3efa3407d7"
+     },
+     {
+      "src": "_meta_",
+      "dest": "tractography.json",
+      "_id": "5e4208ec301ffca8463407d8"
+     }
+    ],
+    "_id": "5e4208e3301ffc588c3407d4"
+   }
+  }
+ },
+ {
+  "name": "neuro/track/trk",
+  "_id": "5b956f6cd7b3f1e24e9121ce",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5b956f6cd7b3f1e24e9121ce",
+   "desc": "TrackVis (.trk). Track file is one single binary file, with the first 1000 bytes as the header and the rest as the body.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5dcef986c4ae28a5e9298edf",
+     "id": "track",
+     "filename": "track.trk",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5dcef982c4ae28ba65298edd",
+    "maps": [
+     {
+      "_id": "5dcef986c4ae282a14298ee1",
+      "src": "track.trk",
+      "dest": "tractography.trk"
+     },
+     {
+      "_id": "5dcef986c4ae28a54f298ee0",
+      "src": "_meta_",
+      "dest": "tractography.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "neuro/track/trx",
+  "_id": "61b1867f7577fd30683bcaf5",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "61b1867f7577fd30683bcaf5",
+   "desc": "TRX: A community-oriented tractography file format",
+   "readme": "https://github.com/frheault/tractography_file_format/blob/master/trx_file_memmap/specifications.md",
+   "files": [
+    {
+     "id": "track",
+     "filename": "track.trx",
+     "dirname": "",
+     "desc": "trx is a directory containing various sub-directories such as dpg / dpv / dps / groups / heaer.json  / etc",
+     "required": true,
+     "_id": "61b1867f7577fd30683bcaf6"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/track/zarr-vectors",
+  "_id": "6aa856c784691735460e3bc4",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6aa856c784691735460e3bc4",
+   "desc": "Zarr Vectors store containing streamline geometry ingested from a tractogram (.trk/.tck/.trx) via zarr-vectors-tools (zvtools). See https://zarr-vectors-tools.readthedocs.io",
+   "readme": null,
+   "files": [
+    {
+     "id": "store",
+     "dirname": "vectors.zarrvectors",
+     "desc": "Zarr Vectors store directory (zv_version 0.9.0), geometry_types=['streamline']",
+     "required": true,
+     "_id": "6aa856c784691735460e3bc5"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tract-tracing",
+  "_id": "681238fcda629ed3b169d916",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "681238fcda629ed3b169d916",
+   "desc": "[In Development] Tract-tracing data, for one volume and slice.",
+   "readme": null,
+   "files": [
+    {
+     "id": "zarr",
+     "dirname": "zarr",
+     "desc": "Directory where the Zarr-store is located locally. This is not required. You can also use a URL-pointer to where the Zarr-store is located on the cloud.",
+     "required": false,
+     "_id": "6812394fda629ed3b169d9a1"
+    },
+    {
+     "id": "tif",
+     "filename": "tif",
+     "desc": "",
+     "required": false,
+     "_id": "68dc24c7f9e4ee316ef74f25"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tractmasks",
+  "_id": "592dded1436ee50ffd88f5d0",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "592dded1436ee50ffd88f5d0",
+   "desc": "(might be deprecated by neuro/rois in the future) List of nifti volumes for each tract segments. Each nifti files should be binarized (contains either 0 or 1). This datatype is very similar to neuro/rois (neuro/rois a bit more generic). We recommend using neuro/rois instead to increase compatibilities with more apps. ",
+   "readme": null,
+   "files": [
+    {
+     "id": "masks",
+     "dirname": "masks",
+     "desc": "A directory containing nifti files with binarized (0 or 1) tract masks.",
+     "required": true,
+     "_id": "6115212da5a04c359ff9a373"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tractmeasures",
+  "_id": "599f305ad1f46fec1759f363",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "599f305ad1f46fec1759f363",
+   "desc": "A csv file listing various measures and statistics of classified tracts",
+   "readme": "## profile data\nNote that the tensor measures (ad, fa, md, rd) are the most common for tract profilometry, and thus are being defined here. However, it is possible to perform profilometry without the tensor model measures, and thus your columns may vary. The two most important columns here are 'structureID', which defines the tract name, and 'nodeID', which defines the node along the tract that the sample comes from.\n```\nstructureID,nodeID,ad,fa,md,rd\n9002,anterioFrontalCC,1,1.0019006889695898,0.24268335891982998,0.805430040663103,0.7071947157091801\n9002,anterioFrontalCC,2,0.9950038146613741,0.254798299231487,0.789624928849494,0.686935485811522\n9002,anterioFrontalCC,3,0.993601256629925,0.265887020991478,0.779734001108083,0.6728003741142728\n9002,anterioFrontalCC,4,0.996656880870817,0.275811464734581,0.7745675249992672,0.663522849165054\n9002,anterioFrontalCC,5,1.00283331746702,0.284366581530563,0.7728782779258171,0.6579007619941128\n9002,anterioFrontalCC,6,1.0115783702678198,0.292515316388438,0.7733881760068231,0.65429308441503\n9002,anterioFrontalCC,7,1.02225832698264,0.300337351987778,0.775467393528038,0.652071934108625\n9002,anterioFrontalCC,8,1.0339884711985,0.30865612456029495,0.7782409165546359,0.65036714813835\n...\n```\n\n\n## macro data\n```\nstructureID,StreamlineCount,volume,averageStreamlineLength\nwbfg,3000000,810751,65.2514924075696\nforcepsMinor,14099,60410,105.731972723956\nforcepsMajor,4081,62772,150.358790348804\nparietalCC,9849,71726,134.825090667247\nmiddleFrontalCC,26724,88239,107.105992469294\nanterioFrontalCC,12943,81067,102.599889955666\n...\n```\n\n## macro_micro data\nThis tag is intended for the combination of profilometric data (i.e. micro) and macrostructural statistics of segmented tractgrams. \n\n\n## tractseg_tractometry data\nThis tag is intended for the Tractometry_peaks.csv file produced by TractSeg. The header corresponds to the list of tracts for which tractometry is available (up to 50 tracts). On the rows, the single metric value at each node is reported (the number of rows is 98 since the first and last nodes are dropped).\n```\nAF_left\t\tAF_right\tATR_left\tATR_right\tCC_1 ...\n0.303229543104303\t0.38406270303966\t0.327933922929156\t0.366009730347503\t0.272032753658072 ...\n0.314547988510265\t0.381685942522947\t0.338081227248489\t0.357288162926036\t0.283212173047058 ...\n0.335131049401065\t0.390992535108405\t0.353733501285894\t0.368398958358031\t0.298387214533339 ...\n0.358696506161878\t0.403191425976436\t0.350793235502353\t0.379496356078586\t0.313209308367591 ...\n0.374724823800164\t0.42180236579076\t0.362169293075503\t0.371354171478226\t0.325845129115041 ...\n0.390861091163352\t0.423967894431337\t0.353761813965393\t0.380103259370617\t0.335139814450343 ...\n0.43133852465121\t0.416558198546214\t0.336435631306328\t0.386099828381267\t0.344068721377194 ...\n0.435267521263819\t0.398952599799162\t0.329597462231323\t0.379060014078116\t0.360103802902478 ...\n0.417307986951566\t0.381144758931852\t0.337344700599544\t0.381887989404343\t0.377558340144154 ...\n...\n```",
+   "files": [
+    {
+     "id": "csv",
+     "filename": "tractmeasures.csv",
+     "desc": "Used to be called output_FiberStats.csv",
+     "required": true,
+     "_id": "5ffc7c0c2ba0fbc38fe8871f"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tractprofile-deprecated",
+  "_id": "5965467cb09297d8d81bdbcd",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5965467cb09297d8d81bdbcd",
+   "desc": "A directory containing a bunch of csv files containing tractprofile measures. This datatype has been deprecated by neuro/tractmeasures<profile> datatype.",
+   "readme": "The first row of each csv should contain the measurement headers which are..\n\nad_mean\nad_sd\nad_inverse_mean\nad_inverse_sd\nfa_mean\nfa_sd\nfa_inverse_mean\nfa_inverse_sd\nmd_mean\nmd_sd\nmd_inverse_mean\nmd_inverse_sd\nrd_mean\nrd_sd\nrd_inverse_mean\nrd_inverse_sd\nga_mean\nga_sd\nga_inverse_mean\nga_inverse_sd\nmk_mean\nmk_sd\nmk_inverse_mean\nmk_inverse_sd\nak_mean\nak_sd\nak_inverse_mean\nak_inverse_sd\nrk_mean\nrk_sd\nrk_inverse_mean\nrk_inverse_sd\nndi_mean\nndi_sd\nndi_inverse_mean\nndi_inverse_sd\nisovf_mean\nisovf_sd\nisovf_inverse_mean\nisovf_inverse_sd\nodi_mean\nodi_sd\nodi_inverse_mean\nodi_inverse_sd\nx_coords\ny_coords\nz_coords\n\n",
+   "files": [
+    {
+     "_id": "5dcf0d53c4ae2854352991f5",
+     "id": "profiles",
+     "dirname": "profiles",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/tractseg",
+  "_id": "630d072219b13f0a0ee3cd15",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "630d072219b13f0a0ee3cd15",
+   "desc": "Tractseg output directory containing bundle_segmentations, endings_segmentations, Tractometry_peaks.csv, etc..",
+   "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```",
+   "files": [
+    {
+     "id": "nodif_brain_mask",
+     "filename": "nodif_brain_mask.nii.gz",
+     "dirname": "",
+     "desc": "",
+     "required": true,
+     "_id": "630d072219b13f0a0ee3cd16"
+    },
+    {
+     "id": "peaks",
+     "filename": "peaks.nii.gz",
+     "desc": "",
+     "required": true,
+     "_id": "630d098619b13f0a0ee3ce33"
+    },
+    {
+     "id": "bundle_segmentations",
+     "dirname": "bundle_segmentations",
+     "desc": "",
+     "required": true,
+     "_id": "630d098619b13f0a0ee3ce34"
+    },
+    {
+     "id": "endings_segmentations",
+     "filename": "",
+     "dirname": "endings_segmentations",
+     "desc": "",
+     "required": true,
+     "_id": "630d098619b13f0a0ee3ce35"
+    },
+    {
+     "id": "TOM",
+     "dirname": "TOM",
+     "desc": "(Collection of .nii.gz files)",
+     "required": true,
+     "_id": "630d098619b13f0a0ee3ce36"
+    },
+    {
+     "id": "TOM_trackings",
+     "dirname": "TOM_trackings",
+     "desc": "(Collection of .tck files)",
+     "required": true,
+     "_id": "630d098619b13f0a0ee3ce37"
+    },
+    {
+     "id": "Tractometry_peaks",
+     "filename": "Tractometry_peaks.csv",
+     "desc": "Columns look like \"AF_left;AF_right;ATR_left;ATR_right;CC_1;CC_2\"",
+     "required": false,
+     "_id": "630d098619b13f0a0ee3ce38"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/transform/h5",
+  "_id": "62618e2afdf0b815e4ba5372",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "62618e2afdf0b815e4ba5372",
+   "desc": "A transformation file encapsulates a mathematical operation on the coordinates of those objects susceptible of being spatially transformed (i.e. images, surfaces, or points).  Similar to neuro/transform/fsl but uses .h5 (.x5)",
+   "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit",
+   "files": [
+    {
+     "id": "warp",
+     "filename": "warp.h5",
+     "desc": "The native space to standard space warp",
+     "required": true,
+     "_id": "62618e2afdf0b815e4ba5373"
+    },
+    {
+     "id": "inverse-warp",
+     "filename": "inverse-warp.h5",
+     "dirname": "",
+     "desc": "The standard space to native space warp",
+     "required": true,
+     "_id": "62644a09f3858674a29b19e4"
+    },
+    {
+     "id": "affine",
+     "filename": "affine.txt",
+     "desc": "The linear transformation from native space to standard space",
+     "required": true,
+     "_id": "62644a09f3858674a29b19e5"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/transform/nifti",
+  "_id": "5bbfb28071454db2a890fbce",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5bbfb28071454db2a890fbce",
+   "desc": "Linear & Non-Linear Image Warping in FSL format (warp.nii.gz / inverse-warp.nii.gz)",
+   "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit",
+   "files": [
+    {
+     "id": "warp",
+     "filename": "warp.nii.gz",
+     "required": false,
+     "_id": "5fa9555dafcdcc44d3c40495"
+    },
+    {
+     "id": "inverse-warp",
+     "filename": "inverse-warp.nii.gz",
+     "required": false,
+     "_id": "5fa9555dafcdcc79a3c40496"
+    },
+    {
+     "id": "affine",
+     "filename": "affine.txt",
+     "desc": "Both linear and non-linear transform should at least have affine.txt. We are currently setting this optional for older Apps that are yet to generate affine.txt. In the future, affine.txt will be the only required file.",
+     "required": false,
+     "_id": "5fa9555dafcdcc5abcc40497"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/wmc",
+  "_id": "5cc1d64c44947d8aea6b2d8b",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5cc1d64c44947d8aea6b2d8b",
+   "desc": "White Matter Classification (no FG)",
+   "readme": "## What is a WMC (White Matter Classification) object _conceptually_?\n\nA WMC is best thought of as the tractogram's equivalent of a parcellation for a nifti brain volume, in that it assigns (anatomical) identities to the constituent elements (in this case streamlines) of the larger object.  It is the result of the interaction of the following three entities\n\n1. A tractogram:  a specific, omnibus, streamline-based, heterogeneous (in that it does not correspond to one indifferentiable \"thing\") model of white matter anatomy.\n2.  A white matter ontology:  a finite set of white matter anatomical entities to which the constituent streamlines of the associated tractogram can be assigned membership.\n3.  A segmentation:  a ruleset or algorithm which is used to assign the constituent elements of the tractogram (i.e. streamlines) membership or identity amongst the elements of the associated white matter ontology.  \n\nIn this way, a given WMC object is a-contextual (and thus relatively uninterpretable) _unless_ it can be clearly and easily associated with the _specific instances_ of the three entities listed above.\n\n## What is a WMC (White Matter Classification) object _structurally_?\n\nIn essence, the WMC is composed of two parts:  **the index vector** and **the names vector** stored in HDF5 Matlab object with the filename of `classification.mat` which should be 1x1 struct with 2 fields\n\n```\nclassification = \n\n  struct with fields:\n\n    names: {1\u00d761 cell} - cell array with a single row\n    index: [1\u00d7675000 double] -  (675000 is the number of fibers for this example - from tck)\n```\n\n### .index\nThe index vector is a 1 by n vector of integers assigning categorical identity/membership to the streamlines of **the associated tck entity** (tractogram), where n is the number of streamlines in that object.  The integer values assigned to each streamline correspond to the index of a name in the name field, which itself corresponds to an element of the associated white matter ontological set.  **The index vector is not zero indexed** , meaning that an entry of zero **does not** correspond to the first entry on the names list.  Instead, a streamline with 0 in its .index entry indicates that no _specific_ identity was assigned to this streamline.  This is perfectly permissible and may result from one of several causes (with respect to the diagram above, a failure for one of the following scenarios to obtain:  \"No 'false positive' streamlines\", \"all WM entities enumerated\", or \"all streamlines mapped\".  Indeed, an ontology which intends to leave no component of the white matter uncategorized can be described as _complete_ (i.e. https://doi.org/10.25663/brainlife.app.249), while one which does not have this intent can be described as _incomplete_ (https://doi.org/10.25663/brainlife.app.188 or https://doi.org/10.25663/brainlife.app.207)\n\nFor example...\n\n\n```\nColumns 674929 through 674946\n\n     0     0     0     0     0    26     0    15     0     0     0     0     0     0     0     0     0     0\n\n  Columns 674947 through 674964\n\n     0     0     0     0     0     0     0     0     4     0    24     0     0     0     0     0     0     0\n\n  Columns 674965 through 674982\n\n     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0\n\n  Columns 674983 through 675000\n\n     0     0     0     0    36     0     0     0     0     0     0     0     0     0     0     0     0     0\n\n```\n\nAs it is currently implemented, The WMC, _as a data construct_ (and thus any given instance of a WMC), is both _exclusive_ and _non-hierarchical_.  This means that for any streamline, for a given WMC object, there can be _only one_ white matter anatomical entity/category (i.e. name) that it can be assigned to, and that (**generally speaking**) there is no higher order structuring of entities/categories _with respect to the structure of the WMC object itself_.  This stipulation warrants a couple of qualifications, though.  In practice, it is best to keep the right and left variants of an anatomical entity (should they exist) next to one another in the .names field (and thus also in .index numeration) for the sake of interpretability.  Furthermore, while there may be hierarchical structure within the associated white matter ontology _itself_, which could potentially be inferred from naming conventions in the .names field, there is nothing inherent to the WMC structure _itself_ which would or could indicate this.\n\n### .names\nThe .names vector enumerates those anatomical structures (ontological set members of the associated white matter ontology superset) that the Application has attempted to segment.  For practical reasons (e.g. brevity) these entries may be abbreviations or shortened versions of longer category labels/names from the associated white matter ontology.  \n\nFor example...\n\n```\n1\u00d761 cell array\n\n  Columns 1 through 5\n\n    {'forcepsMinor'}    {'forcepsMajor'}    {'parietalCC'}    {'middleFrontalCC'}    {'anterioFrontalCC'}\n\n  Columns 6 through 10\n\n    {'leftcingulum'}    {'rightcingulum'}    {'leftUncinate'}    {'rightUncinate'}    {'leftIFOF'}\n```\n\n## Quick rules\n\n### .names\n\n- No spaces in .names entries:  default replacement behavior should be to replace spaces with underscores\n- Some but not all .name entries may correspond to the \"left\" or \"right\" right variant of a category/structure.  Such paired entries should be kept next to each other, and the associated .index values should be adjusted accordingly (see [here](https://github.com/DanNBullock/wma_tools/blob/master/ClassificationStruc_Tools/wma_resortClassificationStruc.m) for an example implementation).\n- All .names entries should be unique, and non-empty.\n- No entries in the .name list may be blank (a blank entry could not correspond to a category from the associated white matter ontology)\n\n### .index\n\n- The number of unique values in .index should be less than or equal to the number of entries in .names + 1 \n- index numeral 0 is used to indicate that the corresponding streamline does not belong to *any* structure listed in .names array, and is thus (in a sense) \"unlabeled\".  As a corollary to this, it is likely ill advised to actually created an explicit category \"unlabeled\", as this would force there to be a numerical index for \"unlabeled\" other than 0.\n- The integer values assigned to each streamline in the index vector should correspond to the index of a name in the .names field, *without conversion, transformation, or adjustment*.\n- \".index\" will contain integer values from 0 to the number of entries in .names. In the case that no streamline is associated with a particular white matter structure (in .names), the corresponding index will not occur in .index.\n- The number of entries in the .index vector should be **EXACTLY EQUAL** to the number of streamlines in the associated tractogram.\n-  Because the identities assigned in the WMC object are locked to specific streamlines in the source tractogram, the sequencing of entries in the .index vector should be kept locked to the sequence of streamlines.  That is, if the sequential ordering of the streamlines in the associated tractogram (/.tck object) changes, the ordering of the corresponding WMC objects should change in exact correspondence with this shift.  Given that multiple WMC objects (from multiple ontologies/segmentations) could be associated with a single tractogram, **the sequencing of the source tractogram should take precedence over any particular WMC object**.\n-   For the above reason, one should essentially *never* change the ordering of streamlines in a tractogram (e.g. .tck) object.\n\n## Rationale \n\n### Why not store this as multiple track files in a directory?\nTheoretically, it would be possible to store a separate track file for each track in a directory.  However, this is not efficient in terms of storage.  This is because, in cases where the tracts have been extracted from a source tractograms, those streamlines are doubly represented in storage, both in the source tractogram object, and in the extracted tract files.  An alternative way to illustrate this is to think about NiFTI-based anatomical parcellations and the data objects they are derived from.\n\nAs an analogy, one way of storing a parcellation would be to create N number of separate NiFTI files each containing all and only the data corresponding to each of the N labels, with all other entries (voxels) zeroed out.  Thus, any time a consumer algorithm wanted to extract the info specific to a label, it would just go to the relevant NiFTI file.  However, this isn't a very elegant or parsimonious method.  Instead, we typically use the parcellation to mask the voxels of interest in the relevant associated NiFTI and proceed accordingly.  Moreover, this dictionary-like operation is not a particularly computationally expensive operation for NiFTIs.  Similarly, it is not a particularly computationally expensive operation for WMC-type objects and their associated tractograms.\n\nAdditionally, null models which make use of unlabeled or shuffled streamlines would, at some point, need to amalgamate the component tract objects in order to compare across tract labelings/categories.\n\n## Validator\n\nA validator for this datatype (with examples of valid/invalid WMC structures) can be found [here](https://github.com/brainlife/validator-neuro-wmc).\n\n## Future plans\n\nMoving away from the .mat format is likely to occur in the future.  Potential alternatives include .csv, .tsv, and .json.  Of these, .json currently appears to be the most likely candidate.  This is because it maintains the pairing of the .names and .index fields, whereas separate files (As would be implemented in 1-d vector .csv or .tsv files) could lose their pairing / provenance.\n\nForcing the .index vector to various forms of uint can be used to save space, however the footprint reduction may be minimal.",
+   "files": [
+    {
+     "_id": "5e894192952fefe17c7ad860",
+     "id": "classification",
+     "filename": "classification.mat",
+     "required": true
+    },
+    {
+     "_id": "5e894192952fefe9d07ad861",
+     "id": "tracts",
+     "dirname": "tracts",
+     "required": false,
+     "desc": "Used for VIS purpose only."
+    },
+    {
+     "_id": "5e894192952fef15c67ad862",
+     "id": "surfaces",
+     "dirname": "surfaces",
+     "required": false,
+     "desc": "If there is ROI / parcellation associated with this wmc, please convert them to .vtk surfaces and store them here to be used by VIS"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "neuro/wmc-deprecated",
+  "_id": "58f10a90436ee50ffd9063c5",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58f10a90436ee50ffd9063c5",
+   "desc": "White Matter Classification and FG structure",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008db2",
+     "id": "output",
+     "filename": "output.mat",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008db3",
+     "id": "fibercounts",
+     "filename": "output_fibercounts.txt",
+     "required": false
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008db4",
+     "id": "tracts",
+     "dirname": "tracts",
+     "required": false
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008db5",
+     "id": "surfaces",
+     "dirname": "surfaces",
+     "required": false
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "openscience/reprolit",
+  "_id": "5d7055105cee3829d5314c19",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5d7055105cee3829d5314c19",
+   "desc": "This is the data type for the paper: Open science and communal culture promote women's participation, diversity and discovery. You can visit this link for more information: https://github.com/contactaditya/BrainlifeCadreCollaboration/blob/master/Notes.txt",
+   "readme": null,
+   "files": [
+    {
+     "_id": "6b06fdbc88e26e6de7008e73",
+     "id": "dictionary",
+     "filename": "lancet_dictionary.csv",
+     "desc": "Lancet Dictionary. This is a csv file which is a dictionary of words which are most commonly used in scientific papers and publications. This dictionary classifies the various words under different categories such as feminine, masculine, learning, competition, policing, innovation, pro social motives, collaboration, team, team focused, individual focused. ",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008e74",
+     "id": "open-old",
+     "filename": "open-old.csv",
+     "desc": "This is a csv file which is used to built a collaboration network from the 3157 unique author ID's in the Open Science literature. Apart from building the collaboration network we also performed connected component analysis of the network to measure the degree of isolation of individual sub-networks of authors within each literature.",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008e75",
+     "id": "journal",
+     "filename": "open_science_journal.csv",
+     "desc": "This is a csv file which contains data from Microsoft Academic Graph, consisting of 2,926 scientific articles and conference proceedings published between 2010 and 2017 that included Open Science or Reproducibility as a field of study. This sample consisted of 879 Open Science papers and 2,047 Reproducibility papers.",
+     "required": true
+    },
+    {
+     "_id": "6b06fdbc88e26e6de7008e76",
+     "id": "repro-old",
+     "filename": "repro-old.csv",
+     "desc": "This is a csv file which is used to built a collaboration network from the 8766 unique author ID's in the Reproducibility literature. Apart from building the collaboration network we also performed connected component analysis of the network to measure the degree of isolation of individual sub-networks of authors within each literature.",
+     "required": true
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "optometry/oct",
+  "_id": "5ebe0bbbb969982124072325",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ebe0bbbb969982124072325",
+   "desc": "Raw data from compatible systems with the Orion\u00ae software (Voxeleron, LLC, Pleasanton, CA, USA), and an associated centroid indicator file",
+   "readme": "The [eyeIndicator]_raw.csv file corresponds to the direct ouput of the Voxeleron OCT device.  The [eyeIndicator]_centroid file is a two number csv file indicating the slice and position of the foveal centroid for the associated eye.  For a description of how to derive these values from Voxelron output, please see the Centroid CSV section here (https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md)\n\nFor a guide to converting from group directory structure to single subject directory structure, please see https://github.com/DanNBullock/OCT_scripts/blob/brainlife_code/OCTcode/convertToSubject.md",
+   "files": [
+    {
+     "_id": "5ebe0bbbb96998d8fc072326",
+     "id": "os_raw",
+     "desc": "The raw output from a Voxeleron OCT device for the left eye.  S in the name stem is an abbreviation for sinister, indicating left.",
+     "required": true,
+     "filename": "OS_raw.csv"
+    },
+    {
+     "_id": "5ebe0bbbb969986069072327",
+     "id": "os_centroid",
+     "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+     "required": true,
+     "filename": "OS_centroid.csv",
+     "dirname": ""
+    },
+    {
+     "_id": "5ebe0bbbb969987342072328",
+     "id": "od_raw",
+     "desc": "The raw output from a Voxeleron OCT device for the right eye.  D in the name stem is an abbreviation for dexter, indicating right.",
+     "required": true,
+     "filename": "OD_raw.csv"
+    },
+    {
+     "_id": "5ebe0bbbb96998b864072329",
+     "id": "od_centroid",
+     "desc": "This file is the slice and position coordinate of the foveal centroid for the associated eye.",
+     "required": true,
+     "filename": "OD_centroid.csv"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "raw",
+  "_id": "59c3eae633fc1cf9ead71679",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "59c3eae633fc1cf9ead71679",
+   "desc": "Unstructured data not meant to be used as input to any other Apps. You can use this datatype for development purposes. Please register a new datatype once your App is ready to be used by other users.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e56dc9a0f7fa6102d3cc5b2",
+     "id": "output",
+     "dirname": ".",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5e56dc970f7fa621da3cc5b0",
+    "maps": [
+     {
+      "_id": "5e56dc9a0f7fa6159a3cc5b3",
+      "src": ".",
+      "dest": "output"
+     },
+     {
+      "_id": "5e56dc9a0f7fa6dd2a3cc5b4",
+      "src": "_meta_",
+      "dest": "output.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ },
+ {
+  "name": "report/html",
+  "_id": "5e56dc330f7fa604cc3cc291",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "5e56dc330f7fa604cc3cc291",
+   "desc": "Unstructured HTML content. This is meant for reporting / HTML output - not as data to be re-used by downstream Apps.",
+   "readme": "This datatype is used to store output from nbconvert for jupyter notebook and must be stored in secondary storage. Therefore, it is configured to use secondary output",
+   "files": [
+    {
+     "_id": "5e56dc330f7fa683593cc292",
+     "id": "index",
+     "desc": "html to open. if index.html does not exist, it will pick the first .html file found within the data-object",
+     "required": false,
+     "filename": "index.html"
+    },
+    {
+     "_id": "5e56dc330f7fa6c62f3cc293",
+     "id": "html",
+     "desc": "Any contents referenced by index.html",
+     "required": true,
+     "filename": "",
+     "dirname": "html"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "report/pdf",
+  "_id": "5ed53b69da664506f88e6df9",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "5ed53b69da664506f88e6df9",
+   "desc": "Unstructured PDF file for reporting. This datatype is not meant to be used by downstream Apps.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5ed53b69da664514fe8e6dfa",
+     "id": "pdf",
+     "desc": "",
+     "required": true,
+     "filename": "report.pdf"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "test2",
+  "_id": "6ac6be2ac004e522d223b00b",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "6ac6be2ac004e522d223b00b",
+   "desc": "this is my new datatype",
+   "readme": null,
+   "files": [],
+   "bids": null
+  }
+ },
+ {
+  "name": "tif",
+  "_id": "68dc0642f9e4ee316ef66c03",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "readme"
+  ],
+  "before": {
+   "_id": "68dc0642f9e4ee316ef66c03",
+   "desc": "Microscopy data for the APEX hackathon",
+   "readme": null,
+   "files": [
+    {
+     "id": "tif",
+     "filename": "tif",
+     "dirname": "",
+     "desc": "Basic tif file",
+     "required": true,
+     "_id": "68dc0642f9e4ee316ef66c04"
+    }
+   ],
+   "bids": null
+  }
+ },
+ {
+  "name": "zarr v3",
+  "_id": "68dc5b50f9e4ee316ef8abd3",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "68dc5b50f9e4ee316ef8abd3",
+   "desc": "zarr output",
+   "readme": "",
+   "files": [
+    {
+     "id": "zarr-json",
+     "filename": "zarr.json",
+     "desc": "",
+     "required": true,
+     "_id": "68dc5b50f9e4ee316ef8abd4"
+    }
+   ],
+   "bids": null
+  }
+ }
+]

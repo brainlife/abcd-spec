@@ -626,6 +626,7 @@
     "original": {
       "desc": "OME-Zarr (OME-NGFF) multidimensional bioimaging store",
       "file_descs": {
+        "json": "BIDS microscopy JSON sidecar (e.g. PixelSize, PixelSizeUnits).",
         "zarr": "OME-Zarr store root"
       },
       "readme": "# neuro/ome-zarr\n\nA directory-backed OME-Zarr image store. The store is staged as one logical input; chunk objects are not registered as separate files.\n\nBrainlife validates root OME-NGFF metadata before registering virtual S3 datasets. OME-Zarr 0.5 is recommended for BIDS compatibility."
@@ -643,7 +644,6 @@
       "desc": "BIDS microscopy JSON sidecar (e.g. PixelSize, PixelSizeUnits).",
       "filename": "image.json",
       "id": "json",
-      "proposed": true,
       "required": false
     }
   ],

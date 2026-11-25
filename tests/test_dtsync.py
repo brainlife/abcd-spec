@@ -181,3 +181,11 @@ def test_our_pushed_summary_is_not_an_edit():
     now = dict(LIVE, readme=dtreadme.render(r, "u"))
     ch = dtsync.plan({"neuro/dwi": r}, {"neuro/dwi": now}, {"neuro/dwi": now}, "u")
     assert all("readme" not in c["skipped"] for c in ch)
+
+
+def test_our_pushed_desc_and_file_descs_are_not_edits():
+    r = _rec_drafted_against(LIVE)
+    now = dict(LIVE, desc=r["brainlife"]["desc"],
+               files=[dict(f, desc=next(x["desc"] for x in r["files"] if x["id"] == f["id"])) for f in LIVE["files"]])
+    ch = dtsync.plan({"neuro/dwi": r}, {"neuro/dwi": now}, {"neuro/dwi": now}, "u")
+    assert all(not ({"desc", "files"} & set(c["skipped"])) for c in ch)
