@@ -54,7 +54,15 @@ def _gh(*args, stdin=None):
     subprocess.run(["gh", *args], input=stdin, text=True, check=True, capture_output=True)
 
 
+def canonical(repo):
+    """The repo's current owner/name; renamed repos answer writes with a redirect."""
+    out = subprocess.run(["gh", "api", f"repos/{repo}", "--jq", ".full_name"],
+                         text=True, check=True, capture_output=True)
+    return out.stdout.strip()
+
+
 def apply(repo, change):
+    repo = canonical(repo)
     fields = {k: change[k] for k in ("description", "homepage") if k in change}
     if fields:
         _gh("api", "-X", "PATCH", f"repos/{repo}", "--input", "-", stdin=json.dumps(fields))

@@ -1,0 +1,3009 @@
+[
+ {
+  "repo": "brainlife/app-acpcART",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "anatomy-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.16",
+   "topics": [
+    "anatomy-preprocessing",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-AFQclean",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "postprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.11",
+   "topics": [
+    "brainlife-app",
+    "postprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-align-mp2rage-to-t1",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.509",
+   "description": "Aligns MP2RAGE volumes to a T1-weighted image with FSL flirt so the MP2RAGE data share the anatomical image's space.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-align-n-average-images",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "alignment"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.385",
+   "topics": [
+    "alignment",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-align-t2-to-t1",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.510",
+   "description": "Aligns a T2-weighted image to a T1-weighted image with FSL FLIRT and outputs the T2-weighted image in T1 space.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-annotation-to-parcellation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.747",
+   "description": "Converts a surface annotation in a standard (fsaverage) space into a volumetric parcellation with FreeSurfer.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "conversion",
+    "freesurfer",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-apply-warp-to-peaks-bundles",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.801",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-average-tractmasks",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.811",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-checkOrientation",
+  "before": {
+   "homepage": null,
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.19",
+   "topics": [
+    "brainlife-app",
+    "qa"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-CIT168Parc",
+  "before": {
+   "homepage": "",
+   "description": "A dockerized parcellation of human subcortical brain nuclei from the work of Pauli et al. 2018",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.449",
+   "description": "Generates a subject-specific volumetric parcellation of subcortical nuclei from a T1-weighted image using the CIT168 atlas (Pauli et al. 2018).",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-classifiedfibertractstats",
+  "before": {
+   "homepage": "",
+   "description": "This will give you the fiber count, mean length, standard deviation of length, total length, and volume of each fiber tract classified by AFQ or WMA.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.12",
+   "description": "Deprecated: computes the fiber count, mean and standard deviation of length, total length and volume of each tract classified by AFQ or WMA, and outputs tract measures.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-clean-parcellation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.518",
+   "description": "Removes user-specified labels from a volumetric parcellation with nibabel and numpy and outputs the cleaned parcellation.",
+   "topics": [
+    "brainlife-app",
+    "nibabel",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-combine-parcellation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.739",
+   "description": "Combines two volumetric parcellations into a single volume parcellation.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-combine-tracts",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.711",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-commit",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.622",
+   "description": "Computes streamline weights for a whole-brain tractogram with COMMIT from DWI, CSD, a mask and peaks, and also outputs NODDI-style intra-, extra-cellular and isotropic maps.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compile-macro-micro-tract-stats",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.397",
+   "description": "Combines tract macrostructural statistics and tract profile measures into a single tractmeasures CSV for downstream analysis, using pandas and numpy.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compile-tract-profiles",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.384",
+   "description": "Compiles the per-tract profile CSVs of a tract profile dataset into a single summary CSV of tract measures for group statistics and machine learning.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compile-tractmeasures",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.683",
+   "description": "Compiles per-tract measures (DSI Studio tractmeasures TSVs or other tractmeasures CSVs) into a single table with pandas to ease downstream statistical analysis.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compute-average-tractmeasure",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.706",
+   "topics": [
+    "brainlife-app",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compute-similarity-parcellations",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.612",
+   "description": "Computes the Dice similarity coefficient for each parcel between a volumetric parcellation and a reference parcellation and writes the scores to a CSV.",
+   "topics": [
+    "brainlife-app",
+    "parcellation",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compute-temporal-snr",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.378",
+   "description": "Computes the temporal signal-to-noise ratio (tSNR) across the volumes of a DWI image within a brain mask with FSL, following the HCP minimal preprocessing pipeline.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "quality-control"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-compute-tract-stats",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.439",
+   "description": "Computes macrostructural statistics of white matter tracts with DIPY from a tractogram, its WMC classification and DWI, and outputs tract measures.",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-connectivity-assignments-to-wmc",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.766",
+   "description": "Converts streamline assignments from structural connectivity, with the tractogram, DWI and volumetric parcellation, into a white matter classification (WMC) dataset.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-connectome-evaluator",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "quality-check"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.102",
+   "topics": [
+    "brainlife-app",
+    "quality-check"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-contrack-optic-radiation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.252",
+   "description": "Tracks the optic radiation between two ROIs with ConTrack (Sherbondy et al., 2009) and splits it into bundles by visual-field eccentricity from pRF mapping, producing a .tck tractogram and a white matter classification.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-contrack-visual-white-matter",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.647",
+   "description": "Tracks visual white matter between two ROIs with ConTrack and segments the streamlines into bundles by visual field eccentricity from pRF mapping, outputting a .tck tractogram and a white matter classification.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-eddyqc-to-regressor",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.610",
+   "description": "Converts quality-control output from FSL eddy into a regressors datatype for use as a nuisance matrix in statistical analyses.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "quality-control",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-freesurfer-parcellation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.750",
+   "description": "Converts FreeSurfer annotations into a volumetric parcellation using the FreeSurfer output and a T1-weighted image.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "conversion",
+    "freesurfer",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-network-netstats",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.796",
+   "description": "Utility that extracts network statistics and connectivity matrices from a network dataset into the net-stats format.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-noddi-datatypes",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.368",
+   "description": "Converts a deprecated NODDI dataset to the current NODDI datatype, renaming icvf to ndi and od to odi.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-tck-to-trk",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.133",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "nibabel",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-tractmasks-to-rois",
+  "before": {
+   "homepage": "",
+   "description": "This app converts from tractmasks datatype to rois datatype.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.707",
+   "description": "Utility that converts a tractmasks dataset into an rois dataset.",
+   "topics": [
+    "brainlife-app",
+    "conversion"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-tractmeasures-2-tractprofile",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.524",
+   "description": "Utility that splits a concatenated tractmeasures CSV covering all tracts into one tract profile CSV per tract.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-convert-wmc2wmc",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.201",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-converttck2trk",
+  "before": {
+   "description": "Convert MRtrix TCK to TrackVis TRK files.",
+   "topics": []
+  },
+  "after": {
+   "description": "Deprecated: Converts an MRtrix 2 .tck tractogram to TrackVis .trk format in DWI space using nipype.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-cortex-mapping-images",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.555",
+   "description": "Generates JPEG images (lateral and medial views) of data or tract endpoint ROIs mapped to FreeSurfer cortical surfaces with MNE-Python's PySurfer, for quick QA and paper figures.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "mne-python",
+    "quality-control",
+    "visualization"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-cortex-tissue-mapping",
+  "before": {
+   "homepage": "",
+   "description": "This app will map volumated measure files (i.e. tensor, NODDI) to the cortical surface following Fukutomi et al (2018; 10.1016/j.neuroimage.2018.02.017) using Connectome Workbench.",
+   "topics": [
+    "postprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.802",
+   "description": "Maps volumetric measures (DTI, NODDI, myelin, qMRI) to a FreeSurfer mid-thickness cortical surface in native or template space with Connectome Workbench, following Fukutomi et al. (2018); other branches resample, smooth, average and map ROIs onto cortexmap data.",
+   "topics": [
+    "brainlife-app",
+    "connectome-workbench",
+    "dwi",
+    "freesurfer",
+    "postprocessing",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-cortex-tissue-mapping-stats",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.797",
+   "description": "Computes summary statistics of diffusion and anatomical measures mapped to the cortical surface within parcellation ROIs, tract endpoints or pRF eccentricity-binned visual areas, using Connectome Workbench and FreeSurfer, and outputs parc-stats tables.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "connectome-workbench",
+    "freesurfer",
+    "statistics",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-create-networkneuro",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.620",
+   "description": "Converts a tractogram, volume parcellation, labels and connectivity matrices (count, density, length) into a networkneuro datatype for the brainlife.io network visualizer.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "dwi",
+    "visualization"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-crop_reorient",
+  "before": {
+   "homepage": "",
+   "description": "This application will crop and reorient the T1 image to standard orientation and FOV using FSL's fslreorient2std and robustfov. ",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.704",
+   "description": "Reorients an image to standard orientation with FSL fslreorient2std and crops its field of view with robustfov, for T1w, T2w, FLAIR and functional task images.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-cut-tractmeasures-nodes",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.685",
+   "description": "Removes a user-set number of nodes from tract profiles in a tractmeasures dataset.",
+   "topics": [
+    "brainlife-app",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-datanormalize",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "diffusion-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.4",
+   "topics": [
+    "brainlife-app",
+    "diffusion-preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-deface",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "anatomy-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.146",
+   "topics": [
+    "anatomy-preprocessing",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dt6tonifti",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "convert"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.48",
+   "topics": [
+    "brainlife-app",
+    "convert"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dtiinit",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "diffusion-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.3",
+   "topics": [
+    "brainlife-app",
+    "diffusion-preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dwi-debias",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.557",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dwi2t1-nonlinear",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "pipeline"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.111",
+   "topics": [
+    "brainlife-app",
+    "pipeline"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dwinormalise",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.806",
+   "description": "Normalizes DWI intensities with MRtrix3 and outputs the normalized DWI.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-dwiToDtiinit",
+  "before": {
+   "homepage": "",
+   "description": "This app will align DWI data to a DTIINIT DWI dataset in order to fit models that require multi-shell data to tracking",
+   "topics": [
+    "preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.153",
+   "description": "Aligns single- or multi-shell DWI data to the DWI output of dtiInit with FSL FLIRT, so multi-shell models can be fit and mapped onto tracking.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "preprocessing",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-eccentricity-classification",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.763",
+   "description": "Bundles segmented tracts by pRF-derived eccentricity ROIs, for example splitting the optic radiation by eccentricity, and outputs a white matter classification; other branches segment a whole-brain tractogram by parcellation.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-eeglab2mne",
+  "before": {
+   "homepage": "",
+   "description": null,
+   "topics": [
+    "eeg"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.633",
+   "description": "Converts EEG data in EEGLAB format to an MNE-Python Raw (.fif) file.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "eeg",
+    "mne-python"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-endpointMapGeneration",
+  "before": {
+   "homepage": "",
+   "description": "This app will generate endpoint maps for all tracts in an input classification structure.  User can specify what sort of decay/smoothing algorithm can be used (or none) and whether the output is to be normalized (e.g. max density voxel in tract endpoint mask = 1).",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.194",
+   "description": "Generates streamline endpoint density maps for every tract in a WMC classification and tractogram, with optional decay smoothing and normalization, and outputs them as ROIs.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-ensembletracking",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "tracking"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.103",
+   "topics": [
+    "brainlife-app",
+    "tracking"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-epi-t1-registration",
+  "before": {
+   "topics": [
+    "diffusion-preprocessing"
+   ]
+  },
+  "after": {
+   "topics": [
+    "brainlife-app",
+    "diffusion-preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-extract-bundles-quickbundles",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.438",
+   "description": "Splits classified tracts into multiple sub-bundles with DIPY QuickBundles, from DWI, a tractogram and a white matter classification, and outputs a new classification.",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "tract-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-extract-diffusion-metrics-rois",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.525",
+   "description": "Extracts diffusion metrics (tensor, NODDI, myelin map) within ROIs for ROI-level analysis, with optional SPM ROI inflation, and outputs per-ROI statistics.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-extract-diffusion-metrics-tissue-types",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.746",
+   "description": "Extracts summary measures of DTI, NODDI, quantitative T1 and myelin maps within tissue-type masks (CSF, gray matter, white matter) and outputs parc-stats tables.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-extractTCKfromWMC",
+  "before": {
+   "homepage": "",
+   "description": "This application takes an input tractography amalgam (i.e. whole brain fiber group (WBFG) or composite) and, using the categories designated in the associated White Matter Classification (WMC) structure input, extracts and outputs a Tck file for each category into the output directory. ",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.976",
+   "description": "Extracts one .tck file per tract from a whole-brain tractogram using the categories in its WMC classification, easing analysis outside brainlife.io.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-filter-tractograms",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.619",
+   "description": "Subsamples a tractogram by keeping the streamlines marked 1 in a binary labels assignment (e.g. from SIFT) and outputs the filtered .tck tractogram.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-fmriprep",
+  "before": {
+   "topics": [
+    "fmri",
+    "preprocessing"
+   ]
+  },
+  "after": {
+   "topics": [
+    "brainlife-app",
+    "fmri",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer",
+  "before": {
+   "topics": [
+    "anatomy-preprocessing",
+    "analysis"
+   ]
+  },
+  "after": {
+   "topics": [
+    "analysis",
+    "anatomy-preprocessing",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer-agg",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.94",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer-longitudinal",
+  "before": {
+   "homepage": null,
+   "description": "This App allows brainlife.io to perform freesurfer longitudinal processing",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.602",
+   "description": "Runs FreeSurfer longitudinal processing in two steps: builds a base template from one subject's FreeSurfer outputs at several timepoints, then produces longitudinally processed FreeSurfer output for each timepoint.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer-longitudinal-statistics",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.609",
+   "description": "Computes longitudinal cortical statistics with the FreeSurfer longitudinal pipeline from multiple recon-all timepoints and their base template, producing parcellation statistics and cortex maps.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "statistics",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer-osg",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.268",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-freesurfer-stats",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.554",
+   "description": "Converts FreeSurfer recon-all statistics into tidy per-parcel CSVs with the freesurfer-stats package; other branches summarize volume, surface and diffusion measures (tensor, NODDI, myelin, qMRI) within volumetric or surface parcellations.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "parcellation",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-fsl-anat",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.512",
+   "description": "Runs FSL fsl_anat on a T1w, T2w or MP2RAGE image to produce ACPC-aligned, bias-corrected and standard-space images plus nonlinear warps to the template.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-fsl-fast",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.771",
+   "description": "Segments a T1-weighted image into tissue types with FSL FAST and outputs tissue-type masks.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-fsl-flirt",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.458",
+   "description": "Linearly aligns one DWI image to another with FSL FLIRT and outputs the aligned DWI.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-FSLBET",
+  "before": {
+   "homepage": null,
+   "description": "Brain Extraction via FSL's BET command",
+   "topics": [
+    "anatomy-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.791",
+   "description": "Extracts the brain from T1w, T2w, FLAIR, DWI or fMRI images with FSL BET and outputs the skull-stripped image and a brain mask; another branch applies an existing mask.",
+   "topics": [
+    "anatomy",
+    "anatomy-preprocessing",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-fslDTIFIT",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "diffusion-mri"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.292",
+   "topics": [
+    "brainlife-app",
+    "diffusion-mri"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-FSLTopupEddy",
+  "before": {
+   "homepage": "",
+   "description": "This app will correct for encoding, eddy currents, and motion artifacts using FSL's Topup and Eddy functions.",
+   "topics": [
+    "preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.662",
+   "description": "Corrects DWI for susceptibility distortions, eddy currents and motion with FSL topup and eddy (CUDA or OpenMP) or eddy_correct, producing a corrected DWI and a brain mask.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-generate-parc-thal-amyg-hipp",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.734",
+   "description": "Converts FreeSurfer thalamic, hippocampal and amygdala segmentations into volumetric parcellations aligned to a T1-weighted image.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-hcp-acpc-alignment",
+  "before": {
+   "homepage": "",
+   "description": "This app will align a T1w image to the ACPC plane (specifically, the MNI152_T1_1mm template from FSL using a 6 DOF alignment via FSL commands. This protocol was adapted from the HCP Preprocessing Pipeline (https://github.com/Washington-University/HCPpipelines.git). Requires a T1w image input and outputs an acpc_aligned T1w image.",
+   "topics": [
+    "anatomy-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.800",
+   "description": "Aligns T1w, T2w or MP2RAGE images to the ACPC plane with a 6-DOF FSL registration to the MNI152 1mm template, adapted from the HCP preprocessing pipeline, and outputs the aligned image.",
+   "topics": [
+    "anatomy",
+    "anatomy-preprocessing",
+    "brainlife-app",
+    "fsl",
+    "preprocessing",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-hcp-cortex-mapping-replication",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.430",
+   "description": "Maps DTI and NODDI measures to the cortical surface from DWI, FreeSurfer and HCP PostFreeSurfer outputs, using a port of the NoddiSurfaceMapping code by Fukutomi et al. (2018), and outputs a cortexmap.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-hcp-freesurfer",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "pipeline"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.79",
+   "topics": [
+    "brainlife-app",
+    "pipeline"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-hcp-pipeline",
+  "before": {
+   "homepage": "",
+   "description": "brainlife wrapper for HCP Pipelines",
+   "topics": [
+    "preprocessing",
+    "pipeline"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.465",
+   "description": "Runs the HCP Pipelines structural preprocessing through the BIDS-Apps wrapper on T1w and T2w images with FreeSurfer output, producing HCP FreeSurfer post-processing outputs.",
+   "topics": [
+    "anatomy",
+    "bids",
+    "brainlife-app",
+    "freesurfer",
+    "pipeline",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-hcp-prefreesurfer",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "pipeline"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.78",
+   "topics": [
+    "brainlife-app",
+    "pipeline"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-head-pos",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.499",
+   "topics": [
+    "brainlife-app",
+    "meg",
+    "mne-python"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-intersect-tract-roi",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.556",
+   "description": "Segments tracts or a whole-brain tractogram with ROIs, keeping streamlines that do or do not pass through the selected ROIs, and outputs the filtered tractogram and white matter classification.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-life",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.104",
+   "topics": [
+    "analysis",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-maiaRings",
+  "before": {
+   "homepage": null,
+   "description": "A brainlife.io app for computing the degree-based ring averages for microperimetry measurements ",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.493",
+   "description": "Computes degree-based ring averages of MAIA microperimetry measurements.",
+   "topics": [
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-make-epochs",
+  "before": {
+   "homepage": null,
+   "description": "Create epochs in MEG data",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.508",
+   "description": "Deprecated: Epochs continuous MEG data in MNE Raw (.fif) format into MNE Epochs with MNE-Python mne.Epochs.",
+   "topics": [
+    "brainlife-app",
+    "meg",
+    "mne-python",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-make-mask-from-dtiinit",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.162",
+   "description": "Extracts the brain mask from a dtiinit output and saves it as a mask datatype.",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-make-white-matter-mask-freesurfer",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.341",
+   "description": "Creates a white matter mask from the FreeSurfer subcortical segmentation and registers it to DWI (or dtiInit) space.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mean-transformation-matrix",
+  "before": {
+   "homepage": "",
+   "description": "Compute mean transformation matrix across MEG runs.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.496",
+   "description": "Computes the mean head-position transformation matrix across MEG runs (.fif) with MNE-Python, for realigning runs during Maxwell filtering.",
+   "topics": [
+    "brainlife-app",
+    "meg",
+    "mne-python",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-merge-tractmasks",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.788",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mriqc",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.703",
+   "topics": [
+    "brainlife-app",
+    "qa"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix2-csd",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.344",
+   "description": "Fits constrained spherical deconvolution with MRtrix 0.2 to DWI (or a dtiinit output) and outputs CSD fits at several spherical harmonic orders (lmax) for tractography.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-5tt",
+  "before": {
+   "homepage": "",
+   "description": "This app will generate a 5-tissue type mask (5tt) from a T1 anatomical image using mrtrix3's 5ttgen. This code was adapted from app-mrtrix3-act (https://brainlife.io/app/5aac2437f0b5260027e24ae1), written by Brent McPherson (bcmcpher@iu.edu).",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.720",
+   "description": "Generates a five-tissue-type (5TT) segmentation of a T1-weighted image with MRtrix3 5ttgen, optionally with FreeSurfer (hsvs), and outputs it as a mask.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "mrtrix3",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-act",
+  "before": {
+   "topics": [
+    "tracking",
+    "tractography"
+   ]
+  },
+  "after": {
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tracking",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-dwi-brainmask",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.387",
+   "description": "Creates a brain mask from DWI data with MRtrix3.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-preproc",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "tractography",
+    "mri",
+    "diffusion-mri"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.68",
+   "topics": [
+    "brainlife-app",
+    "diffusion-mri",
+    "mri",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-roi2roi-tracking",
+  "before": {
+   "homepage": "",
+   "description": null,
+   "topics": [
+    "tracking"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.407",
+   "description": "Tracks streamlines between pairs of ROIs from DWI and CSD with MRtrix3 iFOD2, optionally anatomically constrained (ACT), with optic radiation and optic tract variants; outputs a tractogram and WMC classification.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "tracking",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-split-b0s",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.475",
+   "description": "Extracts the b0 volumes, or a chosen shell, from a DWI image with MRtrix3 dwiextract and outputs them as DWI datasets.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-mrtrix3-tensor-fit",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.528",
+   "description": "Fits the diffusion tensor model to single- or multi-shell DWI with MRtrix3 and outputs FA, MD, AD, RD, tensor and Westin shape maps, plus kurtosis for multi-shell data.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "mrtrix3"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-myelin-mapping",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.478",
+   "description": "Computes a myelin map from the ratio of T1-weighted and T2-weighted images with Connectome Workbench.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "connectome-workbench"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-network-backbone",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.665",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-network-matrices-2-mat",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.335",
+   "description": "Converts a network matrix for a chosen measure (e.g. density, count) from the Network Neuro App's raw output, with its parcellation, into a conmat connectivity matrix.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-networkneuro",
+  "before": {
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "topics": [
+    "analysis",
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "freesurfer",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-networkneuro-agg",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.89",
+   "topics": [
+    "analysis",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-nobrainer",
+  "before": {
+   "homepage": "",
+   "description": "brainlife wrapper for https://github.com/neuronets/kwyk -Bayesian Neural Network for brain parcellation and uncertainty estimation. ",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.218",
+   "description": "Parcellates a T1-weighted image with the kwyk Bayesian neural network from Nobrainer, producing volume parcellations with uncertainty estimates.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "machine-learning",
+    "parcellation",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-noddi-amico",
+  "before": {
+   "homepage": "",
+   "description": "This app will fit the Neurite Orientation Dispersion and Density Imaging (NODDI; Zhang et al, 2012) model to multi-shell, normalized DWI data using the Accelerated Microstructure Imaging via Convex Optimization (AMICO; Daducci et al, 2015) toolbox. Requires normalized, multi-shell DWI data (including bvals and bvecs) and an optional brainmask of the DWI. Will output the four NODDI output files: neurite density index (ndi), orientation dispersion index (odi), isotropic volume fraction (isovf), and the directions (dirs).",
+   "topics": [
+    "postprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.366",
+   "description": "Fits the NODDI model to normalized multi-shell DWI with the AMICO toolbox and outputs neurite density, orientation dispersion, isotropic volume fraction and fiber direction maps.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "fsl",
+    "postprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-participant-report",
+  "before": {
+   "homepage": null,
+   "description": "App to generate report HTML for study participants",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.601",
+   "description": "Generates a participant-friendly HTML report from FreeSurfer, white matter classification, functional task and T1-weighted derivatives.",
+   "topics": [
+    "brainlife-app",
+    "visualization"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-plot-odf",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.317",
+   "description": "Generates images of the fiber orientation distribution function (ODF) from a CSD model with DIPY.",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "qa",
+    "quality-control",
+    "visualization"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-plot-response",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.311",
+   "description": "Plots the single-fiber response function of a CSD fit projected onto a sphere as a PNG image for quality control.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "qa",
+    "quality-control",
+    "visualization"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-predict-ppcs",
+  "before": {
+   "homepage": null,
+   "description": "App to predict Persisting Post Concussion Symptoms",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.793",
+   "description": "Predicts persisting post-concussion symptoms (time to return to play) from white matter tract measures.",
+   "topics": [
+    "brainlife-app",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-prf",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "vision"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.31",
+   "topics": [
+    "brainlife-app",
+    "vision"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-pyafq-segment",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.295",
+   "description": "Segments a whole-brain tractogram into the 20 major AFQ white matter tracts with pyAFQ, from DWI, tractogram and FreeSurfer inputs, and outputs a white matter classification (WMC).",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-pydeface",
+  "before": {
+   "homepage": "",
+   "description": "Brainlife wrapper for poldracklab/pydeface - MRI defacing App based on flirt and face template mask. https://github.com/poldracklab/pydeface ",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.388",
+   "description": "Defaces T1-weighted images with poldracklab/pydeface, which removes the face using FSL FLIRT and a face template mask.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-pynets",
+  "before": {
+   "homepage": "https://brainlife.io/app/5f1382ebcd745a62019c70a7",
+   "description": "A Reproducible post-processing workflow for Structural and Functional Connectome Ensemble Learning. PyNets  leverages Nilearn and Dipy fMRI and dMRI libraries to specify any of a variety of methodological choices and sampling individual structural and functional connectome estimates. See https://pynets.readthedocs.io/",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.486",
+   "description": "Runs PyNets, a reproducible workflow built on Nilearn and DIPY, on preprocessed T1w, fMRI and DWI data to estimate ensembles of structural and functional connectomes.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dipy",
+    "dwi",
+    "fmri",
+    "nilearn"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-qsiprep",
+  "before": {
+   "topics": [
+    "preprocessing",
+    "pipeline"
+   ]
+  },
+  "after": {
+   "topics": [
+    "brainlife-app",
+    "pipeline",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-qt1-mrq",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.481",
+   "description": "Fits quantitative T1 (qT1) models with mrQ (Mezer et al. 2013) to SPGR and SEIR acquisitions using a T1-weighted reference image.",
+   "topics": [
+    "anatomy",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-register-rois-mni",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.813",
+   "description": "Computes or applies FSL warps to move ROIs or tract masks between subject T1w/T2w space and standard space, and outputs the warped ROIs.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-removeFirstB0",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.197",
+   "description": "Temporary utility that removes the first b0 volume from a DWI image, made for the Athlete Brain Study dataset.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-removeTractOutliers",
+  "before": {
+   "homepage": "",
+   "description": "This is a brainlife.io wrapper app for mbaComputeFibersOutliers algorithm. It takes an existing tract classification and prune classified fibers that are unlike other fibers within the same tract.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.195",
+   "description": "Removes outlier streamlines from each tract in a white matter classification, by distance from the tract core or from mean streamline length, with mbaComputeFibersOutliers from the MBA toolbox.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-resample-surface-data",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.604",
+   "description": "Resamples cortical surface data to a chosen fsaverage space and number of vertices.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-reslice-isotropic",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.691",
+   "description": "Resamples T1w or T2w images to isotropic voxels of a chosen size with FSL FLIRT, intended for clinical scans with one high-resolution plane.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-roi2roitracking",
+  "before": {
+   "homepage": "",
+   "description": "This app will perform ensemble tracking between 2 or more cortical regions of interest (ROIs) from either a freesurfer parcellation or an atlas parcellation. The app will automatically generate ROI niftis in diffusion space for tracking based on inputted ROI numbers. Inputs include: parcellation (freesurfer; atlas optional), dt6 from dtiinit, and ROI pairings. Outputs include a track.tck for each pairing of ROIs, a classification structure, and a fg_classified structure which can then be fed into other apps on the website (example: Clean WMC Output).",
+   "topics": [
+    "tracking"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.279",
+   "description": "Performs ensemble tractography between pairs of cortical ROIs from a FreeSurfer or atlas parcellation with MRtrix 0.2.12 and outputs a .tck tractogram and white matter classification for each pair.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "tracking",
+    "tractography",
+    "vistasoft"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-roiGenerator",
+  "before": {
+   "homepage": "",
+   "description": "Generate a parcellation volume (and roi nifti files split into each label) for specific ROIs, or every ROI, for a parcellation from freesurfer output and/or input parcellation volume. This App can also inflate input parcellation volume toward non-white matter voxels.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.762",
+   "description": "Generates ROI NIfTI files and volume parcellations in anatomical, diffusion or fMRI space from FreeSurfer, input parcellations and pRF visual areas, using AFNI to inflate and merge ROIs.",
+   "topics": [
+    "afni",
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-ROIsfromAtlas",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.140",
+   "description": "Extracts single, multiple or combined ROIs from a volumetric parcellation or atlas by label index and outputs them as NIfTI ROIs in the atlas space.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "parcellation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-rsHRF",
+  "before": {
+   "description": "Hemodynamic Response Function Retrieval and Deconvolution (RS-HRF)",
+   "topics": []
+  },
+  "after": {
+   "description": "Estimates the hemodynamic response function from resting-state fMRI BOLD data and a brain mask and deconvolves the signal with rsHRF, using canonical, FIR or smoothed FIR models.",
+   "topics": [
+    "brainlife-app",
+    "fmri"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-seg-eval-metric-agg",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.990",
+   "topics": [
+    "brainlife-app",
+    "segmentation",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-segment-hippamyg-nuclei",
+  "before": {
+   "homepage": "",
+   "description": "This app will segment the hippocampus and amygdala into its multiple components using the developer version of Freesurfer's segmentThalamicNuclei.sh function (http://freesurfer.net/fswiki/ThalamicNuclei). This app takes a Freesurfer segmentation in as an input and generates .mgz files with the appropriate thalamic segmentation inside the Freesurfer",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.738",
+   "description": "Segments hippocampal subfields and amygdala nuclei with FreeSurfer segmentHA_T1.sh and adds the resulting .mgz files to the input FreeSurfer output.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-segment-thalamic-nuclei",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "analysis",
+    "anatomy-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.222",
+   "topics": [
+    "analysis",
+    "anatomy-preprocessing",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-segment-tracts-between-multiple-regions",
+  "before": {
+   "description": "Tract Segmentation from input tractography using ROIs",
+   "topics": [
+    "segmentation",
+    "diffusion-mri",
+    "tractography"
+   ]
+  },
+  "after": {
+   "description": "Segments a tractogram into tracts connecting pairs of ROIs or atlas regions and outputs a WMC classification.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-mri",
+    "dwi",
+    "segmentation",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-sh2peaks",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.623",
+   "description": "Computes fiber orientation peaks from spherical harmonic data, such as CSD FODs, with MRtrix3 and outputs a peaks dataset.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-modeling",
+    "dwi",
+    "mrtrix3"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-sift-sift2",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.616",
+   "description": "Computes streamline weights with SIFT2, or filters a whole-brain tractogram with SIFT, in MRtrix3 using a CSD model, for use in structural connectivity analysis.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "mrtrix3",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-sift2-connectome-generation",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.765",
+   "description": "Generates structural connectivity matrices (count, length, density) from a whole-brain tractogram and a volume parcellation with MRtrix3, optionally SIFT2-weighted and with tensor or NODDI measures.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "mrtrix3",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-slicer-fsl",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.689",
+   "description": "Creates mid-axial, sagittal and coronal PNG slices of DWI, fMRI, T1, T2, FLAIR, mask, tensor and NODDI images, with optional overlays and GIF montages, using FSL for quality control.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "dwi",
+    "fmri",
+    "fsl",
+    "qa",
+    "quality-control"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-snr_in_cc",
+  "before": {
+   "homepage": "",
+   "description": "Brainlife.io app that computes the signal-to-noise ratio in the corpus callosum",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.120",
+   "description": "Computes the signal-to-noise ratio in the corpus callosum of DWI data for each gradient direction and b0 with DIPY, and outputs SNR statistics with corpus callosum and noise masks.",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "quality-control"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-socr-mlra",
+  "before": {
+   "description": "SOCR / Volume-based Multiple Linear Regression Analysis",
+   "topics": []
+  },
+  "after": {
+   "description": "Runs the SOCR volume-based multiple linear regression analysis on T1-weighted images with user-specified regressors.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "statistics"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-split-dwi-volumes",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.575",
+   "description": "Extracts user-selected volumes from a DWI image with MRtrix3.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-splitshells",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "diffusion-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.17",
+   "topics": [
+    "brainlife-app",
+    "diffusion-preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-streamlineCategorySegmentation",
+  "before": {
+   "description": "Automatically segment a tractogram into categories (i.e. fronto-parietal tracts, parieto-temporal tracts, etc). THIS APPLICATION IS HIGHLY RECOMMENDED AS A MEANS OF RUNNING AN INITIAL QUALITY ASSURANCE CHECK ON YOUR GENERATED TRACTOGRAPHY OR AS A SANITY CHECK ON PROBLEMATIC SEGMENTATIONS.",
+   "topics": [
+    "white-matter-segmentation"
+   ]
+  },
+  "after": {
+   "description": "Segments a whole-brain tractogram into anatomical streamline categories (e.g. fronto-parietal, parieto-temporal) using a FreeSurfer parcellation and outputs a WMC classification, useful as a tractography quality check.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "quality-control",
+    "tract-segmentation",
+    "white-matter-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-subj2reference",
+  "before": {
+   "homepage": "",
+   "description": "This app warps your input set of ROIS to a reference space. As it is currently set up, the master branch of this app warps to MNI space.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.169",
+   "description": "Warps a set of ROIs, or density/probability maps, from subject T1w space to MNI space with ANTs.",
+   "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-synthsr",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.705",
+   "description": "Generates a synthetic 1 mm isotropic MP-RAGE T1-weighted image from clinical T1w, T2w or FLAIR scans with SynthSR in FreeSurfer 7.3.2.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "freesurfer"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-synthstrip",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.726",
+   "description": "Skull-strips a T1w, T2w, FLAIR, DWI or fMRI image with FreeSurfer SynthStrip, producing a brain-extracted image and a brain mask.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "dwi",
+    "fmri",
+    "freesurfer",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-temp-parc-surface-deprecated-converter",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.582",
+   "description": "Converts the deprecated parcellation/surface-deprecated datatype into the current surface/vertices and surface/data datatypes.",
+   "topics": [
+    "brainlife-app",
+    "conversion"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-template-matlab",
+  "before": {
+   "homepage": null,
+   "description": "brainlife.io template for a basic matlab app.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.419",
+   "description": "Template for a MATLAB-based brainlife.io App; the example loads a T1-weighted NIfTI image and resamples it to a new resolution.",
+   "topics": [
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-template-python",
+  "before": {
+   "homepage": null,
+   "description": "This is a template for a python-based brainlife.io/app",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.444",
+   "description": "Template for a Python-based brainlife.io App; the example resamples a T1-weighted image to a user-set resolution.",
+   "topics": [
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-testflip",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "qa"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.85",
+   "topics": [
+    "brainlife-app",
+    "qa"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-testgradientflip",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.18",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "quality-control"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-thickness-volume-eccentricity",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.243",
+   "description": "Bins FreeSurfer cortical thickness and volume by pRF eccentricity and outputs a .mat summary and PNG plots.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fmri",
+    "freesurfer",
+    "surface-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-time-series-2-network",
+  "before": {
+   "homepage": null,
+   "description": "convert an NxT time series to an NxN functional connectivity matrix",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.372",
+   "description": "Deprecated: converts an NxT time series into an NxN functional connectivity matrix (conmat) for functional brain network analysis.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "fmri",
+    "network-analysis"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tmp-brain-extract",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.775",
+   "description": "Temporary utility that applies a brain mask to a T1-weighted image and outputs the masked image.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tracking",
+  "before": {
+   "topics": [
+    "tracking"
+   ]
+  },
+  "after": {
+   "topics": [
+    "brainlife-app",
+    "tracking"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractanalysisprofiles",
+  "before": {
+   "homepage": "",
+   "description": "Create plots of diffusion metrics (i.e. FA, MD, RD, AD) for each of the segmented tracts from AFQ, known as Tract Profiles. Obtains streamline positions from segmented tracts and plots the metrics of interest along \"nodes\" of the tract, allowing for comparison of individual subject tracts. Requires the dt6 output from dtiinit and a white matter classification output from AFQ or WMA",
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.523",
+   "description": "Computes tract profiles of tensor, NODDI, myelin and quantitative MRI measures along nodes of segmented white matter tracts with Vistasoft or DIPY, outputting profile plots and a tract measures CSV.",
+   "topics": [
+    "analysis",
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "vistasoft"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractclassification",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.207",
+   "topics": [
+    "analysis",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractDensityMasks",
+  "before": {
+   "homepage": "",
+   "description": "This app creates a streamline density mask (NIfTI format) for each structure labeled in a classification structure.  This provides information about the volumetric density of streamline models of tracts.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.498",
+   "description": "Creates a NIfTI streamline density mask for each tract in a WMC classification from a tractogram and T1-weighted image, with optional resizing, thresholding, smoothing and normalization.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractographyQualityCheck",
+  "before": {
+   "homepage": "",
+   "description": "Compute many statistics from your input tractogram and any (optionally input) associated classification structure.  These statistics can be used to facilitate quality assurance on your tractography and segmentation, or as part of subject/group level quantative analysis for a research project. See the output section of README.MD for more details.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.189",
+   "description": "Computes streamline statistics (count, volume, length distribution) for a whole-brain tractogram and, optionally, its white matter classification, for tractography quality control and tract-level analysis.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "quality-control",
+    "statistics",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractometry-after-tractseg",
+  "before": {
+   "homepage": "",
+   "description": "This App computes tractometry on the TractSeg output.",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.708",
+   "description": "Computes FA, MD, RD and AD tract profiles along each TractSeg-segmented tract and outputs one tractmeasures dataset per measure.",
+   "topics": [
+    "brainlife-app",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractprofiles-agg",
+  "before": {
+   "homepage": null,
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.90",
+   "topics": [
+    "analysis",
+    "brainlife-app",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-tractseg",
+  "before": {
+   "homepage": "https://brainlife.io/app/5b82d7f4e2f4f800275e020f",
+   "topics": [
+    "analysis",
+    "white-matter-segmentation"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.684",
+   "topics": [
+    "analysis",
+    "brainlife-app",
+    "white-matter-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-trekker",
+  "before": {
+   "homepage": null,
+   "description": "Brainlife App (wrapper) for dMRI based fiber tracking using parallel transport tractography https://dmritrekker.github.io",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.356",
+   "description": "Tracks white matter streamlines from DWI and CSD with Trekker parallel transport tractography (PTT) and outputs a .tck tractogram.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-trekker-roi-tracking",
+  "before": {
+   "description": "Brainlife App (wrapper) for dMRI based fiber tracking between ROIs using parallel transport tractography",
+   "topics": [
+    "diffusion-mri",
+    "mri",
+    "tracking",
+    "tractography",
+    "vision"
+   ]
+  },
+  "after": {
+   "description": "Tracks white matter streamlines between ROIs from DWI and CSD with Trekker parallel transport tractography, including optic radiation, optic tract and visual white matter presets, and outputs a tractogram and WMC.",
+   "topics": [
+    "brainlife-app",
+    "diffusion-mri",
+    "dwi",
+    "mri",
+    "tracking",
+    "tractography",
+    "vision"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-trk2tck",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "convert"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.100",
+   "topics": [
+    "brainlife-app",
+    "convert"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-vistasoft-registration",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "diffusion-preprocessing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/bl.app.50",
+   "topics": [
+    "brainlife-app",
+    "diffusion-preprocessing"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-visual-white-matter",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.840",
+   "description": "Segments whole-brain tractography into connections between visual areas, binned by pRF eccentricity and polar angle, and outputs tracts, connectomes and network statistics.",
+   "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "network-analysis",
+    "tract-segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-warp-bold",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.569",
+   "description": "Applies a nonlinear warp to fMRI (BOLD) data or a volume parcellation with FSL.",
+   "topics": [
+    "brainlife-app",
+    "fmri",
+    "fsl",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-warp-standard-label-rois",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.748",
+   "description": "Warps and resamples standard-space surface labels to a subject's FreeSurfer volume with Connectome Workbench, producing ROIs or a volumetric parcellation.",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "connectome-workbench",
+    "parcellation",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-warp-t1",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "alignment"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.448",
+   "topics": [
+    "alignment",
+    "brainlife-app"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-warp-tractogram",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.721",
+   "description": "Warps a .tck tractogram to MNI space with MRtrix3 using a precomputed transform.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "registration",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-white-matter-mask-fa",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.719",
+   "description": "Creates a white matter mask by thresholding a fractional anisotropy (FA) map.",
+   "topics": [
+    "brainlife-app",
+    "dwi",
+    "segmentation"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-wmaSeg",
+  "before": {
+   "homepage": "",
+   "description": "Classifies streamlines into known anatomical tracts.",
+   "topics": [
+    "analysis"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.188",
+   "description": "Segments a whole-brain tractogram into major white matter tracts with a WMQL-like approach from wma_tools (Bullock et al. 2019), using FreeSurfer anatomy, and outputs a white matter classification.",
+   "topics": [
+    "analysis",
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "tract-segmentation",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-wmc_figures",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "quality-check"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.607",
+   "topics": [
+    "brainlife-app",
+    "quality-check"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/app-wmctotrk",
+  "before": {
+   "homepage": "",
+   "topics": [
+    "convert"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.231",
+   "topics": [
+    "brainlife-app",
+    "conversion",
+    "convert",
+    "dwi",
+    "tractography"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/bl_apps_dipy_buan_profiles",
+  "before": {
+   "homepage": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.456",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/bl_apps_dipy_buan_shapes",
+  "before": {
+   "homepage": "",
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.455",
+   "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi"
+   ]
+  }
+ },
+ {
+  "repo": "brainlife/VisWMROIWarp",
+  "before": {
+   "homepage": null,
+   "description": null,
+   "topics": []
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.168",
+   "description": "Warps a set of attention-related ROIs from MNI space to an individual's T1-weighted image space with ANTs.",
+   "topics": [
+    "anatomy",
+    "ants",
+    "brainlife-app",
+    "registration"
+   ]
+  }
+ },
+ {
+  "repo": "francopestilli/app-helloworld",
+  "before": {
+   "homepage": null,
+   "topics": [
+    "tutorial",
+    "mri",
+    "anatomy",
+    "cloud",
+    "cloud-computing"
+   ]
+  },
+  "after": {
+   "homepage": "https://doi.org/10.25663/brainlife.app.799",
+   "topics": [
+    "anatomy",
+    "brainlife-app",
+    "cloud",
+    "cloud-computing",
+    "mri",
+    "tutorial"
+   ]
+  }
+ }
+]
