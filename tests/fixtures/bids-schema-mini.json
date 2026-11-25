@@ -1,0 +1,154 @@
+{
+ "schema_version": "2.0.0",
+ "bids_version": "1.11.2",
+ "objects": {
+  "datatypes": {
+   "anat": {
+    "value": "anat",
+    "display_name": "Anatomical Magnetic Resonance Imaging",
+    "description": "Magnetic resonance imaging sequences designed to characterize static, anatomical features.\n"
+   },
+   "dwi": {
+    "value": "dwi",
+    "display_name": "Diffusion-Weighted Imaging",
+    "description": "Diffusion-weighted imaging (DWI).\n"
+   }
+  },
+  "suffixes": {
+   "T1w": {
+    "value": "T1w",
+    "display_name": "T1-weighted image",
+    "description": "In arbitrary units (arbitrary).\nThe contrast of these images is mainly determined by spatial variations in\nthe longitudinal relaxation time of the imaged specimen.\nIn spin-echo sequences this contrast is achieved at relatively short\nrepetition and echo times.\nTo achieve this weighting in gradient-echo images, again, short repetition\nand echo times are selected; however, at relatively large flip angles.\nAnother common approach to increase T1 weighting in gradient-echo images is\nto add an inversion preparation block to the beginning of the imaging\nsequence (for example, `TurboFLASH` or `MP-RAGE`).\n",
+    "unit": "arbitrary"
+   },
+   "T2w": {
+    "value": "T2w",
+    "display_name": "T2-weighted image",
+    "description": "In arbitrary units (arbitrary).\nThe contrast of these images is mainly determined by spatial variations in\nthe (true) transverse relaxation time of the imaged specimen.\nIn spin-echo sequences this contrast is achieved at relatively long\nrepetition and echo times.\nGenerally, gradient echo sequences are not the most suitable option for\nachieving T2 weighting, as their contrast natively depends on T2-star rather\nthan on T2.\n",
+    "unit": "arbitrary"
+   },
+   "dwi": {
+    "value": "dwi",
+    "display_name": "Diffusion-weighted image",
+    "description": "Diffusion-weighted imaging contrast (specialized T2 weighting).\n"
+   },
+   "dseg": {
+    "value": "dseg",
+    "display_name": "Discrete Segmentation",
+    "description": "A discrete segmentation.\n\nThis suffix may only be used in derivative datasets.\n"
+   }
+  }
+ },
+ "rules": {
+  "files": {
+   "raw": {
+    "anat": {
+     "nonparametric": {
+      "suffixes": [
+       "T1w",
+       "T2w",
+       "PDw",
+       "T2starw",
+       "FLAIR",
+       "inplaneT1",
+       "inplaneT2",
+       "PDT2",
+       "angio",
+       "T2star",
+       "FLASH",
+       "PD"
+      ],
+      "extensions": [
+       ".nii.gz",
+       ".nii",
+       ".ome.zarr/",
+       ".json"
+      ],
+      "datatypes": [
+       "anat"
+      ],
+      "entities": {
+       "task": "optional",
+       "echo": "optional",
+       "part": "optional",
+       "ceagent": "optional",
+       "reconstruction": "optional",
+       "chunk": "optional",
+       "acquisition": "optional",
+       "run": "optional",
+       "subject": "required",
+       "session": "optional"
+      }
+     }
+    },
+    "dwi": {
+     "dwi": {
+      "suffixes": [
+       "dwi"
+      ],
+      "extensions": [
+       ".nii.gz",
+       ".nii",
+       ".ome.zarr/",
+       ".json",
+       ".bvec",
+       ".bval"
+      ],
+      "datatypes": [
+       "dwi"
+      ],
+      "entities": {
+       "direction": "optional",
+       "part": "optional",
+       "reconstruction": "optional",
+       "chunk": "optional",
+       "acquisition": "optional",
+       "run": "optional",
+       "subject": "required",
+       "session": "optional"
+      }
+     }
+    }
+   },
+   "deriv": {
+    "imaging": {
+     "anat_discrete_segmentation": {
+      "entities": {
+       "task": "optional",
+       "echo": "optional",
+       "part": "optional",
+       "ceagent": "optional",
+       "reconstruction": "optional",
+       "chunk": "optional",
+       "acquisition": "optional",
+       "run": "optional",
+       "subject": "optional",
+       "session": "optional",
+       "atlas": "optional",
+       "segmentation": "optional",
+       "scale": "optional",
+       "resolution": "optional",
+       "space": "optional",
+       "description": "optional"
+      },
+      "suffixes": [
+       "dseg"
+      ],
+      "extensions": [
+       ".nii.gz",
+       ".nii",
+       ".tsv",
+       ".json"
+      ],
+      "datatypes": [
+       "anat"
+      ],
+      "selectors": [
+       "dataset.dataset_description.DatasetType == 'derivative'"
+      ]
+     }
+    }
+   }
+  }
+ }
+}
