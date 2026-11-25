@@ -1,28 +1,51 @@
-# Application for Big Computational Data (ABCD) Specification (v1.1)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/brand/brainlife-mark-on-dark.svg">
+    <img src=".github/brand/brainlife-mark-on-light.svg" alt="brainlife.io" width="140">
+  </picture>
+</p>
 
-#### MIT Copyright (c) 2020 brainlife.io The University of Texas at Austin and Indiana University
+<h1 align="center">ABCD specification</h1>
 
-### Authors
-- Soichi Hayashi (hayashis@iu.edu)
+<p align="center">
+  How a brainlife.io App starts, reports its status and stops, and how it describes itself.
+</p>
 
-### Contributors
-- Franco Pestilli (pestilli@utexas.edu)
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/Status-active-brightgreen.svg" alt="Status: active">
+  <a href="https://brainlife.io"><img src="https://img.shields.io/badge/brainlife.io-site-3b9fd0.svg" alt="brainlife.io"></a>
+  <a href="https://brainlife.io/docs"><img src="https://img.shields.io/badge/Docs-brainlife.io%2Fdocs-005981.svg" alt="Documentation"></a>
+  <a href="https://doi.org/10.1038/s41592-024-02237-2"><img src="https://img.shields.io/badge/DOI-10.1038%2Fs41592--024--02237--2-e57536.svg" alt="Nature Methods paper"></a>
+  <a href="https://github.com/brainlife/abcd-spec"><img src="https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg" alt="ABCD Spec v1.1"></a>
+</p>
 
-### Funding Acknowledgement
-brainlife.io is publicly funded and for the sustainability of the project it is helpful to Acknowledge the use of the platform. We kindly ask that you acknowledge the funding below in your publications and code reusing this code.
+## 🧠 At a glance
 
-[![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1734853)
-[![NSF-BCS-1636893](https://img.shields.io/badge/NSF_BCS-1636893-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1636893)
-[![NSF-ACI-1916518](https://img.shields.io/badge/NSF_ACI-1916518-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1916518)
-[![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1912270)
-[![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://grantome.com/grant/NIH/R01-EB029272-01)
+| | |
+|---|---|
+| 🧭 **What** | A minimal contract between an application and a workflow manager: `start`, `status` and `stop` hooks, a `config.json` for inputs and a working directory for outputs |
+| 📄 **Manifest** | `brainlife.app.json` (spec v2, draft) describes an App's inputs, outputs, parameters and runtime; schema in [`schema/`](schema), validator [`tools/blapp.py`](tools/blapp.py) |
+| 🗂️ **Catalog** | [`catalog/index.json`](catalog/index.json): every public brainlife App with its datatypes and container |
+| 🧩 **Templates** | [`templates/README.md`](templates/README.md) for App READMEs; default hook scripts in [`hooks/`](hooks) |
+| ⚙️ **Runs on** | [amaretti-next](https://github.com/brainlife/amaretti-next), the brainlife.io orchestrator (reference implementation) |
 
-### Citations
-We kindly ask that you cite the following articles when publishing papers and code using this code. 
+## ⚡ The spec in 30 seconds
 
-1. Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [https://doi.org/10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+```json
+{ "abcd": { "start": "./start.sh", "stop": "./stop.sh", "status": "./status.sh" } }
+```
 
-## Background
+An App is a git repository. The workflow manager writes `config.json` (inputs and parameters), calls the `start` hook, polls `status` until it reports finished or failed, and calls `stop` on request. On resources that provide default hooks, the App only needs an executable `main`. Outputs are written to the working directory.
+
+```bash
+pip install jsonschema pytest
+pytest -q tests                                  # what CI runs
+python tools/blapp.py validate brainlife.app.json --registry record.json
+```
+
+<details>
+<summary><b>📖 Background: why ABCD</b></summary>
 
 Scientists routinely use applications to compute and perform analyses either using personal computers (local hardware) or remote resources (remote/distal hardware, such as high performance clusters or cloud systems). Scientists must be familiar with variety of methods and programming languages in order to use these application effectively. Scientists must be able to install these application in diverse environment, and prepare input data to meet each application requirements by organizing, or converting their input data types. Needless to say, this makes it difficult to reproduce other scientists's results, or to reuse applications developed by other collaborators.
 
@@ -39,6 +62,8 @@ Recently, there has been a proposal to create a standard data structures such as
 These advancements greatly benefit advanced domain experts, however, we need yet another layer of abstraction to execute these application to automate the execution and monitoring of a workflow. *Workflow manager* is commonly used to orchestrate complex series of applications to deal with large amount of computational data, or to create a facade application to wrap a complicated subsystem with a simpler interface.
 
 Indeed, many workflow management systems have been developed, but so far there has not been a widely adopted generic specification describing how to start, stop, and monitor applications so that applications can be programmatically executed across different workflow managers. This lack of standard necessitates developers to create different applications (or the application wrappers) thus making it difficult for reuse.
+
+</details>
 
 ## Specification
 
@@ -113,7 +138,7 @@ Start script can output startup log to stdout, or any error messages to stderr. 
 
 This script will be executed by workflow manager periodically to query status of the application. You can simply check for the PID of the application to make sure that it's running, or for a batch system, you can use commands such as `qstat` or `condor_status` to query for your application.
 
-Please see [ABCD default hook scripts](https://github.com/brain-life/abcd-spec/tree/master/hooks) as an example.
+Please see [ABCD default hook scripts](https://github.com/brainlife/abcd-spec/tree/master/hooks) as an example.
 
 #### Exit Code
 
@@ -316,24 +341,63 @@ is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowe
 the skill that audits and backfills App metadata is in
 [`skills/brainlife-app-metadata`](skills/brainlife-app-metadata/SKILL.md).
 
-## Misc.
+## 🧰 Misc.
 
 ### ABCD Badge
 
 For all ABCD specification compliant services, you can display following badge on top of the README.md to indicate that your service can be executed on all workflow manager who supports ABCD specification.
 
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brainlife/abcd-spec)
 
 ```
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brainlife/abcd-spec)
 ```
 
 ### ABCD Reference Application Implementations
 
-Examples of ABCD compliant services can be found under [Brain-Life Application](https://github.com/brain-life/?tab=repositories&q=app)
+Examples of ABCD compliant services can be found under [brainlife Apps](https://github.com/brainlife?tab=repositories&q=app-)
 
 ### ABCD Reference Workflow Manager Implementation
 
-Currently, [Amaretti](https://github.com/brain-life/amaretti) is the the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
+Currently, [Amaretti](https://github.com/brainlife/amaretti-next) is the only workflow manager that uses this specification, and can be used as a reference implementation for this specification.
 
+## 👥 Authors
 
+Soichi Hayashi (author). Contributors: Franco Pestilli.
+
+## 📚 Citing
+
+If you use brainlife.io in your work, please cite:
+
+> Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+
+## 💰 Funding
+
+brainlife.io is developed by the Pestilli Lab at The University of Texas at Austin and is publicly funded; acknowledging that support helps keep it running.
+
+<details>
+<summary>Grants (verified list, from <a href="https://github.com/brainlife/ezbids/blob/master/CREDITS.md#funding">ezbids CREDITS.md</a>)</summary>
+
+| Funder | Award | Title |
+|---|---|---|
+| NIH NINDS | [U24NS140384](https://reporter.nih.gov/project-details/U24NS140384) | BRAIN CONNECTS: The Axonal Projectome EXchange (APEX) |
+| NIH NIMH | [R01MH126699](https://reporter.nih.gov/project-details/R01MH126699) | Community-driven development of BIDS |
+| NIH NIBIB | [R01EB030896](https://reporter.nih.gov/project-details/R01EB030896) | CRCNS US-France: open science and cloud computing of MEEG |
+| NIH NIBIB | [R01EB029272](https://reporter.nih.gov/project-details/R01EB029272) | CRCNS US-France: lowering the barrier of entry to network neuroscience |
+| NSF | [BCS-1636893](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1636893), [2148729](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148729) | BD Spokes: Advanced Computational Neuroscience Network |
+| NSF | [BCS-1734853](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1734853), [2203524](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2203524) | NCS-FO: Connectome mapping algorithms |
+| NSF | [IIS-1912270](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1912270), [2148700](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148700) | CRCNS US-German: DataLad |
+| NSF | [ACI-1916518](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1916518) | BD Hubs: Midwest Big Data Hub |
+| Wellcome Trust | [226486](https://grantnav.threesixtygiving.org/grant/360G-Wellcome-226486_Z_22_Z) | Developing an international governance framework to advance global brain and mental health data equity and innovation |
+
+</details>
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome in this repository. For help using brainlife.io, see the [documentation](https://brainlife.io/docs).
+
+## ⚖️ License
+
+[MIT](LICENSE).
+
+<p align="center"><sub>brainlife.io · Brain data across scales. One place to analyze, share and publish it. · The University of Texas at Austin</sub></p>
