@@ -1,0 +1,343 @@
+{
+ "datatypes": [
+  {
+   "_id": "58c33bcee13a50849b25879a",
+   "name": "neuro/anat/t1w",
+   "desc": "T1-weighted magnetic resonance data (MRI), saved in NIfTI-1 format.",
+   "files": [
+    {
+     "_id": "5e3ad2d19362b722a0f966b9",
+     "id": "t1",
+     "filename": "t1.nii.gz",
+     "ext": ".gz",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5e3ad2cd9362b7d887f966b7",
+    "maps": [
+     {
+      "_id": "5e3ad2d19362b71b99f966ba",
+      "src": "t1.nii.gz",
+      "dest": "T1w.nii.gz"
+     },
+     {
+      "_id": "5e3ad2d19362b70bb5f966bb",
+      "src": "_meta_",
+      "dest": "T1w.json"
+     }
+    ],
+    "derivatives": "anat"
+   },
+   "validator": "brainlife/validator-neuro-anat",
+   "uis": [
+    "5be75b31e15a02914a4be8f0",
+    "5bf755c8e15a02914af8f084",
+    "5bf755e5e15a02914af8f194",
+    "5bf755f4e15a02914af8f22b",
+    "5bf75608e15a02914af8f2e3",
+    "5bf75623e15a02914af8f3d8",
+    "5bf75630e15a02914af8f44e",
+    "5bf7563de15a02914af8f4c5",
+    "60da96878c1f96ddd4318b19",
+    "66e4788b77aba166ce69446f"
+   ],
+   "samples": [
+    "5d796fd303e8c916d5eaed4d",
+    "5d796fd303e8c9853feaed51"
+   ],
+   "admins": [
+    "1"
+   ],
+   "__v": 48,
+   "create_date": "2020-02-05T14:36:01.608Z",
+   "datatype_tags": [],
+   "validator_branch": "",
+   "_datatype_tags": [
+    "1.25mm_brain",
+    "3dSkullStrip",
+    "7t",
+    "AC-PC aligned",
+    "ACPC",
+    "ANTs",
+    "CHM",
+    "Control",
+    "MNI152",
+    "MR",
+    "STGD",
+    "T1",
+    "T1WI",
+    "T1w",
+    "acpc_aligned",
+    "anat",
+    "baseline",
+    "bias_corrected",
+    "brain",
+    "brain_extracted",
+    "crop_reorient",
+    "debiased",
+    "defaced",
+    "deleteme",
+    "desc-preproc_T1w",
+    "dtag1",
+    "fmriprep",
+    "image 3",
+    "image 4",
+    "image 5",
+    "image 6",
+    "image 7",
+    "image 8",
+    "image_10",
+    "image_11",
+    "image_2",
+    "image_3",
+    "image_30",
+    "image_32",
+    "image_34",
+    "image_35",
+    "image_37",
+    "image_4",
+    "image_5",
+    "image_6",
+    "image_7",
+    "image_9",
+    "mni_space",
+    "mp2rage",
+    "norm",
+    "org-t1w",
+    "preprocessed",
+    "qsiprep",
+    "registered",
+    "second 1",
+    "session 1",
+    "session 2",
+    "session_1",
+    "session_2",
+    "standard",
+    "t1w",
+    "warped"
+   ],
+   "groupAnalysis": false,
+   "readme": ""
+  },
+  {
+   "_id": "58c33c5fe13a50849b25879b",
+   "name": "neuro/dwi",
+   "desc": "Diffusion-weighted magnetic resonance data (dMRI), saved in NIfTI-1 format.",
+   "files": [
+    {
+     "_id": "5dd857f7936ca314d2c57810",
+     "id": "dwi",
+     "filename": "dwi.nii.gz",
+     "ext": ".gz",
+     "required": true
+    },
+    {
+     "_id": "5dd857f7936ca314e2c5780f",
+     "id": "bvecs",
+     "filename": "dwi.bvecs",
+     "required": true
+    },
+    {
+     "_id": "5dd857f7936ca3e6a0c5780e",
+     "id": "bvals",
+     "filename": "dwi.bvals",
+     "required": true
+    },
+    {
+     "_id": "600b4b6cc9e1f5a62612b86b",
+     "id": "sbref",
+     "desc": "Single-band reference for one or more multi-band dwi images.",
+     "required": false,
+     "filename": "sbref.nii.gz"
+    },
+    {
+     "_id": "600b4b6cc9e1f5229312b86c",
+     "id": "sbref_json",
+     "desc": "",
+     "required": false,
+     "filename": "sbref.json"
+    }
+   ],
+   "bids": {
+    "_id": "5dd857d0936ca38046c5780c",
+    "maps": [
+     {
+      "_id": "5dd857f7936ca3d362c57814",
+      "src": "dwi.nii.gz",
+      "dest": "dwi.nii.gz"
+     },
+     {
+      "_id": "5dd857f7936ca30300c57813",
+      "src": "dwi.bvecs",
+      "dest": "dwi.bvecs"
+     },
+     {
+      "_id": "5dd857f7936ca30e67c57812",
+      "src": "dwi.bvals",
+      "dest": "dwi.bvals"
+     },
+     {
+      "_id": "5dd857f7936ca38269c57811",
+      "src": "_meta_",
+      "dest": "dwi.json"
+     }
+    ],
+    "derivatives": "dwi"
+   },
+   "validator": "brainlife/validator-neuro-dwi",
+   "uis": [
+    "5be75b31e15a02914a4be8f0",
+    "5bf755e5e15a02914af8f194",
+    "5bf755f4e15a02914af8f22b",
+    "5bf75608e15a02914af8f2e3",
+    "5bf75623e15a02914af8f3d8",
+    "5bf75630e15a02914af8f44e",
+    "5bf7563de15a02914af8f4c5"
+   ],
+   "samples": [
+    "5d796fd303e8c96171eaed52"
+   ],
+   "admins": [
+    "16",
+    "1"
+   ],
+   "__v": 40,
+   "create_date": "2019-11-22T21:49:43.326Z",
+   "datatype_tags": [
+    {
+     "_id": "5dd857f7936ca3084ac57816",
+     "datatype_tag": "single_shell",
+     "desc": "Only contains b0 and specific bvalue slices"
+    },
+    {
+     "_id": "5dd857f7936ca378a5c57815",
+     "datatype_tag": "b0",
+     "desc": "Only contains b0"
+    },
+    {
+     "_id": "5ed7e185da6645108b8ecf47",
+     "datatype_tag": "preprocessed",
+     "desc": "Image is preprocessed by various dwi preprocessing App, and in general, the image is aligned to the t1w from the same subject."
+    }
+   ],
+   "validator_branch": "",
+   "_datatype_tags": [
+    "2Merged?",
+    "3Merged",
+    "4Merged",
+    "4_merged",
+    "4merged",
+    "7t",
+    "ACPC",
+    "AP",
+    "CHM",
+    "Control",
+    "GND_corrected",
+    "MPPCA",
+    "MotionCorrected",
+    "PA",
+    "SENSE",
+    "SOS",
+    "STGD",
+    "Unrung",
+    "aligned",
+    "aligned_dtiinit",
+    "aligned_dwi",
+    "ap",
+    "b0",
+    "blip",
+    "brain_extracted",
+    "clean",
+    "debiased",
+    "denoised",
+    "diffusion",
+    "dtag1",
+    "dtiinit",
+    "dwi",
+    "eddy",
+    "eddy_correct",
+    "eddy_unwarped",
+    "epi_reg",
+    "extracted_volumes",
+    "full_sequence",
+    "image_2",
+    "image_23",
+    "image_24",
+    "image_29",
+    "image_29a",
+    "image_3",
+    "image_30",
+    "image_30a",
+    "image_31",
+    "image_32",
+    "image_33",
+    "image_34",
+    "image_35",
+    "image_4",
+    "image_5",
+    "masked",
+    "merged",
+    "new_sequence",
+    "non_b0",
+    "normalized",
+    "old_sequence",
+    "org-dwi-1k-AP",
+    "org-dwi-1k-PA",
+    "org-dwi-2k-AP",
+    "org-dwi-2k-PA",
+    "org-dwi-300-AP",
+    "org-dwi-300-PA",
+    "pa",
+    "preprocessed",
+    "qsiprep",
+    "raw",
+    "resliced",
+    "run_1",
+    "run_2",
+    "sense",
+    "session 1",
+    "session_1",
+    "session_2",
+    "single_shell",
+    "t1_aligned",
+    "unrotated_bvecs"
+   ],
+   "readme": "Used brainlife/validator-neuro-dwi for validator",
+   "groupAnalysis": false
+  },
+  {
+   "_id": "68dc5b50f9e4ee316ef8abd3",
+   "name": "zarr v3",
+   "desc": "zarr output",
+   "admins": [
+    "2759",
+    "4945",
+    "2891"
+   ],
+   "files": [
+    {
+     "id": "zarr-json",
+     "filename": "zarr.json",
+     "desc": "",
+     "required": true,
+     "_id": "68dc5b50f9e4ee316ef8abd4"
+    }
+   ],
+   "datatype_tags": [],
+   "_datatype_tags": [],
+   "validator": "",
+   "validator_branch": "",
+   "uis": [
+    "5be75b31e15a02914a4be8f0",
+    "6813c6d469170316efa38add"
+   ],
+   "samples": [],
+   "groupAnalysis": false,
+   "create_date": "2025-09-30T22:36:00.310Z",
+   "__v": 3,
+   "bids": null,
+   "readme": ""
+  }
+ ]
+}
