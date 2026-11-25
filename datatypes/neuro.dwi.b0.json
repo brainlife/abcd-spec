@@ -31,7 +31,7 @@
       },
       "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook."
     },
-    "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.b0.json"
+    "readme": "We normally store b0 as another neuro/dwi, but this datatype is registered to be \"Analysis\" datatype which means you can access the data through brainlife's group analysis / jupyter notebook.\n\n**Use for:** Reference image for DWI-to-T1w registration and brain masking. Access to b0 images in group analysis or Jupyter notebooks.\n\n**Not for:** Diffusion model fitting; it holds no diffusion-weighted volumes.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.dwi.b0.json"
   },
   "files": [
     {

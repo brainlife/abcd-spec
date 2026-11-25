@@ -54,7 +54,7 @@
       },
       "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type."
     },
-    "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.mask.json"
+    "readme": "All mask data should have 2 datatype tags, one for the space and another one for mask type.\n\n**Use for:** Brain extraction, restricting model fits or tracking, and region selection.\n\n**Not for:** Use in another space without resampling; check the space tag. Several regions; use neuro/rois or a parcellation.\n\n**BIDS:** anat/mask (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 111 Apps, output of 61 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.mask.json"
   },
   "files": [
     {

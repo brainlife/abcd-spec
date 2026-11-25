@@ -1,0 +1,119 @@
+[
+ {
+  "name": "neuro/anat/t1w",
+  "_id": "58c33bcee13a50849b25879a",
+  "method": "PUT",
+  "fields": [
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58c33bcee13a50849b25879a",
+   "desc": "T1-weighted magnetic resonance data (MRI), saved in NIfTI-1 format.",
+   "readme": null,
+   "files": [
+    {
+     "_id": "5e3ad2d19362b722a0f966b9",
+     "id": "t1",
+     "filename": "t1.nii.gz",
+     "ext": ".gz",
+     "required": true
+    }
+   ],
+   "bids": {
+    "_id": "5e3ad2cd9362b7d887f966b7",
+    "maps": [
+     {
+      "_id": "5e3ad2d19362b71b99f966ba",
+      "src": "t1.nii.gz",
+      "dest": "T1w.nii.gz"
+     },
+     {
+      "_id": "5e3ad2d19362b70bb5f966bb",
+      "src": "_meta_",
+      "dest": "T1w.json"
+     }
+    ],
+    "derivatives": "anat"
+   }
+  }
+ },
+ {
+  "name": "neuro/dwi",
+  "_id": "58c33c5fe13a50849b25879b",
+  "method": "PUT",
+  "fields": [
+   "bids",
+   "desc",
+   "files",
+   "readme"
+  ],
+  "before": {
+   "_id": "58c33c5fe13a50849b25879b",
+   "desc": "Diffusion-weighted magnetic resonance data (dMRI), saved in NIfTI-1 format.",
+   "readme": "Used brainlife/validator-neuro-dwi for validator",
+   "files": [
+    {
+     "_id": "5dd857f7936ca314d2c57810",
+     "id": "dwi",
+     "filename": "dwi.nii.gz",
+     "ext": ".gz",
+     "required": true
+    },
+    {
+     "_id": "5dd857f7936ca314e2c5780f",
+     "id": "bvecs",
+     "filename": "dwi.bvecs",
+     "required": true
+    },
+    {
+     "_id": "5dd857f7936ca3e6a0c5780e",
+     "id": "bvals",
+     "filename": "dwi.bvals",
+     "required": true
+    },
+    {
+     "_id": "600b4b6cc9e1f5a62612b86b",
+     "id": "sbref",
+     "desc": "Single-band reference for one or more multi-band dwi images.",
+     "required": false,
+     "filename": "sbref.nii.gz"
+    },
+    {
+     "_id": "600b4b6cc9e1f5229312b86c",
+     "id": "sbref_json",
+     "desc": "",
+     "required": false,
+     "filename": "sbref.json"
+    }
+   ],
+   "bids": {
+    "_id": "5dd857d0936ca38046c5780c",
+    "maps": [
+     {
+      "_id": "5dd857f7936ca3d362c57814",
+      "src": "dwi.nii.gz",
+      "dest": "dwi.nii.gz"
+     },
+     {
+      "_id": "5dd857f7936ca30300c57813",
+      "src": "dwi.bvecs",
+      "dest": "dwi.bvecs"
+     },
+     {
+      "_id": "5dd857f7936ca30e67c57812",
+      "src": "dwi.bvals",
+      "dest": "dwi.bvals"
+     },
+     {
+      "_id": "5dd857f7936ca38269c57811",
+      "src": "_meta_",
+      "dest": "dwi.json"
+     }
+    ],
+    "derivatives": "dwi"
+   }
+  }
+ }
+]

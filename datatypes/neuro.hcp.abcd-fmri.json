@@ -29,7 +29,7 @@
       },
       "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```"
     },
-    "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.abcd-fmri.json"
+    "readme": "The outputs are organized in the following structure:\n```\noutput_dir/\n|__ sub-id\n    |__ ses-session\n        |__ files\n        |   |__ executive_summary\n        |   |__ MNINonLinear\n        |   |   |__ fsaverage_LR32k\n        |   |   |__ Results\n        |   |__ T1w\n        |   |   |__ id\n        |   |__ task-taskname\n        |__ logs\n```\n\n**Use for:** Holding DCAN abcd-hcp-pipeline outputs for downstream fMRI analysis.\n\n**Not for:** No registered App uses this datatype; owner review needed.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.hcp.abcd-fmri.json"
   },
   "files": [
     {

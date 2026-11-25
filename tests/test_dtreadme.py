@@ -32,13 +32,20 @@ def test_render_leaves_file_and_app_lists_to_the_catalog():
     assert "dwi.nii.gz" not in md and "dMRI preprocessing" not in md
 
 
-def test_existing_readme_gets_only_sharing_and_link():
+def test_existing_readme_is_kept_and_enhanced_with_the_summary():
     r = copy.deepcopy(DWI)
     r["brainlife"]["original"]["readme"] = "Hand-written notes."
     md = dtreadme.render(r, URL)
-    assert md.startswith("Hand-written notes.")
-    assert "Tier 2" in md and md.rstrip().endswith("datatypes/neuro.dwi.json")
-    assert "Use for" not in md
+    assert md.startswith("Hand-written notes.\n\n**Use for:**")
+    assert "dwi/dwi (equivalent)" in md and "Tier 2" in md
+    assert md.rstrip().endswith("datatypes/neuro.dwi.json")
+
+
+def test_existing_readme_near_the_limit_gets_only_sharing_and_link():
+    r = copy.deepcopy(DWI)
+    r["brainlife"]["original"]["readme"] = "x" * 1800
+    md = dtreadme.render(r, URL)
+    assert len(md.encode()) <= 2048 and "Tier 2" in md and "Use for" not in md
 
 
 def test_long_original_readme_is_kept_byte_for_byte():

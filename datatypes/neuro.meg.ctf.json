@@ -91,7 +91,7 @@
       },
       "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf"
     },
-    "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.ctf.json"
+    "readme": "Each experimental run with a CTF system yields a folder with a .ds extension, containing several files. \n\nTo learn more about CTF’s data organization: \n> https://www.fieldtriptoolbox.org/getting_started/ctf\n\nhttps://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#ctf\n\n**Use for:** Raw CTF MEG input for conversion to MNE raw or splitting into FIF segments.\n\n**Not for:** Analysis that needs the BIDS *_meg.json parameters, which this datatype does not carry.\n\n**BIDS:** meg/meg (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.ctf.json"
   },
   "files": [
     {

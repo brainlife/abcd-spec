@@ -83,7 +83,7 @@
       },
       "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.BTi4D.json"
+    "readme": "https://bids-specification.readthedocs.io/en/stable/99-appendices/06-meg-file-formats.html#bti4d-neuroimaging\n\n**Use for:** Archiving raw BTi/4D MEG runs for later conversion.\n\n**Not for:** Processing on brainlife.io: no App reads this datatype yet.\n\n**BIDS:** meg/meg (partial)\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meg.BTi4D.json"
   },
   "files": [
     {

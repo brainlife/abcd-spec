@@ -60,7 +60,7 @@
       },
       "readme": "Edit me"
     },
-    "readme": "Edit me\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.egi.json"
+    "readme": "Edit me\n\n**Use for:** Raw EGI EEG input for conversion to MNE raw.\n\n**Not for:** EGI .mff folders; the converter reads the .raw format. Direct BIDS export: EGI .raw is not a BIDS EEG format.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.egi.json"
   },
   "files": [
     {

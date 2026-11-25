@@ -29,7 +29,7 @@
       },
       "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#"
     },
-    "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/eyetrack.asc.json"
+    "readme": "https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw/edit#\n\n**Use for:** Archiving eye-tracking sessions alongside imaging data.\n\n**Not for:** Processing on brainlife.io: no App reads this datatype yet. BIDS export as-is: BIDS needs *_physio.tsv.gz and *_physio.json.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/eyetrack.asc.json"
   },
   "files": [
     {

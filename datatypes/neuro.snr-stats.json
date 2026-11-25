@@ -29,7 +29,7 @@
       },
       "readme": "EDIT ME"
     },
-    "readme": "EDIT ME\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.snr-stats.json"
+    "readme": "EDIT ME\n\n**Use for:** DWI data-quality checks and comparing acquisitions.\n\n**Not for:** Mixing tables from different Apps without checking columns.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.snr-stats.json"
   },
   "files": [
     {

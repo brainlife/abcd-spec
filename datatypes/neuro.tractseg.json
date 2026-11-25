@@ -54,7 +54,7 @@
       },
       "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```"
     },
-    "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tractseg.json"
+    "readme": "```\nnodif_brain_mask.nii.gz\npeaks.nii.gz \nbundle_segmentations (dir)\nendings_segmentations (dir)\nTOM  (dir)\nTOM_trackings (dir)\nTractometry_peaks.csv \n```\n\n**Use for:** Tractometry of tensor or other maps along TractSeg bundles.\n\n**Not for:** Apps expecting a single tractogram or mask set; use the separate track/tck and tractmasks outputs.\n\n**BIDS:** dwi/mask (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.tractseg.json"
   },
   "files": [
     {

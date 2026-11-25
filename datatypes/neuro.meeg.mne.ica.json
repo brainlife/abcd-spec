@@ -29,7 +29,7 @@
       },
       "readme": "to be edited"
     },
-    "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.ica.json"
+    "readme": "to be edited\n\n**Use for:** Removing artifact components (EOG, ECG) from the same raw or epoched data.\n\n**Not for:** Other recordings than the one it was fitted on. Head-MRI transforms (one App reads a transform from this datatype).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.ica.json"
   },
   "files": [
     {

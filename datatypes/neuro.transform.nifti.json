@@ -31,7 +31,7 @@
       },
       "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
     },
-    "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.nifti.json"
+    "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Use for:** Applying registrations to images, masks, ROIs, parcellations and tractograms.\n\n**Not for:** Applying with the wrong tool; FSL and ANTs warp conventions differ (check tags).\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 29 Apps, output of 20 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.nifti.json"
   },
   "files": [
     {

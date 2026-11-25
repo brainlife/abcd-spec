@@ -30,7 +30,7 @@
       },
       "readme": "Run freesurfer "
     },
-    "readme": "Run freesurfer\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.freesurfer.longitudinal-template.json"
+    "readme": "Run freesurfer\n\n**Use for:** Step 2 of FreeSurfer longitudinal processing and longitudinal statistics.\n\n**Not for:** Cross-sectional analysis; use the per-timepoint neuro/freesurfer outputs.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** Input to 2 Apps, output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.freesurfer.longitudinal-template.json"
   },
   "files": [
     {

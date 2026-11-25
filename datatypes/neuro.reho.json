@@ -29,7 +29,7 @@
       },
       "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400."
     },
-    "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.reho.json"
+    "readme": "This datatype allows single-volume Nifti files containing the result of Region Homogeneity analyses.\n\nZang, Y., Jiang, T., Lu, Y., He, Y., Tian, L., 2004. Regional homogeneity approach to fMRI data analysis. Neuroimage 22, 394-400.\n\n**Use for:** Resting-state local synchrony analysis.\n\n**Not for:** Comparison across studies with different smoothing or neighbourhood settings.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.reho.json"
   },
   "files": [
     {

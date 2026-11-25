@@ -49,9 +49,9 @@
     "desc": "T1-weighted anatomical MRI volume (NIfTI), the usual reference image for registration and cortical reconstruction.",
     "name": "neuro/anat/t1w",
     "original": {
-      "desc": "T1-weighted magnetic resonance data (MRI), saved in NIfTI-1 format.",
+      "desc": "T1-weighted anatomical MRI volume (NIfTI), the usual reference image for registration and cortical reconstruction.",
       "file_descs": {
-        "t1": ""
+        "t1": "T1-weighted volume (NIfTI, gzip)."
       },
       "readme": ""
     },

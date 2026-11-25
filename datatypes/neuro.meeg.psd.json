@@ -29,7 +29,7 @@
       },
       "readme": "Dimensions: channels x freqs"
     },
-    "readme": "Dimensions: channels x freqs\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.psd.json"
+    "readme": "Dimensions: channels x freqs\n\n**Use for:** Spectral summaries: band power, peak frequency, channel averages.\n\n**Not for:** Mixing channel types (grad, mag, eeg) in one analysis; check tags. Tables of peak frequency or mean amplitude, also stored here; check tags.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps, output of 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.psd.json"
   },
   "files": [
     {

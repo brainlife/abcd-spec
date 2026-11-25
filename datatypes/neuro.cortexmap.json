@@ -57,7 +57,7 @@
       },
       "readme": "todo"
     },
-    "readme": "todo\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.cortexmap.json"
+    "readme": "todo\n\n**Use for:** Analysing diffusion, myelin or other measures mapped onto the cortical midthickness surface. Per-parcel surface statistics and group averaging on a standard mesh.\n\n**Not for:** Group averaging before resampling every subject to the same standard mesh.\n\n**BIDS:** anat/dseg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 28 Apps, output of 27 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.cortexmap.json"
   },
   "files": [
     {

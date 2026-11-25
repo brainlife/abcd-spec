@@ -29,7 +29,7 @@
       },
       "readme": "to be edited"
     },
-    "readme": "to be edited\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.projection.json"
+    "readme": "to be edited\n\n**Use for:** Projecting out ECG, EOG or environmental noise from raw MEG/EEG.\n\n**Not for:** Recordings from another system or sensor layout.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 1 App, output of 4 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.projection.json"
   },
   "files": [
     {

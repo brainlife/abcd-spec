@@ -29,7 +29,7 @@
       },
       "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files."
     },
-    "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.bossdb.json"
+    "readme": "# neuro/bossdb\n\nA virtual reference to a public BossDB volumetric channel.\n\nThe channel remains in BossDB-compatible object storage and is accessed through\nits stable BossDB collection, experiment, and channel identifiers. Individual\nchunks are not registered as separate Brainlife files.\n\n**Use for:** Running segmentation, contactome or TIFF export Apps on public BossDB volumes.\n\n**Not for:** Private or non-BossDB volumes; the reference must resolve publicly.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.bossdb.json"
   },
   "files": [
     {

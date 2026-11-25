@@ -89,7 +89,7 @@
       },
       "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv"
     },
-    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.eeglab.json"
+    "readme": "https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#electroencephalography\n\nFor the content of channels and electrodes, please see https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#channels-description-_channelstsv\n\n**Use for:** EEG input for EEGLAB-style cleaning (EEGPrep) or conversion to MNE raw.\n\n**Not for:** Telling raw from cleaned EEG without tags: EEGPrep writes cleaned data to this datatype.\n\n**BIDS:** eeg/eeg (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 3 Apps, output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.eeg.eeglab.json"
   },
   "files": [
     {

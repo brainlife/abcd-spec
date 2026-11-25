@@ -81,7 +81,7 @@
       },
       "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```"
     },
-    "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.multiecho.json"
+    "readme": "Metadata must contain EchoTime in Array for each bold image. This array will be split into individual .json by bl2bids to create BIDS compliant file structure. \n\n```\n\"EchoTime\": [ 1.0, 1.2, 1.3 ]\n```\n\n**Use for:** Export to BIDS (bl2bids splits EchoTime into per-echo sidecars) for multi-echo pipelines.\n\n**Not for:** Use without the EchoTime array in metadata. Apps expecting single-echo neuro/func/task; no registered App reads this datatype.\n\n**BIDS:** func/bold (partial)\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.func.multiecho.json"
   },
   "files": [
     {

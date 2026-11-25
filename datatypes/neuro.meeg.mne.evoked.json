@@ -29,7 +29,7 @@
       },
       "readme": "To be edited by Saseed"
     },
-    "readme": "To be edited by Saseed\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.evoked.json"
+    "readme": "To be edited by Saseed\n\n**Use for:** Input for source estimation, forward modelling (sensor info) and ERP inspection.\n\n**Not for:** Noise covariance estimation except as a last resort.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 4 Apps, output of 3 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.meeg.mne.evoked.json"
   },
   "files": [
     {

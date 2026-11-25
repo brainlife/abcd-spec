@@ -29,7 +29,7 @@
       },
       "readme": "A list of .vtk files with any names stored inside `surfaces` directory."
     },
-    "readme": "A list of .vtk files with any names stored inside `surfaces` directory.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.3Dsurfaces.json"
+    "readme": "A list of .vtk files with any names stored inside `surfaces` directory.\n\n**Use for:** Visualising tract, ROI or cortical surfaces in 3D viewers. Shape analysis such as Laplace-Beltrami spectra of each mesh.\n\n**Not for:** Voxel-wise analysis; meshes carry geometry only, not image intensities. Cross-subject comparison without a common space; meshes stay in the source image space.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** Input to 6 Apps, output of 5 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.3Dsurfaces.json"
   },
   "files": [
     {

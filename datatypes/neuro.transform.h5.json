@@ -31,7 +31,7 @@
       },
       "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit"
     },
-    "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.h5.json"
+    "readme": "Roughly based on https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE/edit\n\n**Use for:** Moving images, ROIs or tracts between native and template space with ANTs.\n\n**Not for:** FSL tools, which cannot read .h5 transforms; use neuro/transform/nifti.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 2 (pseudonymised participant-level) by default.\n\n**Apps:** output of 2 Apps.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.transform.h5.json"
   },
   "files": [
     {
