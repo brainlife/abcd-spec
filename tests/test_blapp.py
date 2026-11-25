@@ -190,3 +190,25 @@ def test_container_expands_simple_variables(record):
 def test_container_expands_variables_with_defaults(record):
     main = 'singularity exec docker://brainlife/fsl:${FSL_VERSION:-6.0.4} ./run\n'
     assert blapp.generate(record, main_text=main)["runtime"]["container"] == "brainlife/fsl:6.0.4"
+
+
+def test_datatype_version_range_is_accepted(manifest):
+    manifest["inputs"][0]["datatype_version"] = ">=1.0 <2.0"
+    manifest["outputs"][0]["datatype_version"] = ">=1.0 <2.0"
+    errors, _ = blapp.validate(manifest)
+    assert errors == []
+
+
+def test_datatype_version_is_optional(manifest):
+    for item in manifest["inputs"] + manifest["outputs"]:
+        item.pop("datatype_version", None)
+    errors, _ = blapp.validate(manifest)
+    assert errors == []
+
+
+@pytest.mark.parametrize("section", ["inputs", "outputs"])
+def test_datatype_version_must_be_a_string(manifest, section):
+    manifest[section][0]["datatype_version"] = 1
+    errors, _ = blapp.validate(manifest)
+    assert any(e.startswith(f"{section}/0/datatype_version:") and "is not of type 'string'" in e
+               for e in errors), errors
