@@ -1,0 +1,140 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Communities",
+  "version": "0.3",
+  "summary": "App to obtain the community structure of networks by using the Louvain or Infomap methods. All the Louvain quality functions work for networks with negative weights.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5e79cdc2dd840e9395e866a2",
+    "github": "filipinascimento/bl-network-communities",
+    "branch": "0.3"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network. Note that not all the methods support negative weights, please use the Network Preprocessor app before running this App if the network has negative weights.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "communities"
+      ],
+      "description": "A network containing the detected community structure.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Community detection method\n- Louvain community detection algorithm, you can choose a variation by setting louvain-quality-function. Louvain quality functions works for negative weights.\n- Infomap community detection algorithm.\n- Stochastic block Model can handle layered networks, weighted, directed as well as negative weights.",
+      "default": "louvain",
+      "options": [
+        {
+          "value": "louvain",
+          "label": "Louvain",
+          "description": "Louvain community detection algorithm, you can choose a variation by setting louvain-quality-function."
+        },
+        {
+          "value": "infomap",
+          "label": "Infomap",
+          "description": "Infomap community detection algorithm."
+        },
+        {
+          "value": "sbm",
+          "label": "Stochastic Block Model (SBM)",
+          "description": "Uses Stochastic Block Model."
+        }
+      ]
+    },
+    {
+      "id": "infomap-trials",
+      "type": "number",
+      "description": "Number of trials for the Infomap community detection algorithm. (ignored if used for other methods)",
+      "default": 10,
+      "minimum": 1,
+      "required": false,
+      "advanced": true,
+      "placeholder": "10"
+    },
+    {
+      "id": "louvain-quality-function",
+      "type": "enum",
+      "description": "Partition quality function to be optimized for the Louvain method:\n- Modularity: Uses modularity optimization. Accepts weighted networks.\n- RBConfiguration: Reichardt and Bornholdt\u2019s Potts model with a configuration null model. Accepts weighted networks.\n- RBER - Implements Reichardt and Bornholdt\u2019s Potts model with an Erd\u0151s-R\u00e9nyi null model. Accepts weighted networks.\n- Clique Percolation Method (CPM) method. Accepts weighted networks.\n- Significance: based on KL divergence comparing ER. Not suitable for weighted networks.\n- Surprise: based on KL divergence. Works with weighted networks.",
+      "default": "modularity",
+      "options": [
+        {
+          "value": "modularity",
+          "label": "Modularity",
+          "description": "Optimizes modularity (weighted networks are permitted). Accepts weighted networks."
+        },
+        {
+          "value": "rbconfiguration",
+          "label": "RBConfiguration",
+          "description": "Reichardt and Bornholdt\u2019s Potts model with a configuration null model. Accepts weighted networks."
+        },
+        {
+          "value": "rber",
+          "label": "RBER",
+          "description": "Implements Reichardt and Bornholdt\u2019s Potts model with an Erd\u0151s-R\u00e9nyi null model. Accepts weighted networks."
+        },
+        {
+          "value": "cpm",
+          "label": "Clique Percolation Method (CPM)",
+          "description": "Clique Percolation Method (CPM) method. This works with negative weights as well."
+        },
+        {
+          "value": "significance",
+          "label": "Significance",
+          "description": "Significance based on KL divergence comparing ER. Not suitable for weighted networks"
+        },
+        {
+          "value": "surprise",
+          "label": "Surprise",
+          "description": "Surprise: based on KL divergence. Works with weighted networks"
+        }
+      ],
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "louvain-resolution",
+      "type": "number",
+      "description": "Defines the resolution parameter gamma for the quality functions.",
+      "default": 1,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false,
+      "advanced": true,
+      "placeholder": "Communities resolution for Louvain methods"
+    },
+    {
+      "id": "assymetric-negative",
+      "type": "boolean",
+      "description": "If the network contains negative weights, the positive and negative partitions are weighted differently, according to Rubinov, Mikail, and Olaf Sporns. \"Weight-conserving characterization of complex functional brain networks.\" Neuroimage 56, no. 4 (2011): 2068-2079. This seems to be appropriate when analyzing brain networks.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.290"
+}

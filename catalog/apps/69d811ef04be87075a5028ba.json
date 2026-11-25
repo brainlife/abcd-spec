@@ -1,0 +1,40 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractcCloud",
+  "version": "master",
+  "summary": "Brainlife App: TractCloud - Registration-free tractography parcellation (MICCAI 2023)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69d811ef04be87075a5028ba",
+    "github": "ShuklaA11/app-tractcloud",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.920"
+}

@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute Volume of Binary Nifti images",
+  "version": "v1.0",
+  "summary": "computes the volume of binary nifti images",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5afe0f2a2e93b90028263655",
+    "github": "kitchell/app-binvolvolume",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fsurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fsurfer"
+      ]
+    },
+    {
+      "id": "vols",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "maskdir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "volume"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.13",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/bl.app.32"
+}

@@ -1,0 +1,48 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TDA Computing",
+  "version": "v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6845b40b187eaf3617cb1183",
+    "github": "Imanj767/fMRI-Persistent-Homology-Analysis",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "task",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "fmri"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "topology",
+      "datatype": "neuro/fmriprep",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.867"
+}

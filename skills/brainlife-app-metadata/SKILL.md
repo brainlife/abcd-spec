@@ -79,6 +79,31 @@ branch; if that one is deprecated or absent, the newest non-deprecated App.
 - Always add `brainlife-app`, so the repo is findable as a brainlife App.
 - Only add a topic the evidence supports.
 
+## Enriching a manifest (filling in `unknown`)
+
+Start from the generated draft and read the App's branch: README, `main`, and the scripts `main`
+runs. Fill only descriptive fields; never change `id`, `type`, `datatype`, `datatype_tags`,
+`default`, `options` values, `optional`, `multi`, `config_keys` or anything under `registry`.
+
+- `summary`: as in the style guide below, specific to this branch (version numbers allowed when
+  this branch pins them).
+- `description`: 2–4 sentences: what it does, when to use it, what it needs, when not to use it.
+- `inputs[].description` / `requirements`: what the file is and any condition the code checks or
+  assumes (shell count, alignment, space, resolution).
+- `outputs[].description`: what the output contains, in plain words.
+- `parameters[].description`: what the parameter controls, from the code that reads it. Add
+  `units` only when the code or README states them.
+- `runtime.container`: from `main` or a Dockerfile; `resources` from `#PBS`/`#SBATCH` lines.
+- `software[]`: tools the code actually calls, with versions only when pinned.
+- `citations[]`: only references given in the README or code, with DOI when present.
+- `failure_modes[]`: only error messages that appear in the code or README, with the fix they
+  state or that the code makes obvious.
+- `topics`: lowercase-hyphen, from the topics vocabulary below.
+
+Run `python tools/blapp.py validate <manifest> --registry <record>`; zero errors is required.
+If the README describes a different App or the code contradicts the registry, do not guess:
+leave `unknown` and report it.
+
 ## Output format for drafted About text
 
 One JSON object per repo:

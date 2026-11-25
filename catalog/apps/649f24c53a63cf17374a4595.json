@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract network statistics and connectivity matrices from network datatype",
+  "version": "v1.0",
+  "summary": "Converts a network datatype (JSON graph with node measurements) into CSV tables of connectivity matrices and global and local network statistics with pybrainlife, a format conversion utility.",
+  "description": "Loads the compressed JSON graph with jgf/igraph and uses pybrainlife to extract its connectivity matrices and global and local (per-node) measures, writing conmats.csv, global_measures.csv and local_measures.csv tagged with the subject and session. Use it to prepare network outputs for group analysis; for networks without measurements use the no-measures variant.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "conversion",
+    "network-analysis"
+  ],
+  "registry": {
+    "id": "649f24c53a63cf17374a4595",
+    "github": "brainlife/app-convert-network-netstats",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "measurements"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Network datatype (compressed JSON graph) that includes network measurements.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "net-stats",
+      "datatype": "neuro/net-stats",
+      "datatype_tags": [],
+      "description": "CSV tables: conmats.csv (connectivity matrices), global_measures.csv and local_measures.csv.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.787",
+  "software": [
+    {
+      "name": "pybrainlife"
+    },
+    {
+      "name": "python-igraph"
+    },
+    {
+      "name": "jgf"
+    }
+  ]
+}

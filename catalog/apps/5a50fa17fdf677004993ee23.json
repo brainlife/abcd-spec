@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Check dtiInit Orientation",
+  "version": "dtiinit",
+  "summary": "Reports the orientation (neurological or radiological) of a dtiInit-aligned DWI NIfTI image with FSL fslorient; a quality-control utility that produces no new image data.",
+  "description": "Reads the aligned DWI path from the dtiInit dt6.json, runs fslorient on it and writes the reported orientation (NEUROLOGICAL or RADIOLOGICAL) to product.json. It relies on a host FSL installation (no container) and legacy IU HPC environment variables, so it may not run on current resources.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "fsl",
+    "qa",
+    "quality-control"
+  ],
+  "registry": {
+    "id": "5a50fa17fdf677004993ee23",
+    "github": "brainlife/app-checkOrientation",
+    "branch": "dtiinit"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dtiInit output; the aligned DWI listed in dt6.json (files.alignedDwRaw) is checked.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "raw",
+      "datatype_tags": [
+        "orientation",
+        "dtiinit"
+      ],
+      "description": "Placeholder output; the orientation result is reported in product.json rather than as files."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/bl.app.21",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

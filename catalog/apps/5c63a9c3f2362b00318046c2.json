@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Brain Extraction (BET) on DWI",
+  "version": "dwi",
+  "summary": "Removes non-brain tissue from DWI with FSL BET, estimating the mask on the mean b0 image, and outputs the masked DWI and a brain mask.",
+  "description": "Extracts the b=0 volumes with select_dwi_vols, averages them, runs FSL bet on the mean b0 (optionally with -R) and multiplies every DWI volume by the resulting mask. Use it when a skull-stripped DWI or a diffusion-space brain mask is needed. bvals and bvecs are copied unchanged. The input must contain b=0 volumes.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "dwi",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c63a9c3f2362b00318046c2",
+    "github": "brainlife/app-FSLBET",
+    "branch": "dwi"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must contain b=0 volumes; the mask is estimated from their mean."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The masked DWI"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "The brainmask for the DWI image",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fthreshold",
+      "type": "number",
+      "description": "choose the fractional intensity threshold (0 -> 1); default=0.4; smaller values give larger brain outline estimates",
+      "default": 0.4
+    },
+    {
+      "id": "gthreshold",
+      "type": "number",
+      "description": "choose the vertical gradient in fractional intensity threshold (-1->1); default=0; positive values give larger brain outline at bottom, smaller at top",
+      "default": 0
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "if robust is set as true, will iteratively run bet2 to get better brain outlines",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.163",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mask missing",
+      "cause": "BET did not produce dwi_brain_mask.nii.gz.",
+      "fix": "Check the log for bet errors and that the DWI has b=0 volumes."
+    }
+  ]
+}

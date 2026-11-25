@@ -1,0 +1,175 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Trekker - v1.0",
+  "version": "v1.0",
+  "summary": "Brainlife App (wrapper) for dMRI based fiber tracking using parallel transport tractography https://dmritrekker.github.io",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5d2eada46c03750a8a5252cd",
+    "github": "brainlife/app-trekker",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "5 tissue type mask",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "wm_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wm_mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "min length of streamlines",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "max length of streamlines",
+      "default": 200
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "lmax",
+      "default": 8
+    },
+    {
+      "id": "count",
+      "type": "number",
+      "description": "total number of streamlines",
+      "default": 50000
+    },
+    {
+      "id": "minfodamp",
+      "type": "string",
+      "description": "This is the minimum FOD amplitude. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "0.05"
+    },
+    {
+      "id": "minradius",
+      "type": "string",
+      "description": "Minimum radius of curvature. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "0.5"
+    },
+    {
+      "id": "step_size",
+      "type": "string",
+      "description": "Step size. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "0.2"
+    },
+    {
+      "id": "probelength",
+      "type": "number",
+      "description": "Trekker: Length of the probe.",
+      "default": 0.25,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "probequality",
+      "type": "number",
+      "description": "Trekker: This parameter sets the number of segments to split the cylinder along the length of the probe",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "proberadius",
+      "type": "number",
+      "description": "Trekker: Radius of the probe.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "probecount",
+      "type": "number",
+      "description": "Trekker: determines the number of parallel lines used to model the cylinder.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "single_lmax",
+      "type": "boolean",
+      "description": "if only wanting to run on one lmax, set true. else, leave false",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/trekker:0.4",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 29,
+      "walltime_hours": 14
+    }
+  },
+  "doi": "10.25663/brainlife.app.214",
+  "deprecated_by": "5ecc9bfe1f446412299ed644"
+}

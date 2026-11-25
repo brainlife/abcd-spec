@@ -1,0 +1,173 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract summary measures within tissue types",
+  "version": "output-csv-v1.0",
+  "summary": "Computes the mean and standard deviation of diffusion (DTI, DKI, NODDI), quantitative MRI and myelin maps within gray matter, white matter, CSF and the whole brain defined by a 5-tissue-type mask, and outputs a CSV.",
+  "description": "Splits the 5-tissue-type image with MRtrix3 into gray matter, white matter and CSF maps binarised at 0.5, reslices each provided measure map to that grid with FreeSurfer mri_vol2vol (header-based, nearest neighbour), and writes per-tissue mean and SD of every measure to tissues.csv. Use it for a quick tissue-level summary of microstructure measures. Needs a 5-tissue-type mask and at least one of the tensor, NODDI, qMRI or myelin inputs, aligned to it. Note: in this branch the CSF mask is binarised from the gray matter map (convert.sh), so CSF values are not reliable.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "statistics",
+    "mrtrix3",
+    "fsl",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6412059573d2685502bce9de",
+    "github": "brainlife/app-extract-diffusion-metrics-tissue-types",
+    "branch": "output-csv-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "5-tissue-type segmentation (MRtrix3 5tt format) defining gray matter, white matter and CSF.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Optional tensor/kurtosis maps (fa, md, rd, ad, ga, ak, mk, rk).",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional NODDI maps (ndi, isovf, odi).",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "qt1",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional quantitative MRI maps (t1, r1, m0, pd, mtv, vip, sir, wf).",
+      "config_keys": [
+        "t1",
+        "r1",
+        "m0",
+        "pd",
+        "mtv",
+        "vip",
+        "sir",
+        "wf"
+      ]
+    },
+    {
+      "id": "myelin",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map.",
+      "config_keys": [
+        "myelin"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "summary_measures",
+        "tissue_types"
+      ],
+      "description": "tissues.csv with mean and SD of each measure in gray_matter, white_matter, csf and wholebrain."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives",
+        "summary_measures",
+        "tissue_types"
+      ],
+      "description": "Intermediate tissue masks and resliced measure maps."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.746",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Woolrich M.W. et al. Bayesian analysis of neuroimaging data in FSL. NeuroImage 45:S173-86 (2009)."
+    },
+    {
+      "text": "Smith S.M. et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-19 (2004)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "tissues.csv was not produced.",
+      "fix": "Check the log; make sure the measure maps and the 5tt mask are aligned."
+    }
+  ]
+}

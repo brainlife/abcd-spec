@@ -1,0 +1,117 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Register DWI to T1 using Vistasoft",
+  "version": "1.1",
+  "summary": "Registers a DWI to a T1-weighted image with vistasoft (dtiRawAlignToT1), resamples it and rotates the bvecs.",
+  "description": "Builds a b0 brain image with FSL select_dwi_vols and bet, aligns it to the T1 with vistasoft dtiRawAlignToT1, resamples the DWI with dtiRawResample and reorients the bvecs with dtiRawReorientBvecs. Use it to bring DWI into T1 (for example ACPC-aligned) space before tracking.",
+  "kind": "native",
+  "topics": [
+    "diffusion-preprocessing",
+    "dwi",
+    "registration",
+    "vistasoft",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "59fb2f15c996d0002d47ee1d",
+    "github": "brainlife/app-vistasoft-registration",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "bvals",
+        "bvecs",
+        "dwi"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "t1_aligned"
+      ],
+      "description": "Aligned DWI with corrected bvectors and bvalues"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "interpolation",
+      "type": "enum",
+      "description": "Interpolation for dtiRawResample: linear maps to [0 0 0 0 0 0], trilinear to [1 1 1 0 0 0] and spline to [7 7 7 0 0 0] (SPM-style interpolation codes).",
+      "default": "linear",
+      "options": [
+        {
+          "value": "linear",
+          "label": "linear"
+        },
+        {
+          "value": "trilinear",
+          "label": "trilinear"
+        },
+        {
+          "value": "spline",
+          "label": "spline"
+        }
+      ]
+    },
+    {
+      "id": "resolution",
+      "type": "string",
+      "description": "Output voxel size passed to dtiRawResample as a string (e.g. '2 2 2'); leave empty to keep the DWI's voxel size.",
+      "default": "",
+      "required": false,
+      "placeholder": "use default"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a"
+  },
+  "doi": "10.25663/bl.app.50",
+  "category": "registration",
+  "software": [
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "neurodebian1604-r2017a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "The b0 brain image (nodif.nii.gz) or the aligned dwi.nii.gz was not produced.",
+      "fix": "Check that the bvals contain b0 volumes and inspect the logs."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

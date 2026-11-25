@@ -1,0 +1,168 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply  Transformations to Tractography Data",
+  "version": "main",
+  "summary": "Apply spatial transformations (ANTs or FSL-derived) to a tractogram",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69aaf3006bb1f71b25ac8e59",
+    "github": "gamorosino/app-tract-transform",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input_tract",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "input_tract"
+      ]
+    },
+    {
+      "id": "transformation",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    },
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "t1w_fixed",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1_fixed"
+      ]
+    },
+    {
+      "id": "t2w_fixed",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2_fixed"
+      ]
+    },
+    {
+      "id": "tensor_fixed",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa_fixed",
+        "md_fixed",
+        "rd_fixed",
+        "ad_fixed",
+        "cl_fixed",
+        "cp_fixed",
+        "cs_fixed",
+        "tensors_fixed"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformed",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "invert",
+      "type": "boolean",
+      "description": "Assume registration was performed as:\n\n    MOVING  \u2192  REFERENCE\n\nThis means the estimated transform maps MOVING space into REFERENCE space.\n\n\nBring tractogram FROM MOVING \u2192 REFERENCE space\n\n  Use: invert",
+      "default": true
+    },
+    {
+      "id": "reverse_operation",
+      "type": "boolean",
+      "description": "Assume registration was performed as:\n\n    MOVING  \u2192  REFERENCE\n\nThis means the estimated transform maps MOVING space into REFERENCE space.\nBring tractogram FROM REFERENCE \u2192 MOVING space\n\n  Use  reverse operation (warp first, then linear) and do NOT select \"invert\" option",
+      "default": false
+    },
+    {
+      "id": "fsl_transform",
+      "type": "boolean",
+      "description": "If true, converts affine and warp to from FSL to ANTs-compatible format",
+      "default": false
+    },
+    {
+      "id": "verbose",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:latest",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.902"
+}

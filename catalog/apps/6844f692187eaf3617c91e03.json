@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Streamline Selection by Parcellation",
+  "version": "main",
+  "summary": "An automated and reproducible pipeline to extract streamlines from a tractogram based on a labeled parcellation image.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6844f692187eaf3617c91e03",
+    "github": "gamorosino/app-select-streamlines",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ends_only",
+      "type": "boolean",
+      "description": "filtering only the streamlines ending in the parcels",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.866"
+}

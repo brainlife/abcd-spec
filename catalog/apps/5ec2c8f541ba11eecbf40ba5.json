@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mrtrix2 CSD (dtiinit)",
+  "version": "v1.0",
+  "summary": "Fits constrained spherical deconvolution with MRtrix 0.2 at every even lmax up to a maximum and outputs the fibre orientation distributions and response function.",
+  "description": "Builds a brain mask (from the dtiInit brain mask or by thresholding the mean DWI), fits a tensor, derives a single-fibre mask (FA > 0.7) to estimate the response, and runs csdeconv for lmax 2, 4, ... up to max_lmax. Use it to produce MRtrix2 CSD inputs for MRtrix 0.2-based tractography Apps. Not suited to multi-shell multi-tissue CSD.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ec2c8f541ba11eecbf40ba5",
+    "github": "brainlife/app-mrtrix2-csd",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the mask datatype containing the brainmask of the DWI",
+      "config_keys": [
+        "brainmask"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DTIINIT datatype",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [
+        "mrtrix2"
+      ],
+      "description": "FODs from the CSD model fit using MRtrix2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "max_lmax",
+      "type": "number",
+      "description": "maximum spherical harmonic order (i.e. lmax). If blank, will automatically calculate based on number of shells in data.",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix_on_mcr:1.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.344",
+  "software": [
+    {
+      "name": "MRtrix",
+      "version": "0.2"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "csd fit failed",
+      "cause": "The CSD output for max_lmax was not written.",
+      "fix": "Check the log; lower max_lmax if the data has too few directions."
+    }
+  ]
+}

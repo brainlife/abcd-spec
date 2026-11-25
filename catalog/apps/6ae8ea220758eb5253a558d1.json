@@ -1,0 +1,214 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "CMC invivo dMRI (NORDIC)",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ae8ea220758eb5253a558d1",
+    "github": "gamorosino/app-CMC-invivo-dMRI-nordic",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "ap_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "AP (or LR) phase-encoding direction diffusion MRI.",
+      "config_keys": [
+        "ap_dwi",
+        "ap_bvecs",
+        "ap_bvals"
+      ]
+    },
+    {
+      "id": "pa_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "PA (or RL) phase-encoding direction diffusion MRI.",
+      "config_keys": [
+        "pa_dwi",
+        "pa_bvecs",
+        "pa_bvals"
+      ]
+    },
+    {
+      "id": "ap_phase",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "phase"
+      ],
+      "optional": true,
+      "multi": true,
+      "description": "AP phase images for NORDIC denoising. Must match ap_dwi count. Requires pa_phase.",
+      "config_keys": [
+        "ap_phase"
+      ]
+    },
+    {
+      "id": "pa_phase",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "phase"
+      ],
+      "optional": true,
+      "multi": true,
+      "description": "PA phase images for NORDIC denoising. Must match pa_dwi count. Requires ap_phase.",
+      "config_keys": [
+        "pa_phase"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1w structural image for standard-space registration (optional).",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "DTI tensor-derived scalar maps (FA, MD, AD, RD) from the lower-shell tensor fit."
+    },
+    {
+      "id": "brain_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Final post-EDDY brain mask."
+    },
+    {
+      "id": "qa_report",
+      "datatype": "report/pdf",
+      "datatype_tags": [],
+      "description": "Multi-page QA report (EDDY QC, masks, tensor maps, registration, XTRACT summary)."
+    },
+    {
+      "id": "preproc_bundle",
+      "datatype": "raw",
+      "datatype_tags": [],
+      "description": "Full preprocessing bundle: TOPUP/EDDY outputs, final 4D data, standard-space warps."
+    },
+    {
+      "id": "tractography_bundle",
+      "datatype": "raw",
+      "datatype_tags": [],
+      "description": "BedpostX + XTRACT outputs. Empty if run_tractography was disabled."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "total_readout_time",
+      "type": "number",
+      "description": "Total EPI readout time in seconds (FSL convention).",
+      "default": 0.05
+    },
+    {
+      "id": "lower_b",
+      "type": "integer",
+      "description": "b-value threshold separating the lower shell used for tensor fitting.",
+      "default": 1000
+    },
+    {
+      "id": "mode",
+      "type": "string",
+      "description": "Pipeline mode: 'nhp' for non-human primate, 'human' for human.",
+      "default": "nhp"
+    },
+    {
+      "id": "b0range",
+      "type": "number",
+      "description": "b-value ceiling for volumes treated as b0.",
+      "default": 60,
+      "advanced": true
+    },
+    {
+      "id": "phase_encoding_scheme",
+      "type": "string",
+      "description": "Phase-encoding axis pair: 'AP_PA' or 'LR_RL'.",
+      "default": "AP_PA",
+      "advanced": true
+    },
+    {
+      "id": "combine_only_matched_pairs",
+      "type": "boolean",
+      "description": "Combine only AP/PA runs that are matched pairs.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "ptx_steplength",
+      "type": "number",
+      "description": "Probabilistic tractography step length (mm).",
+      "default": 0.15,
+      "advanced": true
+    },
+    {
+      "id": "no_gpu",
+      "type": "boolean",
+      "description": "Disable GPU acceleration (e.g. for EDDY).",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "denoise",
+      "type": "boolean",
+      "description": "Enable denoising. NORDIC runs automatically when phase inputs are provided; MPPCA is used otherwise. Set false to skip denoising entirely.",
+      "default": true
+    },
+    {
+      "id": "run_gibbs",
+      "type": "boolean",
+      "description": "Apply Gibbs ringing correction after denoising.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "run_n4",
+      "type": "boolean",
+      "description": "Apply N4 bias field correction.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "run_tractography",
+      "type": "boolean",
+      "description": "Run BedpostX + XTRACT tractography after preprocessing.",
+      "default": true
+    },
+    {
+      "id": "stdreg_method",
+      "type": "string",
+      "description": "Standard-space registration method: 'mmorf' or 'fnirt'.",
+      "default": "mmorf",
+      "advanced": true
+    },
+    {
+      "id": "eddy_extra_args",
+      "type": "string",
+      "description": "Extra arguments passed verbatim to EDDY (optional).",
+      "default": "",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/app-cmc-invivo-nordic:v1.0",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 24
+    }
+  },
+  "doi": "10.25663/brainlife.app.993"
+}

@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EEGPrep",
+  "version": "0.2.22",
+  "summary": "EEGPrep is an automated preprocessing tool for human EEG data built on the validated EEGLAB pipeline, here implemented in Python. It applies clean_rawdata for artifact rejection and ICA then ICLabel to identify artifactual muscle components.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "asr",
+    "cleaner",
+    "eeg",
+    "eeglab",
+    "filtering",
+    "ica",
+    "iclabel",
+    "meeg",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "6793e2ee81d348aa5654e893",
+    "github": "sccn/eegprep",
+    "branch": "0.2.22"
+  },
+  "inputs": [
+    {
+      "id": "set",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "set"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "results",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "BurstCriterion",
+      "type": "number",
+      "description": "EGPrep is an automated preprocessing tool for human EEG data built on the validated EEGLAB pipeline, here implemented in Python. It applies clean_rawdata for artifact rejection and ICLabel to identify artifactual muscle components. This pipeline was reported to outperform all other pipelines evaluated in MNE, FieldTrip and Brainstorm, as shown in Figure 5 of https://www.nature.com/articles/s41598-023-27528-0.",
+      "default": 20,
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "arnodelorme/eegprep:0.2.22",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.845"
+}

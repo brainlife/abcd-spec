@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mean amplitude of PSD data",
+  "version": "main",
+  "summary": "Compute the mean amplitude of a frequency range of PSD values",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "616d6d2dfc8eb97193ff219a",
+    "github": "guiomar/app-peak-amplitude",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "psd01",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "psd"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "peak_ampl"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "peak_ampl"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fmin",
+      "type": "number",
+      "description": "Fmin of frequency range for mean amplitude of PSD values",
+      "default": 8
+    },
+    {
+      "id": "fmax",
+      "type": "number",
+      "description": "Fmax of frequency range for mean amplitude of PSD values",
+      "default": 12
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.583"
+}

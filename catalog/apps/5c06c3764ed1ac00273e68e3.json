@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert wmc to trk",
+  "version": "1.1",
+  "summary": "Convert a white matter classification (wmc) structure to a tractogram as a single trk file",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "convert"
+  ],
+  "registry": {
+    "id": "5c06c3764ed1ac00273e68e3",
+    "github": "brainlife/app-wmctotrk",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wmc"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [
+        "wmc"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.14.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.129",
+  "deprecated_by": "5d89980e9842202a887ec261"
+}

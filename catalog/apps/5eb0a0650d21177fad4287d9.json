@@ -1,0 +1,211 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert network neuro matrix to conmat",
+  "version": "v1.0.0",
+  "summary": "Converts one measure's matrix from the Network Neuro raw networkmatrices output, with its parcellation key, into a conmat datatype.",
+  "description": "Copies <measure>.csv from the networkmatrices output into cm/csv/correlation.csv and builds label.json from the parcellation key (plus 14 FreeSurfer subcortical labels) and index.json. Temporary bridge until Network Neuro outputs conmat directly; may be deprecated.",
+  "kind": "native",
+  "topics": [
+    "connectomics",
+    "network-analysis",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5eb0a0650d21177fad4287d9",
+    "github": "brainlife/app-network-matrices-2-mat",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory of the network matrices app",
+      "config_keys": [
+        "matrices"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the parcellation/volume datatype used to generate the network matrices",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cm",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "networkmatrices",
+        "preprocessed"
+      ],
+      "description": "The conmat data output"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "measure",
+      "type": "enum",
+      "description": "Which network matrix to convert (the CSV <measure>.csv in the networkmatrices output), for example density or count.",
+      "default": "",
+      "options": [
+        {
+          "value": "density",
+          "label": "density",
+          "description": "streamline density"
+        },
+        {
+          "value": "count",
+          "label": "count",
+          "description": "streamline count"
+        },
+        {
+          "value": "fa_mean",
+          "label": "fa_mean",
+          "description": "mean fa"
+        },
+        {
+          "value": "fa_std",
+          "label": "fa_std",
+          "description": "standard deviation fa"
+        },
+        {
+          "value": "length",
+          "label": "length",
+          "description": "streamline length"
+        },
+        {
+          "value": "curv",
+          "label": "curv",
+          "description": "curvature"
+        },
+        {
+          "value": "tors",
+          "label": "tors",
+          "description": "torsion"
+        },
+        {
+          "value": "fa_tp",
+          "label": "fa_tp",
+          "description": "fa_tp"
+        },
+        {
+          "value": "denlen",
+          "label": "denlen",
+          "description": "denlen"
+        },
+        {
+          "value": "centers",
+          "label": "centers",
+          "description": "centers"
+        },
+        {
+          "value": "md_mean",
+          "label": "md_mean",
+          "description": "mean md"
+        },
+        {
+          "value": "rd_mean",
+          "label": "rd_mean",
+          "description": "mean rd"
+        },
+        {
+          "value": "ad_mean",
+          "label": "ad_mean",
+          "description": "mean ad"
+        },
+        {
+          "value": "ndi_mean",
+          "label": "ndi_mean",
+          "description": "mean ndi"
+        },
+        {
+          "value": "odi_mean",
+          "label": "odi_mean",
+          "description": "mean odi"
+        },
+        {
+          "value": "isovf_mean",
+          "label": "isovf_mean",
+          "description": "mean isovf"
+        },
+        {
+          "value": "ad_mean_density",
+          "label": "ad_mean_density",
+          "description": "mean ad scaled by inverse volume of nodes"
+        },
+        {
+          "value": "fa_mean_density",
+          "label": "fa_mean_density",
+          "description": "mean fa scaled by inverse volume of nodes"
+        },
+        {
+          "value": "md_mean_density",
+          "label": "md_mean_density",
+          "description": "mean md scaled by inverse volume of nodes"
+        },
+        {
+          "value": "rd_mean_density",
+          "label": "rd_mean_density",
+          "description": "mean rd scaled by inverse volume of nodes"
+        },
+        {
+          "value": "ndi_mean_density",
+          "label": "ndi_mean_density",
+          "description": "mean ndi scaled by inverse volume of nodes"
+        },
+        {
+          "value": "odi_mean_density",
+          "label": "odi_mean_density",
+          "description": "mean odi scaled by inverse volume of nodes"
+        },
+        {
+          "value": "isovf_mean_density",
+          "label": "isovf_mean_density",
+          "description": "mean isovf scaled by inverse volume of nodes"
+        },
+        {
+          "value": "sphmean_mean",
+          "label": "sphmean_mean",
+          "description": "mean sphmean"
+        },
+        {
+          "value": "sphmean_mean_density",
+          "label": "sphmean_mean_density",
+          "description": "mean sphmean scaled by inverse volume of nodes"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "faskowit/app-fmri-2-mat",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.335",
+  "category": "conversion",
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

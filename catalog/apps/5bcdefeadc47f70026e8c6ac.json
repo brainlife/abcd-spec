@@ -1,0 +1,139 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Matrices",
+  "version": "master",
+  "summary": "create connectivity graphs from streamline tractography.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5bcdefeadc47f70026e8c6ac",
+    "github": "bcmcpher/app-networkmatrices",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "1",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The nodes to build the networks",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The streamlines to create the edges",
+      "config_keys": [
+        "fibers"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "You can request average microstructure properties (FA/MD/AD/RD) or tract profiles for edge weights.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask used to inflate the label slightly into the white matter so that we can capture more fibers that don't quite enter the gray matter volume. You can feed the mask output from Multi-atlas transfer tool App, or run FSL Brain extraction App. The mask should not include the ventricle.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "infl",
+      "type": "number",
+      "description": "The number of voxels to dilate the labels into white matter.",
+      "default": 2,
+      "required": true
+    },
+    {
+      "id": "microdat",
+      "type": "enum",
+      "description": "Optionally select which microstructure measure to summarize",
+      "default": "",
+      "options": [
+        {
+          "value": "fa",
+          "label": "FA"
+        },
+        {
+          "value": "md",
+          "label": "MD"
+        },
+        {
+          "value": "ad",
+          "label": "AD"
+        },
+        {
+          "value": "rd",
+          "label": "RD"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "compshape",
+      "type": "boolean",
+      "description": "Compute curvature and torsion of edges",
+      "default": false
+    },
+    {
+      "id": "compmicro",
+      "type": "boolean",
+      "description": "Compute mean / std of optional tensor property",
+      "default": false
+    },
+    {
+      "id": "comptprof",
+      "type": "boolean",
+      "description": "Compute tract profile of optional tensor property (requires more memory and runtime)",
+      "default": false
+    },
+    {
+      "id": "nnodes",
+      "type": "number",
+      "description": "The number of points to re-sample to for computing edge curves and tract profiles",
+      "default": 100,
+      "minimum": 3,
+      "maximum": 250
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a"
+  },
+  "doi": "10.25663/brainlife.app.121"
+}

@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Average ERPs",
+  "version": "v1.0",
+  "summary": "Brainlife.io app: average MEG/EEG epochs into one or more condition ERPs (Evoked)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "eeg"
+  ],
+  "registry": {
+    "id": "6a594cfc13254aef69af404a",
+    "github": "BrainlifeMEEG/average-erp",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "average_all",
+      "type": "boolean",
+      "description": "Do you want all of your epoch types/stimuli/conditions to be averaged together? If not, enter the names of the epoch types/stimuli/conditions in the string below.",
+      "default": false
+    },
+    {
+      "id": "stimulus_names",
+      "type": "string",
+      "description": "Stimulus/condition names to average. To produce SEVERAL Evokeds in one run, separate independent groups with \";\"; within a group, conditions are still pooled together with \",\" (e.g. \"face/famous,face/unfamiliar;scrambled/famous,scrambled/unfamiliar\" produces two Evokeds). A value with no \";\" is a single group -- one Evoked, same as before.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "condition",
+      "type": "string",
+      "description": "Name(s) for each group in stimulus_names, matching 1:1 and \";\"-separated the same way (e.g. \"face;scrambled\" for the example above). Used as each output Evoked's label. Just enter the name(s) with no quotation marks.",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "peaks",
+      "type": "string",
+      "description": "Add a list (comma-separated) of time values at which you would like to display topomaps on a joint ERP plot.",
+      "default": "None",
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.949"
+}

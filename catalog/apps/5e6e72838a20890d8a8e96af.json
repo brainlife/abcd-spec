@@ -1,0 +1,545 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Top-up & Eddy - CUDA",
+  "version": "cuda-v1.2",
+  "summary": "The application performs correction of susceptibility-induced distortions, eddy current\u2013related artifacts, and subject motion by leveraging the Topup and Eddy tools from FSL.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e6e72838a20890d8a8e96af",
+    "github": "gamorosino/app-FSLTopupEddy",
+    "branch": "cuda-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "diff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval"
+      ]
+    },
+    {
+      "id": "rdiff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reverse encoded dwi image needed to run top-up",
+      "config_keys": [
+        "rdif",
+        "rbvc",
+        "rbvl"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "The preprocessed DWI",
+      "datatype_tags_pass": "diff"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "The brainmask of the preprocessed DWI"
+    },
+    {
+      "id": "eddy_quad",
+      "datatype": "raw",
+      "datatype_tags": [
+        "eddyqc"
+      ],
+      "description": "eddy qc files and all other generated data derivatives"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "eddyqc"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param",
+      "type": "number",
+      "description": "This is the 'dwell time'. Please see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy/Faq#How_do_I_know_what_to_put_into_my_--acqp_file for more information about this specific parameter."
+    },
+    {
+      "id": "encode",
+      "type": "enum",
+      "description": "Phase encoding direction of the diff (not rdiff), i.e. first, inputted dwi.\n\nfor example, if the phase encoding direction of the first inputted dwi is 'PA', then select 'PA'. If it was 'AP', then select 'AP'",
+      "default": "PA",
+      "options": [
+        {
+          "value": "PA",
+          "label": "posterior-->anterior",
+          "description": "Phase encoding direction of first input was done in posterior/anterior direction"
+        },
+        {
+          "value": "AP",
+          "label": "anterior-->posterior",
+          "description": "Phase encoding direction of first input was done in anterior/posterior"
+        },
+        {
+          "value": "LR",
+          "label": "left-->right",
+          "description": "Phase encoding direction of first input was done in left/right"
+        },
+        {
+          "value": "RL",
+          "label": "right-->left",
+          "description": "Phase encoding direction of first input was done in right/left"
+        }
+      ]
+    },
+    {
+      "id": "warpres",
+      "type": "string",
+      "description": "topup: (approximate) resolution (in mm) of warp basis for the different sub-sampling levels",
+      "default": "20,16,14,12,10,6,4,4,4",
+      "advanced": true
+    },
+    {
+      "id": "subsamp",
+      "type": "string",
+      "description": "topup: sub-sampling scheme",
+      "default": "2,2,2,2,2,1,1,1,1",
+      "advanced": true
+    },
+    {
+      "id": "fwhm",
+      "type": "string",
+      "description": "topup: FWHM (in mm) of gaussian smoothing kernel",
+      "default": "8,6,4,3,3,2,1,0,0",
+      "advanced": true
+    },
+    {
+      "id": "miter",
+      "type": "string",
+      "description": "topup: number of iterations",
+      "default": "5,5,5,5,5,10,10,20,20",
+      "advanced": true
+    },
+    {
+      "id": "lambda",
+      "type": "string",
+      "description": "topup: Weight of regularisation",
+      "default": "0.005,0.001,0.0001,0.000015,0.000005,0.0000005,0.00000005,0.0000000005,0.00000000001"
+    },
+    {
+      "id": "ssqlambda",
+      "type": "string",
+      "description": "topup: If set (=1), lambda is weighted by current ssq",
+      "default": "1",
+      "advanced": true
+    },
+    {
+      "id": "regmod",
+      "type": "enum",
+      "description": "topup: Model for regularisation of warp-field",
+      "default": "bending_energy",
+      "options": [
+        {
+          "value": "membrane_energy",
+          "label": "membrane_energy"
+        },
+        {
+          "value": "bending_energy",
+          "label": "bending_energy"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "estmov",
+      "type": "string",
+      "description": "topup: Estimate movements if set",
+      "default": "1,1,1,1,1,0,0,0,0",
+      "advanced": true
+    },
+    {
+      "id": "minmet",
+      "type": "string",
+      "description": "topup: Minimisation method 0=Levenberg-Marquardt, 1=Scaled Conjugate Gradient",
+      "default": "0,0,0,0,0,1,1,1,1",
+      "advanced": true
+    },
+    {
+      "id": "splineorder",
+      "type": "string",
+      "description": "topup: Order of spline, 2->Qadratic spline, 3->Cubic spline",
+      "default": "3",
+      "advanced": true
+    },
+    {
+      "id": "numprec",
+      "type": "enum",
+      "description": "topup: Precision for representing Hessian, double or float",
+      "default": "double",
+      "options": [
+        {
+          "value": "double",
+          "label": "double"
+        },
+        {
+          "value": "float",
+          "label": "float"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "interp",
+      "type": "enum",
+      "description": "topup: Image interpolation model, linear or spline",
+      "default": "spline",
+      "options": [
+        {
+          "value": "linear",
+          "label": "linear"
+        },
+        {
+          "value": "spline",
+          "label": "spline"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "scale",
+      "type": "boolean",
+      "description": "topup: If set (=1), the images are individually scaled to a common mean",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "regrid",
+      "type": "boolean",
+      "description": "topup: If set (=1), the calculations are done in a different grid",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "mb",
+      "type": "string",
+      "description": "Eddy: Specifies multi-band factor (number of simultaneous slices)",
+      "default": "1",
+      "advanced": true
+    },
+    {
+      "id": "mb_offs",
+      "type": "string",
+      "description": "Eddy: Specifies missing slices at top or bottom",
+      "default": "0",
+      "advanced": true
+    },
+    {
+      "id": "flm",
+      "type": "enum",
+      "description": "Eddy: Spatial model for the field generated by eddy currents",
+      "default": "quadratic",
+      "options": [
+        {
+          "value": "linear",
+          "label": "linear"
+        },
+        {
+          "value": "quadratic",
+          "label": "quadratic"
+        },
+        {
+          "value": "cubic",
+          "label": "cubic"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "slm",
+      "type": "enum",
+      "description": "Model for how diffusion gradients generate eddy currents",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none"
+        },
+        {
+          "value": "linear",
+          "label": "linear"
+        },
+        {
+          "value": "quadratic",
+          "label": "quadratic"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "eddy_fwhm",
+      "type": "string",
+      "description": "Eddy: Filter width to use for pre-filtering of data for the estimation process",
+      "default": "0",
+      "advanced": true
+    },
+    {
+      "id": "eddy_niter",
+      "type": "string",
+      "description": "Eddy: Specifies how many iterations should be run",
+      "default": "5"
+    },
+    {
+      "id": "fep",
+      "type": "boolean",
+      "description": "fill empty planes",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "eddy_interp",
+      "type": "enum",
+      "description": "Eddy: Specifies interpolation model during estimation",
+      "default": "spline",
+      "options": [
+        {
+          "value": "spline",
+          "label": "spline"
+        },
+        {
+          "value": "trilinear",
+          "label": "trilinear"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "resamp",
+      "type": "enum",
+      "description": "Eddy: Specifies final resampling strategy",
+      "default": "jac",
+      "options": [
+        {
+          "value": "jac",
+          "label": "jac"
+        },
+        {
+          "value": "lsr",
+          "label": "lsr"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "nvoxhp",
+      "type": "string",
+      "description": "Eddy: Specifies number of voxels to use for GP hyperparameter estimation",
+      "default": "1000",
+      "advanced": true
+    },
+    {
+      "id": "ff",
+      "type": "string",
+      "description": "Fudge factor that imposes Q-space smoothing during estimation",
+      "default": "10",
+      "advanced": true
+    },
+    {
+      "id": "dont_sep_offs_move",
+      "type": "boolean",
+      "description": "Eddy: Do not attempt to separate subject movement from field DC component",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "dont_peas",
+      "type": "boolean",
+      "description": "Eddy: Do not end with an alignment of shells to each other",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "repol",
+      "type": "boolean",
+      "description": "Eddy: Replace outliers",
+      "default": false
+    },
+    {
+      "id": "ol_nstd",
+      "type": "string",
+      "description": "Eddy: No. of standard deviations away a slice must be to qualify as an outlier",
+      "default": "4",
+      "advanced": true
+    },
+    {
+      "id": "ol_nvox",
+      "type": "string",
+      "description": "Eddy: The minimum no. of intracerebral voxels in a slice to consider it as an outlier",
+      "default": "250",
+      "advanced": true
+    },
+    {
+      "id": "ol_type",
+      "type": "enum",
+      "description": "Eddy: Base outlier detection on slices (sw) multi-band groups (mb) or both (both)",
+      "default": "sw",
+      "options": [
+        {
+          "value": "sw",
+          "label": "sw"
+        },
+        {
+          "value": "mb",
+          "label": "mb"
+        },
+        {
+          "value": "both",
+          "label": "both"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "ol_pos",
+      "type": "boolean",
+      "description": "Consider both positive and negative outliers",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "ol_sqr",
+      "type": "boolean",
+      "description": "Eddy: Consider outliers in sum-of-squared distribution",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "mporder",
+      "type": "string",
+      "description": "Eddy: Temporal order of movement",
+      "default": "0"
+    },
+    {
+      "id": "s2v_niter",
+      "type": "string",
+      "description": "Eddy: No. iterations for estimating slice-to-vol movement",
+      "default": "5",
+      "advanced": true
+    },
+    {
+      "id": "s2v_lambda",
+      "type": "string",
+      "description": "Eddy: Strength of temporal regularisation of slice-to-vol movement.",
+      "default": "1",
+      "advanced": true
+    },
+    {
+      "id": "s2v_interp",
+      "type": "enum",
+      "description": "unknown",
+      "default": "trilinear",
+      "options": [
+        {
+          "value": "trilinear",
+          "label": "trilinear"
+        },
+        {
+          "value": "spline",
+          "label": "spline"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "estimate_move_by_susceptibility",
+      "type": "boolean",
+      "description": "Eddy: When specified eddy estimates how the susceptibility field changes with subject movement.",
+      "default": false
+    },
+    {
+      "id": "mbs_iter",
+      "type": "string",
+      "description": "Eddy: Number of iterations for susceptibility-by-movement estimation",
+      "default": "10",
+      "advanced": true
+    },
+    {
+      "id": "mbs_lambda",
+      "type": "string",
+      "description": "Eddy: Specifies the balance between data and smoothness for the susceptibility rate-of-change fields",
+      "default": "10",
+      "advanced": true
+    },
+    {
+      "id": "mbs_ksp",
+      "type": "string",
+      "description": "Eddy: Specifies the spline knot-spacing of the susceptibility rate-of-change fields",
+      "default": "10",
+      "advanced": true
+    },
+    {
+      "id": "data_is_shelled",
+      "type": "boolean",
+      "description": "Eddy: Do not check that data is shelled. Trust the user",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "slspec",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "multiline": true
+    },
+    {
+      "id": "mergefull",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    },
+    {
+      "id": "reslice",
+      "type": "boolean",
+      "description": "If, for whatever reason, the two DWI images do not hae the same number of slices, set reslice to true and it will reslice the rdif image to diff",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 8
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.287",
+  "deprecated_by": "69f0c3975e3b9b921dbe89d4"
+}

@@ -1,0 +1,107 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit CSD",
+  "version": "1.1.1",
+  "summary": "Fit Constrained spherical deconvolution (CSD) model to diffusion data (dipy_fit_csd)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-reconstruction",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5b1efd2973279e0028adfc18",
+    "github": "dipy/bl_apps_dipy_fit_csd",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/peaks_and_metrics",
+      "datatype_tags": [
+        "csd_model_fit"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions",
+      "default": 50,
+      "placeholder": "0"
+    },
+    {
+      "id": "bvecs_tol",
+      "type": "number",
+      "description": "Bvecs should be unit vectors. (default:0.01)",
+      "default": 0.01,
+      "placeholder": "0.01"
+    },
+    {
+      "id": "roi_radius",
+      "type": "number",
+      "description": "Radius of cubic ROI in voxels (default 10)",
+      "default": 10,
+      "placeholder": "10"
+    },
+    {
+      "id": "fa_thr",
+      "type": "number",
+      "description": "FA threshold for calculating the response function (default 0.7)",
+      "default": 0.7,
+      "placeholder": "0.7"
+    },
+    {
+      "id": "sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order (default 6) used in the CSA fit.",
+      "default": 6,
+      "placeholder": "6"
+    },
+    {
+      "id": "odf_to_sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order used for peak_from_model to compress\nthe ODF to spherical harmonics coefficients (default 8)",
+      "default": 8,
+      "placeholder": "8"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.62"
+}

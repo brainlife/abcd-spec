@@ -1,0 +1,121 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Setup and fit ICA",
+  "version": "v1.0",
+  "summary": "Set up and fit ICA on epoched MEG/EEG data using MNE-python",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "643d4757d391caf6efbbb068",
+    "github": "BrainlifeMEEG/ica-fit-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "data",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [
+        "ica"
+      ],
+      "description": "The fitted ICA object."
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_components",
+      "type": "number",
+      "description": "Number of principal components (from the pre-whitening PCA step) that are passed to the ICA algorithm during fitting. If nothing is provided, will default to 50, or the rank of the data, whichever is smallest.",
+      "required": false
+    },
+    {
+      "id": "l_freq",
+      "type": "number",
+      "description": "Low frequency cut-off for high-pass filtering before ICA. default is None (no high-pass filtering). High-pass filtering  is recommended on raw data before running ICA.\nNotice: the filtered data is not saved. You have to use the filtering app if you want to use filtered data subsequently.",
+      "required": false
+    },
+    {
+      "id": "h_freq",
+      "type": "number",
+      "description": "High frequency cut-off for low-pass filtering before ICA. default is None (no low-pass filtering).\nNotice: the filtered data is not saved. You have to use the filtering app if you want to use filtered data subsequently.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "method",
+      "type": "string",
+      "description": "The ICA method to use in the fit method. Use the fit_params argument to set additional parameters. Specifically, if you want Extended Infomax, set method='infomax' and fit_params=dict(extended=True) (this also works for method='picard'). Defaults to 'fastica'.",
+      "default": "fastica",
+      "advanced": true
+    },
+    {
+      "id": "noise_cov",
+      "type": "string",
+      "description": "Noise covariance used for pre-whitening. If None (default), channels are scaled to unit variance (\u201cz-standardized\u201d) as a group by channel type prior to the whitening by PCA.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "random_state",
+      "type": "number",
+      "description": "A seed for the NumPy random number generator (RNG). If None (default), the seed will be obtained from the operating system (see RandomState for details), meaning it will most likely produce different output every time this function or method is run. To achieve reproducible results, pass a value here to explicitly initialize the RNG with a defined state.",
+      "default": 42,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "max_iter",
+      "type": "string",
+      "description": "Maximum number of iterations during fit. If 'auto', it will set maximum iterations to 1000 for 'fastica' and to 500 for 'infomax' or 'picard'. The actual number of iterations it took ICA.fit() to complete will be stored in the n_iter_ attribute.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "allow_ref_meg",
+      "type": "boolean",
+      "description": "Allow ICA on MEG reference channels. Defaults to False.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "fit_params",
+      "type": "string",
+      "description": "Additional parameters passed to the ICA estimator as specified by method. Allowed entries are determined by the various algorithm implementations: see FastICA, picard(), infomax().",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.761"
+}

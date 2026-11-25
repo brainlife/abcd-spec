@@ -1,0 +1,49 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create Edge Time Series",
+  "version": "master",
+  "summary": "This app creates an edge by time matrix referred to as Edge Time Series.",
+  "description": "This app creates an edge by time matrix referred to as Edge Time Series.  Input should be a time series, either node by time, or time by node as well as a scalar for the number of time points in the time series.  Number of edges will be determined by the following equation:\n\nN = number of nodes\n\nNumber of Edges = N(N-1)/2\n\n\nFor reference to the original paper, see below:\n\nFaskowitz, J., Esfahlani, F. Z., Jo, Y., Sporns, O., & Betzel, R. F. (2020). Edge-centric functional network representations of human cerebral cortex reveal overlapping system-level architecture (pp. 1-11). Nature Publishing Group.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5fbc2d627e8ecb4e35abe62f",
+    "github": "JacobColbyTanner/bnbl_brainlife",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "Time Series",
+      "datatype": "generic/timeseries-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ts: this is the initial time series of node activation",
+      "config_keys": [
+        "ts"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "Edge Time Series",
+      "datatype": "neuro/networkneuro",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "Time Series"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "number_time_points",
+      "type": "string",
+      "description": "Number of time points in the time series.  If this is not selected, the code will assume that there are more time points than nodes.",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.450"
+}

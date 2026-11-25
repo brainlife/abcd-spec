@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of mask overlaid on DWI",
+  "version": "dwi-mask-overlay-v1.0.0",
+  "summary": "Generates a PNG of mid-axial, sagittal and coronal slices of a brain mask overlaid on a DWI image with FSL slicer, to check brain extraction.",
+  "description": "Runs FSL slicer with the DWI as background and the mask as overlay and writes raw/out.png. Use it to check that a DWI brain mask covers the brain; the DWI and mask must share the same voxel grid. It does not modify the data.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "dwi",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e8ccf72952fef2eb67b4252",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "dwi-mask-overlay-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi"
+      ],
+      "requirements": "Must be on the same voxel grid as the mask."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the mask datatype containing the brainmask of the DWI",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "mask"
+      ],
+      "description": "Directory with out.png showing the brain mask outline on the DWI."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.308",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

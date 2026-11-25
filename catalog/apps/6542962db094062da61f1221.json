@@ -1,0 +1,151 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Align T1 to ACPC Plane (HCP-based)",
+  "version": "1.5",
+  "summary": "Aligns a T1-weighted image to the ACPC plane with a 6-DOF rigid FSL alignment (flirt, aff2rigid) to the MNI152 T1 1mm template, following the HCP pipelines, with optional reorientation, cropping and template masking.",
+  "description": "Optionally reorients (fslreorient2std) and crops the neck (robustfov), estimates an affine registration to the template (MNI152 or NIHPD) with flirt, reduces it to a rigid-body (6 DOF) transform with aff2rigid and resamples the T1w with spline interpolation. Use it to put a T1w image in a standard ACPC orientation before FreeSurfer or other anatomical processing; it does not warp the brain to the template shape. Set mask to true for skull-stripped inputs so the template is masked too.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6542962db094062da61f1221",
+    "github": "brainlife/app-hcp-acpc-alignment",
+    "branch": "1.5"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype to be aligned",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned",
+        "preprocessed"
+      ],
+      "description": "The ACPC aligned anat/t1w datatype",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "affine",
+        "t1_to_acpc"
+      ],
+      "description": "Rigid (6 DOF) affine matrix (affine.txt) mapping the input T1w to the ACPC-aligned template space."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "This controls whether the datatype of the app is T1 or T2. Not to be changed, used in order to keep the code same between T1 and T2",
+      "default": "T1",
+      "required": true,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "This template is used to align the input image to standard MNI orientation (acpc aligned). For adult brain, MNI152 should work fine, however, if you have pediatric images please select a template with correct age group in order to ensure that your input image will better align with the template. Otherwise, flirt will fail to correctly align your image.",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "The 1mm MNI_152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        }
+      ]
+    },
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "If true, will reorient image to FSL standard using fslreorient2std",
+      "default": false
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "If true, will crop using FSL robustfov",
+      "default": false
+    },
+    {
+      "id": "mask",
+      "type": "boolean",
+      "description": "if input data is already brain masked, set this to true to mask out the template",
+      "default": false
+    },
+    {
+      "id": "cleanup",
+      "type": "boolean",
+      "description": "Remove templates to save space",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.800",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

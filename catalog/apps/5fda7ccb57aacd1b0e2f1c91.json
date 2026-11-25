@@ -1,0 +1,24 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FC Identifiability/Fingerprinting Analyses",
+  "version": "main",
+  "summary": "App on processing, analyzing eFC",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5fda7ccb57aacd1b0e2f1c91",
+    "github": "joy-neuro/bnbl_brainlife",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.460"
+}

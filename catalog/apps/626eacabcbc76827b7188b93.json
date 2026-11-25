@@ -1,0 +1,106 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute Peaks from Spherical Harmonic (SH) data",
+  "version": "v1.0",
+  "summary": "Extracts fibre orientation peaks from the spherical harmonic FOD at a chosen lmax of a CSD dataset with MRtrix3 sh2peaks, and outputs a peaks image.",
+  "description": "Selects the FOD image for the requested lmax from the CSD input and runs sh2peaks with optional number of peaks, amplitude threshold and fast mode, writing peaks.nii.gz. Use it when a downstream tool (for example TractSeg or FACT tracking) needs peak directions rather than FODs. Needs a CSD dataset containing the FOD at the requested lmax.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "diffusion-modeling",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "626eacabcbc76827b7188b93",
+    "github": "brainlife/app-sh2peaks",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "CSD dataset with the response function and FOD images per lmax.",
+      "config_keys": [
+        "response",
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ],
+      "requirements": "Must contain the FOD for the selected lmax."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "description": "peaks.nii.gz: 4D image of peak directions (three values per peak, scaled by amplitude).",
+      "datatype_tags_pass": "csd"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "Spherical harmonic order of the FOD image to extract peaks from.",
+      "default": 8
+    },
+    {
+      "id": "num_peaks",
+      "type": "number",
+      "description": "Number of peaks to extract per voxel (sh2peaks -num).",
+      "default": 3,
+      "advanced": true
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Minimum FOD amplitude for a peak to be kept (sh2peaks -threshold); 0 means no threshold.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "fast",
+      "type": "boolean",
+      "description": "If true, use sh2peaks -fast (precomputed direction set, faster but less precise).",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.623",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives",
+      "cause": "peaks.nii.gz was not produced.",
+      "fix": "Check that the CSD input contains the FOD at the requested lmax."
+    }
+  ]
+}

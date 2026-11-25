@@ -1,0 +1,255 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRIPrep - Volume Output",
+  "version": "20.2.3-2",
+  "summary": "Preprocesses task or resting fMRI with fMRIPrep 20.2.3 (motion and distortion correction, BBR registration to the T1w, normalisation) and outputs the preprocessed BOLD volume, brain masks, confound regressors, transforms and an HTML report.",
+  "description": "Converts the inputs to BIDS and runs fMRIPrep 20.2.3 with boundary-based registration, fieldmap-less SyN distortion correction (or the provided fieldmap) and optional ICA-AROMA, writing the BOLD series in the chosen output space and resolution. Use it as the standard preprocessing step before fMRI analysis; it needs at least a T1w and an fMRI, and reuses a FreeSurfer output when given (it must come from the same T1w). Also outputs the preprocessed T1w, its brain mask, the aparc+aseg parcellation and T1w-to-template transforms.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "registration",
+    "fmriprep",
+    "bids",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c61c69f14027a01b14adcb3",
+    "github": "brainlife/app-fmriprep",
+    "branch": "20.2.3-2"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "fmri data to preprocess",
+      "config_keys": [
+        "fmri",
+        "sbref",
+        "sbref_json",
+        "events",
+        "events_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!v5"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "freesurfer output used to aid preprocessing",
+      "config_keys": [
+        "fsin"
+      ]
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2-weighted image of the same subject, added to the BIDS input for fMRIPrep.",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "2phasemag fieldmap is not yet supported by fmriprep (https://github.com/poldracklab/sdcflows/issues/15) - should be supported by now",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude1",
+        "magnitude2",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "bold_img",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "Preprocessed BOLD time series (bold.nii.gz) in the selected output space, with the events file when present.",
+      "datatype_tags_pass": "fmri"
+    },
+    {
+      "id": "bold_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "bold",
+        "func"
+      ],
+      "description": "There is no such datatype tag for mask as \"bold\". It will be removed in favor of \"func\""
+    },
+    {
+      "id": "regress",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "description": "fMRIPrep confounds table (regressors.tsv and .json): motion, physiological and other nuisance time series."
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "preprocessed t1 (same alignment as the original t1, but level adjusted - editme)"
+    },
+    {
+      "id": "anat_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "anat",
+        "brain"
+      ],
+      "description": "Brain mask of the preprocessed T1w in native T1w space."
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "fmriprep"
+      ],
+      "description": "fmriprep HTML report and figures"
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/h5",
+      "datatype_tags": [],
+      "description": "Transforms between T1w and the template space: warp.h5, inverse-warp.h5 and affine.txt."
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "freesurfer"
+      ],
+      "description": "FreeSurfer aparc+aseg segmentation in T1w space with its label table."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "space",
+      "type": "enum",
+      "description": "output space of the preprocessed func/task output (bold).",
+      "default": "T1w",
+      "options": [
+        {
+          "value": "T1w",
+          "label": "T1w",
+          "description": "Input t1w space"
+        },
+        {
+          "value": "MNI152NLin2009cAsym",
+          "label": "MNI152NLin2009cAsym"
+        },
+        {
+          "value": "MNI152NLin6Asym",
+          "label": "MNI152NLin6Asym"
+        }
+      ]
+    },
+    {
+      "id": "resolution",
+      "type": "enum",
+      "description": "Output resolution appended to the output space (space:resolution); 'original' keeps the input BOLD resolution.",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "original",
+          "description": "Output in original bold resolution"
+        },
+        {
+          "value": "res-2",
+          "label": "2mm isotropic"
+        },
+        {
+          "value": "res-3",
+          "label": "3mm isotropic"
+        }
+      ]
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through fmriprep anyway.",
+      "default": false
+    },
+    {
+      "id": "aroma",
+      "type": "boolean",
+      "description": "Use ICA based procedure to identify confounding time series related to head-motion [Prium2015].",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/fmriprep:20.2.3",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 9
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.160",
+  "software": [
+    {
+      "name": "fMRIPrep",
+      "version": "20.2.3",
+      "url": "https://fmriprep.org"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41592-018-0235-4",
+      "text": "Esteban O et al. fMRIPrep: a robust preprocessing pipeline for functional MRI. Nature Methods 16:111-116 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "app needs minimally a T1w and fmri. exiting",
+      "fix": "Provide both a T1w and an fMRI input."
+    }
+  ]
+}

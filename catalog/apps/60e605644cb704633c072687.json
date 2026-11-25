@@ -1,0 +1,85 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BUAN Bundle Profiles",
+  "version": "single_subject",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60e605644cb704633c072687",
+    "github": "BramshQamar/brainlife_buan_bundle_profile",
+    "branch": "single_subject"
+  },
+  "inputs": [
+    {
+      "id": "model_bundle",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Model bundle in standard space",
+      "config_keys": [
+        "model_bundle"
+      ]
+    },
+    {
+      "id": "rec_bundle",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Subject's bundle in common space",
+      "config_keys": [
+        "rec_bundle"
+      ]
+    },
+    {
+      "id": "org_bundle",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Subject's bundle in native space",
+      "config_keys": [
+        "org_bundle"
+      ]
+    },
+    {
+      "id": "metric",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Anatomical measures such as FA.",
+      "config_keys": [
+        "measure"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "csv"
+      ],
+      "description": "output directory"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "    \"no_disks\": 100,",
+      "type": "number",
+      "description": "The number of segments along the length of the tract.",
+      "default": 100
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.540"
+}

@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp ROIs for Visual White Matter From MNI to T1 space",
+  "version": "visual-white-matter-rois-v1.0",
+  "summary": "Registers a T1-weighted image to the MNI152 2 mm template with FSL flirt and fnirt and warps bundled visual-system ROIs (LGN, pulvinar, superior colliculus, V1, anterior V1, V5) into the subject's T1 space.",
+  "description": "Computes a linear (flirt) and nonlinear (fnirt) registration from the T1w image to MNI152 2 mm, inverts the warp, and applies it to twelve left/right template ROIs shipped with the App (LGN, pulvinar, superior colliculus, V1, anterior V1, V5), then binarizes them. Use it to obtain visual white matter tracking ROIs in subject space without supplying ROIs. Template and interpolation are fixed in the code (MNI152_2mm, nearest neighbour).",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration",
+    "tractography"
+  ],
+  "registry": {
+    "id": "63dd70b3c538c16a82114734",
+    "github": "brainlife/app-register-rois-mni",
+    "branch": "visual-white-matter-rois-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "standard"
+      ],
+      "description": "Output directory for all the data derivatives generated",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "warped",
+        "visual_white_matter"
+      ],
+      "description": "Binarized visual-system ROIs (left/right LGN, pulvinar, superior colliculus, V1, anterior V1, V5) in the subject's T1 space."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "input_type",
+      "type": "enum",
+      "description": "This controls the datatype (T1 or T2) to use. This should not be changed. Only used to keep the github repository between the two apps the same",
+      "default": "T1",
+      "options": [
+        {
+          "value": "T1",
+          "label": "T1",
+          "description": "T1"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "Template setting; the code hardcodes MNI152_2mm regardless of this value.",
+      "default": "MNI152_2mm",
+      "options": [
+        {
+          "value": "MNI152_2mm",
+          "label": "MNI152_2mm",
+          "description": "2.0 mm MNI 152 template"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "interp",
+      "type": "enum",
+      "description": "Interpolation setting; the code hardcodes nearest neighbour regardless of this value.",
+      "default": "nn",
+      "options": [
+        {
+          "value": "nn",
+          "label": "nn",
+          "description": "nn"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 6.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.727",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

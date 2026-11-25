@@ -1,0 +1,168 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "pRFLife with mrTools",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e9613ce6365e976b7471d50",
+    "github": "davhunt/app-prfv2",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fMRI",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "fmri",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "stim",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "stim"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frontal",
+      "type": "boolean",
+      "description": "Include frontal cortex in mask",
+      "default": false
+    },
+    {
+      "id": "temporal",
+      "type": "boolean",
+      "description": "Include temporal cortex in mask",
+      "default": false
+    },
+    {
+      "id": "parietal",
+      "type": "boolean",
+      "description": "Include parietal cortex in mask",
+      "default": false
+    },
+    {
+      "id": "occipital",
+      "type": "boolean",
+      "description": "Include occipital cortex in mask",
+      "default": true
+    },
+    {
+      "id": "preprocess",
+      "type": "boolean",
+      "description": "Perform slice timing and head motion correction on fMRI before running prf",
+      "default": true
+    },
+    {
+      "id": "TR",
+      "type": "number",
+      "description": "Repetition time of fMRI (read from the nii header if unspecified)",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "stimsizeX",
+      "type": "number",
+      "description": "Width in degrees subtended of visual stimulus (16\u00b0 for HCP)",
+      "default": 16
+    },
+    {
+      "id": "stimsizeY",
+      "type": "number",
+      "description": "Height in degrees subtended of visual stimulus (16\u00b0 for HCP)",
+      "default": 16
+    },
+    {
+      "id": "gsr",
+      "type": "enum",
+      "description": "Specifies whether global signal regression (GSR) on input fMRI should be done, conversion to % change from baseline",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "no GSR"
+        },
+        {
+          "value": "pvn",
+          "label": "per-voxel normalization",
+          "description": "regresses out mean signal per voxel"
+        },
+        {
+          "value": "gms",
+          "label": "grand-mean scaling",
+          "description": "regresses out global mean"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "quickFit",
+      "type": "boolean",
+      "description": "Only do the grid search that finds approximately good parameters for the model and will not optimize with the nonlinear search. This will speed up the program but will not produce optimized fits.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 12,
+      "memory_gb": 120,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.315"
+}

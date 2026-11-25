@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment T2starw image using MNI152",
+  "version": "v1.0.0",
+  "summary": "Segmenting T2starw images by registering MNI152 using ANTs",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6717c8f2168d1cbcfbd02315",
+    "github": "astewartau/App-Segment-T2starw-MNI",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "T2starw-image",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-mag"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2starw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "MNI152"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "string",
+      "description": "unknown",
+      "default": "template/mni_icbm152_t2_tal_nlin_sym_09b_hires_DL.nii",
+      "readonly": true
+    },
+    {
+      "id": "segmentation",
+      "type": "string",
+      "description": "unknown",
+      "default": "template/mni_icbm152_CerebrA_tal_nlin_sym_09c.nii",
+      "readonly": true
+    },
+    {
+      "id": "intense",
+      "type": "enum",
+      "description": "unknown",
+      "default": "test",
+      "options": [
+        {
+          "value": "true",
+          "label": "true"
+        },
+        {
+          "value": "false",
+          "label": "false"
+        },
+        {
+          "value": "test",
+          "label": "test"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "python:3.9-bookworm",
+    "resources": {
+      "memory_gb": 2,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.832"
+}

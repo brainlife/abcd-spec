@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Merge tractmasks into individual mask",
+  "version": "v1.0",
+  "summary": "Utility that concatenates the individual tract masks of a tractmasks dataset into one 4D mask image with FSL fslmerge, keeping the label file.",
+  "description": "Reads the tract names from color.json and stacks the masks in that order into masks/mask.nii.gz (one volume per tract), copying color.json as label.json. Use it when a downstream App expects all tract masks in a single file. Needs a tractmasks dataset with a color.json listing its tracts.",
+  "kind": "native",
+  "topics": [
+    "tract-segmentation",
+    "conversion",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "649f503a3a63cf17374b633f",
+    "github": "brainlife/app-merge-tractmasks",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tract masks dataset: one NIfTI mask per tract plus color.json with tract names.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Masks must share the same grid; file names must start with the names in color.json."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "Single 4D mask.nii.gz with one volume per tract, plus label.json.",
+      "datatype_tags_pass": "masks"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.83
+    }
+  },
+  "doi": "10.25663/brainlife.app.788",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check data",
+      "cause": "No merged mask was produced.",
+      "fix": "Check that mask file names match the names in color.json."
+    }
+  ]
+}

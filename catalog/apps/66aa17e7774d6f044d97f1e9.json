@@ -1,0 +1,132 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute forward model MEEG ",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "66aa17e7774d6f044d97f1e9",
+    "github": "AntonioCauAt/app-fw-solution",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bem1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "bem"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "fif1",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "trans1",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [
+        "trans"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "cov"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [
+        "fwd"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fif1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "trans",
+      "type": "string",
+      "description": "If str, the path to the head<->MRI transform *-trans.fif file produced during coregistration. Can also be 'fsaverage' to use the built-in fsaverage transformation. If trans is None, an identity matrix is assumed.",
+      "default": "true",
+      "required": true
+    },
+    {
+      "id": "src",
+      "type": "string",
+      "description": "Either a path to a source space file or a loaded or generated SourceSpaces.",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "bem",
+      "type": "string",
+      "description": "Filename of the BEM (.fif) to use, or a loaded ConductorModel. See make_bem_model() and make_bem_solution() to create a mne.bem.ConductorModel.",
+      "default": ""
+    },
+    {
+      "id": "include_meg",
+      "type": "boolean",
+      "description": "If True (default), include MEG computations.",
+      "default": true
+    },
+    {
+      "id": "include_eeg",
+      "type": "boolean",
+      "description": "If True (default), include EEG computations.",
+      "default": true
+    },
+    {
+      "id": "mindist",
+      "type": "number",
+      "description": "Minimum distance of sources from inner skull surface (in mm).",
+      "default": 5,
+      "advanced": true
+    },
+    {
+      "id": "ignore_ref",
+      "type": "boolean",
+      "description": "If True, do not include reference channels in compensation. This option should be True for KIT files, since forward computation with reference channels is not currently supported.",
+      "default": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "The number of jobs to run in parallel. If -1, it is set to the number of CPU cores. Requires the joblib package. None (default) is a marker for \u2018unset\u2019 that will be interpreted as n_jobs=1 (sequential execution) unless the call is performed under a joblib.parallel_config context manager that sets another value for n_jobs.",
+      "default": 1,
+      "required": true
+    },
+    {
+      "id": "verbose",
+      "type": "boolean",
+      "description": "Control verbosity of the logging output. If None, use the default verbosity level. See the logging documentation and mne.verbose() for details. Should only be passed as a keyword argument.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.827"
+}

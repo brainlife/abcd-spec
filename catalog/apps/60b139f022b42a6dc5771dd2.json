@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Split MEG file",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meg"
+  ],
+  "registry": {
+    "id": "60b139f022b42a6dc5771dd2",
+    "github": "guiomar/app-meg-split-fif",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "raw01",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir1",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "raw",
+        "preproc",
+        "part1"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    },
+    {
+      "id": "out_dir2",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "raw",
+        "preproc",
+        "part2"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "t1min",
+      "type": "number",
+      "description": "In seconds",
+      "default": 0
+    },
+    {
+      "id": "t1max",
+      "type": "string",
+      "description": "In seconds",
+      "default": "100"
+    },
+    {
+      "id": "t2min",
+      "type": "number",
+      "description": "In seconds",
+      "default": 100
+    },
+    {
+      "id": "t2max",
+      "type": "number",
+      "description": "In seconds",
+      "default": 200
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.529"
+}

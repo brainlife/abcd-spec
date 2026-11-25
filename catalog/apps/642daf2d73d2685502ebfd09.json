@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Concatenate raws",
+  "version": "v1.0",
+  "summary": "Concatenate multiple MNE.Raw instances into single .Raw",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "642daf2d73d2685502ebfd09",
+    "github": "BrainlifeMEEG/concat",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "concatenated"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "HTML report of concatenate process"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.756"
+}

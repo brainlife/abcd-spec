@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of NODDI",
+  "version": "noddi-v1.0.1",
+  "summary": "Generates PNGs of mid-axial, sagittal and coronal slices of the NODDI NDI, ODI and ISOVF maps with FSL slicer, for quick QA of a NODDI fit.",
+  "description": "Runs FSL slicer -a on the NDI, ODI and ISOVF maps of the NODDI datatype and writes one PNG per map to raw/. Use it to check a NODDI fit or make figures; it does not modify the data.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "dwi",
+    "diffusion-modeling",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ed02d3c0a8ed86d37483300",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "noddi-v1.0.1"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "NODDI datatype; the NDI, ODI and ISOVF maps are rendered.",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "noddi"
+      ],
+      "description": "Directory with ndi.png, odi.png and isovf.png."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.367",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

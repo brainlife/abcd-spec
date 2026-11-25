@@ -1,0 +1,91 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Peaks extraction with MRtrix",
+  "version": "1.1",
+  "summary": "App to extract the peaks of a spherical harmonic function at each voxel  using the MRtrix command sh2peaks.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-reconstruction"
+  ],
+  "registry": {
+    "id": "5c8189cd2fbcc20034b39e60",
+    "github": "giulia-berto/app-extract-peaks",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Dwi raw data",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1w image. It should be aligned with the dwi data and all non-brain tissue should be removed.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Brain mask. It should be aligned with the dwi data. If not provided, the BET algorithm will be used for brain extraction.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "description": "CSD peaks"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "csd",
+      "type": "enum",
+      "description": "CSD type",
+      "default": "",
+      "options": [
+        {
+          "value": "csd_msmt_5tt",
+          "label": "CSD multi-shell multi-tissue 5 tissue types"
+        },
+        {
+          "value": "csd_msmt",
+          "label": "CSD multi-shell multi-tissue"
+        },
+        {
+          "value": "csd",
+          "label": "CSD"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "giuliaberto/extract-peaks:1.1",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.172"
+}

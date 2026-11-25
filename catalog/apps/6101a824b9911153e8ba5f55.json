@@ -1,0 +1,110 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Resample cortexmap data to a standard mesh using Connectome Workbench",
+  "version": "resample-v1.0",
+  "summary": "Resamples the surfaces, measures and labels of a cortexmap from the subject's native FreeSurfer mesh to the standard fs_LR 32k or 164k mesh with Connectome Workbench, for group averaging of surface maps.",
+  "description": "Uses the subject's FreeSurfer sphere.reg and the fs_LR-deformed-to-fsaverage standard spheres to resample every surface (barycentric), shape and func metric and label file (adaptive barycentric, area-corrected with the midthickness surfaces) in the cortexmap, including MNI surfaces when present. Use it before averaging cortexmaps across subjects. The cortexmap must contain native midthickness surfaces and come from the same FreeSurfer run that is provided.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6101a824b9911153e8ba5f55",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "resample-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Subject cortexmap in native mesh (surf, func, label) to resample; must include lh/rh.midthickness.native.surf.gii.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output of the same subject; its lh/rh.sphere.reg define the registration to the standard mesh.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "resampled"
+      ],
+      "description": "cortexmap with all surfaces, metrics and labels resampled to the chosen fs_LR standard mesh (tagged with the mesh size).",
+      "datatype_tags_pass": "cortexmap"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "resample_surf",
+      "type": "enum",
+      "description": "Standard fs_LR mesh density to resample to: 164k or 32k vertices per hemisphere.",
+      "default": "164k",
+      "options": [
+        {
+          "value": "164k",
+          "label": "164k",
+          "description": "164k vertices fsaverage"
+        },
+        {
+          "value": "32k",
+          "label": "32k",
+          "description": "32k vertices fsaverage"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 6,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.551",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H, et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives and logs",
+      "cause": "The last func file was not written to the resampled cortexmap.",
+      "fix": "Check that the cortexmap has native midthickness surfaces and matches the FreeSurfer input."
+    }
+  ]
+}

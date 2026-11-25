@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PRFmodel",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6172e5864fd85c20b7533e94",
+    "github": "anibalsolon/PRFmodel-app",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json"
+      ]
+    },
+    {
+      "id": "stimuli",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "stim"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "stimulus_diameter",
+      "type": "number",
+      "description": "Diameter of the circle within which apertures are shown",
+      "placeholder": "Diameter (in cm.)"
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/bl-app-prfmodel:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.589"
+}

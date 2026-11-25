@@ -1,0 +1,127 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate tract figures (wma_pyTools)",
+  "version": "parcOverride",
+  "summary": "Generate the following kinds of figures:\n> General streamline anatomy plot (color-coded in accordance with morphological characteristics)\n> Density GIFs\n> Multi-tile density plots\n> \"Fingerprint\" plots (radial bar-plots indicating streamline termination locations)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "628ceb91d0697cf1eaed4a14",
+    "github": "DanNBullock/app-wma_pyTools-TractFigs",
+    "branch": "parcOverride"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wmc",
+        "tracts",
+        "surfaces"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The 2009 freesurfer parcellation will be used for determining endpoint locations / identities for the purposes of the \"fingerprint\" plot (also, alternatively, as the color scheme selector for the streamline plot).",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The desired parcellation to be used for labeled regions in the \"fingerprint\" plot (also, alternatively, as the color scheme selector for the streamline plot).  WILL OVERRIDE FREESURFER INPUT.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spagettiFlag",
+      "type": "boolean",
+      "description": "Produce general streamline anatomy plot (color-coded in accordance with morphological characteristics).",
+      "default": true
+    },
+    {
+      "id": "gifFlag",
+      "type": "boolean",
+      "description": "Produce ensity GIFs",
+      "default": true
+    },
+    {
+      "id": "tileFlag",
+      "type": "boolean",
+      "description": "Produce multi-tile density plots",
+      "default": true
+    },
+    {
+      "id": "fingerprintFlag",
+      "type": "boolean",
+      "description": "Produce \"fingerprint\" plots (radial bar-plots indicating streamline termination locations).",
+      "default": true
+    },
+    {
+      "id": "inflateParam",
+      "type": "number",
+      "description": "Whether or not to inflate the passed parcellation and, if so, by how many voxel iterations.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 20,
+      "advanced": true,
+      "placeholder": "2"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:latest",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.638"
+}

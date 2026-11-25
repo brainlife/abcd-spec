@@ -1,0 +1,49 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "recon-all-for-meeeg",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69a2f2846aa19e60b5145d91",
+    "github": "obVdo/app-freesurfer-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical MRI for FreeSurfer recon-all surface reconstruction",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "description": "FreeSurfer recon-all output containing cortical surfaces and segmentation. Used as input for coregistration (app-coreg) and BEM model creation (app-bem)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.898"
+}

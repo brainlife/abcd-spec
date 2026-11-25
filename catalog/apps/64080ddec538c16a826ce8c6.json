@@ -1,0 +1,76 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Set EEG reference",
+  "version": "v1.0",
+  "summary": "App for rereferencing EEG recordings",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "eeg"
+  ],
+  "registry": {
+    "id": "64080ddec538c16a826ce8c6",
+    "github": "BrainlifeMEEG/rereference",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epoch",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epochs"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epochs",
+        "reref",
+        "preproc"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "epoch"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ref_ch",
+      "type": "enum",
+      "description": "unknown",
+      "default": "average",
+      "options": [
+        {
+          "value": "average",
+          "label": "average",
+          "description": "Average reference"
+        },
+        {
+          "value": "REST",
+          "label": "infinity reference",
+          "description": "Reference Electrode Standardization Technique infinity reference"
+        },
+        {
+          "value": "empty",
+          "label": "empty",
+          "description": "It will take a list from user input eventually"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 10,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.745"
+}

@@ -3,4 +3,5 @@
 skip = .git*,.codespellrc,testdata,config.json
 check-hidden = true
 # ignore-regex = 
-# ignore-words-list =
+# Words copied verbatim from brainlife registry records (App names, defaults) or domain terms
+ignore-words-list = te,onl,seperate,thi,inbetween,lable,burnin

@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit DKI",
+  "version": "1.1.1",
+  "summary": "Fit a Diffusion Kurtosis Imaging model to multishell Diffusion-weighted data (dipy_fit_dki)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ae9d732f446980028b15ec2",
+    "github": "dipy/bl_apps_dipy_fit_dki",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!single_shell"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This App will only work with multishell datasets.",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is normally a white matter mask. But you could also pass the whole brain mask instead if you are interested in tensor measures in the gray matter, for example.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dki"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "unknown",
+      "default": 50,
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.9"
+}

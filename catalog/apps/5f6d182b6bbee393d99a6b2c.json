@@ -1,0 +1,54 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "GLMdenoise",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6d182b6bbee393d99a6b2c",
+    "github": "davhunt/app-GLMdenoise",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "fMRI runs must have conditions repeated across runs. Must have an events.tsv associated with each run specifying onset times and durations of stimuli",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "denoised_bold/run1",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "denoised"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fmri"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 12,
+      "memory_gb": 90,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.451"
+}

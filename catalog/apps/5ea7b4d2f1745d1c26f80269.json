@@ -1,0 +1,90 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit IVIM",
+  "version": "1.1.1",
+  "summary": "Fit Intra-voxel Incoherent Motion (IVIM) reconstruction on diffusion data to get IVIM metrics",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ea7b4d2f1745d1c26f80269",
+    "github": "dipy/bl_apps_dipy_fit_ivim",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "DWI",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dwi"
+      ],
+      "description": "- S0_predicted.nii.gz: Name of the S0 signal estimated to be saved\n- perfusion_fraction.nii.gz: Name of the estimated volume fractions to be saved\n- D_star.nii.gz: Name of the estimated pseudo-diffusion parameter to be saved\n- D.nii.gz: Name of the estimated diffusion parameter to be saved"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "split_b_D",
+      "type": "number",
+      "description": "Value to split the bvals to estimate D for the two-stage process of fitting",
+      "default": 400
+    },
+    {
+      "id": "split_b_S0",
+      "type": "number",
+      "description": "Value to split the bvals to estimate S0 for the two-stage process of fitting.",
+      "default": 200
+    },
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold value for the b0 bval.",
+      "default": 0
+    },
+    {
+      "id": "command",
+      "type": "string",
+      "description": "unknown",
+      "default": "dipy_fit_ivim",
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.322"
+}

@@ -1,0 +1,90 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Postprocess parcellation: island removal & inflation",
+  "version": "parc-statsVers",
+  "summary": "Remove islands (unconnected components) from and/or inflate a given volumetric parcellation.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "629a6d3c7f60950a54cc7a6e",
+    "github": "DanNBullock/app-de-island_parcellation",
+    "branch": "parc-statsVers"
+  },
+  "inputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "The post-processed parcellation"
+    },
+    {
+      "id": "output_islandcsv",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [],
+      "description": "A report detailing the effects of the de-islanding process"
+    },
+    {
+      "id": "output_inflatecsv",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [],
+      "description": "A report detailing the effects of the inflation process"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inflate",
+      "type": "number",
+      "description": "The number of inflation iterations to perform.  Proceeds voxel-wise (rather than mm-space).  Integer values ONLY!",
+      "default": 0
+    },
+    {
+      "id": "retainOrigBorders",
+      "type": "boolean",
+      "description": "Whether to retain the original borders of the input parcellation.  This essentially negates any inflation performed, other than filling in islands removed by the de-islanding process.",
+      "default": false
+    },
+    {
+      "id": "deisland",
+      "type": "boolean",
+      "description": "Remove \"islands\" from the parcellation.  \"Islands\" in this context, are sub-components of labels which are disconnected from the primary connected mask associated with those labels.  \n\nFor example, label 100 in a parcellation could be divided into two components, one with 1 voxel and one with 100.  This process would set the label for the 1 voxel component to 0 (thereby erasing it).",
+      "default": true
+    },
+    {
+      "id": "maintainIslandsLabels",
+      "type": "string",
+      "description": "Which labels should be \"skipped\" for the de-islanding process.  Thus, for these labels, islands will be unmodified, should they exist.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "erodeLabels",
+      "type": "string",
+      "description": "Which labels should be treated as background (0) for the inflation process.  Thus, for these labels, it will be possible for adjacent labels to expand into these areas.  Surviving labeling for these labels will be retained after the inflation process.",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:latest",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.639"
+}

@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compile measures from dsistudio tractmeasures datatype",
+  "version": "tracts-v1.0",
+  "summary": "Compiles per-tract DSI Studio tractmeasures (stat.txt files) from many subjects into one tsv with one column per tract and subject, session and tag columns using pandas; a group-analysis utility.",
+  "description": "For each input, reads the DSI Studio per-tract statistics files (*.stat.txt; tracts with *.no_result.txt get NaN), builds a table of measures by tract, adds subjectID, sessionID and tags from the input metadata and concatenates all subjects. Use it to collect DSI Studio autotrack measures across a project for statistics.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "dsi-studio",
+    "statistics",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f73a86a0a320c3226112026",
+    "github": "brainlife/app-compile-tractmeasures",
+    "branch": "tracts-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/dsistudio/tractmeasures",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "DSI Studio tractmeasures directories of several subjects, each holding one stat.txt (or no_result.txt) file per tract.",
+      "config_keys": [
+        "tractmeasures"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/dsistudio/tractmeasures",
+      "datatype_tags": [
+        "compiled"
+      ],
+      "description": "Single tsv (tractmeasures/tractmeasure.tsv) with rows per measure and subject, one column per tract, plus subjectID, sessionID and tags."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.436",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ]
+}

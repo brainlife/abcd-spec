@@ -1,0 +1,124 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reject ICA components",
+  "version": "v1.0",
+  "summary": "Remove selected components from the signal using the MNE ICA.apply() function.\nGiven the unmixing matrix, transform the data, zero out all excluded components, and inverse-transform the data. This procedure will reconstruct M/EEG signals from which the dynamics described by the excluded components is subtracted.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "643fe9edd391caf6efc583aa",
+    "github": "BrainlifeMEEG/ICA-apply-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "ica",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ica"
+      ]
+    },
+    {
+      "id": "rejects",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "We can use   a single comma-separated line of component indices to exclude .",
+      "config_keys": [
+        "channels",
+        "headshape",
+        "destination",
+        "events",
+        "events_json",
+        "info"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "ica_applied"
+      ],
+      "description": "The corrected data."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "exclude",
+      "type": "string",
+      "description": "The indices referring to columns in the ummixing matrix. The components to be zeroed out. If None (default) or an empty list, only components from ica.exclude will be excluded. Else, the union of exclude and ica.exclude will be excluded.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "reject_EOG",
+      "type": "boolean",
+      "description": "Detect and reject EOG related components using correlation (using mne.preprocessing.ICA.find_bads_eog)",
+      "default": false
+    },
+    {
+      "id": "reject_ECG",
+      "type": "boolean",
+      "description": "Detect and reject ECG related components using correlation (using mne.preprocessing.ICA.find_bads_ecg)",
+      "default": false
+    },
+    {
+      "id": "EOG_chan",
+      "type": "string",
+      "description": "Comma separated EOG channel number(s) or label(s)",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "ECG_chan",
+      "type": "string",
+      "description": "Comma separated ECG channel number(s) or label(s)",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.764"
+}

@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract b0 images from DWI",
+  "version": "v1.0",
+  "summary": "Splits a DWI into its b=0 volumes and its diffusion-weighted volumes with MRtrix3 dwiextract, outputting each as a separate DWI with matching bvals and bvecs.",
+  "description": "Runs MRtrix3 dwiextract with -bzero and with -no_bzero to write two DWI datasets with exported FSL gradient files. Use it when a downstream App needs only the b0 volumes (for example for registration or distortion correction) or only the diffusion-weighted volumes. Needs a DWI with bvals and bvecs that contains b=0 volumes. Utility App.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5df431a62dac9b59e0ae1355",
+    "github": "brainlife/app-mrtrix3-split-b0s",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvecs and bvals.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "non_b0"
+      ],
+      "description": "DWI containing only the diffusion-weighted (non-b0) volumes, with matching bvals and bvecs."
+    },
+    {
+      "id": "nodif",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "b0"
+      ],
+      "description": "DWI containing only the b=0 volumes, with matching bvals and bvecs."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.263",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "dwi/dwi.nii.gz was not produced by dwiextract.",
+      "fix": "Check that bvals/bvecs match the DWI and, for shell extraction, that the requested shell exists."
+    }
+  ]
+}

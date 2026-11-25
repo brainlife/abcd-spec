@@ -1,0 +1,90 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "NODDI Amico (single shell) - Deprecated",
+  "version": "1.2",
+  "summary": "This fits the NODDI model on single shell data. The only value that should be trusted is orientation dispersion (OD), as this measure can be fit accurately with single shell data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5d781dc0281b95c9b1820fe8",
+    "github": "brainlife/app-noddi-amico",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "single_shell"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "this should be single shell dwi data",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "mask needs to be made from DWI image",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "description": "only the orientation dispersion (OD) measure should be trusted"
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "noddi"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dPar",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.0017
+    },
+    {
+      "id": "advancedMask",
+      "type": "boolean",
+      "description": "Sometimes mask generation does not remove all of the non-brain material. If True, this will make sure the non-brain material is fully removed. Only check if inputting a mask that contains non-brain material",
+      "default": false
+    },
+    {
+      "id": "debias",
+      "type": "boolean",
+      "description": "Select this if you want to perform signal debiasing before NODDI fit",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.229",
+  "deprecated_by": "5ed02ca70a8ed8a9c04831d3"
+}

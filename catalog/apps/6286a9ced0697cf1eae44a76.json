@@ -1,0 +1,72 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create MNI coordinate-based ROIS and warp to subject space",
+  "version": "master",
+  "summary": "Create spherical or planar ROIS based on MNI coordinates and then warp them to a given subject's reference space.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6286a9ced0697cf1eae44a76",
+    "github": "DanNBullock/app-createMNI_ROIS_and_warp2subj",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "AnatomicalT1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "brainMask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "The requested spherical and planar ROIs, contained within a directory named \"rois\"."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spheres",
+      "type": "string",
+      "description": "Any number of sphere requests, with each request delimited by a semicolon (;).\n\nWithin each request, the first three (3) numbers correspond to the X, Y, and Z coordinates of the sphere centroid.  The final (fourth) number corresponds to the sphere radius.  Coordinates can be delimited by commas (,) or spaces ( ).",
+      "default": "",
+      "placeholder": "\"0,0,0,3;5,5,5,5\""
+    },
+    {
+      "id": "planes",
+      "type": "string",
+      "description": "Any number of planar requests, with each request delimited by a semicolon (;).\n\nWithin each request, the first value is a letter (x, y, or z) corresponding to the planar slice the ROI should correspond to.  In this way, x will return a sagittal slice, y will return a coronal slice, and z will return a transverse slice.  The value following the equals (=) symbol corresponds to the spatial coordinate that the plane should occur at along the specified axis.",
+      "default": "",
+      "placeholder": "\"x=5; y=-7\""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0",
+    "resources": {
+      "memory_gb": 10,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.629"
+}

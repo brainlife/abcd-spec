@@ -1,0 +1,124 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Map tract endpoint ROIs to cortical surface for quantitative analyses - No smoothing available",
+  "version": "endpoints-v1.0",
+  "summary": "This app will map volumated measure files (i.e. tensor, NODDI) to the cortical surface following Fukutomi et al (2018; 10.1016/j.neuroimage.2018.02.017) using Connectome Workbench.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "613a314e584a76610e429ad9",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "endpoints-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "tractEndpointDensity"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from Freesurfer",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "These files are needed to generate surfaces in template space (usually MNI). If you need to generate these files, please look at brainlife app FSL Anat. A version of this app not requiring this input is being generated",
+      "config_keys": [
+        "warp",
+        "inverse_warp"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If cortexmap datatype has already been generated, update the datatype with the endpoint ROIs",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "endpoints"
+      ],
+      "description": "The cortexmap output, containing the surfaces and mapped data",
+      "datatype_tags_pass": "rois"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives"
+      ],
+      "description": "A directory containing all of the derivatives generated. Useful for QA and debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "Parcellation from freesurfer wanted to for future stats",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas "
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 2.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.572",
+  "deprecated_by": "64307e9c73d2685502f2e152"
+}

@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EEGLAB to mne/raw",
+  "version": "main",
+  "summary": "Converts EEG data in EEGLAB format (.set/.fdt) to an MNE-Python Raw .fif file; a format conversion utility.",
+  "description": "Reads the EEGLAB .set file with mne.io.read_raw_eeglab and saves it as raw.fif. BIDS sidecar files (channels, electrodes, coordsystem, events) are accepted with the input but not copied or applied by the current code.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "conversion",
+    "eeg",
+    "mne-python"
+  ],
+  "registry": {
+    "id": "628b6340d0697cf1eaeb2a74",
+    "github": "brainlife/app-eeglab2mne",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "eeglab1",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "EEG recording in EEGLAB format (.set with .fdt) and BIDS sidecars.",
+      "config_keys": [
+        "fdt",
+        "set",
+        "channels",
+        "electrodes",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "eeg",
+        "eeglab",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "eeglab1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.633",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools/"
+    }
+  ]
+}

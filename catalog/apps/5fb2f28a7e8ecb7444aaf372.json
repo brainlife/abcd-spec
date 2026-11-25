@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "CIT168 parcellation of human subcortical brain nuclei",
+  "version": "main",
+  "summary": "Generates a subject-specific parcellation of subcortical nuclei by registering the CIT168 probabilistic atlas (Pauli et al. 2018) to a T1-weighted image with atlaskit and thresholding the warped probabilities at 0.5.",
+  "description": "Registers the CIT168 700 um T1w template to the subject T1 with the atlaskit tmp2ind_T1 script, warps the lateralised CIT168 probabilistic atlas into subject space and converts it to a deterministic parcellation (probability above 0.5). Use it to obtain subcortical nuclei ROIs (for example for tractography or connectomics). Needs a whole-head (not brain-extracted) T1w image.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "registration",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fb2f28a7e8ecb7444aaf372",
+    "github": "brainlife/app-CIT168Parc",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!brain_extracted"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is the T1 image which will be have its subcortical regions parcellated and labeled.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "subcortical"
+      ],
+      "description": "This is a 3D, volumetric parcellation of subcortical regions(in nifti format) of the associated input T1 image"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/atlaskit:1.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.449",
+  "software": [
+    {
+      "name": "atlaskit",
+      "version": "1.0",
+      "url": "https://github.com/brainlife/docker-atlaskit"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/sdata.2018.63",
+      "text": "Pauli W., Nili A., Tyszka J. A high-resolution probabilistic in vivo atlas of human subcortical brain nuclei. Sci Data 5, 180063 (2018)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

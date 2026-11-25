@@ -1,0 +1,52 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of NODDI - Deprecated",
+  "version": "noddi-v1.0.0",
+  "summary": "Create mid-axial, sagittal, and coronal slice pngs of the NODDI",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "qa"
+  ],
+  "registry": {
+    "id": "5e88c77c952fef4cce7ac043",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "noddi-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the NODDi (deprecated) datatype files",
+      "config_keys": [
+        "icvf",
+        "isovf",
+        "od"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "qa_image",
+        "noddi"
+      ],
+      "description": "Directory containing pngs of the NODDI (deprecated) measures using FSL"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.303",
+  "deprecated_by": "5ed02d3c0a8ed86d37483300"
+}

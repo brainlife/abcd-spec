@@ -1,0 +1,152 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tissue-type segmentation with hsvs",
+  "version": "hsvs-binarize-v1.0",
+  "summary": "Generates a five-tissue-type (5TT) image from FreeSurfer output with MRtrix3 5ttgen hsvs (hybrid surface and volume segmentation), plus binarized gray matter, white matter and CSF masks, for anatomically-constrained tractography.",
+  "description": "Runs 5ttgen hsvs on the FreeSurfer subject directory, optionally using a T1w image as the template that defines the output voxel grid, with options for hippocampus and thalamus segmentation methods, brainstem as white matter, cropping and amygdala/hippocampus as subcortical GM. Writes the 5TT image and binarized cortical GM, WM and CSF masks. Requires a FreeSurfer run; use the fsl-based App when only a T1 image is available.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "mrtrix3",
+    "freesurfer",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63cf5dceef2a7449dcd2ec6a",
+    "github": "brainlife/app-mrtrix3-5tt",
+    "branch": "hsvs-binarize-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output directory used by 5ttgen hsvs.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T1-weighted image passed as -template to 5ttgen hsvs so the 5TT image is written on its voxel grid.",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt",
+        "5tt_masks",
+        "hsvs"
+      ],
+      "description": "5TT image (mask.nii.gz) plus binarized gray matter (gm.nii.gz), white matter (wm.nii.gz) and CSF (csf.nii.gz) masks extracted from its volumes."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hippocampal",
+      "type": "enum",
+      "description": "Hippocampus segmentation method for 5ttgen hsvs -hippocampi: subfields, first or aseg.",
+      "default": "subfields",
+      "options": [
+        {
+          "value": "subfields",
+          "label": "subfields",
+          "description": "subfields"
+        },
+        {
+          "value": "first",
+          "label": "first",
+          "description": "first"
+        },
+        {
+          "value": "aseg",
+          "label": "aseg",
+          "description": "aseg"
+        }
+      ]
+    },
+    {
+      "id": "thalami",
+      "type": "enum",
+      "description": "Thalamus segmentation method for 5ttgen hsvs -thalami: nuclei, first or aseg.",
+      "default": "nuclei",
+      "options": [
+        {
+          "value": "nuclei",
+          "label": "nuclei",
+          "description": "nuclei"
+        },
+        {
+          "value": "first",
+          "label": "first",
+          "description": "first"
+        },
+        {
+          "value": "aseg",
+          "label": "aseg",
+          "description": "aseg"
+        }
+      ]
+    },
+    {
+      "id": "white_stem",
+      "type": "boolean",
+      "description": "classify the brainstem as white matter (true)",
+      "default": false
+    },
+    {
+      "id": "nocrop",
+      "type": "boolean",
+      "description": "do not crop resulting 5tt image to reduce size",
+      "default": false
+    },
+    {
+      "id": "sgm_amyg_hipp",
+      "type": "boolean",
+      "description": "represent the amygdalae and hippocampi as sub-cortical grey matter in the 5tt image",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3-fsr",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.720",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Smith RE, Tournier J-D, Calamante F, Connelly A. Anatomically-constrained tractography: Improved diffusion MRI streamlines tractography through effective use of anatomical information. NeuroImage 62:1924-1938 (2012)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mask generation failed",
+      "cause": "The CSF mask was not produced, so 5ttgen hsvs or mrconvert failed.",
+      "fix": "Check the log for the 5ttgen hsvs error, e.g. missing FreeSurfer files needed by the chosen hippocampal/thalami method."
+    }
+  ]
+}

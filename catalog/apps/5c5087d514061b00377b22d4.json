@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Align DWI to Dtiinit",
+  "version": "v1.0.0",
+  "summary": "Aligns a DWI (single- or multi-shell) to a dtiInit-aligned DWI with FSL flirt on the b0 images and rotates the bvecs, outputting a DWI in the dtiInit space.",
+  "description": "Registers the mean b0 of the input DWI to the b0 of the dtiInit-aligned DWI with FSL flirt, applies the transform to all volumes and rotates the bvecs accordingly. Use it when dtiInit was used only for anatomical (ACPC) alignment and another DWI (for example multi-shell) must be brought into the same space. Both inputs must contain b=0 volumes.",
+  "kind": "native",
+  "topics": [
+    "preprocessing",
+    "dwi",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c5087d514061b00377b22d4",
+    "github": "brainlife/app-dwiToDtiinit",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "input_dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the dwi datatype to be aligned",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the top directory containing the output from DTIINIT",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "aligned_dtiinit"
+      ],
+      "description": "A DWI dataype, including the DWI nifti and corrected bvecs and bvals, aligned to the DTIINIT output"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.153",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Aligned dwi missing",
+      "fix": "Check the log; flirt did not produce the aligned DWI. Make sure both inputs have b=0 volumes."
+    }
+  ]
+}

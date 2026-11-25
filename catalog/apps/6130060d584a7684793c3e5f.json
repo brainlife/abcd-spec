@@ -1,0 +1,88 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Regional Homogeneity (ReHo)",
+  "version": "main",
+  "summary": "BrainLife.io Regional Homogeneity app",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "afni",
+    "brainlife",
+    "fmri"
+  ],
+  "registry": {
+    "id": "6130060d584a7684793c3e5f",
+    "github": "anibalsolon/app-reho",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "reho",
+      "datatype": "neuro/reho",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "neighborhood",
+      "type": "enum",
+      "description": "unknown",
+      "default": "27",
+      "options": [
+        {
+          "value": "7",
+          "label": "face-wise neighbors"
+        },
+        {
+          "value": "19",
+          "label": "face- and edge-wise neighbors"
+        },
+        {
+          "value": "27",
+          "label": "face-, edge-, and node-wise neighbors"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "fwhm",
+      "type": "number",
+      "description": "Smoothing parameter (in mm). Blurs the image until it reaches the FWHM smoothness.",
+      "default": 0,
+      "minimum": 0,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/app-reho:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.567"
+}

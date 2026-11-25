@@ -1,0 +1,110 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Connectivity Matrix Computation",
+  "version": "v0.20",
+  "summary": "Computes structural connectivity matrix between areas of a brain template",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a0f03d63a6b01e36dea4343",
+    "github": "gamorosino/app-retinotopic-connectivity",
+    "branch": "v0.20"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "matrices",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "color_map",
+      "type": "string",
+      "description": "Controls matrix visualization.\n\nSingle value (e.g., \"viridis\", \"hot\", \"red\"): used for single-matrix modes;\nMultiple values (e.g., \"red,blue,green\"): one color per eccentricity bin (only in area_by_area mode)",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "area_matrix_method",
+      "type": "enum",
+      "description": "connectome: \nFast method using MRtrix tck2connectome (endpoint voxel assignment).\npairwise: \nSlower but stricter method using explicit streamline filtering (tckedit).",
+      "default": "connectome",
+      "options": [
+        {
+          "value": "pairwise",
+          "label": "pairwise"
+        },
+        {
+          "value": "connectome",
+          "label": "connectome"
+        }
+      ]
+    },
+    {
+      "id": "roi_order",
+      "type": "boolean",
+      "description": "true \u2192 enforce ordered endpoint matching (A\u2192B and B\u2192A computed separately, then merged; used when <area_matrix_method> =  pairwise)",
+      "default": true
+    },
+    {
+      "id": "ends_only",
+      "type": "boolean",
+      "description": "true \u2192 only test streamline endpoints against ROIs (stricter); \nfalse \u2192 test the full streamline trajectory against ROIs; \n(used when <area_matrix_method> =  pairwise)",
+      "default": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "Parallel processing:\n\n-1 \u2192 use all available CPU cores; \n1 \u2192 run serially; \n>1 \u2192 use specified number of workers;",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "parc_labels",
+      "type": "string",
+      "description": "Restrict the parcellation matrix to a subset of atlas labels.\n\nAccepts a comma-separated list of voxel values, inclusive ranges, or names from label.json (case-insensitive).\n\nExamples:\n  \"1,5,10-20\"  \u2192 labels 1, 5, and 10 through 20\n  \"V1,V2,hV4\" \u2192 named labels from label.json\n\nLeave empty (default) to include all labels.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.1"
+  },
+  "doi": "10.25663/brainlife.app.931"
+}

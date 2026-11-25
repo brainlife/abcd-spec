@@ -1,0 +1,51 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make watershed BEM",
+  "version": "v1.0",
+  "summary": "Makes watershed BEM from given Freesurfer output",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "eeg",
+    "meg"
+  ],
+  "registry": {
+    "id": "65a8f2b94ce5ac2907ed96d6",
+    "github": "BrainlifeMEEG/make-watershed-bem",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "bem"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 8
+    },
+    "licenses_required": [
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.807"
+}

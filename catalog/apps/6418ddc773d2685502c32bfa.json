@@ -1,0 +1,141 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp and resample surface label annotation to parcellation volume (Freesurfer space)",
+  "version": "parcellation-app-v1.0_wb-v1.5.0",
+  "summary": "Resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric parcellation in FreeSurfer space with Connectome Workbench 1.5.0.",
+  "description": "Resamples left and right label GIFTIs from the template sphere to the subject sphere (wb_command -label-resample), maps them into the FreeSurfer volume with ribbon-constrained label-to-volume mapping, exports the label tables and combines both hemispheres into parc.nii.gz with a label.json. Use it to obtain a subject-space volumetric version of a surface atlas, for example for connectomics.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6418ddc773d2685502c32bfa",
+    "github": "brainlife/app-warp-standard-label-rois",
+    "branch": "parcellation-app-v1.0_wb-v1.5.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output of the target subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "standard_verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Template (for example fsaverage) surfaces for left and right hemispheres on which the labels are defined.",
+      "config_keys": [
+        "fsaverage_right",
+        "fsaverage_left"
+      ],
+      "requirements": "Must include ?h.sphere.reg.gii; the App exits otherwise."
+    },
+    {
+      "id": "standard_label",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right GIFTI label files on the template surfaces, with a label.json key.",
+      "config_keys": [
+        "label_left",
+        "label_right",
+        "label_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Volumetric parcellation (parc.nii.gz) and label.json in FreeSurfer subject space."
+    },
+    {
+      "id": "labels_out",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "Labels resampled to the subject's native surfaces (left.gii, right.gii) and label.json."
+    },
+    {
+      "id": "verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "Subject pial, white, inflated and sphere.reg surfaces in GIFTI format.",
+      "datatype_tags_pass": "freesurfer"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives"
+      ],
+      "description": "Intermediate surfaces, labels and volumes."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "apply_affine",
+      "type": "boolean",
+      "description": "This may be an optional parameter for your data. Sometimes the correspondence between freesurfer volume and surface space is off. This will apply a fix in those situations if true. \n\nif the final ROIs don't properly align, try rerunning and setting this to true",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.748",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0",
+      "url": "https://www.humanconnectome.org/software/connectome-workbench"
+    },
+    {
+      "name": "FreeSurfer"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "surface vertices input is missing sphere.reg. this is required to map between the template and subject spaces. please check and reupload if necessary",
+      "fix": "Provide template surfaces that include sphere.reg."
+    },
+    {
+      "message": "something went wrong. check logs and derivative files",
+      "fix": "Check the log; the resampled label files were not produced."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "fix": "Check the log; parc.nii.gz or label.json was not produced."
+    }
+  ]
+}

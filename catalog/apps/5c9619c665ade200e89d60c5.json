@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "multi-LAP and multi-NN (deprecated)",
+  "version": "1.0",
+  "summary": "White matter bundle segmentation as multiple Linear Assignment Problems (multi-LAP). It also performs Nearest Neighbor (NN, or multi-NN) segmentation for comparison. WARNING: This App was used specifically for a Replicability Study and has been deprecated.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5c9619c665ade200e89d60c5",
+    "github": "giulia-berto/app-multi-lap",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentations of moving (examples) subjects (they should be extracted from the tractogram provided)",
+      "config_keys": [
+        "segmentations"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms of moving (example) subjects",
+      "config_keys": [
+        "tractograms_moving"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Ts1 of moving (example) subjects",
+      "config_keys": [
+        "t1s_moving"
+      ]
+    },
+    {
+      "id": "5",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The ground truth (target) segmentation (used to compute the ROC curve)",
+      "config_keys": [
+        "true_segmentation"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "6",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "multi-LAP"
+      ],
+      "description": "segmented bundles with multi-LAP in wmc format"
+    },
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "ROC"
+      ],
+      "description": "ROC and AUC values for both multi-NN and multi-LAP"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "k",
+      "type": "number",
+      "description": "value for k-NN to compute the superset",
+      "default": 2000
+    },
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "step size for resampling",
+      "default": 0.625
+    },
+    {
+      "id": "tract1",
+      "type": "number",
+      "description": "ID of the bundle of interest",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 30
+    }
+  },
+  "doi": "10.25663/brainlife.app.174",
+  "deprecated_by": "5d14bc062daec10035f3f86e"
+}

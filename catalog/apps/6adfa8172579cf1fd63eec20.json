@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BRAIN EXTRACTION APP TEST 10/26/26",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6adfa8172579cf1fd63eec20",
+    "github": "gamorosino/app-brain-extraction-test",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1",
+        "brain"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold",
+      "default": 0.5
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use robust brain center estimation",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field + neck cleanup",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.991"
+}

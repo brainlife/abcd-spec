@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI Debias - Deprecated",
+  "version": "v1.0.0",
+  "summary": "Performs mrtrix's dwibiascorrect on dwi data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5d9e9b8a2b4f67c7b8e670b1",
+    "github": "brainlife/app-dwi-debias",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "debiased"
+      ],
+      "description": "The debiased DWI"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "enum",
+      "description": "The debiasing algorithm to use",
+      "default": "",
+      "options": [
+        {
+          "value": "fsl",
+          "label": "fsl",
+          "description": "fsl's debiasing algorithm"
+        },
+        {
+          "value": "ants",
+          "label": "ants",
+          "description": "ant's debiasing algorithm"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.234",
+  "deprecated_by": "611301a3a5a04c0a6df90472"
+}

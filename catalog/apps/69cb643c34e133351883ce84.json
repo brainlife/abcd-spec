@@ -1,0 +1,142 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Map Retinotopic Connections",
+  "version": "main",
+  "summary": "This app extracts retinotopically-defined white-matter pathways from a template tractogram and maps them into subject space.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69cb643c34e133351883ce84",
+    "github": "gamorosino/app-map-retinotopic-tracts",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "varea",
+        "surfaces",
+        "prf_surfaces"
+      ]
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    },
+    {
+      "id": "t1_template",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1_template"
+      ]
+    },
+    {
+      "id": "t1_subject",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1_subject"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "visual_area_a",
+      "type": "string",
+      "description": "unknown",
+      "default": "V1"
+    },
+    {
+      "id": "visual_area_b",
+      "type": "string",
+      "description": "unknown",
+      "default": "V2"
+    },
+    {
+      "id": "ecc_bin",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "polar_bin",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "hemisphere",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ends_only",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "roi_order",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:latest",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.913"
+}

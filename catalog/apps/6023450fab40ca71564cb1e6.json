@@ -1,0 +1,189 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Analysis Profiles - Dipy",
+  "version": "dipy-1.0",
+  "summary": "Computes tract profiles of tensor, NODDI, myelin or quantitative MRI measures along segmented white matter tracts with DIPY Gaussian-weighted profiling, producing per-tract plots, profile CSVs and a tractmeasures CSV.",
+  "description": "For each tract in a white matter classification (wmc), orients the streamlines to a QuickBundles centroid, resamples them to num_nodes points and averages each measure with DIPY's Gaussian distance weights (afq_profile style). Writes PNG plots per tract and measure, per-tract profile CSVs and a single tractmeasures CSV. Use it after tract segmentation; it needs the wmc, the tck it was derived from, the reference DWI and at least one measure input (tensor, NODDI, myelin or qMRI).",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "dwi",
+    "diffusion-modeling",
+    "statistics",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6023450fab40ca71564cb1e6",
+    "github": "brainlife/app-tractanalysisprofiles",
+    "branch": "dipy-1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the reference dwi for the tractography. Used for the affine header",
+      "config_keys": [
+        "dwi"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the wmc classification datatype",
+      "config_keys": [
+        "classification"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tractogram corresponding to the wmc structure",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tensor datatype files",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the NODDI datatype files (optional)",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "myelin",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map sampled along each tract.",
+      "config_keys": [
+        "myelin"
+      ]
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional quantitative MRI maps sampled along each tract.",
+      "config_keys": [
+        "T1",
+        "T1_json",
+        "R1",
+        "R1_json",
+        "M0",
+        "M0_json",
+        "PD",
+        "MTV",
+        "VIP",
+        "SIR",
+        "WF"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "tract_profiles"
+      ],
+      "description": "Directory of tract profile images for each tract and measure"
+    },
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "description": "Directory of tract profile csvs for each tract and measure"
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "description": "CSV containing all tracts and measures"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "num_nodes",
+      "type": "number",
+      "description": "Number of nodes for tract profiles",
+      "default": 200
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pyafq:dev",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.474",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org"
+    },
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1371/journal.pone.0049790",
+      "text": "Yeatman JD, Dougherty RF, Myall NJ, Wandell BA, Feldman HM (2012) Tract Profiles of White Matter Properties: Automating Fiber-Tract Quantification. PLoS ONE 7(11): e49790."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something failed. checked logs",
+      "cause": "tractmeasures/tractmeasures.csv was not created.",
+      "fix": "Check the log of tractAnalysisProfilesDipy.py for the failing tract or measure."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

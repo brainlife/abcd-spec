@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ACPC alignment via ART",
+  "version": "1.4",
+  "summary": "This app uses the Automatic Registration Toolbox (ART) to perform ACPC alignment of the T1 image. See https://www.nitrc.org/projects/art/ for more information.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing"
+  ],
+  "registry": {
+    "id": "5a0def2eb2f8e6004a894f3b",
+    "github": "brainlife/app-acpcART",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "Remove neck and lower head using robustfov (fsl)",
+      "default": true
+    },
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "Assist with future registration steps and makes the views in FSLView more \"standard\" (fslreorient2std)",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 8,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/bl.app.16",
+  "deprecated_by": "5b96d5ed059cf9002719250b"
+}

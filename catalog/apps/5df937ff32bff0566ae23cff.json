@@ -1,0 +1,77 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Classifyber - segmentation",
+  "version": "1.3",
+  "summary": "Code to run Classifyber as a pre-trained bundle segmentation method.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5df937ff32bff0566ae23cff",
+    "github": "FBK-NILab/app-classifyber-segmentation",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "classifyber"
+      ],
+      "description": "Segmented bundles in wmc format"
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [
+        "classifyber"
+      ],
+      "description": "segmented bundles in tck format"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas, e.g. 32, 40, 45  (refer to the README.md for the mapping)",
+      "default": "",
+      "placeholder": "allowed values: from 21 to 30, from 32 to 33, from 35 to 36, and from 38 to 45"
+    }
+  ],
+  "runtime": {
+    "container": "giuliaberto/ants2-mrtrix3-fsl6:1.1",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 50,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.265"
+}

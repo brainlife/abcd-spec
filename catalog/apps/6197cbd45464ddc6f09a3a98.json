@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ERGMs for Brain Networks",
+  "version": "main",
+  "summary": "Source code for ERGM app in BrainLife.io",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "6197cbd45464ddc6f09a3a98",
+    "github": "dichio/bl-ERGM",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bnet",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Source information for ERGM analysis: connectivity matrix, nodal attributes, edge covariates.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "ergmout",
+      "datatype": "raw",
+      "datatype_tags": [
+        "ergm_fit_results"
+      ],
+      "description": "1. Result of the ERGM fit 2. Log of the computation 3. MCMC-diagnostic 4. GOF model assessment"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "my_formula",
+      "type": "string",
+      "description": "The ERGM formula includes information about the model to estimate and control parameters for the fitting procedure. Besides the \"ergm\" package documentation, see e.g. http://statnet.org/Workshops/ergm_tutorial.html for a tutorial.",
+      "default": "gwesp(0.75,fixed=TRUE) + gwdegree(0.75,fixed=TRUE), constraints = ~edges, control=control.ergm(init=c(1.0,1.0), MCMLE.maxit=40)",
+      "required": true,
+      "placeholder": "Specify the desired ERGM formula."
+    },
+    {
+      "id": "nsim_gof",
+      "type": "number",
+      "description": "Number of networks to simulate from the estimated ERGM for the GoF assessment.",
+      "default": 100,
+      "minimum": 100
+    },
+    {
+      "id": "unfiltered",
+      "type": "boolean",
+      "description": "TRUE if input network data is unfiltered (connectivity matrix), FALSE if source data are already binarized.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.594"
+}

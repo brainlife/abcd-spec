@@ -1,0 +1,170 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "impact-reg",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aaad3f2f2db0d99df4cae83",
+    "github": "gamorosino/app-impact-reg",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fixed_nifti",
+      "datatype": "neuro/microscopy/nifti",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Fixed/reference volume as NIfTI (alternative to fixed_ome_zarr).",
+      "config_keys": [
+        "fixed_nifti"
+      ]
+    },
+    {
+      "id": "fixed_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Fixed/reference volume as an OME-Zarr store (alternative to fixed_nifti).",
+      "config_keys": [
+        "fixed_ome_zarr"
+      ]
+    },
+    {
+      "id": "moving_nifti",
+      "datatype": "neuro/microscopy/nifti",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving volume as NIfTI (alternative to moving_ome_zarr).",
+      "config_keys": [
+        "moving_nifti"
+      ]
+    },
+    {
+      "id": "moving_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Moving volume as an OME-Zarr store (alternative to moving_nifti).",
+      "config_keys": [
+        "moving_ome_zarr"
+      ]
+    },
+    {
+      "id": "fixed_mask_nifti",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional fixed-space mask restricting the metric region, as NIfTI (alternative to fixed_mask_ome_zarr). Whole-image mask used if none given.",
+      "config_keys": [
+        "fixed_mask_nifti"
+      ],
+      "advanced": true
+    },
+    {
+      "id": "fixed_mask_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional fixed-space mask as an OME-Zarr store (alternative to fixed_mask_nifti).",
+      "config_keys": [
+        "fixed_mask_ome_zarr"
+      ],
+      "advanced": true
+    },
+    {
+      "id": "moving_mask_nifti",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional moving-space mask, as NIfTI (alternative to moving_mask_ome_zarr). Whole-image mask used if none given.",
+      "config_keys": [
+        "moving_mask_nifti"
+      ],
+      "advanced": true
+    },
+    {
+      "id": "moving_mask_ome_zarr",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional moving-space mask as an OME-Zarr store (alternative to moving_mask_nifti).",
+      "config_keys": [
+        "moving_mask_ome_zarr"
+      ],
+      "advanced": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "image"
+      ],
+      "description": "Displacement field (moving -> fixed) as a NIfTI vector image, plus the moved image and the raw ITK Transform.h5 as extra files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "engine",
+      "type": "string",
+      "description": "Registration engine/preset: fireants (FireANTs_SyN, GPU-capable diffeomorphic SyN), convexadam (ConvexAdam_Composite, MIND features), or elastix (Generic_Rigid_BSpline).",
+      "default": "fireants",
+      "placeholder": "fireants"
+    },
+    {
+      "id": "preset_override",
+      "type": "string",
+      "description": "Exact preset app name from the VBoussot/ImpactReg Hugging Face repo (e.g. FireANTs_Affine, ConvexAdam_Coarse, MR_CT_TS), overriding the engine mapping. Empty uses the engine's default preset.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "gpu",
+      "type": "boolean",
+      "description": "Use a GPU if one is visible to torch. Disable to force CPU even when a GPU is present.",
+      "default": true
+    },
+    {
+      "id": "require_cuda",
+      "type": "boolean",
+      "description": "Fail instead of silently falling back to CPU when no GPU is visible.",
+      "default": false
+    },
+    {
+      "id": "fields_only",
+      "type": "boolean",
+      "description": "Write the displacement field only; skip computing the moved image.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "extra_set",
+      "type": "string",
+      "description": "Comma-separated NAME=VALUE pairs, each forwarded as a separate --set to impact-reg-konfai (e.g. to tune iterations or patch size). Empty means none.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/app-impact-reg:0.1",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.975"
+}

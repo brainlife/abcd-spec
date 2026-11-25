@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "HD-BET",
+  "version": "main",
+  "summary": "HD-BET is an automated brain extraction method for MRI using neural networks.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "brainlifeio"
+  ],
+  "registry": {
+    "id": "5f592ced0c8f9597ac65ae41",
+    "github": "anibalsolon/HD-BET_app",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tta",
+      "type": "boolean",
+      "description": "Testing-time augmentation: mirror the input image on the three axes and infer the brain mask on the original & the three new images, taking the majority decision for each voxel for the final output.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "Inference mode",
+      "default": "fast",
+      "options": [
+        {
+          "value": "accurate",
+          "label": "Accurate",
+          "description": "Uses five models to infer the brain mask, taking the majority decision for each voxel for the final output"
+        },
+        {
+          "value": "fast",
+          "label": "Fast",
+          "description": "Uses one model to infer the brain mask."
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "anibalsolon/hd-bet:v0.0.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.416"
+}

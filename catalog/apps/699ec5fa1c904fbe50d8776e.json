@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "bdf2mne-v2",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "699ec5fa1c904fbe50d8776e",
+    "github": "obVdo/app-bdf2mne-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "bdf",
+      "datatype": "neuro/eeg/bdf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bdf",
+        "channels",
+        "electrodes",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "Raw EEG/MEG data converted from BDF to MNE FIF format"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "stim_channel",
+      "type": "string",
+      "description": "unknown",
+      "default": "Status",
+      "required": false,
+      "placeholder": "Status"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.895"
+}

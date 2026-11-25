@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute mean head position across MEG runs",
+  "version": "master",
+  "summary": "Computes the mean head position (device-to-head transformation matrix) across several MEG runs with MNE-Python, for realigning all runs during Maxwell filtering.",
+  "description": "Reads the MEG runs of a session (.fif) and averages their initial head positions into one transformation matrix, saved for use as the destination when applying Maxwell filtering so that all runs share the same head position. Use it before Maxwell filtering of multi-run MEG sessions; an optional headshape .pos file from app-head-pos can be supplied.",
+  "kind": "native",
+  "topics": [
+    "meg",
+    "preprocessing",
+    "mne-python",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6065cee9d040085be2b0a9b7",
+    "github": "brainlife/app-mean-transformation-matrix",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "All the runs of a MEG session that we want to realign by computing the mean head position across all these runs (this position is stored in a transformation matrix). At least two runs are required.",
+      "config_keys": [
+        "fif_runs"
+      ]
+    },
+    {
+      "id": "Opt",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Headshape.pos file. This file is computed with app-head-pos.",
+      "config_keys": [
+        "headshape",
+        "destination"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "description": "Destination file containing the mean transformation matrix to realign all the runs on the same head position and .fif file to preprocess."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.496",
+  "software": [
+    {
+      "name": "MNE-Python",
+      "url": "https://mne.tools"
+    }
+  ]
+}

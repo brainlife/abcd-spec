@@ -1,0 +1,21 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-time-frequency",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62c7fa47f3194eded6ff05cb",
+    "github": "zahransa/app-time-frequency",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.659"
+}

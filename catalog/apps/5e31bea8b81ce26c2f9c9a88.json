@@ -1,0 +1,116 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Statistics",
+  "version": "v1.3-add-nuclei",
+  "summary": "Converts FreeSurfer recon-all stats for a chosen cortical parcellation into tidy CSV tables of per-parcel volume, thickness, area and curvature plus whole-brain and subcortical measures.",
+  "description": "Reads the FreeSurfer stats files of the chosen parcellation (aparc, aparc.a2009s or aparc.DKTatlas) with the freesurfer-stats Python package and writes per-hemisphere and combined CSV tables, whole-brain volumes, subcortical (aseg) volumes and, when present, nuclei volumes; it also computes ROI statistics on <parc>+aseg with vistasoft/wma_tools. Use it to get FreeSurfer morphometry in a form ready for group analyses. It needs a complete recon-all output directory.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e31bea8b81ce26c2f9c9a88",
+    "github": "brainlife/app-freesurfer-stats",
+    "branch": "v1.3-add-nuclei"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Output directory of FreeSurfer recon-all for the subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "freesurfer"
+      ],
+      "description": "parc-stats datatype: CSV files with cortical measures per parcel and hemisphere, ROI statistics, whole-brain and subcortical volumes.",
+      "datatype_tags_pass": "freesurfer"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "parcellation",
+      "type": "enum",
+      "description": "FreeSurfer cortical parcellation whose stats are converted: Desikan-Killiany (aparc), Destrieux (aparc.a2009s) or DKT (aparc.DKTatlas).",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.272",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    },
+    {
+      "name": "freesurfer-stats",
+      "url": "https://github.com/fphammerle/freesurfer-stats"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "wma_tools"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9, 179-194 (1999)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    },
+    {
+      "message": "output missing",
+      "cause": "whole_brain.csv or rois.csv was not produced.",
+      "fix": "Check that the FreeSurfer directory contains the stats and mri files for the chosen parcellation."
+    }
+  ]
+}

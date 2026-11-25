@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DBB_DiceScore",
+  "version": "1.2.2",
+  "summary": "Computes the Dice similarity coefficient (DSC) between two segmentations (parcellations)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "61645a25fc8eb9c745fa2f2e",
+    "github": "FBK-NILab/bl_app_dbb_DiceScore",
+    "branch": "1.2.2"
+  },
+  "inputs": [
+    {
+      "id": "computed",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "computed"
+      ]
+    },
+    {
+      "id": "groud_truth",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "groud_truth"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dice_score",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dice_score"
+      ],
+      "description": "dice score of the different labels"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "gamorosino/bl_app_dbb_disseg",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.579"
+}

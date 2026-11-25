@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute evoked",
+  "version": "v1.0",
+  "summary": "Compute evoked field/potentials from epoched data.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62697515f3858674a2a22372",
+    "github": "BrainlifeMEEG/evoked-averaged",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fif"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "The channel type to plot. For 'grad', the gradiometers are collected in pairs and the RMS for each pair is plotted. If None the first available channel type from order shown above is used. Defaults to None.",
+      "default": ""
+    },
+    {
+      "id": "method",
+      "type": "string",
+      "description": "unknown",
+      "default": "mean",
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "by_event_type",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.618"
+}

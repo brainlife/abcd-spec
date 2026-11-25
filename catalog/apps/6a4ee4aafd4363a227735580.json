@@ -1,0 +1,33 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "my new app",
+  "version": "enh/eyetracking",
+  "summary": "A web service for semi-automated conversion of raw imaging data to BIDS",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "bids",
+    "bids-converter",
+    "brain-imaging",
+    "data-curation",
+    "dicom",
+    "interoperability",
+    "mri",
+    "neuroimaging",
+    "nifti",
+    "web",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6a4ee4aafd4363a227735580",
+    "github": "brainlife/ezbids",
+    "branch": "enh/eyetracking"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.948"
+}

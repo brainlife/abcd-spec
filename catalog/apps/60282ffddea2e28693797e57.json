@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract shell from DWI image",
+  "version": "extract-shell-v1.0",
+  "summary": "Extracts the volumes of one b-value shell from a DWI with MRtrix3 dwiextract, optionally keeping the b=0 volumes, and outputs a single-shell DWI with matching bvals and bvecs.",
+  "description": "Runs MRtrix3 dwiextract with -shell set to the requested b-value (and to 0,b-value with the b=0 volumes when with_bzero is true). Use it to reduce multi-shell data to one shell for models or Apps that require single-shell input. Needs a DWI whose bvals contain the requested shell. Utility App.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60282ffddea2e28693797e57",
+    "github": "brainlife/app-mrtrix3-split-b0s",
+    "branch": "extract-shell-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvecs and bvals.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must contain the requested b-value shell."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "single_shell"
+      ],
+      "description": "Single-shell DWI (dwi.nii.gz) with exported bvals and bvecs, including the b=0 volumes when with_bzero is true.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "shell",
+      "type": "number",
+      "description": "b-value of the gradient shell to extract."
+    },
+    {
+      "id": "with_bzero",
+      "type": "boolean",
+      "description": "If true (default), will include bzero volumes in extracted output. If false, will exclude.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.475",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "dwi/dwi.nii.gz was not produced by dwiextract.",
+      "fix": "Check that bvals/bvecs match the DWI and, for shell extraction, that the requested shell exists."
+    }
+  ]
+}

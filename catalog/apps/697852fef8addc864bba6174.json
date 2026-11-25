@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-dmipy-jax",
+  "version": "feat/brainlife-app",
+  "summary": "The open source toolbox for reproducible diffusion MRI-based microstructure estimation",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "697852fef8addc864bba6174",
+    "github": "m9h/dmipy",
+    "branch": "feat/brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "derivatives",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "model_type",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "NODDI",
+          "label": "NODDI"
+        },
+        {
+          "value": "IVIM",
+          "label": "IVIM"
+        }
+      ]
+    },
+    {
+      "id": "parallel_jobs",
+      "type": "number",
+      "description": "unknown",
+      "default": 4
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.889"
+}

@@ -1,0 +1,51 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-tt2trk",
+  "version": "master",
+  "summary": "Convert TRK format to TinyTrack format",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6a7bd0cfa3655296c9d143",
+    "github": "frankyeh/dsi-studio-tt2trk",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "tt",
+      "datatype": "neuro/dsistudio/tinytrack",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tt"
+      ]
+    },
+    {
+      "id": "tts",
+      "datatype": "neuro/dsistudio/tinytrack-s",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tts"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.425"
+}

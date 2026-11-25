@@ -295,6 +295,15 @@ python tools/blapp.py validate brainlife.app.json --registry record.json
 python tools/blapp.py about brainlife.app.json   # the GitHub About panel it implies
 ```
 
+### Catalog
+
+[`catalog/index.json`](catalog/index.json) lists every public brainlife App with its summary,
+repo and branch, input and output datatypes, topics, container and how many fields are still
+`unknown`; [`catalog/apps/<App id>.json`](catalog/apps) holds each full manifest. Agents can find
+an App that turns one datatype into another with a single request to the index. Manifests for
+Apps in the `brainlife` org were written from their code; the rest are generated drafts. Rebuild
+with `python tools/catalog.py <manifest-dir> catalog`.
+
 `schema/datatypes.json` is a snapshot of brainlife datatype names used for validation. The design
 is in [`docs/superpowers/specs/2026-11-24-app-spec-v2-design.md`](docs/superpowers/specs/2026-11-24-app-spec-v2-design.md);
 the skill that audits and backfills App metadata is in

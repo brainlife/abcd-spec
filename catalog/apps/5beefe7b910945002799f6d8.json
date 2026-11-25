@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate Equivolumetric Surfaces",
+  "version": "master",
+  "summary": "Computes n equally spaced offset surfaces between the white and pial surfaces with equal ratios between areas of successive surfaces, which samples the same layers in gyri and sulci.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5beefe7b910945002799f6d8",
+    "github": "davhunt/surface_tools",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_surfaces",
+      "datatype": "raw",
+      "datatype_tags": [
+        "vol_surface"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "smoothing",
+      "type": "number",
+      "description": "fwhm value for smoothing",
+      "default": 0,
+      "required": false
+    },
+    {
+      "id": "n_surfs",
+      "type": "number",
+      "description": "unknown",
+      "default": 5
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.126"
+}

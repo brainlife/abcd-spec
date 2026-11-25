@@ -1,0 +1,45 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Quantitative Statistics of Classified Fiber Tracts",
+  "version": "1.1",
+  "summary": "This will give you the fiber count, mean length, standard deviation of length, total length, and volume of each fiber tract classified by AFQ or WMA.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "599f2c0a1a12b6002f642c74",
+    "github": "brainlife/app-classifiedfibertractstats",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "AFQ",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "afq_fg"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/bl.app.12",
+  "deprecated_by": "5cc9c6b44b5e4502275edb4b"
+}

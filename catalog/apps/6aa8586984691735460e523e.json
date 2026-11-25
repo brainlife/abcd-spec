@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "trak2zarr-vectors",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa8586984691735460e523e",
+    "github": "gamorosino/app-trak2zarr-vectors",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "trk",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "trk"
+      ]
+    },
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tck"
+      ]
+    },
+    {
+      "id": "trx",
+      "datatype": "neuro/track/trx",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "trx"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "vectors",
+      "datatype": "neuro/track/zarr-vectors",
+      "datatype_tags": [],
+      "description": "Zarr Vectors store containing the streamline geometry converted from the input tractogram."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "num_chunks",
+      "type": "number",
+      "description": "Target chunk count for TRK ingest (zvtools convert --num-chunks). Only used when the input is .trk.",
+      "default": 5000,
+      "advanced": true,
+      "placeholder": "5000"
+    },
+    {
+      "id": "chunk_shape",
+      "type": "string",
+      "description": "Spatial chunk shape X,Y,Z for TCK/TRX ingest (zvtools convert --chunk-shape). Only used when the input is .tck or .trx.",
+      "default": "50,50,50",
+      "advanced": true,
+      "placeholder": "50,50,50"
+    },
+    {
+      "id": "workers",
+      "type": "number",
+      "description": "Number of parallel worker processes (zvtools convert --workers). 0 disables parallelism.",
+      "default": 0,
+      "advanced": true,
+      "placeholder": "0"
+    },
+    {
+      "id": "workers_backend",
+      "type": "string",
+      "description": "Parallel backend when --workers is set: process or dask.",
+      "default": "process",
+      "advanced": true,
+      "placeholder": "process"
+    },
+    {
+      "id": "compressor",
+      "type": "string",
+      "description": "Chunk array compressor (zvtools convert --compressor): none, zstd, or blosc.",
+      "default": "zstd",
+      "placeholder": "zstd"
+    },
+    {
+      "id": "compute_length",
+      "type": "boolean",
+      "description": "Store per-streamline path length (zvtools convert --compute-length).",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "compute_endpoints",
+      "type": "boolean",
+      "description": "Store per-streamline endpoints (zvtools convert --compute-endpoints).",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "coarsen",
+      "type": "string",
+      "description": "Optional per-level coarsen factors, e.g. 8,8 (requires sparsity too; builds a multiresolution pyramid).",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "sparsity",
+      "type": "string",
+      "description": "Optional per-level sparsity factors, e.g. 2,4 (requires coarsen too; builds a multiresolution pyramid).",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/zarr-vectors-tools:latest",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.969"
+}

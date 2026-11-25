@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply baseline correction",
+  "version": "v1.0",
+  "summary": "Take MNE.Epochs data in, apply baseline correction from tmin to tmax.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "64080961c538c16a826ccdc0",
+    "github": "BrainlifeMEEG/apply-baseline",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epoch",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epochs"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epochs",
+        "baseline",
+        "preproc"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "epoch"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "Start time for baseline correction application",
+      "default": -0.1
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "End time for baseline correction application",
+      "default": 0
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 10,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.744"
+}

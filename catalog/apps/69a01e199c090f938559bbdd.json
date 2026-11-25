@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-detect-bad-channels-eeg-v2",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69a01e199c090f938559bbdd",
+    "github": "obVdo/app-detect-bad-channels-eeg-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "z_thresh",
+      "type": "number",
+      "description": "MAD z-score threshold. Channels flagged if variance deviates more than this many robust SDs from median",
+      "default": 5
+    },
+    {
+      "id": "extra_bads",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "placeholder": "Comma-separated channel names to force-mark bad (e.g. E1,E2)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.897"
+}

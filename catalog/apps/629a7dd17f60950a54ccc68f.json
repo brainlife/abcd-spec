@@ -1,0 +1,50 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert tcks to tck and WMC",
+  "version": "master",
+  "summary": "Simple converter for the multi-tck format, tcks, which combines these into a single tck file and produces an associated WMC file.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "629a7dd17f60950a54ccc68f",
+    "github": "DanNBullock/app-tcks_to_tck_and_WMC",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tcks",
+        "tcks_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:latest",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.641"
+}

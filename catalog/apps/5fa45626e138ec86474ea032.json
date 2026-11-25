@@ -1,0 +1,76 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Franco Python Template",
+  "version": "master",
+  "summary": "Example App from the brainlife.io Python App template: reslices a T1-weighted image to a chosen voxel size with DIPY.",
+  "description": "Template/example App. main.py loads the T1 with nibabel, reslices it to the voxel size given in outres with dipy.align.reslice, and saves out_dir/t1.nii.gz. Use it as a starting point for writing Apps, not for analysis.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dipy",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fa45626e138ec86474ea032",
+    "github": "brainlife/app-template-python",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "anat001",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image (NIfTI) to reslice.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Resliced T1-weighted image (t1.nii.gz)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "outres",
+      "type": "string",
+      "description": "Output voxel size in mm as three space-separated integers (x y z); main.py splits on spaces and converts each value to int.",
+      "default": "1 1 1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "memory_gb": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.444",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al., Pestilli F. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. arXiv (2023)."
+    }
+  ],
+  "maintainers": [
+    "Franco Pestilli"
+  ]
+}

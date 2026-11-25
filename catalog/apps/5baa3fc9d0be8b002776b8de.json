@@ -1,0 +1,200 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Ensemble Tracking (dwi)",
+  "version": "1.5",
+  "summary": "Generates an ensemble whole-brain tractogram from DWI with MRtrix 0.2.12, combining tensor, CSD deterministic and CSD probabilistic tracking over several lmax and curvature values into one .tck.",
+  "description": "Implements Ensemble Tractography (Takemura et al. 2016): fits CSD at every even lmax up to max_lmax, tracks with DT_STREAM, SD_STREAM and SD_PROB over the chosen curvature values from white-matter and corpus-callosum seeds (plus optional optic radiation and visual tracts), and concatenates all candidates into track.tck. Use it to produce a rich candidate tractogram, for example for LiFE or COMMIT filtering. Requires a FreeSurfer run of the same subject for the masks. num_or_fibers above 25 makes the App exit.",
+  "kind": "native",
+  "topics": [
+    "tracking",
+    "dwi",
+    "tractography",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5baa3fc9d0be8b002776b8de",
+    "github": "brainlife/app-ensembletracking",
+    "branch": "1.5"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output of the same subject, used to build white-matter, corpus callosum and other seed/ROI masks.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "ensemble"
+      ],
+      "description": "Ensemble tractogram (track.tck) concatenating all algorithm, lmax and curvature runs."
+    },
+    {
+      "id": "mask_dwi",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter",
+        "anat"
+      ],
+      "description": "(despite the odd output directory name \"mask_dwi\") A brain mask created from freesurfer aparc+aseg converted to .nii.gz using input t1 as output template volume (--temp). It uses all white matter segments (--match 2 41 16 17 28 60 51 53 12 52 13 18 54 50 11 251 252 253 254 255 10 49 46 7) see FreeSurferColorLUT"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "stepsize",
+      "type": "number",
+      "description": "set the step size of the tracking",
+      "default": 0.2
+    },
+    {
+      "id": "minlength",
+      "type": "number",
+      "description": "set the minimum length of the streamlines generated",
+      "default": 10
+    },
+    {
+      "id": "maxlength",
+      "type": "number",
+      "description": "set the maximum length of the streamlines generated",
+      "default": 200
+    },
+    {
+      "id": "num_or_fibers",
+      "type": "number",
+      "description": "Number of streamlines to track the optic radiation (probabilistic tracking only)",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 25
+    },
+    {
+      "id": "num_mt_fibers",
+      "type": "number",
+      "description": "(temporarily disabled as this tracking gets stuck) Number of streamlines to track the cortico-spinal tract",
+      "default": 0,
+      "readonly": true
+    },
+    {
+      "id": "num_vz_fibers",
+      "type": "number",
+      "description": "Number of streamlines to track the visual-associative tracts",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 2000
+    },
+    {
+      "id": "detr_curvs",
+      "type": "string",
+      "description": "Range of curvature parameters used for deterministic tracking",
+      "default": "0.25 0.5 1 2 4"
+    },
+    {
+      "id": "prob_curvs",
+      "type": "string",
+      "description": "Range of curvature parameters used for probabilistic tracking",
+      "default": "0.25 0.5 1 2 4"
+    },
+    {
+      "id": "num_cc_fibers",
+      "type": "number",
+      "description": "Number of streamlines to track seeding the corpus callosum",
+      "default": 2500,
+      "minimum": 0,
+      "maximum": 5000
+    },
+    {
+      "id": "num_fibers",
+      "type": "integer",
+      "description": "Total number of streamlines requested per individual streamline output file (.tck)",
+      "default": 12500,
+      "minimum": 0,
+      "maximum": 25000
+    },
+    {
+      "id": "max_lmax",
+      "type": "integer",
+      "description": "Maximum number of parameters for the constrained spherical deconvolution. Leave it empty to auto calculate from the number of available directions in bvecs/bvals.",
+      "required": false,
+      "placeholder": "Auto Calculate"
+    },
+    {
+      "id": "do_tensor",
+      "type": "boolean",
+      "description": "Include tensor-based deterministic tracking (DT_STREAM).",
+      "default": true
+    },
+    {
+      "id": "do_probabilistic",
+      "type": "boolean",
+      "description": "Include CSD-based probabilistic tracking (SD_PROB) at each lmax and curvature.",
+      "default": true
+    },
+    {
+      "id": "do_deterministic",
+      "type": "boolean",
+      "description": "Include CSD-based deterministic tracking (SD_STREAM) at each lmax and curvature.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 15,
+      "walltime_hours": 15
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.103",
+  "software": [
+    {
+      "name": "MRtrix",
+      "version": "0.2.12"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1371/journal.pcbi.1004692",
+      "text": "Takemura H, Caiafa CF, Wandell BA, Pestilli F. Ensemble tractography. PLoS Comput Biol 12(2): e1004692 (2016)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    }
+  ]
+}

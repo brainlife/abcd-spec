@@ -1,0 +1,45 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Merge Tractography (tcks) together with MRTrix3",
+  "version": "gttwo-tck",
+  "summary": "This app will merge multiple tcks together using MRTrix 3",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62213ffe5d8ab5d5f02166c3",
+    "github": "bacaron/app-mergeTCK",
+    "branch": "gttwo-tck"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.608"
+}

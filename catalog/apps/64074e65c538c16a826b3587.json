@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Interpolate bad channels",
+  "version": "v1.0",
+  "summary": "Interpolate bad channels",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "64074e65c538c16a826b3587",
+    "github": "BrainlifeMEEG/interpolate",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif01",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "fif01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Optionally select bad channels (to be added to the existing list in raw.bads).",
+      "default": "",
+      "required": false,
+      "placeholder": "E1, E2..."
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.741"
+}

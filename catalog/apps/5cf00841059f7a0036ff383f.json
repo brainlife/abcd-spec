@@ -1,0 +1,91 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractSeg training",
+  "version": "brainlife-app",
+  "summary": "Automatic White Matter Bundle Segmentation",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5cf00841059f7a0036ff383f",
+    "github": "FBK-NILab/TractSeg-BrainLife",
+    "branch": "brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "peaks",
+      "config_keys": [
+        "peaks"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "tract_segmentations"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "ground truth tractmasks",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "weights",
+      "datatype": "model/pytorch-weights",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "pretrained weights of TractSeg"
+    },
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "training metrics"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "perc_val",
+      "type": "number",
+      "description": "percentage of validation subjects (between 0 and 1)",
+      "default": 0.2,
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "id": "num_epochs",
+      "type": "number",
+      "description": "number of epochs",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    {
+      "id": "data_augmentation",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "paoloavesani/docker-test",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 5,
+      "gpu": true
+    }
+  },
+  "doi": "10.25663/brainlife.app.204"
+}

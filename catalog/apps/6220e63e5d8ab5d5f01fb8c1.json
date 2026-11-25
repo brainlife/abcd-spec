@@ -1,0 +1,117 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate figures of white matter tracts overlaid on anatomical image",
+  "version": "1.1",
+  "summary": "Renders axial, sagittal and coronal images of each white matter tract in a WMC classification overlaid on a T1-weighted image, for visual quality control.",
+  "description": "For every tract in the classification (or the listed subset) and for all tracts together, draws the streamlines with FURY over T1 slices from six viewpoints and saves the images. Use it to check tract segmentation results visually. The tractogram and T1 must be in the same space. Visualisation only.",
+  "kind": "native",
+  "topics": [
+    "quality-check",
+    "visualization",
+    "quality-control",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6220e63e5d8ab5d5f01fb8c1",
+    "github": "brainlife/app-wmc_figures",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White Matter Classification structure",
+      "config_keys": [
+        "classification",
+        "wmc",
+        "surfaces"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1 image",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "white_matter_tract_overlays"
+      ],
+      "description": "Images of the specified tracts, 6 figures each",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "coronal",
+      "type": "integer",
+      "description": "If you want to specify which slice to use in the coronal plane, set that value here (ex. 128). Otherwise, the app will identify the mid-coronal slice.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "sagittal",
+      "type": "integer",
+      "description": "If you want to specify which slice to use in the sagittal plane, set that value here (ex. 128). Otherwise, the app will identify the mid-sagittal slice.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "axial",
+      "type": "integer",
+      "description": "If you want to specify which slice to use in the axial plane, set that value here (ex. 128). Otherwise, the app will identify the mid-axial slice.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "img_max",
+      "type": "integer",
+      "description": "This field will set the maximum intensity brightness of the anatomical slice. The higher the value, the brighter the image.  Warning: default value is img_max=3 for branch 1.0 and original T1 max value for branch 1.1.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "img_min",
+      "type": "integer",
+      "description": "This field will set the minimum intensity brightness of the anatomical slice. The higher the value, the more saturated (i.e. less dynamic range) the image.  Warning: default value is img_min=0.5 for branch 1.0 and original T1 min value for branch 1.1.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "tracts",
+      "type": "string",
+      "description": "Only output images of specified set of tracts. Tract codes must be listed with a white space separating them, e.g. 'leftArcuate rightArcuate'. It is important that the codes listed here match EXACTLY with the names listed in the classification structure. If left blank, all the tracts will be considered (default). For tract codes derived from common segmentations available on brainlife, please refer to the README.",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.607",
+  "software": [
+    {
+      "name": "FURY"
+    },
+    {
+      "name": "nibabel"
+    }
+  ]
+}

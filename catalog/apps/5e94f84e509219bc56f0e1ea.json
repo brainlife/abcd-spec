@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "mergeROI",
+  "version": "master",
+  "summary": "This app will merge two rois within an ROI datatype dataset into one ROI. The user must specify which two rois should be merged. The app will output one roi that contains all of the voxels that were in the two original rois.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e94f84e509219bc56f0e1ea",
+    "github": "svincibo/app-mergeROI",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "roi",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roi1_name",
+      "type": "string",
+      "description": "If this field is left empty, the all rois within the ROI dataset will be merged.",
+      "default": "",
+      "required": false,
+      "placeholder": "Enter the name of the .nii.gz file (e.g., ROI0012, ca23) contained in the ROI."
+    },
+    {
+      "id": "roi2_name",
+      "type": "string",
+      "description": "If this field is left empty, the all rois within the ROI dataset will be merged.",
+      "default": "",
+      "required": false,
+      "placeholder": "Enter the name of the .nii.gz file (e.g., ROI0012, ca23) contained in the ROI."
+    },
+    {
+      "id": "roiout_name",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "placeholder": "Enter the name desired for the merged ROI."
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.314"
+}

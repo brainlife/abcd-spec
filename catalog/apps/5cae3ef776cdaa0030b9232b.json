@@ -1,0 +1,177 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AnalyzepRF on volume",
+  "version": "master",
+  "summary": "An app to do a population receptive field analysis on HCP 7T retinotopy fMRI data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5cae3ef776cdaa0030b9232b",
+    "github": "davhunt/app-analyzePRF",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "fmri"
+      ]
+    },
+    {
+      "id": "stim",
+      "datatype": "neuro/stimulus",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "stim"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Used to generate .vtk surfaces",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frontal",
+      "type": "boolean",
+      "description": "Include frontal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "parietal",
+      "type": "boolean",
+      "description": "Include parietal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "temporal",
+      "type": "boolean",
+      "description": "Include temporal cortex in analysis",
+      "default": false
+    },
+    {
+      "id": "occipital",
+      "type": "boolean",
+      "description": "Include occipital cortex in analysis",
+      "default": true
+    },
+    {
+      "id": "preprocess",
+      "type": "boolean",
+      "description": "Perform slice-timing and head motion correction on fMRI if not already preprocessed",
+      "default": true
+    },
+    {
+      "id": "TR",
+      "type": "number",
+      "description": "Repetition time of fMRI (read from the nii header if unspecified)",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "pxtodeg",
+      "type": "number",
+      "description": "Conversion factor from pixels to degrees subtended for visual stimulus (16 deg / 200 px for HCP data)",
+      "default": 0.08
+    },
+    {
+      "id": "gsr",
+      "type": "enum",
+      "description": "Specifies whether global signal regression (GSR) on input fMRI should be done, conversion to % change from baseline",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": "no GSR"
+        },
+        {
+          "value": "pvn",
+          "label": "per-voxel normalization",
+          "description": "regresses out mean signal per voxel"
+        },
+        {
+          "value": "gms",
+          "label": "grand-mean scaling",
+          "description": "regresses out global mean"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "wantquick",
+      "type": "boolean",
+      "description": "Use seedmode -2 and perform very quick PRF analysis\n\n% - When <seedmode> is -2, optimization is not performed and instead the best seed based on the super-grid is returned as the final estimate.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "seedmode0",
+      "type": "boolean",
+      "description": "seedmode 0:\n% - The first seed is a generic large pRF that is centered with respect to the stimulus, has a pRF size equal to 1/4th of the stimulus extent (thus, +/- 2 pRF sizes matches the stimulus extent), and has an exponent of 0.5.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "seedmode1",
+      "type": "boolean",
+      "description": "seedmode 1:\n% - The second seed is a generic small pRF that is just like the first seed except has a pRF size that is 10 times smaller.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "seedmode2",
+      "type": "boolean",
+      "description": "seedmode 2:\n% - The third seed is a \"supergrid\" seed that is identified by performing a quick grid search prior to optimization (similar in spirit to methods described in Dumoulin and Wandell, 2008).  In this procedure, a list of potential seeds is constructed by \n%   exploring a range of eccentricities, angles, and exponents.  For each potential \n%   seed, the model prediction is computed, and the seed that produces the closest \n%   match to the data is identified.",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 12,
+      "memory_gb": 120,
+      "walltime_hours": 96
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.177"
+}

@@ -1,0 +1,76 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "maxwell-v2",
+  "version": "refactored",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a09e07dea4d9f77d8a14397",
+    "github": "obVdo/maxwell-v2",
+    "branch": "refactored"
+  },
+  "inputs": [
+    {
+      "id": "mne",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "auto_bad_channels\t",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "param_st_duration",
+      "type": "number",
+      "description": "unknown",
+      "required": false
+    },
+    {
+      "id": "param_st_correlation",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.98
+    },
+    {
+      "id": "param_origin",
+      "type": "string",
+      "description": "unknown",
+      "default": "auto"
+    },
+    {
+      "id": "param_mag_scale",
+      "type": "number",
+      "description": "unknown",
+      "default": 100
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 12,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.930"
+}

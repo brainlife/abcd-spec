@@ -1,0 +1,145 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractSeg from peaks",
+  "version": "2.7",
+  "summary": "Segments 72 white matter bundles from precomputed CSD peaks with TractSeg 2.7 and outputs bundle masks, ending masks, bundle-specific tractograms and tractometry.",
+  "description": "Runs TractSeg directly on a peaks image (skipping the CSD step): bundle segmentation, endings segmentation, TOM tracking and Tractometry, converted into brainlife tck, wmc and tractmasks datatypes. Use it when MRtrix3 CSD peaks already exist, for example from another App. The peaks must be in the orientation expected by TractSeg (HCP/MNI-like). Runs on a GPU.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "white-matter-segmentation",
+    "dwi",
+    "tract-segmentation",
+    "tractography",
+    "machine-learning",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "634dc433fa262bbde2b3003a",
+    "github": "brainlife/app-tractseg",
+    "branch": "2.7"
+  },
+  "inputs": [
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "CSD peaks",
+      "config_keys": [
+        "peaks"
+      ],
+      "requirements": "Same orientation as HCP (MNI) data, as required by TractSeg."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "All TractSeg bundle-specific (TOM) tractograms merged into a single track.tck."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "White matter classification assigning streamlines to the TractSeg bundles, with bundle surfaces for visualisation."
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "tract_segmentations"
+      ],
+      "description": "Binary segmentation masks of each white matter bundle (bundle_segmentations)."
+    },
+    {
+      "id": "endingmasks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "ending_segmentations"
+      ],
+      "description": "Binary masks of the start and end regions of each bundle (endings_segmentations)."
+    },
+    {
+      "id": "tractseg_output",
+      "datatype": "neuro/tractseg",
+      "datatype_tags": [],
+      "description": "The full TractSeg output directory (peaks, segmentations, TOM, trackings, tractometry)."
+    },
+    {
+      "id": "tractseg_tractometry",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "peak_length"
+      ],
+      "description": "Tractometry_peaks.csv"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "nr_fibers",
+      "type": "number",
+      "description": "Number of fibers to create for each bundle (default: 2000).  [non-default options available for App version >= 2.2]",
+      "default": 2000
+    },
+    {
+      "id": "bundles",
+      "type": "string",
+      "description": "Comma separated list (without spaces) of bundles you want to track.  Leave empty if you want to track all (default). For the list of possible bundles, please refer to https://github.com/MIC-DKFZ/TractSeg.  [non-default options available for App version >= 2.2]",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "tractometry_input",
+      "type": "enum",
+      "description": "For tractometry, the peak length along the tracts will be analyzed. If you want to run tractometry on either FA, MD, RD, or AD, you need to have the tensor as input, and you can run the App XXX  (work in progress).",
+      "default": "peak_length",
+      "options": [
+        {
+          "value": "peak_length",
+          "label": "peak_length"
+        }
+      ],
+      "required": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/tractseg:2.7",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 4,
+      "gpu": true
+    }
+  },
+  "doi": "10.25663/brainlife.app.684",
+  "software": [
+    {
+      "name": "TractSeg",
+      "version": "2.7",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183, 239-253 (2018)."
+    }
+  ]
+}

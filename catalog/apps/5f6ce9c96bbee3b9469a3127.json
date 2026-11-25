@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compile qc data from tractmeasures (tsv) data",
+  "version": "qc-v1.0",
+  "summary": "Concatenates DSI Studio QC tractmeasure tsv files from many subjects into one tsv with subject, session and tag columns using pandas; a group-analysis utility.",
+  "description": "Reads every input tractmeasure tsv, stacks them into one table and adds subjectID, sessionID and tags columns from the brainlife input metadata. Use it to gather per-subject DSI Studio QC tables into a single file for downstream statistics; it does no computation on the values.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "dsi-studio",
+    "quality-control",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f6ce9c96bbee3b9469a3127",
+    "github": "brainlife/app-compile-tractmeasures",
+    "branch": "qc-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "dsistudio/tractmeasure",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "DSI Studio QC tractmeasure tsv files of several subjects (one per input).",
+      "config_keys": [
+        "tractmeasures"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "dsistudio/tractmeasure",
+      "datatype_tags": [
+        "compiled"
+      ],
+      "description": "Single tsv (tractmeasure.tsv) with all input rows plus subjectID, sessionID and tags columns.",
+      "datatype_tags_pass": "tractmeasures"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.432",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ]
+}

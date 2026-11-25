@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute dice similarity coefficient between parcels in parcellations",
+  "version": "v1.0",
+  "summary": "Computes the Dice similarity coefficient of each parcel between a parcellation and a reference parcellation with nibabel and numpy, and outputs a per-parcel csv.",
+  "description": "For each label in the reference image, binarizes that label in both parcellations and computes Dice = 2|A\u2229B|/(|A|+|B|), writing subjectID, structureID (from the reference label.json), nodeID and dice to parcellation.csv. Both parcellations must be on the same voxel grid and share label values.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "statistics",
+    "nibabel",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "623bbbaa5d8ab5d5f04af6f4",
+    "github": "brainlife/app-compute-similarity-parcellations",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parc_compare",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path to the parcellation you would like to compare to the reference parcellation",
+      "config_keys": [
+        "parc_compare"
+      ],
+      "requirements": "Same voxel grid and label numbering as the reference parcellation."
+    },
+    {
+      "id": "parc_reference",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "This is the path to the reference parcellation",
+      "config_keys": [
+        "parc_reference",
+        "labels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc_stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "dice_similarity",
+        "parcellations"
+      ],
+      "description": "parcellation.csv with one row per reference parcel: subjectID, structureID, nodeID and dice coefficient.",
+      "datatype_tags_pass": "parc_compare"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.612",
+  "software": [
+    {
+      "name": "nibabel"
+    },
+    {
+      "name": "numpy"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong",
+      "cause": "parcellation.csv was not written.",
+      "fix": "Check that both parcellations load and the reference label.json labels match its voxel values."
+    }
+  ]
+}

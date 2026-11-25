@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit MAPMRI",
+  "version": "1.1.1",
+  "summary": "Fit MAPMRI model (with optional Laplacian regularization). Generates rtop, lapnorm, msd, qiv, rtap, rtpp, non-gaussian (ng), parallel ng, perpendicular ng.  Either the laplacian or positivity or both must be set to True. (dipy_fit_mapmri)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5b217a3e16fe38002748e5ff",
+    "github": "dipy/bl_apps_dipy_fit_mapmri",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the input volume/bvals/bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "dipy_fit_mapmri"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "command",
+      "type": "string",
+      "description": "unknown",
+      "default": "dipy_fit_mapmri",
+      "readonly": true
+    },
+    {
+      "id": "small_delta",
+      "type": "number",
+      "description": "Small delta value used in generation of gradient table of provided\nbval and bvec."
+    },
+    {
+      "id": "big_delta",
+      "type": "number",
+      "description": "Big delta value used in generation of gradient table of provided\nbval and bvec."
+    },
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions (default 0.0)",
+      "default": 50,
+      "required": true,
+      "placeholder": "0"
+    },
+    {
+      "id": "bval_threshold",
+      "type": "number",
+      "description": "Sets the b-value threshold to be used in the scale factor\nestimation. In order for the estimated non-Gaussianity to have\nmeaning this value should set to a lower value (b<2000 s/mm^2)\nsuch that the scale factors are estimated on signal points that\nreasonably represent the spins at Gaussian diffusion",
+      "default": 2000,
+      "required": true,
+      "placeholder": "2000"
+    },
+    {
+      "id": "laplacian_weighting",
+      "type": "number",
+      "description": "Weighting value used in fitting the MAPMRI model in the laplacian\nand both model types. (default: 0.05)",
+      "default": 0.05,
+      "placeholder": "0.05"
+    },
+    {
+      "id": "radial_order",
+      "type": "number",
+      "description": "Even value used to set the order of the basis\n(default: 6)",
+      "default": 6,
+      "required": true,
+      "placeholder": "6"
+    },
+    {
+      "id": "laplacian",
+      "type": "boolean",
+      "description": "Regularize using the Laplacian of the MAP-MRI basis (default True)",
+      "default": true
+    },
+    {
+      "id": "positivity",
+      "type": "boolean",
+      "description": "Constrain the propagator to be positive. (default True)",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 6
+    }
+  },
+  "doi": "10.25663/bl.app.67"
+}

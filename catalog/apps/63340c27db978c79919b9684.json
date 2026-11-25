@@ -1,0 +1,195 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": " Compute EOG artifact SSP projectors",
+  "version": "v1.0",
+  "summary": "Compute SSP (signal-space projection) vectors for EOG artifacts.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "63340c27db978c79919b9684",
+    "github": "BrainlifeMEEG/SSP-projectors-EOG",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/projection",
+      "datatype_tags": [
+        "proj-eog"
+      ],
+      "description": "SSP projector computed based on EOG."
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ch_name",
+      "type": "string",
+      "description": "If not None, specify EOG channel name.",
+      "default": ""
+    },
+    {
+      "id": "n_grad",
+      "type": "number",
+      "description": "Number of SSP vectors for gradiometers.",
+      "default": 2
+    },
+    {
+      "id": "n_mag",
+      "type": "number",
+      "description": "Number of SSP vectors for magnetometers.",
+      "default": 2
+    },
+    {
+      "id": "n_eeg",
+      "type": "number",
+      "description": "Number of SSP vectors for EEG.",
+      "default": 2
+    },
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "unknown",
+      "default": -0.2
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.2
+    },
+    {
+      "id": "l_freq",
+      "type": "number",
+      "description": "Filter low cut-off frequency for the data channels in Hz.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "h_freq",
+      "type": "number",
+      "description": "Filter high cut-off frequency for the data channels in Hz.",
+      "default": 35,
+      "advanced": true
+    },
+    {
+      "id": "average",
+      "type": "boolean",
+      "description": "Compute SSP after averaging. Default is True.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "filter_length",
+      "type": "string",
+      "description": "Number of taps to use for filtering.",
+      "default": "10s",
+      "advanced": true
+    },
+    {
+      "id": "avg_ref",
+      "type": "boolean",
+      "description": "Add EEG average reference proj.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "no_proj",
+      "type": "boolean",
+      "description": "Exclude the SSP projectors currently in the fiff file.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "event_id",
+      "type": "number",
+      "description": "ID to use for events.",
+      "default": 998,
+      "advanced": true
+    },
+    {
+      "id": "eog_l_freq",
+      "type": "number",
+      "description": "Low pass frequency applied to the EOG channel for event detection.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "eog_h_freq",
+      "type": "number",
+      "description": "High pass frequency applied to the EOG channel for event detection.",
+      "default": 10,
+      "advanced": true
+    },
+    {
+      "id": "tstart",
+      "type": "number",
+      "description": "Start artifact detection after tstart seconds.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "filter_method",
+      "type": "string",
+      "description": "Method for filtering (\u2018iir\u2019 or \u2018fir\u2019).",
+      "default": "fir",
+      "advanced": true
+    },
+    {
+      "id": "copy",
+      "type": "boolean",
+      "description": "If False, filtering raw data is done in place. Defaults to True.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "return_drop_log",
+      "type": "boolean",
+      "description": "If True, return the drop log.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "meg",
+      "type": "string",
+      "description": "Can be \u2018separate\u2019 (default) or \u2018combined\u2019 to compute projectors for magnetometers and gradiometers separately or jointly. If \u2018combined\u2019, n_mag == n_grad is required and the number of projectors computed for MEG will be n_mag.",
+      "default": "separate",
+      "advanced": true
+    },
+    {
+      "id": "iir_params",
+      "type": "string",
+      "description": "Dictionary of parameters to use for IIR filtering. See mne.filter.construct_iir_filter for details. If iir_params is None and method=\u201diir\u201d, 4th order Butterworth will be used.",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.673"
+}

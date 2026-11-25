@@ -1,0 +1,270 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "First Level GLM Analysis",
+  "version": "1.0",
+  "summary": "From the Nilearn Module: \"Intro to GLM Analysis: a single-session, single-subject fMRI dataset\"",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65a9a68c4ce5ac2907f02c52",
+    "github": "aldensyi/fmri_analysis_app",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "bold_fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "brain_mask_optional",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Mask to be used on data. If an instance of masker is passed, then its mask will be used. If no mask is given, it will be computed automatically by a NiftiMasker with default parameters.",
+      "config_keys": [
+        "mask_img"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "f_test",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "f_test_maps"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "large_cluster_thresholded",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "large_cluster_thresholded_map"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "p_stat",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "p_stat_map"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "p_stat_bonferroni_corrected",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "p_stat_bonferroni_corrected_map"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "p_stat_fdr_corrected",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "p_stat_fdr_corrected_map"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "z_stat",
+      "datatype": "neuro/maps",
+      "datatype_tags": [
+        "z_stat_map"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "qa_image"
+      ],
+      "description": "Captured PNGs of the graphs, stat-maps and the matrices produced during the processes"
+    },
+    {
+      "id": "clusters",
+      "datatype": "neuro/contrast-stats",
+      "datatype_tags": [
+        "thresholded_clusters"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "noise_model",
+      "type": "enum",
+      "description": "The temporal variance model",
+      "default": "ar1",
+      "options": [
+        {
+          "value": "ar1",
+          "label": "ar1",
+          "description": "ar1"
+        },
+        {
+          "value": "ols",
+          "label": "ols",
+          "description": "ols"
+        }
+      ]
+    },
+    {
+      "id": "standardize",
+      "type": "boolean",
+      "description": "If standardize is True, the time-series are centered and normed: their variance is put to 1 in the time dimension.",
+      "default": false
+    },
+    {
+      "id": "hrf_model",
+      "type": "enum",
+      "description": "This parameter defines the HRF model to be used.",
+      "default": "glover",
+      "options": [
+        {
+          "value": "spm",
+          "label": "spm",
+          "description": "The HRF Model used in Statistical Parametric Mapping (SPM)"
+        },
+        {
+          "value": "spm + derivative",
+          "label": "spm + derivative",
+          "description": "SPM Model plus its time derivative; Gives 2 regressors"
+        },
+        {
+          "value": "spm + derivative + dispersion",
+          "label": "spm + derivative + dispersion",
+          "description": "SPM Model plus its time derivative AND dispersion derivative; Gives 3 regressors"
+        },
+        {
+          "value": "glover",
+          "label": "glover",
+          "description": "Corresponds to the Glover HRF on NiLearn"
+        },
+        {
+          "value": "glover + derivative",
+          "label": "glover + derivative",
+          "description": "Glover HRF + time derivative; Gives 2 regressors"
+        },
+        {
+          "value": "glover + derivative + dispersion",
+          "label": "glover + derivative + dispersion",
+          "description": "Glover HRF + time derivative and dispersion derivative; Gives 3 regressors"
+        },
+        {
+          "value": "fir",
+          "label": "fir",
+          "description": "Finite impluse response basis; Set of delayed dirac models"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "drift_model",
+      "type": "enum",
+      "description": "This parameter specifies the desired drift model for the design matrices.",
+      "default": "cosine",
+      "options": [
+        {
+          "value": "polynomial",
+          "label": "polynomial",
+          "description": "polynomial"
+        },
+        {
+          "value": "cosine",
+          "label": "cosine",
+          "description": "cosine"
+        },
+        {
+          "value": "None",
+          "label": "None",
+          "description": "None"
+        }
+      ]
+    },
+    {
+      "id": "high_pass",
+      "type": "number",
+      "description": "This parameter specifies the cut frequency of the high-pass filter in Hz for the design matrices. Used only if drift_model is \u2018cosine\u2019",
+      "default": 0.01,
+      "minimum": 0.01,
+      "placeholder": "Default = 0.01"
+    },
+    {
+      "id": "slice_time_ref",
+      "type": "number",
+      "description": "This parameter indicates the time of the reference slice used in the slice timing preprocessing step of the experimental runs. It is expressed as a fraction of the t_r (time repetition), so it can have values between 0. and 1.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false,
+      "advanced": true,
+      "placeholder": "Float Value between 0 and 1"
+    },
+    {
+      "id": "drift_order",
+      "type": "number",
+      "description": "This parameter specifies the order of the drift model (in case it is polynomial) for the design matrices.",
+      "default": 1,
+      "required": false,
+      "advanced": true,
+      "placeholder": "(Needs to be an integer value)"
+    },
+    {
+      "id": "min_onset",
+      "type": "number",
+      "description": "This parameter specifies the minimal onset relative to the design (in seconds). Events that start before (slice_time_ref * t_r + min_onset) are not considered.",
+      "default": -24,
+      "required": false,
+      "advanced": true,
+      "placeholder": "(Can take in a decimal point)"
+    },
+    {
+      "id": "smoothing_fwhm",
+      "type": "number",
+      "description": "If smoothing_fwhm is not None, it gives the full-width at half maximum in millimeters of the spatial smoothing to apply to the signal.",
+      "default": 0,
+      "required": false,
+      "advanced": true,
+      "placeholder": "(Leave as 0.0 if you do not want to apply spatial smoothing)"
+    },
+    {
+      "id": "subject_label",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "verbose",
+      "type": "number",
+      "description": "unknown",
+      "default": 1,
+      "minimum": 0,
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0"
+  },
+  "doi": "10.25663/brainlife.app.808"
+}

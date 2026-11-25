@@ -1,0 +1,145 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Probabilistic Tractography Algorithm",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "683643f5187eaf3617aeae36",
+    "github": "mbedini/app-fsl-probtrackx",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "bedpostx",
+      "datatype": "neuro/FSLBedpostX",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bedpostx"
+      ]
+    },
+    {
+      "id": "brain_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "brain_mask"
+      ]
+    },
+    {
+      "id": "seed_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "seed_surface_left",
+        "seed_surface_right"
+      ]
+    },
+    {
+      "id": "seed_reference",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "mask_avoid",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask_avoid"
+      ]
+    },
+    {
+      "id": "mask_target",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "id": "mask_termination",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask_termination_left",
+        "mask_terminationright"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "probtrackx_outputs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "probtrackx"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hemisphere",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "1",
+          "label": "left"
+        },
+        {
+          "value": "2",
+          "label": "right"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 3.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.863"
+}

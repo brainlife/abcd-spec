@@ -1,0 +1,148 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FOD (CSD) Registration",
+  "version": "main",
+  "summary": "This repository provides a reproducible pipeline to apply spatial transformations to diffusion MRI data using ANTs (Advanced Normalization Tools) and MRtrix3.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "67d0b9371b629b467fa47511",
+    "github": "gamorosino/app-registration-FOD",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "moving-csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Moving FODs data",
+      "config_keys": [
+        "response",
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "moving-tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Moving DTI Scalars Maps",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "fixed-tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Fixed DTI Scalars Maps",
+      "config_keys": [
+        "fa_fixed",
+        "md_fixed",
+        "rd_fixed",
+        "ad_fixed",
+        "cl_fixed",
+        "cp_fixed",
+        "cs_fixed",
+        "tensors_fixed",
+        "kurtosis_fixed",
+        "ga_fixed",
+        "mk_fixed",
+        "ak_fixed",
+        "rk_fixed",
+        "rgb_fixed"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformed",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "transformations",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "Select the appropriate value of lmax to be used.",
+      "default": 4
+    },
+    {
+      "id": "settings",
+      "type": "number",
+      "description": "The `settings` parameter controls the depth of the multiresolution (pyramidal) registration strategy used by ANTs. Higher settings correspond to more levels in the registration pyramid, starting from coarse alignment and progressively refining toward finer spatial correspondence.",
+      "default": 4,
+      "minimum": 1,
+      "maximum": 4
+    },
+    {
+      "id": "transformation",
+      "type": "enum",
+      "description": "Choose the type of registration from the following:  \n1)  translation  \n2)  rigid  \n3)  affine  \n4)  nonlinear (diffeomorphic SyN)",
+      "default": "rigid",
+      "options": [
+        {
+          "value": "translation",
+          "label": "1",
+          "description": "Translation"
+        },
+        {
+          "value": "rigid",
+          "label": "2",
+          "description": "Rigid Transformation"
+        },
+        {
+          "value": "affine",
+          "label": "3",
+          "description": "Affine Transformation"
+        },
+        {
+          "value": "nonlinear",
+          "label": "4",
+          "description": "Diffeomorphic Symmetric (SyN) Transformation"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.849"
+}

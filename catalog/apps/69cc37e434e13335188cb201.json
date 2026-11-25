@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractogram clustering",
+  "version": "main",
+  "summary": "Orientation-invariant streamline dissimilarity embedding, MiniBatch K-Means clustering, and medoid extraction",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69cc37e434e13335188cb201",
+    "github": "gamorosino/app-tract-mbkm-cluster",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "reference"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_medoids",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_clusters",
+      "type": "number",
+      "description": "unknown",
+      "default": 1000
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "unknown",
+      "default": -1,
+      "advanced": true
+    },
+    {
+      "id": "max_num_streamlines",
+      "type": "number",
+      "description": "Randomly subsample the input tractogram to a fixed number of streamlines. This is useful for debugging and reducing runtime on large datasets. Note that subsampling may affect clustering quality and reproducibility.",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0}",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.916"
+}

@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "old ensemble tracking",
+  "version": "singularity",
+  "summary": "This App creates a large set of candidate streamlines using an ensemble of algorithms and parameter values. All outputs will be then combined into a single track.tck output.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "tracking"
+  ],
+  "registry": {
+    "id": "5a70cc8142d17b00459e80dc",
+    "github": "brainlife/app-ensembletracking",
+    "branch": "singularity"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "do_probabilistic",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "do_deterministic",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "do_tensor",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "fibers",
+      "type": "number",
+      "description": "unknown",
+      "default": 660000
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 9.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.149",
+  "deprecated_by": "592dbbccb3cd7c00211dc235"
+}

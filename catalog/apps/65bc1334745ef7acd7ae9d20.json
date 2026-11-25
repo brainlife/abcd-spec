@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Concatenating NifTi and Eventfiles",
+  "version": "1.0",
+  "summary": "Concatenating single-session, single-subject Nifti files into multiple-session, single-subject Nifti files for first-level GLM Analysis",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65bc1334745ef7acd7ae9d20",
+    "github": "aldensyi/concat_session_app",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "bold_singles",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "bold_singles"
+      ]
+    },
+    {
+      "id": "events_singles",
+      "datatype": "neuro/func/events",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "events_singles",
+        "events_json",
+        "events_csv"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "bold_multiple",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "concatenated"
+      ],
+      "description": "Concatenated functional MRI bold.nii file; Will be used and passed into the First Level GLM App"
+    },
+    {
+      "id": "events_multiple",
+      "datatype": "neuro/func/events",
+      "datatype_tags": [
+        "concatenated"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ga-python:lab328-dipy141-pybrainlife-1.0"
+  },
+  "doi": "10.25663/brainlife.app.810"
+}

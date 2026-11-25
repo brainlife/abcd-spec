@@ -1,0 +1,227 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track the Human Optic TRAct (THOTRA) - Trekker - v1.0",
+  "version": "optic-tract-true-v1.0",
+  "summary": "This app uses [Trekker](https://dmritrekker.github.io) to Track the Human Optic Tract.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "mri",
+    "tracking",
+    "tractography",
+    "vision"
+  ],
+  "registry": {
+    "id": "5ecc63491f446406c39ecbfd",
+    "github": "brainlife/app-trekker-roi-tracking",
+    "branch": "optic-tract-true-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "5-tissue type mask (needed for csd fitting)",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "whole-brain mask",
+      "config_keys": [
+        "brainmask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "optic_tract",
+        "trekker"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "optic_tract",
+        "trekker"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "min length of streamlines",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "max length of streamlines",
+      "default": 200
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "lmax",
+      "default": 8
+    },
+    {
+      "id": "roiPair",
+      "type": "string",
+      "description": "This field is here for whether or not you want to track both hemispheres or one hemisphere at a time. If just one hemisphere is desired, enter the exact ROI number or name from the rois datatype for the lgn of choice (example: '008109'). If both are desired, enter both separated by a space (example: '008109 008209'). Please see ROI datatype for exact name of each.",
+      "default": ""
+    },
+    {
+      "id": "oc",
+      "type": "string",
+      "description": "this field is the exact ROI name or number from the ROI datatype for the optic chiasm. Example: '085'. Please see ROI datatype for exact name of each.",
+      "default": ""
+    },
+    {
+      "id": "count",
+      "type": "number",
+      "description": "total number of streamlines",
+      "default": 500
+    },
+    {
+      "id": "probelength",
+      "type": "number",
+      "description": "Trekker: probe length\nDefault = 0.25",
+      "default": 0.25,
+      "advanced": true
+    },
+    {
+      "id": "probequality",
+      "type": "number",
+      "description": "Trekker: Probe quality\nDefault = 4",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "proberadius",
+      "type": "number",
+      "description": "Trekker: probe radius\nDefault =0",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "probecount",
+      "type": "number",
+      "description": "Trekker: probe count\nDefault = 1",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "curvatures",
+      "type": "string",
+      "description": "minimum radius of curvature",
+      "default": "0.5"
+    },
+    {
+      "id": "stepsize",
+      "type": "string",
+      "description": "step size",
+      "default": "0.05"
+    },
+    {
+      "id": "maxtrials",
+      "type": "number",
+      "description": "maximum number of trials",
+      "default": 1000000
+    },
+    {
+      "id": "maxsampling",
+      "type": "number",
+      "description": "max sampling per seed",
+      "default": 10000
+    },
+    {
+      "id": "single_lmax",
+      "type": "boolean",
+      "description": "if want to run on only one lmax, set to true. to ensemble, set to false",
+      "default": true
+    },
+    {
+      "id": "minfodamp",
+      "type": "string",
+      "description": "minimum FOD amplitude",
+      "default": "0.025"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/trekker:0.4",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 30,
+      "walltime_hours": 30
+    }
+  },
+  "doi": "10.25663/brainlife.app.353",
+  "deprecated_by": "5ecca2f11f446435999ed9f9"
+}

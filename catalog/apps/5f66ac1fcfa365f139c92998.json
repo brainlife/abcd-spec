@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MatLab App Example",
+  "version": "BLAPPV1.0",
+  "summary": "Template MATLAB brainlife.io App that resamples a T1-weighted NIfTI image to a new voxel resolution; an example for App developers, not an analysis tool.",
+  "description": "Example code showing how a MATLAB App reads config.json and processes data: it reslices the T1w image to the resolution in outres with reslice_nii. Use it as a starting point for writing Apps. As written, main.m loads config.json.example instead of config.json and no output datatype is registered, so it is not meant for production use.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f66ac1fcfa365f139c92998",
+    "github": "brainlife/app-template-matlab",
+    "branch": "BLAPPV1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted NIfTI image to resample.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [
+    {
+      "id": "outres",
+      "type": "string",
+      "description": "Target voxel size in mm, as three comma-separated values (x,y,z).",
+      "default": "1,1,1"
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.419",
+  "software": [
+    {
+      "name": "MATLAB"
+    },
+    {
+      "name": "NIfTI tools (reslice_nii)"
+    },
+    {
+      "name": "jsonlab"
+    }
+  ]
+}

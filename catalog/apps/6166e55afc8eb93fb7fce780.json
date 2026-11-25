@@ -1,0 +1,79 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ANTsRegistration",
+  "version": "1.2",
+  "summary": "registering t1w images with ANTs",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6166e55afc8eb93fb7fce780",
+    "github": "vnbcs/app-ANTsRegistration",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "skullstripped_nifti",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1w to be registered to template space",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "registered",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "registered",
+        "MNI152",
+        "ANTs"
+      ],
+      "description": "t1w registered to template space"
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "warp",
+        "MNI152",
+        "ANTs"
+      ],
+      "description": "warp files"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "template",
+      "type": "string",
+      "description": "currently the only option is mni 1 mm with a dilated mask",
+      "default": "template/mni_t1_template_masked.nii.gz",
+      "readonly": true
+    },
+    {
+      "id": "optional_params",
+      "type": "string",
+      "description": "currently no optional parameters at this time",
+      "default": "null",
+      "readonly": true
+    },
+    {
+      "id": "intense",
+      "type": "string",
+      "description": "you must enter one of the following values: true, false, test.\ntrue = more intense; iterates 100x100x100x25\nfalse = less intense; iterates 100x100x50\ntest = for testing only; iterates 1x1x1",
+      "default": "false"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "memory_gb": 2,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/brainlife.app.581"
+}

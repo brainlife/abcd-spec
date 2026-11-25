@@ -1,0 +1,152 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Preprocess",
+  "version": "0.2",
+  "summary": "App to preprocess connectivity/similarity matrices (conmat) and generate a filtered version of the network, which can be directed or undirected, weighted or unweighted.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5e76ea90de643b5e7c2a9404",
+    "github": "filipinascimento/bl-network-preprocess",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network files to preprocess.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "network-preprocess"
+      ],
+      "description": "Resulting preprocessed networks.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "transform",
+      "type": "enum",
+      "description": "Choose how to handle the sign of the weights. \nAbsolute: Uses the absolute value of entries as weights.\nPositive: Uses only positive weights.\nNegative: Set all negative weights to positive, and positive to zero weight.\nLayered: Keep weights unchanged but adds separated layers for negative and positive.\nNone : Makes no changes to the signs of entries.",
+      "default": "absolute",
+      "options": [
+        {
+          "value": "absolute",
+          "label": "Absolute Values",
+          "description": "Uses the absolute value of entries as weights."
+        },
+        {
+          "value": "positive",
+          "label": "Positive",
+          "description": "Uses only positive weights"
+        },
+        {
+          "value": "negative",
+          "label": "Negative",
+          "description": "Set all negative weights to positive, and positive to zero weight."
+        },
+        {
+          "value": "layered",
+          "label": "Layered",
+          "description": "Keep weights unchanged but adds separated layers for negative and positive"
+        },
+        {
+          "value": "none",
+          "label": "No transformation",
+          "description": "Makes no changes to the signs of entries."
+        }
+      ]
+    },
+    {
+      "id": "retain-weights",
+      "type": "boolean",
+      "description": "Retain weights values after filtering (If not enabled, the resulting networks are unweighed.)",
+      "default": false
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "If a value is provided, all edges weighting less than threshold are removed.",
+      "required": false
+    },
+    {
+      "id": "percentile",
+      "type": "number",
+      "description": "Percentile of top edges to be kept in the network after thresholding edges.",
+      "default": "",
+      "minimum": 0,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "selection-transform",
+      "type": "enum",
+      "description": ". \nAbsolute: Uses the absolute value of entries as weights.\nPositive: Uses only positive weights.\nNegative: Set all negative weights to positive, and positive to zero weight.\nNone : Makes no changes to the signs of entries.\nSame: Use same transformation as transform.",
+      "default": "same",
+      "options": [
+        {
+          "value": "absolute",
+          "label": "Absolute",
+          "description": "Uses the absolute value of entries as weights."
+        },
+        {
+          "value": "positive",
+          "label": "Positive",
+          "description": "Uses only positive weights"
+        },
+        {
+          "value": "negative",
+          "label": "Negative",
+          "description": "Set all negative weights to positive, and positive to zero weight."
+        },
+        {
+          "value": "none",
+          "label": "None",
+          "description": "Makes no changes to the signs of entries."
+        },
+        {
+          "value": "same",
+          "label": "Same",
+          "description": "Use same transformation as transform."
+        }
+      ],
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "strict-percentile",
+      "type": "boolean",
+      "description": "Apply the percentile filter based on the order of weights.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "keep-zero-weights",
+      "type": "boolean",
+      "description": "Keep edges with weight zero before threshold and percentile filtering.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.289"
+}

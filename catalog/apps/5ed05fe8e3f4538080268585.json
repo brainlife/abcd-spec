@@ -1,0 +1,204 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRI Timeseries Extraction",
+  "version": "0.1.6",
+  "summary": "fmriprep outputs to connectivity matrices",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5ed05fe8e3f4538080268585",
+    "github": "faskowit/app-fmri-2-mat",
+    "branch": "0.1.6"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "from fMRIPrep",
+      "config_keys": [
+        "fmri"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "From multi-atlas transfer app; should be aligned to preprocessed bold.nii.gz (i.e. same space).  The internal functions of this app will re-slice the func and the parc to be on the same voxel grid.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "confounds",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "from fMRIPrep",
+      "config_keys": [
+        "confounds"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "func"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "from fMRIPrep",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_regress",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "description": "regressed output bold",
+      "datatype_tags_pass": "fmri"
+    },
+    {
+      "id": "out_ts",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "description": "new timeseries datatype"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "strategy",
+      "type": "enum",
+      "description": "Strategy of nuisance regression, all strategies include linear de-trending",
+      "default": "36P",
+      "options": [
+        {
+          "value": "36P",
+          "label": "36P",
+          "description": "Satterthwaite 36 parameter strategy"
+        },
+        {
+          "value": "24aCompCor",
+          "label": "24aCompCor",
+          "description": "Anatomical CompCor strategy"
+        },
+        {
+          "value": "globalsig",
+          "label": "globalsig",
+          "description": "Just global signal regression, nothing else"
+        },
+        {
+          "value": "linear",
+          "label": "linear",
+          "description": "Just linear de-trending"
+        },
+        {
+          "value": "24aCompCorGsr",
+          "label": "24aCompCorGsr",
+          "description": "Anatomical CompCor strategy with global signal "
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "tr",
+      "type": "number",
+      "description": "If you know the TR, you can set it here.  Script will also try to automatically read it from BL info (try this first).",
+      "default": "",
+      "minimum": 0,
+      "maximum": 5,
+      "required": false
+    },
+    {
+      "id": "smoothfwhm",
+      "type": "number",
+      "description": "FWHM of spatial smoothing kernel applied to bold.nii.gz (put 0 for no smoothing)",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 6,
+      "required": false
+    },
+    {
+      "id": "lowpass",
+      "type": "number",
+      "description": "Low-pass temporal filter",
+      "default": 0.08,
+      "required": false
+    },
+    {
+      "id": "highpass",
+      "type": "number",
+      "description": "High-pass temporal filter",
+      "default": 0.008,
+      "required": false
+    },
+    {
+      "id": "addlinear",
+      "type": "boolean",
+      "description": "Add linear regressor to nuisance regression. This makes your time series generally centered around 0.",
+      "default": true
+    },
+    {
+      "id": "spikethresh",
+      "type": "number",
+      "description": "If you want a spike regressor for frames that exceed a certain FD threshold, set that threshold here. Threshold is typically in the 0.5 to 1 range; else, \"9999\" means no spike regressor.",
+      "default": 9999,
+      "minimum": 0.2,
+      "advanced": true
+    },
+    {
+      "id": "inspace",
+      "type": "enum",
+      "description": "In almost ALL cases, this should be set to 'data'. It will take a super long time to run the app if you set it to 'label' and you might run out of memory.",
+      "default": "data",
+      "options": [
+        {
+          "value": "data",
+          "label": "data",
+          "description": "compute time series from data grid, resample labels"
+        },
+        {
+          "value": "label",
+          "label": "label",
+          "description": "computer time series from label grid, resample data"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "savets",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "readonly": true
+    },
+    {
+      "id": "nomatrix",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "faskowit/app-fmri-2-mat:brnch-0.1.6",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.369"
+}

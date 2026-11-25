@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Add flat channel",
+  "version": "v1.0",
+  "summary": "Add a flat channel to a mne/raw file.\nThis helps add a missing channel before concatenation.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "67f3f80ada629ed3b127f324",
+    "github": "BrainlifeMEEG/add-flat-chan",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw0",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "raw0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ch_name",
+      "type": "string",
+      "description": "Name of the channel to add.",
+      "default": "",
+      "placeholder": "STI 014"
+    },
+    {
+      "id": "ch_type",
+      "type": "string",
+      "description": "Type of the channel to add.",
+      "default": "",
+      "placeholder": "stim"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.856"
+}

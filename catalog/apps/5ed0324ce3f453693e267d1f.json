@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Temporary converter app from NODDI-deprecated to NODDI datatype",
+  "version": "master",
+  "summary": "Utility that converts a deprecated NODDI dataset to the current NODDI datatype by renaming icvf to ndi and od to odi, and copying isovf and the direction map.",
+  "description": "Copies icvf.nii.gz to ndi.nii.gz, od to odi.nii.gz and isovf unchanged, plus the dir file, into the new noddi datatype. Use it only to make old NODDI outputs usable by Apps that expect the current naming. Utility App; no computation.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "conversion",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ed0324ce3f453693e267d1f",
+    "github": "brainlife/app-convert-noddi-datatypes",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "noddi-deprecated",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Deprecated NODDI outputs: icvf, isovf, od and dir maps.",
+      "config_keys": [
+        "dir",
+        "icvf",
+        "isovf",
+        "od"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "description": "NODDI maps renamed to ndi, isovf and odi, with the direction map.",
+      "datatype_tags_pass": "noddi-deprecated"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.368",
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

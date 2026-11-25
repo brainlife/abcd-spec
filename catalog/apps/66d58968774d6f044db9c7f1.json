@@ -1,0 +1,111 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Inverse operator",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "66d58968774d6f044db9c7f1",
+    "github": "AntonioCauAt/app-inverse-operator",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "cov1",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [
+        "matrix"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "cov"
+      ]
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "fif1",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [
+        "fwd"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "forward",
+        "inverse"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/stc",
+      "datatype_tags": [
+        "stc"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "loose",
+      "type": "number",
+      "description": "Value that weights the source variances of the dipole components that are parallel (tangential) to the cortical surface. Can be:\nfloat between 0 and 1 (inclusive)\nIf 0, then the solution is computed with fixed orientation. If 1, it corresponds to free orientations.\n'auto' (default)\nUses 0.2 for surface source spaces (unless fixed is True) and 1.0 for other source spaces (volume or mixed).\ndict\nMapping from the key for a given source space type (surface, volume, discrete) to the loose value. Useful mostly for mixed source spaces.",
+      "default": 0.2
+    },
+    {
+      "id": "depth",
+      "type": "number",
+      "description": "How to weight (or normalize) the forward using a depth prior. If float (default 0.8), it acts as the depth weighting exponent (exp) to use None is equivalent to 0, meaning no depth weighting is performed. It can also be a dict containing keyword arguments to pass to mne.forward.compute_depth_prior()This is effectively ignored when method='eLORETA'.",
+      "default": 0.8
+    },
+    {
+      "id": "fixed",
+      "type": "boolean",
+      "description": "Use fixed source orientations normal to the cortical mantle. If True, the loose parameter must be \"auto\" or 0. If 'auto', the loose value is used.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "verbose",
+      "type": "string",
+      "description": "Control verbosity of the logging output. If None, use the default verbosity level. See the logging documentation and mne.verbose() for details. Should only be passed as a keyword argument.",
+      "default": "None",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.830"
+}

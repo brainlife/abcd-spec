@@ -1,0 +1,109 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert assignments from structural connectivity to wmc datatype",
+  "version": "pyafq-0.4.1_v1.0",
+  "summary": "Converts structural connectivity streamline assignments (streamline-to-node-pair labels) into a white matter classification (wmc) with one tract per connected region pair, using DIPY and pandas.",
+  "description": "Reads the per-streamline node-pair assignments and the parcellation labels, names each pair as track_<region>_to_<region>, builds a wmc classification and tract files from the tractogram, and generates surface meshes of the parcellation regions for visualisation. Use it to view or analyse the streamlines behind individual connectome edges; the tractogram and parcellation must be the ones used to compute the assignments.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "connectomics",
+    "conversion",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6441babdd391caf6efc8fa6c",
+    "github": "brainlife/app-connectivity-assignments-to-wmc",
+    "branch": "pyafq-0.4.1_v1.0"
+  },
+  "inputs": [
+    {
+      "id": "assignments",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "connectivity_assignments"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Streamline-to-node-pair assignments from a structural connectivity App (index and pair names).",
+      "config_keys": [
+        "index",
+        "name"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram the assignments refer to.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI used as the reference space when loading the tractogram.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Parcellation (with label.json) whose regions define the connectome nodes.",
+      "config_keys": [
+        "parcellation",
+        "key",
+        "labels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification with one tract per connected region pair, plus tract and region surface files.",
+      "datatype_tags_pass": "assignments"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/pyafq:0.4.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.766",
+  "software": [
+    {
+      "name": "pyAFQ container (DIPY)",
+      "version": "0.4.1"
+    },
+    {
+      "name": "VTK"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "wmc/classification.mat was not produced.",
+      "fix": "Check that the assignments, tractogram and parcellation come from the same connectivity run."
+    }
+  ]
+}

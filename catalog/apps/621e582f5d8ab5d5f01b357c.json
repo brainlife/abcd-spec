@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural connectivity predictors",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "621e582f5d8ab5d5f01b357c",
+    "github": "FarnazZE/bnbl-brainlife-sc-based-predictors",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "csv",
+        "index",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "csv files containing predictors for structural connectivity"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "gammavals",
+      "type": "number",
+      "description": "convert edge weight to cost",
+      "default": 0.5,
+      "placeholder": "gamma value"
+    },
+    {
+      "id": "remove nodes",
+      "type": "enum",
+      "description": "remove isolated nodes/ROI (column/rows with all zero values)",
+      "default": "",
+      "options": [
+        {
+          "value": "true"
+        },
+        {
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.606"
+}

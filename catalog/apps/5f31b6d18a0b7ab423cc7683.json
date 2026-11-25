@@ -1,0 +1,87 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compile tract macro-structural and profile data",
+  "version": "v1.1",
+  "summary": "Merges tract macrostructural statistics (for example from Tractography Quality Check) with tract profile measures into a single tractmeasures CSV per subject, using pandas.",
+  "description": "Reads the macrostructure CSV and the tract profiles CSV, harmonises subject and tract names (removing underscores, hyphens and dots), merges them on subjectID and structureID, and appends the whole-brain (wbfg) row. Use it to prepare one table per subject for group analyses of tract shape and microstructure. Needs a profiles tractmeasures and a macro tractmeasures from the same subject with matching tract names.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f31b6d18a0b7ab423cc7683",
+    "github": "brainlife/app-compile-macro-micro-tract-stats",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Tract profiles CSV (tractmeasures with node-wise microstructure values per tract).",
+      "config_keys": [
+        "profiles"
+      ]
+    },
+    {
+      "id": "macro",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "!profiles",
+        "!macro_micro"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Tract macrostructure CSV (for example from Tractography Quality Check) with one row per tract and a wbfg whole-brain row.",
+      "config_keys": [
+        "macro"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "macro_micro"
+      ],
+      "description": "tractmeasures.csv combining profile and macrostructural measures per tract, plus the whole-brain row."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.397",
+  "software": [
+    {
+      "name": "pandas"
+    },
+    {
+      "name": "NumPy"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "tractmeasures.csv was not produced.",
+      "fix": "Check that tract names in the two inputs match and inspect the log."
+    }
+  ]
+}

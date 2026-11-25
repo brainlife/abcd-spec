@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Automated Segmentation of Hippocampal Subfields (ASHS)",
+  "version": "master",
+  "summary": "brainlife.io app for using Automated Segmentation of Hippocampal Subfields (ASHS) software to segment hippocampal subfields based on previously acquired atlases",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5deece232d1c254a76929834",
+    "github": "svincibo/app-ashs-segment",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomical image used for hippocampus segmentation. Must be in register with the t2.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t2 anatomical image used for hippocampus segmentation. Must be in register with the t1.",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output-volume",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/ashs",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "UPENN-PMC-3t",
+          "label": "UPENN-PMC-3t"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/ashs-dg_ca23_separated:2.0.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.262"
+}

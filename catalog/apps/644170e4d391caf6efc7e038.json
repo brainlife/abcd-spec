@@ -1,0 +1,251 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural Connectome MRTrix3 (SCMRT)",
+  "version": "nosift-input-labels-weights-v1.1",
+  "summary": "Builds structural connectivity matrices (count, density, length and mean diffusion or quantitative MRI measures) from a tractogram and volumetric parcellation with MRtrix3 tck2connectome, optionally using streamline labels and weights.",
+  "description": "Optionally filters the tractogram by a binary streamline labels file and applies precomputed streamline weights, then builds symmetric count, density, length and density-of-length matrices and mean-measure matrices for any tensor, NODDI, quantitative MRI, myelin or spherical-mean maps supplied. Endpoint-to-node assignment can be tuned with radial, reverse and forward search options. Also outputs the streamline assignments as a labels datatype.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "mrtrix3"
+  ],
+  "registry": {
+    "id": "644170e4d391caf6efc7e038",
+    "github": "brainlife/app-sift2-connectome-generation",
+    "branch": "nosift-input-labels-weights-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck).",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation with label.json; each label becomes a network node.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DTI/DKI maps (FA, MD, RD, AD and kurtosis maps if present); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional NODDI maps (NDI, ODI, ISOVF); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "labels",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "binary"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional binary per-streamline labels; only streamlines labelled 1 are kept before building matrices.",
+      "config_keys": [
+        "labels"
+      ]
+    },
+    {
+      "id": "weights",
+      "datatype": "neuro/streamline-weights",
+      "datatype_tags": [
+        "sift2"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional per-streamline weights (e.g. SIFT2) applied in tck2connectome; subset to match when labels are also given.",
+      "config_keys": [
+        "weights"
+      ]
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional quantitative MRI maps (T1, R1, M0, PD, MTV, VIP, SIR, WF); used to build mean-measure matrices.",
+      "config_keys": [
+        "T1map",
+        "T1map_json",
+        "R1map",
+        "R1map_json",
+        "M0map",
+        "M0map_json",
+        "PD",
+        "MTV",
+        "VIP",
+        "SIR",
+        "WF"
+      ]
+    },
+    {
+      "id": "myelin_map",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional myelin map; used to build a mean-measure matrix.",
+      "config_keys": [
+        "myelin_map"
+      ]
+    },
+    {
+      "id": "sm",
+      "datatype": "neuro/spherical-mean",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional spherical-mean map; used to build a mean-microstructure matrix.",
+      "config_keys": [
+        "sphmean"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "All connectivity matrices as CSV files (count, density, length, density-of-length and per-measure mean matrices)."
+    },
+    {
+      "id": "count_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "count"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts between node pairs."
+    },
+    {
+      "id": "length_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "length"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of mean streamline length between node pairs."
+    },
+    {
+      "id": "density_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts scaled by inverse node volume."
+    },
+    {
+      "id": "denlen_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "denlen"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of length-scaled counts normalised by inverse node volume."
+    },
+    {
+      "id": "assignments",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "connectivity_assignments"
+      ],
+      "description": "Streamline-to-node-pair assignments from tck2connectome as a labels datatype."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "assignment_radial_search",
+      "type": "number",
+      "description": "perform a radial search from each streamline endpoint to locate the nearest node. Argument is the maximum radius in mm; if no node is found within this radius, the streamline endpoint is not assigned to any node. Default search distance is 4mm.",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "assignment_reverse_search",
+      "type": "string",
+      "description": "traverse from each streamline endpoint inwards along the streamline, in search of the last node traversed by the streamline. Argument is the maximum traversal length in mm (set to 0 to allow search to continue to the streamline midpoint).",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "assignment_forward_search",
+      "type": "string",
+      "description": "project the streamline forwards from the endpoint in search of a parcellation node voxel. Argument is the maximum traversal length in mm.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "inverse_length",
+      "type": "boolean",
+      "description": "if you want to scale the length and den len matrices by either inverse length (true) or the length (false)",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.765",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "VTK (pythonvtk)",
+      "version": "1.1"
+    }
+  ]
+}

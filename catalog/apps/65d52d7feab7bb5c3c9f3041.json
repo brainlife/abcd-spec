@@ -1,0 +1,93 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply warp to or from standard space to ROIs (T1w) - ACPC T1 space",
+  "version": "v1.1",
+  "summary": "Applies an existing FSL nonlinear warp to move ROIs between an ACPC-aligned T1-weighted image space and a standard template with FSL applywarp.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app",
+    "fsl",
+    "registration"
+  ],
+  "registry": {
+    "id": "65d52d7feab7bb5c3c9f3041",
+    "github": "brainlife/app-register-rois-mni",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "id-anat-t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "ACPC-aligned T1-weighted image of the subject.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "id-neuro-rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of NIfTI ROIs to warp.",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    },
+    {
+      "id": "id-neuro-transform-nifti",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Nonlinear transform (warp, inverse warp, affine) between the subject's T1w image and the template.",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "id-raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "standard"
+      ],
+      "description": "Intermediate files from the run (transforms, matrices and images moved into raw/)."
+    },
+    {
+      "id": "id-rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "warped"
+      ],
+      "description": "The ROIs resampled with the selected warp."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 8.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.813",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ]
+}

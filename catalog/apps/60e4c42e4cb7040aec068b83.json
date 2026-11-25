@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice ROIs to match input anatomy (with affine)",
+  "version": "affine-v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60e4c42e4cb7040aec068b83",
+    "github": "bacaron/app-reslice-roi-t1",
+    "branch": "affine-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois",
+        "label"
+      ]
+    },
+    {
+      "id": "affine",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "resliced",
+        "anat"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.539"
+}

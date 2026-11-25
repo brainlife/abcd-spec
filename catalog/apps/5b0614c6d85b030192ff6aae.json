@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reconstruct Surfaces from LB Eigenfunctions",
+  "version": "master",
+  "summary": "This application will reconstruct the surfaces of each 3D model based on the selected number of eigenfunctions.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5b0614c6d85b030192ff6aae",
+    "github": "kitchell/app-reconstructLBeigenfunction",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "reconstructed"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [
+        "lb_reconstructed"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "single_surf",
+      "type": "boolean",
+      "description": "only reconstruct a single surface",
+      "default": false
+    },
+    {
+      "id": "singlesurf_filename",
+      "type": "string",
+      "description": "Include the full filename of the surface you want to reconstruct. Best practice is to copy it directly from the 3D surfaces app output",
+      "default": "",
+      "required": false,
+      "placeholder": "full filename of the single surface you want to reconstruct"
+    },
+    {
+      "id": "spectrum_size",
+      "type": "number",
+      "description": "unknown",
+      "default": 50,
+      "minimum": 1,
+      "placeholder": "number of eigenfunctions you want to use in the reconstruction"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 31,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/bl.app.36"
+}

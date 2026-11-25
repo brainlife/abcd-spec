@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BIDS Mrtrix3 Connectome",
+  "version": "master",
+  "summary": "BIDS app for Mrtrix3 Connectome DTI processing for BrainLife. Generates subject connectomes from raw image data using tools provided in the *MRtrix3* software package. http://www.mrtrix.org/. Optional preprocessing includes FSL's topup analysis for spatial correction and requires at least 2 input DTI images.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "pipeline"
+  ],
+  "registry": {
+    "id": "5ac39b3014f0d4002802e150",
+    "github": "kathrynalpert/app-bids-mrtrix3_connectome",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "bvals",
+        "bvecs",
+        "dwi"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mrtrix3_connectome",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mrtrix3_connectome"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "streamlines",
+      "type": "number",
+      "description": "The number of streamlines to generate",
+      "default": "",
+      "minimum": 0,
+      "required": false
+    },
+    {
+      "id": "parcellation",
+      "type": "enum",
+      "description": "Connectome parcellation scheme",
+      "default": "aal",
+      "options": [
+        {
+          "value": "aal"
+        },
+        {
+          "value": "aal2"
+        },
+        {
+          "value": "fs_2005"
+        },
+        {
+          "value": "fs_2009"
+        }
+      ]
+    },
+    {
+      "id": "preprocessed",
+      "type": "boolean",
+      "description": "Uncheck this to run mrtrix3 dwipreproc. To do so, you must have at least 2 DWI inputs and your metadata must contain both TotalReadoutTime and PhaseEncodingDirection.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "katealpert/bids-mrtrix3_connectome",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 24
+    }
+  },
+  "doi": "10.25663/bl.app.77"
+}

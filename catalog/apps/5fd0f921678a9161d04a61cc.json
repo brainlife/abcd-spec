@@ -1,0 +1,89 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Linearly align DWI to another DWI with FSL Flirt",
+  "version": "dwi-v1.0",
+  "summary": "Linearly aligns one DWI to another by registering their mean b0 images with FSL flirt and applying the transform to the moving DWI and its gradients with MRtrix3.",
+  "description": "Extracts mean b0 images from both DWIs, estimates a linear (affine) transform with FSL flirt, converts it to MRtrix3 format and applies it with mrtransform so that the moving DWI and its bvecs are expressed in the reference DWI space. Use it to bring two diffusion acquisitions of the same subject into register, e.g. before combining or comparing them.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "registration",
+    "fsl",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fd0f921678a9161d04a61cc",
+    "github": "brainlife/app-fsl-flirt",
+    "branch": "dwi-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "moving",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI to be aligned (with bvals/bvecs).",
+      "config_keys": [
+        "movingImg",
+        "movingBvecs",
+        "movingBvals"
+      ]
+    },
+    {
+      "id": "reference",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI that defines the target space.",
+      "config_keys": [
+        "referenceImg",
+        "referenceBvecs",
+        "referenceBvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "aligned_dwi"
+      ],
+      "description": "Moving DWI resampled into the reference DWI space, with updated bvals/bvecs.",
+      "datatype_tags_pass": "moving"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.458",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "flirt failed. please look at derivatives and logs for debugging",
+      "fix": "Check that both DWIs have b0 volumes and overlapping fields of view."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove first volumes of fMRI",
+  "version": "1.0",
+  "summary": "Simple Brainlife app which removes the first volumes of fMRI images",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "6065aa66d040080706b09da2",
+    "github": "amnsbr/app-remove-first-volumes",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bold"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "first_volumes_removed"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_vols",
+      "type": "number",
+      "description": "unknown",
+      "placeholder": "Number of volumes to be removed"
+    }
+  ],
+  "runtime": {
+    "container": "faskowit/app-fmri-2-mat:brnch-0.1.2",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.495"
+}

@@ -175,3 +175,13 @@ def test_registry_type_quirks_are_normalised(record):
     e = next(p for p in m["parameters"] if p["id"] == "e")
     assert [o["value"] for o in e["options"]] == ["a", "b"]
     assert blapp.validate(m, registry=record)[0] == []
+
+
+def test_container_ignores_commented_lines(record):
+    main = "#!/bin/bash\n# singularity exec docker://old/image:1 x\nsingularity exec docker://new/image:2 ./run\n"
+    assert blapp.generate(record, main_text=main)["runtime"]["container"] == "new/image:2"
+
+
+def test_container_expands_simple_variables(record):
+    main = 'VERSION=22.0.6\nsingularity exec docker://nipreps/mriqc:${VERSION} ./run\n'
+    assert blapp.generate(record, main_text=main)["runtime"]["container"] == "nipreps/mriqc:22.0.6"

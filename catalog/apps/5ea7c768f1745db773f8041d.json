@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove Gibbs Ringing from your DWI data",
+  "version": "1.1.1",
+  "summary": "Brainlife wrapper app for dipy_gibbs_ringing workflows.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ea7c768f1745db773f8041d",
+    "github": "dipy/bl_apps_dipy_gibbs_ringing",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "slice_axis",
+      "type": "number",
+      "description": "Data axis corresponding to the number of acquired slices. Default is set to the third axis(2). Could be (0, 1, or 2).",
+      "default": 2
+    },
+    {
+      "id": "n_points",
+      "type": "number",
+      "description": "Number of neighbour points to access local TV",
+      "default": 3
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.327"
+}

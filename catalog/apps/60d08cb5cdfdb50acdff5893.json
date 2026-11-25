@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Split MEG file [ctf]",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60d08cb5cdfdb50acdff5893",
+    "github": "guiomar/app-meg-split-ctf",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fif file",
+      "datatype": "neuro/meg/ctf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ds",
+        "headshape",
+        "channels",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir1",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "split",
+        "test"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir2",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "split",
+        "retest"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "t1min",
+      "type": "number",
+      "description": "unknown",
+      "default": 0
+    },
+    {
+      "id": "t1max",
+      "type": "string",
+      "description": "unknown",
+      "default": ""
+    },
+    {
+      "id": "t2min",
+      "type": "number",
+      "description": "unknown"
+    },
+    {
+      "id": "t2max",
+      "type": "number",
+      "description": "unknown"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.536"
+}

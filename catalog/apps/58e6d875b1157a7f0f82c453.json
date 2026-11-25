@@ -1,0 +1,90 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Neuro",
+  "version": "1.3",
+  "summary": "Builds structural connectivity matrices from a LiFE-evaluated tractogram and the FreeSurfer aparc+aseg parcellation with the FiNE toolbox, weighted by streamline density and virtual lesion strength.",
+  "description": "Converts the FreeSurfer aparc+aseg to NIfTI, assigns the LiFE-weighted streamlines to region pairs and computes connectivity matrices weighted by streamline density (corrected for ROI size) and by virtual lesion evidence, saving them as CSV and MAT files with region surfaces (VTK) for visualisation. Use it to obtain structural networks when a LiFE model has been fit to the tractography; it needs a FreeSurfer output and a LiFE output from the same subject.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "connectomics",
+    "network-analysis",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "58e6d875b1157a7f0f82c453",
+    "github": "brainlife/app-networkneuro",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output; its aparc+aseg parcellation defines the network nodes.",
+      "config_keys": [
+        "fsdir"
+      ]
+    },
+    {
+      "id": "life",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Fitted LiFE model (fe structure) with streamline weights for the tractogram.",
+      "config_keys": [
+        "fe"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fine",
+      "datatype": "neuro/networkneuro",
+      "datatype_tags": [],
+      "description": "networkneuro output: connectivity matrices (CSV) weighted by streamline density and virtual lesion, intermediate MAT files and node surfaces for visualisation.",
+      "datatype_tags_pass": "life"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 58
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.47",
+  "software": [
+    {
+      "name": "FiNE / LiFE (encode)",
+      "url": "https://github.com/brain-life/encode"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Compiler Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "output/pconn.mat was not produced.",
+      "fix": "Check that the LiFE and FreeSurfer inputs come from the same subject."
+    }
+  ],
+  "maintainers": [
+    "Brent McPherson",
+    "Soichi Hayashi"
+  ]
+}

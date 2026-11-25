@@ -1,0 +1,228 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute summary statistics of diffusion measures mapped to cortical surface",
+  "version": "updated-surface-dtype-v1.1",
+  "summary": "Computes per-ROI summary statistics (min, max, mean, median, mode, SD, sample SD, nonzero count) of diffusion measures mapped to the cortical surface for a FreeSurfer aparc or an optional surface parcellation, using Connectome Workbench, and outputs CSVs.",
+  "description": "This app will This app will compute multiple summary statistics from measures mapped to the cortical midthickness surface on a per-ROI basis. This app takes in a cortexmap datatype and an optional parcellation/surface datatype. This app will compute the following summary statistics: minimum, maximum, mean, median, mode, standard deviation, sample standard deviation (n-1), and nonzero vertex count. The app will output a csv for each summary measure summarizing the diffusion measures in each ROI parcellation. If no parcellation surface is inputted, the app will just compute stats from the labels file found in the cortexmap datatype (usually aparc.a2009s.labels.gii). These csvs can be used for computing group averages and for performing machine learning analyses.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "surface-analysis",
+    "parcellation",
+    "statistics",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "603b030878e65d363cd1b3d0",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "updated-surface-dtype-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the cortexmap datatype folder",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "parc_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional surface parcellation (left and right .annot files with a label table), for example from the multi-atlas transfer tool; statistics are also computed for its ROIs.",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "label"
+      ]
+    },
+    {
+      "id": "parc_surf_vertices",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional left and right surface meshes on which the surface parcellation is defined.",
+      "config_keys": [
+        "right",
+        "left"
+      ],
+      "requirements": "Must contain lh.pial*.gii and rh.pial*.gii; needed together with parc_surface to convert the annotation to GIFTI labels."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats"
+      ],
+      "description": "Csv files for each summary statistic and parcellation",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives"
+      ],
+      "description": "Derivatives generated during run for debugging"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsaparc",
+      "type": "enum",
+      "description": "This is the name of the freesurfer aparc to use. Must be located in the cortexmap/label directory for this to work.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "aparc.DKTatlas"
+        }
+      ]
+    },
+    {
+      "id": "validator_csv",
+      "type": "enum",
+      "description": "Which output CSV (parcellation and statistic) is copied to cortex.csv for the brainlife validator.",
+      "default": "aparc_MEAN",
+      "options": [
+        {
+          "value": "aparc_MEAN",
+          "label": "aparc_MEAN",
+          "description": "aparc_MEAN"
+        },
+        {
+          "value": "aparc_MAX",
+          "label": "aparc_MAX",
+          "description": "aparc_MAX"
+        },
+        {
+          "value": "aparc_MIN",
+          "label": "aparc_MIN",
+          "description": "aparc_MIN"
+        },
+        {
+          "value": "aparc_MEDIAN",
+          "label": "aparc_MEDIAN",
+          "description": "aparc_MEDIAN"
+        },
+        {
+          "value": "aparc_MODE",
+          "label": "aparc_MODE",
+          "description": "aparc_MODE"
+        },
+        {
+          "value": "aparc_SAMPSTDEV",
+          "label": "aparc_SAMPSTDEV",
+          "description": "aparc_SAMPSTDEV"
+        },
+        {
+          "value": "aparc_STDEV",
+          "label": "aparc_STDEV",
+          "description": "aparc_STDEV"
+        },
+        {
+          "value": "parc_MEAN",
+          "label": "parc_MEAN",
+          "description": "parc_MEAN"
+        },
+        {
+          "value": "parc_MIN",
+          "label": "parc_MIN",
+          "description": "parc_MIN"
+        },
+        {
+          "value": "parc_MAX",
+          "label": "parc_MAX",
+          "description": "parc_MAX"
+        },
+        {
+          "value": "parc_MEDIAN",
+          "label": "parc_MEDIAN",
+          "description": "parc_MEDIAN"
+        },
+        {
+          "value": "parc_MODE",
+          "label": "parc_MODE",
+          "description": "parc_MODE"
+        },
+        {
+          "value": "parc_SAMPSTDEV",
+          "label": "parc_SAMPSTDEV",
+          "description": "parc_SAMPSTDEV"
+        },
+        {
+          "value": "parc_STDEV",
+          "label": "parc_STDEV",
+          "description": "parc_STDEV"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.483",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "FreeSurfer"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H. et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "aparc_STDEV.csv was not produced.",
+      "fix": "Check the job log and the raw derivatives for the failing step."
+    }
+  ]
+}

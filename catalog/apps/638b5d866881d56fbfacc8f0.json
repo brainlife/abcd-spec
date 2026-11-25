@@ -1,0 +1,121 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractometry over tensor",
+  "version": "2.7",
+  "summary": "Computes tract profiles of FA, MD, RD and AD along each TractSeg tract with TractSeg 2.7 Tractometry, and outputs one tractmeasures CSV per tensor measure.",
+  "description": "Runs TractSeg's Tractometry on the TractSeg TOM trackings and endings segmentations, sampling each tensor map along every tract. Use it after TractSeg to obtain along-tract microstructure profiles for group analyses. Needs a TractSeg output (with TOM_trackings and endings_segmentations) and tensor maps in the same space.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tract-segmentation",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "638b5d866881d56fbfacc8f0",
+    "github": "brainlife/app-tractometry-after-tractseg",
+    "branch": "2.7"
+  },
+  "inputs": [
+    {
+      "id": "tractseg",
+      "datatype": "neuro/tractseg",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "TractSeg output",
+      "config_keys": [
+        "endings_segmentations",
+        "TOM_trackings"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tensor, which should be in the same space as the tractseg output. Tractometry is run over FA, MD, RD, and AD.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractseg_tractometry_fa",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "FA"
+      ],
+      "description": "Tractometry over FA"
+    },
+    {
+      "id": "tractseg_tractometry_md",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "MD"
+      ],
+      "description": "Tractometry over MD"
+    },
+    {
+      "id": "tractseg_tractometry_rd",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "RD"
+      ],
+      "description": "Tractometry over RD"
+    },
+    {
+      "id": "tractseg_tractometry_ad",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "AD"
+      ],
+      "description": "Tractometry over AD"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/tractseg:2.7",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.708",
+  "software": [
+    {
+      "name": "TractSeg",
+      "version": "2.7",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J., Neher P., Maier-Hein K.H. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183:239-253 (2018)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

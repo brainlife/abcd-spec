@@ -1,0 +1,313 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Top-up & Eddy Correct",
+  "version": "topup-eddy_correct-v1.0",
+  "summary": "Estimates the susceptibility field from reverse phase-encoded b0s with FSL topup and corrects eddy currents and motion with FSL eddy_correct, exposing topup's options.",
+  "description": "Merges the mean b0 of each phase-encoding series, runs FSL topup with the chosen options, then runs eddy_correct on the DWI against refvol and rotates the bvecs; a brain mask is made with bet. Set reslice when the two series differ in slice count (FreeSurfer mri_vol2vol reslices rdiff to diff). Note: the topup field is estimated but not applied to the DWI by eddy_correct, and topup_eddy.sh tests a variable (merge_full) that is never read, so only the first DWI series is corrected.",
+  "kind": "native",
+  "topics": [
+    "preprocessing",
+    "dwi",
+    "fsl",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62d1aab8f3194eded6010de9",
+    "github": "brainlife/app-FSLTopupEddy",
+    "branch": "topup-eddy_correct-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "diff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI acquired in the primary phase-encoding direction, with bvecs and bvals.",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval"
+      ]
+    },
+    {
+      "id": "rdiff",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI acquired with the reversed phase-encoding direction, with bvecs and bvals.",
+      "config_keys": [
+        "rdif",
+        "rbvc",
+        "rbvl"
+      ],
+      "requirements": "Must have the same number of slices as diff unless reslice is set."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed",
+        "eddy_correct"
+      ],
+      "description": "DWI after eddy_correct, with rotated bvecs and bvals.",
+      "datatype_tags_pass": "diff"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "Brain mask of the corrected DWI (FSL bet)."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives",
+        "eddy_correct"
+      ],
+      "description": "Derivatives: eddy_correct log, topup results and field, merged b0 images, index.txt and acq_params.txt."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param",
+      "type": "number",
+      "description": "This is the 'dwell time'. Please see https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy/Faq#How_do_I_know_what_to_put_into_my_--acqp_file for more information about this specific parameter."
+    },
+    {
+      "id": "encode",
+      "type": "enum",
+      "description": "Phase encoding direction of the diff (not rdiff), i.e. first, inputted dwi.\n\nfor example, if the phase encoding direction of the first inputted dwi is 'PA', then select 'PA'. If it was 'AP', then select 'AP'",
+      "default": "PA",
+      "options": [
+        {
+          "value": "PA",
+          "label": "posterior-->anterior",
+          "description": "Phase encoding direction of first input was done in posterior/anterior direction"
+        },
+        {
+          "value": "AP",
+          "label": "anterior-->posterior",
+          "description": "Phase encoding direction of first input was done in anterior/posterior"
+        },
+        {
+          "value": "LR",
+          "label": "left-->right",
+          "description": "Phase encoding direction of first input was done in left/right"
+        },
+        {
+          "value": "RL",
+          "label": "right-->left",
+          "description": "Phase encoding direction of first input was done in right/left"
+        }
+      ]
+    },
+    {
+      "id": "warpres",
+      "type": "string",
+      "description": "topup: (approximate) resolution (in mm) of warp basis for the different sub-sampling levels",
+      "default": "20,16,14,12,10,6,4,4,4",
+      "advanced": true
+    },
+    {
+      "id": "subsamp",
+      "type": "string",
+      "description": "topup: sub-sampling scheme",
+      "default": "2,2,2,2,2,1,1,1,1",
+      "advanced": true
+    },
+    {
+      "id": "fwhm",
+      "type": "string",
+      "description": "topup: FWHM (in mm) of gaussian smoothing kernel",
+      "default": "8,6,4,3,3,2,1,0,0",
+      "advanced": true
+    },
+    {
+      "id": "miter",
+      "type": "string",
+      "description": "topup: number of iterations",
+      "default": "5,5,5,5,5,10,10,20,20",
+      "advanced": true
+    },
+    {
+      "id": "lambda",
+      "type": "string",
+      "description": "topup: Weight of regularisation",
+      "default": "0.005,0.001,0.0001,0.000015,0.000005,0.0000005,0.00000005,0.0000000005,0.00000000001"
+    },
+    {
+      "id": "ssqlambda",
+      "type": "string",
+      "description": "topup: If set (=1), lambda is weighted by current ssq",
+      "default": "1",
+      "advanced": true
+    },
+    {
+      "id": "regmod",
+      "type": "enum",
+      "description": "topup: Model for regularisation of warp-field",
+      "default": "bending_energy",
+      "options": [
+        {
+          "value": "membrane_energy",
+          "label": "membrane_energy"
+        },
+        {
+          "value": "bending_energy",
+          "label": "bending_energy"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "estmov",
+      "type": "string",
+      "description": "topup: Estimate movements if set",
+      "default": "1,1,1,1,1,0,0,0,0",
+      "advanced": true
+    },
+    {
+      "id": "minmet",
+      "type": "string",
+      "description": "topup: Minimisation method 0=Levenberg-Marquardt, 1=Scaled Conjugate Gradient",
+      "default": "0,0,0,0,0,1,1,1,1",
+      "advanced": true
+    },
+    {
+      "id": "splineorder",
+      "type": "string",
+      "description": "topup: Order of spline, 2->Qadratic spline, 3->Cubic spline",
+      "default": "3",
+      "advanced": true
+    },
+    {
+      "id": "numprec",
+      "type": "enum",
+      "description": "topup: Precision for representing Hessian, double or float",
+      "default": "double",
+      "options": [
+        {
+          "value": "double",
+          "label": "double"
+        },
+        {
+          "value": "float",
+          "label": "float"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "interp",
+      "type": "enum",
+      "description": "topup: Image interpolation model, linear or spline",
+      "default": "spline",
+      "options": [
+        {
+          "value": "linear",
+          "label": "linear"
+        },
+        {
+          "value": "spline",
+          "label": "spline"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "scale",
+      "type": "boolean",
+      "description": "topup: If set (=1), the images are individually scaled to a common mean",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "regrid",
+      "type": "boolean",
+      "description": "topup: If set (=1), the calculations are done in a different grid",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "refvol",
+      "type": "string",
+      "description": "Eddy-correct: reference volume to align everything to",
+      "default": "0",
+      "advanced": true
+    },
+    {
+      "id": "mergefull",
+      "type": "boolean",
+      "description": "Intended to merge both phase-encoding series before eddy_correct. Note: topup_eddy.sh tests a variable named merge_full that is never read from config.json, so only the first series (diff) is used in this branch.",
+      "default": false
+    },
+    {
+      "id": "reslice",
+      "type": "boolean",
+      "description": "If, for whatever reason, the two DWI images do not hae the same number of slices, set reslice to true and it will reslice the rdif image to diff",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 3
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.662",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Andersson JLR, Skare S, Ashburner J. How to correct susceptibility distortions in spin-echo echo-planar images: application to diffusion tensor imaging. NeuroImage 20(2):870-888 (2003)."
+    },
+    {
+      "text": "Smith SM, Jenkinson M, Woolrich MW, et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage 23(S1):208-219 (2004)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "reslice is true and no FreeSurfer license is configured.",
+      "fix": "Provide a FreeSurfer license, or leave reslice false."
+    },
+    {
+      "message": "output missing",
+      "cause": "dwi/dwi.nii.gz was not produced.",
+      "fix": "Check the topup and eddy_correct log output."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

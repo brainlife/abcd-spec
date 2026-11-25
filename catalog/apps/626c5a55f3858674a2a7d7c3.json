@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Filter WMC Datatype",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "626c5a55f3858674a2a7d7c3",
+    "github": "bacaron/app-filter-wmc",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "classification",
+        "tracts",
+        "surfaces"
+      ]
+    },
+    {
+      "id": "labels",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "binary"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "index"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Needed to generate files for visualization purposes",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.621"
+}

@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute T1 and R1 maps from MP2RAGE",
+  "version": "main",
+  "summary": "Computes T1map and R1map images when provided a denoised mp2rage t1 image (see app-mp2rage-denoiseUNI).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "608b188b89df43179075b628",
+    "github": "svincibo/app-mp2rage-computeT1andR1",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "neuro/anat/mp2rage",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "denoised"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mag_inv1",
+        "mag_inv2",
+        "unit1",
+        "json_inv1",
+        "json_inv2",
+        "json_unit1"
+      ]
+    },
+    {
+      "id": "neuro/mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [
+        "mp2rage"
+      ],
+      "description": "T1map and R1 map"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "slicesperslab",
+      "type": "number",
+      "description": "Slices Per Slab should be available in the MRI sequence protocol. It is not always available in the image's header information. If you are sure that Slices Per Slab is available in the image's header information, you can leave this blank and we will get the value from there. Otherwise, please look up this value in the MRI sequence protocol and enter it here.",
+      "required": false,
+      "placeholder": "Enter the Slices Per Slab parameter."
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:2020a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.514"
+}

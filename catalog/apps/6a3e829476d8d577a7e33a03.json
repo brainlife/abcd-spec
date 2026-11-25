@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Crop raw data",
+  "version": "v1.0",
+  "summary": "Crop raw data between two time points.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a3e829476d8d577a7e33a03",
+    "github": "BrainlifeMEEG/crop-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "Cropped data"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "Start time of the raw data to use in seconds (must be >= 0).",
+      "minimum": 0,
+      "required": false
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "End time of the raw data to use in seconds (cannot exceed data duration). If None (default), the current end of the data is used.",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.940"
+}

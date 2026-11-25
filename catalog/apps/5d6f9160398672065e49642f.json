@@ -1,0 +1,164 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Anatomically-informed multi-LAP",
+  "version": "2.1",
+  "summary": "White matter bundle segmentation as Anatomically-Informed multiple Linear Assignment Problems (multi-LAP-anat).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5d6f9160398672065e49642f",
+    "github": "giulia-berto/app-multi-lap-anat",
+    "branch": "2.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentations of moving (examples) subjects (they should be extracted from the tractogram provided)",
+      "config_keys": [
+        "segmentations",
+        "tracts"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms of moving (example) subjects",
+      "config_keys": [
+        "tractograms_moving"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Ts1 of moving (example) subjects",
+      "config_keys": [
+        "t1s_moving"
+      ]
+    },
+    {
+      "id": "5",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "FreeSurfer parcellation of static (target) subject (not used in version 1.0, needed for tractID from 38 to 45)",
+      "config_keys": [
+        "fsDir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "multi-LAPanat"
+      ],
+      "description": "segmented bundles",
+      "datatype_tags_pass": "2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "k",
+      "type": "number",
+      "description": "value for k-NN to compute the superset",
+      "default": 2000
+    },
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "step size for resampling",
+      "default": 0.625
+    },
+    {
+      "id": "slr",
+      "type": "boolean",
+      "description": "If false, assuming subjects already co-registered in the same space",
+      "default": true
+    },
+    {
+      "id": "lambdaD",
+      "type": "number",
+      "description": "weight for the distance matrix",
+      "default": 1
+    },
+    {
+      "id": "lambdaE",
+      "type": "number",
+      "description": "weight for the endpoint-based distance matrix",
+      "default": 1
+    },
+    {
+      "id": "lambdaR",
+      "type": "number",
+      "description": "weight for the ROI-based distance matrix",
+      "default": 1
+    },
+    {
+      "id": "norm_mat",
+      "type": "boolean",
+      "description": "matrices normalization",
+      "default": true
+    },
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas (refer to the README.md for the mapping)",
+      "default": "",
+      "placeholder": "allowed values: 1-20 (if AFQ examples provided), 38-45 (if WMA examples provided)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.4.2b",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 31,
+      "walltime_hours": 12
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.227"
+}

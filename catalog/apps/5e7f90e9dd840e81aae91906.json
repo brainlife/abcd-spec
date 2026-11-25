@@ -1,0 +1,134 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL DTIFIT",
+  "version": "v1.1",
+  "summary": "Fits the diffusion tensor to a DWI with FSL dtifit, optionally on a single extracted shell and with kurtosis, WLS or SSE options, and outputs FA, MD, AD and RD maps.",
+  "description": "Unless multishell is true, extracts the b=0 and chosen shell with MRtrix3 dwiextract; computes a brain mask with FSL bet on the mean b0 if none is given; runs dtifit with the selected flags; and writes fa, md, ad (L1) and rd ((L2+L3)/2) maps, plus kurtosis for multi-shell kurtosis fits. Use it to obtain standard DTI maps from preprocessed DWI. Needs a preprocessed DWI containing the requested shell.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dwi",
+    "diffusion-modeling",
+    "fsl",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e7f90e9dd840e81aae91906",
+    "github": "brainlife/app-fslDTIFIT",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "The brainmask of the DWI datatype (optional). If not inputted, will be fit using FSL BET",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "fsl"
+      ],
+      "description": "Tensor maps fa.nii.gz, md.nii.gz, ad.nii.gz and rd.nii.gz (and kurtosis.nii.gz for multi-shell kurtosis fits)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "kurtosis",
+      "type": "boolean",
+      "description": "If true, will fit tensor using the -kurt flag",
+      "default": false
+    },
+    {
+      "id": "kurtdir",
+      "type": "boolean",
+      "description": "If true, will fit tensor using the -kurtdir flag",
+      "default": false
+    },
+    {
+      "id": "shell",
+      "type": "string",
+      "description": "The gradient (i.e. shell) to use to fit the DTI model to",
+      "default": "1000",
+      "required": false
+    },
+    {
+      "id": "wls",
+      "type": "boolean",
+      "description": "If true, will fit tensor using the -wls flag",
+      "default": false
+    },
+    {
+      "id": "sse",
+      "type": "boolean",
+      "description": "If true, will fit tensor using the -sse flag",
+      "default": false
+    },
+    {
+      "id": "gradnonlin",
+      "type": "boolean",
+      "description": "If true, will fit tensor using the -gradnonlin flag",
+      "default": false
+    },
+    {
+      "id": "multishell",
+      "type": "boolean",
+      "description": "If true, will fit multi-shell tensor",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 12
+    }
+  },
+  "doi": "10.25663/brainlife.app.292",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    }
+  ],
+  "citations": [
+    {
+      "text": "FSL DTIFIT: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#DTIFIT"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "cause": "dtifit did not produce fa.nii.gz.",
+      "fix": "Check that the requested shell exists in the bvals and that bvecs/bvals match the DWI."
+    }
+  ]
+}

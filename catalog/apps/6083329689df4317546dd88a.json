@@ -1,0 +1,163 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Anat (mp2rage)",
+  "version": "mp2rage-v1.0",
+  "summary": "fsl_anat (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/fsl_anat) provides a general pipeline for processing anatomical images (e.g. mp2rage  scans).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6083329689df4317546dd88a",
+    "github": "brainlife/app-fsl-anat",
+    "branch": "mp2rage-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "mp2rage",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mag_inv1",
+        "phase_inv1",
+        "mag_inv2",
+        "phase_inv2",
+        "unit1",
+        "mag_inv1_json",
+        "phase_inv1_json",
+        "mag_inv2_json",
+        "phase_inv2_json",
+        "unit1_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "acpc",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "preprocessed",
+        "acpc_aligned"
+      ],
+      "description": "ACPC aligned data",
+      "datatype_tags_pass": "mp2rage"
+    },
+    {
+      "id": "standard",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "preprocessed",
+        "standard"
+      ],
+      "description": "mp2rage nonlinearly warped to standard space",
+      "datatype_tags_pass": "mp2rage"
+    },
+    {
+      "id": "standard_nonlin_warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "preprocessed",
+        "standard"
+      ],
+      "description": "Nonlinear warp generated from mp2rage to standard via fnirt",
+      "datatype_tags_pass": "mp2rage"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "Output directory for all the data derivatives generated",
+      "datatype_tags_pass": "mp2rage"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reorient",
+      "type": "boolean",
+      "description": "Reorient the image to FSL's standard (reorient2std). Leave as false if already done",
+      "default": false
+    },
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "Crop the non-brain material using FSL's robustfov. Leave as false if already done",
+      "default": false
+    },
+    {
+      "id": "template",
+      "type": "enum",
+      "description": "The template to which to align the T1",
+      "default": "MNI152_1mm",
+      "options": [
+        {
+          "value": "MNI152_1mm",
+          "label": "MNI152_1mm",
+          "description": "1.0 mm MNI 152 template"
+        },
+        {
+          "value": "nihpd_asym_04.5-08.5",
+          "label": "4.5\u20138.5 y.o Asymmetric (natural) templates",
+          "description": "4.5\u20138.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_04.5-18.5",
+          "label": "4.5-18.5 y.o Asymmetric (natural) templates",
+          "description": "4.5-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.0-11.0",
+          "label": "7.0-11.0 y.o Asymmetric (natural) templates",
+          "description": "7.0-11.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_07.5-13.5",
+          "label": "7.5-13.5 y.o Asymmetric (natural) templates",
+          "description": "7.5-13.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_10.0-14.0",
+          "label": "10.0-14.0 y.o Asymmetric (natural) templates",
+          "description": "10.0-14.0 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "nihpd_asym_13.0-18.5",
+          "label": "13.0-18.5 y.o Asymmetric (natural) templates",
+          "description": "13.0-18.5 y.o Asymmetric (natural) templates"
+        },
+        {
+          "value": "MNI152_0.7mm",
+          "label": "MNI152_0.7mm",
+          "description": "0.7 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_0.8mm",
+          "label": "MNI152_0.8mm",
+          "description": "0.8 mm MNI 152 template"
+        },
+        {
+          "value": "MNI152_2mm",
+          "label": "MNI152_2mm",
+          "description": "2.0 mm MNI 152 template"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 4.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.512"
+}

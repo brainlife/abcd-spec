@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert Pial (Cortical) and White Matter Surfaces from Freesurfer",
+  "version": "master",
+  "summary": "This application converts Freesurfer's pial and white matter surfaces to different file types. It will convert the lh/rh.pial, lh/rh.white, lh/rh.smoothwm, lh/rh.inflated files into your choice of file type (stl, vtk, gii, mgz)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "convert"
+  ],
+  "registry": {
+    "id": "5b083f9341711001e958b2b7",
+    "github": "kitchell/app-3DPialWM_freesurfer",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [
+        "pial_wm_inflated"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "filetype",
+      "type": "enum",
+      "description": "unknown",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "vtk",
+          "label": "vtk",
+          "description": "vtk filetype"
+        },
+        {
+          "value": "stl",
+          "label": "stl",
+          "description": "stl filetype"
+        },
+        {
+          "value": "gii",
+          "label": "gii",
+          "description": "gii filetype"
+        },
+        {
+          "value": "mgz",
+          "label": "mgz",
+          "description": "mgz filetype"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.17
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.38"
+}

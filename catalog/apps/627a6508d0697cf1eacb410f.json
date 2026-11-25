@@ -1,0 +1,24 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-inverse",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "627a6508d0697cf1eacb410f",
+    "github": "zahransa/app-inverse",
+    "branch": "master"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.628"
+}

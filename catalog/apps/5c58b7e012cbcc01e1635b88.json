@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Brain Extraction (BET) on T2",
+  "version": "2.0",
+  "summary": "Removes non-brain tissue from a T2-weighted image with FSL BET (robust centre estimation) and outputs the skull-stripped image and its binary brain mask.",
+  "description": "Runs FSL bet with -R -m on the T2-weighted image using the chosen fractional intensity threshold. Use it before registration or analyses that need a skull-stripped T2w image. The output keeps all other files of the input datatype and replaces the image with the masked one. Inspect the mask: if too much or too little brain is removed, adjust fthreshold.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c58b7e012cbcc01e1635b88",
+    "github": "brainlife/app-FSLBET",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T2-weighted image to skull-strip (NIfTI).",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The masked T2w image",
+      "datatype_tags_pass": "0"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat",
+        "t2"
+      ],
+      "description": "The brainmask of the T2w image",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fthreshold",
+      "type": "number",
+      "description": "choose the fractional intensity threshold (0 -> 1); default=0.2; smaller values give larger brain outline estimates",
+      "default": 0.5
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.156",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.1",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ]
+}

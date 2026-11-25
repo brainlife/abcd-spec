@@ -1,0 +1,45 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROC curve (deprecated)",
+  "version": "1.0",
+  "summary": "Plot ROC-AUC curve for multi-LAP and multi-NN. Warning: this app can be run ONLY after the app https://doi.org/10.25663/brainlife.app.174.  This App was used specifically for a Replicability Study and has been deprecated.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5cb0c93f454d3c00353fa0d3",
+    "github": "giulia-berto/app-plot-roc-curve",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "csv file reporting fdr, tdr and AUC for multi-LAP and multi-NN",
+      "config_keys": [
+        "measures"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "1",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.180"
+}

@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "3D Tract Surfaces",
+  "version": "v3.0",
+  "summary": "app to generate surfaces of each fiber tract",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "593049d7ff090a00210eff05",
+    "github": "kitchell/app-generatetractsurfaces",
+    "branch": "v3.0"
+  },
+  "inputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "binary masks are converted to 3D triangular surfaces",
+      "config_keys": [
+        "maskdir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "description": "3D surface for each binary volume input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "filetype",
+      "type": "enum",
+      "description": "output filetype",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "stl",
+          "label": ".stl",
+          "description": "use .stl file format"
+        },
+        {
+          "value": "ply",
+          "label": ".ply",
+          "description": "use .ply file format"
+        },
+        {
+          "value": "vtk",
+          "label": ".vtk",
+          "description": "use .vtk file format"
+        }
+      ]
+    },
+    {
+      "id": "smooth_iter",
+      "type": "number",
+      "description": "Choose the number of times you would like each tract to be smoothed. Smoothing makes the surfaces less blocky.",
+      "default": 5,
+      "minimum": 0,
+      "maximum": 10,
+      "placeholder": "number of smoothing iterations"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pythonvtk:1.1"
+  },
+  "doi": "10.25663/brainlife.app.108"
+}

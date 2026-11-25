@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Average tract density masks",
+  "version": "fsl-6.0.4-patched2-app-v1.0",
+  "summary": "Averages tract density masks with the same file name across several tractmasks inputs using FSL fslmerge and fslmaths -Tmean.",
+  "description": "For each mask file name found in the inputs, concatenates the matching files and takes their mean to give one average mask per tract. Use it to build group-average tract maps from subjects already in a common space. As written, main calls ./average/sh instead of ./average.sh and the loop always looks up the first file name, so the App is likely broken.",
+  "kind": "native",
+  "topics": [
+    "tract-segmentation",
+    "statistics",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "65bd68dc745ef7acd7b06160",
+    "github": "brainlife/app-average-tractmasks",
+    "branch": "fsl-6.0.4-patched2-app-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "inputs",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tract masks from several subjects or runs, with matching file names.",
+      "config_keys": [
+        "inputs"
+      ],
+      "requirements": "All masks must be in the same space and voxel grid."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "average"
+      ],
+      "description": "Average tract masks, one per file name.",
+      "datatype_tags_pass": "inputs"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.811",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4-patched2"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check files and logs",
+      "fix": "Check that the inputs contain mask files."
+    }
+  ]
+}

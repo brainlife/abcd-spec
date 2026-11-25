@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer Labels to 3D Surfaces",
+  "version": "v1.0",
+  "summary": "This application will create a 3D surface for 87 freesurfer labels from the aparc+aseg.mgz file.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5aa826baf315ba00317fe086",
+    "github": "kitchell/app-3Dfreesurfs",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [
+        "freesurfer"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "filetype",
+      "type": "enum",
+      "description": "choose output filetype",
+      "default": "vtk",
+      "options": [
+        {
+          "value": "vtk",
+          "label": ".vtk",
+          "description": "use .vtk filetype"
+        },
+        {
+          "value": "ply",
+          "label": ".ply",
+          "description": "use .ply filetype"
+        },
+        {
+          "value": "stl",
+          "label": ".stl",
+          "description": "use .stl filetype"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/bl.app.98"
+}

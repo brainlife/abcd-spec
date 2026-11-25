@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "HOI_toolbox",
+  "version": "v1.0",
+  "summary": "Higher-order interactions toolbox",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6117984ca5a04c6800fa6973",
+    "github": "PranavMahajan25/HOI_toolbox",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "input_timeseries",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The code takes data/timeseries.tsv.gz or data/ts.mat as input and outputs the pickle with redundancy and synergy metrics",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "raw"
+      ],
+      "description": "Output is a dict pickled and stored in the output directory. For more on how to read outputs please refer to read_outputs.py"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "input_type",
+      "type": "string",
+      "description": "Type of input data (can be tsv or mat)",
+      "default": "tsv",
+      "placeholder": "tsv or mat"
+    },
+    {
+      "id": "input_path",
+      "type": "string",
+      "description": "Path to input data",
+      "default": "data/timeseries.tsv.gz",
+      "placeholder": "data/timeseries.tsv.gz"
+    },
+    {
+      "id": "metric",
+      "type": "string",
+      "description": "The metric you want to compute. Can be either Oinfo or dOinfo",
+      "default": "Oinfo",
+      "placeholder": "Oinfo or dOinfo"
+    },
+    {
+      "id": "higher_order",
+      "type": "boolean",
+      "description": "Decides whether to adapt to code to enable higher orders without running out of memory. If set to true, generates combinations iteratively and can be retrieved using the combinatorial numbering system else it will precompute all of the combinations.",
+      "default": true
+    },
+    {
+      "id": "estimator",
+      "type": "string",
+      "description": "Decides which estimator to use for the backend - gcmi or lin_est",
+      "default": "gcmi",
+      "required": false,
+      "placeholder": "gcmi or lin_est"
+    },
+    {
+      "id": "modelorder",
+      "type": "number",
+      "description": "model order, only required in dOinfo computation not Oinfo",
+      "default": 3,
+      "required": false,
+      "placeholder": "3"
+    },
+    {
+      "id": "maxsize",
+      "type": "number",
+      "description": "Max n-plet size to sweep till.",
+      "default": 4,
+      "required": false,
+      "placeholder": "4"
+    },
+    {
+      "id": "n_best",
+      "type": "number",
+      "description": "Decides how many of the best redundancy and synergy combination outputs to save",
+      "default": 10,
+      "required": false,
+      "placeholder": "10"
+    },
+    {
+      "id": "nboot",
+      "type": "number",
+      "description": "Number of bootstrap samples to be used, default 100",
+      "default": 100,
+      "required": false,
+      "placeholder": "100"
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.563"
+}

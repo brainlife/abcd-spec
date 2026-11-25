@@ -1,0 +1,54 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "combineROI",
+  "version": "master",
+  "summary": "This app will combine two ROI datatype datasets into one ROI datatype dataset.",
+  "description": "This app will combine two ROI datatype datasets into one ROI datatype dataset. If, for example, there are 3 rois in the first ROI dataset and 2 rois in the second ROI dataset, the output ROI data set will contain 5 rois.\n\nNOTE: This app can be used to extract one roi from an ROI dataset. If you enter the same roi in the roi1 and roi2 fields, the resulting ROI will simply be that roi.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e94e5ec5092192299f0dde6",
+    "github": "svincibo/app-combineROI",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "roi1",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois1"
+      ]
+    },
+    {
+      "id": "roi2",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "rois2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.313"
+}

@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Merge Tractography (tcks) together with MRTrix3 (Two Tcks)",
+  "version": "two-tck",
+  "summary": "This is copy of the mergeTCK BL app (https://doi.org/10.25663/brainlife.app.219) modified to take two tractograms as input. This is a temporary workaround for the lack of functionality for multi-input datatypes in brainilfe Pipelines.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e8b98eb952fef035f7b1653",
+    "github": "bacaron/app-mergeTCK",
+    "branch": "two-tck"
+  },
+  "inputs": [
+    {
+      "id": "track1",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track1"
+      ]
+    },
+    {
+      "id": "track2",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.305"
+}

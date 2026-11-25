@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "WMA Tract Segmentation with Atlas",
+  "version": "1.0",
+  "summary": "Segments a tractogram into tracts by keeping streamlines that connect user-specified pairs of atlas regions, using compiled MATLAB wma_tools, and outputs a white matter classification.",
+  "description": "Runs the compiled wma_tools function bsc_SegROIfromPairStringList_v2 on the tractogram and a volumetric atlas: for each line of roiPairs it builds two ROIs from the listed atlas indices (optionally inflated) and assigns to a tract the streamlines that connect them; it then generates VTK surfaces of the atlas regions for the viewer. Use it to extract specific connections from a whole-brain tractogram. The registry recommends converting the atlas to ROIs with the ROI Generation App and using WMA Tract Segmentation with ROIs instead. Needs a tractogram and an atlas in the same space.",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "segmentation",
+    "tractography",
+    "dwi",
+    "tract-segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc9ccca4b5e4502275edb56",
+    "github": "brainlife/app-segment-tracts-between-multiple-regions",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) to segment.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "atlas",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric atlas or parcellation (parc.nii.gz with its label key) whose integer indices are referenced in roiPairs.",
+      "config_keys": [
+        "atlas",
+        "key"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "White matter classification (classification.mat) with one tract per ROI pair, plus atlas surfaces for visualisation.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roiPairs",
+      "type": "string",
+      "description": "Pairs of ROI sets to segment between: each line is one tract, with the two endpoint sets separated by ';' and each set listing atlas/ROI indices separated by spaces.",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "smoothKernel",
+      "type": "number",
+      "description": "Odd whole-number kernel size used to smooth (inflate) each ROI with MATLAB smooth3 before segmentation; values above 1 inflate the ROI and 0 disables inflation.",
+      "default": 1,
+      "minimum": 1,
+      "placeholder": "1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.190",
+  "software": [
+    {
+      "name": "wma_tools (bsc_SegROIfromPairStringList, compiled MATLAB)",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2017a"
+    },
+    {
+      "name": "VTK"
+    }
+  ]
+}

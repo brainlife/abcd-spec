@@ -1,0 +1,142 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Source Estimate",
+  "version": "v1.0",
+  "summary": "Apply a pre-computed inverse operator to evoked MEG/EEG data and produce source estimates (STCs).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69b1489a6bb1f71b25b69642",
+    "github": "BrainlifeMEEG/source-estimate",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "inverse",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "forward",
+        "inverse"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "evoked"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/stc",
+      "datatype_tags": [
+        "stc"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "dSPM",
+          "label": "dSPM"
+        },
+        {
+          "value": "MNE",
+          "label": "MNE"
+        },
+        {
+          "value": "eLORETA",
+          "label": "eLORETA"
+        },
+        {
+          "value": "sLORETA",
+          "label": "sLORETA"
+        }
+      ]
+    },
+    {
+      "id": "snr",
+      "type": "number",
+      "description": "unknown",
+      "default": 3
+    },
+    {
+      "id": "pick_ori",
+      "type": "string",
+      "description": "unknown",
+      "default": "None"
+    },
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "unknown",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "unknown",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 40,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.906"
+}

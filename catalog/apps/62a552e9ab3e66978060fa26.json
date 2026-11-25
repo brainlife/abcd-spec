@@ -1,0 +1,137 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Predict functional connectivity from structural connectivity",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62a552e9ab3e66978060fa26",
+    "github": "FarnazZE/bnbl-brainlife-predict-fc-from-sc",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "conmat",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "index",
+        "label",
+        "csv"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "report/pdf",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "gammavals",
+      "type": "number",
+      "description": "convert edge weight to cost",
+      "default": 0.5,
+      "placeholder": "gamma values"
+    },
+    {
+      "id": "predictors",
+      "type": "enum",
+      "description": "unknown",
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": "use all structural connectivity predictors",
+          "description": "use all structural connectivity predictors"
+        },
+        {
+          "value": "PLbin",
+          "label": "Binary path length "
+        },
+        {
+          "value": "Gbin",
+          "label": "Binary communicability"
+        },
+        {
+          "value": "Cosbin",
+          "label": "Binary cosine distance"
+        },
+        {
+          "value": "mfptbin",
+          "label": "Binary mean first passage time"
+        },
+        {
+          "value": "MIbin",
+          "label": "Binary matching index"
+        },
+        {
+          "value": "SIbin",
+          "label": "Binary search information"
+        },
+        {
+          "value": "PTbin",
+          "label": "Binary path transitivity"
+        },
+        {
+          "value": "Gwei",
+          "label": " Weighted communicability"
+        },
+        {
+          "value": "Coswei",
+          "label": " Weighted cosine distance"
+        },
+        {
+          "value": "mfptwei",
+          "label": " Weighted mean first passage time"
+        },
+        {
+          "value": "MIwei",
+          "label": " Weighted matching index"
+        },
+        {
+          "value": "SIwei",
+          "label": " Weighted search information"
+        },
+        {
+          "value": "PTwei",
+          "label": " Weighted path transitivity"
+        },
+        {
+          "value": "PLwei",
+          "label": " Weighted path length "
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "remove nodes",
+      "type": "enum",
+      "description": "remove isolated nodes (row/columns\n with all zero values)",
+      "default": "false",
+      "options": [
+        {
+          "value": "true"
+        },
+        {
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.646"
+}

@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BossDB Contactome",
+  "version": "cloudome",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa9776316d2ef0408f693c6",
+    "github": "jhuapl-boss/bossdb-brainlife-apps",
+    "branch": "cloudome"
+  },
+  "inputs": [
+    {
+      "id": "seg",
+      "datatype": "neuro/bossdb",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "channel"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "db"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "output_directory",
+      "type": "string",
+      "description": "Directory in which output will be written",
+      "default": "outputs",
+      "required": true
+    },
+    {
+      "id": "graph_id",
+      "type": "string",
+      "description": "When storing more than one contactome in the same DB, this parameter differentiates them",
+      "default": "contactome-example",
+      "required": true
+    },
+    {
+      "id": "mip",
+      "type": "string",
+      "description": "The resolution of the segmentation at which the contactome should be calculated",
+      "default": "",
+      "placeholder": "72,72,84"
+    },
+    {
+      "id": "block_size",
+      "type": "string",
+      "description": "Computations are calculated blockwise; this parameter specifies how large blocks should be. Scale this based on the memory capacity of the target machine",
+      "default": "64,64,32",
+      "required": true
+    },
+    {
+      "id": "z_start",
+      "type": "number",
+      "description": "Subset the computation so that it starts at a specific z slice",
+      "minimum": 0,
+      "required": false
+    },
+    {
+      "id": "z_end",
+      "type": "number",
+      "description": "Subset the computation so that it ends at a specific z slice",
+      "minimum": 0,
+      "required": false
+    },
+    {
+      "id": "enqueue_limit",
+      "type": "number",
+      "description": "For testing, truncate the queue so that only this many blocks are computed",
+      "minimum": 1,
+      "required": false
+    },
+    {
+      "id": "workers",
+      "type": "number",
+      "description": "unknown",
+      "default": 1,
+      "minimum": 1
+    }
+  ],
+  "runtime": {
+    "container": "ghcr.io/jhuapl-boss/bossdb-brainlife-apps:cloudome}"
+  },
+  "doi": "10.25663/brainlife.app.971"
+}

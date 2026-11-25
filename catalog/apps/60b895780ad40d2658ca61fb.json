@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Find frequency peak of PSD data",
+  "version": "master",
+  "summary": "Detects peak frequency of PSD for each channel on a given bandwidth",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60b895780ad40d2658ca61fb",
+    "github": "guiomar/app-peak-frequency",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "psd01",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "psd"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "peak_freq"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "peak_freq"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fmin",
+      "type": "number",
+      "description": "Min frequency of the range (Hz)",
+      "default": 7.8,
+      "minimum": 0
+    },
+    {
+      "id": "fmax",
+      "type": "number",
+      "description": "Max frequency of the range (Hz)",
+      "default": 12.2
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.531"
+}

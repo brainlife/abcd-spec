@@ -1,0 +1,225 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural Connectome MRTrix3 (SCMRT) - deprecated",
+  "version": "nosift-input-labels-weights-v1.0",
+  "summary": "Generate structural connectomes using MRTrix3",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "626840bbf3858674a29fe791",
+    "github": "brainlife/app-sift2-connectome-generation",
+    "branch": "nosift-input-labels-weights-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "labels",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "binary"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "labels"
+      ]
+    },
+    {
+      "id": "weights",
+      "datatype": "neuro/streamline-weights",
+      "datatype_tags": [
+        "sift2"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "weights"
+      ]
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "T1map",
+        "T1map_json",
+        "R1map",
+        "R1map_json",
+        "M0map",
+        "M0map_json",
+        "PD",
+        "MTV",
+        "VIP",
+        "SIR",
+        "WF"
+      ]
+    },
+    {
+      "id": "myelin_map",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "myelin_map"
+      ]
+    },
+    {
+      "id": "sm",
+      "datatype": "neuro/spherical-mean",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "sphmean"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "count_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "count"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "length_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "length"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "density_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "denlen_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "denlen"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "assignments",
+      "datatype": "neuro/labels",
+      "datatype_tags": [
+        "connectivity_assignments"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "assignment_radial_search",
+      "type": "number",
+      "description": "perform a radial search from each streamline endpoint to locate the nearest node. Argument is the maximum radius in mm; if no node is found within this radius, the streamline endpoint is not assigned to any node. Default search distance is 4mm.",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "assignment_reverse_search",
+      "type": "string",
+      "description": "traverse from each streamline endpoint inwards along the streamline, in search of the last node traversed by the streamline. Argument is the maximum traversal length in mm (set to 0 to allow search to continue to the streamline midpoint).",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "assignment_forward_search",
+      "type": "string",
+      "description": "project the streamline forwards from the endpoint in search of a parcellation node voxel. Argument is the maximum traversal length in mm.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 20,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.617",
+  "deprecated_by": "644170e4d391caf6efc7e038"
+}

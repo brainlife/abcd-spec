@@ -1,0 +1,165 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer 7.3.2",
+  "version": "7.3.2",
+  "summary": "Runs FreeSurfer 7.3.2 recon-all on a T1-weighted image (optionally with a T2w for the pial surface) to produce cortical surfaces, a volumetric segmentation and the Desikan-Killiany, Destrieux and DKT parcellations.",
+  "description": "Wraps FreeSurfer's recon-all -all (one or more T1w images). Use it as the first step for any analysis that needs cortical surfaces, cortical thickness or an anatomical parcellation (for example as ROIs for tractography or network analysis). An optional T2-weighted image refines the pial surface; optional steps run hippocampal subfield (segmentHA_T1/T2) and thalamic nuclei segmentation and local gyrification index. Expect many hours of compute per subject; the input should be a whole-head T1w image roughly aligned to the anatomical axes.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "anatomy-preprocessing",
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "surface-analysis",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62fa925519b13f0a0edd5c7c",
+    "github": "brainlife/app-freesurfer",
+    "branch": "7.3.2"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 to input",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Using T2 to improve pial surfaces",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "description": "The FreeSurfer subject directory (mri, surf, label, stats, scripts).",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "aparc"
+      ],
+      "description": "Desikan-Killiany (aparc+aseg) volumetric parcellation in NIfTI."
+    },
+    {
+      "id": "parc2009",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "aparc.a2009s"
+      ],
+      "description": "Destrieux (aparc.a2009s+aseg) volumetric parcellation in NIfTI."
+    },
+    {
+      "id": "parcDKT",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "aparc.DKTAtlas"
+      ],
+      "description": "DKT (aparc.DKTatlas+aseg) volumetric parcellation in NIfTI."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hires",
+      "type": "boolean",
+      "description": "Check this flag if your input t1 has voxel sizes less than 1mm3 (submillimeter resolution) like HCP 7T. (HCP 3T is 1.25mm). The processing will take a significantly longer time. See https://surfer.nmr.mgh.harvard.edu/fswiki/SubmillimeterRecon",
+      "default": false
+    },
+    {
+      "id": "notalcheck",
+      "type": "boolean",
+      "description": "If you are seeing \"ERROR: Talairach failed\", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis.",
+      "default": false
+    },
+    {
+      "id": "cw256",
+      "type": "boolean",
+      "description": "If a scan has a field-of-view (FOV) greater than 256, check this to force the FOV to 256. You often need to do this for an image with sub 1mm voxel size (like HCP 7T)",
+      "default": false
+    },
+    {
+      "id": "debug",
+      "type": "boolean",
+      "description": "Turn on copious amount of freesurfer log",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "expert",
+      "type": "string",
+      "description": "You can specify extra command line options for various freesurfer commands executed by recon-all. Please leave it blank unless necessary. https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all#ExpertOptionsFile",
+      "default": "",
+      "required": false,
+      "advanced": true,
+      "multiline": true
+    },
+    {
+      "id": "hippocampal",
+      "type": "boolean",
+      "description": "Generate an automated segmentation of the hippocampal subfields based on a statistical atlas built primarily upon ultra-high resolution (~0.1 mm isotropic) ex vivo MRI data. This new method can take advantage high-resolution, dedicated images when available (typically, but not necessarily, T2 weighted), and solves a number of limitations of the in vivo atlas that was distributed with FreeSurfer 5.1-5.3, namely",
+      "default": false
+    },
+    {
+      "id": "thalamicnuclei",
+      "type": "boolean",
+      "description": "(For freesurfer >7) Generate a parcellation of the thalamus into 25 different nuclei, using a probabilistic atlas built with histological data. The parcellation is based on structural MRI, either the main T1 scan processed through recon-all, or an additional scan of a different modality, which potentially shows better contrast between the nuclei. [http://freesurfer.net/fswiki/ThalamicNuclei]",
+      "default": false
+    },
+    {
+      "id": " localGI",
+      "type": "boolean",
+      "description": "local Gyrification Index (lGI) This will produce files named lh.pial_lgi and rh.pial_lgi in the subjects surf directory. These files can be loaded as overlays in tksurfer. See https://surfer.nmr.mgh.harvard.edu/fswiki/LGI",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 25,
+      "walltime_hours": 18
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.664",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: Talairach failed",
+      "cause": "Talairach registration failed, often for poorly aligned images.",
+      "fix": "Set notalcheck to true and make sure the image is aligned to the three main axes."
+    },
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    }
+  ]
+}

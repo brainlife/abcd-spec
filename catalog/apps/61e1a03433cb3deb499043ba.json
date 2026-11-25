@@ -1,0 +1,87 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer 7.1.1 Longitudinal (Step 2/2)",
+  "version": "main",
+  "summary": "Runs FreeSurfer 7.1.1 recon-all -long on one timepoint against the longitudinal base template from Step 1/2, producing a longitudinally processed FreeSurfer output; step 2 of 2.",
+  "description": "Copies the timepoint FreeSurfer output, the base template and the other timepoints into a subjects directory and runs recon-all -long <timepoint> template -all. Run it once per timepoint after Step 1/2; the timepoint must be one of those used to build the template (identified by the md5 of mri/norm.mgz). Requires a FreeSurfer license. See https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/LongitudinalTutorial",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "freesurfer",
+    "segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61e1a03433cb3deb499043ba",
+    "github": "brainlife/app-freesurfer-longitudinal",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!longitudinal-template",
+        "!longitudinal"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Cross-sectional FreeSurfer output of one timepoint to process longitudinally.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Must be one of the timepoints used to create the template (matched by md5 of mri/norm.mgz)."
+    },
+    {
+      "id": "template",
+      "datatype": "neuro/freesurfer/longitudinal-template",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Longitudinal base template geneerated by \"Longitudinal Template\" App.",
+      "config_keys": [
+        "template",
+        "timepoints"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "longitudinal"
+      ],
+      "description": "FreeSurfer subject directory of the longitudinally processed timepoint (<timepoint>.long.template).",
+      "datatype_tags_pass": "freesurfer"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mode",
+      "type": "string",
+      "description": "Fixed to long: makes main run long.sh (recon-all -long). Do not change.",
+      "default": "long",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 8,
+      "walltime_hours": 12
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.603",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    }
+  ]
+}

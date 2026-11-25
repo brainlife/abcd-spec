@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Filter cHPI",
+  "version": "v1.0",
+  "summary": "Brainlife.io app: remove continuous head-position-indicator (cHPI) and line-noise artifacts from MEG raw data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a9aab920efc94c8a6bb8977",
+    "github": "BrainlifeMEEG/filter-chpi",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "chpi-filtered"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "include_line",
+      "type": "boolean",
+      "description": "If true, also filter line (powerline) noise, in addition to cHPI.",
+      "default": true
+    },
+    {
+      "id": "t_step",
+      "type": "number",
+      "description": "Time step to use for cHPI amplitude estimation, in seconds.",
+      "default": 0.01,
+      "advanced": true
+    },
+    {
+      "id": "t_window",
+      "type": "string",
+      "description": "Time window to use to estimate the amplitudes, in seconds, or \"auto\" for MNE's automatic window selection.",
+      "default": "auto",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "ext_order",
+      "type": "number",
+      "description": "The external order for SSS-like interference suppression; the SSS bases are used as projection vectors during fitting.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "allow_line_only",
+      "type": "boolean",
+      "description": "If true, allow filtering line noise only, even when no real cHPI information is present.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.962"
+}

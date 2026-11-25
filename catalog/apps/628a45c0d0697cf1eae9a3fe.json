@@ -1,0 +1,190 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track the aLIC",
+  "version": "master",
+  "summary": "Track the anterior limb of the internal capsule with streamline tractography using MRTRIX3",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "628a45c0d0697cf1eae9a3fe",
+    "github": "DanNBullock/app-track_aLIC",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "aLIC"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "aLIC"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tensor_fit",
+      "type": "number",
+      "description": "If multi-shell data is passed, this selects the shell that will be extracted and have a tensor fit performed If single-shell data is passed, this is ignored",
+      "default": 1
+    },
+    {
+      "id": "norm",
+      "type": "boolean",
+      "description": "perform log-domain normalization of CSD data before tracking (multi-shell data only)",
+      "default": false
+    },
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "the minimum length a streamline may be",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "the maximum length a streamline may be",
+      "default": 250
+    },
+    {
+      "id": "ens_lmax",
+      "type": "boolean",
+      "description": "perform ensemble tracking on every lmax up to the maximum value passed",
+      "default": true
+    },
+    {
+      "id": "curvs",
+      "type": "string",
+      "description": "the maximum curvature angle streamline can take during tracking",
+      "default": "5 10 20 40 80"
+    },
+    {
+      "id": "num_fibers",
+      "type": "number",
+      "description": "the number of streamlines to produce per parameter combination",
+      "default": 2500
+    },
+    {
+      "id": "do_dtdt",
+      "type": "boolean",
+      "description": "perform tensor-based deterministic tractography",
+      "default": false
+    },
+    {
+      "id": "do_dtpb",
+      "type": "boolean",
+      "description": "perform tensor-based probabilistic tractography",
+      "default": false
+    },
+    {
+      "id": "do_detr",
+      "type": "boolean",
+      "description": "perform deterministic tractography",
+      "default": false
+    },
+    {
+      "id": "do_prb1",
+      "type": "boolean",
+      "description": "perform mrtrix2 probabilistic tractography",
+      "default": false
+    },
+    {
+      "id": "do_prb2",
+      "type": "boolean",
+      "description": "perform mrtrix3 probabilistic tractography",
+      "default": true
+    },
+    {
+      "id": "do_fact",
+      "type": "boolean",
+      "description": "Perform FACT tracking",
+      "default": false
+    },
+    {
+      "id": "fact_dirs",
+      "type": "number",
+      "description": "The number of directions to perform FACT tracking on.",
+      "default": 3
+    },
+    {
+      "id": "fact_fibs",
+      "type": "number",
+      "description": "The number of FACT fibers to track per lmax.",
+      "default": 0
+    },
+    {
+      "id": "premask",
+      "type": "boolean",
+      "description": "If the input anatomical T1s have already been skull stripped, check this to prevent 5ttgen from cutting off a portion of the brain. (This sets -premasked option for 5ttgens)",
+      "default": false
+    },
+    {
+      "id": "step",
+      "type": "number",
+      "description": "Streamline internode distance",
+      "default": 0.5
+    },
+    {
+      "id": "imaxs",
+      "type": "number",
+      "description": "unknown",
+      "default": 8,
+      "placeholder": "The lmax(s) or maximum value to fit and create tractography data. If not provided, the App will find the maximum possible lmax within the data and use that."
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.630"
+}

@@ -1,0 +1,143 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "VAME Pipeline",
+  "version": "main",
+  "summary": "https://brainlife.io/app/69f36f1a84ed63cc613ec610/detail",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69f36f1a84ed63cc613ec610",
+    "github": "catalystneuro/vame-brainlife-app",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "nwb",
+      "datatype": "neuro/nwb",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "nwb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "vame"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "project_name",
+      "type": "string",
+      "description": "VAME project directory name",
+      "default": "vame_project",
+      "required": true
+    },
+    {
+      "id": "n_clusters",
+      "type": "number",
+      "description": "Number of motifs",
+      "default": 15,
+      "minimum": 2,
+      "maximum": 200
+    },
+    {
+      "id": "max_epochs",
+      "type": "number",
+      "description": "Number of maximum training epochs",
+      "default": 10,
+      "minimum": 1
+    },
+    {
+      "id": "segmentation_algorithm",
+      "type": "enum",
+      "description": "Segmentation algorithm",
+      "default": "hmm",
+      "options": [
+        {
+          "value": "hmm",
+          "label": "hmm"
+        },
+        {
+          "value": "kmeans",
+          "label": "kmeans"
+        }
+      ]
+    },
+    {
+      "id": "pose_confidence",
+      "type": "number",
+      "description": "Confidence threshold for pose filtering",
+      "default": 0.9,
+      "minimum": 0.1,
+      "maximum": 0.99
+    },
+    {
+      "id": "processing_module_key",
+      "type": "string",
+      "description": "NWB processing module containing pose data",
+      "default": "behavior"
+    },
+    {
+      "id": "pose_estimation_key",
+      "type": "string",
+      "description": "ndx_pose.PoseEstimation container name",
+      "default": "PoseEstimation"
+    },
+    {
+      "id": "centered_reference_keypoint",
+      "type": "string",
+      "description": "Keypoint name for egocentric centering",
+      "default": ""
+    },
+    {
+      "id": "orientation_reference_keypoint",
+      "type": "string",
+      "description": "Keypoint name for egocentric orientation",
+      "default": ""
+    },
+    {
+      "id": "run_lowconf_cleaning",
+      "type": "boolean",
+      "description": "Drop low-confidence frames during preprocessing",
+      "default": true
+    },
+    {
+      "id": "run_egocentric_alignment",
+      "type": "boolean",
+      "description": "Align poses egocentrically (uses centered + orientation keypoints)",
+      "default": true
+    },
+    {
+      "id": "run_outlier_cleaning",
+      "type": "boolean",
+      "description": "Clean outlier keypoints",
+      "default": true
+    },
+    {
+      "id": "run_savgol_filtering",
+      "type": "boolean",
+      "description": "Apply Savitzky-Golay smoothing",
+      "default": true
+    },
+    {
+      "id": "run_rescaling",
+      "type": "boolean",
+      "description": "rescale poses",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "ghcr.io/catalystneuro/vame-brainlife-app:latest"
+  },
+  "doi": "10.25663/brainlife.app.927"
+}

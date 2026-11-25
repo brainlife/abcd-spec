@@ -1,0 +1,71 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "V-SHARP Background Field Removal",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "67214a58851d5f6d753f7fa8",
+    "github": "astewartau/vsharp-brainlife",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fieldmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fieldmap",
+        "fieldmap_json",
+        "magnitude",
+        "magnitude_json"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single",
+        "tissue"
+      ],
+      "description": "Magnetic field variations caused by tissues (background field removed).",
+      "datatype_tags_pass": "fieldmap"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "V-SHARP mask",
+      "datatype_tags_pass": "mask"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.835"
+}

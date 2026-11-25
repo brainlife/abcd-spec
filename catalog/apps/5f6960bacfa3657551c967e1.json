@@ -1,0 +1,42 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-dwi2src",
+  "version": "master",
+  "summary": "DSI Studio scripts converting DWI file to SRC format.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f6960bacfa3657551c967e1",
+    "github": "frankyeh/dsi-studio-dwi2src",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "src",
+      "datatype": "neuro/dsistudio/src",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.422"
+}

@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Check Gradient Flip",
+  "version": "1.3",
+  "summary": "Checks whether DWI bvecs need to be flipped along x, y or z by comparing slice-wise diffusion signal directionality with the gradient directions, using DIPY and NiBabel.",
+  "description": "Reads the DWI, bvals and bvecs, selects volumes whose gradients point along diagonal directions and compares the signal in each slice to detect whether the bvec polarity is consistent with the image, reporting the result and image header information in product.json. Use it as a quick QC check before tensor fitting or tractography; incorrect bvec polarity leads to wrong fibre orientations. It does not modify the data.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "quality-control",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b58b3f3786e0f002791d384",
+    "github": "brainlife/app-testflip",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs to check.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/bl.app.85",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    },
+    {
+      "name": "NiBabel"
+    }
+  ],
+  "maintainers": [
+    "Soichi Hayashi",
+    "Franco Pestilli"
+  ]
+}

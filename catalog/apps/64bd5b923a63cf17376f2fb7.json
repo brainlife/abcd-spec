@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": " Warp reference Ventral Putamen ROI(s) to Subject Space",
+  "version": "vPut-ROIs",
+  "summary": "A generic template app for warping a provided ROI (situated in a reference space) to a given subject space.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "64bd5b923a63cf17376f2fb7",
+    "github": "DanNBullock/app-warp_refROI_to_subjSpace",
+    "branch": "vPut-ROIs"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "brainMask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This is used to align the subject's data to the MNI152 template.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "The post-warp (now in subject space) ROI(s)"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.792"
+}

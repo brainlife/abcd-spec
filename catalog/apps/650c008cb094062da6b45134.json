@@ -1,0 +1,36 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "test-app",
+  "version": "master",
+  "summary": "Tutorial test App that writes the NIfTI header of a T1-weighted image to output.txt with nibabel; not intended for analysis.",
+  "description": "Reads the t1 path from config.json and dumps the image header with nibabel to output.txt. It is a brainlife tutorial/test App: the registry record defines no inputs or outputs, so it cannot be used in pipelines.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "cloud",
+    "cloud-computing",
+    "mri",
+    "tutorial",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "650c008cb094062da6b45134",
+    "github": "francopestilli/app-helloworld",
+    "branch": "master"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.799",
+  "software": [
+    {
+      "name": "nibabel"
+    }
+  ]
+}

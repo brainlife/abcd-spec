@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MRI Registration QC: Pairwise Group Comparison  (FA maps)",
+  "version": "v0.3",
+  "summary": "An automated quality-check pipeline for multi-image MRI registration comparison.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69f02b435e3b9b921dbcfb1f",
+    "github": "gamorosino/app-mri-reg-qc-multi",
+    "branch": "v0.3"
+  },
+  "inputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "images"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mri_reg_qc"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "checkerboard_tiles",
+      "type": "number",
+      "description": "A visualization that alternates patches of two images in a checkerboard pattern to highlight local alignment differences.",
+      "default": 8
+    },
+    {
+      "id": "thr_mask",
+      "type": "number",
+      "description": "A threshold-based mask applied to both fixed and moving images to compute overlap metrics (e.g., Dice), where a single value (LOW) selects voxels with values > LOW, and two values (LOW,HIGH) select voxels with LOW < value < HIGH.",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.924"
+}

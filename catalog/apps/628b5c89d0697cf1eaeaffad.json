@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FIF to mne/raw",
+  "version": "main",
+  "summary": "Converts MEG FIF data to MNE Raw (fif)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "628b5c89d0697cf1eaeaffad",
+    "github": "guiomar/app_fif2mne",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fif1",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fif",
+        "channels",
+        "headshape",
+        "coordsystem",
+        "calibration",
+        "crosstalk",
+        "destination",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "meg",
+        "fif",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "fif1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.632"
+}

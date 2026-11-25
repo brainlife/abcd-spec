@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create white matter mask from FA",
+  "version": "1.0",
+  "summary": "Creates a binary white matter mask in DWI space by thresholding a fractional anisotropy (FA) map with FSL fslmaths.",
+  "description": "Thresholds the FA image at thr (default 0.15) and binarizes it into mask.nii.gz. Use it for a quick DWI-space white matter mask, e.g. for tractography seeding or masking; the FA threshold also keeps some non-white-matter voxels with high anisotropy and drops crossing-fiber regions with low FA.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "segmentation",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63cec04eef2a7449dcd03c49",
+    "github": "brainlife/app-white-matter-mask-fa",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "fa",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tensor output; only the FA map is used.",
+      "config_keys": [
+        "fa"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter",
+        "brain",
+        "dwi"
+      ],
+      "description": "Binary mask (mask.nii.gz) of voxels with FA above the threshold, in DWI space.",
+      "datatype_tags_pass": "fa"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "thr",
+      "type": "number",
+      "description": "FA value below which voxels are excluded from the white matter mask (fslmaths -thr).",
+      "default": 0.15
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.719",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives and logs",
+      "cause": "mask/mask.nii.gz was not written.",
+      "fix": "Check that the tensor input contains fa.nii.gz."
+    }
+  ]
+}

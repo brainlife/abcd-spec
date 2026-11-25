@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MRI Registration QC (T1w)",
+  "version": "v0.7",
+  "summary": "An automated quality-check pipeline for MRI image registration.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69d978d404be87075a57b265",
+    "github": "gamorosino/app-mri-registration-qc",
+    "branch": "v0.7"
+  },
+  "inputs": [
+    {
+      "id": "fixed",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fixed"
+      ]
+    },
+    {
+      "id": "moving",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "moving"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "checkerboard_tiles",
+      "type": "number",
+      "description": "A visualization that alternates patches of two images in a checkerboard pattern to highlight local alignment differences.",
+      "default": 8
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.921"
+}

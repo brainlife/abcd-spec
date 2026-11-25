@@ -1,0 +1,61 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-bad-channel-temp",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69b2af986bb1f71b25b95b29",
+    "github": "obVdo/app-bad-channel-temp",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "channels",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "channels",
+        "headshape",
+        "destination",
+        "events",
+        "events_json",
+        "info"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 64,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.907"
+}

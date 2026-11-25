@@ -1,0 +1,21 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "VOIT: V1 to V4 Visual Cortex Prediction",
+  "version": "main",
+  "summary": "Developed a biologically inspired AI pipeline that reconstructs images from human fMRI data by predicting V4 visual cortex activity from V1 using deep neural networks. The predicted brain activity is converted into Stable Diffusion latent representations to generate and refine reconstructed images.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a3db17a76d8d577a7da9770",
+    "github": "eliasvarkey/VOIT-V1-to-V4-Visual-Cortex-Prediction",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.938"
+}

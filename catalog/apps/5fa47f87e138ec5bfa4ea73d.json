@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Little Test",
+  "version": "master",
+  "summary": "This is a little test of registering an app on Brainlife as part of the brain imaging course. This app takes an ACPC aligned anat/t1w data and resamples it to the desired resolution.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5fa47f87e138ec5bfa4ea73d",
+    "github": "sunaguo/brainlife-app-test",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "in001",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "This t1w data will be resampled with the input \"outres\" resolution.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "The resampled t1w file."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "outres",
+      "type": "string",
+      "description": "Desired out resolution of the t1w data. 3 integers/flow point numbers in millimeters.",
+      "default": "1 1 1",
+      "placeholder": "1 1 1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.446"
+}

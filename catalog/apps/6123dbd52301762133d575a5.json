@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-skullStrip ",
+  "version": "1.0",
+  "summary": "brainlife app - runs AFNI's skullstrip function on NIfTI files",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "brainlife",
+    "brainlifeio",
+    "neuroimaging"
+  ],
+  "registry": {
+    "id": "6123dbd52301762133d575a5",
+    "github": "vnbcs/app-skullStrip",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "nifti_input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1W in NIfTI format",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "brain_extracted",
+        "3dSkullStrip"
+      ],
+      "description": "skull-stripped t1w"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "optional_params",
+      "type": "string",
+      "description": "add all optional parameters here, in the format below:\n\n-parameter option -parameter2 \n\nif no optional parameters needed, leave empty. for a full list of optional parameters and what they do, see AFNI's documentation: https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dSkullStrip.html\n\nexamples:\n\n-ld 30 -no_spatnorm\n\n-niter 750 -ld 50\n\n-monkey -spatnorm_dxyz",
+      "default": "null",
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "vnbcs/afni_for_bl:1.2",
+    "resources": {
+      "memory_gb": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.565"
+}

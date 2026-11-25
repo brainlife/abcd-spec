@@ -91,13 +91,22 @@ def _summary(record):
     return (first if len(first) <= SUMMARY_MAX else UNKNOWN), text
 
 
+def _expand(text, code):
+    """Expand $VAR and ${VAR} from simple VAR=value assignments in the script; leave the
+    container unknown if a variable cannot be resolved."""
+    assigned = dict(re.findall(r"^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=['\"]?([^\s'\"$]+)['\"]?\s*$", code, re.M))
+    expanded = re.sub(r"\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?", lambda m: assigned.get(m.group(1), m.group(0)), text)
+    return UNKNOWN if "$" in expanded else expanded
+
+
 def _runtime(main_text):
     rt = {"container": UNKNOWN}
     if not main_text:
         return rt
-    m = re.search(r"docker://([^\s'\"]+)", main_text)
+    code = "\n".join(line for line in main_text.splitlines() if not line.lstrip().startswith("#"))
+    m = re.search(r"docker://([^\s'\"]+)", code)
     if m:
-        rt["container"] = m.group(1)
+        rt["container"] = _expand(m.group(1), code)
     res = {}
     pbs = re.search(r"#PBS\s+-l\s+(\S+)", main_text)
     if pbs:

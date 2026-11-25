@@ -1,0 +1,146 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tracking using Particle Filtering (PFT)",
+  "version": "1.1.1",
+  "summary": "Brainlife wrapper app for dipy_track_pft workflows.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy",
+    "tracking",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5ea7d53bf1745d82a5f80509",
+    "github": "dipy/bl_apps_dipy_track_pft",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks_and_metrics",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "peaks"
+      ]
+    },
+    {
+      "id": "wm",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter",
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "wm"
+      ]
+    },
+    {
+      "id": "gm",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "gray_matter",
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "gm"
+      ]
+    },
+    {
+      "id": "csf",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "csf",
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "csf"
+      ]
+    },
+    {
+      "id": "seeds",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "seeds"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "Step size used for tracking (default 0.2mm).",
+      "default": 0.2
+    },
+    {
+      "id": "seed_density",
+      "type": "number",
+      "description": "Number of seeds per dimension inside voxel (default 1). For example, seed_density of 2 means 8 regularly distributed points in the voxel.",
+      "default": 1
+    },
+    {
+      "id": "pmf_threshold",
+      "type": "number",
+      "description": "Threshold for ODF functions (default 0.1).",
+      "default": 0.1
+    },
+    {
+      "id": "max_angle",
+      "type": "number",
+      "description": "Maximum angle between streamline segments (range [0, 90], default 20).",
+      "default": 20
+    },
+    {
+      "id": "pft_back",
+      "type": "number",
+      "description": "Distance in mm to back track before starting the particle filtering tractography (default 2mm). The total particle filtering tractography distance is equal to back_tracking_dist + front_tracking_dist.",
+      "default": 2
+    },
+    {
+      "id": "pft_front",
+      "type": "number",
+      "description": "Distance in mm to run the particle filtering tractography after the back track distance (default 1mm). The total particle filtering tractography distance is equal to back_tracking_dist + front_tracking_dist.",
+      "default": 1
+    },
+    {
+      "id": "pft_count",
+      "type": "number",
+      "description": "Number of particles to use in the particle filter (default 15).",
+      "default": 15
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.328"
+}

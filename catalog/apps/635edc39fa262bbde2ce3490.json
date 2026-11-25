@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Combine 2D T2w images into a single 3D volume - 2 orientations",
+  "version": "two-inputs-v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "635edc39fa262bbde2ce3490",
+    "github": "bacaron/app-combine-2d-to-3d",
+    "branch": "two-inputs-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "first_input",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "axial"
+      ]
+    },
+    {
+      "id": "second_input",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "coronal"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "nifty_mic",
+        "combined_t2ws"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "nifty_mic_derivatives"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "string",
+      "description": "unknown",
+      "default": "t2",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "renbem/niftymic",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.697"
+}

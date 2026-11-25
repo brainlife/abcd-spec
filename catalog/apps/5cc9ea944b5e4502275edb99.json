@@ -1,0 +1,125 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate tract endpoint maps",
+  "version": "1.0",
+  "summary": "Generates streamline endpoint density maps for every tract in a white matter classification (wmc), with exact, box or Gaussian smoothing of endpoints, masked to FreeSurfer grey matter.",
+  "description": "Builds a grey matter mask from the FreeSurfer output and, for each classified tract, counts streamline endpoints per voxel, optionally spreading each endpoint with a box or Gaussian kernel of the given diameter, and writes the maps as NIfTI ROIs. Use it to see where tracts terminate in cortex or to make endpoint-based ROIs. The tck must be the tractogram the classification was computed on.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "tract-segmentation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc9ea944b5e4502275edb99",
+    "github": "brainlife/app-endpointMapGeneration",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram the classification indexes into.",
+      "config_keys": [
+        "track"
+      ],
+      "requirements": "Must be the tractogram used to generate the wmc classification."
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (wmc) assigning streamlines to tracts.",
+      "config_keys": [
+        "classification",
+        "tracts"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output used to build the grey matter mask.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "tractEndpointDensity"
+      ],
+      "description": "Endpoint density maps, one NIfTI per tract and endpoint group."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "decayFunc",
+      "type": "enum",
+      "description": "How endpoints are turned into density: exact endpoint voxels only, box (every voxel within the threshold distance counts as an endpoint) or Gaussian smoothing.",
+      "default": "",
+      "options": [
+        {
+          "value": "exact",
+          "label": "Exact endpoints",
+          "description": "Make endpoint maps using only and exactly tracts' streamline endpoints"
+        },
+        {
+          "value": "box",
+          "label": "No decay",
+          "description": "For each streamline endpoint in a tract, each adjacent mm voxel within the threshold distance is treated as though it has an endpoint in it."
+        },
+        {
+          "value": "gaussian",
+          "label": "Gaussian decay",
+          "description": "An gaussian smoothing kernel is applied to each of a tract's streamline endpoints such that the density computed for each endpoint is spread in a gaussian fashion, with the kernel corresponding to the input threshold distance."
+        }
+      ]
+    },
+    {
+      "id": "decayRadiusThresh",
+      "type": "number",
+      "description": "Odd integer values only, larger than 0.  Defines the kernel to be used if either no decay or gaussian decay is selected.  Defines *diameter* (not radius, hence odd) of smoothing kernel Ignored in the case of exact endpoints.",
+      "default": 1,
+      "minimum": 1,
+      "placeholder": "1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.194",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "MATLAB Compiler Runtime",
+      "version": "R2017a"
+    }
+  ],
+  "maintainers": [
+    "Daniel Bullock",
+    "Soichi Hayashi",
+    "Franco Pestilli"
+  ]
+}

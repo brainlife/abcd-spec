@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "brain-extraction-13-11-26",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6af7a5963dfea83ca970ddd1",
+    "github": "gamorosino/app-brain-extraction-11-13-26",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1w_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "Brain-extracted T1w image produced by FSL BET."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "Fractional intensity threshold (0\u20131). Smaller values give larger brain outlines.",
+      "default": 0.5,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Run robust brain centre estimation, iterating BET several times.",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Run bias field correction and neck cleanup (-B flag).",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.998"
+}

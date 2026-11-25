@@ -1,0 +1,168 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate Visual Regions of Interest Binned by Eccentricity Estimates (Benson Atlas) - Freesurfer Space",
+  "version": "visual-white-matter-eccentricity-t1-v1.2",
+  "summary": "Generates eccentricity-binned visual-area ROIs from a pRF (Benson atlas) eccentricity map, plus LGN, optic chiasm and exclusion ROIs, in FreeSurfer (T1) space for visual white matter and optic radiation tracking, using FreeSurfer, Connectome Workbench and AFNI.",
+  "description": "Builds left and right LGN (FreeSurfer thalamic nuclei), optic chiasm and FreeSurfer exclusion ROIs in FreeSurfer (T1) space, then maps the pRF eccentricity surface onto the cortical ribbon and bins it into the eccentricity ranges given by min_degree/max_degree, restricted to the Benson visual areas (V1, V2, V3, hV4, VO1/2, LO1/2, TO1/2, V3a/b). Use it to obtain eccentricity-specific visual ROIs for optic radiation tracking or for extracting measures by eccentricity. It needs a FreeSurfer output with the thalamic nuclei segmentation and a prf dataset with varea and eccentricity surfaces.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dwi",
+    "tractography",
+    "segmentation",
+    "afni",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f873282e6432d41a892e131",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "visual-white-matter-eccentricity-t1-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "thalamic_nuclei"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the freesurfer datatype. This NEEDS to have been run through segment thalamic nuclei app, or have the thalamic nuclei generated in the original freesurfer generation, for this to work. This is used to generate the LGN ROIs.",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Must contain the thalamic nuclei segmentation (mri/ThalamicNuclei.*.mgz), e.g. from the Segment thalamic nuclei App."
+    },
+    {
+      "id": "prfSurfacesDir",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pRF dataset (e.g. Benson atlas output) providing lh/rh.varea and lh/rh.eccentricity surface maps used to define visual areas and eccentricity bins.",
+      "config_keys": [
+        "prfSurfacesDir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "optic_radiation",
+        "benson",
+        "eccentricity",
+        "visual_white_matter",
+        "visual_areas"
+      ],
+      "description": "Volumetric parcellation combining the visual-area/eccentricity ROIs (with key.txt and label.json)."
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "optic_radiation",
+        "eccentricity",
+        "benson",
+        "visual_white_matter"
+      ],
+      "description": "Directory of individual binary NIfTI ROIs: left and right LGN, optic chiasm, FreeSurfer exclusion ROI, and per-hemisphere visual-area ROIs split into the requested eccentricity bins (named e.g. lh.v1.Ecc0to3)."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "visual_areas",
+        "visual_white_matter",
+        "eccentricity",
+        "benson",
+        "derivatives"
+      ],
+      "description": "Intermediate files (surface GIFTI metrics and NIfTI volumes) produced while building the ROIs."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "thalamusInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for thalamus segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "freesurferInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for freesurfer segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "FreeSurfer cortical parcellation (aparc, aparc.a2009s or aparc.DKTatlas) whose +aseg volume is converted into the target space with mri_label2vol and used to build the FreeSurfer-derived exclusion ROIs.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    },
+    {
+      "id": "min_degree",
+      "type": "string",
+      "description": "Minimum eccentricity degrees for ROIs",
+      "default": "0 15 30"
+    },
+    {
+      "id": "max_degree",
+      "type": "string",
+      "description": "Maximum eccentricity degrees for ROIs",
+      "default": "3 30 90"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.441",
+  "software": [
+    {
+      "name": "AFNI",
+      "version": "16.3.0",
+      "url": "https://afni.nimh.nih.gov/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2",
+      "url": "https://www.humanconnectome.org/software/connectome-workbench"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Ilaria Sani"
+  ]
+}

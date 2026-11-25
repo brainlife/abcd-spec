@@ -1,0 +1,202 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRIPrep - Surface Output - ICA-AROMA",
+  "version": "ic-aroma",
+  "summary": "fMRIPrep is a functional magnetic resonance imaging (fMRI) data preprocessing pipeline that is designed to provide an easily accessible, state-of-the-art interface that is robust to variations in scan acquisition protocols and that requires minimal user input, while providing easily interpretable and comprehensive error and output reporting.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "63516c2bfa262bbde2b7dfb6",
+    "github": "vnbcs/app-fmriprep",
+    "branch": "ic-aroma"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "fmri data to preprocess",
+      "config_keys": [
+        "fmri",
+        "sbref",
+        "sbref_json",
+        "events",
+        "events_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!v5"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "freesurfer output used to aid preprocessing",
+      "config_keys": [
+        "fsin"
+      ]
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "2phasemag fieldmap is not yet supported by fmriprep (https://github.com/poldracklab/sdcflows/issues/15) - testing 1.5.2 should should support it.",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude1",
+        "magnitude2",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "regress",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "preprocessed t1 (same alignment as the original t1, but level adjusted - editme)"
+    },
+    {
+      "id": "anat_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "anat",
+        "brain"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "fmriprep"
+      ],
+      "description": "fmriprep HTML report and figures"
+    },
+    {
+      "id": "cifti",
+      "datatype": "neuro/cifti",
+      "datatype_tags": [
+        "dtseries"
+      ],
+      "description": "surface timeseries data in cifti"
+    },
+    {
+      "id": "surface-data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [
+        "func"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "surface-vertices",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "surface vertices. only meaningful for fsnative."
+    },
+    {
+      "id": "aroma",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "ica-aroma",
+        "aroma"
+      ],
+      "description": "AROMA ICA regressors"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "space",
+      "type": "enum",
+      "description": "unknown",
+      "default": "fsaverage5",
+      "options": [
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "FreeSurfer average meshes (density)"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "FreeSurfer average meshes (density)"
+        },
+        {
+          "value": "fsnative",
+          "label": "fsnative",
+          "description": "individual subject surface"
+        }
+      ]
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through fmriprep anyway.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/fmriprep:21.0.1",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 28,
+      "walltime_hours": 9
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.686"
+}

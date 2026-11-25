@@ -1,0 +1,316 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Visual areas structural connections by eccentricity and polar angle",
+  "version": "v1.1",
+  "summary": "Builds polar-angle by eccentricity visual-field parcellations from pRF maps, segments the tractogram into connections between them with MRtrix3, and outputs connectomes, networks, network statistics and tracts.",
+  "description": "Generates wedge-by-eccentricity ROIs from the pRF polar angle and eccentricity surface maps on the FreeSurfer surface, projects them into DWI space and combines them with the visual-area parcellation; then assigns streamlines with tck2connectome, extracts the tracts connecting each pair of regions with connectome2tck, builds count, density and length connectomes, networks and network measures (cxnetwork), a cortexmap and a white matter classification. Use it to study structural connectivity of visual cortex along polar-angle meridians and eccentricity. Needs DWI, FreeSurfer output, pRF results, a tractogram and a visual-area parcellation of the same subject.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "connectomics",
+    "network-analysis",
+    "tractography",
+    "tract-segmentation",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64842d58b10869ed4e8bbd16",
+    "github": "brainlife/app-visual-white-matter",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI of the subject; used as the reference space for the generated parcellations.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory; surfaces used to map pRF data into the volume.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pRF mapping results (polar angle and eccentricity surface maps and vertices).",
+      "config_keys": [
+        "prfVerticesDir",
+        "prfSurfacesDir"
+      ]
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) in DWI space.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "varea",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Visual-area volumetric parcellation with its label file.",
+      "config_keys": [
+        "varea_parc",
+        "varea_label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "connectomes",
+      "datatype": "neuro/conmats",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Count, density and length connectivity matrices between the polar angle x eccentricity regions."
+    },
+    {
+      "id": "networks",
+      "datatype": "generic/networks",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Networks built from the connectomes, with network measurements."
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Polar angle x eccentricity volumetric parcellation in DWI space."
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Cortexmap with the polar angle x eccentricity surface maps."
+    },
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Tractogram of the streamlines connecting the regions."
+    },
+    {
+      "id": "tracts",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "One .tck file per region pair."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "White matter classification of the region-to-region tracts, with region surfaces for viewing."
+    },
+    {
+      "id": "net-stats",
+      "datatype": "neuro/net-stats",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "CSV tables of network statistics."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "polarAngle_by_eccentricity"
+      ],
+      "description": "Intermediate files kept for debugging."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "paMeridians",
+      "type": "string",
+      "description": "Space-separated polar-angle meridians at which wedges are centred.",
+      "default": "0 45 90 135 180",
+      "advanced": true,
+      "units": "degrees"
+    },
+    {
+      "id": "paAngle",
+      "type": "string",
+      "description": "Half-width of each polar-angle wedge around its meridian.",
+      "default": "15",
+      "advanced": true,
+      "units": "degrees"
+    },
+    {
+      "id": "eccAngle",
+      "type": "string",
+      "description": "Width of each eccentricity bin from 0 to 8 degrees.",
+      "default": "2",
+      "advanced": true,
+      "units": "degrees"
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "FreeSurfer parcellation (aparc or aparc.a2009s) combined with the visual-field regions.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "aparc.DKTatlas"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "assignment_radial_search",
+      "type": "number",
+      "description": "Radial search distance passed to MRtrix3 tck2connectome -assignment_radial_search when assigning streamline endpoints to nodes (used only if different from 4).",
+      "default": 4,
+      "advanced": true,
+      "units": "mm"
+    },
+    {
+      "id": "assignment_reverse_search",
+      "type": "string",
+      "description": "Value for tck2connectome -assignment_reverse_search; leave blank to not use it.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "assignment_forward_search",
+      "type": "string",
+      "description": "Value for tck2connectome -assignment_forward_search; leave blank to not use it.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "inv_length",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "richClubPercentage",
+      "type": "number",
+      "description": "Percentile threshold used to compute the rich-club coefficient in the network measurements.",
+      "default": 90,
+      "advanced": true
+    },
+    {
+      "id": "analysis",
+      "type": "enum",
+      "description": "Analysis pipeline to run; only polarAngleMeridiansConnectomics is implemented.",
+      "default": "polarAngleMeridiansConnectomics",
+      "options": [
+        {
+          "value": "polarAngleMeridiansConnectomics",
+          "label": "polarAngleMeridiansConnectomics",
+          "description": "polarAngleMeridiansConnectomics"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "include_periph",
+      "type": "boolean",
+      "description": "If true, also add a peripheral eccentricity bin from 8 to 90 degrees.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "endpoints_assignment",
+      "type": "enum",
+      "description": "How streamlines are assigned to visual regions: both_endpoints builds connectomes, networks and network statistics between regions; single_endpoints (v1.1 only) segments streamlines terminating in each visual area.",
+      "default": "both_endpoints",
+      "options": [
+        {
+          "value": "both_endpoints",
+          "label": "both_endpoints",
+          "description": "both_endpoints"
+        },
+        {
+          "value": "single_endpoints",
+          "label": "single_endpoints",
+          "description": "single_endpoints"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.784",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0"
+    },
+    {
+      "name": "cxnetwork",
+      "version": "0.2.0"
+    },
+    {
+      "name": "VTK"
+    }
+  ]
+}

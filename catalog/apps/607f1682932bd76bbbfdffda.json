@@ -1,0 +1,77 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Denoise MP2RAGE UNI ",
+  "version": "main",
+  "summary": "Removes noise in an MP2RAGE_UNI.nii.gz image given a user-provided regularization parameter (see app-mp2rage-selectregparam).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "607f1682932bd76bbbfdffda",
+    "github": "svincibo/app-mp2rage-denoiseUNI",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "neuro/anat/mp2rage",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mag_inv1",
+        "mag_inv2",
+        "unit1",
+        "json_inv1",
+        "json_inv2",
+        "json_unit1"
+      ]
+    },
+    {
+      "id": "neuro/mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "denoised"
+      ],
+      "description": "UNI image with noise removed, for use in estimating T1 and R1 values"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reg_param",
+      "type": "string",
+      "description": "The regularization parameter that is best for your dataset depends on several factors. If you are not sure what regularization parameter to select, leave this field blank and we will select the best parameter for your dataset.",
+      "default": "16",
+      "required": false,
+      "placeholder": "Enter the regularization parameter that is best for your dataset."
+    },
+    {
+      "id": "slicesperslab",
+      "type": "number",
+      "description": "Slices Per Slab should be available in the MRI sequence protocol. It is not always available in the image's header information. If you are sure that Slices Per Slab is available in the image's header information, you can leave this blank and we will get the value from there. Otherwise, please look up this value in the MRI sequence protocol and enter it here.",
+      "required": false,
+      "placeholder": "Enter the Slices Per Slab parameter."
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.506"
+}

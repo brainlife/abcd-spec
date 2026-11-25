@@ -1,0 +1,157 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Resample surface data from fsaverage space",
+  "version": "app-v1.0-freesurfer-7.1.1-wb-1.5.0",
+  "summary": "Resamples left and right hemisphere surface data from an fsaverage template mesh to fs_LR (deformed to fsaverage) at 32k, 59k or 164k vertices with FreeSurfer and Connectome Workbench.",
+  "description": "Converts the chosen fsaverage template's pial, white and sphere.reg surfaces to GIFTI (mris_convert), builds midthickness surfaces, and resamples each hemisphere's data with wb_command -metric-resample (ADAP_BARY_AREA). Use it to bring fsaverage-space surface data onto a standard fs_LR mesh.",
+  "kind": "native",
+  "topics": [
+    "surface-analysis",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62100c47c16bfbf27e09a18f",
+    "github": "brainlife/app-resample-surface-data",
+    "branch": "app-v1.0-freesurfer-7.1.1-wb-1.5.0"
+  },
+  "inputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Left and right hemisphere surface data (GIFTI) with labels.",
+      "config_keys": [
+        "left",
+        "right",
+        "label"
+      ],
+      "requirements": "Data must be on the fsaverage mesh selected by surf_space."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "func",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [
+        "resampled"
+      ],
+      "description": "Resampled left.gii and right.gii surface data on the chosen fs_LR mesh.",
+      "datatype_tags_pass": "surfaces"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "resamp_space",
+      "type": "enum",
+      "description": "space you would like to resample your data to",
+      "default": "fs_LR-deformed_to-fsaverage",
+      "options": [
+        {
+          "value": "fs_LR-deformed_to-fsaverage",
+          "label": "fs_LR-deformed_to-fsaverage",
+          "description": "fs_LR-deformed_to-fsaverage"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "num_vertices",
+      "type": "enum",
+      "description": "number of vertices to resample to",
+      "default": "32k",
+      "options": [
+        {
+          "value": "32k",
+          "label": "32k",
+          "description": "32k"
+        },
+        {
+          "value": "59k",
+          "label": "59k",
+          "description": "59k"
+        },
+        {
+          "value": "164k",
+          "label": "164k",
+          "description": "164k"
+        }
+      ]
+    },
+    {
+      "id": "surf_space",
+      "type": "enum",
+      "description": "FreeSurfer fsaverage template (fsaverage3-7) the input data are on; its sphere.reg is the source sphere for resampling.",
+      "default": "fsaverage5",
+      "options": [
+        {
+          "value": "fsaverage3",
+          "label": "fsaverage3",
+          "description": "fsaverage3"
+        },
+        {
+          "value": "fsaverage4",
+          "label": "fsaverage4",
+          "description": "fsaverage4"
+        },
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "fsaverage5"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "fsaverage6"
+        },
+        {
+          "value": "fsaverage7",
+          "label": "fsaverage7",
+          "description": "fsaverage7"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.604",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs",
+      "cause": "A template surface conversion or the resampling step failed.",
+      "fix": "Check that surf_space matches the vertex count of the input data."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

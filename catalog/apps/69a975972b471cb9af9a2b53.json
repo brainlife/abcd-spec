@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make BEM model",
+  "version": "v1.0",
+  "summary": "Brainlife app to compute a BEM (Boundary Element Model) from a FreeSurfer recon-all output.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69a975972b471cb9af9a2b53",
+    "github": "BrainlifeMEEG/make-bem",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "bem"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_layers",
+      "type": "enum",
+      "description": "n_layers=3 \u2192 (0.3, 0.006, 0.3) S/m \u2014 brain/skull/skin (for EEG)\nn_layers=1 \u2192 (0.3,) S/m \u2014 inner skull only (for MEG-only)",
+      "default": "3",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "ico",
+      "type": "string",
+      "description": "ICO subdivision",
+      "default": "4",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 2
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.899"
+}

@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract event-related timeseries",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6571c4d8b094062da673adf8",
+    "github": "anibalsolon/blapp-extract-event-signal",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "data",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "data",
+        "bold_events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "events",
+      "type": "string",
+      "description": "Event names separated by commas.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.803"
+}

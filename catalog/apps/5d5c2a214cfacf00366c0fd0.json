@@ -1,0 +1,44 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "mergeTCK",
+  "version": "master",
+  "summary": "Merge multiple TCK files into one TCK file.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5d5c2a214cfacf00366c0fd0",
+    "github": "svincibo/app-mergeTCK",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "TCK files to merge.",
+      "config_keys": [
+        "tcks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Merged TCK.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.219"
+}

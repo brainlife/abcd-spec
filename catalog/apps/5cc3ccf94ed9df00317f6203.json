@@ -1,0 +1,200 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "TractSeg",
+  "version": "2.7",
+  "summary": "Segments 72 white matter bundles from DWI with TractSeg 2.7 (pretrained CNN on CSD peaks) and outputs bundle masks, ending masks, bundle-specific tractograms and tractometry.",
+  "description": "Computes CSD peaks from the DWI (standard, multi-shell or multi-shell with 5TT), then runs TractSeg bundle segmentation, endings segmentation, TOM tracking and Tractometry, and converts the result into brainlife tck, wmc and tractmasks datatypes. Use it for fast automated tract segmentation. The DWI must have the same orientation as HCP/MNI data (left on the HCP left) per the README; multi-shell data is needed for csd_msmt and a T1w for csd_msmt_5tt. Runs on a GPU.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "white-matter-segmentation",
+    "dwi",
+    "tract-segmentation",
+    "tractography",
+    "machine-learning",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc3ccf94ed9df00317f6203",
+    "github": "brainlife/app-tractseg",
+    "branch": "2.7"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input dwi image for TractSeg. TractSeg will generate CSD peaks from this dwi before running TOM tracking, Tractography, and Tractometry. The input dwi image must have the same \"orientation\" as the Human Connectome Project data (MNI space) (LEFT must be on the same side as LEFT of the HCP data).",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must have the same orientation as HCP (MNI) data; multi-shell data required for csd_msmt and csd_msmt_5tt."
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1w image. Required when using csd_type=csd_msmt_5tt. The T1 image should be in the same space as the dwi image.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "All TractSeg bundle-specific (TOM) tractograms merged into a single track.tck."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "tractseg"
+      ],
+      "description": "White matter classification assigning streamlines to the TractSeg bundles, with bundle surfaces for visualisation."
+    },
+    {
+      "id": "output",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "tract_segmentations"
+      ],
+      "description": "Binary segmentation masks of each white matter bundle (bundle_segmentations)."
+    },
+    {
+      "id": "endingmasks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [
+        "ending_segmentations"
+      ],
+      "description": "Binary masks of the start and end regions of each bundle (endings_segmentations)."
+    },
+    {
+      "id": "tractseg_output",
+      "datatype": "neuro/tractseg",
+      "datatype_tags": [],
+      "description": "The full TractSeg output directory (peaks, segmentations, TOM, trackings, tractometry)."
+    },
+    {
+      "id": "tractseg_tractometry",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "tractseg_tractometry",
+        "peak_length"
+      ],
+      "description": "Tractometry_peaks.csv"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "preprocess",
+      "type": "boolean",
+      "description": "(this feature is temporarily disabled - as it generates peak.nii.gz in incorrect size for step 2,3,4).",
+      "default": false,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "csd",
+      "type": "enum",
+      "description": "Choose the type of constrained spherical deconvolution (CSD) to run. To use csd_msmt,   multi-shell data is required. To use csd_msmt_5tt,  multi-shell data and a registered T1 are required.",
+      "default": "csd",
+      "options": [
+        {
+          "value": "csd",
+          "label": "csd",
+          "description": "standard CSD"
+        },
+        {
+          "value": "csd_msmt",
+          "label": "csd_msmt",
+          "description": "multi-tissue constrained spherical deconvolution (CSD) of multi-shell data "
+        },
+        {
+          "value": "csd_msmt_5tt",
+          "label": "csd_msmt_5tt",
+          "description": "multi-tissue constrained spherical deconvolution (CSD) of multi-shell data and 5TT "
+        }
+      ]
+    },
+    {
+      "id": "nr_fibers",
+      "type": "number",
+      "description": "Number of fibers to create for each bundle (default: 2000). [non-default option available for App version >= 2.2]",
+      "default": 2000
+    },
+    {
+      "id": "bundles",
+      "type": "string",
+      "description": "Comma separated list (without spaces) of bundles you want to track.  Leave empty if you want to track all  (default). For the list of possible bundles, please refer to https://github.com/MIC-DKFZ/TractSeg. [non-default option available for App version >= 2.2]",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "tractometry_input",
+      "type": "enum",
+      "description": "For tractometry, the peak length along the tracts will be analyzed. If you want to run tractometry on either FA, MD, RD, or AD, you need to have the tensor as input, and you can run the App XXX  (work in progress).",
+      "default": "peak_length",
+      "options": [
+        {
+          "value": "peak_length",
+          "label": "peak_length"
+        }
+      ],
+      "required": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/tractseg:2.7",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 4,
+      "gpu": true
+    }
+  },
+  "doi": "10.25663/brainlife.app.186",
+  "software": [
+    {
+      "name": "TractSeg",
+      "version": "2.7",
+      "url": "https://github.com/MIC-DKFZ/TractSeg"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    },
+    {
+      "name": "FSL"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.1.1"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.07.070",
+      "text": "Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183, 239-253 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Error: csd_msmt_5tt requires a T1w image.",
+      "fix": "Provide the optional T1w input or choose csd or csd_msmt."
+    },
+    {
+      "message": "Error: csd_msmt_5tt doesn't work with --preprocess.",
+      "fix": "Disable preprocess when using csd_msmt_5tt."
+    }
+  ]
+}

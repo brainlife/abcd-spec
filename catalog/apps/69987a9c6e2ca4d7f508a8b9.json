@@ -1,0 +1,45 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Plot average epochs by conditions",
+  "version": "v1.0",
+  "summary": "Brainlife app to plot averages of epochs",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69987a9c6e2ca4d7f508a8b9",
+    "github": "BrainlifeMEEG/plot-epochs",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.894"
+}

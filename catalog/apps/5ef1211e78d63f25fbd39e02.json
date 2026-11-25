@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create brainmask of DWI using MrTrix3",
+  "version": "v1.0",
+  "summary": "Creates a brain mask of a DWI with MRtrix3 dwi2mask, dilated by five voxels.",
+  "description": "Converts the DWI to MRtrix format with its gradient table, runs dwi2mask, dilates the mask five passes with maskfilter, and writes mask/mask.nii.gz. Use it when a later step needs a DWI-space brain mask; the dilation makes it generous rather than tight.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ef1211e78d63f25fbd39e02",
+    "github": "brainlife/app-mrtrix3-dwi-brainmask",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvecs and bvals.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "description": "Dilated brain mask of the DWI (mask.nii.gz).",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.387",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2019.116137",
+      "text": "Tournier JD, Smith R, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mask failed. see derivatives and logs",
+      "cause": "mask/mask.nii.gz was not produced.",
+      "fix": "Check that bvecs and bvals match the DWI and inspect the log."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

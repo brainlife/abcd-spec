@@ -1,0 +1,45 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "White Matter Mask",
+  "version": "master",
+  "summary": "This application will create a mask nifti file of the white matter of the T1 image using Freesurfer's aparc+aseg.mgz parcellation.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing"
+  ],
+  "registry": {
+    "id": "5a28180e67007b77e4d51cce",
+    "github": "kitchell/app-wmMask",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter",
+        "anat"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/bl.app.10"
+}

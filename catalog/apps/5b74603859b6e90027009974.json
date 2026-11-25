@@ -1,0 +1,42 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Profile Aggregator",
+  "version": "master",
+  "summary": "Aggregates tract profiles from many subjects and plots the group mean and standard deviation of FA along each tract (utility for the deprecated tractprofile datatype).",
+  "description": "Reads the CSV tract profiles in each input, collects AD, FA, MD and RD per tract and writes product.json with plots of the mean FA profile and its standard deviation across inputs. Use it for a quick group-level look at tract profiles. It works on the deprecated tractprofile datatype and produces no dataset output, only plots.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "dwi",
+    "statistics",
+    "visualization",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b74603859b6e90027009974",
+    "github": "brainlife/app-tractprofiles-agg",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tract profile outputs (one per subject), each a directory of per-tract CSV files.",
+      "config_keys": [
+        "outputs"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/bl.app.90"
+}

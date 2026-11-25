@@ -1,0 +1,98 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Coregistration MRI with MEG",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "66a0d6faf61fb6c31d8bb223",
+    "github": "AntonioCauAt/app-coregistration",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fif1",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "bem1",
+      "datatype": "raw",
+      "datatype_tags": [
+        "bem"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [
+        "trans"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fif1"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiducials",
+      "type": "string",
+      "description": "The fiducials given in the MRI (surface RAS) coordinate system. If a dictionary is provided, it must contain the keys 'lpa', 'rpa', and 'nasion', with values being the respective coordinates in meters. If a list, it must be a list of DigPoint instances as returned by the mne.io.read_fiducials() function. If 'estimated', the fiducials are derived from the fsaverage template. If 'auto' (default), tries to find the fiducials in a file with the canonical name ({subjects_dir}/{subject}/bem/{subject}-fiducials.fif) and if absent, falls back to 'estimated'.",
+      "default": "auto"
+    },
+    {
+      "id": "on_defects",
+      "type": "enum",
+      "description": "What to do if the surface is found to have topological defects. Can be 'raise' (default) to raise an error, 'warn' to emit a warning, or 'ignore' to ignore when one or more defects are found. Note that a lot of computations in MNE-Python assume the surfaces to be topologically correct, topological defects may still make other computations (e.g., mne.make_bem_model and mne.make_bem_solution) fail irrespective of this parameter.",
+      "default": "",
+      "options": [
+        {
+          "value": "raise",
+          "label": "raise"
+        },
+        {
+          "value": "warn",
+          "label": "warn"
+        },
+        {
+          "value": "ignore",
+          "label": "ignore"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.826"
+}

@@ -1,0 +1,53 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EDF to mne/raw",
+  "version": "main",
+  "summary": "Converts EEG edf data to MNE Raw (fif)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "628b6b3ed0697cf1eaeb70e9",
+    "github": "guiomar/app_edf2mne",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "edf1",
+      "datatype": "neuro/eeg/edf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "edf",
+        "channels",
+        "electrodes",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "eeg",
+        "edf",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "edf1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.637"
+}

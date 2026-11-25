@@ -1,0 +1,375 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute streamline weights using COMMIT",
+  "version": "v1.0",
+  "summary": "Filters a whole-brain tractogram with COMMIT, fitting streamline weights to the DWI signal with a microstructure model, and outputs streamline weights, fit errors and compartment maps.",
+  "description": "Derives peaks from the CSD (sh2peaks) unless peaks are given, builds a white-matter mask from the 5TT image, builds the COMMIT dictionary from the tractogram and fits the chosen forward model (default Stick-Zeppelin-Ball) to the DWI with AMICO/COMMIT. Use it to assess or prune streamlines by their contribution to the measured signal. Tractogram, DWI, CSD and mask must share the same space.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "626c8036f3858674a2a803fd",
+    "github": "brainlife/app-commit",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) to evaluate.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs used for the fit.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "CSD FODs; the lmax selected by the lmax parameter is converted to peaks.",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "5-tissue-type image; its white-matter volume is binarised as the COMMIT mask.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional precomputed peaks; used instead of deriving peaks from the CSD.",
+      "config_keys": [
+        "peaks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "streamline_weights",
+      "datatype": "neuro/streamline-weights",
+      "datatype_tags": [
+        "commit"
+      ],
+      "description": "Per-streamline COMMIT weights (weights.csv).",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "commit_dictionaries"
+      ],
+      "description": "COMMIT dictionary files and fitted model pickles."
+    },
+    {
+      "id": "errors",
+      "datatype": "raw",
+      "datatype_tags": [
+        "commit_errors",
+        "rmse",
+        "nrmse"
+      ],
+      "description": "COMMIT fit error maps (RMSE, NRMSE)."
+    },
+    {
+      "id": "noddi-commit",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [
+        "commit"
+      ],
+      "description": "Note: this is not the same as a normal noddi dataset.\n\ncompartment_IC from COMMIT => ndi.nii.gz\ncompartment_EC from COMMIT => odi.nii.gz\ncompartment_ISO from COMMIT => isovf.nii.gz\n\nThis is temporary until we develop a datatype to capture these outputs"
+    },
+    {
+      "id": "tdi",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tract_density_image"
+      ],
+      "description": "temporary until we figure out a datatype for tract density images"
+    },
+    {
+      "id": "peaks",
+      "datatype": "neuro/peaks",
+      "datatype_tags": [],
+      "description": "Peaks image used for the fit.",
+      "datatype_tags_pass": "csd"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dPar",
+      "type": "number",
+      "description": "parallel diffusivity value",
+      "default": 0.0017,
+      "advanced": true
+    },
+    {
+      "id": "dPerp",
+      "type": "number",
+      "description": "perpendicular diffusivity value",
+      "default": 0.00051,
+      "advanced": true
+    },
+    {
+      "id": "dIso",
+      "type": "string",
+      "description": "isotropic diffusivity values",
+      "default": "0.0017, 0.003",
+      "advanced": true
+    },
+    {
+      "id": "model",
+      "type": "enum",
+      "description": "The model to use",
+      "default": "StickZeppelinBall",
+      "options": [
+        {
+          "value": "StickZeppelinBall",
+          "label": "StickZeppelinBall",
+          "description": "StickZeppelinBall"
+        },
+        {
+          "value": "CylinderZeppelinBall",
+          "label": "CylinderZeppelinBall",
+          "description": "CylinderZeppelinBall"
+        },
+        {
+          "value": "VolumeFraction",
+          "label": "VolumeFraction",
+          "description": "VolumeFraction"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "the spherical harmonic order (lmax) to generate peaks from to use in model fitting",
+      "default": 8
+    },
+    {
+      "id": "fiber_shift",
+      "type": "number",
+      "description": "COMMIT trk2dictionary fiber_shift: shift applied to streamline coordinates.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "peaks_use_affine",
+      "type": "boolean",
+      "description": "Whether trk2dictionary applies the peaks image affine to peak directions.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "b-value threshold below which volumes are treated as b0 when loading the DWI.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "b0_min_signal",
+      "type": "number",
+      "description": "Minimum b0 signal for a voxel to be fitted.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "max_iters",
+      "type": "number",
+      "description": "Maximum number of iterations of the COMMIT fit.",
+      "default": 1000,
+      "advanced": true
+    },
+    {
+      "id": "stat_coef",
+      "type": "enum",
+      "description": "Statistic used by COMMIT save_results to summarise each streamline's coefficients (stat_coeffs).",
+      "default": "sum",
+      "options": [
+        {
+          "value": "sum",
+          "label": "sum",
+          "description": "sum"
+        },
+        {
+          "value": "mean",
+          "label": "mean",
+          "description": "mean"
+        },
+        {
+          "value": "median",
+          "label": "median",
+          "description": "median"
+        },
+        {
+          "value": "min",
+          "label": "min",
+          "description": "min"
+        },
+        {
+          "value": "max",
+          "label": "max",
+          "description": "max"
+        },
+        {
+          "value": "all",
+          "label": "all",
+          "description": "all"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "min_seg_len",
+      "type": "number",
+      "description": "Minimum streamline segment length kept in the dictionary.",
+      "default": 0.001,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "min_fiber_len",
+      "type": "number",
+      "description": "Minimum streamline length kept in the dictionary.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "max_fiber_len",
+      "type": "number",
+      "description": "Maximum streamline length kept in the dictionary.",
+      "default": 250,
+      "advanced": true
+    },
+    {
+      "id": "vf_THR",
+      "type": "number",
+      "description": "Volume-fraction threshold used when building the dictionary from peaks.",
+      "default": 0.1,
+      "advanced": true
+    },
+    {
+      "id": "blur_spacing",
+      "type": "number",
+      "description": "COMMIT trk2dictionary blur_spacing.",
+      "default": 0.25,
+      "advanced": true
+    },
+    {
+      "id": "blur_core_extent",
+      "type": "number",
+      "description": "COMMIT trk2dictionary blur_core_extent.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "blur_gauss_extent",
+      "type": "number",
+      "description": "COMMIT trk2dictionary blur_gauss_extent.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "blur_gauss_min",
+      "type": "number",
+      "description": "COMMIT trk2dictionary blur_gauss_min.",
+      "default": 0.1,
+      "advanced": true
+    },
+    {
+      "id": "flip_peaks",
+      "type": "string",
+      "description": "Three space-separated true/false flags to flip the peaks along x, y and z.",
+      "default": "false false false",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 3
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.622",
+  "software": [
+    {
+      "name": "COMMIT",
+      "version": "1.6.1",
+      "url": "https://github.com/daducci/COMMIT"
+    },
+    {
+      "name": "AMICO",
+      "url": "https://github.com/daducci/AMICO"
+    },
+    {
+      "name": "MRtrix3"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1109/TMI.2014.2352414",
+      "text": "Daducci A, Dal Palu A, Lemkaddem A, Thiran JP. COMMIT: Convex optimization modeling for microstructure informed tractography. IEEE Trans Med Imaging 34(1):246-257 (2015)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    }
+  ]
+}

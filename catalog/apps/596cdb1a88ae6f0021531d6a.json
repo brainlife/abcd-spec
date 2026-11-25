@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Plot 3D Surfaces ",
+  "version": "master",
+  "summary": "This app needs to be updated so that it can run via singularity. Currently this app can not run on any resource.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "quality-check"
+  ],
+  "registry": {
+    "id": "596cdb1a88ae6f0021531d6a",
+    "github": "kitchell/app-plot3Dobjects",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "3Dsurfaces"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "surfaces"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "remove_background",
+      "type": "boolean",
+      "description": "transparent background on the images",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.131"
+}

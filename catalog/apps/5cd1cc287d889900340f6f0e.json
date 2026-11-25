@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Remove First B0 (temp)",
+  "version": "master",
+  "summary": "Removes the first volume (b0) from a DWI with FSL and drops the first b-value; temporary utility made for the Athlete Brain Study dataset.",
+  "description": "Splits the DWI with fslsplit, discards the first volume, merges the rest and removes the first entry of bvals. It does not use the input bvecs: it copies a dwi.bvecs file stored in the repository, so it is only correct for the dataset it was written for. Do not use on other data.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cd1cc287d889900340f6f0e",
+    "github": "brainlife/app-removeFirstB0",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "inDWI",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image whose first volume is a b0 to be removed.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "outDWI",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "even",
+        "missing_first_b0"
+      ],
+      "description": "DWI without its first volume, with the first b-value removed and the repository's bvecs.",
+      "datatype_tags_pass": "inDWI"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.197",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Jenkinson M, Beckmann CF, Behrens TE, Woolrich MW, Smith SM. FSL. NeuroImage 62:782-790 (2012)."
+    }
+  ]
+}

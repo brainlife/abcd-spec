@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tissue-type segmentation",
+  "version": "binarize-v1.0",
+  "summary": "Generates a five-tissue-type (5TT) image from a T1-weighted image with MRtrix3 5ttgen fsl, plus binarized gray matter, white matter and CSF masks, for anatomically-constrained tractography.",
+  "description": "Runs 5ttgen fsl (FSL BET, FAST and FIRST; with -nocrop and -sgm_amyg_hipp) on the T1w image, writes the 5TT image and binarizes its cortical GM, WM and CSF volumes into separate masks. Use it to prepare ACT/5TT inputs for MRtrix3 tracking. Set premask to true if the T1 is already skull-stripped; for a FreeSurfer-based segmentation use the hsvs App.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "mrtrix3",
+    "fsl",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5db234008aeeee3329f25d9c",
+    "github": "brainlife/app-mrtrix3-5tt",
+    "branch": "binarize-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted anatomical image to segment into five tissue types.",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt",
+        "anat",
+        "5tt_masks"
+      ],
+      "description": "5TT image (mask.nii.gz) plus binarized gray matter (gm.nii.gz), white matter (wm.nii.gz) and CSF (csf.nii.gz) masks extracted from its volumes."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "premask",
+      "type": "boolean",
+      "description": "If the T1 has been skull-stripped before this step, set this to \"true\" (passes -premasked to 5ttgen fsl). Otherwise you risk losing significant portions of the brain.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.239",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Smith RE, Tournier J-D, Calamante F, Connelly A. Anatomically-constrained tractography: Improved diffusion MRI streamlines tractography through effective use of anatomical information. NeuroImage 62:1924-1938 (2012)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "mask generation failed",
+      "cause": "The CSF mask was not produced, so 5ttgen or mrconvert failed.",
+      "fix": "Check the log for the 5ttgen error; for skull-stripped T1 images set premask to true."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "merge2TCKs",
+  "version": "master",
+  "summary": "This is copy of the mergeTCK BL app (https://doi.org/10.25663/brainlife.app.219) modified to take two tractograms as input. This is a temporary workaround for the lack of functionality for multi-input datatypes in brainlife Pipelines.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e8b5ae6952fefe5407b097e",
+    "github": "svincibo/app-mergeTCK",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "track1",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track1"
+      ]
+    },
+    {
+      "id": "track2",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "merged"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.304"
+}

@@ -1,0 +1,43 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "dsi-studio-trk-ana",
+  "version": "main",
+  "summary": "Thi App is  designed for the analysis of tractography data using DSI Studio. The script computes a range of tract properties as described in (Yeh, F. C., Neuroimage, 2020)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "67817af681d348aa5645c5b5",
+    "github": "gamorosino/dsi-studio-trk-ana",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/dsistudio/tinytrack",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tt"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "stats",
+      "datatype": "neuro/dsistudio/tractmeasures",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "dsistudio/dsistudio:hou-2024-12-26",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.842"
+}

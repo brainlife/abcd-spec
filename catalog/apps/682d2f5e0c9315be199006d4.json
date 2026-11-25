@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "SynthStrip (GPU) T1w",
+  "version": "main",
+  "summary": "An automated, containerized workflow that performs robust brain extraction (a.k.a. skull-stripping) on either a T1-weighted or T2-weighted anatomical MRI using the Deep Learning FreeSurfer\u2019s tool SynthStrip (Hoopes A. et al, 2022)(Kelley W. et al, 2024).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "682d2f5e0c9315be199006d4",
+    "github": "gamorosino/app-synthstrip-gpu",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "Stripped T1w image (brain)"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Brain mask"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "no_csf",
+      "type": "boolean",
+      "description": "If you would like to compute the immediate boundary of the brain, excluding surrounding CSF, use the no_csf flag.",
+      "default": false
+    },
+    {
+      "id": "use_gpu",
+      "type": "boolean",
+      "description": "You can disable GPU usage and fall back to the CPU instead; this may cause processing times to increase anywhere from slightly to considerably.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.862"
+}

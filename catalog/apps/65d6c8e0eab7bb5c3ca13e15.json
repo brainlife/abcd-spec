@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Interpolate bad channels",
+  "version": "v1.0",
+  "summary": "Interpolate bad channels in raw",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65d6c8e0eab7bb5c3ca13e15",
+    "github": "BrainlifeMEEG/interpolate-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "interp"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Optional list of bad channels to interpolate (in addition to those listed in the dataset raw.info['bads'])",
+      "default": "",
+      "required": false,
+      "placeholder": "E1, Cz..."
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.816"
+}

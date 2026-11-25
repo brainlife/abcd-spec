@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Clean WMC output",
+  "version": "1.4",
+  "summary": "(deprecated by Remove Tract Outliers App) This service cleans the output from AFQ and WMA using AFQ's AFQ_removeFiberOutliers function. For more information on the inputs of this application, please read the documentation at the top of the function: https://github.com/yeatmanlab/AFQ/blob/master/functions/AFQ_removeFiberOutliers.m",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "597f8c463a37c7002e39bf77",
+    "github": "brainlife/app-AFQclean",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "AFQ",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "afq_fg"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "cleaned"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "AFQ"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "maxiter",
+      "type": "integer",
+      "description": "unknown",
+      "default": 5
+    },
+    {
+      "id": "numnodes",
+      "type": "integer",
+      "description": "unknown",
+      "default": 100
+    },
+    {
+      "id": "maxlen",
+      "type": "integer",
+      "description": "unknown",
+      "default": 4
+    },
+    {
+      "id": "maxdist",
+      "type": "integer",
+      "description": "unknown",
+      "default": 4
+    },
+    {
+      "id": "M",
+      "type": "enum",
+      "description": "Select method for representing the center of the tract",
+      "default": "mean",
+      "options": [
+        {
+          "value": "mean",
+          "label": "Mean",
+          "description": "Use the mean to represent the center of the tract"
+        },
+        {
+          "value": "median",
+          "label": "Median",
+          "description": "Use the median to represent the center of the tract"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 28,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/bl.app.11",
+  "deprecated_by": "5c59dc65464fde003639ebb2"
+}

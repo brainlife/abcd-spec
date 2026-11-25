@@ -1,0 +1,74 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DWI SNR (HM vs VM)",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a977430d90f157078dd6c7b",
+    "github": "gamorosino/app-dwi-hm-vm-snr",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "polarAngle",
+        "eccentricity",
+        "varea"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "stats",
+      "datatype": "neuro/SNR_and_dMRI_stats",
+      "datatype_tags": [],
+      "description": "Per-subject mean DWI SNR (b0) in HM/UVM/LVM cortical ROIs, one row per meridian, with voxel counts."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "varea_labels",
+      "type": "string",
+      "description": "Comma-separated varea label(s) to restrict the ROI to (e.g. '1' for V1 only). Empty = all Benson14 visual areas (varea>0).",
+      "default": "",
+      "advanced": true
+    },
+    {
+      "id": "b0_thr",
+      "type": "number",
+      "description": "b-value threshold below which a volume is treated as a b0.",
+      "default": 50,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.1",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.956"
+}

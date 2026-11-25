@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Measurements",
+  "version": "0.2",
+  "summary": "App to calculate several basic statistics for networks and their respective null model distributions.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5ea70853f1745db7d9f7b0dc",
+    "github": "filipinascimento/bl-network-measurements",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network, if the network contains null models, properties for null models are calculated as well. Note that most of the measurements do not work for negative weights, please use preprocessor App to generate separated signed versions of the network.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "measurements"
+      ],
+      "description": "Output a network containing the calculated properties.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "richClubPercentage",
+      "type": "number",
+      "description": "Percentile of rich-club to calculate the rich-club coefficient.",
+      "default": 80,
+      "minimum": 0,
+      "maximum": 100,
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.321"
+}

@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment hippocampal and amygdala nuclei",
+  "version": "v1.0",
+  "summary": "Segments hippocampal subfields and amygdala nuclei with FreeSurfer 7.3.2 segmentHA_T1.sh on a FreeSurfer subject directory and returns the updated directory.",
+  "description": "Copies the FreeSurfer subject directory and runs segmentHA_T1.sh (segmentHA_T2.sh when a T2.mgz is found), adding the lh/rh hippoAmygLabels volumes to mri/. Use it before converting those labels into a parcellation. Requires a completed recon-all.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63fe2c0cc538c16a825838ae",
+    "github": "brainlife/app-segment-hippamyg-nuclei",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the freesurfer datatype",
+      "config_keys": [
+        "freesurfer"
+      ],
+      "requirements": "Completed FreeSurfer recon-all subject directory."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "hippocampal"
+      ],
+      "description": "Output freesurfer datatype including hippocampal and amygdala nuclei segmentation",
+      "datatype_tags_pass": "freesurfer"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 2,
+      "memory_gb": 20,
+      "walltime_hours": 0.75
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.738",
+  "category": "segmentation",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Epoch continuous signals",
+  "version": "master",
+  "summary": "Create epochs in MEG data",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60799b9f98cade729e9b281c",
+    "github": "brainlife/app-make-epochs",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Data to be epoched.",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "Optfile",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "BIDS compliant events file (computed with app-get-events). This file will override the events.tsv linked to the neuro/meg/fif datatype.",
+      "config_keys": [
+        "events_override"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir_make_epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "The epoched data."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param_event_id",
+      "type": "number",
+      "description": "The id of the event to consider. This value must be an integer or a list of integers (e.g. [0, 2, 4]).",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_tmin",
+      "type": "number",
+      "description": "Start time before event. This value can be a float.",
+      "default": -0.2,
+      "required": true
+    },
+    {
+      "id": "param_tmax",
+      "type": "number",
+      "description": "End time after event. This value can be a float.",
+      "default": 0.5
+    },
+    {
+      "id": "param_baseline",
+      "type": "string",
+      "description": "The time interval to consider as \u201cbaseline\u201d when applying baseline correction. Can be None or two floats (or None) separated by a coma (e.g. 0, None).",
+      "default": "None, 0",
+      "required": false
+    },
+    {
+      "id": "param_picks_by_channel_types_or_names",
+      "type": "string",
+      "description": "Channels to include. In lists, channel type strings (e.g., [meg, eeg]) will pick channels of those types, channel name strings (e.g., [MEG0111, MEG2623]) will pick the given channels. When you use a list, don't forget to use the square brackets and surround the channel type or name with simple quotes. Can also be the string values \u201call\u201d to pick all channels, or \u201cdata\u201d to pick data channels. \nNone (default) will pick all data channels. \nNote that channels in info['bads'] will be included if their names are explicitly provided.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "param_picks_by_channel_indices",
+      "type": "string",
+      "description": "Channels to include. Slices (e.g., 0, 10, 2 or 0, 10 if you don't want a step) and lists of integers (e.g., [10, 12]) are interpreted as channel indices. For slices, enter the start index, the end index and optionally the step and separate them by a coma. For list, don't forget the square brackets.\nNone (default) will pick all data channels. This parameter must be set to None if param_picks_by_channel_types_or_names is not None. Note that channels in info['bads'] will be included if their indices are explicitly provided.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_preload",
+      "type": "boolean",
+      "description": "If True, load all epochs from disk when creating the object or wait before accessing each epoch.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "param_proj",
+      "type": "enum",
+      "description": "Apply SSP projection vectors. If proj is \u2018delayed\u2019 and reject is not None the single epochs will be projected before the rejection decision, but used in unprojected state if they are kept.",
+      "default": "delayed",
+      "options": [
+        {
+          "value": "True"
+        },
+        {
+          "value": "False"
+        },
+        {
+          "value": "delayed"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_decim",
+      "type": "number",
+      "description": "Factor by which to subsample the data. This value must be an integer.",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "param_reject_tmin",
+      "type": "number",
+      "description": "Start of the time window used to reject epochs (with None, the window will start with tmin). This value can be a float.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_reject_tmax",
+      "type": "number",
+      "description": "End of the time window used to reject epochs (with None, the window will end with tmax). This value can be a float.",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_detrend",
+      "type": "enum",
+      "description": "If 0 or 1, the data channels (MEG and EEG) will be detrended when loaded. 0 is a constant (DC) detrend, 1 is a linear detrend. This value must be an integer or None (default).",
+      "default": "",
+      "options": [
+        {
+          "value": "0"
+        },
+        {
+          "value": "1"
+        }
+      ],
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "param_on_missing",
+      "type": "enum",
+      "description": "What to do if one or several event ids are not found in the recording.",
+      "default": "raise",
+      "options": [
+        {
+          "value": "raise"
+        },
+        {
+          "value": "warn"
+        },
+        {
+          "value": "ignore"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_reject_by_annotation",
+      "type": "boolean",
+      "description": "Whether to reject based on annotations. If True, epochs overlapping with segments whose description begins with 'bad' are rejected.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "param_event_repeated",
+      "type": "enum",
+      "description": "How to handle duplicates in events[:, 0].",
+      "default": "error",
+      "options": [
+        {
+          "value": "error"
+        },
+        {
+          "value": "drop"
+        },
+        {
+          "value": "merge"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "param_reject",
+      "type": "number",
+      "description": "Reject epochs based on peak-to-peak signal amplitude, i.e. the absolute difference between the lowest and the highest signal value.",
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "param_flat",
+      "type": "number",
+      "description": "Rejection parameters based on flatness of signal. Valid keys are 'grad', 'mag', 'eeg', 'eog', 'ecg'. The values are floats that set the minimum acceptable peak-to-peak amplitude.",
+      "required": true,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "param_metadata",
+      "type": "number",
+      "description": "A pandas.DataFrame specifying metadata about each epoch.",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.508",
+  "deprecated_by": "625d3130cc8ab2b339ea2692"
+}

@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Temporary converter of parcellation/surface-deprecated datatypes to surface datatypes",
+  "version": "v1.0",
+  "summary": "Converts the deprecated parcellation/surface datatype into the current surface/vertices and surface/data datatypes by copying and renaming files; a temporary format conversion utility.",
+  "description": "Copies the left/right annotation files and label.json (and key.txt if present) into a surface/data output, and the inflated, pial and white surfaces into per-hemisphere folders of a surface/vertices output. No data are modified; use it only to migrate data created with the old datatype. Runs without a container.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6169c901fc8eb97d1efe09fe",
+    "github": "brainlife/app-temp-parc-surface-deprecated-converter",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parc_deprecated",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Deprecated surface parcellation: lh/rh annotation, inflated, pial and white surfaces, key and label files.",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "lh_inflated",
+        "rh_inflated",
+        "lh_pial",
+        "rh_pial",
+        "lh_white",
+        "rh_white",
+        "key",
+        "label"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "surface_verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "left/ and right/ folders with the inflated, pial and white surfaces (<hemi>.<surface>.gii).",
+      "datatype_tags_pass": "parc_deprecated"
+    },
+    {
+      "id": "surface_data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "left.gii and right.gii parcellation data with label.json and key.txt.",
+      "datatype_tags_pass": "parc_deprecated"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.582"
+}

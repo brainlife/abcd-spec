@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BossDB TIFF Export",
+  "version": "apex-hackathon-2026",
+  "summary": "Hello world example to see how BossDB-compatible apps work",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa8266284691735460ab5f9",
+    "github": "jhuapl-boss/bossdb-brainlife-apps",
+    "branch": "apex-hackathon-2026"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/bossdb",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input directory for the bossdb dataset",
+      "config_keys": [
+        "channel"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "outputs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "tiff"
+      ],
+      "description": "Tiff export output"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "x_start",
+      "type": "number",
+      "description": "starting x coordinate",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "y_start",
+      "type": "number",
+      "description": "starting y coordinate",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "z_start",
+      "type": "number",
+      "description": "starting z coordinate",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "x_stop",
+      "type": "number",
+      "description": "ending x coordinate"
+    },
+    {
+      "id": "y_stop",
+      "type": "number",
+      "description": "ending y coordinate"
+    },
+    {
+      "id": "z_stop",
+      "type": "number",
+      "description": "ending z coordinate"
+    },
+    {
+      "id": "resolution",
+      "type": "number",
+      "description": "mip level of the data, 0 equals base resolution",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "export_as_volume",
+      "type": "boolean",
+      "description": "Whether to export as a 3D tiff (true) or by slices (false)",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.967"
+}

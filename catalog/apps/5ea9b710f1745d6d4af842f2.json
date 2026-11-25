@@ -1,0 +1,108 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Streamlines Linear Registration (slr)",
+  "version": "1.1.1",
+  "summary": "Brainlife wrapper app for dipy_slr workflows.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ea9b710f1745d6d4af842f2",
+    "github": "dipy/bl_apps_dipy_slr",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "static_tracks",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "static_track"
+      ]
+    },
+    {
+      "id": "moving_tracks",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "moving_track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "x0",
+      "type": "enum",
+      "description": "Affine, rigid, or similarity transformation model (default affine)",
+      "default": "affine",
+      "options": [
+        {
+          "value": "affine",
+          "label": "Affine"
+        },
+        {
+          "value": "rigid",
+          "label": "Rigid"
+        },
+        {
+          "value": "similarity",
+          "label": "Similarity"
+        }
+      ]
+    },
+    {
+      "id": "rm_small_clusters",
+      "type": "number",
+      "description": "Remove clusters that have less than rm_small_clusters",
+      "default": 50
+    },
+    {
+      "id": "greater_than",
+      "type": "number",
+      "description": "Keep streamlines that have length greater than this value",
+      "default": 50
+    },
+    {
+      "id": "less_than",
+      "type": "number",
+      "description": "Keep streamlines have length less than this value",
+      "default": 250
+    },
+    {
+      "id": "nb_pts",
+      "type": "number",
+      "description": "Number of points for discretizing each streamline",
+      "default": 20
+    },
+    {
+      "id": "progressive",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.332"
+}

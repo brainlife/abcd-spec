@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract Source Time Series",
+  "version": "v1.0",
+  "summary": "Brainlife.io app to extract label time courses from a MEG/EEG source estimate (STC).  Given a source estimate and a FreeSurfer parcellation atlas, this app extracts the mean source amplitude time course for each requested label and saves the result as a timeseries datatype and a surface GIFTI file.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a10364f28b7a0de6b25dbd2",
+    "github": "BrainlifeMEEG/label-timecourse",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "stc",
+      "datatype": "neuro/meeg/stc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "stc-rh",
+        "stc-lh"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "stc"
+    },
+    {
+      "id": "out_report",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "stc"
+    },
+    {
+      "id": "out_surface",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "string",
+      "description": "aparc , aparc.a2009s etc",
+      "default": "aparc",
+      "placeholder": "aparc"
+    },
+    {
+      "id": "labels",
+      "type": "string",
+      "description": "comma separated label names to extract",
+      "default": ""
+    },
+    {
+      "id": "hemi",
+      "type": "string",
+      "description": "lh, rh, both",
+      "default": "both"
+    },
+    {
+      "id": "subject",
+      "type": "string",
+      "description": "Freesurfer subject name",
+      "default": "output"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.932"
+}

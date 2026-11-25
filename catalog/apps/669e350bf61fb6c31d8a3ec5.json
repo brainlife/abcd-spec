@@ -1,0 +1,38 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PS-OCT Test",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "669e350bf61fb6c31d8a3ec5",
+    "github": "anibalsolon/app-ps-oct",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "psoct",
+      "datatype": "neuro/ps-oct",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ch1",
+        "ch2",
+        "retardance"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.825"
+}

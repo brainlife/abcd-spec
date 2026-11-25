@@ -1,0 +1,254 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute streamline weights using SIFT2",
+  "version": "sift2-v1.0",
+  "summary": "Computes per-streamline weights for a whole-brain tractogram with MRtrix3 tcksift2, using the FOD and a 5-tissue-type mask, so streamline counts match the underlying fibre densities.",
+  "description": "Converts the CSD FOD of the chosen lmax and the 5tt image (generated from the T1w if not provided) and runs tcksift2 with the given regularisation and convergence settings. The resulting streamline-weights file can be passed directly to structural connectivity Apps. Use it after tractography with the same FOD; unlike SIFT it keeps every streamline.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "connectomics",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "62681cd2f3858674a29f554e",
+    "github": "brainlife/app-sift-sift2",
+    "branch": "sift2-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "path to the input tractogram",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "paths to the individual FOD files",
+      "config_keys": [
+        "response",
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Five-tissue-type (5tt) segmentation used for anatomically constrained processing; generated from the T1w with MRtrix3 if not given.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "This is only needed if a tissue type mask (5tt) was not inputted. Will generate internally with this T1",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "weights",
+      "datatype": "neuro/streamline-weights",
+      "datatype_tags": [
+        "sift2"
+      ],
+      "description": "weights file containing the weights for each streamline from SIFT2",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "sift2"
+      ],
+      "description": "contains the derivative files generated during the sift process, including the weights and proportionality coefficient and relative statistics files"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "the spherical harmonic order (lmax) to use",
+      "default": 8
+    },
+    {
+      "id": "fd_scale_gm",
+      "type": "boolean",
+      "description": "provide this option (in conjunction with -act) to heuristically downsize the fibre density estimates based on the presence of GM in the voxel. This can assist in reducing tissue interface effects when using a single-tissue deconvolution algorithm",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "no_dilate_lut",
+      "type": "boolean",
+      "description": "do NOT dilate FOD lobe lookup tables; only map streamlines to FOD lobes if the precise tangent lies within the angular spread of that lobe",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "linear",
+      "type": "boolean",
+      "description": "perform a linear estimation of streamline weights, rather than the standard non-linear optimisation (typically does not provide as accurate a model fit; but only requires a single pass)",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "fd_thresh",
+      "type": "number",
+      "description": "fibre density threshold; exclude an FOD lobe from filtering processing if its integral is less than this amount (streamlines will still be mapped to it, but it will not contribute to the cost function or the filtering)",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "reg_tikhonov",
+      "type": "number",
+      "description": "provide coefficient for regularising streamline weighting coefficients (Tikhonov regularisation) (default: 0)",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "reg_tv",
+      "type": "number",
+      "description": "provide coefficient for regularising variance of streamline weighting coefficient to pixels along its length (Total Variation regularisation) (default: 0.1)",
+      "default": 0.1,
+      "advanced": true
+    },
+    {
+      "id": "min_td_frac",
+      "type": "number",
+      "description": "minimum fraction of the FOD integral reconstructed by streamlines; if the reconstructed streamline density is below this fraction, the pixel is excluded from optimisation (default: 0.1)",
+      "default": 0.1,
+      "advanced": true
+    },
+    {
+      "id": "min_iters",
+      "type": "number",
+      "description": "minimum number of iterations to run before testing for convergence; this can prevent premature termination at early iterations if the cost function increases slightly (default: 10)",
+      "default": 10,
+      "advanced": true
+    },
+    {
+      "id": "max_iters",
+      "type": "number",
+      "description": "maximum number of iterations to run before terminating program",
+      "advanced": true
+    },
+    {
+      "id": "min_factor",
+      "type": "string",
+      "description": "minimum weighting factor for an individual streamline; if the factor falls below this number the streamline will be rejected entirely (factor set to zero) (default: 0)",
+      "default": "0",
+      "advanced": true
+    },
+    {
+      "id": "min_coeff",
+      "type": "string",
+      "description": "minimum weighting coefficient for an individual streamline; similar to the \u2018-min_factor\u2019 option, but using the exponential coefficient basis of the SIFT2 model; these parameters are related as: factor = e^(coeff). Note that the -min_factor and -min_coeff options are mutually exclusive - you can only provide one. (default: -inf)",
+      "default": "-inf",
+      "advanced": true
+    },
+    {
+      "id": "max_factor",
+      "type": "string",
+      "description": "maximum weighting factor that can be assigned to any one streamline (default: inf)",
+      "default": "inf",
+      "advanced": true
+    },
+    {
+      "id": "max_coeff",
+      "type": "string",
+      "description": "maximum weighting coefficient for an individual streamline; similar to the \u2018-max_factor\u2019 option, but using the exponential coefficient basis of the SIFT2 model; these parameters are related as: factor = e^(coeff). Note that the -max_factor and -max_coeff options are mutually exclusive - you can only provide one. (default: inf)",
+      "default": "inf",
+      "advanced": true
+    },
+    {
+      "id": "max_coeff_step",
+      "type": "number",
+      "description": "maximum change to a streamline\u2019s weighting coefficient in a single iteration (default: 1)",
+      "default": 1,
+      "advanced": true
+    },
+    {
+      "id": "min_cf_decrease",
+      "type": "number",
+      "description": "minimum decrease in the cost function (as a fraction of the initial value) that must occur each iteration for the algorithm to continue (default: 2.5e-05)",
+      "default": 2.5e-05,
+      "advanced": true
+    },
+    {
+      "id": "premask",
+      "type": "boolean",
+      "description": "If T1 has already been masked, set to true",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 40,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/brainlife.app.615",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Tournier J-D, Smith RE, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    },
+    {
+      "text": "Smith RE, Tournier J-D, Calamante F, Connelly A. The effects of SIFT on the reproducibility and biological accuracy of the structural connectome. NeuroImage 104:253-265 (2015)."
+    },
+    {
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019).",
+      "doi": "10.1038/s41597-019-0073-y"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "missing tissue-type mask datatype and anat/t1w datatype. this is required to perform sift. please input either of the two",
+      "fix": "Provide a 5tt tissue-type mask or a T1w image."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

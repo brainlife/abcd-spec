@@ -1,0 +1,141 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Multi-Atlas Transfer Tool",
+  "version": "0.0.10",
+  "summary": "brainlife.io version of multi atlas transfer tools (maTT).",
+  "description": "brainlife.io version of multi atlas transfer tools (maTT). \n\nSpecifically, this is an implementation of maTT2, which uses the gcs files trained on the mindboggle-101 data.  Outputs include: parc.nii.gz (for each atlas indicated) & remapped LUT text file (for each atlas indicated). Please consult the output parcellation key for the names of the nodes produced. These outputs are in the space of the T1w that was submitted to FreeSurfer's recon-all processes. In other words, the parc.nii.gz is re-sliced based on the file `rawavg.mgz` in the FreeSurfer directory. \n\nNOTE: This tool fits atlas to subject space using FreeSurfer's warp, which is based on structural information. However, for many of these atlases, this is a different fitting method than originally proposed. Please consider this when choosing an atlas and/or interpreting your results. Check out the maTT github repo (https://github.com/faskowit/multiAtlasTT) for more info and documentation.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6016dcdc321a4aafce6decd5",
+    "github": "bacaron/app-multiAtlasTT",
+    "branch": "0.0.10"
+  },
+  "inputs": [
+    {
+      "id": "fsin",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fsin"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-vol",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "SupraTentorial"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "parc-surf-verts",
+      "datatype": "neuro/surface/vertices",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "parc-surf-data",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "atlas",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "gordon333dil",
+          "label": "gordon333dil"
+        },
+        {
+          "value": "yeo17dil",
+          "label": "yeo17dil"
+        },
+        {
+          "value": "hcp-mmp-b",
+          "label": "hcp-mmp-b"
+        },
+        {
+          "value": "schaefer100-yeo17",
+          "label": "schaefer100-yeo17"
+        },
+        {
+          "value": "schaefer200-yeo17",
+          "label": "schaefer200-yeo17"
+        },
+        {
+          "value": "schaefer400-yeo17 ",
+          "label": "schaefer400-yeo17 "
+        },
+        {
+          "value": "schaefer500-yeo17",
+          "label": "schaefer500-yeo17"
+        },
+        {
+          "value": "schaefer300-yeo17",
+          "label": "schaefer300-yeo17"
+        },
+        {
+          "value": "shen268cort",
+          "label": "shen268cort"
+        },
+        {
+          "value": "baldassano",
+          "label": "baldassano"
+        },
+        {
+          "value": "arslan",
+          "label": "arslan"
+        },
+        {
+          "value": "aal",
+          "label": "aal"
+        },
+        {
+          "value": "nspn500",
+          "label": "nspn500"
+        },
+        {
+          "value": "aicha",
+          "label": "aicha"
+        },
+        {
+          "value": "ica",
+          "label": "ica",
+          "description": "does not actually do ICA!!!"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "faskowit/app-multiatlastt:0.0.8",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8,
+      "walltime_hours": 2
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.470"
+}

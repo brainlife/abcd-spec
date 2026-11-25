@@ -1,0 +1,95 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "LiFE with dtiInit",
+  "version": "1.10",
+  "summary": "Evaluates a tractogram with LiFE (Linear Fascicle Evaluation), predicting the diffusion signal from the streamlines of a .tck file and dtiInit-aligned DWI, and outputs fascicle weights and model error.",
+  "description": "Builds the LiFE model from the tractogram and the aligned DWI found in the dtiInit output, fits non-negative fascicle weights with the bbnnls solver, and reports the voxel-wise RMSE and the number of streamlines with non-zero weight. Use it to remove streamlines that do not contribute to predicting the diffusion signal (connectome evaluation) before further analysis. Needs a tractogram and a dtiInit output from the same subject, in the same space; large tractograms need substantial memory.",
+  "kind": "native",
+  "topics": [
+    "analysis",
+    "dwi",
+    "tractography",
+    "diffusion-modeling",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "58d15dece13a50849b258842",
+    "github": "brainlife/app-life",
+    "branch": "1.10"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck) to evaluate, in the same space as the DWI.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "vistasoft dtiInit output; its aligned DWI (dt6.json alignedDwRaw) is the signal LiFE predicts.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "fe",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "description": "LiFE model (output_fe.mat) with the fitted fascicle weights and voxel-wise RMSE, plus a subsampled JSON of the non-zero-weight streamlines for visualisation.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "life_discretization",
+      "type": "integer",
+      "description": "Number of discretised orientations used to build the LiFE fascicle model (feConnectomeInit).",
+      "default": 360
+    },
+    {
+      "id": "num_iterations",
+      "type": "integer",
+      "description": "Number of iterations of the bbnnls solver used to fit the LiFE model weights.",
+      "default": 100
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 10
+    }
+  },
+  "doi": "10.25663/bl.app.1",
+  "software": [
+    {
+      "name": "LiFE (encode)",
+      "url": "https://github.com/brain-life/life-1"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output_fe.mat missing",
+      "cause": "The LiFE fit did not complete.",
+      "fix": "Check the log; make sure the tractogram and DWI are aligned and that enough memory is available."
+    }
+  ]
+}

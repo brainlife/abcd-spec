@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit Tensor Model using MRTrix3",
+  "version": "v1.0",
+  "summary": "Fits the diffusion tensor model to DWI with MRtrix3 dwi2tensor and outputs FA, MD, AD, RD, Westin shape maps and the tensor (plus kurtosis for multi-shell data).",
+  "description": "Converts the DWI to MRtrix format, uses the provided brain mask or computes one with FSL bet, fits the tensor with dwi2tensor (optionally on a single chosen shell) and writes tensor2metric maps. For multi-shell data without a chosen shell it fits diffusional kurtosis too. Use it to get standard DTI maps for tract or ROI statistics. The norm parameter is read but not used by this branch's script.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "diffusion-modeling",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "60ad394922b42ae2f1766b79",
+    "github": "brainlife/app-mrtrix3-tensor-fit",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval",
+        "sbref",
+        "sbref_json"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DWI brain mask; computed with FSL bet when absent.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "mrtrix3"
+      ],
+      "description": "Tensor datatype: tensor.nii.gz and FA, MD, AD, RD, CL, CP, CS maps (kurtosis.nii.gz for multi-shell fits)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "norm",
+      "type": "boolean",
+      "description": "Normalize diffusion data before fit",
+      "default": false
+    },
+    {
+      "id": "tensor_fit",
+      "type": "number",
+      "description": "If user wants to fit tensor to a specific shell, specify here. otherwise will fit on entire diffusion data",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.528",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives",
+      "fix": "Check the log; tensor.nii.gz was not written."
+    }
+  ]
+}

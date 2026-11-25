@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Visualization",
+  "version": "0.2",
+  "summary": "This app generates simple 2D static visualizations for networks by using a force-directed algorithm. The current implementation uses the Large Graph Layout (LGL) algorithm.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5e8ccbef952fef68c17b4095",
+    "github": "filipinascimento/bl-network-visualization",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network. Currently, visualization only works if the edge weights are non negative. Please use the preprocess app to prepare the network.",
+      "config_keys": [
+        "network"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "report/pdf",
+      "datatype_tags": [
+        "visualization"
+      ],
+      "description": "Static visualization of the network in pdf.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "color-property",
+      "type": "string",
+      "description": "Uses the provided property as color. If the network has communities detected by the \"Network Communities\" App, you can provide \"communitiy\" to plot communities as colors.",
+      "default": "degree",
+      "required": true
+    },
+    {
+      "id": "size-property",
+      "type": "string",
+      "description": "Makes the size of nodes proportional to the provided property.",
+      "default": "degree"
+    },
+    {
+      "id": "plot-labels",
+      "type": "boolean",
+      "description": "Plot labels on top of nodes.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.306"
+}

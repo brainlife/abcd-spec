@@ -1,0 +1,105 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert freesurfer annotations to parcellation",
+  "version": "app-v1.0_freesurfer-7.3.2",
+  "summary": "Converts a FreeSurfer 7.3.2 aparc, aparc.a2009s or aparc.DKTatlas +aseg volume into a volumetric parcellation resliced to the T1-weighted image with mri_vol2vol, with a FreeSurfer color-table label.json.",
+  "description": "Reslices mri/<parcellation>+aseg.mgz to the T1 image grid by header (nearest-neighbour), writes parc.nii.gz with a label.json built from the FreeSurfer color table, and tags the output with the chosen parcellation. The T1 must be in the same space as the FreeSurfer run (no registration is computed). Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "conversion",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "641b5c1973d2685502c71360",
+    "github": "brainlife/app-convert-freesurfer-parcellation",
+    "branch": "app-v1.0_freesurfer-7.3.2"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output; mri/<parcellation>+aseg.mgz is used.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image defining the output voxel grid.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Must be aligned with the FreeSurfer anatomy; only the header is used."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "resliced",
+        "anat"
+      ],
+      "description": "Volumetric parcellation (parc.nii.gz) on the T1 grid with label.json, tagged with the chosen atlas."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "parcellation",
+      "type": "enum",
+      "description": "Which FreeSurfer atlas+aseg volume to convert: aparc (Desikan-Killiany), aparc.a2009s (Destrieux) or aparc.DKTatlas (DKT).",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "aparc.a2009s"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "aparc.DKTatlas"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.3.2",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 1.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.750",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs",
+      "cause": "parcellation/parc.nii.gz was not written.",
+      "fix": "Check that the FreeSurfer output contains mri/<parcellation>+aseg.mgz."
+    }
+  ]
+}

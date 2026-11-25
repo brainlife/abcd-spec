@@ -1,0 +1,61 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "LST-AI",
+  "version": "brainlife",
+  "summary": "creating an LST-AI Brainlife.io app for neuroimaging",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "696072758df58ba7d1a1131d",
+    "github": "lowripowell/lstaibrainlife",
+    "branch": "brainlife"
+  },
+  "inputs": [
+    {
+      "id": "T1_input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted MRI",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "FLAIR_input",
+      "datatype": "neuro/anat/flair",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FLAIR MRI",
+      "config_keys": [
+        "flair"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "LST-AI segmentation masks (annotated and unannotated)"
+    },
+    {
+      "id": "stats",
+      "datatype": "raw",
+      "datatype_tags": [
+        "csv"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.886"
+}

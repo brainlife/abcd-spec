@@ -1,0 +1,64 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": " MAIA microperimetry analysis",
+  "version": "master",
+  "summary": "Computes eccentricity-ring averages of MAIA microperimetry retinal sensitivity measurements with the OCT_scripts groupMAIA Python tools, with scatter and radar plots.",
+  "description": "Converts the MAIA microperimetry table to polar coordinates, averages sensitivity within degree-based rings (groupMAIA.ringMeanDev) and saves ringMeanTable.csv plus scatter and radar plots, which are also shown on brainlife. The code clones github.com/DanNBullock/OCT_scripts at run time, so it needs network access. The README is an unfilled template.",
+  "kind": "native",
+  "topics": [
+    "visualization",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "605b9143edebf0f4fdd2a7cc",
+    "github": "brainlife/app-maiaRings",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "microperimetry",
+      "datatype": "neuro/microperimetry",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "MAIA microperimetry measurement export for one eye/session.",
+      "config_keys": [
+        "microperimetry"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "microperimetryRings"
+      ],
+      "description": "ringMeanTable.csv with ring-wise mean sensitivity, plus scatterPlot.png and radarPlot.png."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.493",
+  "software": [
+    {
+      "name": "OCT_scripts (groupMAIA)"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

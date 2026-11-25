@@ -1,0 +1,243 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Track The Human Optic RAdiation (THORA): Contrack - Eccentricity",
+  "version": "v1.1",
+  "summary": "Tracks the optic radiation between LGN and V1 ROIs with ConTrack and segments it into eccentricity bundles using population receptive field (pRF) eccentricity maps, producing a tck tractogram and a white matter classification.",
+  "description": "Prepares a CSF exclusion mask from a 5TT image (or 5ttgen fsl on the T1 when no mask is given), brings the FreeSurfer ribbon, ROIs and the pRF eccentricity map into T1 space, runs ConTrack (vistasoft, compiled MATLAB) between inflated LGN and V1 ROIs per hemisphere, and classifies streamlines by the V1 eccentricity ranges given in minDegree/maxDegree. Needs a dtiInit output, a T1, FreeSurfer, pRF eccentricity and an ROI directory with lh/rh LGN and V1 ROIs; runs up to 32 h. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "tract-segmentation",
+    "vistasoft",
+    "freesurfer",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ddb7138936ca3c660c58a46",
+    "github": "brainlife/app-contrack-optic-radiation",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dtiInit output of the subject; copied and used by ConTrack for tracking.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image that defines the space all ROIs, ribbon and eccentricity maps are resliced to.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "ROI directory containing per-hemisphere LGN and V1 ROIs named *lh.<lgn>.nii.gz / *rh.<lgn>.nii.gz and *lh.<v1>.nii.gz / *rh.<v1>.nii.gz, plus optional *.exclusion.nii.gz.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "File names must match the lgn and v1 parameters."
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "pRF mapping output; its eccentricity map is masked by the V1 ROI and cortical ribbon to define eccentricity-specific V1 targets.",
+      "config_keys": [
+        "eccentricity"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "5-tissue type mask to extract csf",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output; lh/rh ribbon.mgz and ribbon.mgz are used to restrict V1 eccentricity to cortex.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "optic_radiation"
+      ],
+      "description": "Optic radiation streamlines from ConTrack (track.tck)."
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "optic_radiation"
+      ],
+      "description": "White matter classification (classification.mat) assigning streamlines to eccentricity bundles per hemisphere, with per-tract files and fiber counts."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "nSamples",
+      "type": "number",
+      "description": "Number of streamlines desired. NOTE: This may not be final total as tracking is performed without anatomical constraints (i.e. csf exclusion)",
+      "default": 50000
+    },
+    {
+      "id": "maxNodes",
+      "type": "number",
+      "description": "maximum number of nodes",
+      "default": 240
+    },
+    {
+      "id": "minNodes",
+      "type": "number",
+      "description": "minimum number of nodes",
+      "default": 100
+    },
+    {
+      "id": "stepSize",
+      "type": "number",
+      "description": "step size",
+      "default": 1
+    },
+    {
+      "id": "lgn",
+      "type": "string",
+      "description": "number of LGN (008109 - left hemisphere; 008209 - right hemisphere)",
+      "default": "lgn"
+    },
+    {
+      "id": "v1",
+      "type": "string",
+      "description": "number of v1 roi",
+      "default": "v1"
+    },
+    {
+      "id": "minDegree",
+      "type": "string",
+      "description": "Minimum degrees to use for eccentricity classification",
+      "default": "0 15 30"
+    },
+    {
+      "id": "maxDegree",
+      "type": "string",
+      "description": "Minimum degrees to use for eccentricity classification",
+      "default": "3 30 90"
+    },
+    {
+      "id": "contrackThreshold",
+      "type": "number",
+      "description": "Not used by the code on this branch (the contrack_score call that would use it is commented out).",
+      "default": 5000,
+      "advanced": true
+    },
+    {
+      "id": "inflate_lgn",
+      "type": "number",
+      "description": "Amount by which the LGN ROI is inflated (bsc_roiFromAtlasNums) before tracking.",
+      "default": 1
+    },
+    {
+      "id": "inflate_v1",
+      "type": "number",
+      "description": "Amount by which the V1 ROI is inflated (bsc_roiFromAtlasNums) before tracking.",
+      "default": 1
+    },
+    {
+      "id": "minDistanceClean",
+      "type": "number",
+      "description": "Not read by the code on this branch.",
+      "default": 0.85,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 32
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.252",
+  "software": [
+    {
+      "name": "ConTrack"
+    },
+    {
+      "name": "vistasoft"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "FSL"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1167/8.9.15",
+      "text": "Sherbondy AJ, Dougherty RF, Ben-Shachar M, Napel S, Wandell BA. ConTrack: finding the most likely pathways between brain regions using diffusion tractography. J Vis 8(9):1-16 (2008)."
+    },
+    {
+      "doi": "10.1167/iovs.14-14737",
+      "text": "Ogawa S, Takemura H, Horiguchi H, et al. White Matter Consequences of Retinal Receptor and Ganglion Cell Damage. Invest Ophthalmol Vis Sci 55(10):6976-6986 (2014)."
+    },
+    {
+      "doi": "10.1007/s00429-018-1702-5",
+      "text": "Yoshimine S, Ogawa S, Horiguchi H, et al. Age-related macular degeneration affects the optic radiation white matter projecting to locations of retinal damage. Brain Struct Funct 223(8):3889-3900 (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "tracking failed",
+      "cause": "ConTrack did not produce track.tck.",
+      "fix": "Check the logs; ROI file names must match the lgn and v1 parameters."
+    }
+  ]
+}

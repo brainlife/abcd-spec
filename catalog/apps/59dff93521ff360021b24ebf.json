@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AFQ Tract Classification",
+  "version": "1.2",
+  "summary": "This service uses Automated fiber quantification AFQ and fe structure output from LiFE to identify major tract segments and quantify tissue properties along their trajectories.",
+  "description": "This service uses Automated fiber quantification AFQ and fe structure output from LiFE to identify major tract segments and quantify tissue properties along their trajectories. You can choose to have the zero weighted fibers (as determined by LiFE) removed before or after AFQ is applied. useinterhemisphericsplit is a variable from AFQ, which if set to true will cut fibers crossing between hemispheres with a midsaggital plane below z=-10. This is to get rid of CST fibers that appear to cross at the level of the brainstem. For more information about AFQ see https://github.com/yeatmanlab/AFQ/wiki",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "59dff93521ff360021b24ebf",
+    "github": "brainlife/app-tractclassification",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "afq"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "useinterhemisphericsplit",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 58,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/bl.app.13",
+  "deprecated_by": "5cf8256e94cb4c02b711c745"
+}

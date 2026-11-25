@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tissue-specific SNR (and other tissue-specific metrics)",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "629fb60a7f60950a54d5e63b",
+    "github": "DanNBullock/app-SNR_Report",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "diff",
+        "bvec",
+        "bval",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/snr-stats",
+      "datatype_tags": [],
+      "description": "An SNR (and other metric report) with tissue & b-shell specific measurements."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.643"
+}

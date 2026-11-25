@@ -1,0 +1,93 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make white matter mask in dwi space from Freesurfer",
+  "version": "v1.0",
+  "summary": "Creates a white matter mask in DWI space from a FreeSurfer aparc+aseg segmentation with FreeSurfer mri_label2vol and mri_binarize, e.g. for tractography seeding.",
+  "description": "Resamples aparc+aseg.mgz onto the DWI voxel grid (mri_label2vol --regheader) and binarizes white matter, cerebellar white matter, corpus callosum, brainstem and subcortical labels into a mask. The FreeSurfer anatomy and the DWI must already be aligned (same scanner/ACPC space), since only the header is used for registration. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dwi",
+    "segmentation",
+    "freesurfer",
+    "tractography",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5eb99e5ee8e7ace25d8a9dcc",
+    "github": "brainlife/app-make-white-matter-mask-freesurfer",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output; mri/aparc+aseg.mgz is used.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image whose voxel grid defines the output mask space.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must be aligned with the FreeSurfer anatomy; no registration is computed."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "white_matter"
+      ],
+      "description": "Binary mask in DWI voxel space covering FreeSurfer aparc+aseg white matter, cerebellar white matter, corpus callosum, brainstem and subcortical structures (thalamus, caudate, putamen, pallidum, hippocampus, amygdala, ventral DC)."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17,
+      "memory_gb": 16
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.340",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9:179-194 (1999)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed",
+      "cause": "mask/mask.nii.gz was not written.",
+      "fix": "Check that the FreeSurfer directory contains mri/aparc+aseg.mgz."
+    }
+  ]
+}

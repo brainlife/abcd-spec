@@ -1,0 +1,108 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Smooth data mapped to cortical surface",
+  "version": "smooth-cortexmap-v1.0",
+  "summary": "Smooths every surface measure in a cortexmap with Connectome Workbench wb_command -metric-smoothing on the white surface, adding smoothed copies alongside the originals.",
+  "description": "For each func file in the cortexmap, writes a smoothed copy (<name>.smooth_<kernel>.func.gii) computed on that hemisphere's white surface with the chosen kernel and method; the original files are kept. Use it to reduce noise before group analysis. The cortexmap must contain lh/rh.white.surf.gii.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6445f459d391caf6efcd64b8",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "smooth-cortexmap-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "cortexmap whose func metrics are smoothed.",
+      "config_keys": [
+        "cortexmap"
+      ],
+      "requirements": "Must contain lh.white.surf.gii and rh.white.surf.gii in surf/."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "smooth"
+      ],
+      "description": "The input cortexmap plus smoothed copies of every func metric (*.smooth_<kernel>.func.gii).",
+      "datatype_tags_pass": "cortexmap"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "surface_smooth_kernel",
+      "type": "string",
+      "description": "Smoothing kernel passed to wb_command -metric-smoothing; interpreted as a Gaussian sigma unless surface_fwhm is true, then as FWHM.",
+      "default": "3",
+      "required": true
+    },
+    {
+      "id": "fix_zeros",
+      "type": "boolean",
+      "description": "if you want to treat zeros as not being data, set as true",
+      "default": false
+    },
+    {
+      "id": "surface_fwhm",
+      "type": "boolean",
+      "description": "If you want to treat \"surface_smooth_kernel\" as a fwhm instead of sigma, set to true",
+      "default": false
+    },
+    {
+      "id": "surface_smooth_method",
+      "type": "enum",
+      "description": "method for smoothing",
+      "default": "GEO_GAUSS_AREA",
+      "options": [
+        {
+          "value": "GEO_GAUSS_AREA",
+          "label": "GEO_GAUSS_AREA",
+          "description": "GEO_GAUSS_AREA"
+        },
+        {
+          "value": "GEO_GAUSS_EQUAL",
+          "label": "GEO_GAUSS_EQUAL",
+          "description": "GEO_GAUSS_EQUAL"
+        },
+        {
+          "value": "GEO_GAUSS",
+          "label": "GEO_GAUSS",
+          "description": "GEO_GAUSS"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.768",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    }
+  ]
+}

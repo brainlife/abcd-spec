@@ -1,0 +1,79 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "midway align and average T1w",
+  "version": "master",
+  "summary": "Aligns two T1-weighted images of the same subject into a midway space with FSL flirt and averages them into a single higher-SNR T1w image.",
+  "description": "Reorients both images, optionally bias-corrects and skull-strips them to weight the registration, registers each to the other with FSL flirt, places both in a halfway space and averages them, reslicing to the resolution of the first image. Use it when a subject has repeated anatomical acquisitions; check the result visually, as the README recommends.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5eee4834d39ceb0c28a114a0",
+    "github": "brainlife/app-align-n-average-images",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "image1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "First T1-weighted image; its resolution is used for the averaged output.",
+      "config_keys": [
+        "image1"
+      ]
+    },
+    {
+      "id": "image2",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Second T1-weighted image of the same subject.",
+      "config_keys": [
+        "image2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_avg",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "average of inputs, reslices to resolution of image1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "skulls",
+      "type": "boolean",
+      "description": "do skull struct",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.42
+    }
+  },
+  "doi": "10.25663/brainlife.app.385",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "maintainers": [
+    "Josh Faskowitz",
+    "Soichi Hayashi"
+  ]
+}

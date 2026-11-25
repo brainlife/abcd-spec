@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Brain Extraction (BET) on fMRI",
+  "version": "2.0",
+  "summary": "Removes non-brain tissue from a 4D BOLD fMRI series with FSL BET (-F, applied to every volume) and outputs the masked bold.nii.gz and a brain mask.",
+  "description": "Runs FSL bet with -F -m on bold.nii.gz so the brain mask is estimated from the functional series and applied to all volumes. Use it to skull-strip functional data before analyses that need brain-only voxels. The output keeps the other files of the func/task input and replaces bold.nii.gz with the masked series. Adjust fthreshold if the mask is too tight or too loose.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "fmri",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5cc079c54ed9df00317f61a8",
+    "github": "brainlife/app-FSLBET",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "4D BOLD fMRI task datatype; the bold.nii.gz image is brain-extracted.",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "description": "masked bold.nii.gz.. only bold.nii.gz is copied from the input (no events.tsv, etc..)"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "func",
+        "bold"
+      ],
+      "description": "Binary brain mask (mask.nii.gz) produced by BET from the BOLD series.",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fthreshold",
+      "type": "number",
+      "description": "choose the fractional intensity threshold (0 -> 1); default=0.4; smaller values give larger brain outline estimates",
+      "default": 0.5
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.184",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.1",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ]
+}

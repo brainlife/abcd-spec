@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tensor Mask",
+  "version": "1.1.1",
+  "summary": "Generate a mask from FA/GFA",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5b21753e16fe38002748e5e1",
+    "github": "dipy/bl_apps_dipy_mask",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "img"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "tensor"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lb",
+      "type": "number",
+      "description": "Lower bound value.",
+      "default": 0.2
+    },
+    {
+      "id": "ub",
+      "type": "string",
+      "description": "Upper bound value",
+      "default": "Inf",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.65"
+}

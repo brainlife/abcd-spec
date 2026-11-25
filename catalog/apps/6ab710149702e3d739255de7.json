@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DTI Metrics-to-Anatomical Registration",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ab710149702e3d739255de7",
+    "github": "gamorosino/app-registration-diffmetrics2anat",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tensor_moving",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "t1_fixed",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "t2_fixed",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformations",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "description": "Affine + optional warp/inverse-warp computed by ANTs registration."
+    },
+    {
+      "id": "transformed",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "The registered scalar map, resliced onto the anatomical grid."
+    },
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "qc_images"
+      ],
+      "description": "Registration QC: edge-overlay before/after, orthoview + per-plane."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "transformation",
+      "type": "enum",
+      "description": "Stages to run: translation only, +rigid, +affine, or +nonlinear (SyN).",
+      "default": "rigid",
+      "options": [
+        {
+          "value": "translation",
+          "label": "1",
+          "description": "Translation"
+        },
+        {
+          "value": "rigid",
+          "label": "2",
+          "description": "Rigid Transformation"
+        },
+        {
+          "value": "affine",
+          "label": "3",
+          "description": "Affine Transformation"
+        },
+        {
+          "value": "nonlinear",
+          "label": "4",
+          "description": "Diffeomorphic Symmetric (SyN) Transformation"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "type": "enum",
+      "description": "Depth of the multiresolution (pyramidal) registration strategy. Higher = more levels, finer correspondence, slower.",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.1",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.978"
+}

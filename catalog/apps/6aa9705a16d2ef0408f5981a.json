@@ -1,0 +1,106 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "BossDB Nuclei Segmentation",
+  "version": "apex-hackathon-2026-segmentation",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa9705a16d2ef0408f5981a",
+    "github": "jhuapl-boss/bossdb-brainlife-apps",
+    "branch": "apex-hackathon-2026-segmentation"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/bossdb",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "channel"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "outputs",
+      "datatype": "neuro/precomputed/volume",
+      "datatype_tags": [
+        "segmentation"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "x_start",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "y_start",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "z_start",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "x_stop",
+      "type": "number",
+      "description": "unknown"
+    },
+    {
+      "id": "y_stop",
+      "type": "number",
+      "description": "unknown"
+    },
+    {
+      "id": "z_stop",
+      "type": "number",
+      "description": "unknown"
+    },
+    {
+      "id": "resolution",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0
+    },
+    {
+      "id": "model",
+      "type": "enum",
+      "description": "Pre-trained weights to use",
+      "default": "20260825_191045 - MONAI BasicUNet 3D",
+      "options": [
+        {
+          "value": "20260825_191045 - MONAI BasicUNet 3D",
+          "label": "20260825_191045 - MONAI BasicUNet 3D"
+        }
+      ]
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.5,
+      "minimum": 0,
+      "maximum": 1
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.970"
+}

@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Annotate raw data",
+  "version": "v1.0",
+  "summary": "Brainlife.io app: annotate MEG/EEG raw data (MNE-Python) from a table, with rows scoped by subject, session, task, run, tag or dataset using wildcards or regex.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aeba162e5002a0fe6b0eef1",
+    "github": "BrainlifeMEEG/annotate-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw MEG/EEG data to annotate.",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "annotated"
+      ],
+      "description": "Raw data with the annotations from the table added."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "annotations",
+      "type": "string",
+      "description": "Annotation table, one annotation per row, with a header row. Required columns: onset (s from first sample), duration (s), description. Optional: channels (separated by ; or |), and filter columns subject, session, task, run, tag, dataset_id restricting the row to matching inputs (wildcards * ? [12], or re:<regex>). Rows without filters apply to every input. Delimiter: comma or tab.",
+      "default": "",
+      "required": true,
+      "multiline": true,
+      "placeholder": "onset, duration, description[, channels, subject, session, task, run, tag, dataset_id]  (a header row naming the columns is required)"
+    },
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "append keeps the annotations already in the file; replace discards them (only for inputs that at least one table row applies to).",
+      "default": "append",
+      "options": [
+        {
+          "value": "append"
+        },
+        {
+          "value": "replace"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "strict",
+      "type": "boolean",
+      "description": "Treat a row that matches no input, or lies outside the recording, as an error instead of a warning.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.994"
+}

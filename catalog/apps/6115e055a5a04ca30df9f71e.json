@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Cortex Tissue Mapping (Native Space) - qMRI (No SNR masking)",
+  "version": "qmri-v1.1-nosnr",
+  "summary": "This app will map volumated measure files (i.e. tensor, NODDI) to the cortical surface following Fukutomi et al (2018; 10.1016/j.neuroimage.2018.02.017) using Connectome Workbench.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6115e055a5a04ca30df9f71e",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "qmri-v1.1-nosnr"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output directory of the same subject; the white and pial surfaces, ribbon.mgz, brain.finalsurfs.mgz and the chosen .annot parcellation are read from it.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "myelinmap",
+      "datatype": "neuro/myelin-map",
+      "datatype_tags": [
+        "t1-t2-ratio"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "myelinmap"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional existing cortexmap from a previous run; if it contains native midthickness surfaces, its surf, label and func files are copied and the new measures are added to it.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "myelin_mapping",
+        "t1-t2-ratio"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives",
+        "myelin_mapping",
+        "t1-t2-ratio"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.562",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H, et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "text": "Glasser MF, Sotiropoulos SN, Wilson JA, et al. The minimal preprocessing pipelines for the Human Connectome Project. NeuroImage 80:105-124 (2013)."
+    }
+  ]
+}

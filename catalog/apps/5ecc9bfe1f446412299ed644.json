@@ -1,0 +1,209 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Trekker",
+  "version": "v.1.2",
+  "summary": "Tracks whole-brain streamlines with Trekker parallel transport probabilistic tractography on CSD FODs, constrained by a 5-tissue-type mask, and outputs a .tck tractogram.",
+  "description": "Builds grey-matter, white-matter and CSF masks from the 5TT input with MRtrix3, then runs Trekker seeded in white matter, requiring both ends to reach grey matter and discarding streamlines entering CSF, over every requested lmax, minimum FOD amplitude, curvature radius and step size; all runs are converted and merged into one track.tck. Use it for anatomically constrained ensemble tractography with fine control of Trekker's probe parameters. A brain mask is computed with dwi2mask when not provided.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ecc9bfe1f446412299ed644",
+    "github": "brainlife/app-trekker",
+    "branch": "v.1.2"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "CSD fibre orientation distributions at one or more lmax values.",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ],
+      "requirements": "Must include the lmax used by tracking (lmax parameter, or every lmax up to it when single_lmax is false)."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "5 tissue type mask",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Whole-brain Trekker tractogram (track.tck) combining all parameter runs."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "min length of streamlines",
+      "default": 10
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "max length of streamlines",
+      "default": 200
+    },
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "lmax",
+      "default": 8
+    },
+    {
+      "id": "count",
+      "type": "number",
+      "description": "total number of streamlines",
+      "default": 50000
+    },
+    {
+      "id": "minfodamp",
+      "type": "string",
+      "description": "This is the minimum FOD amplitude. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "curvatures",
+      "type": "string",
+      "description": "Minimum radius of curvature. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "stepsize",
+      "type": "string",
+      "description": "Step size. If multiple values are requested, please input as space separated list (example: 0.25 0.5).",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "single_lmax",
+      "type": "boolean",
+      "description": "if only wanting to run on one lmax, set true. else, leave false",
+      "default": false
+    },
+    {
+      "id": "probelength",
+      "type": "string",
+      "description": "Trekker probe length; 'default' leaves Trekker's default (or the minimum FOD amplitude value when that is set).",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "probecount",
+      "type": "string",
+      "description": "Trekker probe count; 'default' leaves Trekker's default.",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "probequality",
+      "type": "string",
+      "description": "Trekker probe quality; 'default' leaves Trekker's default.",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "proberadius",
+      "type": "string",
+      "description": "Trekker probe radius; 'default' leaves Trekker's default.",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "maxsampling",
+      "type": "string",
+      "description": "Maximum number of sampling attempts per step (Trekker maxSamplingPerStep); 'default' leaves Trekker's default.",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "maxtrials",
+      "type": "string",
+      "description": "Maximum number of trials per seed (Trekker seed_maxTrials); 'default' leaves Trekker's default.",
+      "default": "default",
+      "advanced": true
+    },
+    {
+      "id": "bestAtInit",
+      "type": "boolean",
+      "description": "If true, Trekker uses the best initial direction at each seed (useBestAtInit).",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 36
+    }
+  },
+  "doi": "10.25663/brainlife.app.356",
+  "software": [
+    {
+      "name": "Trekker",
+      "version": "0.6",
+      "url": "https://dmritrekker.github.io"
+    },
+    {
+      "name": "MRtrix3",
+      "version": "3.0.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "tracking failed",
+      "fix": "Check the log; no track.tck was produced, often because the requested lmax is missing from the CSD input."
+    }
+  ]
+}

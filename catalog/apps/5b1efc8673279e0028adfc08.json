@@ -1,0 +1,93 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit CSA",
+  "version": "1.1.1",
+  "summary": "Fits Constant Solid Angle (CSA) model to diffusion data (dipy_fit_csa)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-reconstruction",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5b1efc8673279e0028adfc08",
+    "github": "dipy/bl_apps_dipy_fit_csa",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/peaks_and_metrics",
+      "datatype_tags": [
+        "csa_model_fit"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions",
+      "default": 50,
+      "placeholder": "0"
+    },
+    {
+      "id": "bvecs_tol",
+      "type": "number",
+      "description": "Threshold used so that norm(bvec)=1 (default 0.01)",
+      "default": 0.01,
+      "placeholder": "0.01"
+    },
+    {
+      "id": "sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order (default 6) used in the CSA fit.",
+      "default": 6,
+      "placeholder": "6"
+    },
+    {
+      "id": "odf_to_sh_order",
+      "type": "number",
+      "description": "Spherical harmonics order used for peak_from_model to compress\nthe ODF to spherical harmonics coefficients (default 8",
+      "default": 8,
+      "placeholder": "8"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.61"
+}

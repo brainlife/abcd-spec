@@ -1,0 +1,90 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Binary Tract Masks",
+  "version": "v3.00",
+  "summary": "app to generate binary masks of the segmented fiber tracts",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "592dc03eb3cd7c00211dc239",
+    "github": "kitchell/app-generatetractmasks",
+    "branch": "v3.00"
+  },
+  "inputs": [
+    {
+      "id": "T1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "T1"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "classification",
+        "tracts"
+      ]
+    },
+    {
+      "id": "wbfg",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "unknown",
+      "default": 2
+    },
+    {
+      "id": "smooth",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "voxelResize",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.7
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 0.58
+    }
+  },
+  "doi": "10.25663/brainlife.app.142"
+}

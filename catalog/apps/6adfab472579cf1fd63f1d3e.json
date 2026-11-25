@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FABER BRAIN EXTRACTION TEST 10/26/26",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6adfab472579cf1fd63f1d3e",
+    "github": "gamorosino/app-bet-brain-extraction",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_brain",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "brain_mask"
+      ],
+      "description": "Skull-stripped T1w volume produced by FSL BET."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "BET fractional intensity threshold (0-1). Lower values give larger brain outlines.",
+      "default": 0.5,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "Use robust brain centre estimation (slower, may improve difficult cases).",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "Bias field + neck cleanup (-B flag).",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.992"
+}

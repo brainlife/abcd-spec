@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DSC evaluation (mask - mask)",
+  "version": "1.1",
+  "summary": "Compute the degree of overlap between two bundle masks using the Dice Similarity Coefficient (DSC) score.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5d2882b742ed0707bd305676",
+    "github": "giulia-berto/app-compute-dsc",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "a collection of estimated bundle masks",
+      "config_keys": [
+        "seg_est"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "a collection of ground truth bundle masks",
+      "config_keys": [
+        "seg_true"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": ".csv file with the following scores: DSC, J, sensitivity, TP, FP, FN",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.212"
+}

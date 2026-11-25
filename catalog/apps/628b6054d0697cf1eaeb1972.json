@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "CTF to mne/raw ",
+  "version": "v1.0",
+  "summary": "Converts MEG CTF data to MNE Raw (fif)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "628b6054d0697cf1eaeb1972",
+    "github": "BrainlifeMEEG/ctf2mne",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "ctf1",
+      "datatype": "neuro/meg/ctf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ds",
+        "headshape",
+        "channels",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "meg",
+        "ctf",
+        "converted"
+      ],
+      "description": "MNE Raw data in FIF format",
+      "datatype_tags_pass": "ctf1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "eog",
+      "type": "string",
+      "description": "EOG channels if any. Default is None.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "ecg",
+      "type": "string",
+      "description": "ECG channels if any. default is None.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Bad channels (comma separated list).",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "misc",
+      "type": "string",
+      "description": "Names of channels or list of indices that should be designated MISC channels. Default is None.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "rm_flat",
+      "type": "boolean",
+      "description": "Mark flat channels as bad if True (default).",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "eeg",
+      "type": "string",
+      "description": "EEG channels (comma separated list).",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.634"
+}

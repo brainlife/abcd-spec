@@ -1,0 +1,88 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "petdeface",
+  "version": "main",
+  "summary": "PET Deface Packaged as a Brainlife.io app",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "674a1d316bb7513283da1681",
+    "github": "openneuropet/app-petdeface",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "pet_image",
+      "datatype": "neuro/pet",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "*_pet.nii.gz or * _pet.nii file",
+      "config_keys": [
+        "pet_image",
+        "pet_image_json"
+      ]
+    },
+    {
+      "id": "t1_image",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "defaced_pet",
+      "datatype": "neuro/pet",
+      "datatype_tags": [],
+      "description": "this is where we collect the defaced images, registration files, and defacing masks",
+      "datatype_tags_pass": "pet_image"
+    },
+    {
+      "id": "defaced_t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "t1_image"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_procs",
+      "type": "number",
+      "description": "unknown",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "placement",
+      "type": "enum",
+      "description": "unknown",
+      "default": "",
+      "options": [
+        {
+          "value": "adjacent",
+          "label": "adjacent"
+        },
+        {
+          "value": "inplace",
+          "label": "inplace"
+        },
+        {
+          "value": "derivatives"
+        }
+      ],
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "openneuropet/petdeface:latest"
+  },
+  "doi": "10.25663/brainlife.app.839"
+}

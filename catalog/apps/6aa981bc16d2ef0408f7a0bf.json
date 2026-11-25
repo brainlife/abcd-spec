@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "anatomix-t1w-dwi-registration",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa981bc16d2ef0408f7a0bf",
+    "github": "gamorosino/app-anatomix-t1w-dwi-reg",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvals",
+        "bvecs"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "b0_reg",
+      "datatype": "neuro/dwi/b0",
+      "datatype_tags": [],
+      "description": "Mean b0 volume extracted from the DWI series, registered (resampled) onto the T1w grid."
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "image"
+      ],
+      "description": "FireANTs transform (ITK/ANTs LPS-mm displacement field convention, not FSL) that resamples the DWI/b0 (moving) image onto T1w (fixed) space -- apply it to other DWI-space volumes (e.g. FA, MD maps) to bring them into T1w space. With save_inverse enabled, inverse-warp.nii.gz does the reverse (T1w -> native DWI space)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_max_bval",
+      "type": "number",
+      "description": "b-value (s/mm^2) at or below which a DWI volume is treated as a b0 and averaged to build the moving image.",
+      "default": 50,
+      "advanced": true,
+      "placeholder": "50"
+    },
+    {
+      "id": "transform",
+      "type": "string",
+      "description": "Comma-separated registration stages, in order, from rigid/affine/deformable (see anatomix-register.py --help). Must end in a deformable stage: this app's warp output is a NIfTI displacement field, which anatomix-register.py only writes when the last stage is deformable. affine,deformable handles gross T1w/DWI misalignment plus local distortion; use deformable alone if the images are already roughly aligned.",
+      "default": "affine,deformable",
+      "advanced": true,
+      "placeholder": "affine,deformable"
+    },
+    {
+      "id": "save_inverse",
+      "type": "boolean",
+      "description": "Also compute the moving-to-fixed (DWI/b0 -> T1w) inverse transform, e.g. to bring a T1w-space parcellation into native DWI space for tractography ROIs.",
+      "default": true
+    },
+    {
+      "id": "device",
+      "type": "string",
+      "description": "Compute device for FireANTs: auto, cpu, cuda, or cuda:N.",
+      "default": "auto",
+      "advanced": true,
+      "placeholder": "auto"
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/anatomix-fireants:latest",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.972"
+}

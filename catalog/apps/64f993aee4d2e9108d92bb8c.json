@@ -1,0 +1,68 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Drop bad epochs",
+  "version": "v1.0",
+  "summary": "Drop bad epochs by indices.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "64f993aee4d2e9108d92bb8c",
+    "github": "BrainlifeMEEG/drop-bad-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Epoched file to remove epochs from.",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "events",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "SPECIAL HACK:\nevents.tsv contains a list of bad trials as a single line with comma-separated indices to drop",
+      "config_keys": [
+        "events"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "no-bad-epo"
+      ],
+      "description": "MNE epochs after dropping"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "drop",
+      "type": "string",
+      "description": "Set epochs to remove by specifying indices to remove. Events are correspondingly modified.",
+      "default": "",
+      "required": false,
+      "placeholder": "1, 5, 16"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 2.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.798"
+}

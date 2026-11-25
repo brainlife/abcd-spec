@@ -1,0 +1,178 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Surface-Enhanced Tractography (SET)",
+  "version": "main",
+  "summary": "SET \u2014 Surface-Enhanced Tractography App. Adaptation of the original SET method\u2019s reference implementation (St-Onge Etienne et al., 2018).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a7616602ee82cf68a5a49c0",
+    "github": "gamorosino/app-surface-enhanced-tractography",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "mask_5tt",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask_5tt"
+      ]
+    },
+    {
+      "id": "fodf",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fodf_lmax8",
+        "fodf_response"
+      ],
+      "advanced": true
+    },
+    {
+      "id": "t1_transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1_warp",
+        "t1_inv_warp",
+        "t1_affine"
+      ],
+      "advanced": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Final concatenated whole-brain tractogram from Surface-Enhanced Tractography (all 8 random-seed chains concatenated)."
+    },
+    {
+      "id": "fodf",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "description": "FODF (SH order 8, descoteaux07 basis) -- only produced when the fodf input wasn't already given."
+    },
+    {
+      "id": "t1_transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "description": "T1-to-DWI ANTs registration transform -- only produced when the t1_transform input wasn't already given."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "random_seeds",
+      "type": "string",
+      "description": "Comma-separated random seeds for SET tracking chains.",
+      "default": "1,2,3,4,5,6,7,8",
+      "advanced": true,
+      "placeholder": "1,2,3,4,5,6,7,8"
+    },
+    {
+      "id": "nb_iter",
+      "type": "number",
+      "description": "Dynamic seeding iterations per random seed.",
+      "default": 1,
+      "advanced": true,
+      "placeholder": "1"
+    },
+    {
+      "id": "nb_seeds",
+      "type": "number",
+      "description": "Seeds per iteration.",
+      "default": 500000,
+      "advanced": true,
+      "placeholder": "500000"
+    },
+    {
+      "id": "max_parallel_seeds",
+      "type": "number",
+      "description": "Concurrent random-seed tracking chains.",
+      "default": 4,
+      "advanced": true,
+      "placeholder": "4"
+    },
+    {
+      "id": "linear_transformation",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    },
+    {
+      "id": "ants_verbose",
+      "type": "boolean",
+      "description": "Enable ANTs registration verbose output (produces very large logs; useful for debugging only).",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/ensemble_tracking:latest}",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 16,
+      "walltime_hours": 15
+    }
+  },
+  "doi": "10.25663/brainlife.app.951"
+}

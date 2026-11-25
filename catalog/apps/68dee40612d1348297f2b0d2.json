@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "N4 Bias Field Correction (T2w)",
+  "version": "main",
+  "summary": "App implementing the bias field correction method of ANTs Toolkit (Avants et al., 2011).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "68dee40612d1348297f2b0d2",
+    "github": "gamorosino/app-N4BiasFieldCorrection",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "bias_corrected",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [
+        "bias_corrected"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0-1bc",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 2
+    }
+  },
+  "doi": "10.25663/brainlife.app.876"
+}

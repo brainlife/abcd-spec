@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segmentation with Median Otsu ",
+  "version": "1.1.1",
+  "summary": "Brain segmentation with the median_otsu method using DIPY.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5a5100c306b9e8003f1ee684",
+    "github": "dipy/bl_apps_dipy_median_otsu",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "masked"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    },
+    {
+      "id": "secondary",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "median_radius",
+      "type": "number",
+      "description": "Radius (in voxels) of the applied median filter.",
+      "default": 2
+    },
+    {
+      "id": "numpass",
+      "type": "number",
+      "description": "The number of times to pass of the median filter.",
+      "default": 5
+    },
+    {
+      "id": "autocrop",
+      "type": "boolean",
+      "description": "Check this if you'd want to crop using the bounding box defined by the masked data. For example, if diffusion images are of 1x1x1 (mm^3) or higher resolution auto-cropping could reduce their size in memory and speed up some of the analysis.",
+      "default": false
+    },
+    {
+      "id": "vol_idx",
+      "type": "string",
+      "description": "1D array representing indices of the last dimension of a 4D 'input_volume', i.e., gradients. The input must be provided as \"0 1 2 3 4\".",
+      "default": "0"
+    },
+    {
+      "id": "dilate",
+      "type": "string",
+      "description": "The number of iterations for binary dilation.",
+      "default": "null"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.70"
+}

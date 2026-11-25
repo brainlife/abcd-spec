@@ -1,0 +1,50 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "EEG Data Quality",
+  "version": "dataqual-pipeline",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "60dc97c6cdfdb5ebe50156fb",
+    "github": "dungscout96/app-test-brainlife",
+    "branch": "dataqual-pipeline"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The pipeline will run on the dataset provided and output quality measures",
+      "config_keys": [
+        "fdt",
+        "set",
+        "channels",
+        "electrodes",
+        "coordsystem",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "test",
+      "datatype": "neuro/eeg/eeglab",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "dtyoung/eeglab-pipeline:eeglab",
+    "resources": {
+      "memory_gb": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.538"
+}

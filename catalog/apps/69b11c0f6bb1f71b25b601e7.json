@@ -1,0 +1,123 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make Forward Solution",
+  "version": "v1.0",
+  "summary": "Computes an MEG/EEG forward solution",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69b11c0f6bb1f71b25b601e7",
+    "github": "BrainlifeMEEG/forward",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epochs",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    },
+    {
+      "id": "evoked",
+      "datatype": "neuro/meeg/mne/evoked",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "evoked"
+      ]
+    },
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "src",
+      "datatype": "raw",
+      "datatype_tags": [
+        "source_space"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "trans",
+      "datatype": "neuro/meeg/mne/trans",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "trans"
+      ]
+    },
+    {
+      "id": "bem",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fif",
+        "channels",
+        "headshape",
+        "coordsystem",
+        "calibration",
+        "crosstalk",
+        "destination",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [
+        "fwd"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mindist",
+      "type": "number",
+      "description": "Minimum distance of sources from inner skull surface (in mm).",
+      "default": 5
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 2
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.904"
+}

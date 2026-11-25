@@ -1,0 +1,105 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate brain extracted image with SynthStrip (FMRI)",
+  "version": "func-7.3.2",
+  "summary": "Brain-extracts an fMRI time series by running FreeSurfer 7.3.2 SynthStrip on its first volume and applying the brain mask to the whole series, and outputs the masked BOLD and the mask.",
+  "description": "Extracts the first volume of the BOLD series with FSL fslselectvols, computes a brain mask from it with mri_synthstrip, and applies the mask to every volume with mri_mask. Use it when you need a skull-stripped functional run or a functional-space brain mask. Needs a task fMRI image; the mask is defined on the first volume, so large head motion across the run is not accounted for.",
+  "kind": "native",
+  "topics": [
+    "fmri",
+    "preprocessing",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63dab271c538c16a820a860f",
+    "github": "brainlife/app-synthstrip",
+    "branch": "func-7.3.2"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Task fMRI 4D BOLD image (with its events and optional sbref and physio files).",
+      "config_keys": [
+        "input",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_t1",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The input BOLD series with non-brain voxels zeroed.",
+      "datatype_tags_pass": "input"
+    },
+    {
+      "id": "output_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat",
+        "func"
+      ],
+      "description": "Binary brain mask (mask.nii.gz) in functional space.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "border",
+      "type": "number",
+      "description": "mask border threshold in mm",
+      "default": 1,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.726",
+  "software": [
+    {
+      "name": "FreeSurfer SynthStrip (mri_synthstrip)",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/docs/synthstrip/"
+    },
+    {
+      "name": "FSL",
+      "version": "6.0.4"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs",
+      "cause": "The brain-extracted image or mask was not produced.",
+      "fix": "Check the job log for the mri_synthstrip error."
+    }
+  ]
+}

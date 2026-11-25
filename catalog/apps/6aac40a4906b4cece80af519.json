@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "wmc to tcks",
+  "version": "mrtrix3-v1.0",
+  "summary": "Splits a whole-brain or composite tractogram into one .tck file per tract using the tract assignments in a white matter classification (wmc), with MRtrix3 connectome2tck.",
+  "description": "Converts the wmc classification into a streamline index list (DIPY container), then runs MRtrix3 connectome2tck to write each classified tract as its own .tck file named after the tract. Use it to obtain per-tract tractograms for visualisation or tract-wise analysis. The tck input must be the tractogram the classification was computed on, so that streamline indices match.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "tract-segmentation",
+    "conversion",
+    "mrtrix3",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6aac40a4906b4cece80af519",
+    "github": "brainlife/app-extractTCKfromWMC",
+    "branch": "mrtrix3-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "White matter classification (wmc) assigning streamlines to named tracts.",
+      "config_keys": [
+        "classification",
+        "tracts"
+      ]
+    },
+    {
+      "id": "wbfg",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain (or composite) tractogram the classification indexes into.",
+      "config_keys": [
+        "track"
+      ],
+      "requirements": "Must be the tractogram used to generate the wmc classification."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "description": "Directory with one .tck tractogram per classified tract.",
+      "datatype_tags_pass": "classification"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 30,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.976",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives and logs",
+      "cause": "No .tck files were written to tcks/.",
+      "fix": "Make sure the wmc classification was computed on the provided tractogram."
+    }
+  ]
+}

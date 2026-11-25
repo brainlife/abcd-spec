@@ -1,0 +1,135 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "axonsynth-inference",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aaab5abd53b7ad2023f031e",
+    "github": "gamorosino/app-axonsynth-inference",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input_volume",
+      "datatype": "neuro/microscopy/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Raw or already-prepared 3D LSM microscopy volume (NIfTI).",
+      "config_keys": [
+        "input_volume"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "segmentation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Predicted binary axon segmentation (AxonSynth three_class_v2, shell+interior collapsed to foreground) as parc.nii.gz, with label.json, plus the foreground probability map and inference metadata as extra files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "skip_prepare",
+      "type": "boolean",
+      "description": "Skip the anisotropic-to-isotropic resample step; use only when input_volume is already isotropic at model spacing (0.8um by default).",
+      "default": false
+    },
+    {
+      "id": "target_spacing",
+      "type": "number",
+      "description": "Target isotropic voxel size in microns for the prepare step. Ignored if skip_prepare is true.",
+      "default": 0.8,
+      "advanced": true,
+      "placeholder": "0.8"
+    },
+    {
+      "id": "axis_order",
+      "type": "string",
+      "description": "Comma-separated permutation of 0,1,2 mapping model axes to source axes for the prepare step. Ignored if skip_prepare is true.",
+      "default": "2,0,1",
+      "advanced": true,
+      "placeholder": "2,0,1"
+    },
+    {
+      "id": "assume_source_units_micron",
+      "type": "boolean",
+      "description": "Treat source NIfTI header zoom values as microns when the header does not declare micron units. Ignored if skip_prepare is true.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "roi_size",
+      "type": "number",
+      "description": "Isotropic sliding-window ROI size used during inference.",
+      "default": 128,
+      "advanced": true,
+      "placeholder": "128"
+    },
+    {
+      "id": "sw_batch_size",
+      "type": "number",
+      "description": "Sliding-window inference batch size.",
+      "default": 4,
+      "advanced": true,
+      "placeholder": "4"
+    },
+    {
+      "id": "overlap",
+      "type": "number",
+      "description": "Sliding-window overlap fraction (0 to <1).",
+      "default": 0.5,
+      "advanced": true,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Foreground probability threshold applied to produce the binary segmentation.",
+      "default": 0.5,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "stitch_device",
+      "type": "string",
+      "description": "Device used to stitch sliding-window logits: 'model' (default, same device as the model) or 'cpu' (for volumes that exceed GPU memory when stitched).",
+      "default": "model",
+      "advanced": true,
+      "placeholder": "model"
+    },
+    {
+      "id": "output_profile",
+      "type": "string",
+      "description": "'binary_focused' (default) writes only the collapsed foreground probability/mask; 'full' additionally writes the three-class argmax, shell, and interior masks.",
+      "default": "binary_focused",
+      "advanced": true,
+      "placeholder": "binary_focused"
+    },
+    {
+      "id": "require_cuda",
+      "type": "boolean",
+      "description": "Fail instead of silently falling back to CPU when no GPU is available on the compute resource.",
+      "default": false
+    },
+    {
+      "id": "additional_thresholds",
+      "type": "string",
+      "description": "Comma-separated LABEL=VALUE pairs for extra binary masks at additional probability thresholds, e.g. '0p94=0.94'. Empty means none.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/app-axonsynth-inference:0.1",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.974"
+}

@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "pRFs / Benson14-Retinotopy - Deprecated",
+  "version": "master",
+  "summary": "Brainlife.io app for Noah Benson's neuropythy library, retinotopy from T1 anatomy",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5cc4cd3f4ed9df00317f621d",
+    "github": "davhunt/app-benson14-retinotopy",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "varea",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "benson14_retinotopy"
+      ],
+      "description": "Parcellation of visually-responsive cortex into 12 regions12 regions (V1, V2, V3, hV4, VO1, VO2, LO1, LO2, TO1, TO2, V3b, V3a)"
+    },
+    {
+      "id": "varea_surf",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/neuropythy:1.5",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.187",
+  "deprecated_by": "6115c829a5a04c2a80f9e7f7"
+}

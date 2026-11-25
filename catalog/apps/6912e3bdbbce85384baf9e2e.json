@@ -1,0 +1,38 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "brainlife-hello",
+  "version": "v1.0.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6912e3bdbbce85384baf9e2e",
+    "github": "infernoWolf99/brainlife-hello",
+    "branch": "v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "sub-001",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.882"
+}

@@ -1,0 +1,131 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Noddi Amico",
+  "version": "1.3",
+  "summary": "Fits the NODDI model to multi-shell DWI with the AMICO toolbox to produce neurite density (NDI), orientation dispersion (ODI), isotropic volume fraction (ISOVF) and direction maps.",
+  "description": "Creates a brain mask with FSL bet (unless one is given), rounds b-values and fits NODDI with AMICO using the chosen parallel diffusivity (dPar), optionally debiasing the signal first. Use it on preprocessed multi-shell DWI to obtain microstructure maps for tract profiles or ROI analyses; use 0.0017 for white matter and 0.0011 for cortex. Single-shell data should use the single-shell App instead.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ed02c520a8ed8e7bb483031",
+    "github": "brainlife/app-noddi-amico",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "!single_shell",
+        "!dtiinit"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "dwi",
+        "brain"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "brain mask in dwi space where you want to compute NODDI measurements.",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "description": "The NODDI measures fit using AMICO"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi"
+      ],
+      "description": "If you provide the optional mask input, this will be the same mask image. If you don't provide the mask, this App will generate the mask for you and output the mask here."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dPar",
+      "type": "number",
+      "description": "The parallel diffusivity measure. For white matter analyses, use 0.0017. For cortical mapping, use 0.0011",
+      "default": 0.0017
+    },
+    {
+      "id": "advancedMask",
+      "type": "boolean",
+      "description": "Sometimes mask generation does not remove all of the non-brain material. If True, this will make sure the non-brain material is fully removed. Only check if inputting a mask that contains non-brain material",
+      "default": false
+    },
+    {
+      "id": "debias",
+      "type": "boolean",
+      "description": "Select this if you want to perform signal debiasing before NODDI fit",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.365",
+  "software": [
+    {
+      "name": "AMICO",
+      "version": "2.1b"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9",
+      "url": "https://fsl.fmrib.ox.ac.uk/"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2014.10.026",
+      "text": "Daducci A, Canales-Rodriguez EJ, Zhang H, Dyrby TB, Alexander DC, Thiran JP. Accelerated Microstructure Imaging via Convex Optimization (AMICO) from diffusion MRI data. NeuroImage 105:32-44 (2015)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2012.03.072",
+      "text": "Zhang H, Schneider T, Wheeler-Kingshott CA, Alexander DC. NODDI: practical in vivo neurite orientation dispersion and density imaging of the human brain. NeuroImage 61(4):1000-1016 (2012)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "NODDI AMICO failed",
+      "cause": "The NDI map was not produced by the AMICO fit.",
+      "fix": "Check the log of NODDI.py; the multi-shell App needs multi-shell DWI."
+    },
+    {
+      "message": "output missing",
+      "cause": "No brain mask was produced or provided.",
+      "fix": "Provide a DWI-space brain mask or check the FSL bet step."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

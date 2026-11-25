@@ -1,0 +1,87 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Normalize DWI data",
+  "version": "mrtrix33.0.2-v1.0",
+  "summary": "Normalises DWI intensities so the white matter b0 signal equals a set value, with MRtrix3 dwinormalise individual using an FA > 0.5 white matter mask.",
+  "description": "Builds a brain mask (dwi2mask) and a white matter mask (FA > 0.5 from dwi2tensor), then runs dwinormalise individual with the chosen intensity and percentile, and exports the DWI with its gradients. Use it before comparing DWI intensities across subjects or sessions.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "65a84fa74ce5ac2907eca5ec",
+    "github": "brainlife/app-dwinormalise",
+    "branch": "mrtrix33.0.2-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvecs and bvals (sbref files are passed along but not used).",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "normalized"
+      ],
+      "description": "Intensity-normalised DWI with bvecs and bvals exported by MRtrix3.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "nval",
+      "type": "number",
+      "description": "The value to which the mode value intensity normalization will normalize the white matter intensity.",
+      "default": 1000,
+      "minimum": 100,
+      "maximum": 50000
+    },
+    {
+      "id": "prct",
+      "type": "number",
+      "description": "Percentile of the white matter b0 intensities matched to nval (dwinormalise -percentile).",
+      "default": 50,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.2",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.806",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.2",
+      "url": "https://www.mrtrix.org/"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check logs",
+      "cause": "output/dwi.nii.gz was not produced.",
+      "fix": "Check that bvecs and bvals match the DWI."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AFQ Tract Classification with LiFE",
+  "version": "1.2",
+  "summary": "This service uses Automated fiber quantification AFQ and fe structure output from LiFE to identify major tract segments and quantify tissue properties along their trajectories.",
+  "description": "This service uses Automated fiber quantification AFQ and fe structure output from LiFE to identify major tract segments and quantify tissue properties along their trajectories. You can choose to have the zero weighted fibers (as determined by LiFE) removed before or after AFQ is applied. useinterhemisphericsplit is a variable from AFQ, which if set to true will cut fibers crossing between hemispheres with a midsaggital plane below z=-10. This is to get rid of CST fibers that appear to cross at the level of the brainstem. For more information about AFQ see https://github.com/yeatmanlab/AFQ/wiki",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "58f10d01436ee50ffd906e68",
+    "github": "brainlife/app-tractclassification",
+    "branch": "1.2"
+  },
+  "inputs": [
+    {
+      "id": "fe",
+      "datatype": "neuro/LiFE",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fe"
+      ]
+    },
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dtiinit"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "afq",
+        "life"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fe"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "useinterhemisphericsplit",
+      "type": "boolean",
+      "description": "Cut fibers crossing between hemispheres with a midsaggital plane below z=-10. This is to get rid of CST (corticospinal tract) fibers that appear to cross at the level of the brainstem",
+      "default": false
+    },
+    {
+      "id": "remove_zero_weighted_fibers",
+      "type": "enum",
+      "description": "Select when you would like the zero weighted fibers removed",
+      "default": "before",
+      "options": [
+        {
+          "value": "before",
+          "label": "Before",
+          "description": "Remove the zero weighted fibers before performing AFQ"
+        },
+        {
+          "value": "after",
+          "label": "After",
+          "description": "Remove the zero weighted fibers after performing AFQ"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 58,
+      "walltime_hours": 5
+    }
+  },
+  "doi": "10.25663/bl.app.56",
+  "deprecated_by": "5cf8252694cb4c02b711c739"
+}

@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DeepRetinotopy",
+  "version": "main",
+  "summary": "DeepRetinotopy brainlife.io app: predict retinotopic maps from cortical anatomy using geometric deep learning. Based on the original deepRetinotopy model by Fernanda L. Ribeiro et al. (2021, 2024, 2025).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ac02d2c931afedae84f7da2",
+    "github": "gamorosino/app-deepretinotopy",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [
+        "deepretinotopy"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "maps",
+      "type": "string",
+      "description": "Comma-separated maps to predict: polarAngle, eccentricity, pRFsize",
+      "default": "polarAngle,eccentricity,pRFsize",
+      "placeholder": "polarAngle,eccentricity,pRFsize"
+    },
+    {
+      "id": "dataset",
+      "type": "string",
+      "description": "Dataset label passed to the deepRetinotopy toolbox",
+      "default": "brainlife",
+      "advanced": true,
+      "placeholder": "brainlife"
+    },
+    {
+      "id": "subject_id",
+      "type": "string",
+      "description": "Internal subject id used when staging the FreeSurfer input",
+      "default": "subject",
+      "advanced": true,
+      "placeholder": "subject"
+    },
+    {
+      "id": "fast",
+      "type": "string",
+      "description": "Fast midthickness generation: yes or no",
+      "default": "yes",
+      "advanced": true,
+      "placeholder": "yes"
+    },
+    {
+      "id": "use_gpu",
+      "type": "boolean",
+      "description": "Pass --nv to Singularity for GPU-accelerated inference",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "container_version",
+      "type": "string",
+      "description": "vnmd/deepretinotopy container tag to pull (default: 1.0.18; use 1.0.19 if your resource has Apptainer >= 1.5.3)",
+      "default": "1.0.18",
+      "advanced": true,
+      "placeholder": "1.0.18"
+    },
+    {
+      "id": "polar_angle_benson",
+      "type": "boolean",
+      "description": "Fold polar angle from 0-360\u00b0 to 0-180\u00b0 (Benson/neuropythy convention; hemisphere encodes left vs right visual field)",
+      "default": true
+    },
+    {
+      "id": "nan_aware_projection",
+      "type": "boolean",
+      "description": "Use NaN-aware barycentric interpolation for surface-to-volume projection (non-finite vertices get zero weight; disable if results look worse than standard prism projection)",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.983"
+}

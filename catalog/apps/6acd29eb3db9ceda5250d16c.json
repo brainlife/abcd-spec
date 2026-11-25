@@ -1,0 +1,61 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-test-multiagent-brain-extraction",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6acd29eb3db9ceda5250d16c",
+    "github": "gamorosino/app-test-multiagent-brain-extraction",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": []
+    }
+  ],
+  "outputs": [
+    {
+      "id": "brain_extracted",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "frac",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.5
+    },
+    {
+      "id": "robust",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    },
+    {
+      "id": "bias_neck_cleanup",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:latest",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.985"
+}

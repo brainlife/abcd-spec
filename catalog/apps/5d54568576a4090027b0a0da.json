@@ -1,0 +1,129 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Nobrainer - BrainParcellation",
+  "version": "master",
+  "summary": "Segments a T1-weighted image into a FreeSurfer-style whole-brain parcellation with the kwyk Bayesian neural network (nobrainer), with entropy and variance maps of prediction uncertainty.",
+  "description": "Runs the neuronets/kwyk 0.4 GPU container on the T1w image with the chosen model and number of Monte Carlo samples, producing mean-label parcellations in the original and the conformed (FreeSurfer) space plus entropy and, except for the bwn model, variance maps. Needs a GPU node. Note that the code writes the original-space prediction to parc and the conformed-space prediction to parc_fs, which is the opposite of the registry descriptions (see report).",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "segmentation",
+    "machine-learning",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5d54568576a4090027b0a0da",
+    "github": "brainlife/app-nobrainer",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image to parcellate.",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "freesurfer",
+        "kwyk",
+        "freesurfer_space"
+      ],
+      "description": "Predicted parcellation/volume in freesurfer_space.",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "parc_fs",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "freesurfer",
+        "kwyk"
+      ],
+      "description": "Predicted parcellation/volume in subject space.",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "nobrainer"
+      ],
+      "description": "contains entrypy and variance (optional) for prediction uncertainty.",
+      "datatype_tags_pass": "t1"
+    },
+    {
+      "id": "output_fs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "nobrainer",
+        "freesurfer"
+      ],
+      "description": "contains entrypy and variance (optional) for prediction uncertainty.",
+      "datatype_tags_pass": "t1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "samples",
+      "type": "number",
+      "description": "Number of samples you wish to run (ignored for bwn/MAP)",
+      "default": 10,
+      "minimum": 2
+    },
+    {
+      "id": "model",
+      "type": "enum",
+      "description": "kwyk model passed to -m: bvwn_multi_prior, bwn_multi or bwn (bwn is the MAP model without variance output).",
+      "default": "",
+      "options": [
+        {
+          "value": "bvwn_multi_prior",
+          "label": "Spike-and-slab dropout",
+          "description": "Generates mean,variance and entropy"
+        },
+        {
+          "value": "bwn_multi",
+          "label": "MC Bernoulli dropout ",
+          "description": "Generates mean,variance and entropy"
+        },
+        {
+          "value": "bwn",
+          "label": "MAP",
+          "description": "Generates mean and entropy"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "neuronets/kwyk:version-0.4-gpu",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5,
+      "gpu": true,
+      "memory_gb": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.218",
+  "software": [
+    {
+      "name": "kwyk (nobrainer)",
+      "version": "0.4"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

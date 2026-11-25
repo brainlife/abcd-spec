@@ -1,0 +1,67 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract DWI volumes of choice",
+  "version": "mrtrix3-v1.0",
+  "summary": "Extracts selected volumes from a DWI image, with matching bvals and bvecs, using MRtrix3 mrconvert.",
+  "description": "Runs mrconvert -coord 3 with the requested (0-indexed) volume list and exports the corresponding gradient table as FSL bvals/bvecs. Use it to drop or keep specific volumes or shells before further processing.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "mrtrix3",
+    "preprocessing"
+  ],
+  "registry": {
+    "id": "6144aa977a38b05b4ba047f6",
+    "github": "brainlife/app-split-dwi-volumes",
+    "branch": "mrtrix3-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "description": "DWI containing only the selected volumes, with matching bvals and bvecs.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "vols",
+      "type": "string",
+      "description": "This field is intended to specify the volumes of interest. IMPORTANT: this uses 0 indexing. So the first volume is 0, and the remaining volumes are N-1.\n\nIf a selection of non-consecutive volumes are desired, list the volume numbers and include commas between them (ex. 0,2,4,24,99)\n\nIf a series of volumes is desired, use a start:step:end format, where \"start\" is the starting volume, \"step\" is the number of steps before the next volume selected, and \"end\" is the ending volume. For example, if you want every volume from the first volume to the 40th volume, do 0:1:39\n\nYou can also use the keyword \"end\" to specify that you want all volumes from a starting volume to the end of the nifti (ex. 24:1:end would be the 25th volume and then all the remaining volumes). This should also follow the start:step:end format.\n\nThese can be combined. For example, if a user wants the 2nd, 4th, 40th-60th, and 70th to end, you would specify this field as '1,3,39:1:59,69:1:end\"",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 32,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.575",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.2",
+      "url": "https://www.mrtrix.org/"
+    }
+  ]
+}

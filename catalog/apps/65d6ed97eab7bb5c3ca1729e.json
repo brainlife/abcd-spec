@@ -1,0 +1,46 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Read info",
+  "version": "v1.0",
+  "summary": "This Brainlife App reads the .info attribute of a MNE/Raw instance and outputs it into a .txt file for ease of viewing",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65d6ed97eab7bb5c3ca1729e",
+    "github": "BrainlifeMEEG/info-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "raw"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [
+        "info"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.817"
+}

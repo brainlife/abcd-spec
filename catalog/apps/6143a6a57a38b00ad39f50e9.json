@@ -1,0 +1,136 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Connectivity Gradients",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6143a6a57a38b00ad39f50e9",
+    "github": "anibalsolon/app-connectivity-gradient",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "left",
+        "right",
+        "label"
+      ]
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "confounds",
+        "json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "gradients",
+      "datatype": "neuro/surface/gradient",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "approach",
+      "type": "enum",
+      "description": "unknown",
+      "default": "diffusion-maps",
+      "options": [
+        {
+          "value": "diffusion-maps",
+          "label": "diffusion-maps"
+        },
+        {
+          "value": "laplacian-eigenmaps",
+          "label": "laplacian-eigenmaps"
+        },
+        {
+          "value": "pca-maps",
+          "label": "pca-maps"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "kernel",
+      "type": "enum",
+      "description": "unknown",
+      "default": "normalized-angle",
+      "options": [
+        {
+          "value": "pearson",
+          "label": "pearson"
+        },
+        {
+          "value": "spearman",
+          "label": "spearman"
+        },
+        {
+          "value": "normalized-angle",
+          "label": "normalized-angle"
+        },
+        {
+          "value": "cosine",
+          "label": "cosine"
+        },
+        {
+          "value": "gaussian",
+          "label": "gaussian"
+        }
+      ],
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "n_components",
+      "type": "number",
+      "description": "unknown",
+      "default": 2,
+      "minimum": 1,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "random_state",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "unknown",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16
+    }
+  },
+  "doi": "10.25663/brainlife.app.574"
+}

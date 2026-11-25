@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate image of ODF",
+  "version": "master",
+  "summary": "Renders PNG images of fibre orientation distribution functions (ODFs) from CSD spherical-harmonic coefficients for a chosen sub-volume, using DIPY visualisation.",
+  "description": "Loads the CSD FOD of the selected lmax, converts the spherical harmonics in the requested x/y/z slice ranges to ODFs on a 724-point sphere and renders them with DIPY/VTK (off-screen) as images for visual quality control. Use it to check that CSD fits look plausible, e.g. crossing fibres in the centrum semiovale; slice ranges must lie within the image.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "visualization",
+    "quality-control",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e9d30c6f1745d6b05f681b7",
+    "github": "brainlife/app-plot-odf",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Constrained spherical deconvolution FODs (one file per lmax).",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "odf"
+      ],
+      "description": "PNG images of the ODFs in the selected sub-volume."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "Spherical harmonic order of the FOD to plot (selects the lmax<N> file of the csd input).",
+      "default": 8
+    },
+    {
+      "id": "odf_scale",
+      "type": "string",
+      "description": "Scale factor for the size of the rendered ODF glyphs.",
+      "default": "2"
+    },
+    {
+      "id": "x_slice",
+      "type": "string",
+      "description": "Start and end voxel indices along x of the region to render (two space-separated integers).",
+      "default": "121 174"
+    },
+    {
+      "id": "y_slice",
+      "type": "string",
+      "description": "Start and end voxel indices along y of the region to render (two space-separated integers).",
+      "default": "140 193"
+    },
+    {
+      "id": "z_slice",
+      "type": "string",
+      "description": "Start and end voxel indices along z of the region to render (two space-separated integers).",
+      "default": "77 78"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pythonvtk:1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.317",
+  "software": [
+    {
+      "name": "DIPY",
+      "url": "https://dipy.org"
+    },
+    {
+      "name": "VTK"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

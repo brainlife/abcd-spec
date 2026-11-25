@@ -1,0 +1,87 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Make Inverse Operator",
+  "version": "v1.0",
+  "summary": "Brainlife.io app to compute the MNE inverse operator for MEG/EEG surface source reconstruction.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69b135756bb1f71b25b65574",
+    "github": "BrainlifeMEEG/inverse-operator",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "forward",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "forward",
+        "inverse"
+      ]
+    },
+    {
+      "id": "noise_cov",
+      "datatype": "neuro/meeg/mne/covariance",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "cov"
+      ]
+    },
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/forward-inverse",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "loose",
+      "type": "string",
+      "description": "unknown",
+      "default": "auto"
+    },
+    {
+      "id": "depth",
+      "type": "string",
+      "description": "unknown",
+      "default": "0.8"
+    },
+    {
+      "id": "rank",
+      "type": "string",
+      "description": "unknown",
+      "default": "None"
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.905"
+}

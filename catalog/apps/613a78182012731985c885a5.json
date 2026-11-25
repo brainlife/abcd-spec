@@ -1,0 +1,123 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Create structural derivatives for cortexmap datatype",
+  "version": "create-cortexmap-datatype-v1.0",
+  "summary": "Creates a cortexmap from a FreeSurfer output with Connectome Workbench: white, pial, midthickness and inflated GIFTI surfaces in native and MNI space plus a FreeSurfer surface parcellation.",
+  "description": "Converts FreeSurfer surfaces to GIFTI, aligns them to scanner space, builds midthickness and (very) inflated surfaces, volume and thickness shape files, warps them to template space with the provided nonlinear warp, and converts the chosen .annot parcellation to GIFTI labels. Intended as the first step of the cortex tissue mapping Apps, which can add measures to this cortexmap. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "postprocessing",
+    "anatomy",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "613a78182012731985c885a5",
+    "github": "brainlife/app-cortex-tissue-mapping",
+    "branch": "create-cortexmap-datatype-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer recon-all output directory of the same subject; the white and pial surfaces, ribbon.mgz, brain.finalsurfs.mgz and the chosen .annot parcellation are read from it.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "warp",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "These files are needed to generate surfaces in template space (usually MNI). If you need to generate these files, please look at brainlife app FSL Anat. A version of this app not requiring this input is being generated",
+      "config_keys": [
+        "warp",
+        "inverse_warp"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [
+        "structural_derivatives"
+      ],
+      "description": "cortexmap with native and MNI GIFTI surfaces and shape files in surf/ and the FreeSurfer parcellation in label/ (func/ is empty)."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortexmap_derivatives"
+      ],
+      "description": "Intermediate derivatives (ribbon volumes, c_ras transform) kept for QA and debugging."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fsurfparc",
+      "type": "enum",
+      "description": "FreeSurfer surface parcellation (.annot) converted to GIFTI label files and written to the cortexmap label folder.",
+      "default": "aparc.a2009s",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas "
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5,
+      "memory_gb": 20
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.573",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "FreeSurfer"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H, et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "text": "Glasser MF, Sotiropoulos SN, Wilson JA, et al. The minimal preprocessing pipelines for the Human Connectome Project. NeuroImage 80:105-124 (2013)."
+    }
+  ]
+}

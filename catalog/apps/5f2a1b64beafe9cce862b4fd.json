@@ -1,0 +1,159 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2) - Deprecated",
+  "version": "sift2_v1.1_centers",
+  "summary": "Generate structural connectomes using MRTrix3 and SIFT2",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f2a1b64beafe9cce862b4fd",
+    "github": "brainlife/app-sift2-connectome-generation",
+    "branch": "sift2_v1.1_centers"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "count_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "length_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "length"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "density_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "denlen_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "denlen_out"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "unknown",
+      "default": 8
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 4.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.394",
+  "deprecated_by": "6165b253fc8eb97e54faca55"
+}

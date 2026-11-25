@@ -1,0 +1,65 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-artifact-amplitude",
+  "version": "main",
+  "summary": "Rejecting epochs, based on signal amplitude thresholds for each channel type.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62b1c272ab3e66978065736f",
+    "github": "zahransa/app-artifact-amplitude",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "epo"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "flat_criteria",
+      "type": "string",
+      "description": "a string that contains the flat criteria (minimum acceptable peak-to-peak amplitudes for each channel type in an epoch)",
+      "default": "",
+      "placeholder": "mag=3000e-15;grad=3000e-13"
+    },
+    {
+      "id": "reject_criteria",
+      "type": "string",
+      "description": "a string that contains the reject criteria (maximum acceptable peak-to-peak amplitudes for each channel type in an epoch)",
+      "default": "",
+      "placeholder": "mag=1e-15;grad=1e-13"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.653"
+}

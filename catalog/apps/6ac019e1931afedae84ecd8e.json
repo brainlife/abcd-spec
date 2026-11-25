@@ -1,0 +1,76 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "NORDIC denoising (Python)",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ac019e1931afedae84ecd8e",
+    "github": "gamorosino/app-nordic",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "mag",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mag"
+      ]
+    },
+    {
+      "id": "phase",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "phase"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "phase"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "denoised",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "nordic"
+      ],
+      "description": "NORDIC-denoised BOLD (magnitude)."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "temporal_phase",
+      "type": "integer",
+      "description": "Temporal phase correction mode (see upstream docs).",
+      "default": 1,
+      "advanced": true,
+      "placeholder": "1"
+    },
+    {
+      "id": "phase_filter_width",
+      "type": "integer",
+      "description": "Phase filter width (see upstream docs).",
+      "default": 10,
+      "advanced": true,
+      "placeholder": "10"
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/app-nordic:1.0",
+    "resources": {
+      "memory_gb": 32,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.982"
+}

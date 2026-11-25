@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate ROIs from an atlas",
+  "version": "1.0",
+  "summary": "Extracts single or merged ROIs as NIfTI files from a volumetric parcellation by label index, with optional smoothing/inflation, using wma_tools.",
+  "description": "For each line (or semicolon-separated group) in roiPairs, merges the listed parcellation indices into one ROI with bsc_roiFromAtlasNums and writes rois/ROI<n>.nii.gz. Output ROIs are in the same space as the input parcellation, so make sure it matches the data you will use them with.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "vistasoft",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5c364d71836af601cc85864d",
+    "github": "brainlife/app-ROIsfromAtlas",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "atlas",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation (NIfTI) with its label key.",
+      "config_keys": [
+        "atlas",
+        "key"
+      ],
+      "requirements": "Must be in the space where the ROIs will be used."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "ROIs (ROI1.nii.gz, ROI2.nii.gz, ...), one per entry of roiPairs, in the space of the parcellation."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roiPairs",
+      "type": "string",
+      "description": "This is where you enter in the indexes for the parcellation regions you would like to convert into ROIs (disregard the \"pairs\" implication).\nMust be in appropriate format, for example:\n23 95 2 8\n1 2 12 34 8 3 5\n4 5 236 86 \n72 12 55 \nline breaks separate ROIs",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "smoothKernel",
+      "type": "number",
+      "description": "Smoothing Kernel for ROI.  Odd, whole number values only.  Values larger than 1 result in ROI inflation.  0 performs no inflation.\nhttps://www.mathworks.com/help/matlab/ref/smooth3.html",
+      "default": 1,
+      "minimum": 1,
+      "placeholder": "1"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.140",
+  "category": "parcellation",
+  "software": [
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "SPM"
+    },
+    {
+      "name": "MATLAB Runtime",
+      "version": "R2019a"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "didn't produce any rois",
+      "cause": "No ROI files were written.",
+      "fix": "Check that the indices in roiPairs exist in the parcellation."
+    }
+  ],
+  "maintainers": [
+    "Daniel Bullock"
+  ]
+}

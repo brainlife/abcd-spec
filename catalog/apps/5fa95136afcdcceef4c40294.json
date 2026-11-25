@@ -1,0 +1,114 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp T1 and tensor",
+  "version": "1.0",
+  "summary": "Applies a given non-linear warp and affine to a T1-weighted image and to FA, MD, RD and AD tensor maps with ANTs WarpImageMultiTransform.",
+  "description": "Warps the T1 and the FA, MD, RD and AD maps with ANTs WarpImageMultiTransform using the provided warp.nii.gz and affine.txt (nearest-neighbour interpolation). Use it to bring a subject's T1 and tensor maps into the space defined by a previously computed non-linear registration. The transform input must contain both the warp and the affine.",
+  "kind": "native",
+  "topics": [
+    "alignment",
+    "registration",
+    "dwi",
+    "anatomy",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fa95136afcdcceef4c40294",
+    "github": "brainlife/app-warp-t1",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1 image to warp",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "tensor images to warp",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "!linear"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "non-linear warp to use for warping",
+      "config_keys": [
+        "warp",
+        "affine"
+      ],
+      "requirements": "affine.txt must be present; the App exits otherwise."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "t1_aligned",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "warped T1",
+      "datatype_tags_pass": "0"
+    },
+    {
+      "id": "tensor_aligned",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "warped tensor",
+      "datatype_tags_pass": "1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.448",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "ERROR: affine.txt not found, but has to be provided. Process terminated.",
+      "fix": "Provide a transform dataset that includes affine.txt."
+    },
+    {
+      "message": "T1 warping failed.",
+      "fix": "Check the log for WarpImageMultiTransform errors."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-tractoflow",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6887ea8af3900f18d5f9f81d",
+    "github": "sydneyfulton/app-tractoflow",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "Resample_DWI",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "Resample_T1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "bias_corrected"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "PFT_Tracking",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "scilus/scilus:1.6.0",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.868"
+}

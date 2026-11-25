@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Voxeleron OCT data Processing",
+  "version": "master",
+  "summary": "This app computes the mean and standard deviation of Voxeleron OTC data for each degree of visual angle.  This can be computed within a single layer, or across layers.  The output of this app is a table for both mean and standard deviation, and the output data (visual angle OCT data) for each combination of eye and layer combination.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "vision"
+  ],
+  "registry": {
+    "id": "5ec4646f41ba118064f44d41",
+    "github": "DanNBullock/app-voxeleronOCT",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "input OCT",
+      "datatype": "optometry/oct",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "os_raw",
+        "os_centroid",
+        "od_raw",
+        "od_centroid"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "finalOutput",
+      "datatype": "raw",
+      "datatype_tags": [
+        "raw"
+      ],
+      "description": "Two CSV files showing the mean and standard deviation for each degree of the visual field, across the analyses requested."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "layerIndexSequences",
+      "type": "string",
+      "description": "Indicates which layers are to be summed in order to generate the layer amalgams that will be processed later.",
+      "default": "1:7,1:4,5,6"
+    },
+    {
+      "id": "analysesNames",
+      "type": "string",
+      "description": "Indicates the abbreviation for the layer amalgam, will label the output analyses.  Must be of equal length as the layerIndexSequences input.",
+      "default": "TT, NL, ONL, PROS"
+    },
+    {
+      "id": "visFieldDiam",
+      "type": "number",
+      "description": "Indicates the total *diameter* of the visual field measured by the experimenter. Assumed to be consistent across subjects. The user/experimenter should know this about their data.",
+      "default": 20
+    },
+    {
+      "id": "theshFloor",
+      "type": "number",
+      "description": "Specifies the desired threshold to be applied. Applied prior to computation of means. Values below this are set to NaN and are not featured in computation of mean. If no threshold is desired, enter a value of 0.",
+      "default": 0
+    },
+    {
+      "id": "gaussKernel",
+      "type": "number",
+      "description": "Specifies the desired smoothing kernel to be applied. Applied prior to computation of means). Pixel values are thus the result of a gaussian smoothing process. If no threshold is desired, enter a value of 1.  MUST BE AN ODD NUMBER",
+      "default": 1
+    },
+    {
+      "id": "meanShape",
+      "type": "enum",
+      "description": "Specifies the desired method for computing the mean. \"rings\" will generate averages for concentric, degree-specific rings (like a bullseye), while \"full\" will compute the mean for the entire visual field (to the specified current, iterated degree).",
+      "default": "rings",
+      "options": [
+        {
+          "value": "rings",
+          "label": "rings",
+          "description": " \"rings\" will generate averages for concentric, degree-specific rings (like a bullseye)"
+        },
+        {
+          "value": "full",
+          "label": "full",
+          "description": "\"full\" will compute the mean for the entire visual field (for each, iterated degree)."
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:r2019a",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 28,
+      "walltime_hours": 0.33
+    }
+  },
+  "doi": "10.25663/brainlife.app.346"
+}

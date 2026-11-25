@@ -1,0 +1,113 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "rsHRF",
+  "version": "1.0.8",
+  "summary": "Estimates the voxel-wise resting-state hemodynamic response function (HRF) and deconvolves BOLD fMRI within a brain mask with the rsHRF toolbox (BIDS-Apps rsHRF 1.0.8).",
+  "description": "Runs rsHRF on the BOLD image with the mask passed as --atlas and the chosen estimation basis (canonical with 2 derivatives, smoothed or plain FIR, Gamma, Fourier or Hanning). rsHRF retrieves the onsets of pseudo-events from resting-state BOLD to estimate the HRF and deconvolve the signal. Results and QC plots are written to the results directory.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "fmri"
+  ],
+  "registry": {
+    "id": "5cf9582f94cb4c02b711c797",
+    "github": "brainlife/app-rsHRF",
+    "branch": "1.0.8"
+  },
+  "inputs": [
+    {
+      "id": "bold",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Resting-state BOLD fMRI time series.",
+      "config_keys": [
+        "bold"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "brain mask (passes as --atlas)",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "results",
+      "datatype": "raw",
+      "datatype_tags": [
+        "rsHRF"
+      ],
+      "description": "rsHRF outputs: estimated HRF parameter maps, deconvolved BOLD and QC plots."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "estimation",
+      "type": "enum",
+      "description": "estimation procedure",
+      "default": "canon2dd",
+      "options": [
+        {
+          "value": "canon2dd",
+          "label": "canon2dd",
+          "description": "canonical shape with 2 derivatives"
+        },
+        {
+          "value": "sFIR",
+          "label": "sFIR",
+          "description": "smoothed Finite Impulse Response"
+        },
+        {
+          "value": "FIR",
+          "label": "FIR",
+          "description": "Finite Impulse Response"
+        },
+        {
+          "value": "Gamma",
+          "label": "Gamma",
+          "description": "Gamma Basis Set"
+        },
+        {
+          "value": "Fourier",
+          "label": "Fourier",
+          "description": "Fourier Basis set"
+        },
+        {
+          "value": "Hanning",
+          "label": "Hanning",
+          "description": "Fourier Basis with Hanning"
+        }
+      ]
+    },
+    {
+      "id": "tempmask",
+      "type": "string",
+      "description": "Enter the slice number that you like to scrub (skip). Enter string like \"1,2,4,56,555\"",
+      "default": "",
+      "required": false
+    }
+  ],
+  "runtime": {
+    "container": "bids/rshrf:1.0.8",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 6
+    }
+  },
+  "doi": "10.25663/brainlife.app.208",
+  "software": [
+    {
+      "name": "rsHRF",
+      "version": "1.0.8",
+      "url": "https://github.com/BIDS-Apps/rsHRF"
+    }
+  ]
+}

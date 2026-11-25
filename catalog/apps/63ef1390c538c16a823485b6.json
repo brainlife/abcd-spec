@@ -1,0 +1,156 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert thalamic, hippocampal and amygdala segmentation into parcellation",
+  "version": "wb-v1.5_dipy-v1.4.1_app-v1.0",
+  "summary": "Converts FreeSurfer thalamic nuclei and hippocampal/amygdala segmentations into two volumetric parcellations in T1 space, each with a label.json.",
+  "description": "Converts the thalamic nuclei and the left/right hippoAmygLabels files with mri_convert (right-hemisphere hippocampal labels offset by 100), resamples them to the T1 grid with mri_vol2vol (nearest neighbour), and renumbers voxel values with bundled label tables. Run both FreeSurfer thalamic nuclei and hippocampal subfield segmentations first.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "freesurfer",
+    "conversion",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63ef1390c538c16a823485b6",
+    "github": "brainlife/app-generate-parc-thal-amyg-hipp",
+    "branch": "wb-v1.5_dipy-v1.4.1_app-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "thalamic_nuclei",
+        "hippocampal"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory (FreeSurfer 7) containing the thalamic nuclei and hippocampal/amygdala segmentation files in mri/.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image that defines the output space and voxel grid.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Must be in the same space as the FreeSurfer input (resampled with --regheader)."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "hippamyg_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "hippamyg"
+      ],
+      "description": "Hippocampal subfield and amygdala nuclei parcellation (parc.nii.gz) on the T1 grid with label.json."
+    },
+    {
+      "id": "thal_parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "thalamic_nuclei"
+      ],
+      "description": "Thalamic nuclei parcellation (parc.nii.gz) on the T1 grid with label.json."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "enum",
+      "description": "Which FreeSurfer segmentation to convert: thal (thalamic nuclei), hippamyg (hippocampal subfields and amygdala nuclei) or both. Fixed for this App.",
+      "default": "both",
+      "options": [
+        {
+          "value": "thal",
+          "label": "thal",
+          "description": "thal"
+        },
+        {
+          "value": "hippamyg",
+          "label": "hippamyg",
+          "description": "hippamyg"
+        },
+        {
+          "value": "both",
+          "label": "both",
+          "description": "both"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "subdivision",
+      "type": "enum",
+      "description": "Which hippocampal/amygdala segmentation level to use (FreeSurfer hippoAmygLabels files): default (full detail), CA, FS60 or HBT. Ignored for thalamic nuclei.",
+      "default": "default",
+      "options": [
+        {
+          "value": "CA",
+          "label": "CA",
+          "description": "CA"
+        },
+        {
+          "value": "FS60",
+          "label": "FS60",
+          "description": "FS60"
+        },
+        {
+          "value": "HBT",
+          "label": "HBT",
+          "description": "HBT"
+        },
+        {
+          "value": "default",
+          "label": "default",
+          "description": "default"
+        }
+      ],
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.734",
+  "category": "parcellation",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.1",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "nibabel"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

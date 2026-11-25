@@ -1,0 +1,104 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate brain extracted image with SynthStrip (DWI)",
+  "version": "dwi-7.3.2",
+  "summary": "Brain-extracts a DWI by running FreeSurfer 7.3.2 SynthStrip on its mean b0 volume and applying the resulting brain mask to every volume, and outputs the masked DWI and the mask.",
+  "description": "Averages the b=0 volumes with FSL select_dwi_vols, computes a brain mask from that b0 image with mri_synthstrip, and applies the mask to the full DWI with mri_mask; bvals and bvecs are carried over. Use it when you need a skull-stripped DWI or a DWI-space brain mask. Needs a DWI with bvals that include b=0 volumes.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "preprocessing",
+    "freesurfer",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63daae58c538c16a820a77f4",
+    "github": "brainlife/app-synthstrip",
+    "branch": "dwi-7.3.2"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvecs and bvals.",
+      "config_keys": [
+        "input",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ],
+      "requirements": "Must contain at least one b=0 volume; the mean b0 is used to compute the mask."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_t1",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The input DWI with non-brain voxels zeroed, with its bvecs and bvals.",
+      "datatype_tags_pass": "input"
+    },
+    {
+      "id": "output_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "dwi",
+        "anat"
+      ],
+      "description": "Binary brain mask (mask.nii.gz) in DWI space.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "border",
+      "type": "number",
+      "description": "mask border threshold in mm",
+      "default": 1,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 20,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.725",
+  "software": [
+    {
+      "name": "FreeSurfer SynthStrip (mri_synthstrip)",
+      "version": "7.3.2",
+      "url": "https://surfer.nmr.mgh.harvard.edu/docs/synthstrip/"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs",
+      "cause": "The brain-extracted image or mask was not produced.",
+      "fix": "Check the job log for the mri_synthstrip error."
+    }
+  ]
+}

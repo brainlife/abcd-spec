@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mark bad data",
+  "version": "v1.0",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65d57e8ceab7bb5c3c9fcd92",
+    "github": "BrainlifeMEEG/mark-bad-epo",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "epo",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "bads_marked"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "epo"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Comma-separated channels to reject (e.g. \"MEG2422,MEG2321\").",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "annotations",
+      "type": "string",
+      "description": "A multiline text describing segments to discard, following a format compatible with mne.Annotations: \"start, duration, description[, channels]\"",
+      "default": "",
+      "required": false,
+      "multiline": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.2.1",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.815"
+}

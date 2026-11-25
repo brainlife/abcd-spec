@@ -1,0 +1,160 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "QSM Data Generator",
+  "version": "main",
+  "summary": "Generates a ground truth susceptibility map (neuro/qsm) and simulates magnitude and phase images (neuro/magphase) to be used in QSM pipelines. The magphase images are compatible with QSM processing pipelines such as QSMxT.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65dc275e1f6c7e7fa05bc366",
+    "github": "astewartau/qsm-forward-brainlife",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [
+    {
+      "id": "t2starw-mag",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-mag"
+      ],
+      "description": "T2*-weighted magnitude images."
+    },
+    {
+      "id": "t2starw-phase",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-phase"
+      ],
+      "description": "T2*-weighted phase images."
+    },
+    {
+      "id": "chimap",
+      "datatype": "neuro/qsm",
+      "datatype_tags": [
+        "ground-truth"
+      ],
+      "description": "Ground truth susceptibility map (Chi or \u03c7)."
+    },
+    {
+      "id": "segmentation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Segmentation of anatomical ROIs."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Mask of the internal ROI."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "subject",
+      "type": "string",
+      "description": "Subject identifier",
+      "default": "1"
+    },
+    {
+      "id": "resolution-0",
+      "type": "number",
+      "description": "unknown",
+      "default": 100,
+      "minimum": 1
+    },
+    {
+      "id": "resolution-1",
+      "type": "number",
+      "description": "unknown",
+      "default": 100,
+      "minimum": 1
+    },
+    {
+      "id": "resolution-2",
+      "type": "number",
+      "description": "unknown",
+      "default": 100,
+      "minimum": 1
+    },
+    {
+      "id": "TR",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.05,
+      "minimum": 0
+    },
+    {
+      "id": "TE",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.004,
+      "minimum": 0
+    },
+    {
+      "id": "flip-angle",
+      "type": "number",
+      "description": "unknown",
+      "default": 15
+    },
+    {
+      "id": "B0",
+      "type": "number",
+      "description": "unknown",
+      "default": 7,
+      "minimum": 0
+    },
+    {
+      "id": "B0-dir-0",
+      "type": "number",
+      "description": "unknown",
+      "default": 0
+    },
+    {
+      "id": "B0-dir-1",
+      "type": "number",
+      "description": "unknown",
+      "default": 0
+    },
+    {
+      "id": "B0-dir-2",
+      "type": "number",
+      "description": "unknown",
+      "default": 1
+    },
+    {
+      "id": "voxel-size-0",
+      "type": "number",
+      "description": "unknown",
+      "default": 1
+    },
+    {
+      "id": "voxel-size-1",
+      "type": "number",
+      "description": "unknown",
+      "default": 1
+    },
+    {
+      "id": "voxel-size-2",
+      "type": "number",
+      "description": "unknown",
+      "default": 1
+    },
+    {
+      "id": "peak-snr",
+      "type": "number",
+      "description": "unknown",
+      "required": false,
+      "placeholder": "inf"
+    }
+  ],
+  "runtime": {
+    "container": "python:3.8-bookworm",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.820"
+}

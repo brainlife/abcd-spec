@@ -1,0 +1,81 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Time series to network",
+  "version": "0.2",
+  "summary": "Calculates a similarity matrix (such as correlation, covariance, etc) from time series and convert it to a network datatype (JGFZ) so it can be used in the network pipeline.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "60b961b10ad40d58e1ca7fe7",
+    "github": "filipinascimento/bl-timeseries2network",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "timeseries",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input time series used to construct the connectivity matrices.",
+      "config_keys": [
+        "tsv",
+        "json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "description": "Network generated from the connectivity matrix",
+      "datatype_tags_pass": "timeseries"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "Measure of similarity used to create the connectivity matrix.\n\n[1] G. Varoquaux et al. \u201cDetection of brain functional-connectivity difference in post-stroke patients using group-level covariance modeling, MICCAI 2010.",
+      "default": "correlation",
+      "options": [
+        {
+          "value": "correlation",
+          "label": "Correlation",
+          "description": "Use Pearson correlation"
+        },
+        {
+          "value": "covariance",
+          "label": "Covariance",
+          "description": "Use covariance similarity"
+        },
+        {
+          "value": "partial correlation",
+          "label": "Partial correlation",
+          "description": "Use partial correlation"
+        },
+        {
+          "value": "tangent",
+          "label": "Tangent space covariance",
+          "description": "Use tangent space covariance [1]"
+        },
+        {
+          "value": "precision",
+          "label": "Precision",
+          "description": "Use precision-based approach"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.3",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.532"
+}

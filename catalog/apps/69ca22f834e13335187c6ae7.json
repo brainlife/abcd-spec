@@ -1,0 +1,189 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Profile Computation",
+  "version": "main",
+  "summary": "A tool that computes and visualizes diffusion metric profiles along white matter tracts with flexible modeling, weighting, and plotting options.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69ca22f834e13335187c6ae7",
+    "github": "gamorosino/app-compute-tract-profile",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tck"
+      ]
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "cl",
+        "cp",
+        "cs",
+        "tensors",
+        "kurtosis",
+        "ga",
+        "mk",
+        "ak",
+        "rk",
+        "rgb"
+      ]
+    },
+    {
+      "id": "reference",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "figures",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "n_points",
+      "type": "number",
+      "description": "unknown",
+      "default": 100
+    },
+    {
+      "id": "centroid_method",
+      "type": "enum",
+      "description": "unknown",
+      "default": "skeleton",
+      "options": [
+        {
+          "value": "none",
+          "label": "none"
+        },
+        {
+          "value": "centroid-qb",
+          "label": "centroid-qb"
+        },
+        {
+          "value": "medoid-qb",
+          "label": "medoid-qb"
+        },
+        {
+          "value": "skeleton",
+          "label": "skeleton"
+        },
+        {
+          "value": "nn_skeleton",
+          "label": "nn_skeleton"
+        }
+      ]
+    },
+    {
+      "id": "weight_node_by_centroid",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    },
+    {
+      "id": "dispersion_metric",
+      "type": "enum",
+      "description": "unknown",
+      "default": "mad",
+      "options": [
+        {
+          "value": "std",
+          "label": "std"
+        },
+        {
+          "value": "cv",
+          "label": "cv"
+        },
+        {
+          "value": "var",
+          "label": "var"
+        },
+        {
+          "value": "mad",
+          "label": "mad"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "color_map",
+      "type": "string",
+      "description": "unknown",
+      "default": "jet",
+      "required": false
+    },
+    {
+      "id": "perc",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.95,
+      "minimum": 0,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "smooth_density",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    },
+    {
+      "id": "length_thr",
+      "type": "number",
+      "description": "unknown",
+      "default": 0.25,
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "id": "no_legend",
+      "type": "boolean",
+      "description": "unknown",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.911"
+}

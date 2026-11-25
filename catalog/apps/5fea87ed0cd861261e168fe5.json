@@ -1,0 +1,66 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Parcellation Statistics - Surface - Deprecated Datatype",
+  "version": "parc-stats-surface-v1.0",
+  "summary": "This app will convert important parcellation statistics, including volume of each individual ROI given in a parcellation. These can be used for group analyses. This app should be used whenever possible to compute parcellation statistics (uses freesurfer's mri_annotation_stats).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5fea87ed0cd861261e168fe5",
+    "github": "brainlife/app-freesurfer-stats",
+    "branch": "parc-stats-surface-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "surface"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "parcellation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29,
+      "walltime_hours": 2.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.464",
+  "deprecated_by": "603b047b78e65dec6fd1b5dc"
+}

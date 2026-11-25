@@ -1,0 +1,196 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Particle Filtering Tractography (PFT)",
+  "version": "main",
+  "summary": "Brainlife.io app for Particle Filtering Tractography (PFT) (Girard et al., 2014) using scilpy inside scilus:1.6.0",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ac56c3bc004e522d21a9946",
+    "github": "gamorosino/app-particle-filtering-tractography",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "fodf",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "fodf"
+      ]
+    },
+    {
+      "id": "mask_5tt",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask_5tt"
+      ]
+    },
+    {
+      "id": "seed_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "seed_mask"
+      ],
+      "advanced": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "description": "Whole-brain tractogram produced by Particle Filtering Tractography."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "algo",
+      "type": "string",
+      "description": "Tracking algorithm: 'prob' (probabilistic) or 'det' (deterministic).",
+      "default": "prob",
+      "placeholder": "prob"
+    },
+    {
+      "id": "seeding_type",
+      "type": "string",
+      "description": "Seeding strategy: 'npv' (seeds per voxel) or 'nt' (total seeds).",
+      "default": "npv",
+      "advanced": true,
+      "placeholder": "npv"
+    },
+    {
+      "id": "nbr_seeds",
+      "type": "number",
+      "description": "Number of seeds (per voxel when seeding_type=npv, total when seeding_type=nt).",
+      "default": 10,
+      "placeholder": "10"
+    },
+    {
+      "id": "step",
+      "type": "number",
+      "description": "Step size in mm.",
+      "default": 0.5,
+      "advanced": true,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "theta",
+      "type": "number",
+      "description": "Maximum angle between consecutive steps (degrees).",
+      "default": 20,
+      "advanced": true,
+      "placeholder": "20"
+    },
+    {
+      "id": "sfthres",
+      "type": "number",
+      "description": "Spherical function threshold for tractography.",
+      "default": 0.1,
+      "advanced": true,
+      "placeholder": "0.1"
+    },
+    {
+      "id": "sfthres_init",
+      "type": "number",
+      "description": "Spherical function threshold for seeding initialization.",
+      "default": 0.5,
+      "advanced": true,
+      "placeholder": "0.5"
+    },
+    {
+      "id": "min_length",
+      "type": "number",
+      "description": "Minimum streamline length in mm.",
+      "default": 20,
+      "advanced": true,
+      "placeholder": "20"
+    },
+    {
+      "id": "max_length",
+      "type": "number",
+      "description": "Maximum streamline length in mm.",
+      "default": 200,
+      "advanced": true,
+      "placeholder": "200"
+    },
+    {
+      "id": "particles",
+      "type": "number",
+      "description": "Number of PFT particles for back-tracking.",
+      "default": 15,
+      "advanced": true,
+      "placeholder": "15"
+    },
+    {
+      "id": "back_tracking",
+      "type": "number",
+      "description": "Back-tracking steps when a streamline enters an excluded region.",
+      "default": 2,
+      "advanced": true,
+      "placeholder": "2"
+    },
+    {
+      "id": "forward_tracking",
+      "type": "number",
+      "description": "Forward-tracking steps after PFT back-tracking.",
+      "default": 1,
+      "advanced": true,
+      "placeholder": "1"
+    },
+    {
+      "id": "compress",
+      "type": "boolean",
+      "description": "Compress output streamlines to reduce file size.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "compress_value",
+      "type": "number",
+      "description": "Maximum compression error in mm (used when compress=true).",
+      "default": 0.2,
+      "advanced": true,
+      "placeholder": "0.2"
+    },
+    {
+      "id": "random_seed",
+      "type": "number",
+      "description": "Random seed for reproducibility.",
+      "default": 0,
+      "advanced": true,
+      "placeholder": "0"
+    },
+    {
+      "id": "sh_basis",
+      "type": "string",
+      "description": "Spherical harmonics basis: 'descoteaux07' or 'tournier07'.",
+      "default": "descoteaux07",
+      "advanced": true,
+      "placeholder": "descoteaux07"
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/pft-dipy:1.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.984"
+}

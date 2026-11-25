@@ -1,0 +1,115 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment tractogram into fiber categories",
+  "version": "2.0",
+  "summary": "Segments a whole-brain tractogram into streamline categories (for example fronto-parietal or parieto-temporal) by endpoint location in the FreeSurfer Destrieux parcellation with MATLAB wma_tools; useful as a tractography quality check.",
+  "description": "Converts the FreeSurfer aparc.a2009s+aseg parcellation to NIfTI, inflates grey matter labels into white matter, and labels every streamline by the cortical/subcortical categories its endpoints reach (bsc_streamlineCategoryPriors_v6). Recommended as an initial quality assurance check of a tractogram or a sanity check on problematic segmentations. Tractogram and FreeSurfer output must be of the same subject and space.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "freesurfer",
+    "quality-control",
+    "tract-segmentation",
+    "vistasoft",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5dc9d8ee5017f0bde0519db5",
+    "github": "brainlife/app-streamlineCategorySegmentation",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole brain tractography",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory; aparc.a2009s+aseg (Destrieux) is used to label streamline endpoints.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "categories"
+      ],
+      "description": "White matter classification with one category per endpoint-region pair and tract JSON files.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inflateITer",
+      "type": "number",
+      "description": "How many iterations of inflation should be run to inflate grey matter into white matter. 2 recommended.",
+      "default": 2,
+      "minimum": 0,
+      "placeholder": "2"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer_on_mcr:6.0.2",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 58,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.249",
+  "software": [
+    {
+      "name": "wma_tools",
+      "url": "https://github.com/DanNBullock/wma_tools"
+    },
+    {
+      "name": "vistasoft",
+      "url": "https://github.com/vistalab/vistasoft"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.2"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "doi": "10.1016/j.neuroimage.2010.06.010",
+      "text": "Destrieux C, Fischl B, Dale A, Halgren E. Automatic parcellation of human cortical gyri and sulci using standard anatomical nomenclature. NeuroImage 53(1):1-15 (2010)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license available in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable (provided automatically on brainlife.io)."
+    },
+    {
+      "message": "output missing",
+      "cause": "The segmentation did not write classification/classification.mat.",
+      "fix": "Check the logs; make sure tractogram and FreeSurfer output are in the same space."
+    }
+  ]
+}

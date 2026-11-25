@@ -1,0 +1,93 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Warp density-probability from subject space to MNI space - copy",
+  "version": "master",
+  "summary": "Warps subject-space NIfTI maps (density/probability images) to MNI space (ICBM152 2009c) using an ANTs SyN registration of the subject's T1-weighted image.",
+  "description": "Registers the subject T1 to the MNI ICBM152 2009c nonlinear asymmetric template with ANTs (rigid, affine and SyN), then applies the warp to every .nii.gz file in the input directory with antsApplyTransforms. The T1 should not be skull-stripped because the template includes the skull. The brain mask input is not used by the script. This is a copy of the ROI-warping App registered for the SNR_and_dMRI_stats datatype; the script still treats the input as a directory of NIfTI files.",
+  "kind": "native",
+  "topics": [
+    "registration",
+    "ants",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61158b45a5a04c9673f9d510",
+    "github": "brainlife/app-subj2reference",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!brain_extracted"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Subject T1-weighted image, not skull-stripped.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Must be in the same space as the maps."
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Brain mask of the subject (required by the registry but not read by the script).",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/SNR_and_dMRI_stats",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of subject-space NIfTI maps to warp.",
+      "config_keys": [
+        "rois"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/SNR_and_dMRI_stats",
+      "datatype_tags": [],
+      "description": "The input maps warped to MNI space, written by the script to output/rois/.",
+      "datatype_tags_pass": "rois"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/ants:2.2.0.1",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 18
+    }
+  },
+  "doi": "10.25663/brainlife.app.558",
+  "category": "registration",
+  "software": [
+    {
+      "name": "ANTs",
+      "version": "2.2.0.1",
+      "url": "https://github.com/ANTsX/ANTs"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "maintainers": [
+    "Daniel Bullock"
+  ]
+}

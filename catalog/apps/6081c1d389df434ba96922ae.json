@@ -1,0 +1,89 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Align mp2rage volumes to T1 using FSL Flirt",
+  "version": "uni-included-v1.0",
+  "summary": "Aligns MP2RAGE volumes (UNI, inversion magnitudes and phases) to a T1-weighted image with FSL FLIRT, using a transform estimated from the UNI image, and outputs the aligned MP2RAGE.",
+  "description": "Optionally crops the MP2RAGE volumes with robustfov (field of view from UNI), skull-strips the reference T1 with bet, estimates a FLIRT transform from the UNI image to the T1 brain, and applies it to every other MP2RAGE volume. Use it to bring MP2RAGE data into the same space as an ACPC-aligned T1w for further analysis. Needs MP2RAGE data that includes the UNI image and an ACPC-aligned T1w of the same subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6081c1d389df434ba96922ae",
+    "github": "brainlife/app-align-mp2rage-to-t1",
+    "branch": "uni-included-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "reference t1 to align mp2rage data to",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "mp2rage",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "mp2rage data to align",
+      "config_keys": [
+        "mag_inv1",
+        "phase_inv1",
+        "mag_inv2",
+        "phase_inv2",
+        "unit1",
+        "mag_inv1_json",
+        "phase_inv1_json",
+        "mag_inv2_json",
+        "phase_inv2_json",
+        "unit1_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/mp2rage",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "description": "MP2RAGE volumes resampled into the reference T1 space.",
+      "datatype_tags_pass": "mp2rage"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "crop",
+      "type": "boolean",
+      "description": "If true, will crop using fsl robustfov. if false, will not. default == true",
+      "default": true,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 12,
+      "walltime_hours": 0.75
+    }
+  },
+  "doi": "10.25663/brainlife.app.509",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "5.0.11"
+    }
+  ]
+}

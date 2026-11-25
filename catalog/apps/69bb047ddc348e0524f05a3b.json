@@ -1,0 +1,104 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "T1-w Template Construction",
+  "version": "main",
+  "summary": "This application builds a group-wise anatomical template from a set of MRI volumes using ANTs.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69bb047ddc348e0524f05a3b",
+    "github": "gamorosino/app-mri-template-construction",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "images",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "images"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "template"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "iterations",
+      "type": "number",
+      "description": "unknown",
+      "default": 2
+    },
+    {
+      "id": "metric",
+      "type": "enum",
+      "description": "unknown",
+      "default": "CC",
+      "options": [
+        {
+          "value": "CC",
+          "label": "CC",
+          "description": "Cross-Correlation"
+        },
+        {
+          "value": "MI",
+          "label": "MI",
+          "description": "Mutual Information"
+        },
+        {
+          "value": "MSQ",
+          "label": "MSQ",
+          "description": "Mean Square Difference"
+        },
+        {
+          "value": "DEMONS",
+          "label": "DEMONS",
+          "description": "Demon's metric"
+        }
+      ]
+    },
+    {
+      "id": "transform",
+      "type": "enum",
+      "description": "unknown",
+      "default": "SyN",
+      "options": [
+        {
+          "value": "SyN",
+          "label": "SyN",
+          "description": "Non-linear (Symmetric Diffeomorphic)"
+        },
+        {
+          "value": "Rigid",
+          "label": "Rigid",
+          "description": "Rigid Registration"
+        },
+        {
+          "value": "Affine",
+          "label": "Affine",
+          "description": "Affine Registration"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "antsx/ants:latest",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1.98
+    }
+  },
+  "doi": "10.25663/brainlife.app.908"
+}

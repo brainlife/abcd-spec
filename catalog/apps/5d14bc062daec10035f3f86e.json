@@ -1,0 +1,126 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "multi-LAP",
+  "version": "3.1",
+  "summary": "White matter bundle segmentation as multiple Linear Assignment Problems (multi-LAP).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5d14bc062daec10035f3f86e",
+    "github": "giulia-berto/app-multi-lap",
+    "branch": "3.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentations of moving (examples) subjects (they should be extracted from the tractogram provided)",
+      "config_keys": [
+        "segmentations",
+        "tracts"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms of moving (example) subjects",
+      "config_keys": [
+        "tractograms_moving"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Ts1 of moving (example) subjects",
+      "config_keys": [
+        "t1s_moving"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "multi-LAP"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "2"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "k",
+      "type": "number",
+      "description": "value for k-NN to compute the superset",
+      "default": 2000
+    },
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "step size for resampling",
+      "default": 0.625
+    },
+    {
+      "id": "slr",
+      "type": "boolean",
+      "description": "If false, assuming subjects already co-registered in the same space",
+      "default": true
+    },
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas",
+      "default": "",
+      "placeholder": "allowed values: 1-20 (if AFQ examples provided), 1-78 (if WMA examples provided)"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 31,
+      "walltime_hours": 10
+    }
+  },
+  "doi": "10.25663/brainlife.app.209"
+}

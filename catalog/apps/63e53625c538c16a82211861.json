@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FSL Brain Extraction (BET) on FLAIR",
+  "version": "2.0",
+  "summary": "Removes non-brain tissue from a FLAIR image with FSL BET (robust centre estimation) and outputs the skull-stripped image and its binary brain mask.",
+  "description": "Runs FSL bet with -R -m on the FLAIR image using the chosen fractional intensity threshold. Use it before registration or analyses that need a skull-stripped FLAIR image. The output keeps all other files of the input datatype and replaces the image with the masked one. Inspect the mask: if too much or too little brain is removed, adjust fthreshold.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing",
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63e53625c538c16a82211861",
+    "github": "brainlife/app-FSLBET",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/anat/flair",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FLAIR image to skull-strip (NIfTI).",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out",
+      "datatype": "neuro/anat/flair",
+      "datatype_tags": [
+        "brain_extracted"
+      ],
+      "description": "The input FLAIR datatype with its image replaced by the BET brain-extracted image.",
+      "datatype_tags_pass": "0"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "anat",
+        "flair"
+      ],
+      "description": "Binary brain mask (mask.nii.gz) produced by BET from the FLAIR image.",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fthreshold",
+      "type": "number",
+      "description": "fractional intensity threshold (0->1); default=0.5; smaller values give larger brain outline estimates",
+      "default": 0.5
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.1",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.728",
+  "software": [
+    {
+      "name": "FSL",
+      "version": "6.0.1",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ]
+}

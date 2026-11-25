@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit DTI",
+  "version": "1.1.1",
+  "summary": "Tensor reconstruction and compute DTI metrics using weighted least-squares (dipy_fit_dti)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5b1efb6673279e0028adfc01",
+    "github": "dipy/bl_apps_dipy_fit_dti",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bvals",
+        "bvecs",
+        "dwi"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [
+        "dti"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "b0_threshold",
+      "type": "number",
+      "description": "Threshold used to find b=0 directions",
+      "default": 50,
+      "placeholder": "0.0"
+    },
+    {
+      "id": "bvecs_tol",
+      "type": "number",
+      "description": "Threshold used to check that norm(bvec) = 1 +/- bvecs_tolb-vectors are unit vectors",
+      "default": 0.01,
+      "placeholder": "0.01"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.60"
+}

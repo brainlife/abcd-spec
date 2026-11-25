@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Clairvoy",
+  "version": "main",
+  "summary": "Predicts the risk of persisting post-concussion symptoms (PPCS) from mean FA tract profiles with a pretrained logistic regression classifier and reports low or high risk.",
+  "description": "Takes the FA tract profiles, keeps the tracts listed in significant_tracts.txt, averages each profile, and applies a pretrained logistic regression model; the result (low or high risk of PPCS) is shown as a message on brainlife.io and no data are written. The model was trained for concussion data; results on other populations are not meaningful.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dwi",
+    "machine-learning"
+  ],
+  "registry": {
+    "id": "64d62738e4d2e9108d7ab094",
+    "github": "brainlife/app-predict-ppcs",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "profiles"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Tract Profiles",
+      "config_keys": [
+        "profiles"
+      ],
+      "requirements": "Must include FA profiles for the tracts the classifier was trained on."
+    }
+  ],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 4,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.793",
+  "software": [
+    {
+      "name": "scikit-learn"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Hayashi S, Caron BA, et al. brainlife.io: A decentralized and open source cloud platform to support neuroscience research. Nature Methods, in press."
+    }
+  ]
+}

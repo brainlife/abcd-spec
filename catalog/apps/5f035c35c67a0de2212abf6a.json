@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractogram Filtering",
+  "version": "brainlife-app",
+  "summary": "Filtering out of artifactual streamlines from a tractogram with a geometric deep learning model",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f035c35c67a0de2212abf6a",
+    "github": "FBK-NILab/tractogram_filtering",
+    "branch": "brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "1",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input tractogram in trk format.",
+      "config_keys": [
+        "trk"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "T1w in dwi space. This argument is not required if tractogram is already in the MNI space.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "FA image of the subject. This argument is not required if tractogram is already in the MNI space.",
+      "config_keys": [
+        "fa"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [
+        "clean"
+      ],
+      "description": "A tractogram where artifactual streamlines has been filtered out. The output is in .trk format.",
+      "datatype_tags_pass": "1"
+    },
+    {
+      "id": "output/plausible_idxs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "plausible_streamlines_indexes"
+      ],
+      "description": "Txt file containing the indexes of anatomically plausible streamline with respect to the input tractogram."
+    },
+    {
+      "id": "output/non_plausible_idxs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "non_plausible_streamlines_indexes"
+      ],
+      "description": "Txt file containing the indexes of anatomically non-plausible streamline with respect to the input tractogram."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fast_warp",
+      "type": "boolean",
+      "description": "This parameter determine the speed of the non linear registration to standard MNI. When set to true it triggers a fast (few mins) but decent non-linear warp computation (search antsRegistrationSynQuick.sh for details). When set to false it triggers a slower (~30mins) but refined non linear registration.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "pietroastolfi/tractogram-filtering:gpu",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.390"
+}

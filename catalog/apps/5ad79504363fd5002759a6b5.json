@@ -1,0 +1,89 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DSC evaluation (wmc - wmc)",
+  "version": "1.0",
+  "summary": "Compute the degree of overlap between two bundle masks using the Dice Similarity Coefficient (DSC) score.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "postprocessing"
+  ],
+  "registry": {
+    "id": "5ad79504363fd5002759a6b5",
+    "github": "giulia-berto/app-compute-dsc",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram associated with the white matter classification (WMC) structure",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Estimated bundles in form of white matter classification (WMC) structure",
+      "config_keys": [
+        "seg_est"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Ground truth bundles in form of white matter classification (WMC) structure",
+      "config_keys": [
+        "seg_true"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 image",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "CSV containing the following scalars: DSC, wDSC, Jaccard, sensitivity, TP, FP, FN",
+      "datatype_tags_pass": "1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/bl.app.57"
+}

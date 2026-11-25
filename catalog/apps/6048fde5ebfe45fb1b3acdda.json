@@ -1,0 +1,48 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Edge time series",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6048fde5ebfe45fb1b3acdda",
+    "github": "FarnazZE/bnbl-brainlife-create-edge-time-series",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "ts",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tsv",
+        "json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/timeseries",
+      "datatype_tags": [
+        "time series"
+      ],
+      "description": "edge time series"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.489"
+}

@@ -1,0 +1,86 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of tissue type masks",
+  "version": "5tt-v1.0.0",
+  "summary": "Generates PNGs of gray matter, white matter, CSF and GM/WM interface masks from an MRtrix3 five-tissue-type image, optionally outlined on a T1, for QA of tissue segmentation.",
+  "description": "Splits the 5TT image into GM, WM and CSF volumes with mrconvert, binarizes them with fslmaths, derives the GM/WM interface with 5ttgen's 5tt2gmwmi, and renders each with FSL slicer (outlined on the T1 when one is given). Use it to check a 5TT segmentation before anatomically constrained tractography.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "segmentation",
+    "mrtrix3",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e9272ed3f18bacda81d973e",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "5tt-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the mask datatype containing the 5 tissue probability image from Tissue-type segmentation",
+      "config_keys": [
+        "input"
+      ],
+      "requirements": "MRtrix3 5TT format: volume 0 GM, 2 WM, 3 CSF."
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "If you include a T1, the output pngs will include an outline of the different tissue type masks overlaid on the T1 image",
+      "config_keys": [
+        "anat"
+      ],
+      "requirements": "Must be on the same voxel grid as the 5TT image."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "qa_image",
+        "tissue_types"
+      ],
+      "description": "Directory with gm.png, wm.png, csf.png and gmwmi.png."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.312",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

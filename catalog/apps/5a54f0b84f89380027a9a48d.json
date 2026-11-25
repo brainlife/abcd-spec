@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Plot Eigenfunctions",
+  "version": "1.0",
+  "summary": "App to plot the eigenfunctions of the Laplace Beltrami Spectrum.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5a54f0b84f89380027a9a48d",
+    "github": "kitchell/app-plotEigenfunctions",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "raw",
+      "datatype_tags": [
+        "eigenvectors"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": []
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": []
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "eigenvector_number",
+      "type": "number",
+      "description": "unknown",
+      "default": "",
+      "placeholder": "choose an eigenvector number "
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/bl.app.55"
+}

@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PET Deface",
+  "version": "main",
+  "summary": "Used to deface PET BIDS datasets. This is a Nipype pipeline using Freesurfer's MiDeface to co-register and deface PET imaging and T1w anatomical data. \n\nDocumentation for this project can be found at: \n\nhttps://petdeface.readthedocs.io/en/latest/",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6717eddd168d1cbcfbd09901",
+    "github": "openneuropet/app-petdeface",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "pet_data",
+      "datatype": "neuro/pet",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "pet_nii",
+        "blood_tsv",
+        "pet_json",
+        "blood_json"
+      ]
+    },
+    {
+      "id": "t1_image",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "defaced_pet",
+      "datatype": "neuro/pet",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "defaced_t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "input_dir",
+      "type": "string",
+      "description": "PET BIDS Input Directory, must contain both PET and T1w images for each subject.",
+      "default": ".",
+      "required": true,
+      "placeholder": "."
+    },
+    {
+      "id": "output_dir",
+      "type": "string",
+      "description": "Defaults to using the derivatives folder in the input directory as a working dir. If used with the \"placement\" argument",
+      "default": "./derivatives",
+      "required": false,
+      "placeholder": "./derivatives/petdeface"
+    },
+    {
+      "id": "n_procs",
+      "type": "number",
+      "description": "Number of processors/threads to use in the defacing pipeline.",
+      "default": 2,
+      "required": false,
+      "placeholder": "2"
+    },
+    {
+      "id": "skip_bids_validator",
+      "type": "string",
+      "description": "Pipeline will normally fail if dataset is not BIDS valid, setting this to true can help \"push\" through an almost compliant BIDS dataset.",
+      "default": "false",
+      "required": false,
+      "placeholder": "false"
+    },
+    {
+      "id": "participant_label",
+      "type": "string",
+      "description": "List of subject ID's to selectively deface.",
+      "default": "[]",
+      "required": false,
+      "placeholder": "[]"
+    }
+  ],
+  "runtime": {
+    "container": "openneuropet/petdeface:latest"
+  },
+  "doi": "10.25663/brainlife.app.833"
+}

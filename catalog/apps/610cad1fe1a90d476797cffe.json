@@ -1,0 +1,139 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment Wholebrain Tractogram with ROIs",
+  "version": "wholebrain-v1.0",
+  "summary": "Segments a whole-brain tractogram by including or excluding streamlines that reach selected ROIs, using MRtrix3 tckedit, and outputs the new tractogram and classification.",
+  "description": "For each line of roiNames, filters the whole-brain tractogram with tckedit -include or -exclude for the listed ROIs (endpoints only or anywhere along the streamline, optionally inverted), then merges the resulting tracts into one tractogram and a classification with one tract per line. ROIs must be in the same space as the tractogram.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "610cad1fe1a90d476797cffe",
+    "github": "brainlife/app-intersect-tract-roi",
+    "branch": "wholebrain-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the track/tck datatype",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the rois datatype",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image used only as the reference anatomy for saving the classification.",
+      "config_keys": [
+        "reference_anatomy",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "Tractogram (.tck) concatenating the ROI-filtered tracts.",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "The classification structure including a classification.mat structure that contains the streamline indices in the whole-brain tractogram."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "Intermediate .tck files and track name lists."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roiNames",
+      "type": "string",
+      "description": "names of the rois to intersect. multiple rois can be used at one time to generate a single track, and multiple tracks can be generated at one time. groupings of rois go on a single line, multiple tracks goes on multiple lines. roi names come directly from input roi datatype, and text should match the text inbetween the .nii.gz and ROI extensions and prefixes.\n\nexample:\nfreesurfer-11121 freesurfer-11161\nfreesurfer-parietal_L freesurfer-11121\nfreesurfer_occipital_R",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "intersect_type",
+      "type": "string",
+      "description": "two types:\n1) \"include\": include streamlines that have endpoints in rois\n2) \"exclude\": include all other streamlines except those that end in rois\n\none type per track. for example, for three tracks:\n\ninclude\nexclude\ninclude",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "If you want the inverse of the operation (i.e. all streamlines that don't end in a roi), set this to true. default = false",
+      "default": false
+    },
+    {
+      "id": "endpoints_only",
+      "type": "boolean",
+      "description": "If you want to only segment based on endpoints, set this to true. else, set to false. default = true",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0_RC3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.556",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Tournier J-D, Smith RE, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    }
+  ]
+}

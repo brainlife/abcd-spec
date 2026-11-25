@@ -1,0 +1,21 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-filter",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "62c7fc68f3194eded6ff06aa",
+    "github": "zahransa/app-filter",
+    "branch": "main"
+  },
+  "inputs": [],
+  "outputs": [],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.661"
+}

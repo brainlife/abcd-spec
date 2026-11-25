@@ -1,0 +1,46 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Shape Signature",
+  "version": "1.0",
+  "summary": "This App takes tract masks and convert them to series of numerical values that chracaterizes each masks.  The numerical values are generated from the flattened output of 3D convolutional layers of the model trained to classify tract names. Output values could be used as a \"shape signature\" and compared against other similar shaped tracts.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5c37b38f836af601cc8587af",
+    "github": "soichih/app-shapesignature",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "masks",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "shape_signature"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/tensorflow:1.12.0",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.141"
+}

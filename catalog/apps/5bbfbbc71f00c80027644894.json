@@ -1,0 +1,231 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "RecoBundles",
+  "version": "1.1.1",
+  "summary": "RecoBundles  - Automatic extraction of brain pathways",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy",
+    "segmentation"
+  ],
+  "registry": {
+    "id": "5bbfbbc71f00c80027644894",
+    "github": "dipy/bl_apps_dipy_recobundles",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "streamline_files"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "wm_tracts",
+        "tracts_labels"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "greater_than",
+      "type": "number",
+      "description": "Keep streamlines that have a length greater than this value.",
+      "default": 50
+    },
+    {
+      "id": "less_than",
+      "type": "number",
+      "description": "Keep streamlines have a length lesser than this value.",
+      "default": 1000000
+    },
+    {
+      "id": "no_slr",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    },
+    {
+      "id": "clust_thr",
+      "type": "number",
+      "description": "MDF distance threshold for all streamlines.",
+      "default": 15
+    },
+    {
+      "id": "reduction_thr",
+      "type": "number",
+      "description": "Reduce search space by (mm).",
+      "default": 15
+    },
+    {
+      "id": "reduction_distance",
+      "type": "enum",
+      "description": "Reduction distance type.",
+      "default": "mdf",
+      "options": [
+        {
+          "value": "mam",
+          "label": "Maximum Average Minimum Distance"
+        },
+        {
+          "value": "mdf",
+          "label": "Minimum Average Direct-Flip Distance"
+        }
+      ]
+    },
+    {
+      "id": "model_clust_thr",
+      "type": "number",
+      "description": "MDF distance threshold for the model bundles.",
+      "default": 2.5
+    },
+    {
+      "id": "pruning_thr",
+      "type": "number",
+      "description": "Pruning after matching.",
+      "default": 8
+    },
+    {
+      "id": "pruning_distance",
+      "type": "enum",
+      "description": "Pruning distance type.",
+      "default": "mdf",
+      "options": [
+        {
+          "value": "mam",
+          "label": "Maximum Average Minimum Distance"
+        },
+        {
+          "value": "mdf",
+          "label": "Minimum Average Direct-Flip Distance"
+        }
+      ]
+    },
+    {
+      "id": "slr_metric",
+      "type": "enum",
+      "description": "unknown",
+      "default": "symmetric",
+      "options": [
+        {
+          "value": "asymmetric",
+          "label": "Asymmetric"
+        },
+        {
+          "value": "diagonal",
+          "label": "Diagonal"
+        },
+        {
+          "value": "symmetric",
+          "label": "Symmetric"
+        }
+      ]
+    },
+    {
+      "id": "slr_transform",
+      "type": "enum",
+      "description": "unknown",
+      "default": "similarity",
+      "options": [
+        {
+          "value": "rigid",
+          "label": "Rigid"
+        },
+        {
+          "value": "scaling",
+          "label": "Scaling"
+        },
+        {
+          "value": "similarity",
+          "label": "Similarity"
+        },
+        {
+          "value": "translation",
+          "label": "Translation"
+        }
+      ]
+    },
+    {
+      "id": "slr_matrix",
+      "type": "enum",
+      "description": "unknown",
+      "default": "small",
+      "options": [
+        {
+          "value": "nano",
+          "label": "Nano"
+        },
+        {
+          "value": "tiny",
+          "label": "Tiny"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "huge",
+          "label": "Huge"
+        }
+      ]
+    },
+    {
+      "id": "refine",
+      "type": "boolean",
+      "description": "Enable refine of recognized bundle.",
+      "default": false
+    },
+    {
+      "id": "r_reduction_thr",
+      "type": "number",
+      "description": "Refine reduce search space by (mm).",
+      "default": 12
+    },
+    {
+      "id": "r_pruning_thr",
+      "type": "number",
+      "description": "Refine pruning after matching.",
+      "default": 6
+    },
+    {
+      "id": "no_r_slr",
+      "type": "boolean",
+      "description": "Don't enable Refine local Streamline-based Linear Registration.",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.113"
+}

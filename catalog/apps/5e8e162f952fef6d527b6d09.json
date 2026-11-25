@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of DWI overlaid on T1",
+  "version": "dwi-t1-v1.0.0",
+  "summary": "Generates a PNG of the brain-extracted b0 of a DWI overlaid on a T1-weighted image with FSLeyes, to check DWI-to-T1 registration.",
+  "description": "Extracts and averages the b0 volumes of the DWI (select_dwi_vols), brain-extracts them with FSL bet, and renders the b0 (red-yellow) and its mask outline on the T1 with fsleyes render, writing raw/out.png. The DWI and T1 must already be registered to each other. Use it to check DWI-T1 alignment or make figures.",
+  "kind": "native",
+  "topics": [
+    "qa",
+    "quality-control",
+    "visualization",
+    "dwi",
+    "registration",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e8e162f952fef6d527b6d09",
+    "github": "brainlife/app-slicer-fsl",
+    "branch": "dwi-t1-v1.0.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image with bvals (bvals are used to select the b0 volumes).",
+      "config_keys": [
+        "dwi",
+        "bvals"
+      ],
+      "requirements": "Must already be aligned to the T1."
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image used as the background.",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "raw",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "qa_image",
+        "dwi-t1"
+      ],
+      "description": "Directory with out.png showing the DWI b0 and its brain mask outline overlaid on the T1."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.309",
+  "category": "quality-control",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "5.0.9"
+    },
+    {
+      "name": "FSLeyes",
+      "version": "1.0"
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

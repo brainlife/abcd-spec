@@ -1,0 +1,153 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract summary statistics of diffusion measures mapped to cortical surface inside tract endpoints",
+  "version": "endpoints-v1.1",
+  "summary": "Computes summary statistics (min, max, mean, median, mode, standard deviation, nonzero count) of cortex-mapped diffusion measures, thickness and volume inside tract-endpoint ROIs projected to the cortical surface, and outputs one CSV per statistic.",
+  "description": "Reslices tract-endpoint ROI volumes to the FreeSurfer aparc+aseg space, projects them onto the white-matter surface with mri_vol2surf, and uses Connectome Workbench wb_command -metric-stats to summarise every measure in the cortexmap func directory plus cortical thickness and volume within each endpoint ROI. Use it after mapping diffusion measures to the cortex and generating tract endpoint density ROIs, when you want per-endpoint CSVs for group comparisons or machine learning. It needs a cortexmap, a FreeSurfer subject directory and endpoint ROIs from the same subject. ROIs are assigned to a hemisphere from their file names (left/lh/L, right/rh/R, otherwise both).",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f76303c268f76393329775a",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "endpoints-v1.1"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Cortex-mapped measures for the subject: func/ holds per-hemisphere measure .func.gii files and surf/ holds white, pial, thickness and volume GIFTI surfaces.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [
+        "tractEndpointDensity"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Tract endpoint density ROI volumes (NIfTI, one per endpoint region) to summarise measures within.",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "File names should contain left/lh/L or right/rh/R to set the hemisphere; others are mapped to both hemispheres. ROIs are resliced to aparc+aseg unless reslice is false."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject; supplies the aparc+aseg volume and the surfaces used for volume-to-surface projection.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "tract_endpoints"
+      ],
+      "description": "One CSV per summary statistic (tracts_MIN, tracts_MAX, tracts_MEAN, tracts_MEDIAN, tracts_MODE, tracts_STDEV, tracts_COUNT_NONZERO) with a row per endpoint ROI and hemisphere and a column per measure.",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "tract_endpoints"
+      ],
+      "description": "Intermediate files kept for debugging: copied ROIs, surface-projected ROIs, resliced ROIs and per-measure text files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "aparc",
+      "type": "enum",
+      "description": "Which FreeSurfer aparc+aseg volume (aparc or aparc.a2009s) is used as the reslicing target for the ROIs.",
+      "default": "",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s"
+        }
+      ]
+    },
+    {
+      "id": "reslice",
+      "type": "boolean",
+      "description": "If true, reslice the ROIs to the aparc+aseg volume with nearest-neighbour interpolation before surface projection; if false, use the ROIs as given.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "weight",
+      "type": "boolean",
+      "description": "Weighting switch read by the code; statistics are computed only when it is false, so leave it false.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.0.0",
+    "resources": {
+      "cpus": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.437",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.0.0"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1016/j.neuroimage.2018.02.017",
+      "text": "Fukutomi H. et al. Neurite imaging reveals microstructural variations in human cerebral cortical gray matter. NeuroImage (2018)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "stats computations failed somewhere. please check logs and derivatives",
+      "cause": "The final tracts_STDEV.csv was not produced.",
+      "fix": "Check the job log and intermediate files for the failing step."
+    }
+  ]
+}

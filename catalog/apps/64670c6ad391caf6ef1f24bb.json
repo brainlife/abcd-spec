@@ -1,0 +1,112 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Extract anatomical statistics inside tract endpoints mapped to cortical surface",
+  "version": "endpoints-v1.2",
+  "summary": "Computes FreeSurfer anatomical statistics (vertex count, surface area, gray matter volume, thickness, curvature) inside tract-endpoint maps on the cortical surface, thresholded into labels, and outputs an endpoints CSV.",
+  "description": "Thresholds each cortex-mapped endpoint map in the cortexmap func directory (values above threshold) into a surface label with Connectome Workbench, converts the labels to FreeSurfer annotations and runs mris_anatomical_stats and mri_segstats on curvature for each one. The results are merged into parc-stats/endpoints.csv. Use it after mapping tract endpoint densities to the cortical surface to get morphometry of the cortex each tract reaches. Needs a cortexmap of endpoint maps and the FreeSurfer subject directory of the same subject.",
+  "kind": "native",
+  "topics": [
+    "surface-analysis",
+    "tractography",
+    "statistics",
+    "freesurfer",
+    "connectome-workbench",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "64670c6ad391caf6ef1f24bb",
+    "github": "brainlife/app-cortex-tissue-mapping-stats",
+    "branch": "endpoints-v1.2"
+  },
+  "inputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Cortexmap whose func/ directory holds per-hemisphere tract endpoint maps (.func.gii) and whose surf/ directory holds the white surfaces.",
+      "config_keys": [
+        "cortexmap"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer subject directory of the same subject, used for anatomical and curvature statistics.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "cortex_mapping_stats",
+        "tract_endpoints",
+        "anatomical_stats"
+      ],
+      "description": "endpoints.csv with one row per endpoint label: number of vertices, surface area, gray matter volume, average and SD thickness, curvature indices and curvature summary.",
+      "datatype_tags_pass": "cortexmap"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "cortex_mapping_stats_derivatives",
+        "tract_endpoints",
+        "anatomical_stats"
+      ],
+      "description": "Intermediate thresholded maps, label files and per-label statistics text files."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Value above which a vertex of an endpoint map is included in that endpoint's label.",
+      "default": 0
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/connectome_workbench:1.5.0-freesurfer-update",
+    "resources": {
+      "memory_gb": 30,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.776",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.3.2"
+    },
+    {
+      "name": "Connectome Workbench",
+      "version": "1.5.0"
+    },
+    {
+      "name": "pandas"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "cause": "No FreeSurfer license in the environment.",
+      "fix": "Set the FREESURFER_LICENSE environment variable on the compute resource."
+    },
+    {
+      "message": "something went wrong. check logs and derivatives",
+      "cause": "endpoints.csv was not produced.",
+      "fix": "Check the job log and raw derivatives."
+    }
+  ]
+}

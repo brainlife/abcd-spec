@@ -1,0 +1,236 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "GEDAI EEG denoising (raw)",
+  "version": "v1.0",
+  "summary": "Unsupervised EEG denoising of continuous data by leadfield filtering (GEDAI; Ros et al. 2025). Non-commercial licence -- see the app README.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a99d91dd90f157078ecfd29",
+    "github": "BrainlifeMEEG/gedai",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "mne",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Continuous raw .fif with EEG channels",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "gedai"
+      ],
+      "description": "Denoised data",
+      "datatype_tags_pass": "mne"
+    },
+    {
+      "id": "out_noise",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "gedai",
+        "noise"
+      ],
+      "description": "The signal GEDAI removed (EEG channels only)"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "GEDAI variant.",
+      "default": "broadband",
+      "options": [
+        {
+          "value": "broadband",
+          "label": "broadband",
+          "description": "single fast pass (Gedai)"
+        },
+        {
+          "value": "multiband",
+          "label": "multiband",
+          "description": "per wavelet band (MultibandGedai)"
+        },
+        {
+          "value": "adaptive",
+          "label": "adaptive",
+          "description": "AdaptiveMultibandGedai -- authors' recommended offline pipeline, highest quality, substantially slower"
+        }
+      ]
+    },
+    {
+      "id": "l_freq",
+      "type": "number",
+      "description": "High-pass (Hz) before fitting. Empty/null disables it.",
+      "default": 0.5
+    },
+    {
+      "id": "noise_multiplier",
+      "type": "string",
+      "description": "SENSAI noise weighting -- higher keeps more brain signal. A number > 0, or a preset: standard / auto (3.0), aggressive (1.5), conservative (6.0).",
+      "default": "3.0"
+    },
+    {
+      "id": "sensai_method",
+      "type": "enum",
+      "description": "SENSAI threshold search strategy.",
+      "default": "optimize",
+      "options": [
+        {
+          "value": "optimize",
+          "label": "optimize",
+          "description": "bounded scalar optimisation"
+        },
+        {
+          "value": "gridsearch",
+          "label": "gridsearch",
+          "description": "discrete grid of thresholds"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "duration",
+      "type": "number",
+      "description": "broadband / multiband: segment length (s) for covariance estimation.",
+      "default": 2,
+      "advanced": true
+    },
+    {
+      "id": "overlap",
+      "type": "number",
+      "description": "Fractional segment overlap, in [0, 1).",
+      "default": 0.5,
+      "advanced": true
+    },
+    {
+      "id": "reject_by_annotation",
+      "type": "boolean",
+      "description": "Exclude 'bad'-annotated spans from the fit (GEDAI recommends keeping them).",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "broadband_pass",
+      "type": "boolean",
+      "description": "multiband / adaptive: run an initial broadband GEDAI pre-pass.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "cycles_per_wavelet",
+      "type": "number",
+      "description": "adaptive only: wavelet cycles per band.",
+      "default": 10,
+      "advanced": true
+    },
+    {
+      "id": "wavelet_low_cutoff",
+      "type": "string",
+      "description": "multiband / adaptive: wavelet bands below this (Hz) are zeroed. 'auto' uses the data high-pass.",
+      "default": "auto",
+      "advanced": true
+    },
+    {
+      "id": "add_reference_channel",
+      "type": "string",
+      "description": "Name of a flat reference channel to add before fitting (preserves rank for non-average references). Kept in the output.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "montage",
+      "type": "string",
+      "description": "Name of an MNE built-in montage to attach before fitting (e.g. standard_1005, GSN-HydroCel-257). Needed when channel names are non-standard and no positions are stored.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "montage_handling",
+      "type": "enum",
+      "description": "How GEDAI's reference covariance is built.",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "auto",
+          "description": "10-05 names -> bundled leadfield; else positioned channels -> fsaverage template forward solution (~35 s)."
+        },
+        {
+          "value": "leadfield",
+          "label": "leadfield",
+          "description": "Force the bundled 10-05 leadfield; drop unmatched channels."
+        },
+        {
+          "value": "forward",
+          "label": "forward",
+          "description": "Force the fsaverage template forward solution (needs positions)."
+        },
+        {
+          "value": "channel_positions",
+          "label": "channel_positions",
+          "description": "Fast distance-based covariance -- lower fidelity, tends to over-clean."
+        },
+        {
+          "value": "drop_unmatched",
+          "label": "drop_unmatched",
+          "description": "Keep only the 10-05-name-matched channels (leadfield)."
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "interpolate_bads",
+      "type": "boolean",
+      "description": "Interpolate channels marked bad before fitting.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "output",
+      "type": "enum",
+      "description": "What to write as the denoised output.",
+      "default": "recombine",
+      "options": [
+        {
+          "value": "recombine",
+          "label": "recombine",
+          "description": "full copy of the input with the EEG replaced by the denoised signal"
+        },
+        {
+          "value": "eeg_only",
+          "label": "eeg_only",
+          "description": "just the denoised EEG channels"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "n_jobs",
+      "type": "number",
+      "description": "Parallel jobs; match the allocated CPUs (currently 8).",
+      "default": 8,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-fsaverage:1.12.1",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 24,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.959"
+}

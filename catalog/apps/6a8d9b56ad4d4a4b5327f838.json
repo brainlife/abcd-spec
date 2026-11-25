@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "FIF to MNE Raw",
+  "version": "v1.0",
+  "summary": "New app (multiple inputs possible)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6a8d9b56ad4d4a4b5327f838",
+    "github": "BrainlifeMEEG/fif2mne",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "fif",
+        "channels",
+        "headshape",
+        "coordsystem",
+        "calibration",
+        "crosstalk",
+        "destination",
+        "events",
+        "events_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "fif"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "channel_types",
+      "type": "string",
+      "description": "Optional channel-type reassignments, comma-separated \"chan_name-new_type\" pairs (e.g. \"EEG061-eog,EEG062-eog,EEG063-ecg,EEG064-misc\" for a system that digitizes EOG/ECG through spare EEG channels). Applied via MNE's set_channel_types() before saving. Default: no reassignment.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "rename_channels",
+      "type": "string",
+      "description": "Optional channel renames, comma-separated \"old_name-new_name\" pairs (e.g. \"EEG061-EOG061,EEG062-EOG062,EEG063-ECG063\"). Applied via MNE's rename_channels(), after channel_types. Default: no renaming.",
+      "default": "",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.955"
+}

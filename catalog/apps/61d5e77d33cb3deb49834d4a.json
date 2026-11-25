@@ -1,0 +1,50 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "extract_b0_masks",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "61d5e77d33cb3deb49834d4a",
+    "github": "dPys/app-extract_b0_masks",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals",
+        "sbref",
+        "sbref_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "b0_extractions",
+      "datatype": "neuro/dwi/b0",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "dpys/extract_b0_mask:latest",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 4,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.600"
+}

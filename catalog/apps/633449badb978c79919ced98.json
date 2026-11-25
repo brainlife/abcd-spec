@@ -1,0 +1,43 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-ICA-plot ",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "633449badb978c79919ced98",
+    "github": "zahransa/app-ICA-plot",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "ica",
+      "datatype": "neuro/meeg/mne/ica",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "ica"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.676"
+}

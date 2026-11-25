@@ -1,0 +1,166 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fit qT1 models using mrQ",
+  "version": "main",
+  "summary": "Fits quantitative T1 (qT1) and related tissue maps from SPGR and SEIR acquisitions with mrQ (Mezer et al. 2013), aligned to a reference T1w image.",
+  "description": "Calls mrQ_run (compiled MATLAB) on the SPGR and SEIR raw directories with the acquisition parameters given as parameters (TR, TE, flip angles, inversion times, field strength) and the reference T1w image. Use it to compute quantitative T1 and macromolecular tissue volume maps. Needs SPGR and SEIR data and their acquisition parameters. This branch has no main script, so it cannot run as published.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "6036ca8c3a001153f254ebf4",
+    "github": "brainlife/app-qt1-mrq",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "spgr",
+      "datatype": "raw",
+      "datatype_tags": [
+        "spgr"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of spoiled gradient echo (SPGR) images at multiple flip angles.",
+      "config_keys": [
+        "spgr"
+      ]
+    },
+    {
+      "id": "seir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "seir"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Directory of spin-echo inversion recovery (SEIR) images.",
+      "config_keys": [
+        "seir"
+      ]
+    },
+    {
+      "id": "refImage",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Reference T1w image that mrQ aligns the outputs to.",
+      "config_keys": [
+        "refImage"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "results",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mrq",
+        "qt1"
+      ],
+      "description": "mrQ output directory with the fitted quantitative maps."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spgr_name",
+      "type": "string",
+      "description": "Space-separated names of the SPGR image files.",
+      "default": ""
+    },
+    {
+      "id": "seir_name",
+      "type": "string",
+      "description": "Space-separated names of the SEIR image files.",
+      "default": ""
+    },
+    {
+      "id": "antsThrs",
+      "type": "number",
+      "description": "Value passed to mrQ QuantAntsThresh.",
+      "default": 0.8,
+      "advanced": true
+    },
+    {
+      "id": "autoacpc",
+      "type": "number",
+      "description": "Value passed to mrQ autoacpc (automatic ACPC alignment).",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "shiftB1",
+      "type": "number",
+      "description": "Value passed to mrQ ShiftB1.",
+      "default": 0,
+      "advanced": true
+    },
+    {
+      "id": "spgr_tr",
+      "type": "string",
+      "description": "Repetition time(s) of the SPGR images.",
+      "default": ""
+    },
+    {
+      "id": "seir_tr",
+      "type": "string",
+      "description": "Repetition time(s) of the SEIR images.",
+      "default": ""
+    },
+    {
+      "id": "spgr_te",
+      "type": "string",
+      "description": "Echo time(s) of the SPGR images.",
+      "default": ""
+    },
+    {
+      "id": "seir_te",
+      "type": "string",
+      "description": "Echo time(s) of the SEIR images.",
+      "default": ""
+    },
+    {
+      "id": "spgr_flipangle",
+      "type": "string",
+      "description": "Flip angles of the SPGR images, space-separated.",
+      "default": ""
+    },
+    {
+      "id": "spgr_fieldstrength",
+      "type": "string",
+      "description": "Magnetic field strength for the SPGR data.",
+      "default": ""
+    },
+    {
+      "id": "seir_it",
+      "type": "string",
+      "description": "Inversion times of the SEIR images, space-separated.",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.481",
+  "software": [
+    {
+      "name": "mrQ"
+    },
+    {
+      "name": "MATLAB Runtime"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/nm.3390",
+      "text": "Mezer A. et al. Quantifying the local tissue volume and composition in individual brains with magnetic resonance imaging. Nat Med 19, 1667-1672 (2013)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P. et al. The open diffusion data derivatives. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

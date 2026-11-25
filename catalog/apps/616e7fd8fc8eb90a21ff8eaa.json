@@ -1,0 +1,57 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Epochs of equal length",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "616e7fd8fc8eb90a21ff8eaa",
+    "github": "guiomar/app-epoch-equal",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "raw01",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epo",
+        "epo-fixed"
+      ],
+      "description": "Epoched data (equal length)",
+      "datatype_tags_pass": "raw01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "duration",
+      "type": "number",
+      "description": "Duration of each epoch in seconds.",
+      "default": 4,
+      "minimum": 1,
+      "maximum": 100,
+      "required": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.584"
+}

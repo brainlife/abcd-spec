@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice",
+  "version": "1.1.1",
+  "summary": "Reslice a dMRI dataset to have isotropic voxel size (dipy_reslice).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ae8dbccf446980028b15e95",
+    "github": "dipy/bl_apps_dipy_reslice",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "resliced"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "order",
+      "type": "number",
+      "description": "Order of interpolation, from 0 to 5.",
+      "default": 1,
+      "minimum": 0,
+      "maximum": 5
+    },
+    {
+      "id": "mode",
+      "type": "enum",
+      "description": "Points outside the boundaries of the input are filled according to the given mode.",
+      "default": "constant",
+      "options": [
+        {
+          "value": "constant",
+          "label": "Constant"
+        },
+        {
+          "value": "nearest",
+          "label": "Nearest"
+        },
+        {
+          "value": "reflect",
+          "label": "Reflect"
+        },
+        {
+          "value": "wrap",
+          "label": "Wrap"
+        }
+      ]
+    },
+    {
+      "id": "cval",
+      "type": "number",
+      "description": "The value used for points outside the boundaries of the input if mode='constant'.",
+      "default": 0
+    },
+    {
+      "id": "new_vox_size",
+      "type": "number",
+      "description": "New voxel size.",
+      "default": 1
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.5"
+}

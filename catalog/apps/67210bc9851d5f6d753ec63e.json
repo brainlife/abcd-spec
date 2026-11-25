@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROMEO Phase Unwrapping",
+  "version": "master",
+  "summary": "Performs phase offset removal, phase unwrapping, phase quality mapping, robust masking, T2* and R2* mapping, and B0 field mapping.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "67210bc9851d5f6d753ec63e",
+    "github": "astewartau/romeo-brainlife",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "magnitude",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-mag"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "magnitude"
+      ]
+    },
+    {
+      "id": "phase",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "part-phase"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "phase"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "unwrapped",
+      "datatype": "neuro/anat/t2starw",
+      "datatype_tags": [
+        "4D",
+        "unwrapped"
+      ],
+      "description": "Unwrapped phase images",
+      "datatype_tags_pass": "phase"
+    },
+    {
+      "id": "phase-quality",
+      "datatype": "raw",
+      "datatype_tags": [
+        "phase-quality"
+      ],
+      "description": "Phase quality map"
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "description": "Robust phase-based mask",
+      "datatype_tags_pass": "phase"
+    },
+    {
+      "id": "qmri",
+      "datatype": "neuro/anat/qmri",
+      "datatype_tags": [
+        "T2star",
+        "R2star"
+      ],
+      "description": "T2* and R2* maps",
+      "datatype_tags_pass": "magnitude"
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single"
+      ],
+      "description": "B0 field map",
+      "datatype_tags_pass": "phase"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.834"
+}

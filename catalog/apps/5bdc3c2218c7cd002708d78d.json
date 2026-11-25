@@ -1,0 +1,69 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Resample tck",
+  "version": "1.0",
+  "summary": "Code to resample a tck file with a give step size or number of points.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5bdc3c2218c7cd002708d78d",
+    "github": "giulia-berto/app-resample-tck",
+    "branch": "1.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "tractogram",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "res"
+      ],
+      "description": "resampled tractogram",
+      "datatype_tags_pass": "0"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "type",
+      "type": "enum",
+      "description": "Resampling can be done either by setting the new step size (in mm) or the new number of points. Tell which option you want to use.",
+      "default": "",
+      "options": [
+        {
+          "value": "step_size",
+          "label": "I want to set the new step size"
+        },
+        {
+          "value": "nb_points",
+          "label": "I want to set the new number of points"
+        }
+      ]
+    },
+    {
+      "id": "new_param",
+      "type": "number",
+      "description": "Set the step size OR the number of points, depending on your choice above"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.14",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.124"
+}

@@ -1,0 +1,98 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DSC evaluation (wmc - wmc) - Seperate tractograms",
+  "version": "multiple-tck-1.1",
+  "summary": "Compute the degree of overlap between two bundle masks using the Dice Similarity Coefficient (DSC) score.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "63e559e7c538c16a8222163e",
+    "github": "bacaron/app-compute-dsc",
+    "branch": "multiple-tck-1.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram associated with the white matter classification (WMC) structure",
+      "config_keys": [
+        "tractogram_true"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Ground truth bundles in form of white matter classification (WMC) structure",
+      "config_keys": [
+        "seg_true"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram associated with the white matter classification (WMC) structure",
+      "config_keys": [
+        "tractogram_est"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Estimated bundles in form of white matter classification (WMC) structure",
+      "config_keys": [
+        "seg_est"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 image",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "CSV containing the following scalars: DSC, wDSC, Jaccard, sensitivity, TP, FP, FN",
+      "datatype_tags_pass": "1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tractID_list",
+      "type": "string",
+      "description": "ID list of the bundles of interest, separated by commas",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.729"
+}

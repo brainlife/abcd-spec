@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tract Analysis Profiles",
+  "version": "1.4",
+  "summary": "This app has been deprecated. It will only work with wmc_deprecated datatype.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "59ca5c03c27f5b0770add9cf",
+    "github": "brainlife/app-tractanalysisprofiles",
+    "branch": "1.4"
+  },
+  "inputs": [
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the tensor datatype files (optional). If not included, must include NODDI (deprecated) datatype",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "afq",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the wmc (deprecated) classification structure",
+      "config_keys": [
+        "afq"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi-deprecated",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the NODDI (deprecated) datatype files",
+      "config_keys": [
+        "icvf",
+        "isovf",
+        "od"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "tract_profiles"
+      ],
+      "description": "Directory of tract profile images for each tract and measure"
+    },
+    {
+      "id": "profiles",
+      "datatype": "neuro/tractprofile-deprecated",
+      "datatype_tags": [],
+      "description": "Directory of tract profile csvs for each tract and measure"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fiberbased",
+      "type": "boolean",
+      "description": "to create profiles using a non-weighted, fiber-based method: \"true\"",
+      "default": false
+    },
+    {
+      "id": "numnodes",
+      "type": "integer",
+      "description": "Number of nodes for each tract profile",
+      "default": 200
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 32,
+      "walltime_hours": 3
+    }
+  },
+  "doi": "10.25663/bl.app.43",
+  "deprecated_by": "5cc210ce4ed9df00317f61cf"
+}

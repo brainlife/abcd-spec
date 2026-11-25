@@ -1,0 +1,63 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply SSP projectors",
+  "version": "v1.0",
+  "summary": "Apply (i.e. remove) the signal space projection (SSP) operators to the data.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "63341bd2db978c79919bff74",
+    "github": "BrainlifeMEEG/ssp-apply",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    },
+    {
+      "id": "projection",
+      "datatype": "neuro/meeg/mne/projection",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "projection"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meg/fif",
+      "datatype_tags": [
+        "ssp-applied"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fif"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.674"
+}

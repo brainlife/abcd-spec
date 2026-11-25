@@ -1,0 +1,54 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "anat-fslswap-app",
+  "version": "master",
+  "summary": "This is a template for a python-based brainlife.io/app",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "632c9b506985655cc5892a9a",
+    "github": "hanna-willis/app-fslswap",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "flipped"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "anat"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "swap_dimensions",
+      "type": "string",
+      "description": "new x,y,z axes in terms of the  old axes",
+      "default": "-x y z"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.11",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.668"
+}

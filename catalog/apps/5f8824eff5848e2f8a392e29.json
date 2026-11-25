@@ -1,0 +1,55 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Fractal Dimension (FD) of bundle masks",
+  "version": "brainlife-app",
+  "summary": "Investigation on the fractal dimension of segmented white matter bundles.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5f8824eff5848e2f8a392e29",
+    "github": "FBK-NILab/fractal_dimension",
+    "branch": "brainlife-app"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/tractmasks",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Collection of bundle masks of which to compute the Fractal Dimension",
+      "config_keys": [
+        "masks"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "csv",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "FD"
+      ],
+      "description": "csv file with the Fractal Dimension of each bundle mask of the collection"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "box_size_max",
+      "type": "number",
+      "description": "Maximum size of the box used by the box-counting method",
+      "default": 7.5,
+      "minimum": 1,
+      "maximum": 100
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.442"
+}

@@ -1,0 +1,97 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Parcellation Statistics - Surface",
+  "version": "updated-parc-stats-surface-v1.0",
+  "summary": "Computes per-parcel cortical surface statistics (area, volume, thickness, curvature) for a surface annotation with FreeSurfer mris_anatomical_stats and outputs tidy parc-stats CSVs.",
+  "description": "Converts the left and right annotations onto the subject's FreeSurfer surfaces, runs mris_anatomical_stats for each hemisphere and converts the stats into CSV tables with the freesurfer-stats package, together with whole-brain statistics. Per the README, use it whenever a surface parcellation is available in preference to the volume-based App. The annotations must be defined on the same FreeSurfer subject.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "parcellation",
+    "surface-analysis",
+    "statistics",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "603b047b78e65dec6fd1b5dc",
+    "github": "brainlife/app-freesurfer-stats",
+    "branch": "updated-parc-stats-surface-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "parcellation",
+      "datatype": "neuro/surface/data",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Surface parcellation: left and right hemisphere .annot files and a label key.",
+      "config_keys": [
+        "lh_annot",
+        "rh_annot",
+        "label"
+      ],
+      "requirements": "Annotations must match the vertices of the input FreeSurfer subject."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Output directory of FreeSurfer recon-all for the subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc-stats",
+      "datatype": "neuro/parc-stats",
+      "datatype_tags": [
+        "surface"
+      ],
+      "description": "CSV tables (cortex.csv, whole_brain.csv and per-hemisphere tables) with per-parcel surface statistics.",
+      "datatype_tags_pass": "parcellation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 29,
+      "walltime_hours": 2.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.484",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.0"
+    },
+    {
+      "name": "freesurfer-stats",
+      "url": "https://github.com/fphammerle/freesurfer-stats"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    },
+    {
+      "text": "Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9, 179-194 (1999)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "output missing",
+      "fix": "Check the log; whole_brain.csv or cortex.csv was not produced, often because the annotation does not match the subject's surfaces."
+    }
+  ]
+}

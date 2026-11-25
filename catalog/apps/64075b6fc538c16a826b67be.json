@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mark bad data",
+  "version": "v1.0",
+  "summary": "Mark data segments and/or channels in raw MEG file.\nUsing manually defined annotations and/or channel names.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meeg"
+  ],
+  "registry": {
+    "id": "64075b6fc538c16a826b67be",
+    "github": "BrainlifeMEEG/mark-bad-raw",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "fif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "raw"
+      ]
+    },
+    {
+      "id": "channels",
+      "datatype": "neuro/meg/fif-override",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "channels.tsv file (at least 2 columns: name and status). Channels with status \"bad\" will be rejected.",
+      "config_keys": [
+        "channels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "bads_marked"
+      ],
+      "description": "Raw data with added annotation with marked channel x time segments."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bads",
+      "type": "string",
+      "description": "Comma-separated list of channels.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "annotations",
+      "type": "string",
+      "description": "Bad data segments described by their start, duration, description, and optionally the channels they apply to (all channels if omitted).",
+      "default": "",
+      "required": false,
+      "multiline": true,
+      "placeholder": "start, duration, description[, channels] (possibly on several lines)"
+    },
+    {
+      "id": "reset_bads",
+      "type": "boolean",
+      "description": "Reset bad channels before adding new ones specified here.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne:1.12.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 20
+    }
+  },
+  "doi": "10.25663/brainlife.app.743"
+}

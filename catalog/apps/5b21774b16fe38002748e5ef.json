@@ -1,0 +1,119 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tracking using Deterministic algorithm",
+  "version": "1.1.1",
+  "summary": "Deterministic tracking using a peaks and metrics (PAM) (dipy_track)",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "dipy",
+    "tracking",
+    "tractography"
+  ],
+  "registry": {
+    "id": "5b21774b16fe38002748e5ef",
+    "github": "dipy/bl_apps_dipy_track",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "pam_files",
+      "datatype": "neuro/peaks_and_metrics",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the peaks and metrics files.",
+      "config_keys": [
+        "peaks"
+      ]
+    },
+    {
+      "id": "stopping_files",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path of FA or other images used for stopping criteria for tracking.",
+      "config_keys": [
+        "stopping_files",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "seeding_files",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A binary image showing where we need to seed for tracking.",
+      "config_keys": [
+        "seeding_files"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/track/trk",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tracking_method",
+      "type": "string",
+      "description": "unknown",
+      "default": "deterministic",
+      "readonly": true
+    },
+    {
+      "id": "use_binary_mask",
+      "type": "boolean",
+      "description": "If True, uses a binary stopping criterion. If the provided `stopping_files` are not binary, `stopping_thr` will be used to binarize the images.",
+      "default": false
+    },
+    {
+      "id": "stopping_thr",
+      "type": "number",
+      "description": "Threshold applied to stopping volume's data to identify where\ntracking has to stop (default 0.25).",
+      "default": 0.25,
+      "placeholder": "0.25"
+    },
+    {
+      "id": "seed_density",
+      "type": "number",
+      "description": "Number of seeds per dimension inside voxel (default 1).\nFor example, seed_density of 2 means 8 regularly distributed points\nin the voxel. And seed density of 1 means 1 point at the center\nof the voxel.",
+      "default": 1,
+      "placeholder": "1"
+    },
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "Step size used for tracking (default 0.5mm)",
+      "default": 0.5
+    },
+    {
+      "id": "pmf_threshold",
+      "type": "number",
+      "description": "Threshold for ODF functions",
+      "default": 0.1
+    },
+    {
+      "id": "max_angle",
+      "type": "number",
+      "description": "Maximum angle between streamline segments (range [0, 90]",
+      "default": 30
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.66"
+}

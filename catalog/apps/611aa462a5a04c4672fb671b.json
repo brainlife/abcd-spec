@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Tractogram cleaning with DIPY's quickBundles",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "611aa462a5a04c4672fb671b",
+    "github": "DanNBullock/app-filterViaQuickbundles",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "A whole brain tractogram that is to be subjected to a cull of extraneous or otherwise spurious streamlines",
+      "config_keys": [
+        "tractogram"
+      ]
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "classification",
+        "tracts",
+        "surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tck_survived",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "The output tractogram which has had some number of spurious or extraneous streamlines removed.",
+      "datatype_tags_pass": "tractogram"
+    },
+    {
+      "id": "wmc_survived",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "A WMC corresponding to the surviving streamlines.   Identities passed through if WMC input provided, otherwise ignore."
+    },
+    {
+      "id": "tck_culled",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "culled"
+      ],
+      "description": "A tractogram containing the streamlines that were culled",
+      "datatype_tags_pass": "tractogram"
+    },
+    {
+      "id": "wmc_culled",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "culled"
+      ],
+      "description": "A WMC corresponding to the culled streamlines.   Identities passed through if WMC input provided, otherwise ignore."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "streamThresh",
+      "type": "number",
+      "description": "The minimum streamlines (and thus an **integer**) needed in a quickBundles cluster in order to survive the culling process.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    {
+      "id": "qbThreshes",
+      "type": "string",
+      "description": "quickbundles thresholds for application of [dipy.segment.bundles.qbx_and_merge](https://dipy.org/documentation/1.1.1./reference/dipy.segment/#qbx-and-merge)",
+      "default": "32,16,8,3",
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 30,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/brainlife.app.564"
+}

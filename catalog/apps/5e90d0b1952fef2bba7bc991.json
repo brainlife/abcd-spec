@@ -1,0 +1,48 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate figures of whole-brain tractogram (tck)",
+  "version": "tractogram-v1.0",
+  "summary": "This app will generate png images of the whole brain tractrogram from four different views/orientations: coronal, axial, sagittal_left, sagittal_right. Intended for general QA",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "quality-check"
+  ],
+  "registry": {
+    "id": "5e90d0b1952fef2bba7bc991",
+    "github": "kitchell/app-AFQ_figures",
+    "branch": "tractogram-v1.0"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the tractogram (tck)",
+      "config_keys": [
+        "track"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "wb_tractogram"
+      ],
+      "description": "The directory containing multiple images of the whole brain tractogram"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/pythonvtk:1.2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.75
+    }
+  },
+  "doi": "10.25663/brainlife.app.310"
+}

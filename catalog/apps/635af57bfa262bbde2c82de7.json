@@ -1,0 +1,101 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Reslice T1w to Isotropic Voxel Dimensions using FSL",
+  "version": "v1.0",
+  "summary": "Reslices a T1-weighted image to isotropic voxels of a chosen size with FSL flirt -applyisoxfm, for clinical scans with one high-resolution plane.",
+  "description": "Runs FSL flirt with the image as its own reference and -applyisoxfm set to voxel_dim, writing output/t1.nii.gz. Intended for clinical-grade acquisitions where one plane is high resolution and the others are coarse. It only resamples; it does not register to another image.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "635af57bfa262bbde2c82de7",
+    "github": "brainlife/app-reslice-isotropic",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image to reslice.",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "isotropic",
+        "resliced"
+      ],
+      "description": "The T1-weighted image resampled to isotropic voxels.",
+      "datatype_tags_pass": "input"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "voxel_dim",
+      "type": "number",
+      "description": "Isotropic voxel size of the output (passed to flirt -applyisoxfm).",
+      "default": 1
+    },
+    {
+      "id": "type",
+      "type": "string",
+      "description": "Name used for the output file (output/<type>.nii.gz); fixed to t1 for this App.",
+      "default": "t1",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4-patched2",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 1.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.690",
+  "category": "preprocessing",
+  "software": [
+    {
+      "name": "FSL",
+      "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "version": "6.0.4-patched2"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Jenkinson M, Bannister P, Brady JM, Smith SM. Improved Optimisation for the Robust and Accurate Linear Registration and Motion Correction of Brain Images. NeuroImage 17(2):825-841 (2002)."
+    },
+    {
+      "text": "Jenkinson M, Smith SM. A Global Optimisation Method for Robust Affine Registration of Brain Images. Medical Image Analysis 5(2):143-156 (2001)."
+    },
+    {
+      "text": "Greve DN, Fischl B. Accurate and robust brain image alignment using boundary-based registration. NeuroImage 48(1):63-72 (2009)."
+    },
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong",
+      "cause": "output/t1.nii.gz was not produced by flirt.",
+      "fix": "Check the flirt log output."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron"
+  ]
+}

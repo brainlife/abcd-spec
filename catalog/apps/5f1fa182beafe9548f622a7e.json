@@ -1,0 +1,48 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Conmat to network",
+  "version": "0.2",
+  "summary": "Simple brainlife app to create a network from a conmat matrix.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5f1fa182beafe9548f622a7e",
+    "github": "filipinascimento/bl-conmat2network",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "conmat",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Connectivity matrix  file to be converted to a network",
+      "config_keys": [
+        "index",
+        "label",
+        "csv"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "description": "Network file converted from a conmat (connectivity matrix) datatype. All metadata is preserved.",
+      "datatype_tags_pass": "conmat"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.393"
+}

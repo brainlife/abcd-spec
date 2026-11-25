@@ -1,0 +1,83 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment tractogram into fiber categories",
+  "version": "1.3",
+  "summary": "Segments all streamlines from an input tractogram in to general categories (i.e. fronto-temporal, parieto-occipital etc).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5c3fba22147b69003601ca60",
+    "github": "brainlife/app-streamlineCategorySegmentation",
+    "branch": "1.3"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole brain tractography",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "freesurfer"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "categories"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "classification",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "categories"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "inflateITer",
+      "type": "number",
+      "description": "How many iterations of inflation should be run to inflate grey matter into white matter. 2 recommended.",
+      "default": 2,
+      "minimum": 0,
+      "placeholder": "2"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:6.0.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 60,
+      "walltime_hours": 10
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.151",
+  "deprecated_by": "5dc9d8ee5017f0bde0519db5"
+}

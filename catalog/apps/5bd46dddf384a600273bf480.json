@@ -1,0 +1,152 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Anatomically-informed multi-LAP (deprecated)",
+  "version": "1.1",
+  "summary": "White matter bundle segmentation as Anatomically-Informed multiple Linear Assignment Problems (multi-LAP-anat).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "segmentation",
+    "white-matter-segmentation"
+  ],
+  "registry": {
+    "id": "5bd46dddf384a600273bf480",
+    "github": "giulia-berto/app-multi-lap-anat",
+    "branch": "1.1"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram of static (target) subject",
+      "config_keys": [
+        "tractogram_static"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 of static (target) subject",
+      "config_keys": [
+        "t1_static"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentations of moving (examples) subjects (they should be extracted from the tractogram provided - only AFQ segmentations allowed for version 1.0)",
+      "config_keys": [
+        "segmentations"
+      ]
+    },
+    {
+      "id": "3",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Tractograms of moving (example) subjects",
+      "config_keys": [
+        "tractograms_moving"
+      ]
+    },
+    {
+      "id": "4",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": true,
+      "description": "Ts1 of moving (example) subjects",
+      "config_keys": [
+        "t1s_moving"
+      ]
+    },
+    {
+      "id": "5",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "FreeSurfer parcellation of static (target) subject (not used in version 1.0, needed for tractID from 38 to 45)",
+      "config_keys": [
+        "fsDir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "7",
+      "datatype": "neuro/wmc-deprecated",
+      "datatype_tags": [
+        "multi-LAPanat"
+      ],
+      "description": "segmented bundles"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "k",
+      "type": "number",
+      "description": "value for k-NN to compute the superset",
+      "default": 2000
+    },
+    {
+      "id": "step_size",
+      "type": "number",
+      "description": "step size for resampling",
+      "default": 0.625
+    },
+    {
+      "id": "lambdaD",
+      "type": "number",
+      "description": "weight for the distance matrix",
+      "default": 1
+    },
+    {
+      "id": "lambdaE",
+      "type": "number",
+      "description": "weight for the endpoint matrix",
+      "default": 1
+    },
+    {
+      "id": "lambdaR",
+      "type": "number",
+      "description": "weight for the ROI-based matrix",
+      "default": 1
+    },
+    {
+      "id": "norm_mat",
+      "type": "boolean",
+      "description": "matrices normalization",
+      "default": true
+    },
+    {
+      "id": "tract1",
+      "type": "number",
+      "description": "ID of the bundle of interest (refer to the README.md for the mapping)",
+      "placeholder": "allowed values: 1-20, 38-45"
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 12
+    }
+  },
+  "doi": "10.25663/brainlife.app.122",
+  "deprecated_by": "5d6f9160398672065e49642f"
+}

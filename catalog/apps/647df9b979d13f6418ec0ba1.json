@@ -1,0 +1,96 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Resample",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "647df9b979d13f6418ec0ba1",
+    "github": "guiomar/app-meeg-resample",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "raw01",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [
+        "raw",
+        "preproc",
+        "resample"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sfreq",
+      "type": "number",
+      "description": "New sample rate to use.",
+      "default": 1,
+      "minimum": 0
+    },
+    {
+      "id": "npad",
+      "type": "number",
+      "description": "Amount to pad the start and end of the data. Can also be \u201cauto\u201d to use a padding that will result in a power-of-two size (can be much faster).",
+      "default": 100,
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "window",
+      "type": "string",
+      "description": "Frequency-domain window to use in resampling. See scipy.signal.resample().",
+      "default": "boxcar",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "pad",
+      "type": "string",
+      "description": "The type of padding to use. Supports all numpy.pad() mode options. Can also be \"reflect_limited\", which pads with a reflected version of each vector mirrored on the first and last values of the vector, followed by zeros. The default is 'reflect_limited'.",
+      "default": "reflect_limited",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "stim_picks",
+      "type": "string",
+      "description": "Stim channels. These channels are simply subsampled or supersampled (without applying any filtering). This reduces resampling artifacts in stim channels, but may lead to missing triggers. If None, stim channels are automatically chosen using mne.pick_types().",
+      "default": "None",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "events",
+      "type": "string",
+      "description": "An optional event matrix. When specified, the onsets of the events are resampled jointly with the data. NB: The input events are not modified, but a new array is returned with the raw instead.",
+      "default": "None",
+      "required": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.781"
+}

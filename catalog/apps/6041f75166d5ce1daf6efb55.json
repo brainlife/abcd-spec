@@ -1,0 +1,392 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PyNets",
+  "version": "v2.7",
+  "summary": "Estimates ensembles of structural (DWI) and/or functional (BOLD) connectomes and their graph measures from a skull-stripped T1-weighted image with PyNets, sampling across atlases, models and thresholds.",
+  "description": "Runs the PyNets post-processing workflow (built on Nilearn and DIPY) on preprocessed BOLD and/or DWI data together with the T1w anatomy, building connectomes for every combination of the chosen atlases, connectivity models, tracking or time-series settings and thresholds, then computing graph measures and optional embeddings. At least one of task (BOLD) or DWI must be supplied. PyNets is a post-processing tool; inputs should already be preprocessed. Expect long runtimes (up to 48 hours) for large ensembles.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dipy",
+    "dwi",
+    "fmri",
+    "network-analysis",
+    "nilearn"
+  ],
+  "registry": {
+    "id": "6041f75166d5ce1daf6efb55",
+    "github": "brainlife/app-pynets",
+    "branch": "v2.7"
+  },
+  "inputs": [
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "skull-stripped anatomical input",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "task",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "It should be in native/T1w space. Either task or dwi (or both) input should be present.",
+      "config_keys": [
+        "bold",
+        "events",
+        "events_json",
+        "sbref",
+        "sbref_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "regressors",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Confound regressor to reduce noise in the time-series estimation for the graph. If you include this, you should also include a bold functional image with an corresponding number of volumes.",
+      "config_keys": [
+        "regressors"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Used for structural connectomes. Should be in native diffusion space. Either task or dwi (or both) input should be present.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Optional binarized Nifti1Image in T1w space. This will be estimated automatically if not provided.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "waymask",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Binarized Nifti1Image ROI in MNI-space to constrain tractography.",
+      "config_keys": [
+        "way"
+      ]
+    },
+    {
+      "id": "uatlas",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": true,
+      "description": "A volume parcellation file may be included instead of specifying a fetched or local atlas name as a configuration option.",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "derivatives"
+      ],
+      "description": "A base directory to save workflow outputs."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "min_thr",
+      "type": "number",
+      "description": "Multi-thresholding minimum threshold. This should be a float value 0-1 and should be smaller than max_thr. If this field is set, max_thr and step_thr must also be set.",
+      "default": 0.2,
+      "minimum": 0.01,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "max_thr",
+      "type": "number",
+      "description": "Multi-thresholding maximum threshold. This should be a float value 0-1 and should be larger than min_thr. If this field is set, min_thr and step_thr must also be set.",
+      "default": 1,
+      "minimum": 0.01,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "step_thr",
+      "type": "number",
+      "description": "Multi-thresholding step size. If this field is set, min_thr and max_thr must also be set.",
+      "default": 0.2,
+      "minimum": 0.01,
+      "maximum": 1,
+      "required": false
+    },
+    {
+      "id": "thr",
+      "type": "number",
+      "description": "Optionally specify a threshold indicating a proportion of weights to preserve in the graph. Defaults to no thresholding applied.",
+      "default": 1,
+      "minimum": 0.01,
+      "maximum": 1,
+      "required": false,
+      "placeholder": "Threshold"
+    },
+    {
+      "id": "atlas",
+      "type": "string",
+      "description": "Enter atlas name in each. choose from 'atlas_aal', 'atlas_talairach_gyrus', 'atlas_talairach_ba', 'atlas_talairach_lobe', 'atlas_harvard_oxford', 'atlas_msdl', 'coords_dosenbach_2010', 'coords_power_2011', 'atlas_pauli_2017', 'destrieux2009_rois', 'BrainnetomeAtlasFan2016', 'VoxelwiseParcellationt0515kLeadDBS', 'Juelichgmthr252mmEickhoff2005', 'CorticalAreaParcellationfromRestingStateCorrelationsGordon2014', 'whole_brain_cluster_labels_PCA100', 'AICHAreorderedJoliot2015', 'HarvardOxfordThr252mmWholeBrainMakris2006', 'VoxelwiseParcellationt058kLeadDBS', 'MICCAI2012MultiAtlasLabelingWorkshopandChallengeNeuromorphometrics', 'AALTzourioMazoyer2002', 'DesikanKlein2012', 'AAL2zourioMazoyer2002', 'VoxelwiseParcellationt0435kLeadDBS', 'AICHAJoliot2015', 'whole_brain_cluster_labels_PCA200', 'RandomParcellationsc05meanalll43Craddock2011', 'sub-colin27_label-L2018_desc-scale1_atlas', 'sub-colin27_label-L2018_desc-scale2_atlas', 'sub-colin27_label-L2018_desc-scale3_atlas', 'sub-colin27_label-L2018_desc-scale4_atlas', 'sub-colin27_label-L2018_desc-scale5_atlas', 'rsn-intersection_res-200', 'rsn-intersection_res-400', 'rsn-intersection_res-600', 'rsn-intersection_res-800', 'rsn-language_res-200', 'rsn-language_res-400', 'rsn-language_res-600', 'rsn-language_res-800', 'rsn-union_res-200', 'rsn-union_res-400', 'rsn-union_res-600', 'rsn-union_res-800', 'rsn-ventral_res-200', 'rsn-ventral_res-400', 'rsn-ventral_res-600', 'rsn-ventral_res-800'\n\nEither one or more supported atlas names or one or more file paths to a volume parcellation is required.\n\nsee https://pynets.readthedocs.io/en/latest/usage.html",
+      "default": "'net-Cont_scale-200'\n'net-Cont_scale-400'\n'net-Cont_scale-600'\n'net-Cont_scale-800'\n'net-Default_scale-200'\n'net-Default_scale-400'\n'net-Default_scale-600'\n'net-Default_scale-800'\n'net-DorsAttn_scale-200'\n'net-DorsAttn_scale-400'\n'net-DorsAttn_scale-600'\n'net-DorsAttn_scale-800'\n'net-Limbic_scale-200'\n'net-Limbic_scale-400'\n'net-Limbic_scale-600'\n'net-Limbic_scale-800'\n'net-SalVentAttn_scale-200'\n'net-SalVentAttn_scale-400'\n'net-SalVentAttn_scale-600'\n'net-SalVentAttn_scale-800'\n'net-SomMot_scale-200'\n'net-SomMot_scale-400'\n'net-SomMot_scale-600'\n'net-SomMot_scale-800'\n'net-Vis_scale-200'\n'net-Vis_scale-400'\n'net-Vis_scale-600'\n'net-Vis_scale-800'",
+      "required": false,
+      "multiline": true,
+      "placeholder": "Atlas/parcellation name to define nodes"
+    },
+    {
+      "id": "mst",
+      "type": "boolean",
+      "description": "Optionally use this flag if you wish to apply local thresholding via the Minimum Spanning Tree approach.  -thr values in this case correspond to a target density (if the -dt flag is also included), otherwise  a target proportional threshold.",
+      "default": false
+    },
+    {
+      "id": "dt",
+      "type": "boolean",
+      "description": "Optionally use this flag if you wish to threshold to achieve a given density or densities indicated by the  -thr and -min_thr, -max_thr, -step_thr flags,  respectively.",
+      "default": false
+    },
+    {
+      "id": "embed",
+      "type": "boolean",
+      "description": "Optionally use this flag if you wish to embed the ensemble(s) produced into Euclidean feature vector(s).",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "df",
+      "type": "boolean",
+      "description": "Optionally use this flag if you wish to apply local thresholding via the disparity filter approach. -thr  values in this case correspond to \u03b1.",
+      "default": false
+    },
+    {
+      "id": "id",
+      "type": "string",
+      "description": "A subject identifier. Must be an alphanumeric string and can be arbitrarily chosen. If your preprocessed data is in BIDS format where the subject ID is sub-XXXX and the session is ses-2, then specify XXXX_2. If the input data is in BIDS format, this field is unnecessary and with be parsed automatically.",
+      "default": "null",
+      "required": false,
+      "advanced": true
+    },
+    {
+      "id": "mod",
+      "type": "string",
+      "description": "Specify connectivity estimation model. \n\nFor fMRI, possible models include: corr for correlation, cov for covariance, sps for precision covariance, partcorr for partial correlation. skggm estimators are also exposed and include: QuicGraphicalLasso, QuicGraphicalLassoCV, QuicGraphicalLassoEBIC, and AdaptiveQuicGraphicalLasso. \n\nFor dMRI, current models include csa, csd, and sfm.",
+      "default": "csa sfm csd corr partcorr cov",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Structural and Functional Connectome Attribute): Connectivity Model"
+    },
+    {
+      "id": "es",
+      "type": "string",
+      "description": "Include this option if you are running functional connectometry using parcel labels and wish to specify the name of a specific function (i.e. other than the mean, the default) to reduce the label's time-series. \n\nOptions are: `sum`, `mean`, `median`, `minimum`, `maximum`, `variance`, `standard_deviation`.",
+      "default": "mean median maximum",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Functional Connectome Attribute): Time-Series Extraction Method"
+    },
+    {
+      "id": "dg",
+      "type": "string",
+      "description": "Include this flag to manually specify the statistical approach to tracking for dmri connectome estimation.\n\nOptions are: `det` (deterministic),`prob` (probabilistic), `close` (closest-peak)",
+      "default": "det prob",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Structural Connectome Attribute): Diffusion Direction Extraction Method"
+    },
+    {
+      "id": "plt",
+      "type": "boolean",
+      "description": "Activates plotting",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "norm",
+      "type": "enum",
+      "description": "Include this flag to normalize the graph(s).",
+      "default": "3",
+      "options": [
+        {
+          "value": "1",
+          "label": "maximum edge weight"
+        },
+        {
+          "value": "2",
+          "label": "log10"
+        },
+        {
+          "value": "3",
+          "label": "pass-to-ranks for all non-zero edges"
+        },
+        {
+          "value": "4",
+          "label": "using pass-to-ranks for all non-zero edges relative to the number of nodes"
+        },
+        {
+          "value": "5",
+          "label": "pass-to-ranks with zero-edge boost"
+        },
+        {
+          "value": "6",
+          "label": "standardizes the matrix to values [0, 1]"
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "p",
+      "type": "enum",
+      "description": "Include this flag to implement various strategies for graph fragmentation protection (i.e. ensuring a connected graph before performing graph theoretical analysis).",
+      "default": "3",
+      "options": [
+        {
+          "value": "0",
+          "label": "no-fragmentation protection",
+          "description": "disable fragmentation-protection"
+        },
+        {
+          "value": "1",
+          "label": "prune the graph of any isolated + fully disconnected nodes "
+        },
+        {
+          "value": "2",
+          "label": "prune the graph of all but hubs as defined by any of a variety of definitions "
+        },
+        {
+          "value": "3",
+          "label": "retain only the largest connected component subgraph."
+        }
+      ],
+      "required": false
+    },
+    {
+      "id": "n",
+      "type": "string",
+      "description": "Optionally specify the name of any of the 2017 Yeo-Schaefer RSNs (7-network or 17-network): \nVis, SomMot, DorsAttn, SalVentAttn, Limbic, Cont, Default, VisCent, VisPeri, SomMotA, SomMotB, DorsAttnA, DorsAttnB, SalVentAttnA, SalVentAttnB, LimbicOFC, LimbicTempPole, ContA, ContB, ContC, DefaultA, DefaultB, DefaultC, TempPar.",
+      "default": "null",
+      "required": false,
+      "multiline": true,
+      "placeholder": "Yeo/Shaeffer  2011/2017 Restricted Subgraphs"
+    },
+    {
+      "id": "mplx",
+      "type": "number",
+      "description": "Levels of multiplex graph analysis (only) if both structural and diffusion connectometry is run simultaneously. Include this flag to perform multiplex graph analysis across structural-functional connectome modalities. \n\nOptions include level:\n(0) Default, which is no multiplex analysis.\n(1) Create multiplex graphs using mutual information and adaptive thresholding; \n(2) Additionally perform multiplex graph embedding and analysis.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 2,
+      "required": true,
+      "advanced": true
+    },
+    {
+      "id": "ml",
+      "type": "string",
+      "description": "(Metaparameter): Include this flag to manually specify a minimum tract length (mm) for dmri connectome tracking. Default is 20. Safe range: [0-150]. Depending on the tissue classifier used and the restrictiveness of the parcellation or any way-masking, values >100mm may fail if you are not tracking across nodes where long-range association fibers are to be expected biologically.",
+      "default": "0 30 60",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Structural Connectome Attribute): Minimum Fiber Length"
+    },
+    {
+      "id": "em",
+      "type": "string",
+      "description": "(Metaparameter): Distance (in the units of the streamlines, usually mm). If any coordinate in the streamline is within this distance from the center of any voxel in the ROI, the filtering criterion is set to `True` for this streamline, otherwise False. Defaults to the distance between the center of each voxel and the corner of the voxel. Default is 8. Safe range: [0-15].",
+      "default": "5 10 15",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Structural Connectome Attribute): Node-Fiber Tolerance Distance"
+    },
+    {
+      "id": "hp",
+      "type": "string",
+      "description": "Optionally specify high-pass filter thresholds to apply to node-extracted time-series for fMRI. Safe range: [0-0.15] for resting-state data.",
+      "default": "0 0.028 0.08",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Functional Connectome Attribute): High-Pass Filter Threshold"
+    },
+    {
+      "id": "sm",
+      "type": "string",
+      "description": "Optionally specify smoothing width(s) to apply to the node-extracted time-series for fMRI. Safe range: [0-8]",
+      "default": "0 3 6",
+      "required": true,
+      "multiline": true,
+      "placeholder": "(Functional Connectome Attribute): Smoothing"
+    },
+    {
+      "id": "spheres",
+      "type": "boolean",
+      "description": "Include this flag to use spheres instead of parcels as nodes. Safe range: [0-8]",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "bin",
+      "type": "boolean",
+      "description": "Binarize the resulting graph such that edges are boolean and unweighted.",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "dpys/pynets:ba6f4a4c33b1c7751bc8c781ef0191db3d2b0520",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 56,
+      "walltime_hours": 48
+    }
+  },
+  "doi": "10.25663/brainlife.app.486",
+  "software": [
+    {
+      "name": "PyNets",
+      "url": "https://github.com/dPys/PyNets"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Pisner D, Hammonds R. PyNets: A Reproducible Workflow for Structural and Functional Connectome Ensemble Learning. Poster, 26th Annual Meeting of the Organization for Human Brain Mapping (2020). https://github.com/dPys/PyNets"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "At least one of BOLD and DWI are required!",
+      "cause": "Neither the task (BOLD) nor the DWI input was provided.",
+      "fix": "Provide a BOLD and/or DWI input."
+    }
+  ]
+}

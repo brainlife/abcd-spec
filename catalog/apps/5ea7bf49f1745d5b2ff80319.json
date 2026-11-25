@@ -1,0 +1,78 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Denoising using LPCA",
+  "version": "1.1.1",
+  "summary": "Brainlife wrapper app for dipy_denoise_lpca workflows.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-denoising",
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5ea7bf49f1745d5b2ff80319",
+    "github": "dipy/bl_apps_dipy_denoise_lpca",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "denoised"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sigma",
+      "type": "number",
+      "description": "Standard deviation of the noise estimated from the data. A value of 0 means sigma value estimation with the Manjon2013 algorithm",
+      "default": 0
+    },
+    {
+      "id": "patch_radius",
+      "type": "number",
+      "description": "The radius of the local patch to be taken around each voxel (in voxels). Default: 2 (denoise in blocks of 5x5x5 voxels).",
+      "default": 2
+    },
+    {
+      "id": "pca_method",
+      "type": "string",
+      "description": "Use either eigenvalue decomposition ('eig') or singular value decomposition ('svd') for principal component analysis. The default method is 'eig' which is faster. However, occasionally 'svd' might be more accurate.",
+      "default": "eig"
+    },
+    {
+      "id": "tau_factor",
+      "type": "number",
+      "description": "Thresholding of PCA eigenvalues",
+      "default": 2.3
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 12
+    }
+  },
+  "doi": "10.25663/brainlife.app.454"
+}

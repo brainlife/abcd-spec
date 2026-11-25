@@ -1,0 +1,82 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Surface Source Space",
+  "version": "v1.0",
+  "summary": "Compute a surface-based source space from a FreeSurfer reconstruction.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69aac2a76bb1f71b25abef49",
+    "github": "BrainlifeMEEG/source-space",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "source_space"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spacing",
+      "type": "string",
+      "description": "Source density. Examples: \noct6 = 4098 sources/hemisphere (recommended)\n oct5 = 1026 (faster)\noct4 = 258 (testing only)\nico5 = 10242 (high density)\nor a number like '10' for ~10mm grid spacing.",
+      "default": "oct6",
+      "placeholder": "oct6"
+    },
+    {
+      "id": "add_dist",
+      "type": "enum",
+      "description": "Add distance and patch information to the source space. This takes some time so precomputing it is recommended. Can also be \u2018patch\u2019 to only compute patch information.",
+      "default": "False",
+      "options": [
+        {
+          "value": "False",
+          "label": "No",
+          "description": "Fastest. No distance or patch info computed."
+        },
+        {
+          "value": "True",
+          "label": "Full",
+          "description": "Full distance + patch info"
+        },
+        {
+          "value": "patch",
+          "label": "Patch only\t",
+          "description": "Computes patch information (requires SciPy). Recommended if unsure."
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlifemeeg/mne-freesurfer:1.12.1-7.4.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 40,
+      "walltime_hours": 4
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE",
+      "FS_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.900"
+}

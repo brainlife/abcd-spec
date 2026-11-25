@@ -1,0 +1,156 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Cortex Tissue Mapping - Fukutomi et al  2018 Replication",
+  "version": "v1.0",
+  "summary": "Maps DTI and NODDI measures onto HCP PostFreeSurfer native and 32k fs_LR cortical surfaces with Connectome Workbench, replicating the Fukutomi et al. (2018) NODDI cortex-mapping pipeline.",
+  "description": "Ports the RIKEN NoddiSurfaceMapping code: warps the tensor and NODDI maps (plus a derived NODDI kappa) to MNI with the HCP acpc_dc2standard warp, maps them onto the native midthickness surface weighted by cortical thickness, masks vertices with b0 SNR below 10, and resamples to the 32k fs_LR mesh with MSMAll spheres. Requires HCP-style PostFreeSurfer outputs (MNINonLinear with Native and fsaverage_LR32k folders, MSMAll spheres); use the general Cortex Tissue Mapping Apps for FreeSurfer-only data. Requires a FreeSurfer license.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "dwi",
+    "surface-analysis",
+    "connectome-workbench",
+    "freesurfer",
+    "diffusion-modeling",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5f6cc1836bbee392069a19a6",
+    "github": "brainlife/app-hcp-cortex-mapping-replication",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI with bvals/bvecs; used to compute the b0 temporal SNR map for masking vertices.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ],
+      "requirements": "Must contain several b0 volumes."
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "FreeSurfer output of the subject.",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "postfreesurfer",
+      "datatype": "neuro/hcp/freesurferpost",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "HCP PostFreeSurfer output; provides MNINonLinear native surfaces, labels, the acpc_dc2standard warp and the 32k fs_LR spheres.",
+      "config_keys": [
+        "postfreesurfer"
+      ],
+      "requirements": "Must include MSMAll native spheres and the fsaverage_LR32k folder."
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DTI measures (fa, md, rd, ad) in DWI space.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "NODDI measures (ndi, isovf, odi) in DWI space; odi is also converted to a NODDI kappa map.",
+      "config_keys": [
+        "dir",
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "T1-weighted image passed as the -fnirt source to wb_command -volume-warpfield-resample when warping measures to MNI.",
+      "config_keys": [
+        "anat"
+      ]
+    },
+    {
+      "id": "brainmask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "dwi brainmask",
+      "config_keys": [
+        "brainmask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "description": "cortexmap with native surfaces, aparc.a2009s labels, and native and 32k fs_LR (MSMAll) func maps of each measure and SNR."
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "hcp-cortexmap-derivatives"
+      ],
+      "description": "Intermediate derivatives (measure volumes, SNR images) for QA and debugging."
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 8,
+      "walltime_hours": 1,
+      "memory_gb": 16
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.430",
+  "software": [
+    {
+      "name": "Connectome Workbench",
+      "version": "1.4.2b"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    }
+  ],
+  "citations": [
+    {
+      "doi": "10.1038/s41597-019-0073-y",
+      "text": "Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019)."
+    }
+  ]
+}

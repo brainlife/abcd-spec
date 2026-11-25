@@ -1,0 +1,60 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute average measures per tract",
+  "version": "v1.0",
+  "summary": "Averages along-tract measures across nodes to give one value per tract and measure, from a tractmeasures CSV, with pandas.",
+  "description": "Groups the input tractmeasures.csv by structureID, averages every numeric column over nodes, drops nodeID, and writes output/tractmeasures.csv. Use it to turn tract profiles into per-tract summaries for statistics.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "63753b80ce8953d657d54fb2",
+    "github": "brainlife/app-compute-average-tractmeasure",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "tractmeasures",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "macro_micro"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Tractmeasures CSV with structureID and nodeID columns (macro- and microstructural profiles along tracts).",
+      "config_keys": [
+        "input"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [
+        "average"
+      ],
+      "description": "tractmeasures.csv with one row per tract: the mean of each measure across nodes.",
+      "datatype_tags_pass": "tractmeasures"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-stats:1.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 14,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.706",
+  "category": "statistics",
+  "software": [
+    {
+      "name": "pandas"
+    }
+  ]
+}

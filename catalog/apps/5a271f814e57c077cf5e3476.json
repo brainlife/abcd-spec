@@ -1,0 +1,77 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Denoising using Non Local Means (NLM)",
+  "version": "1.1.1",
+  "summary": "Brainlife wrapper app for dipy_denoise_nlmeans workflows.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "diffusion-mri",
+    "diffusion-preprocessing",
+    "dipy"
+  ],
+  "registry": {
+    "id": "5a271f814e57c077cf5e3476",
+    "github": "dipy/bl_apps_dipy_denoise_nlmeans",
+    "branch": "1.1.1"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "bvecs",
+        "bvals",
+        "dwi"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [
+        "denoised"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sigma",
+      "type": "number",
+      "description": "Sigma parameter to pass to the nlmeans algorithm",
+      "default": 0
+    },
+    {
+      "id": "patch_radius",
+      "type": "number",
+      "description": "patch size is ``2 x patch_radius + 1``",
+      "default": 1
+    },
+    {
+      "id": "block_radius",
+      "type": "number",
+      "description": "block size is ``2 x block_radius + 1``",
+      "default": 5
+    },
+    {
+      "id": "rician",
+      "type": "boolean",
+      "description": "If True the noise is estimated as Rician, otherwise Gaussian noise is assumed.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.1.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/bl.app.72"
+}

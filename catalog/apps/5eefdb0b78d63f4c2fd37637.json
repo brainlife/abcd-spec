@@ -1,0 +1,47 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Qoala-T Model A",
+  "version": "master",
+  "summary": "Predicting scan Qoala-T score by using Braintime model",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5eefdb0b78d63f4c2fd37637",
+    "github": "davhunt/app-qoala-t-model-a",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "fs",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "Output_Qoala_T",
+      "datatype": "report/pdf",
+      "datatype_tags": [
+        "qoala-t"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "davhunt/r-qoala:1.0.1",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 30,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.386"
+}

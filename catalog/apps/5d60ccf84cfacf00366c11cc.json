@@ -1,0 +1,165 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROI Generation (thalamic nuclei)",
+  "version": "subthalamic",
+  "summary": "Generate a parcellation volume (and roi nifti files split into each label) for specific ROIs, or every ROI, for a parcellation from freesurfer output and/or input parcellation volume. This App can also inflate input parcellation volume toward non-white matter voxels.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5d60ccf84cfacf00366c11cc",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "subthalamic"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the anat/t1w datatype",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the DWI datatype",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "thalamic_nuclei"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the freesurfer datatype",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the parcellation/volume datatype",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the mask datatype containing the dwi brainmask",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Parcellation nifti containing all the ROIs"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "Directory containing all of the ROIs"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "ROI",
+      "type": "string",
+      "description": "Enter ROI numbers from key.txt (parcellation) or colorLUT (freesurfer) for the cortical ROIs wanted.\n\nExample: 45,54",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "subcort",
+      "type": "string",
+      "description": "Enter the number of the subcortical ROI (if wanted).\n\nSubcortical ROIs will be outputted with a leading 0 before the number (i.e. ROI012) for subcortical ROI 12. This is in order to avoid repetition in numbers between cortical and subcortical LUTs",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "thalamus",
+      "type": "string",
+      "description": "Enter the number of the thalamic ROI (if wanted).\n\nPlease refer to this color lut (https://github.com/freesurfer/freesurfer/blob/dev/ThalamicNuclei/compressionLookupTable.txt) and your thalamic segmentation for specific ROI numbers",
+      "default": ""
+    },
+    {
+      "id": "inflate",
+      "type": "number",
+      "description": "if ROI inflation into WM is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "thalamusInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for thalamus segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "Freesurfer parcellation",
+      "default": "aparc",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    },
+    {
+      "id": "whitematter",
+      "type": "boolean",
+      "description": "include white matter roi",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.223",
+  "deprecated_by": "5dbb497c8aeeee769af34e75"
+}

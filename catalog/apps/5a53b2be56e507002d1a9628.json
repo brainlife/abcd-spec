@@ -1,0 +1,62 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Laplace Beltrami Spectrum: Eigenvalues Only",
+  "version": "singularity",
+  "summary": "Application to calculate the Laplace Beltrami Spectrum using matlab",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "analysis"
+  ],
+  "registry": {
+    "id": "5a53b2be56e507002d1a9628",
+    "github": "kitchell/app-LBspectrum_matlab",
+    "branch": "singularity"
+  },
+  "inputs": [
+    {
+      "id": "surfaces",
+      "datatype": "neuro/3Dsurfaces",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/laplace_beltrami_spectrum",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "surfaces"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "save_eigenvectors",
+      "type": "boolean",
+      "description": "this app does not save the eigenvectors",
+      "default": false,
+      "readonly": true
+    },
+    {
+      "id": "spectrum_size",
+      "type": "number",
+      "description": "unknown",
+      "default": 50
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mcr:neurodebian1604-r2017a",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 28,
+      "walltime_hours": 8
+    }
+  },
+  "doi": "10.25663/bl.app.97"
+}

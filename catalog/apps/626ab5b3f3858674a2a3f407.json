@@ -1,0 +1,88 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Sample streamlines based on labels assignments",
+  "version": "binarize-labels",
+  "summary": "Keeps the streamlines of a tractogram whose label is 1 in a binary labels file (e.g. from SIFT) and removes the rest, using MRtrix3 connectome2tck.",
+  "description": "Uses MRtrix3 connectome2tck with the per-streamline labels as node assignments to extract the streamlines labelled 1 into a new tractogram. Use it to apply a streamline selection, such as the SIFT surviving-streamline labels, to the original tractogram. The labels file must have one entry per streamline of the input tractogram.",
+  "kind": "native",
+  "topics": [
+    "tractography",
+    "mrtrix3",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "626ab5b3f3858674a2a3f407",
+    "github": "brainlife/app-filter-tractograms",
+    "branch": "binarize-labels"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram to filter.",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "labels",
+      "datatype": "neuro/labels",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Per-streamline labels (one value per streamline); streamlines labelled 1 are kept.",
+      "config_keys": [
+        "labels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "filtered_track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "filtered"
+      ],
+      "description": "Tractogram containing only the streamlines labelled 1.",
+      "datatype_tags_pass": "track"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "binarize_labels",
+      "type": "boolean",
+      "description": "Intended to binarise the labels (any value > 0 becomes 1) with binarize_labels.py before filtering. Note: main on this branch never runs binarize_labels.py, so the setting has no effect.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 40,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.619",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives",
+      "cause": "filtered_track/track.tck was not produced.",
+      "fix": "Check that the labels file has one entry per streamline of the tractogram."
+    }
+  ],
+  "maintainers": [
+    "Brad Caron",
+    "Soichi Hayashi"
+  ]
+}

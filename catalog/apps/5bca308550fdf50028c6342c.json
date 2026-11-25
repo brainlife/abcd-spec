@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Compute SNR on Corpus Callosum",
+  "version": "plot",
+  "summary": "Computes the signal-to-noise ratio of DWI in the corpus callosum for the b0 and each gradient direction with DIPY, and outputs SNR statistics and the corpus callosum and noise masks.",
+  "description": "Fits a tensor, segments the corpus callosum from the colour-FA map within a central bounding box (DIPY segment_from_cfa), estimates noise from a background mask (median_otsu) and reports SNR for b0 and for each gradient direction, including the directions closest to x, y and z. Use it as a QC measure of DWI data quality. Follows the DIPY snr_in_cc example.",
+  "kind": "native",
+  "topics": [
+    "dwi",
+    "quality-control",
+    "dipy",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5bca308550fdf50028c6342c",
+    "github": "brainlife/app-snr_in_cc",
+    "branch": "plot"
+  },
+  "inputs": [
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Diffusion-weighted image with bvals and bvecs.",
+      "config_keys": [
+        "dwi",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "snr-cc"
+      ],
+      "description": "Raw SNR results (JSON/CSV) and intermediate files."
+    },
+    {
+      "id": "cc_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "CC",
+        "dwi"
+      ],
+      "description": "Corpus callosum mask in DWI space used to measure signal."
+    },
+    {
+      "id": "noise_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "noise",
+        "dwi"
+      ],
+      "description": "Background noise mask in DWI space used to estimate noise."
+    },
+    {
+      "id": "snr-stats",
+      "datatype": "neuro/snr-stats",
+      "datatype_tags": [],
+      "description": "SNR statistics for b0 and each gradient direction.",
+      "datatype_tags_pass": "dwi"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/dipy:0.16.0",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.120",
+  "software": [
+    {
+      "name": "DIPY",
+      "version": "0.16.0",
+      "url": "https://dipy.org"
+    }
+  ]
+}

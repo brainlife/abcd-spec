@@ -1,0 +1,102 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "pydeface",
+  "version": "2.0-1",
+  "summary": "Removes facial features from a T1-weighted image with pydeface (FSL flirt to a face template) and outputs the defaced T1w.",
+  "description": "Runs pydeface 2.0 on the T1w image, registering a face mask template with FSL flirt using the chosen cost function and zeroing voxels in the face region. Use it to de-identify anatomical data before sharing. Check the result: if registration fails, the face may not be fully removed or brain may be cut; try another cost function.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "preprocessing",
+    "fsl",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5ef2c397c67a0d84a529667a",
+    "github": "brainlife/app-pydeface",
+    "branch": "2.0-1"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "!defaced"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 anatomical image to deface",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "defaced"
+      ],
+      "description": "T1 anatomical image defaced",
+      "datatype_tags_pass": "t1"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "cost",
+      "type": "enum",
+      "description": "flirt cost function to use",
+      "default": "mutualinfo",
+      "options": [
+        {
+          "value": "mutualinfo",
+          "label": "mutualinfo"
+        },
+        {
+          "value": "corratio",
+          "label": "corratio"
+        },
+        {
+          "value": "normcorr",
+          "label": "normcorr"
+        },
+        {
+          "value": "normmi",
+          "label": "normmi"
+        },
+        {
+          "value": "leastsq",
+          "label": "leastsq"
+        },
+        {
+          "value": "labeldiff",
+          "label": "labeldiff"
+        },
+        {
+          "value": "bbr",
+          "label": "bbr"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/pydeface:2.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 14
+    }
+  },
+  "doi": "10.25663/brainlife.app.388",
+  "software": [
+    {
+      "name": "pydeface",
+      "version": "2.0",
+      "url": "https://github.com/poldracklab/pydeface"
+    },
+    {
+      "name": "FSL"
+    }
+  ]
+}

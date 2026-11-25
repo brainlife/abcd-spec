@@ -1,0 +1,116 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer on OSG",
+  "version": "master",
+  "summary": "Runs FreeSurfer recon-all on a T1-weighted image (optionally with a T2w) as a Pegasus workflow on the Open Science Grid, producing a FreeSurfer subject directory.",
+  "description": "Uses ABCD start/status/stop hooks to submit a Pegasus workflow to the Open Science Grid that runs recon-all with the selected FreeSurfer version and options (hires, notalcheck, cw256, debug, optional hippocampal subfields). Use it to offload FreeSurfer reconstruction to OSG resources; it needs a FreeSurfer license and only runs where OSG submission is configured.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "segmentation",
+    "parcellation",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5e03c7c332bff0800ae2a47b",
+    "github": "brainlife/app-freesurfer-osg",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-head T1-weighted image to reconstruct.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "Submillimetre images need the hires parameter; a field of view over 256 mm needs cw256."
+    },
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional T2-weighted image of the same subject, passed to recon-all to refine the pial surface.",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "description": "FreeSurfer subject directory (mri, surf, label, stats, scripts) produced by recon-all."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "version",
+      "type": "enum",
+      "description": "Freesurfer version to use",
+      "default": "6.0.1",
+      "options": [
+        {
+          "value": "6.0.0",
+          "label": "6.0.0"
+        },
+        {
+          "value": "6.0.1",
+          "label": "6.0.1"
+        }
+      ]
+    },
+    {
+      "id": "hires",
+      "type": "boolean",
+      "description": "Check this flag if your input t1 has voxel sizes less than 1mm3 (submillimeter resolution) like HCP 7T. (HCP 3T is 1.25mm). The processing will take a significantly longer time. See https://surfer.nmr.mgh.harvard.edu/fswiki/SubmillimeterRecon",
+      "default": false
+    },
+    {
+      "id": "notalcheck",
+      "type": "boolean",
+      "description": "If you are seeing \"ERROR: Talairach failed\", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis.",
+      "default": false
+    },
+    {
+      "id": "cw256",
+      "type": "boolean",
+      "description": "If a scan has a field-of-view (FOV) greater than 256, check this to force the FOV to 256. You often need to do this for image with sub 1mm voxel size (like HCP 7T)",
+      "default": false
+    },
+    {
+      "id": "hippocampal",
+      "type": "boolean",
+      "description": "(only for >7) Generate an automated segmentation of the hippocampal subfields based on a statistical atlas built primarily upon ultra-high resolution (~0.1 mm isotropic) ex vivo MRI data. This new method can take advantage high-resolution, dedicated images when available (typically, but not necessarily, T2 weighted), and solves a number of limitations of the in vivo atlas that was distributed with FreeSurfer 5.1-5.3, namely",
+      "default": false
+    },
+    {
+      "id": "debug",
+      "type": "boolean",
+      "description": "Turn on copious amount of freesurfer log",
+      "default": false,
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.268",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "url": "https://surfer.nmr.mgh.harvard.edu/"
+    },
+    {
+      "name": "Pegasus WMS",
+      "url": "https://pegasus.isi.edu/"
+    }
+  ]
+}

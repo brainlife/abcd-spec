@@ -1,0 +1,200 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Structural Connectome MRTrix3 (SCMRT) (SIFT2)",
+  "version": "sift2_v1.2_centers_netneuro",
+  "summary": "Builds SIFT2-weighted structural connectivity matrices (count, density, length and mean diffusion measures) from a tractogram, CSD FODs, 5TT mask and volumetric parcellation with MRtrix3 and outputs conmat and networkneuro datatypes.",
+  "description": "Computes per-streamline SIFT2 weights with tcksift2 (anatomically constrained by the 5TT image) and uses them in tck2connectome to build symmetric count, density, length and density-of-length matrices, plus mean-microstructure matrices when tensor, NODDI or spherical-mean maps are given. It also builds a networkneuro datatype with parcel surfaces. The tractogram, FODs, 5TT image and parcellation must be in the same space.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "connectomics",
+    "dwi",
+    "mrtrix3"
+  ],
+  "registry": {
+    "id": "6165b253fc8eb97e54faca55",
+    "github": "brainlife/app-sift2-connectome-generation",
+    "branch": "sift2_v1.2_centers_netneuro"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Whole-brain tractogram (.tck).",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Volumetric parcellation with label.json; each label becomes a network node.",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "csd",
+      "datatype": "neuro/csd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Constrained spherical deconvolution FODs; the lmax given by the lmax parameter is used by SIFT2.",
+      "config_keys": [
+        "lmax2",
+        "lmax4",
+        "lmax6",
+        "lmax8",
+        "lmax10",
+        "lmax12",
+        "lmax14"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "5tt_masks"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Five-tissue-type (5TT) image used for anatomically constrained SIFT2.",
+      "config_keys": [
+        "mask"
+      ],
+      "requirements": "Must be aligned with the tractogram and FODs."
+    },
+    {
+      "id": "tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional DTI/DKI maps (FA, MD, RD, AD and kurtosis maps if present); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "fa",
+        "md",
+        "rd",
+        "ad",
+        "ga",
+        "ak",
+        "mk",
+        "rk"
+      ]
+    },
+    {
+      "id": "noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional NODDI maps (NDI, ODI, ISOVF); used to build mean-microstructure matrices.",
+      "config_keys": [
+        "ndi",
+        "isovf",
+        "odi"
+      ]
+    },
+    {
+      "id": "sm",
+      "datatype": "neuro/spherical-mean",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Optional spherical-mean map; used to build a mean-microstructure matrix.",
+      "config_keys": [
+        "sphmean"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "networkmatrices"
+      ],
+      "description": "All connectivity matrices as CSV files (count, density, length, density-of-length and per-measure mean matrices)."
+    },
+    {
+      "id": "count_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "count"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts between node pairs."
+    },
+    {
+      "id": "length_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "length"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of mean streamline length between node pairs."
+    },
+    {
+      "id": "density_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "density"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of streamline counts scaled by inverse node volume."
+    },
+    {
+      "id": "denlen_out",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [
+        "denlen_out"
+      ],
+      "description": "Connectivity matrix datatype (csv/correlation.csv with label.json) of length-scaled counts normalised by inverse node volume."
+    },
+    {
+      "id": "netneuro",
+      "datatype": "neuro/networkneuro",
+      "datatype_tags": [],
+      "description": "networkneuro datatype for brainlife visualisation: matrices, per-edge streamline lists and parcel surfaces."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "lmax",
+      "type": "number",
+      "description": "Spherical harmonic order of the CSD FOD image used by tcksift2.",
+      "default": 8
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mrtrix3:3.0.3",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 40,
+      "walltime_hours": 6.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.580",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0.3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org/"
+    },
+    {
+      "name": "VTK (pythonvtk)",
+      "version": "1.1"
+    }
+  ]
+}

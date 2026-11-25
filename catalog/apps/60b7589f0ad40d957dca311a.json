@@ -1,0 +1,186 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "PSD of raw data",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "meg"
+  ],
+  "registry": {
+    "id": "60b7589f0ad40d957dca311a",
+    "github": "guiomar/app-psd",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "megfif",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_grad",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "grad",
+        "raw"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_mag",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "mag",
+        "raw"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_eeg",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "psd",
+        "eeg",
+        "raw"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "megfif"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "raw",
+      "datatype_tags": [
+        "psd_image",
+        "raw"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "megfif"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "fmin",
+      "type": "number",
+      "description": "Min frequency of interest.",
+      "default": 0
+    },
+    {
+      "id": "fmax",
+      "type": "number",
+      "description": "Max frequency of interest.",
+      "default": 100,
+      "required": true
+    },
+    {
+      "id": "tmin",
+      "type": "number",
+      "description": "Min time of interest.",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "tmax",
+      "type": "number",
+      "description": "Max time of interest.",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "n_fft",
+      "type": "number",
+      "description": "The length of FFT used, must be >= n_per_seg. \nThe segments will be zero-padded if n_fft > n_per_seg. If n_per_seg is None, n_fft must be <= number of time points in the data.",
+      "default": 4096
+    },
+    {
+      "id": "n_overlap",
+      "type": "number",
+      "description": "The number of points of overlap between segments. \nWill be adjusted to be <= n_per_seg.",
+      "default": 2000
+    },
+    {
+      "id": "n_per_seg",
+      "type": "number",
+      "description": "Length of each Welch segment (windowed with a Hamming window). Defaults to None, which sets n_per_seg equal to n_fft",
+      "required": false,
+      "placeholder": "None"
+    },
+    {
+      "id": "window",
+      "type": "string",
+      "description": "Windowing function to use. See scipy.signal.get_window().",
+      "default": "hamming",
+      "advanced": true
+    },
+    {
+      "id": "proj",
+      "type": "boolean",
+      "description": "Apply SSP projection vectors.",
+      "default": false,
+      "advanced": true
+    },
+    {
+      "id": "reject_by_annotation",
+      "type": "boolean",
+      "description": "Whether to omit bad segments from the data before fitting. If True (default), annotated segments whose description begins with 'bad' are omitted. If False, no rejection based on annotations is performed.",
+      "default": true,
+      "advanced": true
+    },
+    {
+      "id": "picks",
+      "type": "string",
+      "description": "Channels to include. In lists, channel type strings (e.g., [meg, eeg]) will pick channels of those types, channel name strings (e.g., [MEG0111, MEG2623]) will pick the given channels. When you use a list, don't forget to use the square brackets. Can also be the string values \u201call\u201d to pick all channels, or \u201cdata\u201d to pick data channels. None will pick all data channels. Note that channels in info['bads'] will be included if their names are explicitly provided.",
+      "default": "None",
+      "required": true,
+      "advanced": true,
+      "readonly": true
+    },
+    {
+      "id": "average",
+      "type": "enum",
+      "description": "How to average the segments. \n- If 'mean (default), calculate the arithmetic mean. \n- If 'median', calculate the median, corrected for its bias relative to the mean. \n- If 'None', returns the unaggregated segments.",
+      "default": "mean",
+      "options": [
+        {
+          "value": "mean",
+          "label": "Mean",
+          "description": "arithmetic mean"
+        },
+        {
+          "value": "median",
+          "label": "Median",
+          "description": "corrected for its bias relative to the mean"
+        },
+        {
+          "value": "None",
+          "label": "None",
+          "description": "returns the unaggregated segments"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 64,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.530"
+}

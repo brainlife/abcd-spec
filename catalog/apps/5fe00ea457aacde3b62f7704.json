@@ -1,0 +1,542 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Generate images of data mapped to cortical surface",
+  "version": "v1.0",
+  "summary": "Renders JPEG images of cortical surface maps (cortexmap) on FreeSurfer or fsaverage surfaces with PySurfer, for visual quality control.",
+  "description": "Loads each measure in a cortexmap datatype and draws it on the chosen surface (midthickness, pial, white or inflated) of the subject or an fsaverage template, scaling the colormap between the chosen percentiles of supra-threshold values, and saves medial and lateral views as JPEGs. Use it to inspect or illustrate surface-mapped measures. It is a visualisation utility and does not change the data.",
+  "kind": "native",
+  "topics": [
+    "visualization",
+    "quality-control",
+    "surface-analysis",
+    "freesurfer",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5fe00ea457aacde3b62f7704",
+    "github": "brainlife/app-cortex-mapping-images",
+    "branch": "v1.0"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to the freesurfer dataset. Needed for image generation, even when surface = midthickness",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "cortexmap",
+      "datatype": "neuro/cortexmap",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Path to cortexmap data",
+      "config_keys": [
+        "cortexmap"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "images",
+      "datatype": "generic/images",
+      "datatype_tags": [
+        "cortex_mapping",
+        "qa_image"
+      ],
+      "description": "File containing multiple images of medial and lateral views of the cortex mapped data on the chosen surface"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "surface",
+      "type": "enum",
+      "description": "Surface to use in the image. Pial, white, and inflated come from freesurfer's standard segmentation. Midthickness comes from Cortex Mapping datatype",
+      "default": "midthickness",
+      "options": [
+        {
+          "value": "midthickness",
+          "label": "midthickness",
+          "description": "midthickness"
+        },
+        {
+          "value": "pial",
+          "label": "pial",
+          "description": "pial"
+        },
+        {
+          "value": "white",
+          "label": "white",
+          "description": "white"
+        },
+        {
+          "value": "inflated",
+          "label": "inflated",
+          "description": "inflated"
+        }
+      ]
+    },
+    {
+      "id": "min_percentile",
+      "type": "number",
+      "description": "Minimum percentile to map to colorbar",
+      "default": 4,
+      "advanced": true
+    },
+    {
+      "id": "max_percentile",
+      "type": "number",
+      "description": "Maximum percentile to map to colorbar",
+      "default": 96,
+      "advanced": true
+    },
+    {
+      "id": "threshold",
+      "type": "number",
+      "description": "Threshold value to use for computing minimum,  median, and maximum values to map colormap to.\n\nWill update to plot only data above threshold once functionality is available.",
+      "default": 1e-09,
+      "advanced": true
+    },
+    {
+      "id": "colormap",
+      "type": "enum",
+      "description": "Matplotlib colormap to use for representing data mapped to cortical surface. 'Videen_style' is based on Connectome Workbench's and nilearn's colormap scheme.\n\nDefault: videen_style",
+      "default": "videen_style",
+      "options": [
+        {
+          "value": "videen_style",
+          "label": "videen_style",
+          "description": "videen_style"
+        },
+        {
+          "value": "viridis",
+          "label": "viridis",
+          "description": "viridis"
+        },
+        {
+          "value": "plasma",
+          "label": "plasma",
+          "description": "plasma"
+        },
+        {
+          "value": "inferno",
+          "label": "inferno",
+          "description": "inferno"
+        },
+        {
+          "value": "magma",
+          "label": "magma",
+          "description": "magma"
+        },
+        {
+          "value": "cividis",
+          "label": "cividis",
+          "description": "cividis"
+        },
+        {
+          "value": "Greys",
+          "label": "Greys",
+          "description": "Greys"
+        },
+        {
+          "value": "Purples",
+          "label": "Purples",
+          "description": "Purples"
+        },
+        {
+          "value": "Blues",
+          "label": "Blues",
+          "description": "Blues"
+        },
+        {
+          "value": "Greens",
+          "label": "Greens",
+          "description": "Greens"
+        },
+        {
+          "value": "Reds",
+          "label": "Reds",
+          "description": "Reds"
+        },
+        {
+          "value": "YlOrBr",
+          "label": "YlOrBr",
+          "description": "YlOrBr"
+        },
+        {
+          "value": "YlOrRd",
+          "label": "YlOrRd",
+          "description": "YlOrRd"
+        },
+        {
+          "value": "OrRd",
+          "label": "OrRd",
+          "description": "OrRd"
+        },
+        {
+          "value": "PuRd",
+          "label": "PuRd",
+          "description": "PuRd"
+        },
+        {
+          "value": "RdPu",
+          "label": "RdPu",
+          "description": "RdPu"
+        },
+        {
+          "value": "BuPu",
+          "label": "BuPu",
+          "description": "BuPu"
+        },
+        {
+          "value": "GnBu",
+          "label": "GnBu",
+          "description": "GnBu"
+        },
+        {
+          "value": "PuBu",
+          "label": "PuBu",
+          "description": "PuBu"
+        },
+        {
+          "value": "YlGnBu",
+          "label": "YlGnBu",
+          "description": "YlGnBu"
+        },
+        {
+          "value": "PuBuGn",
+          "label": "PuBuGn",
+          "description": "PuBuGn"
+        },
+        {
+          "value": "BuGn",
+          "label": "BuGn",
+          "description": "BuGn"
+        },
+        {
+          "value": "YlGn",
+          "label": "YlGn",
+          "description": "YlGn"
+        },
+        {
+          "value": "binary",
+          "label": "binary",
+          "description": "binary"
+        },
+        {
+          "value": "gist_yarg",
+          "label": "gist_yarg",
+          "description": "gist_yarg"
+        },
+        {
+          "value": "gist_gray",
+          "label": "gist_gray",
+          "description": "gist_gray"
+        },
+        {
+          "value": "gray",
+          "label": "gray",
+          "description": "gray"
+        },
+        {
+          "value": "bone",
+          "label": "bone",
+          "description": "bone"
+        },
+        {
+          "value": "pink",
+          "label": "pink",
+          "description": "pink"
+        },
+        {
+          "value": "spring",
+          "label": "spring",
+          "description": "spring"
+        },
+        {
+          "value": "summer",
+          "label": "summer",
+          "description": "summer"
+        },
+        {
+          "value": "autumn",
+          "label": "autumn",
+          "description": "autumn"
+        },
+        {
+          "value": "winter",
+          "label": "winter",
+          "description": "winter"
+        },
+        {
+          "value": "cool",
+          "label": "cool",
+          "description": "cool"
+        },
+        {
+          "value": "Wistia",
+          "label": "Wistia",
+          "description": "Wistia"
+        },
+        {
+          "value": "hot",
+          "label": "hot",
+          "description": "hot"
+        },
+        {
+          "value": "afmhot",
+          "label": "afmhot",
+          "description": "afmhot"
+        },
+        {
+          "value": "gist_heat",
+          "label": "gist_heat",
+          "description": "gist_heat"
+        },
+        {
+          "value": "copper",
+          "label": "copper",
+          "description": "copper"
+        },
+        {
+          "value": "PiYG",
+          "label": "PiYG",
+          "description": "PiYG"
+        },
+        {
+          "value": "PRGn",
+          "label": "PRGn",
+          "description": "PRGn"
+        },
+        {
+          "value": "BrBG",
+          "label": "BrBG",
+          "description": "BrBG"
+        },
+        {
+          "value": "PuOr",
+          "label": "PuOr",
+          "description": "PuOr"
+        },
+        {
+          "value": "RdGy",
+          "label": "RdGy",
+          "description": "RdGy"
+        },
+        {
+          "value": "RdBu",
+          "label": "RdBu",
+          "description": "RdBu"
+        },
+        {
+          "value": "RdYlBu",
+          "label": "RdYlBu",
+          "description": "RdYlBu"
+        },
+        {
+          "value": "RdYlGn",
+          "label": "RdYlGn",
+          "description": "RdYlGn"
+        },
+        {
+          "value": "Spectral",
+          "label": "Spectral",
+          "description": "Spectral"
+        },
+        {
+          "value": "coolwarm",
+          "label": "coolwarm",
+          "description": "coolwarm"
+        },
+        {
+          "value": "bwr",
+          "label": "bwr",
+          "description": "bwr"
+        },
+        {
+          "value": "seismic",
+          "label": "seismic",
+          "description": "seismic"
+        },
+        {
+          "value": "twilight",
+          "label": "twilight",
+          "description": "twilight"
+        },
+        {
+          "value": "twilight_shifted",
+          "label": "twilight_shifted",
+          "description": "twilight_shifted"
+        },
+        {
+          "value": "hsv",
+          "label": "hsv",
+          "description": "hsv"
+        },
+        {
+          "value": "flag",
+          "label": "flag",
+          "description": "flag"
+        },
+        {
+          "value": "prism",
+          "label": "prism",
+          "description": "prism"
+        },
+        {
+          "value": "ocean",
+          "label": "ocean",
+          "description": "ocean"
+        },
+        {
+          "value": "gist_earth",
+          "label": "gist_earth",
+          "description": "gist_earth"
+        },
+        {
+          "value": "terrain",
+          "label": "terrain",
+          "description": "terrain"
+        },
+        {
+          "value": "gist_stern",
+          "label": "gist_stern",
+          "description": "gist_stern"
+        },
+        {
+          "value": "gnuplot",
+          "label": "gnuplot",
+          "description": "gnuplot"
+        },
+        {
+          "value": "gnuplot2",
+          "label": "gnuplot2",
+          "description": "gnuplot2"
+        },
+        {
+          "value": "CMRmap",
+          "label": "CMRmap",
+          "description": "CMRmap"
+        },
+        {
+          "value": "cubehelix",
+          "label": "cubehelix",
+          "description": "cubehelix"
+        },
+        {
+          "value": "brg",
+          "label": "brg",
+          "description": "brg"
+        },
+        {
+          "value": "gist_rainbow",
+          "label": "gist_rainbow",
+          "description": "gist_rainbow"
+        },
+        {
+          "value": "rainbow",
+          "label": "rainbow",
+          "description": "rainbow"
+        },
+        {
+          "value": "jet",
+          "label": "jet",
+          "description": "jet"
+        },
+        {
+          "value": "turbo",
+          "label": "turbo",
+          "description": "turbo"
+        },
+        {
+          "value": "nipy_spectral",
+          "label": "nipy_spectral",
+          "description": "nipy_spectral"
+        },
+        {
+          "value": "gist_ncar",
+          "label": "gist_ncar",
+          "description": "gist_ncar"
+        }
+      ],
+      "advanced": true
+    },
+    {
+      "id": "fsaverage",
+      "type": "enum",
+      "description": "Surface on which to draw the data: the subject's own FreeSurfer surfaces or a bundled fsaverage template; only used when surface is midthickness.",
+      "default": "subject",
+      "options": [
+        {
+          "value": "subject",
+          "label": "subject",
+          "description": "subject"
+        },
+        {
+          "value": "fsaverage",
+          "label": "fsaverage",
+          "description": "fsaverage"
+        },
+        {
+          "value": "fsaverage3",
+          "label": "fsaverage3",
+          "description": "fsaverage3"
+        },
+        {
+          "value": "fsaverage4",
+          "label": "fsaverage4",
+          "description": "fsaverage4"
+        },
+        {
+          "value": "fsaverage5",
+          "label": "fsaverage5",
+          "description": "fsaverage5"
+        },
+        {
+          "value": "fsaverage6",
+          "label": "fsaverage6",
+          "description": "fsaverage6"
+        },
+        {
+          "value": "fsaverage_sym",
+          "label": "fsaverage_sym",
+          "description": "fsaverage_sym"
+        }
+      ],
+      "advanced": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 4,
+      "walltime_hours": 0.5
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.461",
+  "software": [
+    {
+      "name": "PySurfer",
+      "version": "0.10.0",
+      "url": "https://pysurfer.github.io/"
+    },
+    {
+      "name": "FreeSurfer",
+      "version": "6.0.1"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Please set FREESURFER_LICENSE in .bashrc",
+      "fix": "Provide a FreeSurfer license in the FREESURFER_LICENSE environment variable."
+    }
+  ]
+}

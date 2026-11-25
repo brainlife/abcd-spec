@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Freesurfer 7.1.1 Longitudinal (Step1/2)",
+  "version": "main",
+  "summary": "Builds a FreeSurfer 7.1.1 longitudinal base (within-subject template) from several cross-sectional FreeSurfer outputs of the same subject with recon-all -base; step 1 of 2 of longitudinal processing.",
+  "description": "Runs recon-all -base -all over all input FreeSurfer outputs (timepoints named by the md5 of their norm.mgz) to create an unbiased within-subject template. Use it before Step 2/2, which runs recon-all -long for each timepoint against this template. All inputs must be cross-sectional FreeSurfer runs of the same subject; requires a FreeSurfer license and can take many hours. See https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/LongitudinalTutorial",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "freesurfer",
+    "segmentation",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "61e195b233cb3deb499027b4",
+    "github": "brainlife/app-freesurfer-longitudinal",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Cross-sectional FreeSurfer recon-all outputs of the same subject at different timepoints.",
+      "config_keys": [
+        "freesurfers"
+      ],
+      "requirements": "At least two timepoints of the same subject, each with mri/norm.mgz."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/freesurfer/longitudinal-template",
+      "datatype_tags": [],
+      "description": "Longitudinal template: the recon-all base subject directory (template/) plus the mri folders of each timepoint (timepoints/<id>/), as needed by Step 2/2.",
+      "datatype_tags_pass": "freesurfer"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "mode",
+      "type": "string",
+      "description": "Fixed to base: makes main run base.sh (recon-all -base). Do not change.",
+      "default": "base",
+      "advanced": true,
+      "readonly": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/freesurfer:7.1.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 8,
+      "walltime_hours": 12
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.602",
+  "software": [
+    {
+      "name": "FreeSurfer",
+      "version": "7.1.1"
+    }
+  ]
+}

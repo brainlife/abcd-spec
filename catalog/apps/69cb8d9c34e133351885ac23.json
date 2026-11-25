@@ -1,0 +1,164 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Gyral Bias Analysis",
+  "version": "v0.2",
+  "summary": "This app computes parcel-wise gyral bias metrics by combining cortical curvature  with tractography-derived streamline counts and densities.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "69cb8d9c34e133351885ac23",
+    "github": "gamorosino/app-gyral-bias-analysis",
+    "branch": "v0.2"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "tcks",
+      "datatype": "neuro/tcks",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tcks",
+        "tcks_json"
+      ]
+    },
+    {
+      "id": "parc_vareas",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc_vareas",
+        "key_vareas",
+        "parc_vareas_label "
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "key",
+        "label"
+      ]
+    },
+    {
+      "id": "tractogram",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "varea",
+        "surfaces",
+        "prf_surfaces"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/tractmeasures",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "plots",
+      "datatype": "generic/images",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "visual_area_a",
+      "type": "string",
+      "description": "unknown",
+      "default": "V1",
+      "required": false
+    },
+    {
+      "id": "visual_area_b",
+      "type": "string",
+      "description": "unknown",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "meridian_mode",
+      "type": "string",
+      "description": "unknown",
+      "default": "HM, VM, LVM, UVM",
+      "required": false
+    },
+    {
+      "id": "input_mode",
+      "type": "enum",
+      "description": "unknown",
+      "default": "precomputed_tcks",
+      "options": [
+        {
+          "value": "precomputed_tcks",
+          "label": "precomputed_tcks"
+        },
+        {
+          "value": "whole_tractogram",
+          "label": "whole_tractogram"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "normalize",
+      "type": "boolean",
+      "description": "unknown",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/tract_align:v1.0",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 3
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.914"
+}

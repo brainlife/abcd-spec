@@ -1,0 +1,100 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "MNE - Autoreject",
+  "version": "main",
+  "summary": "MNE Artifact Rejection based on Autoreject\nhttps://autoreject.github.io\n\n[1] Mainak Jas, Denis Engemann, Federico Raimondo, Yousra Bekhti, and Alexandre Gramfort, \"Automated rejection and repair of bad trials in MEG/EEG.\" In 6th International Workshop on Pattern Recognition in Neuroimaging (PRNI), 2016.",
+  "description": "MNE Artifact Rejection based on Autoreject\nhttps://autoreject.github.io\n\n[1] Mainak Jas, Denis Engemann, Federico Raimondo, Yousra Bekhti, and Alexandre Gramfort, \"Automated rejection and repair of bad trials in MEG/EEG.\" In 6th International Workshop on Pattern Recognition in Neuroimaging (PRNI), 2016.\n[2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and Alexandre Gramfort. 2017. \"Autoreject: Automated artifact rejection for MEG and EEG data\". NeuroImage, 159, 417-429.",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "616e8787fc8eb9ab81ff9105",
+    "github": "guiomar/app-artifact-rejection",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "raw01",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "epochs"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "epo"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/epochs",
+      "datatype_tags": [
+        "clean_epochs"
+      ],
+      "description": "Epoched data (equal length)",
+      "datatype_tags_pass": "raw01"
+    },
+    {
+      "id": "our_dir",
+      "datatype": "raw",
+      "datatype_tags": [
+        "rejection_dict"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [
+        "rejection_log"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "raw01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "decim",
+      "type": "number",
+      "description": "The decimation factor: Increment for selecting every nth time slice.\n\nTIP: We can use the `decim` parameter to only take every nth time slice.\nThis speeds up the computation time. Note however that for low sampling rates and high decimation parameters, you might not detect \"peaky artifacts\" (with a fast timecourse) in your data. A low amount of decimation however is almost always beneficial at no decrease of accuracy.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 100,
+      "required": false
+    },
+    {
+      "id": "clean_epochs",
+      "type": "boolean",
+      "description": "Return clean epochs (.fif file) in addition to the rejection dictionary",
+      "default": true
+    },
+    {
+      "id": "method",
+      "type": "enum",
+      "description": "unknown",
+      "default": "autoreject",
+      "options": [
+        {
+          "value": "autoreject",
+          "label": "AutoReject",
+          "description": "ar"
+        },
+        {
+          "value": "ransac",
+          "label": "Ransac",
+          "description": "rsc"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.24dev.1",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.585"
+}

@@ -1,0 +1,58 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Convert_Tiff_to_Zarr3",
+  "version": "brainlife_tiff_to_zarr",
+  "summary": "This is a repository for all hpc processing files related to the axonal connectomics segmentation/skeletonization pipeline.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "68dc466bf9e4ee316ef80dfc",
+    "github": "AllenInstitute/ac_hpc",
+    "branch": "brainlife_tiff_to_zarr"
+  },
+  "inputs": [
+    {
+      "id": "single_file",
+      "datatype": "tif",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "tif"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "deskew_out_dir",
+      "datatype": "zarr v3",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "method",
+      "type": "string",
+      "description": "unknown",
+      "default": "deskew_tiff",
+      "readonly": true
+    },
+    {
+      "id": "deskew_out_dir",
+      "type": "string",
+      "description": "unknown",
+      "default": ""
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "memory_gb": 2,
+      "walltime_hours": 0.08
+    }
+  },
+  "doi": "10.25663/brainlife.app.872"
+}

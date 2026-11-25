@@ -1,0 +1,99 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "app-resample-raw-v2",
+  "version": "working_ver",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "699eddc41c904fbe50d8b484",
+    "github": "obVdo/app-resample-raw-v2",
+    "branch": "working_ver"
+  },
+  "inputs": [
+    {
+      "id": "raw",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mne"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/mne/raw",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sfreq",
+      "type": "number",
+      "description": "New sample rate to use.",
+      "default": "",
+      "required": true,
+      "placeholder": "sfreq"
+    },
+    {
+      "id": "npad",
+      "type": "string",
+      "description": "Padding before FFT resampling",
+      "default": "auto",
+      "required": false,
+      "advanced": true,
+      "placeholder": "auto"
+    },
+    {
+      "id": "window",
+      "type": "string",
+      "description": "Resampling window type",
+      "default": "boxcar",
+      "required": false,
+      "advanced": true,
+      "placeholder": "boxcar"
+    },
+    {
+      "id": "pad",
+      "type": "string",
+      "description": "Signal padding method",
+      "default": "reflect_limited",
+      "required": false,
+      "advanced": true,
+      "placeholder": "reflect_limited"
+    },
+    {
+      "id": "events",
+      "type": "string",
+      "description": "Event array to resample alongside data",
+      "default": "None",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    },
+    {
+      "id": "stim_picks",
+      "type": "string",
+      "description": "Event array to resample alongside data",
+      "default": "None",
+      "required": false,
+      "advanced": true,
+      "placeholder": "None"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:1.0.2",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.896"
+}

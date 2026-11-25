@@ -1,0 +1,234 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRIPrep - Volume Output - ICA-AROMA",
+  "version": "ic-aroma",
+  "summary": "fMRIPrep modified to save ICA-AROMA output, as well as csv recording ICA-AROMA components removed. See \"fMRIPrep - Volume Output\" for more details on fMRIPrep.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "63458604fa262bbde2a93af2",
+    "github": "vnbcs/app-fmriprep",
+    "branch": "ic-aroma"
+  },
+  "inputs": [
+    {
+      "id": "t1w",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "t1 anatomy to register the input fmri data. Please be sure to use the same t1 used to generate the freesurfer input.",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "!preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "fmri data to preprocess",
+      "config_keys": [
+        "fmri",
+        "sbref",
+        "sbref_json",
+        "events",
+        "events_json",
+        "physio",
+        "physio_json"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [
+        "!v5"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "freesurfer output used to aid preprocessing",
+      "config_keys": [
+        "fsin"
+      ]
+    },
+    {
+      "id": "t2w",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    },
+    {
+      "id": "fmap",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "2phasemag fieldmap is not yet supported by fmriprep (https://github.com/poldracklab/sdcflows/issues/15) - should be supported by now",
+      "config_keys": [
+        "phasediff",
+        "phasediff_json",
+        "magnitude",
+        "magnitude1",
+        "magnitude2",
+        "fieldmap",
+        "fieldmap_json",
+        "phase1",
+        "phase1_json",
+        "phase2",
+        "phase2_json",
+        "epi1",
+        "epi1_json",
+        "epi2",
+        "epi2_json"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "bold_img",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fmri"
+    },
+    {
+      "id": "bold_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "brain",
+        "bold",
+        "func"
+      ],
+      "description": "There is no such datatype tag for mask as \"bold\". It will be removed in favor of \"func\""
+    },
+    {
+      "id": "regress",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "anat",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "description": "preprocessed t1 (same alignment as the original t1, but level adjusted - editme)"
+    },
+    {
+      "id": "anat_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "anat",
+        "brain"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "output_report",
+      "datatype": "report/html",
+      "datatype_tags": [
+        "fmriprep"
+      ],
+      "description": "fmriprep HTML report and figures"
+    },
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/h5",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "freesurfer"
+      ],
+      "description": "unknown"
+    },
+    {
+      "id": "aroma",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [
+        "ica-aroma",
+        "aroma"
+      ],
+      "description": "AROMA ICA regressors"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "space",
+      "type": "enum",
+      "description": "output space of the preprocessed func/task output (bold).",
+      "default": "T1w",
+      "options": [
+        {
+          "value": "T1w",
+          "label": "T1w",
+          "description": "Input t1w space"
+        },
+        {
+          "value": "MNI152NLin2009cAsym",
+          "label": "MNI152NLin2009cAsym"
+        },
+        {
+          "value": "MNI152NLin6Asym",
+          "label": "MNI152NLin6Asym"
+        }
+      ]
+    },
+    {
+      "id": "resolution",
+      "type": "enum",
+      "description": "unknown",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "original",
+          "description": "Output in original bold resolution"
+        },
+        {
+          "value": "res-2",
+          "label": "2mm isotropic"
+        }
+      ]
+    },
+    {
+      "id": "skipbidsvalidation",
+      "type": "boolean",
+      "description": "Skip the BIDS validation of input data. Try this option if your data is not BIDS compatible but you'd like to go ahead and process it through fmriprep anyway.",
+      "default": false
+    },
+    {
+      "id": "aroma",
+      "type": "boolean",
+      "description": "Use ICA based procedure to identify confounding time series related to head-motion [Prium2015].",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "nipreps/fmriprep:21.0.1",
+    "resources": {
+      "cpus": 16,
+      "memory_gb": 28,
+      "walltime_hours": 9
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.682"
+}

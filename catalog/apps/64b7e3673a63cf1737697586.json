@@ -1,0 +1,46 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "test2",
+  "version": "master",
+  "summary": "Brain Extraction via FSL's BET command",
+  "description": "Test registration of the master branch of app-FSLBET. The code runs FSL bet (brainlife/fsl:6.0.4) on the image in config key input and reads an fthreshold parameter, but the registry record declares an input keyed t2 and no parameters, so the App does not match its code; use the 'FSL Brain Extraction (BET)' Apps on branch 2.0 instead.",
+  "kind": "native",
+  "topics": [
+    "anatomy-preprocessing"
+  ],
+  "registry": {
+    "id": "64b7e3673a63cf1737697586",
+    "github": "brainlife/app-FSLBET",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/fsl:6.0.4",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 0.25
+    }
+  },
+  "doi": "10.25663/brainlife.app.791"
+}

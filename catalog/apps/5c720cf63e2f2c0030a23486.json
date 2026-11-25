@@ -1,0 +1,94 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "fMRI to Connectivity Matrices",
+  "version": "0.1.5",
+  "summary": "fmriprep outputs to connectivity matrices",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5c720cf63e2f2c0030a23486",
+    "github": "faskowit/app-fmri-2-mat",
+    "branch": "0.1.5"
+  },
+  "inputs": [
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "func"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Please select fmriprep bold mask",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "fmri",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "preprocessed"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "Please use the bold output in subject (T1w) space.",
+      "config_keys": [
+        "fmri"
+      ]
+    },
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [
+        "SupraTentorial"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "From multi-atlas transfer app",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "confounds",
+      "datatype": "neuro/regressors",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "confounds"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output_regress",
+      "datatype": "neuro/func/task",
+      "datatype_tags": [
+        "regress"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "fmri"
+    },
+    {
+      "id": "cm",
+      "datatype": "neuro/conmat",
+      "datatype_tags": [],
+      "description": "unknown",
+      "datatype_tags_pass": "fmri"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "faskowit/app-fmri-2-mat:brnch-0.1.5",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.167"
+}

@@ -1,0 +1,84 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Mouse Segmentation Pipeline",
+  "version": "v0.0",
+  "summary": "Pipeline for mouse brain skull-stripping and ROI segmentation",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "pipeline"
+  ],
+  "registry": {
+    "id": "5aa08aa96f97ad0033d4d86b",
+    "github": "kathrynalpert/app-mouse_seg",
+    "branch": "v0.0"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "anat"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "mouse_seg"
+      ],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "orient",
+      "type": "string",
+      "description": "leave blank unless orientation string is incorrect for image (3dinfo)",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "reg_type",
+      "type": "enum",
+      "description": "When skull-stripping, register target to template affinely (allows scaling) or rigidly (no scaling).",
+      "default": "affine",
+      "options": [
+        {
+          "value": "affine",
+          "label": "Affine"
+        },
+        {
+          "value": "rigid",
+          "label": "Rigid"
+        }
+      ]
+    },
+    {
+      "id": "do_hist_match",
+      "type": "boolean",
+      "description": "When skull-stripping, use histogram matching to propagate template tissue segmentations onto the target image.",
+      "default": true
+    },
+    {
+      "id": "do_n4",
+      "type": "boolean",
+      "description": "Perform N4 (improved nonparametric nonuniform normalization) bias field correction on input.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "katealpert/mouse_seg:v0.0",
+    "resources": {
+      "cpus": 2,
+      "walltime_hours": 4
+    }
+  },
+  "doi": "10.25663/bl.app.75"
+}

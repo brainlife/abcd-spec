@@ -1,0 +1,73 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "AC Segmentation",
+  "version": "main",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6aa83e4384691735460bde17",
+    "github": "gamorosino/app-ac-segmentation",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "input",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "input_path"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "mask_path"
+      ],
+      "advanced": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "neuro/ome-zarr",
+      "datatype_tags": [],
+      "description": "Segmented volume (uint8-labeled OME-Zarr) produced by the RSUNet model."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "dsfactor",
+      "type": "number",
+      "description": "Mask downsample factor (segment_array.py --dsfactor).",
+      "default": 1,
+      "advanced": true,
+      "placeholder": "1"
+    },
+    {
+      "id": "filter_max_intensity",
+      "type": "number",
+      "description": "Maximum intensity threshold used for contrast preprocessing before segmentation (segment_array.py --filter_max_intensity).",
+      "default": 30000,
+      "advanced": true,
+      "placeholder": "30000"
+    }
+  ],
+  "runtime": {
+    "container": "gamorosino/ac-segmentation:latest",
+    "resources": {
+      "memory_gb": 4,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.968"
+}

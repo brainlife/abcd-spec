@@ -1,0 +1,76 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Bayesian Analysis of Retinotopic Maps",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5dbe0820fdefb1e42b771dda",
+    "github": "davhunt/app-bayesian-retinotopy",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "output"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "r2",
+        "polarAngle",
+        "eccentricity",
+        "rfWidth",
+        "surfaces",
+        "prf_surfs"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "varea",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "unknown"
+    },
+    {
+      "id": "varea_surf",
+      "datatype": "neuro/parcellation/surface-deprecated",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "brainlife/freesurfer-mini:6.0.1",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 50,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.245"
+}

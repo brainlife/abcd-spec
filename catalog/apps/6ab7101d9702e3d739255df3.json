@@ -1,0 +1,140 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Apply Transformations to Diffusion Metrics",
+  "version": "diffmetrics",
+  "summary": "This repository contains a script designed to apply spatial transformations to neuroimaging data using ANTs (Advanced Normalization Tools).",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "6ab7101d9702e3d739255df3",
+    "github": "gamorosino/app-apply-ants-transform",
+    "branch": "diffmetrics"
+  },
+  "inputs": [
+    {
+      "id": "transform",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "warp",
+        "inverse-warp",
+        "affine"
+      ]
+    },
+    {
+      "id": "moving_tensor",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "moving_fa",
+        "moving_md",
+        "moving_rd",
+        "moving_ad"
+      ]
+    },
+    {
+      "id": "moving_noddi",
+      "datatype": "neuro/noddi",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "moving_ndi",
+        "moving_isovf",
+        "moving_odi"
+      ]
+    },
+    {
+      "id": "fixed_T1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "fixed_t2",
+      "datatype": "neuro/anat/t2w",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t2"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "transformed",
+      "datatype": "neuro/tensor",
+      "datatype_tags": [],
+      "description": "The diffusion metric map(s), resliced onto the reference grid."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "interpolation",
+      "type": "enum",
+      "description": "Interpolation method for reslicing.",
+      "default": "Linear",
+      "options": [
+        {
+          "value": "Linear",
+          "label": "Linear"
+        },
+        {
+          "value": "NearestNeighbor",
+          "label": "NearestNeighbor"
+        },
+        {
+          "value": "BSpline",
+          "label": "BSpline",
+          "description": "BSpline[<order=3>]"
+        },
+        {
+          "value": "MultiLabel",
+          "label": "MultiLabel",
+          "description": "MultiLabel[<sigma=imageSpacing>,<alpha=4.0>]"
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "Apply inverse transformations",
+      "default": false
+    },
+    {
+      "id": "affine_only",
+      "type": "boolean",
+      "description": "Apply only the affine transformation, skip any warp field",
+      "default": false
+    },
+    {
+      "id": "fsl_transform",
+      "type": "boolean",
+      "description": "If true, converts affine and warp from FSL to ANTs-compatible format",
+      "default": false
+    }
+  ],
+  "runtime": {
+    "container": "unknown",
+    "resources": {
+      "cpus": 1,
+      "walltime_hours": 0.17
+    }
+  },
+  "doi": "10.25663/brainlife.app.979"
+}

@@ -1,0 +1,80 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segmentation evaluation metric aggregation",
+  "version": "main",
+  "summary": "Aggregates a batch of CONNECTS segmentation evaluation metrics into per-metric means and population standard deviations, written as aggregate.json.",
+  "description": "Averages every numeric metric in the raw and target_informed_neighbor_corrected groups across all input metrics files with equal weight per image, reports population standard deviation (ddof=0) and the count n per metric, and excludes missing values. Use it on one complete batch of seg-eval-metrics datasets; other metric groups are not pooled.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "statistics"
+  ],
+  "registry": {
+    "id": "6ada74881e6d29036a18f175",
+    "github": "brainlife/app-seg-eval-metric-agg",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "metrics",
+      "datatype": "neuro/seg-eval-metrics",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "Segmentation evaluation metrics (metrics.json) for each image in the batch.",
+      "config_keys": [
+        "metrics"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "aggregate",
+      "datatype": "neuro/seg-eval-metric-agg",
+      "datatype_tags": [],
+      "description": "aggregate.json with per-metric mean, population standard deviation and n, plus team, batch and input dataset IDs."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "team",
+      "type": "string",
+      "description": "Team name recorded in the aggregate output.",
+      "default": ""
+    },
+    {
+      "id": "batch_id",
+      "type": "string",
+      "description": "Batch identifier recorded in the aggregate output.",
+      "default": ""
+    },
+    {
+      "id": "input_dataset_ids",
+      "type": "string",
+      "description": "JSON array of dataset IDs, one unique ID per metrics file, in the same order.",
+      "default": "[]"
+    }
+  ],
+  "runtime": {
+    "container": "unknown"
+  },
+  "doi": "10.25663/brainlife.app.990",
+  "software": [
+    {
+      "name": "Python",
+      "version": ">=3.8"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "Provide one unique dataset ID for every metrics file.",
+      "cause": "input_dataset_ids does not list one unique ID per metrics file.",
+      "fix": "Pass one unique dataset ID per input metrics file."
+    },
+    {
+      "message": "metrics must be an array of staged metrics.json paths.",
+      "cause": "The metrics config entry is not a list of paths.",
+      "fix": "Provide the metrics input as a multi-input list."
+    }
+  ]
+}

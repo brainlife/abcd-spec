@@ -1,0 +1,92 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ANTs tractogram registration in MNI space",
+  "version": "2.0",
+  "summary": "ANTs transformation and tractogram registration in MNI space, using as the reference template the MNI152 T1 at 1.25 mm. WARNING: all the given inputs should be in the same anatomical space.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "alignment"
+  ],
+  "registry": {
+    "id": "5ce719f440363b003536782e",
+    "github": "giulia-berto/app-ants-mni",
+    "branch": "2.0"
+  },
+  "inputs": [
+    {
+      "id": "0",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Tractogram to register",
+      "config_keys": [
+        "track"
+      ]
+    },
+    {
+      "id": "1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": false,
+      "multi": false,
+      "description": "T1 to use for the transformation",
+      "config_keys": [
+        "t1"
+      ]
+    },
+    {
+      "id": "2",
+      "datatype": "neuro/mask",
+      "datatype_tags": [
+        "acpc_aligned"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Brain mask (if not provided, the BET algorithm will be used)",
+      "config_keys": [
+        "mask"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track_aligned",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "mni_space"
+      ],
+      "description": "Tractogram registered in MNI space",
+      "datatype_tags_pass": "0"
+    },
+    {
+      "id": "warps",
+      "datatype": "neuro/transform/nifti",
+      "datatype_tags": [
+        "t1_warping_mni152"
+      ],
+      "description": "warp and inverse-warp used for the registration"
+    },
+    {
+      "id": "t1_aligned",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [
+        "mni_space"
+      ],
+      "description": "T1 registered in MNI space",
+      "datatype_tags_pass": "1"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "giuliaberto/ants2-mrtrix3-fsl6:1.1",
+    "resources": {
+      "cpus": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.202"
+}

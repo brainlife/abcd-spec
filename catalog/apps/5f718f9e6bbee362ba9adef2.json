@@ -1,0 +1,59 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Network Report",
+  "version": "0.2",
+  "summary": "App to generate reports from networks. This includes network properties, node attributes and their respective distributions.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [
+    "network"
+  ],
+  "registry": {
+    "id": "5f718f9e6bbee362ba9adef2",
+    "github": "filipinascimento/bl-network-report",
+    "branch": "0.2"
+  },
+  "inputs": [
+    {
+      "id": "network",
+      "datatype": "generic/network",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Input network used to generate a report.",
+      "config_keys": [
+        "network"
+      ]
+    },
+    {
+      "id": "nullmodels",
+      "datatype": "generic/network",
+      "datatype_tags": [
+        "null-model"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Null model to be used as comparison for the distributions.",
+      "config_keys": [
+        "nullmodels"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "Report of the network, with plots and tables describing network properties.",
+      "datatype_tags_pass": "network"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "filsilva/cxnetwork:0.2.0",
+    "resources": {
+      "cpus": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.435"
+}

@@ -1,0 +1,210 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "ROI Generation (merge) - dtiInit",
+  "version": "master",
+  "summary": "Generate a parcellation volume (and roi nifti files split into each label) for specific ROIs, or every ROI, for a parcellation from freesurfer output and/or input parcellation volume. This App can also inflate input parcellation volume toward non-white matter voxels.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5ea9e8fd0efebf12de1984ee",
+    "github": "brainlife/app-roiGenerator",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "dtiinit",
+      "datatype": "neuro/dtiinit",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Specify this if you want to use dtiinit preprocessed dwi data. If you specify, this App will use dti/bin/brainMask.nii.gz for brainmask.",
+      "config_keys": [
+        "dtiinit"
+      ]
+    },
+    {
+      "id": "freesurfer",
+      "datatype": "neuro/freesurfer",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "If you want thalamic ROIs, make sure to use the output from app-segment-thalamic-nuclei",
+      "config_keys": [
+        "freesurfer"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "The path to the parcellation/volume datatype (optional)",
+      "config_keys": [
+        "parc",
+        "key"
+      ]
+    },
+    {
+      "id": "mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Specify this if you want to use your custom brainmask. If neither dtiinit nor brainmask is specified, this App will create brainmask from your dwi input using FSL bet.",
+      "config_keys": [
+        "mask"
+      ]
+    },
+    {
+      "id": "prf",
+      "datatype": "neuro/prf",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "Specify prf input if you want to generate ROIs from the PRF/varea parcellation.",
+      "config_keys": [
+        "prfDir"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "Parcellation nifti with all of the ROIs merged"
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "description": "Directory containing all of the ROIs generated"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "parcellationROIs",
+      "type": "string",
+      "description": "If a non-freesurfer parcellation is used, enter ROI numbers from key.txt (parcellation) ROIs wanted.\n\nExample: 45,54\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROI#.nii.gz, with # being the number of the ROI",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "subcorticalROIs",
+      "type": "string",
+      "description": "Enter the number of the subcortical ROI (if wanted).\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROI0#.nii.gz, with # being the number of the ROI. Please note the leading 0.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "thalamicROIs",
+      "type": "string",
+      "description": "If thalamic nuclei segmentation from freesurfer is used, enter the number of the thalamic ROI (if wanted).\n\nPlease refer to this color lut (https://github.com/freesurfer/freesurfer/blob/dev/ThalamicNuclei/compressionLookupTable.txt) and your thalamic segmentation for specific ROI numbers\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROI00#.nii.gz, with # being the number of the ROI. Please note the leading 00.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "prfROIs",
+      "type": "string",
+      "description": "If a visual area segmentation from a PRF mapping app is used, enter the number of the visual field ROI (if wanted).\n\nPlease refer to visual area segmentation from the PRF to determine ROI numbers.\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROI000#.nii.gz, with # being the number of the ROI. Please note the leading 000.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "freesurferROIs",
+      "type": "string",
+      "description": "If ROIs from the freesurfer segmentation is desired, enter the number of the ROI from the freesurfer colorLUT.\n\nROIs will be outputted with following name format to avoid complications with other parcellations and similar ROI numbers: ROI0000#.nii.gz, with # being the number of the ROI. Please note the leading 0000.",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "mergeROIsL",
+      "type": "string",
+      "description": "Left hemisphere ROI numbers you would like to merge into a single ROI",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "mergeROIsR",
+      "type": "string",
+      "description": "Right hemisphere ROI numbers you would like to merge into a single ROI",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "mergename",
+      "type": "string",
+      "description": "Name for the ROI that you would like merged. The output will be in the following format: ROI${mergename}.nii.gz",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "parcInflate",
+      "type": "number",
+      "description": "if parcellation ROI inflation into WM is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "thalamusInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for thalamus segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "visInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for visual area segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "freesurferInflate",
+      "type": "number",
+      "description": "if ROI inflation into WM for freesurfer segmentation is wanted, specify the number of inflated voxels desired\n\nexample: 1",
+      "required": false
+    },
+    {
+      "id": "inputparc",
+      "type": "enum",
+      "description": "The freesurfer parcellation to use",
+      "default": "aparc",
+      "options": [
+        {
+          "value": "aparc",
+          "label": "aparc",
+          "description": "Desikan-Killiany Atlas"
+        },
+        {
+          "value": "aparc.a2009s",
+          "label": "aparc.a2009s",
+          "description": "Destrieux Atlas"
+        },
+        {
+          "value": "aparc.DKTatlas",
+          "label": "aparc.DKTatlas",
+          "description": "DKT Atlas"
+        }
+      ]
+    },
+    {
+      "id": "whitematter",
+      "type": "boolean",
+      "description": "If you want to include the white matter in the inflation, which will limit the amount of inflation into the white matter, select 'true'.  However, selecting 'false' will trim the white matter, which may eliminate some potential ROIs.",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 1,
+      "memory_gb": 16,
+      "walltime_hours": 1
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.334",
+  "deprecated_by": "5ec29d1641ba11e054f3edc1"
+}

@@ -1,0 +1,159 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Segment Tracts with ROIs",
+  "version": "v1.1",
+  "summary": "Segments tracts from a white matter classification by including or excluding streamlines that reach selected ROIs, using MRtrix3 tckedit, and outputs the new tractogram and classification.",
+  "description": "Splits each tract of the input classification into its own .tck, then for each line of roiNames filters it with tckedit -include or -exclude for the listed ROIs (endpoints only or anywhere along the streamline, optionally inverted). Empty results are dropped and the remaining tracts are merged into a new tractogram and classification. ROIs must be in the same space as the tractogram.",
+  "kind": "native",
+  "topics": [
+    "brainlife-app",
+    "dipy",
+    "dwi",
+    "mrtrix3",
+    "tract-segmentation"
+  ],
+  "registry": {
+    "id": "5e54514f5b9d90668672d5fc",
+    "github": "brainlife/app-intersect-tract-roi",
+    "branch": "v1.1"
+  },
+  "inputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the track/tck datatype",
+      "config_keys": [
+        "track_path"
+      ]
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the classification.mat structure from the wmc datatype",
+      "config_keys": [
+        "classification_path"
+      ]
+    },
+    {
+      "id": "rois",
+      "datatype": "neuro/rois",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "The path to the rois datatype",
+      "config_keys": [
+        "rois"
+      ],
+      "requirements": "Must be in the same space as the tractogram."
+    },
+    {
+      "id": "dwi",
+      "datatype": "neuro/dwi",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "DWI image used only as the reference anatomy for loading and saving streamlines.",
+      "config_keys": [
+        "reference_anatomy",
+        "bvecs",
+        "bvals"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "track",
+      "datatype": "neuro/track/tck",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "Tractogram (.tck) concatenating the ROI-filtered tracts.",
+      "datatype_tags_pass": "track"
+    },
+    {
+      "id": "wmc",
+      "datatype": "neuro/wmc",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "The classification structure including a classification.mat structure that contains the streamline indices in the whole-brain tractogram.",
+      "datatype_tags_pass": "wmc"
+    },
+    {
+      "id": "raw",
+      "datatype": "raw",
+      "datatype_tags": [
+        "intersected"
+      ],
+      "description": "Intermediate per-tract .tck files and track name lists.",
+      "datatype_tags_pass": "wmc"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "roiNames",
+      "type": "string",
+      "description": "names of the rois to intersect. multiple rois can be used at one time to generate a single track, and multiple tracks can be generated at one time. groupings of rois go on a single line, multiple tracks goes on multiple lines. roi names come directly from input roi datatype, and text should match the text inbetween the .nii.gz and ROI extensions and prefixes.\n\nexample:\nfreesurfer-11121 freesurfer-11161\nfreesurfer-parietal_L freesurfer-11121\nfreesurfer_occipital_R",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "intersect_type",
+      "type": "string",
+      "description": "two types:\n1) \"include\": include streamlines that have endpoints in rois\n2) \"exclude\": include all other streamlines except those that end in rois\n\none type per track. for example, for three tracks:\n\ninclude\nexclude\ninclude",
+      "default": "",
+      "multiline": true
+    },
+    {
+      "id": "inverse",
+      "type": "boolean",
+      "description": "If you want the inverse of the operation (i.e. all streamlines that don't end in a roi), set this to true. default = false",
+      "default": false
+    },
+    {
+      "id": "endpoints_only",
+      "type": "boolean",
+      "description": "If you want to only segment based on endpoints, set this to true. else, set to false. default = true",
+      "default": true
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/dipy:1.4.0",
+    "resources": {
+      "cpus": 8,
+      "memory_gb": 32,
+      "walltime_hours": 0.5
+    }
+  },
+  "doi": "10.25663/brainlife.app.282",
+  "software": [
+    {
+      "name": "MRtrix3",
+      "version": "3.0_RC3",
+      "url": "https://www.mrtrix.org/"
+    },
+    {
+      "name": "DIPY",
+      "version": "1.4.0",
+      "url": "https://dipy.org/"
+    }
+  ],
+  "citations": [
+    {
+      "text": "Tournier J-D, Smith RE, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202:116137 (2019)."
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "something went wrong. check derivatives and logs",
+      "cause": "No streamlines survived the ROI filtering, so no merged tractogram was written.",
+      "fix": "Check ROI names, intersect_type and endpoints_only; make sure ROIs overlap the tracts."
+    }
+  ]
+}

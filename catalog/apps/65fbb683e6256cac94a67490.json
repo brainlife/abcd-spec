@@ -1,0 +1,110 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "QSM Evaluation",
+  "version": "main",
+  "summary": "This App can take one or more QSM estimates, and a QSM ground truth image, and produce an output figure and table (in HTML) that summarises various benchmarks, including RMSE, NRMSE, HFEN, XSIM, MAD, CC, NMI, and GXE. The figure is also included as an image output using product.json.",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "65fbb683e6256cac94a67490",
+    "github": "astewartau/qsm-evaluation-brainlife",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "qsm_estimate",
+      "datatype": "neuro/qsm",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "Estimated susceptibility map produced by a QSM pipeline.",
+      "config_keys": [
+        "qsm_estimate"
+      ]
+    },
+    {
+      "id": "qsm_groundtruth",
+      "datatype": "neuro/qsm",
+      "datatype_tags": [
+        "ground-truth"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "Ground truth susceptibility map (e.g. produced by COSMOS or the QSM Data Generator App).",
+      "config_keys": [
+        "qsm_groundtruth"
+      ]
+    },
+    {
+      "id": "qsm_segmentation",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "parc",
+        "label"
+      ]
+    },
+    {
+      "id": "qsm_mask",
+      "datatype": "neuro/mask",
+      "datatype_tags": [],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "qsm_mask"
+      ]
+    },
+    {
+      "id": "fieldmap_tissue",
+      "datatype": "neuro/fmap",
+      "datatype_tags": [
+        "single",
+        "tissue"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "magnitude",
+        "magnitude_json",
+        "fieldmap",
+        "fieldmap_json"
+      ]
+    },
+    {
+      "id": "phase_quality",
+      "datatype": "raw",
+      "datatype_tags": [
+        "phase-quality"
+      ],
+      "optional": true,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "phase_quality"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "html",
+      "datatype": "report/html",
+      "datatype_tags": [],
+      "description": "Report of QSM Evaluation"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "python:3.9-bookworm",
+    "resources": {
+      "memory_gb": 16,
+      "walltime_hours": 1
+    }
+  },
+  "doi": "10.25663/brainlife.app.822"
+}

@@ -1,0 +1,48 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "DenseUnet-based Automatic Rapid Tool for brain Segmentation (DARTS)",
+  "version": "master",
+  "summary": "unknown",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "5e46ff4e1eafff7a00f9899e",
+    "github": "davhunt/app-darts",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "t1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "parc",
+      "datatype": "neuro/parcellation/volume",
+      "datatype_tags": [],
+      "description": "unknown"
+    }
+  ],
+  "parameters": [],
+  "runtime": {
+    "container": "davhunt/darts:1.0.2",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 50,
+      "walltime_hours": 0.75
+    },
+    "licenses_required": [
+      "FREESURFER_LICENSE"
+    ]
+  },
+  "doi": "10.25663/brainlife.app.276"
+}

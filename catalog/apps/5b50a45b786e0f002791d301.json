@@ -1,0 +1,75 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Volume-based Multiple Linear Regression",
+  "version": "master",
+  "summary": "Fits a voxel-wise multiple linear regression across many T1-weighted volumes with SOCR VolumeMultipleRegression, using subject metadata fields (e.g. age, sex) as regressors.",
+  "description": "Builds a design matrix from the brainlife metadata of each input (one column per regressor named in the regressors parameter), converts the T1 images to ANALYZE with FSL and runs the SOCR Java VolumeMultipleRegression with an intercept. Intercept beta, t-statistic, p-value and partial-correlation maps are converted back to NIfTI. The images must be in a common space; the code passes fixed dimensions of 220x220x220, and every regressor must exist as a metadata field on every input.",
+  "kind": "native",
+  "topics": [
+    "anatomy",
+    "statistics",
+    "brainlife-app"
+  ],
+  "registry": {
+    "id": "5b50a45b786e0f002791d301",
+    "github": "brainlife/app-socr-mlra",
+    "branch": "master"
+  },
+  "inputs": [
+    {
+      "id": "t1",
+      "datatype": "neuro/anat/t1w",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": true,
+      "description": "T1-weighted images of several subjects; one row of the design matrix per image.",
+      "config_keys": [
+        "t1"
+      ],
+      "requirements": "All images in the same space; the SOCR call uses -dim 220 220 220. Each input needs the metadata fields listed in regressors."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "output",
+      "datatype": "raw",
+      "datatype_tags": [
+        "solr-mlra"
+      ],
+      "description": "SOCR regression outputs (ANALYZE files), including the intercept Beta, TStat, Pvalue and RPartCorr maps also converted to NIfTI, and the design matrix dm.txt."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "regressors",
+      "type": "string",
+      "description": "Comma-separated list of brainlife metadata fields (e.g. age,sex) used as regressors; each value is read from _inputs[].meta.<field>.",
+      "default": "age,sex"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/fsl:5.0.9",
+    "resources": {
+      "cpus": 4,
+      "memory_gb": 16
+    }
+  },
+  "doi": "10.25663/bl.app.84",
+  "software": [
+    {
+      "name": "SOCR",
+      "version": "1.0"
+    },
+    {
+      "name": "FSL",
+      "version": "5.0.9"
+    }
+  ],
+  "failure_modes": [
+    {
+      "message": "failed to run VolumeMultipleRegression",
+      "cause": "The SOCR regression failed.",
+      "fix": "Check that all images have the same dimensions and every regressor metadata field is set on every input."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "spec": "brainlife-app/2.0",
+  "name": "Average channels",
+  "version": "main",
+  "summary": "Average channels",
+  "description": "unknown",
+  "kind": "native",
+  "topics": [],
+  "registry": {
+    "id": "61b35c3952911e175a209747",
+    "github": "guiomar/app-average-channels",
+    "branch": "main"
+  },
+  "inputs": [
+    {
+      "id": "psd01",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [],
+      "optional": false,
+      "multi": false,
+      "description": "unknown",
+      "config_keys": [
+        "psd"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "out_dir",
+      "datatype": "neuro/meeg/psd",
+      "datatype_tags": [
+        "avg"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    },
+    {
+      "id": "out_figs",
+      "datatype": "generic/image/png",
+      "datatype_tags": [
+        "avg"
+      ],
+      "description": "unknown",
+      "datatype_tags_pass": "psd01"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "channel_list",
+      "type": "string",
+      "description": "List of channels to average. \nExample: \n# Elekta Gradiometers\nMEG2042, MEG2043, MEG1913, MEG1912, MEG2113, MEG2112, MEG1922, MEG1923, MEG1942, MEG1943, MEG1642, MEG1643, MEG1933, MEG1932, MEG1733, MEG1732, MEG1723, MEG1722, MEG2143, MEG2142, MEG1742, MEG1743, MEG1712, MEG1713, MEG2032, MEG2033, MEG2313, MEG2312, MEG2342, MEG2343, MEG2322, MEG2323, MEG2433, MEG2432, MEG2122, MEG2123, MEG2333, MEG2332, MEG2513, MEG2512, MEG2523, MEG2522, MEG2133, MEG2132, MEG2542, MEG2543, MEG2532, MEG2533\n\n# Elekta Magnetometers\nMEG2041, MEG1911, MEG2111, MEG1921, MEG1941, MEG1641, MEG1931, MEG1731, MEG1721, MEG2141, MEG1741, MEG1711, MEG2031, MEG2311, MEG2341, MEG2321, MEG2431, MEG2121, MEG2331, MEG2511, MEG2521, MEG2131, MEG2541, MEG2531",
+      "default": "",
+      "required": true,
+      "multiline": true
+    },
+    {
+      "id": "new_name",
+      "type": "string",
+      "description": "unknown",
+      "default": "avg_occipital"
+    }
+  ],
+  "runtime": {
+    "container": "brainlife/mne:0.23dev",
+    "resources": {
+      "cpus": 8
+    }
+  },
+  "doi": "10.25663/brainlife.app.599"
+}
