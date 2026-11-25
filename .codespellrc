@@ -1,6 +1,7 @@
 [codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
-skip = .git*,.codespellrc,testdata,config.json
+# datatypes/ records keep brainlife.io text verbatim (brainlife.original, App summaries)
+skip = .git*,.codespellrc,testdata,config.json,./datatypes
 check-hidden = true
 # ignore-regex = 
 # Words copied verbatim from brainlife registry records (App names, defaults) or domain terms

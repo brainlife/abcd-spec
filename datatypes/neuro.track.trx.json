@@ -33,7 +33,7 @@
   },
   "files": [
     {
-      "desc": "trx is a directory containing various sub-directories such as dpg / dpv / dps / groups / heaer.json  / etc",
+      "desc": "trx is a directory containing various sub-directories such as dpg / dpv / dps / groups / header.json  / etc",
       "filename": "track.trx",
       "id": "track",
       "required": true

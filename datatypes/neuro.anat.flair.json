@@ -59,7 +59,7 @@
   },
   "files": [
     {
-      "desc": "The flair iamge",
+      "desc": "The flair image",
       "filename": "flair.nii.gz",
       "id": "flair",
       "required": true

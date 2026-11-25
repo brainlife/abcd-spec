@@ -29,7 +29,7 @@
       },
       "readme": ""
     },
-    "readme": "**Use for:** Inspecting or re-using the full ASHS hippocampal subfield output.\n\n**Not for:** Direct use as a parcellation; use the neuro/parcellation/volume output of the same App. Sharing without checking for copies of the input whole-head images in the working directory.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ashs.json"
+    "readme": "**Use for:** Inspecting or reusing the full ASHS hippocampal subfield output.\n\n**Not for:** Direct use as a parcellation; use the neuro/parcellation/volume output of the same App. Sharing without checking for copies of the input whole-head images in the working directory.\n\n**BIDS:** no BIDS counterpart.\n\n**Sharing:** Tier 3 (directly identifiable or traceable) by default.\n\n**Apps:** output of 1 App.\n\nFull record: https://github.com/brainlife/abcd-spec/blob/master/datatypes/neuro.ashs.json"
   },
   "files": [
     {
@@ -73,7 +73,7 @@
   "usage": {
     "inputs_of": [],
     "intended_use": [
-      "Inspecting or re-using the full ASHS hippocampal subfield output."
+      "Inspecting or reusing the full ASHS hippocampal subfield output."
     ],
     "not_suitable_for": [
       "Direct use as a parcellation; use the neuro/parcellation/volume output of the same App.",
