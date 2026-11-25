@@ -1,0 +1,16 @@
+[
+ {
+  "name": "test2",
+  "_id": "6ac6be2ac004e522d223b00b",
+  "method": "PUT",
+  "fields": [
+   "validator",
+   "validator_branch"
+  ],
+  "before": {
+   "_id": "6ac6be2ac004e522d223b00b",
+   "validator": "",
+   "validator_branch": ""
+  }
+ }
+]
