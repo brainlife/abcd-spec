@@ -9,7 +9,7 @@ brainlife.io.
 - 776 public Apps on brainlife.io, 508 repos. Editable by us: 172 (171 in `brainlife`, plus
   `francopestilli/app-helloworld`). Two other personal repos we administer were left alone.
 - 171 repos changed: 158 got their primary App's DOI as website, 117 a new description,
-  all 172 now carry topics including `brainlife-app`.
+  171 now carry the `brainlife-app` topic (ezbids already has the GitHub maximum of 20 topics).
 - Kept on purpose: website links to upstream projects (fMRIPrep, QSIPrep, rsHRF, SOCR, Trekker,
   ezBIDS) and any existing DOI; existing topics (topics were only added).
 - Every previous value is in `2026-11-24-about-undo.json`; the drafts, with their sources and
