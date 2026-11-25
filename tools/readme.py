@@ -62,7 +62,7 @@ def _facts(m):
         rows.append(("🔗", "Run it", f"[doi.org/{m['doi']}](https://doi.org/{m['doi']})"))
     if not rows:
         return []
-    return ["| | |", "|---|---|"] + [f"| {icon} **{name}** | {value} |" for icon, name, value in rows] + [""]
+    return ["| | |", "|---|---|"] + [f"| **{name}** | {value} |" for _, name, value in rows] + [""]
 
 
 def render(m, references=True):
@@ -71,7 +71,7 @@ def render(m, references=True):
         lines += [_cell(m["description"]), ""]
     lines += _facts(m)
     if m["inputs"]:
-        lines += ["#### 📥 Inputs", "", "| Input | Datatype | Required | Description |", "|---|---|---|---|"]
+        lines += ["#### Inputs", "", "| Input | Datatype | Required | Description |", "|---|---|---|---|"]
         for i in m["inputs"]:
             tags = f" ({', '.join(i['datatype_tags'])})" if i.get("datatype_tags") else ""
             desc = _cell(i["description"])
@@ -80,12 +80,12 @@ def render(m, references=True):
             lines.append(f"| `{i['id']}` | `{i['datatype']}`{tags} | {'no' if i['optional'] else 'yes'} | {desc.strip()} |")
         lines.append("")
     if m["outputs"]:
-        lines += ["#### 📤 Outputs", "", "| Output | Datatype | Description |", "|---|---|---|"]
+        lines += ["#### Outputs", "", "| Output | Datatype | Description |", "|---|---|---|"]
         for o in m["outputs"]:
             lines.append(f"| `{o['id']}` | `{o['datatype']}` | {_cell(o['description'])} |")
         lines.append("")
     if m["parameters"]:
-        lines += ["<details>", f"<summary><b>⚙️ Parameters</b> ({len(m['parameters'])})</summary>", "",
+        lines += ["<details>", f"<summary><b>Parameters</b> ({len(m['parameters'])})</summary>", "",
                   "| Parameter | Type | Default | Description |", "|---|---|---|---|"]
         for p in m["parameters"]:
             desc = _cell(p["description"])
@@ -96,7 +96,7 @@ def render(m, references=True):
             lines.append(f"| `{p['id'].strip()}` | {p['type']} | {_value(p.get('default'))} | {desc.strip()} |")
         lines += ["", "</details>", ""]
     if references and m.get("citations"):
-        lines.append("📚 **References used by this App:**")
+        lines.append("**References used by this App:**")
         for c in m["citations"]:
             text = _cell(c.get("text")) or ""
             doi = f" [doi:{c['doi']}](https://doi.org/{c['doi']})" if c.get("doi") else ""
